@@ -1,0 +1,16 @@
+.message-container {
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+
+.assistant {
+  background-color: gainsboro;
+  width: 80%;
+}
+
+u.user {
+  background-color: lightblue;
+  width: 80%;
+  align-self: flex-end;
+}
