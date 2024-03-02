@@ -1,5 +1,5 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Message } from "../../model/Models";
+import {PayloadAction, createSlice} from "@reduxjs/toolkit";
+import {Message} from "../../model/Models";
 
 export interface ChatbotState {
   messages: Message[];
@@ -22,6 +22,6 @@ export const chatbotSlice = createSlice({
   },
 });
 
-export const { addNewMessage, updateNewMessage } = chatbotSlice.actions;
+export const {addNewMessage, updateNewMessage} = chatbotSlice.actions;
 
 export default chatbotSlice.reducer;

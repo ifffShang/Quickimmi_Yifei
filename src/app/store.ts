@@ -1,4 +1,4 @@
-import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import {configureStore, ThunkAction, Action} from "@reduxjs/toolkit";
 import chatbotReducer from "../features/chatbot/chatbotSlice";
 
 export const store = configureStore({
