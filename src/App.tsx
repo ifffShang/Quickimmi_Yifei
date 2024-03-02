@@ -1,11 +1,12 @@
-import React from 'react';
-import { Chatbot } from './features/chatbot/Chatbot';
-import './App.css';
+import "./App.css";
+import { Navbar } from "./features/navbar";
+import { MainView } from "./pages/container/MainView";
 
 function App() {
   return (
     <div className="App">
-      <Chatbot />
+      <Navbar />
+      <MainView />
     </div>
   );
 }

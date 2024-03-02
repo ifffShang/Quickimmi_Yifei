@@ -1,4 +1,4 @@
-import { useCallback } from "react"
+import { useCallback } from "react";
 import { askAi } from "./chatbotAPI";
 import { useDispatch } from "react-redux/es/hooks/useDispatch";
 import { addNewMessage, updateNewMessage } from "./chatbotSlice";
@@ -12,11 +12,13 @@ export function Chatbot() {
   const messages = useAppSelector((state) => state.chatbot.messages);
 
   const askQuestion = useCallback(() => {
-    dispatch(addNewMessage({
-      content: "",
-      role: "user",
-      status: "loading",
-    }));
+    dispatch(
+      addNewMessage({
+        content: "",
+        role: "user",
+        status: "loading",
+      }),
+    );
     askAi().then((response) => {
       dispatch(updateNewMessage(response));
     });
@@ -30,5 +32,5 @@ export function Chatbot() {
         <button onClick={askQuestion}>Send</button>
       </div>
     </div>
-  )
+  );
 }

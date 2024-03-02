@@ -1,0 +1,44 @@
+{
+  "personalInformation": {
+    "basicInformation": [
+      {
+        "uploadPassport": {
+          "subTitle": "UploadPassportProfile",
+          "controlType": "FileUpload_Big"
+        },
+        "uploadOtherId": {
+          "controlType": "FileUpload_Small"
+        }
+      },
+      {
+        "lastName": {
+          "controlType": "TextBox"
+        },
+        "middleName": {
+          "controlType": "TextBox"
+        },
+        "firstName": {
+          "controlType": "TextBox"
+        },
+        "nationality": {
+          "controlType": "DropDown"
+        },
+        "race": {
+          "controlType": "TextBox"
+        },
+        "nationalityAtBirth": {
+          "radioButtonSelections": "Bire",
+          "controlType": "RadioDropDown"
+        }
+      }
+    ],
+    "contactInformation": {
+      "address": "1234 Elm St",
+      "city": "Springfield",
+      "state": "IL",
+      "zip": 62701,
+      "phone": "217-555-5555",
+      "email": ""
+    }
+  }
+}

@@ -1,12 +1,12 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Message } from "../../modal/Modals";
+import { Message } from "../../model/Models";
 
 export interface ChatbotState {
   messages: Message[];
 }
 
 const initialState: ChatbotState = {
-  messages: []
+  messages: [],
 };
 
 export const chatbotSlice = createSlice({
@@ -18,7 +18,7 @@ export const chatbotSlice = createSlice({
     },
     updateNewMessage: (state, action: PayloadAction<Message>) => {
       state.messages[state.messages.length - 1] = action.payload;
-    }
+    },
   },
 });
 
