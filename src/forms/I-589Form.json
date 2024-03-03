@@ -1,44 +1,259 @@
 {
-  "personalInformation": {
-    "basicInformation": [
-      {
-        "uploadPassport": {
-          "subTitle": "UploadPassportProfile",
-          "controlType": "FileUpload_Big"
-        },
-        "uploadOtherId": {
-          "controlType": "FileUpload_Small"
+  "steps": [
+    {
+      "order": 1,
+      "name": "SelectCaseType",
+      "label": "Text_SelectCaseType",
+      "pages": [
+        {
+          "order": 1,
+          "title": "Text_SelectCaseType",
+          "subTitle": "Text_SelectCaseTypeSubTitle",
+          "fields": [
+            {
+              "order": 1,
+              "name": "ImmigrationType",
+              "label": "Text_ImmigrationType",
+              "control": "dropdown",
+              "options": [
+                {
+                  "label": "Text_Asylum",
+                  "value": "Asylum"
+                },
+                {
+                  "label": "Text_Deportation",
+                  "value": "Deportation"
+                },
+                {
+                  "label": "Text_Employment",
+                  "value": "Employment"
+                },
+                {
+                  "label": "Text_Family",
+                  "value": "Family"
+                },
+                {
+                  "label": "Text_Other",
+                  "value": "Other"
+                }
+              ]
+            },
+            {
+              "order": 2,
+              "name": "ImmigrationReason",
+              "label": "Text_ImmigrationReason",
+              "control": "dropdown",
+              "dependsOn": "ImmigrationType",
+              "options": [
+                {
+                  "label": "Text_Asylum",
+                  "value": "Asylum",
+                  "dependsOnValue": "Asylum",
+                  "options": [
+                    {
+                      "label": "Text_PoliticalPersecution",
+                      "value": "PoliticalPersecution"
+                    },
+                    {
+                      "label": "Text_ReligiousPersecution",
+                      "value": "ReligiousPersecution"
+                    },
+                    {
+                      "label": "Text_SexualOrientationPersecution",
+                      "value": "SexualOrientationPersecution"
+                    },
+                    {
+                      "label": "Text_Other",
+                      "value": "Other"
+                    }
+                  ]
+                },
+                {
+                  "label": "Text_Deportation",
+                  "value": "Deportation",
+                  "dependsOnValue": "Deportation",
+                  "options": [
+                    {
+                      "label": "Text_CriminalConviction",
+                      "value": "CriminalConviction"
+                    },
+                    {
+                      "label": "Text_Overstay",
+                      "value": "Overstay"
+                    },
+                    {
+                      "label": "Text_Other",
+                      "value": "Other"
+                    }
+                  ]
+                },
+                {
+                  "label": "Text_Employment",
+                  "value": "Employment",
+                  "dependsOnValue": "Employment",
+                  "options": [
+                    {
+                      "label": "Text_H1B",
+                      "value": "H1B"
+                    },
+                    {
+                      "label": "Text_L1",
+                      "value": "L1"
+                    },
+                    {
+                      "label": "Text_Other",
+                      "value": "Other"
+                    }
+                  ]
+                },
+                {
+                  "label": "Text_Family",
+                  "value": "Family",
+                  "dependsOnValue": "Family",
+                  "options": [
+                    {
+                      "label": "Text_Marriage",
+                      "value": "Marriage"
+                    },
+                    {
+                      "label": "Text_Parent",
+                      "value": "Parent"
+                    },
+                    {
+                      "label": "Text_Sibling",
+                      "value": "Sibling"
+                    },
+                    {
+                      "label": "Text_Other",
+                      "value": "Other"
+                    }
+                  ]
+                },
+                {
+                  "label": "Text_Other",
+                  "value": "Other",
+                  "dependsOnValue": "Other",
+                  "options": [
+                    {
+                      "label": "Text_Other",
+                      "value": "Other"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Tips",
+              "label": "Tips",
+              "control": "tips",
+              "dependsOn": "ImmigrationType",
+              "components": [
+                {
+                  "dependsOnValue": "Asylum",
+                  "component": "Component_AsylumTips"
+                },
+                {
+                  "dependsOnValue": "Deportation",
+                  "component": "Component_DeportationTips"
+                },
+                {
+                  "dependsOnValue": "Employment",
+                  "component": "Component_EmploymentTips"
+                },
+                {
+                  "dependsOnValue": "Family",
+                  "component": "Component_FamilyTips"
+                },
+                {
+                  "dependsOnValue": "Other",
+                  "component": "Component_OtherTips"
+                }
+              ]
+            }
+          ]
         }
-      },
-      {
-        "lastName": {
-          "controlType": "TextBox"
+      ]
+    },
+    {
+      "order": 2,
+      "step": "EnterCaseDetails",
+      "label": "Text_EnterCaseDetails",
+      "pages": [
+        {
+          "order": 1,
+          "name": "PersonalInformation",
+          "title": "Text_PersonalInformation",
+          "subTitle": "",
+          "fields": [
+            {
+              "order": 1,
+              "name": "UploadPassport",
+              "label": "Text_UploadPassport",
+              "control": "fileplus"
+            },
+            {
+              "order": 2,
+              "name": "UploadOtherId",
+              "label": "Text_UploadOtherId",
+              "control": "file"
+            },
+            {
+              "order": 3,
+              "control": "divider"
+            },
+            {
+              "order": 4,
+              "name": "FirstName",
+              "label": "Text_FirstName",
+              "control": "text"
+            },
+            {
+              "order": 5,
+              "name": "MiddleName",
+              "label": "Text_MiddleName",
+              "control": "text"
+            },
+            {
+              "order": 6,
+              "name": "LastName",
+              "label": "Text_LastName",
+              "control": "text"
+            }
+          ]
         },
-        "middleName": {
-          "controlType": "TextBox"
-        },
-        "firstName": {
-          "controlType": "TextBox"
-        },
-        "nationality": {
-          "controlType": "DropDown"
-        },
-        "race": {
-          "controlType": "TextBox"
-        },
-        "nationalityAtBirth": {
-          "radioButtonSelections": "Bire",
-          "controlType": "RadioDropDown"
+        {
+          "order": 2,
+          "name": "FamilyInformation",
+          "title": "Text_FamilyInformation",
+          "subTitle": "",
+          "fields": [
+            {
+              "order": 1,
+              "name": "SpouseName",
+              "label": "Text_SpouseName",
+              "control": "text"
+            },
+            {
+              "order": 2,
+              "name": "SpousePassport",
+              "label": "Text_SpousePassport",
+              "control": "fileplus"
+            },
+            {
+              "order": 3,
+              "name": "SpouseOtherId",
+              "label": "Text_SpouseOtherId",
+              "control": "file"
+            },
+            {
+              "order": 4,
+              "name": "Children",
+              "label": "Text_Children",
+              "control": "text"
+            }
+          ]
         }
-      }
-    ],
-    "contactInformation": {
-      "address": "1234 Elm St",
-      "city": "Springfield",
-      "state": "IL",
-      "zip": 62701,
-      "phone": "217-555-5555",
-      "email": ""
+      ]
     }
-  }
+  ]
 }

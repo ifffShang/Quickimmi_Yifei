@@ -4,8 +4,10 @@ import {Provider} from "react-redux";
 import {store} from "./app/store";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import "./index.css";
 import {BrowserRouter} from "react-router-dom";
+import "./index.css";
+import "./locales/i18n";
+import "./styles/Root.css";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);

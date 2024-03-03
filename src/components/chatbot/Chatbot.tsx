@@ -1,10 +1,10 @@
 import React from "react";
 import {useCallback} from "react";
-import {askAi} from "./chatbotAPI";
+import {askAi} from "../../data/chatbotAPI";
 import {useDispatch} from "react-redux/es/hooks/useDispatch";
-import {addNewMessage, updateNewMessage} from "./chatbotSlice";
+import {addNewMessage, updateNewMessage} from "../../reducers/chatbotSlice";
 import {useAppSelector} from "../../app/hooks";
-import {ChatBody} from "../../components/ChatBody";
+import {ChatBody} from "./ChatBody";
 
 import "./Chatbot.css";
 

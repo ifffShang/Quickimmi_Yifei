@@ -1,0 +1,25 @@
+@import "../../styles/Root.css";
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+  height: 60px;
+  background-color: var(--gray-color-1);
+}
+
+.navbar-group {
+  display: flex;
+  align-items: baseline;
+}
+
+.navbar-logo {
+  font-size: 24px;
+  font-weight: 600;
+  margin-right: 50px;
+}
+
+.navbar-profile {
+  margin-left: 20px;
+}
