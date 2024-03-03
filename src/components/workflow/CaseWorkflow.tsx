@@ -3,7 +3,7 @@ import FORM589 from "../../forms/I-589Form.json";
 import {Workflow, WorkflowStep} from "../../model/CaseModels";
 import {CaseStepNavigation} from "./CaseStepNavigation";
 import {useAppSelector} from "../../app/hooks";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 
 export function CaseWorkflow() {
   const steps = parseWorkflow();
