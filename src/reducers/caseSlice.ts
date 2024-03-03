@@ -12,10 +12,10 @@ export const caseSlice = createSlice({
   name: "case",
   initialState,
   reducers: {
-    incrementStepOrder: (state) => {
+    incrementStepOrder: state => {
       state.currentStepOrder++;
     },
-    decrementStepOrder: (state) => {
+    decrementStepOrder: state => {
       state.currentStepOrder--;
     },
     setStepOrder: (state, action: PayloadAction<number>) => {
@@ -24,6 +24,7 @@ export const caseSlice = createSlice({
   },
 });
 
-export const {incrementStepOrder, decrementStepOrder, setStepOrder} = caseSlice.actions;
+export const {incrementStepOrder, decrementStepOrder, setStepOrder} =
+  caseSlice.actions;
 
 export default caseSlice.reducer;

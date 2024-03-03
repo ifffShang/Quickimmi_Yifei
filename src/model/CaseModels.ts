@@ -18,7 +18,16 @@ export interface WorkflowPage {
 
 export interface WorkflowField {
   order: number;
-  control: "text" | "textarea" | "radio" | "checkbox" | "fileplus" | "file" | "dropdown" | "divider" | "tips";
+  control:
+    | "text"
+    | "textarea"
+    | "radio"
+    | "checkbox"
+    | "fileplus"
+    | "file"
+    | "dropdown"
+    | "divider"
+    | "tips";
   name?: string;
   label?: string;
   options?: WorkflowFieldOptions[];

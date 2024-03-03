@@ -1,16 +1,16 @@
 import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
+import {initReactI18next} from "react-i18next";
 
-import en from "./en/translation.json"
-import cn from "./cn/translation.json"
+import en from "./en/translation.json";
+import cn from "./cn/translation.json";
 
 const resources = {
   en: {
-    translation: en
+    translation: en,
   },
   cn: {
-    translation: cn
-  }
+    translation: cn,
+  },
 };
 
 i18n
@@ -21,8 +21,7 @@ i18n
   .init({
     resources,
     fallbackLng: "cn",
-    debug: true
+    debug: true,
   });
-
 
 export default i18n;
