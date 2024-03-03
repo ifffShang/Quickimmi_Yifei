@@ -3,9 +3,12 @@ import FORM589 from "../../forms/I-589Form.json";
 import {Workflow, WorkflowStep} from "../../model/CaseModels";
 import {CaseStepNavigation} from "./CaseStepNavigation";
 import {useAppSelector} from "../../app/hooks";
+import { useTranslation } from "react-i18next";
 
 export function CaseWorkflow() {
   const steps = parseWorkflow();
+  const {t} = useTranslation();
+
   const currentStepOrder = useAppSelector(state => state.case.currentStepOrder);
   const currentStep = steps.find(step => step.order === currentStepOrder);
 
@@ -20,9 +23,9 @@ export function CaseWorkflow() {
       <div>
         {currentStep.pages.map((page, index) => (
           <div key={index}>
-            <h2>{page.title}</h2>
+            <h2>{t(page.title)}</h2>
             {page.fields.map((field, index) => (
-              <div key={index}>{field.label}</div>
+              <div key={index}>{t(field.label ?? "")}</div>
             ))}
           </div>
         ))}
