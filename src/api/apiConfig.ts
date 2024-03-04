@@ -23,7 +23,8 @@ export const fetchFunction = async (
     // Check if the response status is OK
     if (!response.ok) {
       const errorData = await response.json();
-      const errorMessage = errorData?.message || `HTTP Error: ${response.status}`;
+      const errorMessage =
+        errorData?.message || `HTTP Error: ${response.status}`;
       throw new Error(errorMessage);
     }
 
@@ -44,7 +45,12 @@ export const performApiRequest = async (
   const body = data ? JSON.stringify(data) : null;
 
   try {
-    const response = await fetchFunction(endPoint, method, body, additionalHeaders);
+    const response = await fetchFunction(
+      endPoint,
+      method,
+      body,
+      additionalHeaders,
+    );
     const responseData = await response.json();
 
     if (!response.ok) {

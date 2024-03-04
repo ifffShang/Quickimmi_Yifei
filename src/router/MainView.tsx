@@ -1,9 +1,9 @@
 import React from "react";
-import {Route, Routes} from "react-router-dom";
-import {Dashboard} from "../pages/dashboard/Dashboard";
-import {Home} from "../pages/home/Home";
+import { Route, Routes } from "react-router-dom";
+import { Dashboard } from "../pages/dashboard/Dashboard";
+import { Home } from "../pages/home/Home";
 import "./MainView.css";
-import {NewCase} from "../pages/newCase/NewCase";
+import { NewCase } from "../pages/newCase/NewCase";
 
 export function MainView() {
   return (

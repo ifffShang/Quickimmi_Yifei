@@ -16,7 +16,8 @@ export interface WorkflowPage {
   fields: WorkflowField[];
 }
 
-export type ControlType = "textbox"
+export type ControlType =
+  | "textbox"
   | "textarea"
   | "radio"
   | "checkbox"

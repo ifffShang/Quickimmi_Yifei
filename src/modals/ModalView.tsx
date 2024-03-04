@@ -17,17 +17,17 @@ function Modal({ children }: { children?: ReactNode }) {
   return (
     <div className="modalview-container">
       <div className="modalview-popup">
-        <Link className="modalview-close" onClick={close}>X</Link>
-        <div className="modalview-content">
-          {children}
-        </div>
+        <Link className="modalview-close" onClick={close}>
+          X
+        </Link>
+        <div className="modalview-content">{children}</div>
       </div>
     </div>
   );
 }
 
 export function ModalView() {
-  const common = useAppSelector((state) => state.common);
+  const common = useAppSelector(state => state.common);
 
   if (!common.showModal) {
     return null;
@@ -40,9 +40,5 @@ export function ModalView() {
     innerModal = <SignUp />;
   }
 
-  return (
-    <Modal>
-      {innerModal}
-    </Modal>
-  );
+  return <Modal>{innerModal}</Modal>;
 }

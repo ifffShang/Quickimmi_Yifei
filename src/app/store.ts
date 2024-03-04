@@ -1,4 +1,4 @@
-import {configureStore, ThunkAction, Action} from "@reduxjs/toolkit";
+import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import chatbotReducer from "../reducers/chatbotSlice";
 import caseReducer from "../reducers/caseSlice";
 import commonReducer from "../reducers/commonSlice";

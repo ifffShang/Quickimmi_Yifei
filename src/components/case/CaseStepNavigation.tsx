@@ -1,9 +1,9 @@
 import React from "react";
-import {WorkflowStep} from "../../model/CaseModels";
-import {v4 as uuidv4} from "uuid";
-import {useDispatch} from "react-redux/es/hooks/useDispatch";
+import { WorkflowStep } from "../../model/CaseModels";
+import { v4 as uuidv4 } from "uuid";
+import { useDispatch } from "react-redux/es/hooks/useDispatch";
 import "./CaseStepNavigation.css";
-import {setStepOrder} from "../../reducers/caseSlice";
+import { setStepOrder } from "../../reducers/caseSlice";
 import { useWorkflowTranslation } from "../../hooks/commonHooks";
 
 interface CaseStepNavigationProps {
@@ -12,7 +12,7 @@ interface CaseStepNavigationProps {
 }
 
 export function CaseStepNavigation(props: CaseStepNavigationProps) {
-  const {wt} = useWorkflowTranslation();
+  const { wt } = useWorkflowTranslation();
   const dispatch = useDispatch();
 
   return (

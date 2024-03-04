@@ -4,7 +4,6 @@ export interface Message {
   status: "loading" | "successful" | "failed";
 }
 
-
 export interface ChildrenOnlyProps {
   children: React.ReactNode;
 }

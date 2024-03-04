@@ -28,7 +28,7 @@ export const commonSlice = createSlice({
     },
     changeLoginStatus: (state, action: PayloadAction<boolean>) => {
       state.isLoggedIn = action.payload;
-      
+
       if (action.payload) {
         state.showModal = true;
         state.modalType = "signin";
@@ -40,7 +40,6 @@ export const commonSlice = createSlice({
   },
 });
 
-export const { openModal, closeModal, changeLoginStatus} =
-commonSlice.actions;
+export const { openModal, closeModal, changeLoginStatus } = commonSlice.actions;
 
 export default commonSlice.reducer;

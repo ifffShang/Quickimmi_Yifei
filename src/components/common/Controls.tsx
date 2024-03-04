@@ -11,8 +11,9 @@ export function TextBox(props: TextBoxProps) {
   return (
     <div>
       <label>{props.label}</label>
-      <Input value={props.value}
-        onChange={(e) => props.onChange(e.target.value)}
+      <Input
+        value={props.value}
+        onChange={e => props.onChange(e.target.value)}
       />
     </div>
   );

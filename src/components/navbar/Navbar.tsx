@@ -7,7 +7,7 @@ import { changeLoginStatus } from "../../reducers/commonSlice";
 
 export function Navbar() {
   const dispatch = useDispatch();
-  
+
   const login = useCallback(() => {
     dispatch(changeLoginStatus(true));
   }, []);
@@ -25,7 +25,9 @@ export function Navbar() {
       <div className="navbar-group">
         <div className="navbar-profile">Language</div>
         <div className="navbar-profile">
-          <Button type="link" onClick={login}>Login</Button>
+          <Button type="link" onClick={login}>
+            Login
+          </Button>
         </div>
       </div>
     </div>

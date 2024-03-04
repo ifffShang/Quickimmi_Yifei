@@ -8,7 +8,7 @@ export function SignIn() {
   const dispatch = useDispatch();
 
   const signup = useCallback(() => {
-    dispatch(openModal("signup"))
+    dispatch(openModal("signup"));
   }, []);
 
   return (

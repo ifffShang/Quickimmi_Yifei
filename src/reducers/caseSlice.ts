@@ -1,4 +1,4 @@
-import {PayloadAction, createSlice} from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export interface CaseState {
   currentStepOrder: number;
@@ -24,7 +24,7 @@ export const caseSlice = createSlice({
   },
 });
 
-export const {incrementStepOrder, decrementStepOrder, setStepOrder} =
+export const { incrementStepOrder, decrementStepOrder, setStepOrder } =
   caseSlice.actions;
 
 export default caseSlice.reducer;
