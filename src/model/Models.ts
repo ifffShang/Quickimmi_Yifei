@@ -3,3 +3,8 @@ export interface Message {
   content: string;
   status: "loading" | "successful" | "failed";
 }
+
+
+export interface ChildrenOnlyProps {
+  children: React.ReactNode;
+}

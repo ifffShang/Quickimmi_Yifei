@@ -1,10 +1,10 @@
 import React from "react";
 import {WorkflowStep} from "../../model/CaseModels";
 import {v4 as uuidv4} from "uuid";
-import {useTranslation} from "react-i18next";
 import {useDispatch} from "react-redux/es/hooks/useDispatch";
 import "./CaseStepNavigation.css";
 import {setStepOrder} from "../../reducers/caseSlice";
+import { useWorkflowTranslation } from "../../hooks/commonHooks";
 
 interface CaseStepNavigationProps {
   steps: WorkflowStep[];
@@ -12,7 +12,7 @@ interface CaseStepNavigationProps {
 }
 
 export function CaseStepNavigation(props: CaseStepNavigationProps) {
-  const {t} = useTranslation();
+  const {wt} = useWorkflowTranslation();
   const dispatch = useDispatch();
 
   return (
@@ -25,7 +25,7 @@ export function CaseStepNavigation(props: CaseStepNavigationProps) {
             dispatch(setStepOrder(step.order));
           }}>
           <div className={props.currentStep === step.order ? "font-bold" : ""}>
-            {step.order} {t(step.label)}
+            {step.order} {wt(step.label)}
           </div>
           <div className="case-step-arrow">
             {index < props.steps.length - 1 && <>{"-->"}</>}

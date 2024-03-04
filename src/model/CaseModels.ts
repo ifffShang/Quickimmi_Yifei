@@ -16,18 +16,19 @@ export interface WorkflowPage {
   fields: WorkflowField[];
 }
 
+export type ControlType = "textbox"
+  | "textarea"
+  | "radio"
+  | "checkbox"
+  | "fileplus"
+  | "file"
+  | "dropdown"
+  | "divider"
+  | "tips";
+
 export interface WorkflowField {
   order: number;
-  control:
-    | "text"
-    | "textarea"
-    | "radio"
-    | "checkbox"
-    | "fileplus"
-    | "file"
-    | "dropdown"
-    | "divider"
-    | "tips";
+  control: ControlType;
   name?: string;
   label?: string;
   options?: WorkflowFieldOptions[];

@@ -7,7 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 import {BrowserRouter} from "react-router-dom";
 import "./index.css";
 import "./locales/i18n";
-import "./styles/Root.css";
+import "./styles/root.css";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);

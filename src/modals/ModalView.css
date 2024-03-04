@@ -1,0 +1,33 @@
+.modalview-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--gray-color-semi-transparent);
+}
+
+.modalview-popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--white-color);
+  padding: 20px;
+  max-width: 450px;
+  max-height: 500px;
+}
+
+.modalview-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.modalview-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

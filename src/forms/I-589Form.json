@@ -205,19 +205,19 @@
               "order": 4,
               "name": "FirstName",
               "label": "Text_FirstName",
-              "control": "text"
+              "control": "textbox"
             },
             {
               "order": 5,
               "name": "MiddleName",
               "label": "Text_MiddleName",
-              "control": "text"
+              "control": "textbox"
             },
             {
               "order": 6,
               "name": "LastName",
               "label": "Text_LastName",
-              "control": "text"
+              "control": "textbox"
             }
           ]
         },
@@ -231,7 +231,7 @@
               "order": 1,
               "name": "SpouseName",
               "label": "Text_SpouseName",
-              "control": "text"
+              "control": "textbox"
             },
             {
               "order": 2,
@@ -249,7 +249,7 @@
               "order": 4,
               "name": "Children",
               "label": "Text_Children",
-              "control": "text"
+              "control": "textbox"
             }
           ]
         }

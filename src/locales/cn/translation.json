@@ -1,4 +1,12 @@
 {
-  "Text_SelectCaseType": "选择申请类型",
-  "Text_EnterCaseDetails": "填写信息"
+  "SelectCaseType": "选择申请类型",
+  "EnterCaseDetails": "填写信息",
+  "ImmigrationType": "移民类型",
+  "ImmigrationReason": "移民原因",
+  "Tips": "提示",
+  "PersonalInformation": "个人信息",
+  "FamilyInformation": "家庭信息",
+  "FirstName": "名",
+  "LastName": "姓",
+  "MiddleName": "中间名"
 }

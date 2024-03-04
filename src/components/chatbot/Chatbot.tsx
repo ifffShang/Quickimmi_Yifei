@@ -1,6 +1,6 @@
 import React from "react";
 import {useCallback} from "react";
-import {askAi} from "../../data/chatbotAPI";
+import {askAi} from "../../api/chatbotAPI";
 import {useDispatch} from "react-redux/es/hooks/useDispatch";
 import {addNewMessage, updateNewMessage} from "../../reducers/chatbotSlice";
 import {useAppSelector} from "../../app/hooks";
