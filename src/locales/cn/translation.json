@@ -8,5 +8,13 @@
   "FamilyInformation": "家庭信息",
   "FirstName": "名",
   "LastName": "姓",
-  "MiddleName": "中间名"
+  "MiddleName": "中间名",
+  "ErrorMessage": {
+    "InvalidPasswordFormat": "密码必须至少8位数，并且包含至少一个英文字符，一个大写字母，和一个小写字母",
+    "InvalidEmailFormat": "邮箱格式不正确"
+  },
+  "Password": "密码",
+  "ConfirmPassword": "确认密码",
+  "Email": "邮箱",
+  "PhoneNumber": "手机号"
 }

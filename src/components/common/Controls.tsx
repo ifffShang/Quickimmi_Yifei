@@ -1,5 +1,7 @@
 import React from "react";
-import Input from "antd/es/input/Input";
+import { Input } from "antd";
+import { ErrorMessage } from "./Fonts";
+import "./Controls.css";
 
 export interface TextBoxProps {
   label: string;
@@ -28,4 +30,38 @@ export interface DropdownProps {
 
 export function Dropdown() {
   return <div>Dropdown not implemented</div>;
+}
+
+export interface FormInputProps {
+  value: string;
+  placeholder: string;
+  onChange: (value: string) => void;
+  validate?: (value: string) => boolean;
+  errorMessage?: string;
+  showErrorMessage?: boolean;
+  isRequired?: boolean;
+  isPassword?: boolean;
+}
+export function FormInput(props: FormInputProps) {
+  return (
+    <div>
+      <div className="input-form">
+        {props.isPassword
+          ? (<Input.Password
+            placeholder={props.placeholder}
+            value={props.value}
+            onChange={e => props.onChange(e.target.value)}
+          />)
+          : (<Input
+            placeholder={props.placeholder}
+            value={props.value}
+            onChange={e => props.onChange(e.target.value)}
+          />)
+        }
+        {props.isRequired && <div className="input-required-mark">*</div>}
+      </div>
+      {props.showErrorMessage && props.validate && !props.validate(props.value) &&
+        <ErrorMessage>{props.errorMessage}</ErrorMessage>}
+    </div>
+  );
 }

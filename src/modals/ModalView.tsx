@@ -1,11 +1,12 @@
 import React, { ReactNode, useCallback } from "react";
 import "./ModalView.css";
 import { useAppSelector } from "../app/hooks";
-import { SignIn } from "./signIn/SignIn";
+import { SignIn } from "./auth/SignIn";
 import Link from "antd/es/typography/Link";
 import { useDispatch } from "react-redux";
 import { closeModal } from "../reducers/commonSlice";
-import { SignUp } from "./signUp/SignUp";
+import { SignUp } from "./auth/SignUp";
+import { ConfirmCode } from "./auth/ConfirmCode";
 
 function Modal({ children }: { children?: ReactNode }) {
   const dispatch = useDispatch();
@@ -38,6 +39,8 @@ export function ModalView() {
     innerModal = <SignIn />;
   } else if (common.modalType === "signup") {
     innerModal = <SignUp />;
+  } else if (common.modalType === "confirmcode") {
+    innerModal = <ConfirmCode />;
   }
 
   return <Modal>{innerModal}</Modal>;

@@ -1,4 +1,12 @@
 {
   "SelectCaseType": "Select Case Type",
-  "EnterCaseDetails": "Enter Case Details"
+  "EnterCaseDetails": "Enter Case Details",
+  "ErrorMessage": {
+    "InvalidPasswordFormat": "Password must be at least 8 characters, and contain at least 1 number, 1 uppercase letter, and 1 lowercase letter",
+    "InvalidEmailFormat": "Invalid email format"
+  },
+  "Email": "Email",
+  "Password": "Password",
+  "ConfirmPassword": "Confirm Password",
+  "PhoneNumber": "Phone Number"
 }

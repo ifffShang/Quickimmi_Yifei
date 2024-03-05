@@ -1,0 +1,10 @@
+.input-form {
+  position: relative;
+}
+
+.input-required-mark {
+  position: absolute;
+  color: var(--danger-color);
+  top: 0;
+  right: -10px;
+}

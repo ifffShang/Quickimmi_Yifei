@@ -3,13 +3,13 @@ import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { Button } from "antd";
 import { useDispatch } from "react-redux";
-import { changeLoginStatus } from "../../reducers/commonSlice";
+import { openModal } from "../../reducers/commonSlice";
 
 export function Navbar() {
   const dispatch = useDispatch();
 
   const login = useCallback(() => {
-    dispatch(changeLoginStatus(true));
+    dispatch(openModal("signin"));
   }, []);
 
   return (

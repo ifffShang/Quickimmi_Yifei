@@ -1,11 +1,16 @@
-import { Button, Input } from "antd";
-import React, { useCallback } from "react";
+import { Button } from "antd";
+import React, { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import Link from "antd/es/typography/Link";
 import { openModal } from "../../reducers/commonSlice";
+import { FormInput } from "../../components/common/Controls";
+import { useTranslation } from "react-i18next";
 
 export function SignIn() {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const signup = useCallback(() => {
     dispatch(openModal("signup"));
@@ -14,8 +19,16 @@ export function SignIn() {
   return (
     <>
       <div>Login</div>
-      <Input placeholder="Username" />
-      <Input placeholder="Password" />
+      <FormInput
+        placeholder={t("Email")}
+        value={email}
+        onChange={setEmail}
+      />
+      <FormInput
+        placeholder={t("Password")}
+        value={password}
+        onChange={setPassword}
+      />
       <Link>Forgot Password?</Link>
       <Button type="primary">Login</Button>
       <div className="single-line">

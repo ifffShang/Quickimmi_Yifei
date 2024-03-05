@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-type ModalType = "signin" | "signup" | "none";
+type ModalType = "signin" | "signup" | "confirmcode" | "none";
 
 export interface CommonState {
   showModal: boolean;
