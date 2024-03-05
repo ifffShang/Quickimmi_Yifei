@@ -19,11 +19,7 @@ export function SignIn() {
   return (
     <>
       <div>Login</div>
-      <FormInput
-        placeholder={t("Email")}
-        value={email}
-        onChange={setEmail}
-      />
+      <FormInput placeholder={t("Email")} value={email} onChange={setEmail} />
       <FormInput
         placeholder={t("Password")}
         value={password}

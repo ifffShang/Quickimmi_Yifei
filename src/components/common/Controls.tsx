@@ -46,22 +46,26 @@ export function FormInput(props: FormInputProps) {
   return (
     <div>
       <div className="input-form">
-        {props.isPassword
-          ? (<Input.Password
+        {props.isPassword ? (
+          <Input.Password
             placeholder={props.placeholder}
             value={props.value}
             onChange={e => props.onChange(e.target.value)}
-          />)
-          : (<Input
+          />
+        ) : (
+          <Input
             placeholder={props.placeholder}
             value={props.value}
             onChange={e => props.onChange(e.target.value)}
-          />)
-        }
+          />
+        )}
         {props.isRequired && <div className="input-required-mark">*</div>}
       </div>
-      {props.showErrorMessage && props.validate && !props.validate(props.value) &&
-        <ErrorMessage>{props.errorMessage}</ErrorMessage>}
+      {props.showErrorMessage &&
+        props.validate &&
+        !props.validate(props.value) && (
+          <ErrorMessage>{props.errorMessage}</ErrorMessage>
+        )}
     </div>
   );
 }

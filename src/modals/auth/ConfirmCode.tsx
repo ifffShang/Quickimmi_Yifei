@@ -8,28 +8,34 @@ export function ConfirmCode() {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const inputRefs = useRef<any[]>([]);
 
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>, index: number) => {
-    setShowErrorMessage(false);
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+      setShowErrorMessage(false);
 
-    const newArr = [...code];
-    newArr[index] = e.target.value;
-    setCode(newArr);
+      const newArr = [...code];
+      newArr[index] = e.target.value;
+      setCode(newArr);
 
-    if (e.target.value && index < 5) {
-      inputRefs.current[index + 1].focus();
-    }
-  }, [code]);
+      if (e.target.value && index < 5) {
+        inputRefs.current[index + 1].focus();
+      }
+    },
+    [code],
+  );
 
-  const handleBackspaceAndEnter = useCallback((e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
-    setShowErrorMessage(false);
+  const handleBackspaceAndEnter = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
+      setShowErrorMessage(false);
 
-    if(e.key === 'Backspace' && index > 0) {
-      inputRefs.current[index - 1].focus();
-    }
-    if (e.key === 'Enter' && index < 5) {
-      inputRefs.current[index + 1]?.focus();
-    }
-  }, []);
+      if (e.key === "Backspace" && index > 0) {
+        inputRefs.current[index - 1].focus();
+      }
+      if (e.key === "Enter" && index < 5) {
+        inputRefs.current[index + 1]?.focus();
+      }
+    },
+    [],
+  );
 
   const verifyCode = useCallback(() => {
     if (code.join("").length === 6) {
@@ -37,7 +43,7 @@ export function ConfirmCode() {
     } else {
       setShowErrorMessage(true);
     }
-  },[code]);
+  }, [code]);
 
   return (
     <>
@@ -48,14 +54,16 @@ export function ConfirmCode() {
             key={num}
             type="text"
             maxLength={1}
-            ref={(ref) => inputRefs.current[num] = ref }
-            onKeyUp={(e) => handleBackspaceAndEnter(e, num)}
-            onChange={(e) => handleChange(e, num)}
+            ref={ref => (inputRefs.current[num] = ref)}
+            onKeyUp={e => handleBackspaceAndEnter(e, num)}
+            onChange={e => handleChange(e, num)}
           />
         ))}
       </div>
       {showErrorMessage && <ErrorMessage>Invalid code</ErrorMessage>}
-      <Button type="primary" onClick={verifyCode}>Verify</Button>
+      <Button type="primary" onClick={verifyCode}>
+        Verify
+      </Button>
     </>
   );
 }

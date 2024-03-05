@@ -39,25 +39,25 @@ export function SignUp() {
   return (
     <>
       <div>Sign up</div>
-      <FormInput 
-        placeholder={t("Email")} 
-        value={email} 
-        errorMessage={t("ErrorMessage.InvalidEmailFormat")} 
-        onChange={setEmail} 
+      <FormInput
+        placeholder={t("Email")}
+        value={email}
+        errorMessage={t("ErrorMessage.InvalidEmailFormat")}
+        onChange={setEmail}
         validate={validateEmail}
         showErrorMessage={showErrorMessage}
         isRequired={true}
       />
-      <FormInput 
-        placeholder={t("PhoneNumber")} 
-        value={phoneNumber} 
-        onChange={setPhoneNumber} 
+      <FormInput
+        placeholder={t("PhoneNumber")}
+        value={phoneNumber}
+        onChange={setPhoneNumber}
       />
       <FormInput
-        placeholder={t("Password")} 
-        value={password} 
-        errorMessage={t("ErrorMessage.InvalidPasswordFormat")} 
-        onChange={setPassword} 
+        placeholder={t("Password")}
+        value={password}
+        errorMessage={t("ErrorMessage.InvalidPasswordFormat")}
+        onChange={setPassword}
         validate={validatePassword}
         showErrorMessage={showErrorMessage}
         isPassword={true}

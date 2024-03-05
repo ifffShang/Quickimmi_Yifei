@@ -1,4 +1,3 @@
-
 export function validatePassword(password: string): boolean {
   const hasNumber = /[0-9]/.test(password);
   const hasUpperCase = /[A-Z]/.test(password);
