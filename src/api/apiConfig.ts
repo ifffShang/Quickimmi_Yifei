@@ -24,7 +24,9 @@ export const fetchFunction = async (
     if (!response.ok) {
       const errorData = await response.json();
       const errorMessage =
-        errorData?.message || `HTTP Error: ${response.status}`;
+        errorData?.message ||
+        errorData?.errorCode ||
+        `HTTP Error: ${response.status}`;
       throw new Error(errorMessage);
     }
 

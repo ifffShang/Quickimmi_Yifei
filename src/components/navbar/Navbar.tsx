@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { Button } from "antd";
@@ -8,9 +8,9 @@ import { openModal } from "../../reducers/commonSlice";
 export function Navbar() {
   const dispatch = useDispatch();
 
-  const login = useCallback(() => {
-    dispatch(openModal("signin"));
-  }, []);
+  const login = () => {
+    dispatch(openModal({ modalType: "signin" }));
+  };
 
   return (
     <div className="navbar-container">
