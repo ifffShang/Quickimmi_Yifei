@@ -1,10 +1,14 @@
 import { Button } from "antd";
 import React, { useEffect, useState } from "react";
 import Link from "antd/es/typography/Link";
-import { openModal } from "../../reducers/commonSlice";
+import {
+  closeModal,
+  openModal,
+  updateAccessToken,
+} from "../../reducers/authSlice";
 import { FormInput } from "../../components/common/Controls";
 import { useTranslation } from "react-i18next";
-import { login } from "../../api/authAPI";
+import { forgotPassword, login } from "../../api/authAPI";
 import { ErrorMessage } from "../../components/common/Fonts";
 import { useAppDispatch } from "../../app/hooks";
 
@@ -26,7 +30,8 @@ export function SignIn() {
   const loginUser = () => {
     login(email, password)
       .then(response => {
-        console.log("Login response: ", response);
+        closeModal();
+        updateAccessToken(response.accessToken);
       })
       .catch(error => {
         console.log("Error logging in: ", error);
@@ -38,17 +43,39 @@ export function SignIn() {
       });
   };
 
+  const forgotPasswordLinkClick = () => {
+    forgotPassword(email)
+      .then(response => {
+        console.log("Forgot password response: ", response);
+        dispatch(
+          openModal({
+            modalType: "confirmcode",
+            email,
+            prevStep: "forgotpassword",
+          }),
+        );
+      })
+      .catch(error => {
+        console.log("Error sending forgot password: ", error);
+      });
+  };
+
   return (
     <>
       <div>Login</div>
-      <FormInput placeholder={t("Email")} value={email} onChange={setEmail} />
+      <FormInput
+        placeholder={t("Email")}
+        value={email}
+        onChange={setEmail}
+        autoComplete="email"
+      />
       <FormInput
         placeholder={t("Password")}
         value={password}
         onChange={setPassword}
         isPassword={true}
       />
-      <Link>Forgot Password?</Link>
+      <Link onClick={forgotPasswordLinkClick}>Forgot Password?</Link>
       <Button type="primary" onClick={loginUser}>
         Login
       </Button>
@@ -57,7 +84,6 @@ export function SignIn() {
         <div>{"Doesn't have account?"}</div>
         <Link onClick={signup}>Sign Up</Link>
       </div>
-      <div>Every user has five times of consulting AI</div>
     </>
   );
 }

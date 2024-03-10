@@ -41,6 +41,7 @@ export interface FormInputProps {
   showErrorMessage?: boolean;
   isRequired?: boolean;
   isPassword?: boolean;
+  autoComplete?: string;
 }
 export function FormInput(props: FormInputProps) {
   return (
@@ -51,12 +52,14 @@ export function FormInput(props: FormInputProps) {
             placeholder={props.placeholder}
             value={props.value}
             onChange={e => props.onChange(e.target.value)}
+            autoComplete={props.autoComplete}
           />
         ) : (
           <Input
             placeholder={props.placeholder}
             value={props.value}
             onChange={e => props.onChange(e.target.value)}
+            autoComplete={props.autoComplete}
           />
         )}
         {props.isRequired && <div className="input-required-mark">*</div>}

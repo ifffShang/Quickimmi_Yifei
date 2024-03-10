@@ -1,15 +1,14 @@
 import React, { ReactNode, useCallback } from "react";
 import "./ModalView.css";
-import { useAppSelector } from "../app/hooks";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { SignIn } from "./auth/SignIn";
 import Link from "antd/es/typography/Link";
-import { useDispatch } from "react-redux";
-import { closeModal } from "../reducers/commonSlice";
+import { closeModal } from "../reducers/authSlice";
 import { SignUp } from "./auth/SignUp";
 import { ConfirmCode } from "./auth/ConfirmCode";
 
 function Modal({ children }: { children?: ReactNode }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const close = useCallback(() => {
     dispatch(closeModal());
@@ -28,18 +27,18 @@ function Modal({ children }: { children?: ReactNode }) {
 }
 
 export function ModalView() {
-  const common = useAppSelector(state => state.common);
+  const auth = useAppSelector(state => state.auth);
 
-  if (!common.showModal) {
+  if (!auth.showModal) {
     return null;
   }
 
   let innerModal = null;
-  if (common.modalType === "signin") {
+  if (auth.modalType === "signin") {
     innerModal = <SignIn />;
-  } else if (common.modalType === "signup") {
+  } else if (auth.modalType === "signup") {
     innerModal = <SignUp />;
-  } else if (common.modalType === "confirmcode") {
+  } else if (auth.modalType === "confirmcode") {
     innerModal = <ConfirmCode />;
   }
 

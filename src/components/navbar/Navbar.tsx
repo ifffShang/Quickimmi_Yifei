@@ -3,7 +3,7 @@ import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { Button } from "antd";
 import { useDispatch } from "react-redux";
-import { openModal } from "../../reducers/commonSlice";
+import { openModal } from "../../reducers/authSlice";
 
 export function Navbar() {
   const dispatch = useDispatch();

@@ -1,7 +1,7 @@
 import { Button } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { openModal } from "../../reducers/commonSlice";
+import { openModal } from "../../reducers/authSlice";
 import { resendVerificationCode, signUp } from "../../api/authAPI";
 import { validateEmail, validatePassword } from "../../utils/validators";
 import { useTranslation } from "react-i18next";
@@ -33,7 +33,7 @@ export function SignUp() {
         dispatch(
           openModal({
             modalType: "confirmcode",
-            data: { email },
+            email,
           }),
         );
         console.log("Sign up response: ", response);
@@ -47,7 +47,8 @@ export function SignUp() {
               dispatch(
                 openModal({
                   modalType: "confirmcode",
-                  data: { email },
+                  email,
+                  prevStep: "signup",
                 }),
               );
             })
