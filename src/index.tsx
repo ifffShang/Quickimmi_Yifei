@@ -1,4 +1,6 @@
 import React from "react";
+import { Amplify } from "aws-amplify";
+import awsExports from "./aws-exports";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
@@ -8,6 +10,16 @@ import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import "./locales/i18n";
 import "./styles/Common.css";
+
+// Configure Amplify in index file or root file
+Amplify.configure({
+  Auth: {
+    Cognito: {
+      userPoolId: awsExports.USER_POOL_ID,
+      userPoolClientId: awsExports.USER_POOL_APP_CLIENT_ID,
+    },
+  },
+});
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);

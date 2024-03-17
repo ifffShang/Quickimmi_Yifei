@@ -1,5 +1,5 @@
 import React from "react";
-import { CaseWorkflow } from "../../components/case/CaseWorkflow";
+import { CaseWorkflow } from "../../case/CaseWorkflow";
 
 export function NewCase() {
   return (

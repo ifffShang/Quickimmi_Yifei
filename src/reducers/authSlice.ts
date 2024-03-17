@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-type ModalType = "signin" | "signup" | "confirmcode" | "none";
-type Step = "signup" | "forgotpassword" | "none";
+type ModalType = "signin" | "signup" | "confirmcode" | "signoutsccess" | "none";
+type Step = "signup" | "signin" | "forgotpassword" | "none";
 
 export interface AuthState {
   showModal?: boolean;
@@ -23,6 +23,12 @@ const initialState: AuthState = {
   phoneNumber: "",
 };
 
+const closeModalHelper = (state: AuthState) => {
+  state.showModal = false;
+  state.modalType = "none";
+  state.prevStep = "none";
+};
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -32,15 +38,32 @@ export const authSlice = createSlice({
       state.showModal = true;
     },
     closeModal: state => {
-      state.showModal = false;
-      state.modalType = "none";
+      closeModalHelper(state);
     },
     updateAccessToken: (state, action: PayloadAction<string>) => {
       state.accessToken = action.payload;
     },
+    updateLoginInfo: (state, action: PayloadAction<AuthState>) => {
+      Object.assign(state, action.payload);
+      closeModalHelper(state);
+    },
+    updateSignOutInfo: state => {
+      state.isLoggedIn = false;
+      state.accessToken = "";
+      state.email = "";
+      state.phoneNumber = "";
+      state.showModal = true;
+      state.modalType = "signoutsccess";
+    },
   },
 });
 
-export const { openModal, closeModal, updateAccessToken } = authSlice.actions;
+export const {
+  openModal,
+  closeModal,
+  updateAccessToken,
+  updateLoginInfo,
+  updateSignOutInfo,
+} = authSlice.actions;
 
 export default authSlice.reducer;

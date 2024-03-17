@@ -2,14 +2,23 @@ import React from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { Button } from "antd";
-import { useDispatch } from "react-redux";
-import { openModal } from "../../reducers/authSlice";
+import { openModal, updateSignOutInfo } from "../../reducers/authSlice";
+import { signOut } from "aws-amplify/auth";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
 export function Navbar() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
 
   const login = () => {
     dispatch(openModal({ modalType: "signin" }));
+  };
+
+  const signOutCurrentUser = () => {
+    signOut().then(() => {
+      console.log("User signed out");
+      dispatch(updateSignOutInfo());
+    });
   };
 
   return (
@@ -18,16 +27,24 @@ export function Navbar() {
         <div className="navbar-logo">
           <Link to="/">Logo</Link>
         </div>
-        <div className="navbar-menu">
-          <Link to="/dashboard">Dashboard</Link>
-        </div>
+        {isLoggedIn && (
+          <div className="navbar-menu">
+            <Link to="/dashboard">Dashboard</Link>
+          </div>
+        )}
       </div>
       <div className="navbar-group">
         <div className="navbar-profile">Language</div>
         <div className="navbar-profile">
-          <Button type="link" onClick={login}>
-            Login
-          </Button>
+          {!isLoggedIn ? (
+            <Button type="link" onClick={login}>
+              Login
+            </Button>
+          ) : (
+            <Button type="link" onClick={signOutCurrentUser}>
+              Sign out
+            </Button>
+          )}
         </div>
       </div>
     </div>

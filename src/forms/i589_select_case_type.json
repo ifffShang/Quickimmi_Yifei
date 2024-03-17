@@ -1,0 +1,174 @@
+{
+  "id": "i589_select_case_type",
+  "version": "2013-11-23",
+  "type": "form",
+  "pages": [
+    {
+      "order": 1,
+      "title": "Text_SelectCaseType",
+      "subTitle": "Text_SelectCaseTypeSubTitle",
+      "fields": [
+        {
+          "order": 1,
+          "name": "ImmigrationType",
+          "label": "Text_ImmigrationType",
+          "control": "dropdown",
+          "options": [
+            {
+              "label": "Text_Asylum",
+              "value": "Asylum"
+            },
+            {
+              "label": "Text_Deportation",
+              "value": "Deportation"
+            },
+            {
+              "label": "Text_Employment",
+              "value": "Employment"
+            },
+            {
+              "label": "Text_Family",
+              "value": "Family"
+            },
+            {
+              "label": "Text_Other",
+              "value": "Other"
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "name": "ImmigrationReason",
+          "label": "Text_ImmigrationReason",
+          "control": "dropdown",
+          "dependsOn": "ImmigrationType",
+          "options": [
+            {
+              "label": "Text_Asylum",
+              "value": "Asylum",
+              "dependsOnValue": "Asylum",
+              "options": [
+                {
+                  "label": "Text_PoliticalPersecution",
+                  "value": "PoliticalPersecution"
+                },
+                {
+                  "label": "Text_ReligiousPersecution",
+                  "value": "ReligiousPersecution"
+                },
+                {
+                  "label": "Text_SexualOrientationPersecution",
+                  "value": "SexualOrientationPersecution"
+                },
+                {
+                  "label": "Text_Other",
+                  "value": "Other"
+                }
+              ]
+            },
+            {
+              "label": "Text_Deportation",
+              "value": "Deportation",
+              "dependsOnValue": "Deportation",
+              "options": [
+                {
+                  "label": "Text_CriminalConviction",
+                  "value": "CriminalConviction"
+                },
+                {
+                  "label": "Text_Overstay",
+                  "value": "Overstay"
+                },
+                {
+                  "label": "Text_Other",
+                  "value": "Other"
+                }
+              ]
+            },
+            {
+              "label": "Text_Employment",
+              "value": "Employment",
+              "dependsOnValue": "Employment",
+              "options": [
+                {
+                  "label": "Text_H1B",
+                  "value": "H1B"
+                },
+                {
+                  "label": "Text_L1",
+                  "value": "L1"
+                },
+                {
+                  "label": "Text_Other",
+                  "value": "Other"
+                }
+              ]
+            },
+            {
+              "label": "Text_Family",
+              "value": "Family",
+              "dependsOnValue": "Family",
+              "options": [
+                {
+                  "label": "Text_Marriage",
+                  "value": "Marriage"
+                },
+                {
+                  "label": "Text_Parent",
+                  "value": "Parent"
+                },
+                {
+                  "label": "Text_Sibling",
+                  "value": "Sibling"
+                },
+                {
+                  "label": "Text_Other",
+                  "value": "Other"
+                }
+              ]
+            },
+            {
+              "label": "Text_Other",
+              "value": "Other",
+              "dependsOnValue": "Other",
+              "options": [
+                {
+                  "label": "Text_Other",
+                  "value": "Other"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Tips",
+          "label": "Tips",
+          "control": "tips",
+          "dependsOn": "ImmigrationType",
+          "components": [
+            {
+              "dependsOnValue": "Asylum",
+              "component": "Component_AsylumTips"
+            },
+            {
+              "dependsOnValue": "Deportation",
+              "component": "Component_DeportationTips"
+            },
+            {
+              "dependsOnValue": "Employment",
+              "component": "Component_EmploymentTips"
+            },
+            {
+              "dependsOnValue": "Family",
+              "component": "Component_FamilyTips"
+            },
+            {
+              "dependsOnValue": "Other",
+              "component": "Component_OtherTips"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

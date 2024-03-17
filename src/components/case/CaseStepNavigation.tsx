@@ -8,7 +8,7 @@ import { useWorkflowTranslation } from "../../hooks/commonHooks";
 
 interface CaseStepNavigationProps {
   steps: WorkflowStep[];
-  currentStep: number;
+  currentStepOrder: number;
 }
 
 export function CaseStepNavigation(props: CaseStepNavigationProps) {
@@ -24,7 +24,10 @@ export function CaseStepNavigation(props: CaseStepNavigationProps) {
           onClick={() => {
             dispatch(setStepOrder(step.order));
           }}>
-          <div className={props.currentStep === step.order ? "font-bold" : ""}>
+          <div
+            className={
+              props.currentStepOrder === step.order ? "font-bold" : ""
+            }>
             {step.order} {wt(step.label)}
           </div>
           <div className="case-step-arrow">

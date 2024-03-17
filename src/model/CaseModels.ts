@@ -1,21 +1,3 @@
-export interface Workflow {
-  steps: WorkflowStep[];
-}
-
-export interface WorkflowStep {
-  order: number;
-  name: string;
-  label: string;
-  pages: WorkflowPage[];
-}
-
-export interface WorkflowPage {
-  order: number;
-  title: string;
-  subtitle: string;
-  fields: WorkflowField[];
-}
-
 export type ControlType =
   | "textbox"
   | "textarea"
@@ -47,4 +29,33 @@ export interface WorkflowFieldOptions {
 export interface WorkflowFieldComponent {
   dependsOnValue: string;
   component: string;
+}
+
+export interface Workflow {
+  id: string;
+  version: string;
+  type: string;
+  steps: WorkflowStep[];
+}
+
+export interface WorkflowStep {
+  id: string;
+  label: string;
+  order: number;
+  type: string;
+  referenceId: string;
+}
+
+export interface WorkflowForm {
+  id: string;
+  version: string;
+  type: string;
+  pages: WorkflowPage[];
+}
+
+export interface WorkflowPage {
+  order: number;
+  title: string;
+  subtitle: string;
+  fields: WorkflowField[];
 }

@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import { Navbar } from "./components/navbar/Navbar";
 import { MainView } from "./router/MainView";
-import { ModalView } from "./modals/ModalView";
+import { ModalView } from "./components/modals/ModalView";
 
 function App() {
   return (

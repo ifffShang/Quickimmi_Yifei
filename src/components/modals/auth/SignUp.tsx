@@ -1,19 +1,21 @@
 import { Button } from "antd";
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { openModal } from "../../reducers/authSlice";
-import { resendVerificationCode, signUp } from "../../api/authAPI";
-import { validateEmail, validatePassword } from "../../utils/validators";
-import { useTranslation } from "react-i18next";
-import { FormInput } from "../../components/common/Controls";
 import Link from "antd/es/typography/Link";
-import { ErrorMessage } from "../../components/common/Fonts";
+import { getCurrentUser, signUp } from "aws-amplify/auth";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import { openModal } from "../../../reducers/authSlice";
+import { validateEmail, validatePassword } from "../../../utils/validators";
+import { FormInput } from "../../common/Controls";
+import { ErrorMessage } from "../../common/Fonts";
 
 export function SignUp() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -22,45 +24,44 @@ export function SignUp() {
     setErrorMessage("");
   }, [email, password]);
 
-  const signup = () => {
+  const signUpButtonOnClick = async () => {
     if (!validateEmail(email) || !validatePassword(password)) {
       setShowErrorMessage(true);
       return;
     }
 
-    signUp(email, password)
-      .then(response => {
-        dispatch(
-          openModal({
-            modalType: "confirmcode",
-            email,
-          }),
-        );
-        console.log("Sign up response: ", response);
-      })
-      .catch(error => {
-        // If user already signed up but didn't verify the code, resend code and redirect to verification code modal
-        if (error.message === "WAITING_FOR_VERIFICATION_CODE") {
-          resendVerificationCode(email)
-            .then(response => {
-              console.log("Resend verification code response: ", response);
-              dispatch(
-                openModal({
-                  modalType: "confirmcode",
-                  email,
-                  prevStep: "signup",
-                }),
-              );
-            })
-            .catch(error => {
-              console.log("Error resending verification code: ", error);
-              setErrorMessage(
-                "There was an error signing up.  Please try again later.",
-              );
-            });
+    signUp({
+      username: email,
+      password,
+      options: {
+        userAttributes: {
+          email,
+          given_name: firstName || "Unknown",
+          family_name: lastName || "Unknown",
+        },
+      },
+    })
+      .then(({ nextStep }) => {
+        if (nextStep.signUpStep === "CONFIRM_SIGN_UP") {
+          dispatch(
+            openModal({
+              modalType: "confirmcode",
+              email,
+            }),
+          );
           return;
         }
-        console.log("Error signing up: ", error);
+        if (nextStep.signUpStep === "DONE") {
+          dispatch(openModal({ modalType: "signin" }));
+          return;
+        }
+      })
+      .catch(error => {
+        console.error("Error signing up: ", error);
+        if (error.name === "UsernameExistsException") {
+          setErrorMessage("User already exists. Please sign in.");
+          return;
+        }
         setErrorMessage(
           "There was an error signing up. Please try again later.",
         );
@@ -74,6 +75,16 @@ export function SignUp() {
   return (
     <>
       <div>Sign up</div>
+      <FormInput
+        placeholder={t("FirstName")}
+        value={firstName}
+        onChange={setFirstName}
+      />
+      <FormInput
+        placeholder={t("LastName")}
+        value={lastName}
+        onChange={setLastName}
+      />
       <FormInput
         placeholder={t("Email")}
         value={email}
@@ -97,7 +108,7 @@ export function SignUp() {
         <div>Already a member?</div>
         <Link onClick={openSignInModal}>Login in</Link>
       </div>
-      <Button type="primary" onClick={signup}>
+      <Button type="primary" onClick={signUpButtonOnClick}>
         Sign up
       </Button>
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}

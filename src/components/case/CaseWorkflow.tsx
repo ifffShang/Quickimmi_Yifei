@@ -1,44 +1,42 @@
-import React from "react";
-import FORM589 from "../../forms/I-589Form.json";
-import { Workflow, WorkflowStep } from "../../model/CaseModels";
+import React, { useEffect } from "react";
+import FORM589 from "../../forms/i589.json";
+import { Workflow } from "../../model/CaseModels";
 import { CaseStepNavigation } from "./CaseStepNavigation";
-import { useAppSelector } from "../../app/hooks";
-import { useWorkflowTranslation } from "../../hooks/commonHooks";
-import { CaseField } from "./CaseField";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { CaseStepContent } from "./CaseStepContent";
+import { setTotalSteps } from "../../reducers/caseSlice";
 
 export function CaseWorkflow() {
-  const steps = parseWorkflow();
-  const { wt } = useWorkflowTranslation();
+  const dispatch = useAppDispatch();
+  const [workflow, setWorkflow] = React.useState<Workflow>();
 
   const currentStepOrder = useAppSelector(state => state.case.currentStepOrder);
-  const currentStep = steps.find(step => step.order === currentStepOrder);
 
-  if (!currentStep) {
-    return <div>Step not found</div>;
+  useEffect(() => {
+    getWorkflow().then(workflow => {
+      setWorkflow(workflow);
+      dispatch(setTotalSteps(workflow.steps.length));
+    });
+  }, []);
+
+  if (!workflow || !workflow.steps || workflow.steps.length === 0) {
+    return <div>Loading...</div>;
   }
+
+  const currentStepForm = workflow.steps[currentStepOrder];
 
   return (
     <div>
       <h1>Workflow</h1>
-      <CaseStepNavigation steps={steps} currentStep={currentStepOrder} />
-      <div>
-        {currentStep.pages.map((page, index) => (
-          <div key={index}>
-            <h2>{wt(page.title)}</h2>
-            {page.fields.map((field, index) => (
-              <div key={index}>
-                {wt(field.label ?? "")}
-                <CaseField control={field.control} label={field.label ?? ""} />
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
+      <CaseStepNavigation
+        steps={workflow.steps}
+        currentStepOrder={currentStepOrder}
+      />
+      <CaseStepContent step={currentStepForm} />
     </div>
   );
 }
 
-export function parseWorkflow(): WorkflowStep[] {
-  const workflow = FORM589 as unknown as Workflow;
-  return workflow.steps;
+export async function getWorkflow(): Promise<Workflow> {
+  return Promise.resolve(FORM589 as unknown as Workflow);
 }
