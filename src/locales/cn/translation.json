@@ -1,4 +1,8 @@
 {
+  "LandingPage": {
+    "FastTrackDescription1": "使用我们训练的移民大语言模型AI，智能匹配申请类型，辅助修改申请资料",
+    "FastTrackDescription2": "再交给我们专业的移民律师完善信息，确保您的申请万无一失。"
+  },
   "SelectCaseType": "选择申请类型",
   "EnterCaseDetails": "填写信息",
   "ImmigrationType": "移民类型",

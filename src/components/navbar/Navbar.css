@@ -2,9 +2,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 40px;
-  height: 60px;
-  background-color: var(--gray-color-1);
+  padding: 0 80px;
+  height: 80px;
+}
+
+.small .navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  height: 80px;
 }
 
 .navbar-group {
@@ -13,9 +20,12 @@
 }
 
 .navbar-logo {
-  font-size: 24px;
-  font-weight: 600;
   margin-right: 50px;
+}
+
+.navbar-logo-link {
+  align-items: flex-end;
+  display: flex;
 }
 
 .navbar-profile {

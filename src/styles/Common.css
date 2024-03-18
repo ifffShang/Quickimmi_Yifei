@@ -9,8 +9,8 @@
   --dark-color: #343a40;
   --white-color: #ffffff;
   --black-color: #000000;
-  --gray-color-1: #d9d9d9;
-  --gray-color-semi-transparent: rgba(0, 0, 0, 0.5);
+  --gray-color-1: #333333;
+  --gray-color-2: #828282;
   --body-bg: #f8f9fa;
   --body-color: #212529;
   --border-radius: 0.25rem;
@@ -19,6 +19,10 @@
 
 .font-bold {
   font-weight: 600;
+}
+
+.font-gray {
+  color: var(--gray-color-2);
 }
 
 .single-line {

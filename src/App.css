@@ -4,3 +4,11 @@
   position: relative;
   height: 100vh;
 }
+
+.cn {
+  font-family: "PingFang SC", sans-serif;
+}
+
+.en {
+  font-family: "Roboto", sans-serif;
+}
