@@ -1,4 +1,8 @@
 {
+  "LandingPage": {
+    "FastTrackDescription1": "Our AI matches immigration application types and assists in modifying materials",
+    "FastTrackDescription2": "Professional lawyers then perfect the information to ensure a foolproof application"
+  },
   "SelectCaseType": "Select Case Type",
   "EnterCaseDetails": "Enter Case Details",
   "ErrorMessage": {

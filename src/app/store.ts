@@ -2,12 +2,14 @@ import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import chatbotReducer from "../reducers/chatbotSlice";
 import caseReducer from "../reducers/caseSlice";
 import authReducer from "../reducers/authSlice";
+import commonReducer from "../reducers/commonSlice";
 
 export const store = configureStore({
   reducer: {
     chatbot: chatbotReducer,
     case: caseReducer,
     auth: authReducer,
+    common: commonReducer,
   },
 });
 
