@@ -1,5 +1,9 @@
 {
+  "Login": "Log in",
+  "SignUp": "Sign up",
+  "SignOut": "Sign out",
   "LandingPage": {
+    "JoinWaitingList": "Join the waiting list",
     "FastTrackDescription1": "Our AI matches immigration application types and assists in modifying materials",
     "FastTrackDescription2": "Professional lawyers then perfect the information to ensure a foolproof application"
   },

@@ -6,9 +6,11 @@ import { signOut } from "aws-amplify/auth";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Logo } from "../icons/Logo";
 import LanguageSelector from "./LanguageSelector";
+import { useTranslation } from "react-i18next";
 
 export function Navbar() {
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
 
   const login = () => {
@@ -43,11 +45,11 @@ export function Navbar() {
         <div className="navbar-profile">
           {!isLoggedIn ? (
             <Button type="link" onClick={login}>
-              Login
+              {t("Login")}
             </Button>
           ) : (
             <Button type="link" onClick={signOutCurrentUser}>
-              Sign out
+              {t("SignOut")}
             </Button>
           )}
         </div>

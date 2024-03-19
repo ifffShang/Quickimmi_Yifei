@@ -9,7 +9,6 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import "./locales/i18n";
-import "./styles/Common.css";
 
 // Configure Amplify in index file or root file
 Amplify.configure({

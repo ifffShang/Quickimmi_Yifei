@@ -1,3 +1,5 @@
+export type Language = "cn" | "en";
+
 export interface Message {
   role: "user" | "assistant";
   content: string;

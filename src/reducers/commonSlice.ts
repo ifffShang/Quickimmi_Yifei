@@ -1,6 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-
-type Language = "cn" | "en";
+import { Language } from "../model/Models";
 
 export interface CommonState {
   selectedLanguage: Language;
