@@ -1,7 +1,7 @@
 export enum ScreenSize {
-  small = 576,
-  medium = 768,
-  large = 992,
+  small = 900,
+  medium = 1500,
+  large = 2100,
 }
 
 export const handleResize = (callback?: any) => {

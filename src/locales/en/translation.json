@@ -4,8 +4,8 @@
   "SignOut": "Sign out",
   "LandingPage": {
     "JoinWaitingList": "Join the waiting list",
-    "FastTrackDescription1": "Our AI matches immigration application types and assists in modifying materials",
-    "FastTrackDescription2": "Professional lawyers then perfect the information to ensure a foolproof application"
+    "FastTrackDescription1": "Our <strong>AI</strong> matches immigration <strong>application types</strong> and assists in <strong>modifying materials</strong>",
+    "FastTrackDescription2": "<strong>Professional</strong> lawyers then perfect the information to <strong>ensure</strong> a <strong>foolproof</strong> application"
   },
   "SelectCaseType": "Select Case Type",
   "EnterCaseDetails": "Enter Case Details",

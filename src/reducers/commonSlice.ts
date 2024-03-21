@@ -6,7 +6,7 @@ export interface CommonState {
 }
 
 const initialState: CommonState = {
-  selectedLanguage: "cn",
+  selectedLanguage: "en",
 };
 
 export const commonSlice = createSlice({

@@ -1,4 +1,4 @@
-import i18n from "i18next";
+import i18n, { InitOptions } from "i18next";
 import { initReactI18next } from "react-i18next";
 
 import en from "./en/translation.json";
@@ -20,8 +20,12 @@ i18n
   // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
     resources,
-    fallbackLng: "cn",
+    fallbackLng: "en",
     debug: true,
+    react: {
+      transSupportBasicHtmlNodes: true,
+      transKeepBasicHtmlNodesFor: ["br", "strong", "i"],
+    },
   });
 
 export default i18n;
