@@ -18,6 +18,11 @@
   align-items: center;
 }
 
+.small .navbar-group {
+  display: flex;
+  align-items: center;
+}
+
 .navbar-logo {
   margin-right: 50px;
 }

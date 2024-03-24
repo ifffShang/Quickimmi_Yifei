@@ -1,0 +1,22 @@
+.product-features {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.pf-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 80px;
+}
+
+.small .pf-section {
+  flex-direction: column;
+  align-items: center;
+}
+
+.small .pf-section svg {
+  width: 100%;
+}

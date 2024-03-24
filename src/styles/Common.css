@@ -12,10 +12,18 @@
   --black-color: #000000;
   --gray-color-1: #333333;
   --gray-color-2: #828282;
+  --gray-color-3: #e0e0e0;
+  --gray-color-4: #f2f2f2;
+  --gray-color-5: #4f4f4f;
   --body-bg: #f8f9fa;
   --body-color: #212529;
   --border-radius: 0.25rem;
   --transition: all 0.5s ease-in-out;
+  --font-weight-bold: 600;
+  --font-size-h2: 40px;
+  --font-size-h3: 24px;
+  --font-size-p1: 20px;
+  --font-size-p2: 16px;
 }
 
 .font-bold {

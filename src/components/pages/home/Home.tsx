@@ -8,6 +8,12 @@ import { LandingPageTitleCn } from "../../icons/LandingPageTitleCn";
 import { StatueOfLiberty } from "../../icons/StatueOfLiberty";
 import "./Home.css";
 import { Highlights } from "./Highlights";
+import { ProductFeatures } from "./ProductFeatures";
+import { PriceChart } from "./PriceChart";
+import { SubmitForReview } from "./SubmitForReview";
+import { LawFirm } from "./LawFirm";
+import { SignUpEntry } from "./SignUpEntry";
+import { Footer } from "./Footer";
 
 export function Home() {
   const { t } = useTranslation();
@@ -68,6 +74,30 @@ export function Home() {
 
       <div className="home-section home-highlights">
         <Highlights />
+      </div>
+
+      <div className="home-section-noflex">
+        <ProductFeatures />
+      </div>
+
+      <div className="home-section center">
+        <PriceChart />
+      </div>
+
+      <div className="home-section center">
+        <SubmitForReview />
+      </div>
+
+      <div className="home-section center">
+        <LawFirm />
+      </div>
+
+      <div className="home-section center">
+        <SignUpEntry />
+      </div>
+
+      <div className="home-section center">
+        <Footer />
       </div>
     </div>
   );

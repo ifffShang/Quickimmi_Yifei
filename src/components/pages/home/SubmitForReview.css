@@ -1,0 +1,41 @@
+.submit-review {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+}
+
+.submit-review-content {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 40px 0;
+}
+
+.submit-review-content > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.small .submit-review-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.submit-review-content svg {
+  width: 100%;
+}
+
+.submit-review-title {
+  padding-bottom: 0;
+}
+
+.submit-review-subtitle {
+  padding-top: 0;
+  padding-bottom: 0;
+}

@@ -3,6 +3,18 @@
   "SignUp": "Sign up",
   "SignOut": "Sign out",
   "LandingPage": {
+    "AiFilterType": "Intelligent filter type",
+    "AiFilterTypeDescription": "Ask AI, intelligent matching is suitable for immigration type",
+    "AiComplete": "Intelligent improvement of data",
+    "AiCompleteDescription": "AI completes the application form and provides a complete application package",
+    "AiTranslate": "AI translation file",
+    "AiTranslateDescription": "AI translates the application materials into the target language",
+    "AiAssist": "AI Assist",
+    "AiAssistDescription": "AI assists in modifying the application materials",
+    "ProfessionalLawyer": "Professional Lawyer",
+    "ProfessionalLawyerDescription": "Professional lawyers perfect the information to ensure a foolproof application",
+    "TransparentPrice": "Transparent Price",
+    "TransparentPriceDescription": "Transparent price and no hidden fees",
     "JoinWaitingList": "Join the waiting list",
     "FastTrackDescription1": "Our <strong>AI</strong> matches immigration <strong>application types</strong> and assists in <strong>modifying materials</strong>",
     "FastTrackDescription2": "<strong>Professional</strong> lawyers then perfect the information to <strong>ensure</strong> a <strong>foolproof</strong> application"

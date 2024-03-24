@@ -3,6 +3,12 @@
   "SignUp": "注册",
   "SignOut": "退出",
   "LandingPage": {
+    "AiFilterType": "智能筛选类型",
+    "AiFilterTypeDescription": "询问ai，智能匹配适合移民类型",
+    "AiComplete": "智能完善资料",
+    "AiCompleteDescription": "输入信息，自动添加需要上传资料",
+    "AiTranslate": "AI翻译文件",
+    "AiTranslateDescription": "不懂英文？使用母语填写资料并智能翻译",
     "AiAssist": "AI辅助申请",
     "AiAssistDescription": "AI大语言移民模型，解答您的任何疑问",
     "ProfessionalLawyer": "专业移民律师",
