@@ -3,6 +3,7 @@
   "SignUp": "Sign up",
   "SignOut": "Sign out",
   "LandingPage": {
+    "SignupEntryTitle": "Register for <br> a fast application experience with AI",
     "AiFilterType": "Intelligent filter type",
     "AiFilterTypeDescription": "Ask AI, intelligent matching is suitable for immigration type",
     "AiComplete": "Intelligent improvement of data",

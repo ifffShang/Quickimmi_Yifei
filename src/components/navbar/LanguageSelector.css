@@ -4,6 +4,10 @@
   padding: 10px;
 }
 
+.small .lang-container {
+  width: auto;
+}
+
 .lang-display {
   display: flex;
   align-items: center;

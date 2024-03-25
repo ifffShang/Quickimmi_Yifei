@@ -1,0 +1,43 @@
+.signup-entry {
+  background-color: var(--primary-color);
+  width: 100%;
+  padding: 80px 0;
+}
+
+.signup-entry-header {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-bold);
+  line-height: 70px;
+  color: var(--white-color);
+  margin-bottom: 80px;
+}
+
+.signup-entry-text {
+  position: relative;
+  display: inline-block;
+}
+
+.signup-entry-text svg {
+  position: absolute;
+  left: 5px;
+  bottom: -8px;
+}
+
+.signup-entry-input {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}
+
+.signup-entry-input::placeholder {
+  color: var(--white-color-transparent-2);
+}
+
+.signup-entry-input:hover,
+.signup-entry-input:focus {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}
+
+.signup-entry-button {
+  border: 1px solid var(--white-color);
+}

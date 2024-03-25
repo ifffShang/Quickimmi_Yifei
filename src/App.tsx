@@ -1,20 +1,24 @@
+import { ConfigProvider, ThemeConfig } from "antd";
+import { useEffect } from "react";
 import "./App.css";
-import "./styles/Common.css";
+import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { ModalView } from "./components/modals/ModalView";
 import { Navbar } from "./components/navbar/Navbar";
+import { updateScreenSize } from "./reducers/commonSlice";
 import { MainView } from "./router/MainView";
-import { useAppSelector } from "./app/hooks";
-import { useEffect, useState } from "react";
-import { ScreenSize, handleResize } from "./utils/utils";
-import { ConfigProvider, ThemeConfig } from "antd";
+import "./styles/Common.css";
+import { handleResize } from "./utils/utils";
+import { ScreenSize } from "./model/Models";
 
 function App() {
+  const dispatch = useAppDispatch();
   const selectedLanguage = useAppSelector(
     state => state.common.selectedLanguage,
   );
+  const screenSize = useAppSelector(state => state.common.screenSize);
+
   const languageCss = selectedLanguage === "cn" ? "cn" : "en";
 
-  const [screenSize, setScreenSize] = useState(handleResize());
   const screenSizeCss =
     screenSize === ScreenSize.small
       ? "small"
@@ -46,7 +50,9 @@ function App() {
   };
 
   useEffect(() => {
-    window.addEventListener("resize", () => handleResize(setScreenSize));
+    window.addEventListener("resize", () =>
+      handleResize(dispatch, updateScreenSize),
+    );
     return () => window.removeEventListener("resize", () => {});
   }, []);
 

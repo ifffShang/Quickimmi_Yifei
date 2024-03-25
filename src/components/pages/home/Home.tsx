@@ -76,7 +76,7 @@ export function Home() {
         <Highlights />
       </div>
 
-      <div className="home-section-noflex">
+      <div className="home-section center">
         <ProductFeatures />
       </div>
 

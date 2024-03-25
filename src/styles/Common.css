@@ -9,6 +9,8 @@
   --light-color: #f8f9fa;
   --dark-color: #343a40;
   --white-color: #ffffff;
+  --white-color-transparent-1: rgba(255, 255, 255, 0.2);
+  --white-color-transparent-2: rgba(255, 255, 255, 0.4);
   --black-color: #000000;
   --gray-color-1: #333333;
   --gray-color-2: #828282;

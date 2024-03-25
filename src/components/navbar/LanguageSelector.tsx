@@ -6,13 +6,15 @@ import { Cn } from "../icons/Cn";
 import "./LanguageSelector.css";
 import { ArrowDown } from "../icons/ArrowDown";
 import { useState } from "react";
-import { Language } from "../../model/Models";
+import { Language, ScreenSize } from "../../model/Models";
 
 export function LanguageSelector() {
   const dispatch = useAppDispatch();
   const selectedLanguage = useAppSelector(
     state => state.common.selectedLanguage,
   );
+  const screenSize = useAppSelector(state => state.common.screenSize);
+
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const handleChangeLanguage = (language: Language) => {
@@ -23,25 +25,34 @@ export function LanguageSelector() {
     setIsPopupOpen(false);
   };
 
-  let languageDisplay = (
-    <>
+  let languageDisplay =
+    screenSize !== ScreenSize.small ? (
+      <>
+        <En />
+        EN
+      </>
+    ) : (
       <En />
-      EN
-    </>
-  );
+    );
+
   let languageOption = (
     <div className="lang-option" onClick={() => handleChangeLanguage("cn")}>
       <Cn />
       中文
     </div>
   );
+
   if (selectedLanguage === "cn") {
-    languageDisplay = (
-      <>
+    languageDisplay =
+      screenSize !== ScreenSize.small ? (
+        <>
+          <Cn />
+          中文
+        </>
+      ) : (
         <Cn />
-        中文
-      </>
-    );
+      );
+
     languageOption = (
       <div className="lang-option" onClick={() => handleChangeLanguage("en")}>
         <En />

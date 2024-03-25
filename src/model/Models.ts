@@ -9,3 +9,9 @@ export interface Message {
 export interface ChildrenOnlyProps {
   children: React.ReactNode;
 }
+
+export enum ScreenSize {
+  small = 900,
+  medium = 1500,
+  large = 2100,
+}

@@ -1,12 +1,13 @@
 import "./Navbar.css";
 import { Link } from "react-router-dom";
-import { Button } from "antd";
+import { Button, Menu } from "antd";
 import { openModal, updateSignOutInfo } from "../../reducers/authSlice";
 import { signOut } from "aws-amplify/auth";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Logo } from "../icons/Logo";
 import LanguageSelector from "./LanguageSelector";
 import { useTranslation } from "react-i18next";
+import { MenuOutlined } from "@ant-design/icons";
 
 export function Navbar() {
   const dispatch = useAppDispatch();
@@ -23,6 +24,24 @@ export function Navbar() {
       dispatch(updateSignOutInfo());
     });
   };
+
+  let menuItems = [
+    {
+      key: "login",
+      label: t("Login"),
+      onClick: login,
+    },
+  ];
+
+  if (isLoggedIn) {
+    menuItems = [
+      {
+        key: "signout",
+        label: t("SignOut"),
+        onClick: signOutCurrentUser,
+      },
+    ];
+  }
 
   return (
     <div className="navbar-container">
@@ -42,16 +61,12 @@ export function Navbar() {
         <div className="navbar-profile">
           <LanguageSelector />
         </div>
-        <div className="navbar-profile">
-          {!isLoggedIn ? (
-            <Button type="link" onClick={login}>
-              {t("Login")}
-            </Button>
-          ) : (
-            <Button type="link" onClick={signOutCurrentUser}>
-              {t("SignOut")}
-            </Button>
-          )}
+        <div>
+          <Menu
+            mode="horizontal"
+            overflowedIndicator={<MenuOutlined />}
+            items={menuItems}
+          />
         </div>
       </div>
     </div>
