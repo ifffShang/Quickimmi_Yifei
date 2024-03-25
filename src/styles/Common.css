@@ -1,12 +1,13 @@
 :root {
   --primary-color: #27ae60;
   --primary-color-light: rgba(39, 174, 96, 0.1);
+  --primary-color-light-notrans: #ebf7ef;
   --secondary-color: #6c757d;
   --success-color: #28a745;
   --danger-color: #dc3545;
   --warning-color: #ffc107;
   --info-color: #17a2b8;
-  --light-color: #f8f9fa;
+  --light-color: #ebf7ef;
   --dark-color: #343a40;
   --white-color: #ffffff;
   --white-color-transparent-1: rgba(255, 255, 255, 0.2);
@@ -28,6 +29,9 @@
   --font-size-p2: 16px;
   --shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12),
     0 9px 28px 8px rgba(0, 0, 0, 0.05);
+  --shadow-green: 0 6px 16px 0 rgba(39, 174, 96, 0.2),
+    0 3px 6px -4px rgba(39, 174, 96, 0.12),
+    0 9px 28px 8px rgba(39, 174, 96, 0.05);
 }
 
 .font-bold {

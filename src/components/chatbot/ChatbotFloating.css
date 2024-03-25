@@ -1,0 +1,34 @@
+.chatbot-floating {
+  position: fixed;
+  bottom: 20px;
+  right: 5px;
+  z-index: 1000;
+}
+
+.chatbot-floating-wrapper {
+  position: relative;
+}
+
+.chatbot-floating-button {
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  padding: 7px;
+  border-radius: 50%;
+}
+
+.chatbot-floating-content {
+  position: absolute;
+  bottom: 0;
+  right: 10px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: 50px;
+  background-color: var(--white-color);
+  font-size: var(--font-size-p2);
+  width: 115px;
+  box-shadow: var(--shadow);
+  color: var(--primary-color);
+}
