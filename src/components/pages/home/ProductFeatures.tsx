@@ -6,13 +6,30 @@ import {
 } from "../../icons/ProductFeatures";
 import "./ProductFeatures.css";
 import { TextBlock } from "./Common";
+import { useAppSelector } from "../../../app/hooks";
+import { ScreenSize } from "../../../model/Models";
 
 function SupportedImmigrationTypes() {
-  return <div className="feature-detail">Asylum, niw, h1b, b1</div>;
+  const { t } = useTranslation();
+  return (
+    <div className="supported-immigration">
+      <div className="supported-immigration-title">
+        {t("LandingPage.SupportedImmigrationTypes")}
+      </div>
+      <div className="supported-immigration-types">
+        <div>ASYLUM</div>
+        <div>NIW</div>
+        <div>H1B</div>
+        <div>B1</div>
+      </div>
+    </div>
+  );
 }
 
 export function ProductFeatures() {
   const { t } = useTranslation();
+  const screenSize = useAppSelector(state => state.common.screenSize);
+
   return (
     <div className="product-features">
       <TextBlock
@@ -30,18 +47,32 @@ export function ProductFeatures() {
           title={t("LandingPage.AiComplete")}
           titleLevel="h2"
           description={t("LandingPage.AiCompleteDescription")}
-          align="left"
+          align={screenSize === ScreenSize.small ? "center" : "left"}
         />
         <AiComplete />
       </div>
       <div className="pf-section">
-        <AiTranslate />
-        <TextBlock
-          title={t("LandingPage.AiTranslate")}
-          titleLevel="h2"
-          description={t("LandingPage.AiTranslateDescription")}
-          align="right"
-        />
+        {screenSize === ScreenSize.small ? (
+          <>
+            <TextBlock
+              title={t("LandingPage.AiTranslate")}
+              titleLevel="h2"
+              description={t("LandingPage.AiTranslateDescription")}
+              align="center"
+            />
+            <AiTranslate />
+          </>
+        ) : (
+          <>
+            <AiTranslate />
+            <TextBlock
+              title={t("LandingPage.AiTranslate")}
+              titleLevel="h2"
+              description={t("LandingPage.AiTranslateDescription")}
+              align="right"
+            />
+          </>
+        )}
       </div>
     </div>
   );

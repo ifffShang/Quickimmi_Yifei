@@ -48,3 +48,7 @@
   color: var(--primary-color);
   margin-bottom: 20px;
 }
+
+.small .gutter-row.price {
+  font-size: var(--font-size-h3);
+}

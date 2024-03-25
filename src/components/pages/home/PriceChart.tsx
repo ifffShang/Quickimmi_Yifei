@@ -2,6 +2,8 @@ import { Col, Row } from "antd";
 import { TextBlock } from "./Common";
 import { v4 as uuidv4 } from "uuid";
 import "./PriceChart.css";
+import { useTranslation } from "react-i18next";
+import { Selected } from "../../icons/Selected";
 
 enum PriceTitle {
   PriceLevel = "PT_PriceLevel",
@@ -20,6 +22,8 @@ interface PriceChartProps {
 }
 
 export function PriceChart() {
+  const { t } = useTranslation();
+
   const rows: PriceRow[] = [
     {
       name: PriceTitle.PriceLevel,
@@ -76,9 +80,9 @@ export function PriceChart() {
   return (
     <div className="price-chart">
       <TextBlock
-        title="Affordable Good Service"
+        title={t("LandingPage.AffordableGoodService")}
         titleLevel="h2"
-        description="Price discount, service not discounted"
+        description={t("LandingPage.AffordableDescription")}
         align="center"
       />
       <div className="price-chart-detail">
@@ -150,6 +154,12 @@ function PriceRowValue({
     return (
       <Col className="gutter-row price" span={span} key={uuidv4()}>
         <div>{value}</div>
+      </Col>
+    );
+  } else if (value === "SelectIcon") {
+    return (
+      <Col className="gutter-row" span={span} key={uuidv4()}>
+        <Selected />
       </Col>
     );
   } else {

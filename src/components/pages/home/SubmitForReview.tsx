@@ -1,17 +1,18 @@
-import { Lawyer } from "../../icons/LawFirm";
+import { useTranslation } from "react-i18next";
 import {
   LawyerReview,
   ProgressNotification,
 } from "../../icons/SubmitForReview";
 import { TextBlock } from "./Common";
-import image from "./img/one.jpg";
 import "./SubmitForReview.css";
 
 export function SubmitForReview() {
+  const { t } = useTranslation();
+
   return (
     <div className="submit-review">
       <TextBlock
-        title="Submitting for review is more worry-free"
+        title={t("LandingPage.SubmitForReviewTitle")}
         titleLevel="h2"
         align="center"
         customizedCss="submit-review-title"
@@ -19,9 +20,11 @@ export function SubmitForReview() {
       <div className="submit-review-content">
         <div>
           <TextBlock
-            title="Immigration lawyer review"
+            title={t("LandingPage.SubmitForReviewLawyerReview")}
             titleLevel="h3"
-            description="xxxProfessional immigration lawyers review documents and assist with submission"
+            description={t(
+              "LandingPage.SubmitForReviewLawyerReviewDescription",
+            )}
             align="center"
             customizedCss="submit-review-subtitle"
           />
@@ -29,9 +32,11 @@ export function SubmitForReview() {
         </div>
         <div>
           <TextBlock
-            title="Progress synchronization notification"
+            title={t("LandingPage.SubmitForReviewNotification")}
             titleLevel="h3"
-            description="Supplementary information, interview and other synchronous notifications, not to miss any process"
+            description={t(
+              "LandingPage.SubmitForReviewNotificationDescription",
+            )}
             align="center"
             customizedCss="submit-review-subtitle"
           />

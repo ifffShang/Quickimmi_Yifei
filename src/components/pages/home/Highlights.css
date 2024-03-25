@@ -1,7 +1,6 @@
 .highlights {
   display: flex;
-  justify-content: center;
-  gap: 20%;
+  justify-content: space-around;
   padding: 40px 0;
   width: 100%;
 }

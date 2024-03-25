@@ -1,12 +1,13 @@
-import i18next from "i18next";
+import i18next, { use } from "i18next";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { updateLanguage } from "../../reducers/commonSlice";
 import { En } from "../icons/En";
 import { Cn } from "../icons/Cn";
 import "./LanguageSelector.css";
 import { ArrowDown } from "../icons/ArrowDown";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Language, ScreenSize } from "../../model/Models";
+import { useClickOutsideOfRef } from "../../hooks/commonHooks";
 
 export function LanguageSelector() {
   const dispatch = useAppDispatch();
@@ -16,6 +17,10 @@ export function LanguageSelector() {
   const screenSize = useAppSelector(state => state.common.screenSize);
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const componentRef = useRef<HTMLDivElement>(null);
+
+  useClickOutsideOfRef(componentRef, setIsPopupOpen);
 
   const handleChangeLanguage = (language: Language) => {
     i18next.changeLanguage(language, err => {
@@ -62,7 +67,9 @@ export function LanguageSelector() {
   }
 
   return (
-    <div className={isPopupOpen ? "lang-container popup" : "lang-container"}>
+    <div
+      ref={componentRef}
+      className={isPopupOpen ? "lang-container popup" : "lang-container"}>
       <div
         className="lang-display"
         onClick={() => setIsPopupOpen(!isPopupOpen)}>

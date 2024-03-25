@@ -1,13 +1,12 @@
 import "./Navbar.css";
 import { Link } from "react-router-dom";
-import { Button, Menu } from "antd";
 import { openModal, updateSignOutInfo } from "../../reducers/authSlice";
 import { signOut } from "aws-amplify/auth";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Logo } from "../icons/Logo";
 import LanguageSelector from "./LanguageSelector";
 import { useTranslation } from "react-i18next";
-import { MenuOutlined } from "@ant-design/icons";
+import { Menu } from "./Menu";
 
 export function Navbar() {
   const dispatch = useAppDispatch();
@@ -62,11 +61,7 @@ export function Navbar() {
           <LanguageSelector />
         </div>
         <div>
-          <Menu
-            mode="horizontal"
-            overflowedIndicator={<MenuOutlined />}
-            items={menuItems}
-          />
+          <Menu items={menuItems} />
         </div>
       </div>
     </div>

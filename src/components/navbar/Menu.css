@@ -1,14 +1,13 @@
-.lang-container {
+.menu-container {
   position: relative;
-  width: 116px;
-  padding: 10px;
+  padding: 17px;
 }
 
-.small .lang-container {
+.small .menu-container {
   width: auto;
 }
 
-.lang-display {
+.menu-display {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,7 +19,7 @@
   background-color: var(--light-color);
 }
 
-.lang-popup {
+.menu-popup {
   position: absolute;
   top: 52px;
   right: 0px;
@@ -30,7 +29,7 @@
   width: 136px;
 }
 
-.lang-option {
+.menu-option {
   display: flex;
   align-items: center;
   justify-content: center;

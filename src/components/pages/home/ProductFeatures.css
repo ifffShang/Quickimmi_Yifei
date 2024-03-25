@@ -21,3 +21,27 @@
 .small .pf-section svg {
   width: 100%;
 }
+
+.supported-immigration {
+  padding: 80px 0;
+  width: 50%;
+}
+
+.small .supported-immigration {
+  padding: 80px 0 0 0;
+  width: 90%;
+}
+
+.supported-immigration-title {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-bold);
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.supported-immigration-types {
+  display: flex;
+  justify-content: space-around;
+  gap: 10%;
+  font-weight: var(--font-weight-bold);
+}

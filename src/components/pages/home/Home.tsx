@@ -25,11 +25,15 @@ export function Home() {
     <div className="home-container">
       <div className="home-section center">
         {selectedLanguage === "cn" ? (
-          <div className="home-image landing-page-title">
+          <div
+            className="home-image landing-page-title"
+            aria-label="Fast-Track Your American Dream with AI">
             <LandingPageTitleCn />
           </div>
         ) : (
-          <div className={"home-image landing-page-title"}>
+          <div
+            className={"home-image landing-page-title"}
+            aria-label="Fast-Track Your American Dream with AI">
             <FastTrack />
           </div>
         )}

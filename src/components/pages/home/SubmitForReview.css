@@ -8,9 +8,10 @@
 
 .submit-review-content {
   display: flex;
-  flex-direction: row;
+  justify-content: space-around;
   align-items: flex-start;
   padding: 40px 0;
+  width: 100%;
 }
 
 .submit-review-content > div {
@@ -33,9 +34,11 @@
 
 .submit-review-title {
   padding-bottom: 0;
+  max-width: 900px;
 }
 
 .submit-review-subtitle {
   padding-top: 0;
   padding-bottom: 0;
+  max-width: 600px;
 }
