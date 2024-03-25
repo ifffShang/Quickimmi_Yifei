@@ -5,11 +5,13 @@ import { handleResize } from "../utils/utils";
 export interface CommonState {
   selectedLanguage: Language;
   screenSize: ScreenSize;
+  showNavbar: boolean;
 }
 
 const initialState: CommonState = {
   selectedLanguage: "en",
   screenSize: handleResize(),
+  showNavbar: true,
 };
 
 export const commonSlice = createSlice({
@@ -22,9 +24,13 @@ export const commonSlice = createSlice({
     updateScreenSize: (state, action: PayloadAction<ScreenSize>) => {
       state.screenSize = action.payload;
     },
+    updateShowNavbar: (state, action: PayloadAction<boolean>) => {
+      state.showNavbar = action.payload;
+    },
   },
 });
 
-export const { updateLanguage, updateScreenSize } = commonSlice.actions;
+export const { updateLanguage, updateScreenSize, updateShowNavbar } =
+  commonSlice.actions;
 
 export default commonSlice.reducer;

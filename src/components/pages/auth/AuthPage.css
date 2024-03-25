@@ -1,0 +1,9 @@
+.auth-page {
+  padding: 5%;
+  box-sizing: border-box;
+  height: 100vh;
+}
+
+.ant-row {
+  height: 100%;
+}

@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { closeModal } from "../../reducers/authSlice";
 import "./ModalView.css";
 import { ConfirmCode } from "./auth/ConfirmCode";
-import { SignIn } from "./auth/SignIn";
+import { SignIn } from "../pages/auth/SignIn";
 import { SignOutSccessMessage } from "./auth/SignOutSccessMessage";
 import { SignUp } from "./auth/SignUp";
 
@@ -35,9 +35,7 @@ export function ModalView() {
   }
 
   let innerModal = null;
-  if (auth.modalType === "signin") {
-    innerModal = <SignIn />;
-  } else if (auth.modalType === "signup") {
+  if (auth.modalType === "signup") {
     innerModal = <SignUp />;
   } else if (auth.modalType === "confirmcode") {
     innerModal = <ConfirmCode />;

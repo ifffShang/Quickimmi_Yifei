@@ -7,14 +7,22 @@ import { Logo } from "../icons/Logo";
 import LanguageSelector from "./LanguageSelector";
 import { useTranslation } from "react-i18next";
 import { Menu } from "./Menu";
+import { useNavigate } from "react-router-dom";
+import { updateShowNavbar } from "../../reducers/commonSlice";
 
 export function Navbar() {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
+  const showNavbar = useAppSelector(state => state.common.showNavbar);
+
+  if (!showNavbar) {
+    return null;
+  }
 
   const login = () => {
-    dispatch(openModal({ modalType: "signin" }));
+    navigate("/signin");
   };
 
   const signOutCurrentUser = () => {

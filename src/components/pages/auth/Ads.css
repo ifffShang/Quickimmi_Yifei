@@ -1,0 +1,15 @@
+.ads {
+  border-radius: 20px;
+  background-color: var(--light-color);
+  padding: 80px;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.ads svg {
+  max-width: 300px;
+  width: 100%;
+  height: auto;
+}

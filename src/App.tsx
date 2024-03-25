@@ -9,6 +9,7 @@ import { MainView } from "./router/MainView";
 import "./styles/Common.css";
 import { handleResize } from "./utils/utils";
 import { ScreenSize } from "./model/Models";
+import { ChatbotFloating } from "./components/chatbot/ChatbotFloating";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -61,6 +62,7 @@ function App() {
       <ConfigProvider componentSize="large" theme={theme}>
         <div className={`${languageCss} ${screenSizeCss}`}>
           <ModalView />
+          <ChatbotFloating />
           <Navbar />
           <MainView />
         </div>

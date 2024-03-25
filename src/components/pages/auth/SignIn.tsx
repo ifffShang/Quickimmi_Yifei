@@ -84,7 +84,7 @@ export function SignIn() {
   };
 
   return (
-    <>
+    <div className="signin">
       <div>Login</div>
       <FormInput
         placeholder={t("Email")}
@@ -107,6 +107,6 @@ export function SignIn() {
         <div>{"Doesn't have account?"}</div>
         <Link onClick={signup}>Sign Up</Link>
       </div>
-    </>
+    </div>
   );
 }
