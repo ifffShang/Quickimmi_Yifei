@@ -42,6 +42,7 @@ export interface FormInputProps {
   isRequired?: boolean;
   isPassword?: boolean;
   autoComplete?: string;
+  icon?: React.ReactNode;
 }
 export function FormInput(props: FormInputProps) {
   return (
@@ -53,6 +54,7 @@ export function FormInput(props: FormInputProps) {
             value={props.value}
             onChange={e => props.onChange(e.target.value)}
             autoComplete={props.autoComplete}
+            prefix={props.icon}
           />
         ) : (
           <Input
@@ -60,6 +62,7 @@ export function FormInput(props: FormInputProps) {
             value={props.value}
             onChange={e => props.onChange(e.target.value)}
             autoComplete={props.autoComplete}
+            prefix={props.icon}
           />
         )}
         {props.isRequired && <div className="input-required-mark">*</div>}

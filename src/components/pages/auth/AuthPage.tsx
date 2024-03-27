@@ -31,12 +31,12 @@ export function AuthPage(props: AuthContainerProps) {
 
   return (
     <div className="auth-page">
-      <Row align="stretch">
-        <Col span={11}>
+      <Row justify="center">
+        <Col span={9}>
           <Ads />
         </Col>
-        <Col span={11} offset={2}>
-          {authComponent}
+        <Col span={10} offset={1}>
+          <div className="auth-component">{authComponent}</div>
         </Col>
       </Row>
     </div>

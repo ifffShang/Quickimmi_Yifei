@@ -3,6 +3,7 @@
   --primary-color-light: rgba(39, 174, 96, 0.1);
   --primary-color-light-notrans: #ebf7ef;
   --secondary-color: #6c757d;
+  --link-color: #2b8852;
   --success-color: #28a745;
   --danger-color: #dc3545;
   --warning-color: #ffc107;
@@ -36,7 +37,7 @@
 }
 
 .font-bold {
-  font-weight: 600;
+  font-weight: var(--font-weight-bold);
 }
 
 .font-gray {

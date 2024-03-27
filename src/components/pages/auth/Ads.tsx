@@ -6,12 +6,16 @@ export function Ads() {
     <div className="ads">
       <ManAndComputer />
       <div>
-        <h2>AI for Legal</h2>
+        <h2>寻找适合的移民类型?</h2>
         <p>
-          AI for Legal is a platform that uses artificial intelligence to help
-          you with your legal needs. Whether you are a lawyer, a law student, or
-          just someone who needs help with a legal issue, AI for Legal can help
-          you.
+          试试这样问AI：
+          请帮我匹配合适的移民类型-好看的锁骨千篇一律，有趣的肚腩弹来弹去。
+          我已经在美国了-不知道有多少小伙伴跟果子一样，APP
+          一旦装上了手机，用过几次，就很少把它们卸掉，即便使用频率很低，但也会想着万一到时候能用上呢？
+          我目前的身份是学生-从病虫害探测、土壤墒情监测智能系统，再到耕、种、管、收等智能机器人，近几年来，越来越多具有自主知识产权的新技术、智能产品开始出现在农业场景中。2019年，孵化于中国科学院微电子所的中科原动力成立，创始人韩威博士希望用人工智能和自动驾驶技术，为农业发展提供全昼夜、自动化、具备精准作业能力的机器人。
+          我没有护照-人生如梦我失眠，人生如戏我穿帮，人生如歌我跑调。
+          我合法进入美国-一个人的完美之处，在于找出自身的缺点
+          我没有工作-昨天遇见小学同班同学，没想到他混的这么差，只往我碗里放了一块钱。
         </p>
       </div>
     </div>

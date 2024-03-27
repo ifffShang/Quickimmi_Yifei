@@ -1,9 +1,16 @@
 .auth-page {
-  padding: 5%;
+  padding: 10% 5%;
   box-sizing: border-box;
   height: 100vh;
 }
 
 .ant-row {
   height: 100%;
+}
+
+.auth-component {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
 }

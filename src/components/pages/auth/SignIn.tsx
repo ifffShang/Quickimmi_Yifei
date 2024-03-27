@@ -12,6 +12,9 @@ import { useAppDispatch } from "../../../app/hooks";
 import { openModal, updateLoginInfo } from "../../../reducers/authSlice";
 import { FormInput } from "../../common/Controls";
 import { ErrorMessage } from "../../common/Fonts";
+import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import "./SignIn.css";
+import { Logo } from "../../icons/Logo";
 
 export function SignIn() {
   const dispatch = useAppDispatch();
@@ -84,28 +87,45 @@ export function SignIn() {
   };
 
   return (
-    <div className="signin">
-      <div>Login</div>
-      <FormInput
-        placeholder={t("Email")}
-        value={email}
-        onChange={setEmail}
-        autoComplete="email"
-      />
-      <FormInput
-        placeholder={t("Password")}
-        value={password}
-        onChange={setPassword}
-        isPassword={true}
-      />
-      <Link onClick={forgotPasswordLinkClick}>Forgot Password?</Link>
-      <Button type="primary" onClick={loginUser}>
-        Login
-      </Button>
-      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-      <div className="single-line">
-        <div>{"Doesn't have account?"}</div>
-        <Link onClick={signup}>Sign Up</Link>
+    <div className="auth-container signin">
+      <div className="auth-brand">
+        <Logo />
+      </div>
+
+      <div className="auth-form">
+        <div className="auth-title">Login</div>
+        <FormInput
+          placeholder={t("Enter your email")}
+          value={email}
+          onChange={setEmail}
+          autoComplete="email"
+          icon={<UserOutlined />}
+        />
+        <FormInput
+          placeholder={t("Enter your password")}
+          value={password}
+          onChange={setPassword}
+          isPassword={true}
+          icon={<LockOutlined />}
+        />
+        <div className="auth-actions">
+          <Link onClick={forgotPasswordLinkClick}>Forgot Password?</Link>
+          <Button type="primary" onClick={loginUser}>
+            Login
+          </Button>
+        </div>
+        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+      </div>
+
+      <div className="auth-bottom single-line">
+        <div className="auth-bottom-top">
+          <div>{"Doesn't have account?"}</div>
+          <Link onClick={signup}>Sign Up</Link>
+        </div>
+        <div>
+          By signing up, I agree to the QuickImmi&apos;s Privacy Statement and
+          Terms of Service.
+        </div>
       </div>
     </div>
   );

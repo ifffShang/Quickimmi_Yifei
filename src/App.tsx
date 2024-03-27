@@ -1,15 +1,16 @@
-import { ConfigProvider, ThemeConfig } from "antd";
+import { ConfigProvider } from "antd";
 import { useEffect } from "react";
 import "./App.css";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
+import { ChatbotFloating } from "./components/chatbot/ChatbotFloating";
 import { ModalView } from "./components/modals/ModalView";
 import { Navbar } from "./components/navbar/Navbar";
+import { ScreenSize } from "./model/Models";
 import { updateScreenSize } from "./reducers/commonSlice";
 import { MainView } from "./router/MainView";
 import "./styles/Common.css";
+import { getAntTheme } from "./utils/theme";
 import { handleResize } from "./utils/utils";
-import { ScreenSize } from "./model/Models";
-import { ChatbotFloating } from "./components/chatbot/ChatbotFloating";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -27,29 +28,6 @@ function App() {
         ? "medium"
         : "large";
 
-  const primaryColor: string = getComputedStyle(
-    document.documentElement,
-  ).getPropertyValue("--primary-color");
-
-  const theme: ThemeConfig = {
-    token: {
-      boxShadow: "none",
-    },
-    components: {
-      Button: {
-        colorPrimary: primaryColor,
-        borderRadius: 4,
-        primaryShadow: "none",
-        algorithm: true, // Enable algorithm
-      },
-      Input: {
-        colorPrimary: primaryColor,
-        borderRadius: 4,
-        algorithm: true, // Enable algorithm
-      },
-    },
-  };
-
   useEffect(() => {
     window.addEventListener("resize", () =>
       handleResize(dispatch, updateScreenSize),
@@ -59,7 +37,7 @@ function App() {
 
   return (
     <div className="App">
-      <ConfigProvider componentSize="large" theme={theme}>
+      <ConfigProvider componentSize="large" theme={getAntTheme()}>
         <div className={`${languageCss} ${screenSizeCss}`}>
           <ModalView />
           <ChatbotFloating />
