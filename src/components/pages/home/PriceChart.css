@@ -13,14 +13,19 @@
   color: var(--gray-color-2);
 }
 
+.price-chart-detail .ant-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .gutter-row {
-  text-align: center;
   border-bottom: 1px solid var(--gray-color-3);
   padding: 20px 0;
 }
 
 .gutter-row.name {
-  text-align: left;
+  justify-content: flex-start;
 }
 
 .gutter-row.header {
@@ -41,6 +46,10 @@
   margin-bottom: 20px;
 }
 
+.small .gutter-row.price-level {
+  font-size: var(--font-size-h4);
+}
+
 .gutter-row.price {
   border: none;
   font-size: var(--font-size-h2);
@@ -50,5 +59,10 @@
 }
 
 .small .gutter-row.price {
-  font-size: var(--font-size-h3);
+  font-size: var(--font-size-h4);
+}
+
+.small .gutter-row svg {
+  height: 20px;
+  width: 20px;
 }

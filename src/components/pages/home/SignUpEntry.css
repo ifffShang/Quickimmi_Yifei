@@ -12,9 +12,15 @@
   margin-bottom: 80px;
 }
 
+.small .signup-entry-header {
+  font-size: var(--font-size-h3);
+  line-height: 40px;
+}
+
 .signup-entry-text {
   position: relative;
   display: inline-block;
+  width: 90%;
 }
 
 .signup-entry-text svg {

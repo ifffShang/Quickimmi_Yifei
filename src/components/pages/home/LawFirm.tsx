@@ -8,7 +8,7 @@ export function LawFirm() {
   return (
     <div className="lawfirm">
       <div className="lawfirm-text">{t("LandingPage.CooperativeLawFirm")}</div>
-      <img src="/img/lawfirm.png" width="350" />
+      <img src="/img/lawfirm.png" />
       <div className="lawfirm-lawyer">
         <Lawyer />
       </div>

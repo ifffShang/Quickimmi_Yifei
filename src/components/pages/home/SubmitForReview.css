@@ -28,6 +28,10 @@
   justify-content: center;
 }
 
+.small .submit-review-content .text-block {
+  padding: 0;
+}
+
 .submit-review-content svg {
   width: 100%;
 }

@@ -23,7 +23,10 @@
 
 .home-section-background {
   position: absolute;
-  background-color: var(--primary-color-light);
+  background-image: linear-gradient(
+    var(--white-color),
+    var(--primary-color-light)
+  );
   height: 72px;
   width: 100%;
   z-index: -999;

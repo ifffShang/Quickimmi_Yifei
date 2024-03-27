@@ -29,7 +29,7 @@ function FooterLinks() {
         </ul>
       </div>
       <div>
-        <h3>Friendly link</h3>
+        <h3>Compare</h3>
         <ul>
           <li>移民局网站</li>
         </ul>

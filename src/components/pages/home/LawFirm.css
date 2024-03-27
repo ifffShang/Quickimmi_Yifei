@@ -23,3 +23,11 @@
 .small .lawfirm-lawyer {
   display: none;
 }
+
+.lawfirm img {
+  width: 350px;
+}
+
+.small .lawfirm img {
+  width: 250px;
+}
