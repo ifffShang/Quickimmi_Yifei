@@ -14,6 +14,7 @@ export function MainView() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<AuthPage type="signin" />} />
+        <Route path="/signup" element={<AuthPage type="signup" />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/newcase" element={<NewCase />} />
         <Route path="/checkout" element={<Checkout />} />

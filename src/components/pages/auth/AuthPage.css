@@ -4,13 +4,44 @@
   height: 100vh;
 }
 
-.ant-row {
-  height: 100%;
+.small .auth-page {
+  height: auto;
+  padding: 40px;
 }
 
 .auth-component {
-  display: flex;
-  flex-direction: column;
   height: 100%;
   width: 100%;
+}
+
+.auth-row {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.small .auth-row {
+  flex-direction: column;
+}
+
+.auth-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-col.col-left {
+  width: 40%;
+}
+
+.auth-col.col-right {
+  width: 60%;
+}
+
+.small .auth-col {
+  width: 100%;
+}
+
+.small .auth-form {
+  margin-bottom: 40px;
 }

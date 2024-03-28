@@ -1,10 +1,11 @@
-import { Ads } from "./Ads";
-import { SignIn } from "./SignIn";
-import "./AuthPage.css";
-import { Col, Row } from "antd";
 import { useEffect } from "react";
-import { useAppDispatch } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { ScreenSize } from "../../../model/Models";
 import { updateShowNavbar } from "../../../reducers/commonSlice";
+import { Ads } from "./Ads";
+import "./AuthPage.css";
+import { SignIn } from "./SignIn";
+import { SignUp } from "./SignUp";
 
 export interface AuthContainerProps {
   type: "signin" | "signup" | "forgotpassword" | "resetpassword";
@@ -13,12 +14,14 @@ export interface AuthContainerProps {
 export function AuthPage(props: AuthContainerProps) {
   const dispatch = useAppDispatch();
 
+  const screenSize = useAppSelector(state => state.common.screenSize);
+
   let authComponent;
   if (props.type === "signin") {
     authComponent = <SignIn />;
+  } else if (props.type === "signup") {
+    authComponent = <SignUp />;
   }
-  // } else if (props.component === "signup") {
-  //   authComponent = <SignUp />;
   // } else if (props.component === "forgotpassword") {
   //   authComponent = <ForgotPassword />;
   // } else if (props.component === "resetpassword") {
@@ -31,14 +34,25 @@ export function AuthPage(props: AuthContainerProps) {
 
   return (
     <div className="auth-page">
-      <Row justify="center">
-        <Col span={9}>
-          <Ads />
-        </Col>
-        <Col span={10} offset={1}>
-          <div className="auth-component">{authComponent}</div>
-        </Col>
-      </Row>
+      {screenSize === ScreenSize.small ? (
+        <div className="auth-row">
+          <div className="auth-col">
+            <div className="auth-component">{authComponent}</div>
+          </div>
+          <div className="auth-col">
+            <Ads />
+          </div>
+        </div>
+      ) : (
+        <div className="auth-row">
+          <div className="auth-col col-left">
+            <Ads />
+          </div>
+          <div className="auth-col col-right">
+            <div className="auth-component">{authComponent}</div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

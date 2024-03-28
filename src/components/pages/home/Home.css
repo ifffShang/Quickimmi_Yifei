@@ -1,3 +1,7 @@
+.home-container .ant-btn-lg {
+  border-radius: 4px;
+}
+
 .home-container {
   padding: 0;
   margin: 80px 0;

@@ -1,5 +1,14 @@
 .error-message {
   color: var(--danger-color);
-  font-size: 12px;
+  font-size: var(--font-size-p3);
+  line-height: var(--line-height-p3);
   margin-top: 5px;
+}
+
+.normal {
+  font-size: var(--font-size-p2);
+}
+
+.secondary {
+  color: var(--gray-color-6);
 }

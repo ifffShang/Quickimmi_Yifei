@@ -46,7 +46,7 @@ export interface FormInputProps {
 }
 export function FormInput(props: FormInputProps) {
   return (
-    <div>
+    <div className="form-input-container">
       <div className="input-form">
         {props.isPassword ? (
           <Input.Password

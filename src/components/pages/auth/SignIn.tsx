@@ -1,3 +1,4 @@
+import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import Link from "antd/es/typography/Link";
 import {
@@ -12,13 +13,14 @@ import { useAppDispatch } from "../../../app/hooks";
 import { openModal, updateLoginInfo } from "../../../reducers/authSlice";
 import { FormInput } from "../../common/Controls";
 import { ErrorMessage } from "../../common/Fonts";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import "./SignIn.css";
-import { Logo } from "../../icons/Logo";
+import { Text } from "../../common/Fonts";
+import { AuthComponent } from "./AuthComponent";
+import { useNavigate } from "react-router-dom";
 
 export function SignIn() {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
+  const navigation = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -26,10 +28,6 @@ export function SignIn() {
   useEffect(() => {
     setErrorMessage("");
   }, [email, password]);
-
-  const signup = () => {
-    dispatch(openModal({ modalType: "signup" }));
-  };
 
   const loginUser = async () => {
     try {
@@ -86,47 +84,60 @@ export function SignIn() {
     }
   };
 
+  const form = (
+    <>
+      <FormInput
+        placeholder={t("Email address")}
+        value={email}
+        onChange={setEmail}
+        autoComplete="email"
+        icon={<MailOutlined className="site-form-item-icon" />}
+      />
+      <FormInput
+        placeholder={t("Password")}
+        value={password}
+        onChange={setPassword}
+        isPassword={true}
+        icon={<LockOutlined className="site-form-item-icon" />}
+      />
+    </>
+  );
+
+  const actions = (
+    <>
+      <Link onClick={forgotPasswordLinkClick}>Forgot Password?</Link>
+      <Button type="primary" onClick={loginUser}>
+        Login
+      </Button>
+    </>
+  );
+
+  const error = errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>;
+
+  const bottomTop = (
+    <>
+      <Text>{"Doesn't have account?"}</Text>
+      <Link onClick={() => navigation("/signup")}>Sign Up</Link>
+    </>
+  );
+
+  const bottomBottom = (
+    <>
+      <Text color="secondary">
+        By signing up, I agree to the QuickImmi&apos;s Privacy Statement and
+        Terms of Service.
+      </Text>
+    </>
+  );
+
   return (
-    <div className="auth-container signin">
-      <div className="auth-brand">
-        <Logo />
-      </div>
-
-      <div className="auth-form">
-        <div className="auth-title">Login</div>
-        <FormInput
-          placeholder={t("Enter your email")}
-          value={email}
-          onChange={setEmail}
-          autoComplete="email"
-          icon={<UserOutlined />}
-        />
-        <FormInput
-          placeholder={t("Enter your password")}
-          value={password}
-          onChange={setPassword}
-          isPassword={true}
-          icon={<LockOutlined />}
-        />
-        <div className="auth-actions">
-          <Link onClick={forgotPasswordLinkClick}>Forgot Password?</Link>
-          <Button type="primary" onClick={loginUser}>
-            Login
-          </Button>
-        </div>
-        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-      </div>
-
-      <div className="auth-bottom single-line">
-        <div className="auth-bottom-top">
-          <div>{"Doesn't have account?"}</div>
-          <Link onClick={signup}>Sign Up</Link>
-        </div>
-        <div>
-          By signing up, I agree to the QuickImmi&apos;s Privacy Statement and
-          Terms of Service.
-        </div>
-      </div>
-    </div>
+    <AuthComponent
+      formHeader="Sign In"
+      form={form}
+      actions={actions}
+      error={error}
+      bottomTop={bottomTop}
+      bottomBottom={bottomBottom}
+    />
   );
 }

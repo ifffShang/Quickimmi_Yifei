@@ -24,7 +24,8 @@ export function getAntTheme() {
     components: {
       Button: {
         colorPrimary: primaryColor,
-        borderRadius: 4,
+        borderRadius: 25,
+        borderRadiusLG: 25,
         primaryShadow: "none",
         fontWeight: fontWeight,
         algorithm: true, // Enable algorithm

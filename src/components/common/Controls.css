@@ -1,3 +1,7 @@
+.form-input-container {
+  position: relative;
+}
+
 .input-form {
   position: relative;
   margin-bottom: 40px;
@@ -8,4 +12,14 @@
   color: var(--danger-color);
   top: 0;
   right: -10px;
+}
+
+.site-form-item-icon {
+  color: rgba(0, 0, 0, 0.25);
+  margin-right: 5px;
+}
+
+.form-input-container .error-message {
+  position: absolute;
+  top: 42px;
 }

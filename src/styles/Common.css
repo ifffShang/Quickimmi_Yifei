@@ -19,6 +19,7 @@
   --gray-color-3: #e0e0e0;
   --gray-color-4: #f2f2f2;
   --gray-color-5: #4f4f4f;
+  --gray-color-6: #bdbdbd;
   --body-bg: #f8f9fa;
   --body-color: #212529;
   --border-radius: 0.25rem;
@@ -29,6 +30,8 @@
   --font-size-h4: 20px;
   --font-size-p1: 20px;
   --font-size-p2: 16px;
+  --font-size-p3: 12px;
+  --line-height-p3: 16px;
   --shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12),
     0 9px 28px 8px rgba(0, 0, 0, 0.05);
   --shadow-green: 0 6px 16px 0 rgba(39, 174, 96, 0.2),
