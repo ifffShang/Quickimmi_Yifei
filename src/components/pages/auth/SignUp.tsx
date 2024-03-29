@@ -35,17 +35,7 @@ export function SignUp() {
       return;
     }
 
-    signUp({
-      username: email,
-      password,
-      options: {
-        userAttributes: {
-          email,
-          given_name: firstName || "Unknown",
-          family_name: lastName || "Unknown",
-        },
-      },
-    })
+    signUp({ username: email, password })
       .then(({ nextStep }) => {
         if (nextStep.signUpStep === "CONFIRM_SIGN_UP") {
           dispatch(

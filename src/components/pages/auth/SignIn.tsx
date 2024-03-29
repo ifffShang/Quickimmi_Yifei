@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 export function SignIn() {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const navigation = useNavigate();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -48,6 +48,7 @@ export function SignIn() {
             accessToken: session.tokens?.accessToken?.toString(),
           }),
         );
+        navigate("/dashboard");
       } else if (nextStep?.signInStep === "CONFIRM_SIGN_UP") {
         await resendSignUpCode({ username: email });
         dispatch(
@@ -59,7 +60,10 @@ export function SignIn() {
         );
       }
     } catch (error: any) {
-      console.log("Error logging in: ", error);
+      if (error?.message === "Incorrect username or password.") {
+        setErrorMessage("Incorrect username or password.");
+        return;
+      }
       setErrorMessage("Cannot login with provided credentials.");
     }
   };
@@ -117,7 +121,7 @@ export function SignIn() {
   const bottomTop = (
     <>
       <Text>{"Doesn't have account?"}</Text>
-      <Link onClick={() => navigation("/signup")}>Sign Up</Link>
+      <Link onClick={() => navigate("/signup")}>Sign Up</Link>
     </>
   );
 
