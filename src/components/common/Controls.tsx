@@ -2,6 +2,7 @@ import React from "react";
 import { Input } from "antd";
 import { ErrorMessage } from "./Fonts";
 import "./Controls.css";
+import { useTranslation } from "react-i18next";
 
 export interface TextBoxProps {
   label: string;
@@ -36,8 +37,7 @@ export interface FormInputProps {
   value: string;
   placeholder: string;
   onChange: (value: string) => void;
-  validate?: (value: string) => boolean;
-  errorMessage?: string;
+  validate?: (value: string) => string;
   showErrorMessage?: boolean;
   isRequired?: boolean;
   isPassword?: boolean;
@@ -45,6 +45,9 @@ export interface FormInputProps {
   icon?: React.ReactNode;
 }
 export function FormInput(props: FormInputProps) {
+  const { t } = useTranslation();
+  const errorMessage = props.validate ? props.validate(props.value) : "";
+
   return (
     <div className="form-input-container">
       <div className="input-form">
@@ -55,6 +58,7 @@ export function FormInput(props: FormInputProps) {
             onChange={e => props.onChange(e.target.value)}
             autoComplete={props.autoComplete}
             prefix={props.icon}
+            status={props.showErrorMessage && errorMessage ? "error" : ""}
           />
         ) : (
           <Input
@@ -63,15 +67,14 @@ export function FormInput(props: FormInputProps) {
             onChange={e => props.onChange(e.target.value)}
             autoComplete={props.autoComplete}
             prefix={props.icon}
+            status={props.showErrorMessage && errorMessage ? "error" : ""}
           />
         )}
         {props.isRequired && <div className="input-required-mark">*</div>}
       </div>
-      {props.showErrorMessage &&
-        props.validate &&
-        !props.validate(props.value) && (
-          <ErrorMessage>{props.errorMessage}</ErrorMessage>
-        )}
+      {props.showErrorMessage && errorMessage && (
+        <ErrorMessage>{t(errorMessage)}</ErrorMessage>
+      )}
     </div>
   );
 }
