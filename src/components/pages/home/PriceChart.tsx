@@ -85,9 +85,9 @@ export function PriceChart() {
         description={t("LandingPage.AffordableDescription")}
         align="center"
       />
-      <div className="price-chart-detail">
+      {/* <div className="price-chart-detail">
         <PriceRow rows={rows} />
-      </div>
+      </div> */}
     </div>
   );
 }

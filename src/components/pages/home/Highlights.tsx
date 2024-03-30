@@ -42,6 +42,11 @@ export function Highlights() {
         title={t("LandingPage.TransparentPrice")}
         description={t("LandingPage.TransparentPriceDescription")}
       />
+      <Highlight
+        icon={<TransparentCost />}
+        title={t("LandingPage.TrackProgress")}
+        description={t("LandingPage.TrackProgressDescription")}
+      />
     </div>
   );
 }
