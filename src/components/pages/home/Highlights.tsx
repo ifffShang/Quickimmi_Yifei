@@ -3,6 +3,7 @@ import {
   AiAssist,
   ProfessionalLaywer,
   TransparentCost,
+  FastTrack
 } from "../../icons/Highlights";
 import { useTranslation } from "react-i18next";
 import "./Highlights.css";
@@ -43,7 +44,7 @@ export function Highlights() {
         description={t("LandingPage.TransparentPriceDescription")}
       />
       <Highlight
-        icon={<TransparentCost />}
+        icon={<FastTrack />}
         title={t("LandingPage.TrackProgress")}
         description={t("LandingPage.TrackProgressDescription")}
       />
