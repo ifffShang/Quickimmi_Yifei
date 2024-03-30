@@ -37,12 +37,12 @@ export function Home() {
             <FastTrack />
           </div>
         )}
-        <div className="home-text fast-track-description">
+        {/* <div className="home-text fast-track-description">
           <Trans>
             <div>{t("LandingPage.FastTrackDescription1")}</div>
             <div>{t("LandingPage.FastTrackDescription2")}</div>
           </Trans>
-        </div>
+        </div> */}
         <a
           href="https://forms.gle/7i85vwVHMbsBSe3a8"
           target="_blank"
