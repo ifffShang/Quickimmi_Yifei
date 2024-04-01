@@ -3,7 +3,7 @@ import {
   AiAssist,
   ProfessionalLaywer,
   TransparentCost,
-  FastTrack
+  FastTrack,
 } from "../../icons/Highlights";
 import { useTranslation } from "react-i18next";
 import "./Highlights.css";

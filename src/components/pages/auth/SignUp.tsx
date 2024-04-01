@@ -5,8 +5,12 @@ import { signUp } from "aws-amplify/auth";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
-import { openModal } from "../../../reducers/authSlice";
-import { validateEmail, validatePassword } from "../../../utils/validators";
+import { updateAuthState } from "../../../reducers/authSlice";
+import {
+  validateEmail,
+  validatePassword,
+  validatePasswordConfirmation,
+} from "../../../utils/validators";
 import { FormInput } from "../../common/Controls";
 import { ErrorMessage } from "../../common/Fonts";
 import { Text } from "../../common/Fonts";
@@ -16,22 +20,26 @@ import { useNavigate } from "react-router-dom";
 export function SignUp() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const navigation = useNavigate();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showFormInputErrorMessage, setShowFormInputErrorMessage] =
+    useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    setShowErrorMessage(false);
+    setShowFormInputErrorMessage(false);
     setErrorMessage("");
   }, [email, password]);
 
   const signUpButtonOnClick = async () => {
-    if (!validateEmail(email) || !validatePassword(password)) {
-      setShowErrorMessage(true);
+    if (
+      validateEmail(email) !== "" ||
+      validatePassword(password) !== "" ||
+      validatePasswordConfirmation(password, confirmPassword) !== ""
+    ) {
+      setShowFormInputErrorMessage(true);
       return;
     }
 
@@ -39,15 +47,14 @@ export function SignUp() {
       .then(({ nextStep }) => {
         if (nextStep.signUpStep === "CONFIRM_SIGN_UP") {
           dispatch(
-            openModal({
-              modalType: "confirmcode",
+            updateAuthState({
               email,
             }),
           );
           return;
         }
         if (nextStep.signUpStep === "DONE") {
-          dispatch(openModal({ modalType: "signin" }));
+          navigate("/signin");
           return;
         }
       })
@@ -69,30 +76,30 @@ export function SignUp() {
         placeholder={t("Email address")}
         value={email}
         icon={<MailOutlined className="site-form-item-icon" />}
-        errorMessage={t("ErrorMessage.InvalidEmailFormat")}
         onChange={setEmail}
         validate={validateEmail}
-        showErrorMessage={showErrorMessage}
+        showErrorMessage={showFormInputErrorMessage}
+        autoComplete="new-email"
       />
       <FormInput
         placeholder={t("Password")}
         value={password}
         icon={<LockOutlined className="site-form-item-icon" />}
-        errorMessage={t("ErrorMessage.InvalidPasswordFormat")}
         onChange={setPassword}
         validate={validatePassword}
-        showErrorMessage={showErrorMessage}
+        showErrorMessage={showFormInputErrorMessage}
         isPassword={true}
+        autoComplete="new-password"
       />
       <FormInput
         placeholder={t("Confirm password")}
-        value={password}
+        value={confirmPassword}
         icon={<LockOutlined className="site-form-item-icon" />}
-        errorMessage={t("ErrorMessage.InvalidPasswordFormat")}
-        onChange={setPassword}
-        validate={validatePassword}
-        showErrorMessage={showErrorMessage}
+        onChange={setConfirmPassword}
+        validate={() => validatePasswordConfirmation(password, confirmPassword)}
+        showErrorMessage={showFormInputErrorMessage}
         isPassword={true}
+        autoComplete="new-password"
       />
     </>
   );
@@ -108,7 +115,7 @@ export function SignUp() {
   const bottomTop = (
     <>
       <Text>Already a member?</Text>
-      <Link onClick={() => navigation("/signin")}>Login in</Link>
+      <Link onClick={() => navigate("/signin")}>Login in</Link>
     </>
   );
 

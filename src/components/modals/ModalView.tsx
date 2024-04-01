@@ -1,10 +1,8 @@
 import Link from "antd/es/typography/Link";
 import { ReactNode, useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { closeModal } from "../../reducers/authSlice";
+import { closeModal } from "../../reducers/commonSlice";
 import "./ModalView.css";
-import { ConfirmCode } from "./auth/ConfirmCode";
-import { SignOutSccessMessage } from "./auth/SignOutSccessMessage";
 
 function Modal({ children }: { children?: ReactNode }) {
   const dispatch = useAppDispatch();
@@ -26,18 +24,18 @@ function Modal({ children }: { children?: ReactNode }) {
 }
 
 export function ModalView() {
-  const auth = useAppSelector(state => state.auth);
+  const common = useAppSelector(state => state.common);
 
-  if (!auth.showModal) {
+  if (!common.showModal) {
     return null;
   }
 
-  let innerModal = null;
-  if (auth.modalType === "confirmcode") {
-    innerModal = <ConfirmCode />;
-  } else if (auth.modalType === "signoutsccess") {
-    innerModal = <SignOutSccessMessage />;
-  }
+  const innerModal = null;
+  // if (common.modalType === "confirmcode") {
+  //   innerModal = <ConfirmCode />;
+  // } else if (common.modalType === "signoutsccess") {
+  //   innerModal = <SignOutSccessMessage />;
+  // }
 
   return <Modal>{innerModal}</Modal>;
 }

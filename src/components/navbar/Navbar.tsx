@@ -1,21 +1,21 @@
-import "./Navbar.css";
-import { Link } from "react-router-dom";
-import { openModal, updateSignOutInfo } from "../../reducers/authSlice";
 import { signOut } from "aws-amplify/auth";
+import { useTranslation } from "react-i18next";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { resetAuthState } from "../../reducers/authSlice";
 import { Logo } from "../icons/Logo";
 import LanguageSelector from "./LanguageSelector";
-import { useTranslation } from "react-i18next";
 import { Menu } from "./Menu";
-import { useNavigate } from "react-router-dom";
-import { updateShowNavbar } from "../../reducers/commonSlice";
+import "./Navbar.css";
+import { isAuthPath } from "../../utils/utils";
 
 export function Navbar() {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const location = useLocation();
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
-  const showNavbar = useAppSelector(state => state.common.showNavbar);
+  const showNavbar = !isAuthPath(location.pathname);
 
   if (!showNavbar) {
     return null;
@@ -28,7 +28,7 @@ export function Navbar() {
   const signOutCurrentUser = () => {
     signOut().then(() => {
       console.log("User signed out");
-      dispatch(updateSignOutInfo());
+      dispatch(resetAuthState());
     });
   };
 

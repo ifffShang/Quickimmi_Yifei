@@ -1,7 +1,7 @@
-import { LockOutlined, MailOutlined } from "@ant-design/icons";
+import { MailOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import Link from "antd/es/typography/Link";
-import { fetchAuthSession, resendSignUpCode, signIn } from "aws-amplify/auth";
+import { resetPassword } from "aws-amplify/auth";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -10,14 +10,13 @@ import { updateAuthState } from "../../../reducers/authSlice";
 import { FormInput } from "../../common/Controls";
 import { ErrorMessage, Text } from "../../common/Fonts";
 import { AuthComponent } from "./AuthComponent";
-import { validateEmail, validatePassword } from "../../../utils/validators";
+import { validateEmail } from "../../../utils/validators";
 
-export function SignIn() {
+export function ForgotPassword() {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [showFormInputErrorMessage, setShowFormInputErrorMessage] =
     useState(false);
@@ -25,45 +24,29 @@ export function SignIn() {
   useEffect(() => {
     setShowFormInputErrorMessage(false);
     setErrorMessage("");
-  }, [email, password]);
+  }, [email]);
 
-  const loginUser = async () => {
+  const forgotPasswordLinkClick = async () => {
     try {
-      if (validateEmail(email) !== "" || validatePassword(password) !== "") {
+      if (validateEmail(email) !== "") {
         setShowFormInputErrorMessage(true);
         return;
       }
-      const { isSignedIn, nextStep } = await signIn({
-        username: email,
-        password,
-      });
-      if (isSignedIn) {
-        const session = await fetchAuthSession();
+      const { nextStep } = await resetPassword({ username: email });
+      if (nextStep.resetPasswordStep === "CONFIRM_RESET_PASSWORD_WITH_CODE") {
         dispatch(
           updateAuthState({
-            isLoggedIn: true,
-            email,
-            accessToken: session.tokens?.accessToken?.toString(),
-          }),
-        );
-        navigate("/dashboard");
-      } else if (nextStep?.signInStep === "CONFIRM_SIGN_UP") {
-        await resendSignUpCode({ username: email });
-        dispatch(
-          updateAuthState({
-            prevStep: "signin",
+            prevStep: "forgotpassword",
             email,
           }),
         );
-        navigate("/signup");
+        navigate("/confirmcode");
+      } else {
+        console.log("Successfully reset password: ", nextStep);
       }
-    } catch (error: any) {
-      if (error?.message === "Incorrect username or password.") {
-        setErrorMessage(t("ErrorMessage.IncorrectEmailOrPassword"));
-        return;
-      }
-      console.error("Error signing in: ", error);
-      setErrorMessage(t("ErrorMessage.ErrorSigningIn"));
+    } catch (error) {
+      console.error("Error sending forgot password: ", error);
+      setErrorMessage("Error sending forgot password.");
     }
   };
 
@@ -75,26 +58,16 @@ export function SignIn() {
         onChange={setEmail}
         validate={validateEmail}
         showErrorMessage={showFormInputErrorMessage}
-        autoComplete="email"
+        autoComplete="new-email"
         icon={<MailOutlined className="site-form-item-icon" />}
-      />
-      <FormInput
-        placeholder={t("Password")}
-        value={password}
-        onChange={setPassword}
-        validate={validatePassword}
-        showErrorMessage={showFormInputErrorMessage}
-        isPassword={true}
-        icon={<LockOutlined className="site-form-item-icon" />}
       />
     </>
   );
 
   const actions = (
     <>
-      <Link onClick={() => navigate("/forgotpassword")}>Forgot Password?</Link>
-      <Button type="primary" onClick={loginUser}>
-        Login
+      <Button type="primary" onClick={forgotPasswordLinkClick}>
+        Next
       </Button>
     </>
   );
@@ -119,7 +92,7 @@ export function SignIn() {
 
   return (
     <AuthComponent
-      formHeader="Sign In"
+      formHeader="Forgot Password?"
       form={form}
       actions={actions}
       error={error}

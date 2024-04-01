@@ -3,6 +3,7 @@ import { Language, ScreenSize } from "../model/Models";
 import { handleResize } from "../utils/utils";
 
 export interface CommonState {
+  showModal?: boolean;
   selectedLanguage: Language;
   screenSize: ScreenSize;
   showNavbar: boolean;
@@ -27,10 +28,17 @@ export const commonSlice = createSlice({
     updateShowNavbar: (state, action: PayloadAction<boolean>) => {
       state.showNavbar = action.payload;
     },
+    closeModal: state => {
+      state.showModal = false;
+    },
   },
 });
 
-export const { updateLanguage, updateScreenSize, updateShowNavbar } =
-  commonSlice.actions;
+export const {
+  updateLanguage,
+  updateScreenSize,
+  updateShowNavbar,
+  closeModal,
+} = commonSlice.actions;
 
 export default commonSlice.reducer;

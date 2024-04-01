@@ -1,14 +1,15 @@
-import React from "react";
 import { Amplify } from "aws-amplify";
-import awsExports from "./aws-exports";
+import React from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
-import { store } from "./app/store";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
+import { PersistGate } from "redux-persist/integration/react";
+import App from "./App";
+import { persistor, store } from "./app/store";
+import awsExports from "./aws-exports";
 import "./index.css";
 import "./locales/i18n";
+import reportWebVitals from "./reportWebVitals";
 
 // Configure Amplify in index file or root file
 Amplify.configure({
@@ -26,9 +27,11 @@ const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
   </React.StrictMode>,
 );

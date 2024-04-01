@@ -8,13 +8,15 @@ import {
 } from "aws-amplify/auth";
 import React, { useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { openModal } from "../../../reducers/authSlice";
+import { updateAuthState } from "../../../reducers/authSlice";
 import { FormInput } from "../../common/Controls";
 import { ErrorMessage } from "../../common/Fonts";
 import "./ConfirmCode.css";
+import { useNavigate } from "react-router-dom";
 
 export function ConfirmCode() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [code, setCode] = useState(["", "", "", "", "", ""]);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -71,7 +73,7 @@ export function ConfirmCode() {
             "Password is reset successfully. You will be redirected to login in 5 seconds...",
           );
           setTimeout(() => {
-            dispatch(openModal({ modalType: "signin" }));
+            navigate("/signin");
           }, 5000);
         } catch (error: any) {
           if (error?.name === "CodeMismatchException") {
@@ -99,7 +101,7 @@ export function ConfirmCode() {
               "Sign up confirmed. You will be redirected to login in 5 seconds...",
             );
             setTimeout(() => {
-              dispatch(openModal({ modalType: "signin" }));
+              navigate("/signin");
             }, 5000);
           } else {
             setErrorMessage("Error confirming sign up. Please try again.");

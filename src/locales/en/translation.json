@@ -36,10 +36,22 @@
   "EnterCaseDetails": "Enter Case Details",
   "ErrorMessage": {
     "InvalidPasswordFormat": "Password must be at least 8 characters, and contain at least 1 number, 1 uppercase letter, and 1 lowercase letter",
-    "InvalidEmailFormat": "Invalid email format"
+    "InvalidEmailFormat": "Invalid email format",
+    "EmailRequired": "Please enter your email address",
+    "PasswordRequired": "Please enter your password",
+    "ConfirmPasswordRequired": "Please confirm your password",
+    "PasswordsDoNotMatch": "Passwords do not match",
+    "IncorrectEmailOrPassword": "Incorrect email or password",
+    "ErrorSigningIn": "Cannot login with provided credentials. Please try again later",
+    "CodeRequired": "Please enter the verification code",
+    "InvalidCodeFormat": "Verification code must be a 6-digit number"
   },
   "Email": "Email",
   "Password": "Password",
+  "NewPassword": "New Password",
   "ConfirmPassword": "Confirm Password",
-  "PhoneNumber": "Phone Number"
+  "ConfirmNewPassword": "Enter New Password Again",
+  "VerificationCode": "Verification Code",
+  "PhoneNumber": "Phone Number",
+  "InputConfirmationCode": "Please input the verification code sent to: "
 }

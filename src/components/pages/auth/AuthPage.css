@@ -22,7 +22,7 @@
 }
 
 .small .auth-row {
-  flex-direction: column;
+  flex-direction: column-reverse;
 }
 
 .auth-col {
