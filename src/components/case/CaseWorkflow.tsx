@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import FORM589 from "../../forms/i589.json";
 import { Workflow } from "../../model/CaseModels";
 import { CaseStepNavigation } from "./CaseStepNavigation";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
@@ -38,5 +37,5 @@ export function CaseWorkflow() {
 }
 
 export async function getWorkflow(): Promise<Workflow> {
-  return Promise.resolve(FORM589 as unknown as Workflow);
+  return Promise.resolve({} as Workflow);
 }
