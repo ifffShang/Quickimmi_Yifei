@@ -12,6 +12,7 @@ export const PATH = {
   SignUp: "/signup",
   ForgotPassword: "/forgotpassword",
   ConfirmCode: "/confirmcode",
+  AuthSuccess: "/authsuccess",
   Dashboard: "/dashboard",
   NewCase: "/newcase",
   Checkout: "/checkout",
@@ -31,6 +32,10 @@ export function MainView() {
         <Route
           path={PATH.ConfirmCode}
           element={<AuthPage type="confirmcode" />}
+        />
+        <Route
+          path={PATH.AuthSuccess}
+          element={<AuthPage type="authsuccess" />}
         />
         <Route path={PATH.Dashboard} element={<Dashboard />} />
         <Route path={PATH.NewCase} element={<NewCase />} />

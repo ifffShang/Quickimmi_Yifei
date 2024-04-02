@@ -85,6 +85,7 @@ export function SignIn() {
         validate={validatePassword}
         showErrorMessage={showFormInputErrorMessage}
         isPassword={true}
+        autoComplete="password"
         icon={<LockOutlined className="site-form-item-icon" />}
       />
     </>

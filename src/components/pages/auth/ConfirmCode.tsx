@@ -10,8 +10,7 @@ import {
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { updateAuthState } from "../../../reducers/authSlice";
+import { useAppSelector } from "../../../app/hooks";
 import {
   validateCode,
   validatePassword,
@@ -23,7 +22,6 @@ import { AuthComponent } from "./AuthComponent";
 import "./ConfirmCode.css";
 
 export function ConfirmCode() {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
   const auth = useAppSelector(state => state.auth);
@@ -58,9 +56,7 @@ export function ConfirmCode() {
           confirmationCode: verificationCode,
         });
         setErrorMessage("");
-        setTimeout(() => {
-          navigate("/signin");
-        }, 5000);
+        navigate("/authsuccess");
       } catch (error: any) {
         if (error?.name === "CodeMismatchException") {
           setErrorMessage("Invalid verification code.");
@@ -81,9 +77,7 @@ export function ConfirmCode() {
         });
         if (isSignUpComplete) {
           setErrorMessage("");
-          setTimeout(() => {
-            navigate("/signin");
-          }, 5000);
+          navigate("/authsuccess");
         } else {
           setErrorMessage("Error confirming sign up. Please try again.");
         }
@@ -121,45 +115,76 @@ export function ConfirmCode() {
     }
   };
 
-  const form = (
-    <>
-      <div className="confirm-code-description">
-        <Text color="secondary">{t("InputConfirmationCode") + auth.email}</Text>
-        <Link onClick={resendCode}>Resend code</Link>
-      </div>
-      <FormInput
-        placeholder={t("VerificationCode")}
-        value={verificationCode}
-        icon={<SafetyOutlined className="site-form-item-icon" />}
-        onChange={setVerificationCodeWithInputCheck}
-        validate={validateCode}
-        showErrorMessage={showFormInputErrorMessage}
-        autoComplete="new-code"
-      />
-      <FormInput
-        placeholder={t("NewPassword")}
-        value={newPassword}
-        icon={<LockOutlined className="site-form-item-icon" />}
-        onChange={setNewPassword}
-        validate={validatePassword}
-        showErrorMessage={showFormInputErrorMessage}
-        isPassword={true}
-        autoComplete="new-password"
-      />
-      <FormInput
-        placeholder={t("ConfirmNewPassword")}
-        value={confirmPassword}
-        icon={<LockOutlined className="site-form-item-icon" />}
-        onChange={setConfirmPassword}
-        validate={() =>
-          validatePasswordConfirmation(newPassword, confirmPassword)
-        }
-        showErrorMessage={showFormInputErrorMessage}
-        isPassword={true}
-        autoComplete="new-password"
-      />
-    </>
-  );
+  let form,
+    header = "";
+
+  if (auth.prevStep === "forgotpassword") {
+    header = "Forgot Password?";
+    form = (
+      <>
+        <div className="confirm-code-description">
+          <Text color="secondary">
+            {t("InputConfirmationCode") + auth.email}
+          </Text>
+          <Link onClick={resendCode}>Resend code</Link>
+        </div>
+        <FormInput
+          placeholder={t("VerificationCode")}
+          value={verificationCode}
+          icon={<SafetyOutlined className="site-form-item-icon" />}
+          onChange={setVerificationCodeWithInputCheck}
+          validate={validateCode}
+          showErrorMessage={showFormInputErrorMessage}
+          autoComplete="new-code"
+        />
+        <FormInput
+          placeholder={t("NewPassword")}
+          value={newPassword}
+          icon={<LockOutlined className="site-form-item-icon" />}
+          onChange={setNewPassword}
+          validate={validatePassword}
+          showErrorMessage={showFormInputErrorMessage}
+          isPassword={true}
+          autoComplete="new-password"
+        />
+        <FormInput
+          placeholder={t("ConfirmNewPassword")}
+          value={confirmPassword}
+          icon={<LockOutlined className="site-form-item-icon" />}
+          onChange={setConfirmPassword}
+          validate={() =>
+            validatePasswordConfirmation(newPassword, confirmPassword)
+          }
+          showErrorMessage={showFormInputErrorMessage}
+          isPassword={true}
+          autoComplete="new-password"
+        />
+      </>
+    );
+  }
+
+  if (auth.prevStep === "signup" || auth.prevStep === "signin") {
+    header = "Confirm Code";
+    form = (
+      <>
+        <div className="confirm-code-description">
+          <Text color="secondary">
+            {t("InputConfirmationCode") + auth.email}
+          </Text>
+          <Link onClick={resendCode}>Resend code</Link>
+        </div>
+        <FormInput
+          placeholder={t("VerificationCode")}
+          value={verificationCode}
+          icon={<SafetyOutlined className="site-form-item-icon" />}
+          onChange={setVerificationCodeWithInputCheck}
+          validate={validateCode}
+          showErrorMessage={showFormInputErrorMessage}
+          autoComplete="new-code"
+        />
+      </>
+    );
+  }
 
   const actions = (
     <>
@@ -189,7 +214,7 @@ export function ConfirmCode() {
 
   return (
     <AuthComponent
-      formHeader="Forgot Password?"
+      formHeader={header}
       form={form}
       actions={actions}
       error={error}

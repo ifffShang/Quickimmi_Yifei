@@ -1,10 +1,8 @@
-import { Link, useNavigate } from "react-router-dom";
-import { BillingSummary } from "../../payment/BillingSummary";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../../app/hooks";
 
 export function Dashboard() {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
 
@@ -16,9 +14,7 @@ export function Dashboard() {
 
   return (
     <div>
-      <h1>Dashboard</h1>
-      <Link to="/newCase">Apply</Link>
-      <BillingSummary />
+      <Link to="/newCase">Start a new case</Link>
     </div>
   );
 }

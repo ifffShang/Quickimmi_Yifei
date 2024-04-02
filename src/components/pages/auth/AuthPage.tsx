@@ -7,9 +7,10 @@ import { SignIn } from "./SignIn";
 import { SignUp } from "./SignUp";
 import { ForgotPassword } from "./ForgotPassword";
 import { ConfirmCode } from "./ConfirmCode";
+import { AuthSuccess } from "./AuthSuccess";
 
 export interface AuthContainerProps {
-  type: "signin" | "signup" | "forgotpassword" | "confirmcode";
+  type: "signin" | "signup" | "forgotpassword" | "confirmcode" | "authsuccess";
 }
 
 export function AuthPage(props: AuthContainerProps) {
@@ -24,6 +25,8 @@ export function AuthPage(props: AuthContainerProps) {
     authComponent = <ForgotPassword />;
   } else if (props.type === "confirmcode") {
     authComponent = <ConfirmCode />;
+  } else if (props.type === "authsuccess") {
+    authComponent = <AuthSuccess />;
   }
 
   return (

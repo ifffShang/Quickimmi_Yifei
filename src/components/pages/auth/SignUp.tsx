@@ -48,12 +48,13 @@ export function SignUp() {
         if (nextStep.signUpStep === "CONFIRM_SIGN_UP") {
           dispatch(
             updateAuthState({
+              prevStep: "signup",
               email,
             }),
           );
+          navigate("/confirmcode");
           return;
-        }
-        if (nextStep.signUpStep === "DONE") {
+        } else if (nextStep.signUpStep === "DONE") {
           navigate("/signin");
           return;
         }
