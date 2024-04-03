@@ -1,19 +1,19 @@
 import { Button } from "antd";
-import { Trans, useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import ReactPlayer from "react-player";
 import { useAppSelector } from "../../../app/hooks";
 import { Buildings } from "../../icons/Buildings";
 import { FastTrack } from "../../icons/FastTrack";
-import { LandingPageTitleCn } from "../../icons/LandingPageTitleCn";
+import { FastTrackCn } from "../../icons/FastTrackCn";
 import { StatueOfLiberty } from "../../icons/StatueOfLiberty";
-import "./Home.css";
-import { Highlights } from "./Highlights";
-import { ProductFeatures } from "./ProductFeatures";
-import { PriceChart } from "./PriceChart";
-import { SubmitForReview } from "./SubmitForReview";
-import { LawFirm } from "./LawFirm";
-import { SignUpEntry } from "./SignUpEntry";
 import { Footer } from "./Footer";
+import { Highlights } from "./Highlights";
+import "./Home.css";
+import { LawFirm } from "./LawFirm";
+import { PriceChart } from "./PriceChart";
+import { ProductFeatures } from "./ProductFeatures";
+import { SignUpEntry } from "./SignUpEntry";
+import { SubmitForReview } from "./SubmitForReview";
 
 export function Home() {
   const { t } = useTranslation();
@@ -28,7 +28,7 @@ export function Home() {
           <div
             className="home-image landing-page-title"
             aria-label="Fast-Track Your American Dream with AI">
-            <LandingPageTitleCn />
+            <FastTrackCn />
           </div>
         ) : (
           <div

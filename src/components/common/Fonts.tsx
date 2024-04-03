@@ -7,8 +7,8 @@ export function ErrorMessage({ children }: ChildrenOnlyProps) {
 
 export interface TextProps {
   children: string | JSX.Element;
-  level?: "normal";
-  color?: "primary" | "secondary";
+  level?: "large" | "normal" | "small";
+  color?: "primary" | "secondary" | "gray";
 }
 
 export function Text(props: TextProps) {

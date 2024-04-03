@@ -5,10 +5,23 @@
   margin-top: 5px;
 }
 
-.normal {
+.text.secondary {
+  color: var(--gray-color-6);
+}
+
+.text.gray {
+  color: var(--gray-color-7);
+}
+
+.text.large {
+  font-weight: 600;
+  font-size: var(--font-size-h3);
+}
+
+.text.small {
   font-size: var(--font-size-p2);
 }
 
-.secondary {
-  color: var(--gray-color-6);
+.text.normal {
+  font-size: var(--font-size-p2);
 }

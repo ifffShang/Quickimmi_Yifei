@@ -4,6 +4,8 @@ import { v4 as uuidv4 } from "uuid";
 import "./PriceChart.css";
 import { useTranslation } from "react-i18next";
 import { Selected } from "../../icons/Selected";
+import { PriceApplicant, PriceLaywer, RoundCheck } from "../../icons/PriceArea";
+import { Text } from "../../common/Fonts";
 
 enum PriceTitle {
   PriceLevel = "PT_PriceLevel",
@@ -85,9 +87,56 @@ export function PriceChart() {
         description={t("LandingPage.AffordableDescription")}
         align="center"
       />
+      <div className="price-areas">
+        <PriceBox
+          title={t("LandingPage.Lawyer")}
+          description={[
+            t("LandingPage.StableCustomers"),
+            t("LandingPage.FastCheckout"),
+            t("LandingPage.CheapServiceFee"),
+            t("LandingPage.StripeIntegration"),
+          ]}
+          icon={<PriceLaywer />}
+        />
+        <PriceBox
+          title={t("LandingPage.Applicant")}
+          description={[
+            t("LandingPage.VerifiedLawyers"),
+            t("LandingPage.StripeIntegration"),
+            t("LandingPage.MultipleWayToPay"),
+            t("LandingPage.RefundableBeforeService"),
+          ]}
+          icon={<PriceApplicant />}
+        />
+      </div>
       {/* <div className="price-chart-detail">
         <PriceRow rows={rows} />
       </div> */}
+    </div>
+  );
+}
+
+export interface PriceBoxProps {
+  title: string;
+  description: string[];
+  icon: React.ReactNode;
+}
+
+function PriceBox(props: PriceBoxProps) {
+  return (
+    <div className="price-area">
+      <div className="price-area-icon">{props.icon}</div>
+      <Text level="large">{props.title}</Text>
+      <div className="price-area-description">
+        {props.description.map((desc, index) => (
+          <div className="price-area-description-item" key={index}>
+            <RoundCheck />
+            <Text level="small" color="gray">
+              {desc}
+            </Text>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
