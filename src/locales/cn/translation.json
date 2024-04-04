@@ -1,4 +1,13 @@
 {
+  "Home": "首页",
+  "AboutUs": "关于我们",
+  "AboutQuickimmi": "关于 Quickimmi",
+  "Pricing": "价格",
+  "Policies": "政策",
+  "TermsService": "服务条款",
+  "PrivacyPolicy": "隐私政策",
+  "ImmigrationWebsite": "移民局网站",
+  "Compare": "比较",
   "Login": "登录",
   "SignUp": "注册",
   "SignOut": "退出",

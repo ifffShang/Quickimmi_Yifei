@@ -1,8 +1,10 @@
-import { Col, Row } from "antd";
-import { Logo, QuickImmiLight } from "../../icons/Logo";
+import { useTranslation } from "react-i18next";
+import { QuickImmiLight } from "../../icons/Logo";
 import "./Footer.css";
 
 export function Footer() {
+  const { t } = useTranslation();
+
   return (
     <div className="footer">
       <div className="footer-brand">
@@ -17,28 +19,29 @@ export function Footer() {
 }
 
 function FooterLinks() {
+  const { t } = useTranslation();
+
   return (
     <div className="footer-links">
       <div>
-        <h3>About us</h3>
+        <h3>{t("AboutUs")}</h3>
         <ul>
-          <li>Home</li>
-          <li>About Quickimmi</li>
-          <li>Send an email</li>
-          <li>Pricing</li>
+          <li>{t("Home")}</li>
+          <li>{t("AboutQuickimmi")}</li>
+          <li>{t("Pricing")}</li>
         </ul>
       </div>
       <div>
-        <h3>Compare</h3>
+        <h3>{t("Compare")}</h3>
         <ul>
-          <li>移民局网站</li>
+          <li>{t("ImmigrationWebsite")}</li>
         </ul>
       </div>
       <div>
-        <h3>Policies</h3>
+        <h3>{t("Policies")}</h3>
         <ul>
-          <li>Terms of service</li>
-          <li>Privacy policy</li>
+          <li>{t("TermsService")}</li>
+          <li>{t("PrivacyPolicy")}</li>
         </ul>
       </div>
     </div>

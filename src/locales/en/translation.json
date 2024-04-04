@@ -1,4 +1,12 @@
 {
+  "Home": "Home",
+  "AboutUs": "About us",
+  "AboutQuickimmi": "About Quickimmi",
+  "Pricing": "Pricing",
+  "Policies": "Policies",
+  "TermsService": "Terms of Service",
+  "PrivacyPolicy": "Privacy Policy",
+  "ImmigrationWebsite": "Immigration website",
   "Login": "Log in",
   "SignUp": "Sign up",
   "SignOut": "Sign out",
