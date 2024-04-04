@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../../app/hooks";
 import { updateAuthState } from "../../../reducers/authSlice";
 import { FormInput } from "../../common/Controls";
-import { ErrorMessage, Text } from "../../common/Fonts";
+import { ErrorMessage, QText } from "../../common/Fonts";
 import { AuthComponent } from "./AuthComponent";
 import { validateEmail } from "../../../utils/validators";
 
@@ -76,17 +76,17 @@ export function ForgotPassword() {
 
   const bottomTop = (
     <>
-      <Text>{"Doesn't have account?"}</Text>
+      <QText>{"Doesn't have account?"}</QText>
       <Link onClick={() => navigate("/signup")}>Sign Up</Link>
     </>
   );
 
   const bottomBottom = (
     <>
-      <Text color="secondary">
+      <QText color="secondary">
         By signing up, I agree to the QuickImmi&apos;s Privacy Statement and
         Terms of Service.
-      </Text>
+      </QText>
     </>
   );
 

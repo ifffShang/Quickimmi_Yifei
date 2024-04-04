@@ -1,4 +1,9 @@
 .navbar-container {
+  position: fixed;
+  box-sizing: border-box;
+  width: 100%;
+  background-color: white;
+  z-index: 1200;
   display: flex;
   justify-content: space-between;
   align-items: center;

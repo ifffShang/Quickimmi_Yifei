@@ -1,0 +1,21 @@
+.contact-us-icon {
+  margin-top: 100px;
+}
+
+.contact-us-icon svg {
+  display: block;
+  margin: 0 auto;
+  max-width: 500px;
+}
+
+.contact-us-icon.quickimmi {
+  max-width: 400px;
+  margin: 0 auto;
+  margin-top: 60px;
+}
+
+.contact-us-line {
+  width: 100%;
+  border-bottom: 1px solid var(--line-color);
+  margin-top: -8px;
+}

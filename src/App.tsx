@@ -38,7 +38,7 @@ function App() {
   return (
     <div className="App">
       <ConfigProvider componentSize="large" theme={getAntTheme()}>
-        <div className={`${languageCss} ${screenSizeCss}`}>
+        <div className={`appview ${languageCss} ${screenSizeCss}`}>
           <ModalView />
           <ChatbotFloating />
           <Navbar />

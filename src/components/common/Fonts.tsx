@@ -11,7 +11,12 @@ export interface TextProps {
   color?: "primary" | "secondary" | "gray";
 }
 
-export function Text(props: TextProps) {
+/**
+ * Quickimmi style text component
+ * @param props
+ * @returns
+ */
+export function QText(props: TextProps) {
   const textClass = `text ${props.level || "normal"} ${props.color || "primary"}`;
   return <div className={textClass}>{props.children}</div>;
 }

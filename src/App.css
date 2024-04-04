@@ -5,6 +5,11 @@
   height: 100vh;
 }
 
+.appview {
+  display: flex;
+  height: 100%;
+}
+
 .cn {
   font-family: "PingFang SC", sans-serif;
 }

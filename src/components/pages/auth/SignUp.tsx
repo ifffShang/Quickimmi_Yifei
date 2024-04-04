@@ -13,7 +13,7 @@ import {
 } from "../../../utils/validators";
 import { FormInput } from "../../common/Controls";
 import { ErrorMessage } from "../../common/Fonts";
-import { Text } from "../../common/Fonts";
+import { QText } from "../../common/Fonts";
 import { AuthComponent } from "./AuthComponent";
 import { useNavigate } from "react-router-dom";
 
@@ -115,16 +115,16 @@ export function SignUp() {
 
   const bottomTop = (
     <>
-      <Text>Already a member?</Text>
+      <QText>Already a member?</QText>
       <Link onClick={() => navigate("/signin")}>Login in</Link>
     </>
   );
 
   const bottomBottom = (
-    <Text color="secondary">
+    <QText color="secondary">
       By signing up, I agree to the QuickImmi&apos;s Privacy Statement and Terms
       of Service.
-    </Text>
+    </QText>
   );
 
   const error = errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>;

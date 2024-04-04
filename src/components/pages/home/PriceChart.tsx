@@ -5,7 +5,7 @@ import "./PriceChart.css";
 import { useTranslation } from "react-i18next";
 import { Selected } from "../../icons/Selected";
 import { PriceApplicant, PriceLaywer, RoundCheck } from "../../icons/PriceArea";
-import { Text } from "../../common/Fonts";
+import { QText } from "../../common/Fonts";
 
 enum PriceTitle {
   PriceLevel = "PT_PriceLevel",
@@ -126,14 +126,14 @@ function PriceBox(props: PriceBoxProps) {
   return (
     <div className="price-area">
       <div className="price-area-icon">{props.icon}</div>
-      <Text level="large">{props.title}</Text>
+      <QText level="large">{props.title}</QText>
       <div className="price-area-description">
         {props.description.map((desc, index) => (
           <div className="price-area-description-item" key={index}>
             <RoundCheck />
-            <Text level="small" color="gray">
+            <QText level="small" color="gray">
               {desc}
-            </Text>
+            </QText>
           </div>
         ))}
       </div>

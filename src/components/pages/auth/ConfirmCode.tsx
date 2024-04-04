@@ -17,7 +17,7 @@ import {
   validatePasswordConfirmation,
 } from "../../../utils/validators";
 import { FormInput } from "../../common/Controls";
-import { ErrorMessage, Text } from "../../common/Fonts";
+import { ErrorMessage, QText } from "../../common/Fonts";
 import { AuthComponent } from "./AuthComponent";
 import "./ConfirmCode.css";
 
@@ -123,9 +123,9 @@ export function ConfirmCode() {
     form = (
       <>
         <div className="confirm-code-description">
-          <Text color="secondary">
+          <QText color="secondary">
             {t("InputConfirmationCode") + auth.email}
-          </Text>
+          </QText>
           <Link onClick={resendCode}>Resend code</Link>
         </div>
         <FormInput
@@ -168,9 +168,9 @@ export function ConfirmCode() {
     form = (
       <>
         <div className="confirm-code-description">
-          <Text color="secondary">
+          <QText color="secondary">
             {t("InputConfirmationCode") + auth.email}
-          </Text>
+          </QText>
           <Link onClick={resendCode}>Resend code</Link>
         </div>
         <FormInput
@@ -198,17 +198,17 @@ export function ConfirmCode() {
 
   const bottomTop = (
     <>
-      <Text>{"Doesn't have account?"}</Text>
+      <QText>{"Doesn't have account?"}</QText>
       <Link onClick={() => navigate("/signup")}>Sign Up</Link>
     </>
   );
 
   const bottomBottom = (
     <>
-      <Text color="secondary">
+      <QText color="secondary">
         By signing up, I agree to the QuickImmi&apos;s Privacy Statement and
         Terms of Service.
-      </Text>
+      </QText>
     </>
   );
 

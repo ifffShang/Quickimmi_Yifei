@@ -5,6 +5,7 @@ import { Home } from "../components/pages/home/Home";
 import { NewCase } from "../components/pages/newCase/NewCase";
 import { Checkout } from "../components/payment/Checkout";
 import "./MainView.css";
+import { SinglePageView } from "../components/pages/singlePage/SinglePageView";
 
 export const PATH = {
   Home: "/",
@@ -16,6 +17,9 @@ export const PATH = {
   Dashboard: "/dashboard",
   NewCase: "/newcase",
   Checkout: "/checkout",
+  TermsOfService: "/termsofservice",
+  PrivacyPolicy: "/privacypolicy",
+  ContactUs: "/contactus",
 };
 
 export function MainView() {
@@ -40,6 +44,18 @@ export function MainView() {
         <Route path={PATH.Dashboard} element={<Dashboard />} />
         <Route path={PATH.NewCase} element={<NewCase />} />
         <Route path={PATH.Checkout} element={<Checkout />} />
+        <Route
+          path={PATH.TermsOfService}
+          element={<SinglePageView type="termsofservice" />}
+        />
+        <Route
+          path={PATH.PrivacyPolicy}
+          element={<SinglePageView type="privacypolicy" />}
+        />
+        <Route
+          path={PATH.ContactUs}
+          element={<SinglePageView type="contactus" />}
+        />
       </Routes>
     </div>
   );

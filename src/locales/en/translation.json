@@ -11,6 +11,7 @@
   "SignUp": "Sign up",
   "SignOut": "Sign out",
   "LandingPage": {
+    "BrandText": "Fast-Track Your American Dream with AI",
     "Lawyer": "Lawyer",
     "Applicant": "Applicant",
     "StableCustomers": "Stable source of customers",
@@ -48,6 +49,9 @@
     "JoinWaitingList": "Join the waiting list",
     "FastTrackDescription1": "Revolutionize your U.S. immigration process with cutting-edge AI, fast-tracking your American dream.",
     "FastTrackDescription2": "<strong>Professional</strong> lawyers then perfect the information to <strong>ensure</strong> a <strong>foolproof</strong> application"
+  },
+  "SinglePage": {
+    "ReturnHome": "Return to Home"
   },
   "SelectCaseType": "Select Case Type",
   "EnterCaseDetails": "Enter Case Details",

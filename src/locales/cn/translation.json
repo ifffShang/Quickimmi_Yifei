@@ -12,6 +12,7 @@
   "SignUp": "注册",
   "SignOut": "退出",
   "LandingPage": {
+    "BrandText": "AI助力，快速移民，轻松实现美国梦",
     "Lawyer": "律师",
     "Applicant": "申请人",
     "StableCustomers": "稳定的客户来源",
@@ -49,6 +50,9 @@
     "JoinWaitingList": "加入等待名单",
     "FastTrackDescription1": "用尖端AI革新您的美国移民过程，快速实现您的美国梦。",
     "FastTrackDescription2": "<strong>专业</strong>律师然后完善信息以<strong>确保</strong>一个<strong>万无一失</strong>的申请"
+  },
+  "SinglePage": {
+    "ReturnHome": "返回主页"
   },
   "SelectCaseType": "选择申请类型",
   "EnterCaseDetails": "填写信息",
