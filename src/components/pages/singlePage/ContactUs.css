@@ -1,0 +1,57 @@
+.contact-us-icon {
+  margin-top: 100px;
+}
+
+.contact-us-icon svg {
+  display: block;
+  margin: 0 auto;
+  max-width: 500px;
+}
+
+.contact-us-icon.quickimmi {
+  max-width: 400px;
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 60px;
+}
+
+.contact-us-line {
+  width: 100%;
+  border-bottom: 1px solid var(--line-color);
+  margin-top: -8px;
+}
+
+.xsmall .contact-us-line {
+  margin-top: -6px;
+}
+
+.contact-us-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 0px;
+  width: 100%;
+}
+
+.xsmall .contact-us-content,
+.small .contact-us-content,
+.medium .contact-us-content {
+  flex-direction: column;
+  align-items: center;
+}
+
+.contact-us-content > div {
+  padding: 0 80px;
+  text-align: center;
+}
+
+.contact-us-content > .phone {
+  border-right: 1px solid var(--gray-color-3);
+  border-left: 1px solid var(--gray-color-3);
+}
+
+.xsmall .contact-us-content > .phone,
+.small .contact-us-content > .phone,
+.medium .contact-us-content > .phone {
+  border: none;
+}

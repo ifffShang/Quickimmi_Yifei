@@ -1,5 +1,40 @@
 .error-message {
   color: var(--danger-color);
-  font-size: 12px;
+  font-size: var(--font-size-p3);
+  line-height: var(--line-height-p3);
   margin-top: 5px;
+}
+
+.text.secondary {
+  color: var(--gray-color-6);
+}
+
+.text.gray {
+  color: var(--gray-color-7);
+}
+
+.text.large {
+  font-weight: 600;
+  font-size: var(--font-size-h3);
+}
+
+.text.small {
+  font-size: var(--font-size-p2);
+}
+
+.text.normal {
+  font-size: var(--font-size-p2);
+}
+
+.text.normal.bold {
+  font-size: var(--font-size-p2);
+  font-weight: 600;
+}
+
+.text.margin-bottom-10 {
+  margin-bottom: 10px;
+}
+
+.text.primary {
+  color: var(--primary-color);
 }

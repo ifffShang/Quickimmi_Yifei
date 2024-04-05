@@ -1,0 +1,41 @@
+.single-page-view {
+  background-color: var(--gray-color-4);
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  overflow: hidden;
+}
+
+.single-page-return {
+  margin: 20px 40px 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: var(--gray-color-2);
+  gap: 10px;
+}
+
+.single-page-return svg {
+  fill: var(--primary-color);
+  width: 15px;
+}
+
+.single-page-return:hover {
+  color: var(--primary-color);
+}
+
+.single-page-content {
+  flex-grow: 1;
+  margin: 20px 40px 40px;
+  padding: 60px;
+  background-color: var(--white-color);
+  border-radius: 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.xsmall .single-page-content,
+.small .single-page-content {
+  padding: 40px;
+  margin: 20px;
+}

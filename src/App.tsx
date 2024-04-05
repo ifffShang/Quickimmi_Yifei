@@ -1,37 +1,52 @@
+import { ConfigProvider } from "antd";
+import { useEffect } from "react";
 import "./App.css";
+import { useAppDispatch, useAppSelector } from "./app/hooks";
+import { ChatbotFloating } from "./components/chatbot/ChatbotFloating";
 import { ModalView } from "./components/modals/ModalView";
 import { Navbar } from "./components/navbar/Navbar";
+import { ScreenSize } from "./model/Models";
+import { updateScreenSize } from "./reducers/commonSlice";
 import { MainView } from "./router/MainView";
-import { useAppSelector } from "./app/hooks";
-import { useEffect, useState } from "react";
-import { ScreenSize, handleResize } from "./utils/utils";
+import "./styles/Common.css";
+import { getAntTheme } from "./utils/theme";
+import { handleResize } from "./utils/utils";
 
 function App() {
+  const dispatch = useAppDispatch();
   const selectedLanguage = useAppSelector(
     state => state.common.selectedLanguage,
   );
+  const screenSize = useAppSelector(state => state.common.screenSize);
+
   const languageCss = selectedLanguage === "cn" ? "cn" : "en";
 
-  const [screenSize, setScreenSize] = useState(handleResize());
   const screenSizeCss =
-    screenSize === ScreenSize.small
-      ? "small"
-      : screenSize === ScreenSize.medium
-        ? "medium"
-        : "large";
+    screenSize === ScreenSize.xsmall
+      ? "xsmall"
+      : screenSize === ScreenSize.small
+        ? "small"
+        : screenSize === ScreenSize.medium
+          ? "medium"
+          : "large";
 
   useEffect(() => {
-    window.addEventListener("resize", () => handleResize(setScreenSize));
+    window.addEventListener("resize", () =>
+      handleResize(dispatch, updateScreenSize),
+    );
     return () => window.removeEventListener("resize", () => {});
   }, []);
 
   return (
     <div className="App">
-      <div className={`${languageCss} ${screenSizeCss}`}>
-        <ModalView />
-        <Navbar />
-        <MainView />
-      </div>
+      <ConfigProvider componentSize="large" theme={getAntTheme()}>
+        <div className={`appview ${languageCss} ${screenSizeCss}`}>
+          <ModalView />
+          <ChatbotFloating />
+          <Navbar />
+          <MainView />
+        </div>
+      </ConfigProvider>
     </div>
   );
 }

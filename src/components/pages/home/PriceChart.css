@@ -1,0 +1,125 @@
+.price-chart {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  padding-bottom: 100px;
+}
+
+.xsmall .price-chart,
+.small .price-chart {
+  padding-bottom: 40px;
+}
+
+.price-areas {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px 0;
+  gap: 40px;
+}
+
+.xsmall .price-areas,
+.small .price-areas {
+  flex-direction: column;
+  padding-top: 80px;
+  gap: 120px;
+}
+
+.price-area {
+  background-color: var(--gray-color-4);
+  padding: 0 40px 40px;
+  max-width: 600px;
+}
+
+.price-area-icon {
+  margin-top: -70px;
+}
+
+.price-area-description {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.price-area-description-item {
+  flex: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 20px 0 0;
+}
+
+.medium .price-area-description-item {
+  flex: 100%;
+}
+
+.xsmall .price-area-description-item,
+.small .price-area-description-item {
+  flex: 100%;
+}
+
+.price-chart-detail {
+  width: calc(100% - 40px);
+  color: var(--gray-color-2);
+}
+
+.price-chart-detail .ant-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gutter-row {
+  border-bottom: 1px solid var(--gray-color-3);
+  padding: 20px 0;
+}
+
+.gutter-row.name {
+  justify-content: flex-start;
+}
+
+.gutter-row.header {
+  color: var(--gray-color-1);
+  font-weight: var(--font-weight-bold);
+}
+
+.gutter-row.title {
+  border: none;
+  color: var(--gray-color-1);
+}
+
+.gutter-row.price-level {
+  border: none;
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-bold);
+  color: var(--gray-color-1);
+  margin-bottom: 20px;
+}
+
+.xsmall .gutter-row.price-level,
+.small .gutter-row.price-level {
+  font-size: var(--font-size-h4);
+}
+
+.gutter-row.price {
+  border: none;
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-bold);
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.xsmall .gutter-row.price,
+.small .gutter-row.price {
+  font-size: var(--font-size-h4);
+}
+
+.xsmall .gutter-row svg,
+.small .gutter-row svg {
+  height: 20px;
+  width: 20px;
+}

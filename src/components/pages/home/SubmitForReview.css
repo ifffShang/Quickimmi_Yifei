@@ -1,0 +1,50 @@
+.submit-review {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+}
+
+.submit-review-content {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 40px 0;
+  width: 100%;
+}
+
+.submit-review-content > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.xsmall .submit-review-content,
+.small .submit-review-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.xsmall .submit-review-content .text-block,
+.small .submit-review-content .text-block {
+  padding: 0;
+}
+
+.submit-review-content svg {
+  width: 100%;
+}
+
+.submit-review-title {
+  padding-bottom: 0;
+  max-width: 900px;
+}
+
+.submit-review-subtitle {
+  padding-top: 0;
+  padding-bottom: 0;
+  max-width: 600px;
+}

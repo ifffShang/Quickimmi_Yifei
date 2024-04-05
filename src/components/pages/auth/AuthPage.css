@@ -1,0 +1,51 @@
+.auth-page {
+  padding: 10% 5%;
+  box-sizing: border-box;
+  height: 100vh;
+}
+
+.xsmall .auth-page,
+.small .auth-page {
+  height: auto;
+  padding: 40px;
+}
+
+.auth-component {
+  height: 100%;
+  width: 100%;
+}
+
+.auth-row {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.xsmall .auth-row,
+.small .auth-row {
+  flex-direction: column-reverse;
+}
+
+.auth-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-col.col-left {
+  width: 40%;
+}
+
+.auth-col.col-right {
+  width: 60%;
+}
+
+.xsmall .auth-col,
+.small .auth-col {
+  width: 100%;
+}
+
+.xsmall .auth-form,
+.small .auth-form {
+  margin-bottom: 40px;
+}

@@ -1,0 +1,26 @@
+.ads {
+  border-radius: 20px;
+  background-color: var(--gray-color-4);
+  padding: 80px;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+  max-width: 800px;
+  align-self: flex-end;
+}
+
+.xsmall .ads,
+.small .ads {
+  padding: 40px;
+  margin-top: 80px;
+}
+
+.ads svg {
+  max-width: 300px;
+  width: 100%;
+  height: auto;
+}

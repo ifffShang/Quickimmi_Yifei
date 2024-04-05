@@ -1,22 +1,32 @@
 .navbar-container {
+  position: fixed;
+  box-sizing: border-box;
+  width: 100%;
+  background-color: white;
+  z-index: 1200;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 80px;
-  height: 80px;
+  padding: 10px 80px;
 }
 
+.xsmall .navbar-container,
 .small .navbar-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 10px;
-  height: 80px;
+  padding: 10px 10px;
 }
 
 .navbar-group {
   display: flex;
-  align-items: baseline;
+  align-items: center;
+}
+
+.xsmall .navbar-group,
+.small .navbar-group {
+  display: flex;
+  align-items: center;
 }
 
 .navbar-logo {

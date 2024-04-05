@@ -1,0 +1,27 @@
+.privacy > h1 {
+  margin-bottom: 10px;
+}
+
+.privacy-collapse {
+  margin: 20px -20px;
+}
+
+.privacy-outlined svg {
+  font-size: 20px;
+}
+
+.privacy-outlined.active svg {
+  fill: var(--primary-color);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+td,
+th {
+  border: 1px solid var(--gray-color-3);
+  padding: 8px;
+}

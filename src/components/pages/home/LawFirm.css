@@ -1,0 +1,35 @@
+.lawfirm {
+  position: relative;
+  width: 100%;
+  background-color: var(--gray-color-4);
+  margin-top: -92px;
+  padding: 80px 0;
+  z-index: -999;
+}
+
+.lawfirm-text {
+  color: var(--gray-color-1);
+  font-size: var(--font-size-p1);
+  font-weight: var(--font-weight-bold);
+  margin: 20px 0;
+}
+
+.lawfirm-lawyer {
+  position: absolute;
+  bottom: -8px;
+  right: 10%;
+}
+
+.xsmall .lawfirm-lawyer,
+.small .lawfirm-lawyer {
+  display: none;
+}
+
+.lawfirm img {
+  width: 350px;
+}
+
+.xsmall .lawfirm img,
+.small .lawfirm img {
+  width: 250px;
+}

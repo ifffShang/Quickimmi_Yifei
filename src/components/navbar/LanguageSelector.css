@@ -1,0 +1,41 @@
+.lang-container {
+  position: relative;
+  width: 116px;
+  padding: 10px;
+}
+
+.xsmall .lang-container,
+.small .lang-container {
+  width: auto;
+}
+
+.lang-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.popup {
+  background-color: var(--gray-color-4);
+}
+
+.lang-popup {
+  position: absolute;
+  top: 52px;
+  right: 0px;
+  background-color: var(--white-color);
+  box-shadow: var(--shadow);
+  border-radius: 5px;
+  width: 136px;
+}
+
+.lang-option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  cursor: pointer;
+}

@@ -1,19 +1,35 @@
-export enum ScreenSize {
-  small = 576,
-  medium = 768,
-  large = 992,
-}
+import { ScreenSize } from "../model/Models";
+import { PATH } from "../router/MainView";
 
-export const handleResize = (callback?: any) => {
+export const handleResize = (
+  dispatch?: React.Dispatch<any>,
+  callback?: any,
+) => {
   const width = window.innerWidth;
-  if (width < ScreenSize.small) {
-    callback && callback(ScreenSize.small);
+  if (width < ScreenSize.xsmall) {
+    callback && dispatch && dispatch(callback(ScreenSize.xsmall));
+    return ScreenSize.xsmall;
+  } else if (width < ScreenSize.small) {
+    callback && dispatch && dispatch(callback(ScreenSize.small));
     return ScreenSize.small;
   } else if (width < ScreenSize.medium) {
-    callback && callback(ScreenSize.medium);
+    callback && dispatch && dispatch(callback(ScreenSize.medium));
     return ScreenSize.medium;
   } else {
-    callback && callback(ScreenSize.large);
+    callback && dispatch && dispatch(callback(ScreenSize.large));
     return ScreenSize.large;
   }
+};
+
+export const equalsIgnoreCase = (str1: string, str2: string) => {
+  return str1.toLowerCase() === str2.toLowerCase();
+};
+
+export const isAuthPath = (path: string) => {
+  return (
+    equalsIgnoreCase(path, PATH.SignIn) ||
+    equalsIgnoreCase(path, PATH.SignUp) ||
+    equalsIgnoreCase(path, PATH.ForgotPassword) ||
+    equalsIgnoreCase(path, PATH.ConfirmCode)
+  );
 };

@@ -1,0 +1,17 @@
+.confirmcode-inputs {
+  display: flex;
+  justify-content: space-between;
+}
+
+.confirmcode-inputs input {
+  max-width: 48px;
+  height: 62px;
+  margin: 20px 0 50px 0;
+  font-size: 24px;
+  border: 1px solid var(--gray-color-3);
+  text-align: center;
+}
+
+.confirm-code-description {
+  margin-bottom: 20px;
+}

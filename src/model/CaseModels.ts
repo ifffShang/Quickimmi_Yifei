@@ -3,8 +3,8 @@ export type ControlType =
   | "textarea"
   | "radio"
   | "checkbox"
-  | "fileplus"
-  | "file"
+  | "fileplus" // file upload icon style
+  | "file" // file upload link style
   | "dropdown"
   | "divider"
   | "tips";
