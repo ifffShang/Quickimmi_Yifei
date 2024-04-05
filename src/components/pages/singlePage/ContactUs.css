@@ -27,28 +27,28 @@
 
 .contact-us-content {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 80px 0px;
   width: 100%;
 }
 
-.xsmall .contact-us-content,
+/* .xsmall .contact-us-content,
 .small .contact-us-content,
 .medium .contact-us-content {
-  flex-direction: column;
   align-items: center;
-}
+} */
 
 .contact-us-content > div {
   padding: 0 80px;
   text-align: center;
 }
 
-.contact-us-content > .phone {
+/* .contact-us-content > .phone {
   border-right: 1px solid var(--gray-color-3);
   border-left: 1px solid var(--gray-color-3);
-}
+} */
 
 .xsmall .contact-us-content > .phone,
 .small .contact-us-content > .phone,

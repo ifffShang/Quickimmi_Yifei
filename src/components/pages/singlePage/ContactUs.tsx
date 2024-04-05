@@ -23,21 +23,21 @@ export function ContactUs() {
           </h3>
           <p>contactus@quickimmi.ai</p>
         </div>
-        <div className="phone">
+        {/* <div className="phone">
           <h3>
             <QText level="large" color="primary">
               Phone
             </QText>
           </h3>
           <p>333-333-3333</p>
-        </div>
+        </div> */}
         <div>
           <h3>
             <QText level="large" color="primary">
               Address
             </QText>
           </h3>
-          <p>1234 123th street, Redmond, WA 98066</p>
+          <p>525 Washington Blvd Suite 300 Office 42, Jersey City, NJ 07310</p>
         </div>
       </div>
     </div>
