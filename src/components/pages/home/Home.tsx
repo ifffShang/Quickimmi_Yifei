@@ -56,7 +56,7 @@ export function Home() {
             className="home-video-player"
             width="100%"
             height="100%"
-            url="https://www.youtube.com/watch?v=LXb3EKWsInQ"
+            url="https://youtu.be/vYE1ukYjlNg?si=6alGE8dnzsN2uATd"
             playing={true}
             muted={true}
             loop={true}

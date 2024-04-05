@@ -3,6 +3,7 @@
   height: 100%;
   display: flex;
   flex-flow: column;
+  overflow: hidden;
 }
 
 .single-page-return {
@@ -30,6 +31,7 @@
   background-color: var(--white-color);
   border-radius: 10px;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .xsmall .single-page-content,
