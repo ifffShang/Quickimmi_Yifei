@@ -19,3 +19,7 @@
   border-bottom: 1px solid var(--line-color);
   margin-top: -8px;
 }
+
+.small .contact-us-line {
+  margin-top: -5px;
+}

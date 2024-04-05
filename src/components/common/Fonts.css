@@ -25,3 +25,12 @@
 .text.normal {
   font-size: var(--font-size-p2);
 }
+
+.text.normal.bold {
+  font-size: var(--font-size-p2);
+  font-weight: 600;
+}
+
+.text.margin-bottom-10 {
+  margin-bottom: 10px;
+}
