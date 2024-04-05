@@ -5,24 +5,14 @@
 .contact-us-icon svg {
   display: block;
   margin: 0 auto;
-  max-width: 500px;
+  max-width: 1200px;
 }
 
 .contact-us-icon.quickimmi {
   max-width: 400px;
-  width: 70%;
+  width: 50%;
   margin: 0 auto;
   margin-top: 60px;
-}
-
-.contact-us-line {
-  width: 100%;
-  border-bottom: 1px solid var(--line-color);
-  margin-top: -8px;
-}
-
-.xsmall .contact-us-line {
-  margin-top: -6px;
 }
 
 .contact-us-content {

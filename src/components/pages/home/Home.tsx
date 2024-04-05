@@ -58,10 +58,7 @@ export function Home() {
             height="100%"
             url="https://youtu.be/vYE1ukYjlNg?si=6alGE8dnzsN2uATd"
             playing={true}
-            muted={true}
             loop={true}
-            controls={false}
-            allowFullScreen={false}
           />
         </div>
       </div>

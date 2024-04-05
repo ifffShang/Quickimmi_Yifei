@@ -1,5 +1,5 @@
 import { QText } from "../../common/Fonts";
-import { ContactUsIcon } from "../../icons/ContactUs";
+import { ContactUsIconWithLine } from "../../icons/ContactUs";
 import { QuickImmi } from "../../icons/Logo";
 import "./ContactUs.css";
 
@@ -8,8 +8,7 @@ export function ContactUs() {
     <div className="contact-us">
       <h1>Contact us</h1>
       <div className="contact-us-icon">
-        <ContactUsIcon />
-        <div className="contact-us-line" />
+        <ContactUsIconWithLine />
       </div>
       <div className="contact-us-icon quickimmi">
         <QuickImmi />
