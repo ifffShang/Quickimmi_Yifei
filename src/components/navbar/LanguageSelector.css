@@ -4,6 +4,7 @@
   padding: 10px;
 }
 
+.xsmall .lang-container,
 .small .lang-container {
   width: auto;
 }

@@ -13,6 +13,7 @@
   align-self: flex-end;
 }
 
+.xsmall .ads,
 .small .ads {
   padding: 40px;
   margin-top: 80px;

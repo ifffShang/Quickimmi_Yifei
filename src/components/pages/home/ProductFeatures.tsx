@@ -43,7 +43,7 @@ export function ProductFeatures() {
         {/* <SupportedImmigrationTypes /> */}
       </div>
       <div className="pf-section">
-        {screenSize === ScreenSize.small ? (
+        {screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall ? (
           <>
             <TextBlock
               title={t("LandingPage.AiTranslate")}
@@ -70,7 +70,11 @@ export function ProductFeatures() {
           title={t("LandingPage.AiComplete")}
           titleLevel="h2"
           description={t("LandingPage.AiCompleteDescription")}
-          align={screenSize === ScreenSize.small ? "center" : "left"}
+          align={
+            screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall
+              ? "center"
+              : "left"
+          }
         />
         <AiComplete />
       </div>

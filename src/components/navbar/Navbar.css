@@ -10,6 +10,7 @@
   padding: 10px 80px;
 }
 
+.xsmall .navbar-container,
 .small .navbar-container {
   display: flex;
   justify-content: space-between;
@@ -22,6 +23,7 @@
   align-items: center;
 }
 
+.xsmall .navbar-group,
 .small .navbar-group {
   display: flex;
   align-items: center;

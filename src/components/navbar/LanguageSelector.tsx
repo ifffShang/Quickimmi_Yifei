@@ -31,7 +31,7 @@ export function LanguageSelector() {
   };
 
   let languageDisplay =
-    screenSize !== ScreenSize.small ? (
+    screenSize !== ScreenSize.small && screenSize !== ScreenSize.xsmall ? (
       <>
         <En />
         EN
@@ -49,7 +49,7 @@ export function LanguageSelector() {
 
   if (selectedLanguage === "cn") {
     languageDisplay =
-      screenSize !== ScreenSize.small ? (
+      screenSize !== ScreenSize.small && screenSize !== ScreenSize.xsmall ? (
         <>
           <Cn />
           中文

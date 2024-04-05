@@ -13,12 +13,14 @@
   padding-bottom: 80px;
 }
 
+.xsmall .pf-section,
 .small .pf-section {
   flex-direction: column;
   align-items: center;
   padding-bottom: 0;
 }
 
+.xsmall .pf-section svg,
 .small .pf-section svg {
   width: 100%;
 }
@@ -28,6 +30,7 @@
   width: 50%;
 }
 
+.xsmall .supported-immigration,
 .small .supported-immigration {
   width: 90%;
 }
@@ -39,6 +42,7 @@
   margin-bottom: 20px;
 }
 
+.xsmall .supported-immigration-title,
 .small .supported-immigration-title {
   font-size: var(--font-size-h4);
 }
@@ -50,6 +54,7 @@
   font-weight: var(--font-weight-bold);
 }
 
+.xsmall .supported-immigration-types,
 .small .supported-immigration-types {
   gap: 1%;
 }

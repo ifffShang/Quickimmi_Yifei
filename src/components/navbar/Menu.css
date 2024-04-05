@@ -3,6 +3,7 @@
   padding: 17px;
 }
 
+.xsmall .menu-container,
 .small .menu-container {
   width: auto;
 }

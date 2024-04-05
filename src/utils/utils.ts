@@ -6,7 +6,10 @@ export const handleResize = (
   callback?: any,
 ) => {
   const width = window.innerWidth;
-  if (width < ScreenSize.small) {
+  if (width < ScreenSize.xsmall) {
+    callback && dispatch && dispatch(callback(ScreenSize.xsmall));
+    return ScreenSize.xsmall;
+  } else if (width < ScreenSize.small) {
     callback && dispatch && dispatch(callback(ScreenSize.small));
     return ScreenSize.small;
   } else if (width < ScreenSize.medium) {

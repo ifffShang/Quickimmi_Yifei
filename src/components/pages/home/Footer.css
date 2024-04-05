@@ -7,6 +7,7 @@
   margin-top: 10px;
 }
 
+.xsmall .footer,
 .small .footer {
   flex-direction: column;
   align-items: center;
@@ -32,11 +33,14 @@
   padding: 0;
 }
 
+.xsmall .footer-links,
 .small .footer-links {
   flex-direction: column;
   align-items: center;
 }
 
+.xsmall .footer-links h3,
+.xsmall .footer-links li,
 .small .footer-links h3,
 .small .footer-links li {
   text-align: center;
@@ -52,6 +56,7 @@
   border-right: 1px solid var(--white-color-transparent-1);
 }
 
+.xsmall .footer-brand,
 .small .footer-brand {
   border: none;
   border-bottom: 1px solid var(--white-color-transparent-1);

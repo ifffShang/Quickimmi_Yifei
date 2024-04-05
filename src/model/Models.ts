@@ -11,6 +11,7 @@ export interface ChildrenOnlyProps {
 }
 
 export enum ScreenSize {
+  xsmall = 550,
   small = 900,
   medium = 1500,
   large = 2100,

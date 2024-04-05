@@ -7,6 +7,7 @@
   margin: 200px 0 0;
 }
 
+.xsmall .home-container,
 .small .home-container {
   margin: 80px 0 0;
 }
@@ -56,6 +57,7 @@
   margin: 20px 0;
 }
 
+.xsmall .landing-page-title,
 .small .landing-page-title {
   width: 80%;
 }
@@ -85,6 +87,7 @@
   text-align: center;
 }
 
+.xsmall .home-text,
 .small .home-text {
   width: 60%;
 }
@@ -103,6 +106,7 @@
   height: 280px;
 }
 
+.xsmall .home-video,
 .small .home-video {
   width: 250px;
   height: 140px;

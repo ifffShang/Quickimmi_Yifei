@@ -12,6 +12,7 @@
   margin-bottom: 80px;
 }
 
+.xsmall .signup-entry-header,
 .small .signup-entry-header {
   font-size: var(--font-size-h3);
   line-height: 40px;

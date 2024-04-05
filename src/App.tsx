@@ -22,11 +22,13 @@ function App() {
   const languageCss = selectedLanguage === "cn" ? "cn" : "en";
 
   const screenSizeCss =
-    screenSize === ScreenSize.small
-      ? "small"
-      : screenSize === ScreenSize.medium
-        ? "medium"
-        : "large";
+    screenSize === ScreenSize.xsmall
+      ? "xsmall"
+      : screenSize === ScreenSize.small
+        ? "small"
+        : screenSize === ScreenSize.medium
+          ? "medium"
+          : "large";
 
   useEffect(() => {
     window.addEventListener("resize", () =>

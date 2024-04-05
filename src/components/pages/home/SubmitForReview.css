@@ -21,6 +21,7 @@
   justify-content: center;
 }
 
+.xsmall .submit-review-content,
 .small .submit-review-content {
   display: flex;
   flex-direction: column;
@@ -28,6 +29,7 @@
   justify-content: center;
 }
 
+.xsmall .submit-review-content .text-block,
 .small .submit-review-content .text-block {
   padding: 0;
 }

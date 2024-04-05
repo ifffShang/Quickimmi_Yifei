@@ -8,7 +8,7 @@ export function ErrorMessage({ children }: ChildrenOnlyProps) {
 export interface TextProps {
   children: string | JSX.Element | React.ReactNode;
   level?: "large" | "normal" | "normal bold" | "small";
-  color?: "primary" | "secondary" | "gray";
+  color?: "primary" | "secondary" | "gray" | "inherit";
   margin?: "margin-bottom-10";
 }
 
@@ -18,6 +18,6 @@ export interface TextProps {
  * @returns
  */
 export function QText(props: TextProps) {
-  const textClass = `text ${props.level || "normal"} ${props.color || "primary"} ${props.margin || ""}`;
+  const textClass = `text ${props.level || "normal"} ${props.color || "inherit"} ${props.margin || ""}`;
   return <div className={textClass}>{props.children}</div>;
 }

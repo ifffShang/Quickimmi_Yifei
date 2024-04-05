@@ -20,6 +20,7 @@
   right: 10%;
 }
 
+.xsmall .lawfirm-lawyer,
 .small .lawfirm-lawyer {
   display: none;
 }
@@ -28,6 +29,7 @@
   width: 350px;
 }
 
+.xsmall .lawfirm img,
 .small .lawfirm img {
   width: 250px;
 }

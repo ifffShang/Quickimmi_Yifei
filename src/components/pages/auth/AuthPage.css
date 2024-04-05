@@ -4,6 +4,7 @@
   height: 100vh;
 }
 
+.xsmall .auth-page,
 .small .auth-page {
   height: auto;
   padding: 40px;
@@ -21,6 +22,7 @@
   width: 100%;
 }
 
+.xsmall .auth-row,
 .small .auth-row {
   flex-direction: column-reverse;
 }
@@ -38,10 +40,12 @@
   width: 60%;
 }
 
+.xsmall .auth-col,
 .small .auth-col {
   width: 100%;
 }
 
+.xsmall .auth-form,
 .small .auth-form {
   margin-bottom: 40px;
 }
