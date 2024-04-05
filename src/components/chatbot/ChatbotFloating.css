@@ -2,7 +2,7 @@
   position: fixed;
   bottom: 20px;
   right: 5px;
-  z-index: 1000;
+  z-index: 999;
 }
 
 .chatbot-floating-wrapper {
