@@ -31,3 +31,8 @@
   border-radius: 10px;
   overflow-y: auto;
 }
+
+.small .single-page-content {
+  padding: 40px;
+  margin: 20px;
+}
