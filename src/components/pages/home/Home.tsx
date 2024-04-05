@@ -59,6 +59,7 @@ export function Home() {
             url="https://youtu.be/vYE1ukYjlNg?si=6alGE8dnzsN2uATd"
             playing={true}
             loop={true}
+            controls={true}
           />
         </div>
       </div>

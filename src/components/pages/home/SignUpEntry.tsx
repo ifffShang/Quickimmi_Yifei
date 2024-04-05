@@ -8,7 +8,7 @@ export function SignUpEntry() {
     <div className="signup-entry">
       <h2 className="signup-entry-header">
         <div className="signup-entry-text">
-          <Trans>{t("LandingPage.SignupEntryTitle")}</Trans>
+          {t("LandingPage.SignupEntryTitle")}
         </div>
       </h2>
       <Space.Compact style={{ maxWidth: "300px" }}>
