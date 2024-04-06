@@ -22,7 +22,7 @@ export function Home() {
   );
 
   return (
-    <div className="home-container">
+    <div className="home-container" id="home-container">
       <div className="home-section center">
         {selectedLanguage === "cn" ? (
           <div
@@ -57,11 +57,19 @@ export function Home() {
             width="100%"
             height="100%"
             url="https://youtu.be/vYE1ukYjlNg?si=6alGE8dnzsN2uATd"
-            playing={true}
-            muted={true}
             loop={true}
-            controls={false}
-            allowFullScreen={false}
+            config={{
+              youtube: {
+                playerVars: {
+                  showinfo: 0,
+                  controls: 1,
+                  modestbranding: 1,
+                  loop: 1,
+                  mute: 1,
+                  autoplay: 1,
+                },
+              },
+            }}
           />
         </div>
       </div>

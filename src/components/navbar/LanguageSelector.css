@@ -1,12 +1,8 @@
 .lang-container {
   position: relative;
-  width: 116px;
-  padding: 10px;
-}
-
-.xsmall .lang-container,
-.small .lang-container {
-  width: auto;
+  padding: 10px 10px;
+  border-radius: 5px;
+  width: 80px;
 }
 
 .lang-display {
@@ -23,19 +19,15 @@
 
 .lang-popup {
   position: absolute;
-  top: 52px;
+  top: 46px;
   right: 0px;
   background-color: var(--white-color);
   box-shadow: var(--shadow);
   border-radius: 5px;
-  width: 136px;
 }
 
 .lang-option {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 10px;
+  padding: 10px 20px;
   cursor: pointer;
+  width: 60px;
 }

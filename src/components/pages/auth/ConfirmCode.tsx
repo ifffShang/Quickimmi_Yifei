@@ -20,6 +20,7 @@ import { FormInput } from "../../common/Controls";
 import { ErrorMessage, QText } from "../../common/Fonts";
 import { AuthComponent } from "./AuthComponent";
 import "./ConfirmCode.css";
+import { createUser } from "../../../api/authAPI";
 
 export function ConfirmCode() {
   const navigate = useNavigate();
@@ -45,6 +46,15 @@ export function ConfirmCode() {
   const verifyCode = async () => {
     if (!auth.email || validateCode(verificationCode) !== "") {
       setShowFormInputErrorMessage(true);
+      return;
+    }
+
+    try {
+      await createUser(auth.email);
+    } catch (error: any) {
+      if (error?.message !== "USER_EXIST") {
+        throw error;
+      }
       return;
     }
 
@@ -77,6 +87,7 @@ export function ConfirmCode() {
         });
         if (isSignUpComplete) {
           setErrorMessage("");
+
           navigate("/authsuccess");
         } else {
           setErrorMessage("Error confirming sign up. Please try again.");

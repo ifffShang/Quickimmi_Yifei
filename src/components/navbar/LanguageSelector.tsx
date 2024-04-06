@@ -1,20 +1,17 @@
-import i18next, { use } from "i18next";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { updateLanguage } from "../../reducers/commonSlice";
-import { En } from "../icons/En";
-import { Cn } from "../icons/Cn";
-import "./LanguageSelector.css";
-import { ArrowDown } from "../icons/ArrowDown";
+import i18next from "i18next";
 import { useRef, useState } from "react";
-import { Language, ScreenSize } from "../../model/Models";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useClickOutsideOfRef } from "../../hooks/commonHooks";
+import { Language } from "../../model/Models";
+import { updateLanguage } from "../../reducers/commonSlice";
+import { ArrowDown } from "../icons/ArrowDown";
+import "./LanguageSelector.css";
 
 export function LanguageSelector() {
   const dispatch = useAppDispatch();
   const selectedLanguage = useAppSelector(
     state => state.common.selectedLanguage,
   );
-  const screenSize = useAppSelector(state => state.common.screenSize);
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
@@ -30,37 +27,17 @@ export function LanguageSelector() {
     setIsPopupOpen(false);
   };
 
-  let languageDisplay =
-    screenSize !== ScreenSize.small && screenSize !== ScreenSize.xsmall ? (
-      <>
-        <En />
-        EN
-      </>
-    ) : (
-      <En />
-    );
-
+  let languageDisplay = <>EN</>;
   let languageOption = (
     <div className="lang-option" onClick={() => handleChangeLanguage("cn")}>
-      <Cn />
       中文
     </div>
   );
 
   if (selectedLanguage === "cn") {
-    languageDisplay =
-      screenSize !== ScreenSize.small && screenSize !== ScreenSize.xsmall ? (
-        <>
-          <Cn />
-          中文
-        </>
-      ) : (
-        <Cn />
-      );
-
+    languageDisplay = <>中文</>;
     languageOption = (
       <div className="lang-option" onClick={() => handleChangeLanguage("en")}>
-        <En />
         EN
       </div>
     );

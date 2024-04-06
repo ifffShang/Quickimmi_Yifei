@@ -14,8 +14,6 @@ export interface AuthContainerProps {
 }
 
 export function AuthPage(props: AuthContainerProps) {
-  const dispatch = useAppDispatch();
-
   let authComponent;
   if (props.type === "signin") {
     authComponent = <SignIn />;

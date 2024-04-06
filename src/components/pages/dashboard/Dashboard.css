@@ -1,0 +1,9 @@
+.dashboard {
+  background-color: var(--gray-color-4);
+  height: 100%;
+  padding: 20px 40px;
+}
+
+.dashboard-panel {
+  background-color: var(--white-color);
+}
