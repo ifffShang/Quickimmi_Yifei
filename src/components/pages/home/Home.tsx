@@ -22,7 +22,7 @@ export function Home() {
   );
 
   return (
-    <div className="home-container">
+    <div className="home-container" id="home-container">
       <div className="home-section center">
         {selectedLanguage === "cn" ? (
           <div

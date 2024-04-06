@@ -30,7 +30,10 @@ function FooterLinks() {
           <li>
             <QLink
               color="white"
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+              onClick={() => {
+                const container = document?.getElementById("home-container");
+                if (container) container.scrollTop = 0;
+              }}>
               {t("Home")}
             </QLink>
           </li>
