@@ -1,5 +1,4 @@
-export const baseUrl = "http://192.168.0.13:8080";
-//export const baseUrl = "http://127.0.0.1:8080";
+export const baseUrl = "https://dev.api.quickimmi.ai";
 
 export const fetchFunction = async (
   endPoint: string,
@@ -64,7 +63,11 @@ export const performApiRequest = async (
         statusText: response.statusText,
         responseData,
       });
-      throw new Error(responseData.message || "Failed to perform API request");
+      throw new Error(
+        responseData.errorCode ||
+          responseData.message ||
+          "Failed to perform API request",
+      );
     }
     return responseData;
   } catch (error) {
