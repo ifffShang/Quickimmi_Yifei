@@ -42,16 +42,15 @@ function FooterLinks() {
               {t("AboutQuickimmi")}
             </QLink>
           </li>
-          <li>
-            <QLink color="white">{t("Pricing")}</QLink>
-          </li>
         </ul>
       </div>
       <div>
         <h3>{t("Compare")}</h3>
         <ul>
           <li>
-            <QLink color="white">{t("ImmigrationWebsite")}</QLink>
+            <QLink color="white" onClick={() => open("https://www.uscis.gov")}>
+              {t("ImmigrationWebsite")}
+            </QLink>
           </li>
         </ul>
       </div>
