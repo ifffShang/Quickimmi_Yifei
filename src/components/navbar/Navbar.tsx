@@ -68,9 +68,9 @@ export function Navbar() {
         <div className="navbar-profile">
           <LanguageSelector />
         </div>
-        <div>
+        {/* <div>
           <Menu items={menuItems} />
-        </div>
+        </div> */}
       </div>
     </div>
   );

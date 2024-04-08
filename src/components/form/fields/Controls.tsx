@@ -1,24 +1,23 @@
-import React from "react";
 import { Input } from "antd";
-import { ErrorMessage } from "./Fonts";
-import "./Controls.css";
+import React from "react";
 import { useTranslation } from "react-i18next";
+import { ErrorMessage } from "../../common/Fonts";
+import "./Controls.css";
 
 export interface TextBoxProps {
-  label: string;
+  placeholder: string;
   value: string;
   onChange: (value: string) => void;
 }
 
 export function TextBox(props: TextBoxProps) {
   return (
-    <div>
-      <label>{props.label}</label>
-      <Input
-        value={props.value}
-        onChange={e => props.onChange(e.target.value)}
-      />
-    </div>
+    <Input
+      className="text-box"
+      placeholder={props.placeholder}
+      value={props.value}
+      onChange={e => props.onChange(e.target.value)}
+    />
   );
 }
 

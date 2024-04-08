@@ -1,10 +1,5 @@
-import React from "react";
-import { CaseWorkflow } from "../../case/CaseWorkflow";
+import { FormFlow } from "../../form/FormFlow";
 
 export function NewCase() {
-  return (
-    <div>
-      <CaseWorkflow />
-    </div>
-  );
+  return <FormFlow />;
 }

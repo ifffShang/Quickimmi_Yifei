@@ -11,7 +11,7 @@ import {
   validatePassword,
   validatePasswordConfirmation,
 } from "../../../utils/validators";
-import { FormInput } from "../../common/Controls";
+import { FormInput } from "../../form/fields/Controls";
 import { ErrorMessage } from "../../common/Fonts";
 import { QText } from "../../common/Fonts";
 import { AuthComponent } from "./AuthComponent";

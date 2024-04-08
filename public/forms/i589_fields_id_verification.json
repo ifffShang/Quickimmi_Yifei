@@ -14,6 +14,7 @@
       "id": "name",
       "order": 1,
       "control": "group",
+      "direction": "horizontal",
       "fields": [
         {
           "label": "text_FirstName",
@@ -38,6 +39,27 @@
           "id": "other_name",
           "order": 3,
           "control": "component_textbox_na"
+        }
+      ]
+    },
+    {
+      "label": "text_Nationality",
+      "id": "nationality",
+      "order": 2,
+      "control": "group",
+      "direction": "horizontal",
+      "fields": [
+        {
+          "label": "text_NationalityAtBirth",
+          "id": "nationality_at_birth",
+          "order": 1,
+          "control": "component_nationality_dropdown"
+        },
+        {
+          "label": "text_LocationOfBirth",
+          "id": "location_of_birth",
+          "order": 0,
+          "control": "dropdown"
         }
       ]
     }

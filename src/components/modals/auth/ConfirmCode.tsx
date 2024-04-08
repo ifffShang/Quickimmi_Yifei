@@ -9,7 +9,7 @@ import {
 import React, { useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { updateAuthState } from "../../../reducers/authSlice";
-import { FormInput } from "../../common/Controls";
+import { FormInput } from "../../form/fields/Controls";
 import { ErrorMessage } from "../../common/Fonts";
 import "./ConfirmCode.css";
 import { useNavigate } from "react-router-dom";
