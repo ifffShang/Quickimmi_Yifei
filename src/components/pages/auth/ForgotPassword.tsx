@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../../app/hooks";
 import { updateAuthState } from "../../../reducers/authSlice";
-import { FormInput } from "../../common/Controls";
+import { FormInput } from "../../form/fields/Controls";
 import { ErrorMessage, QText } from "../../common/Fonts";
 import { AuthComponent } from "./AuthComponent";
 import { validateEmail } from "../../../utils/validators";

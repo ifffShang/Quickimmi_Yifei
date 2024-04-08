@@ -3,8 +3,8 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { updateForm } from "../../reducers/caseSlice";
 import { FormContent } from "./FormContent";
 import { FormNavigation } from "./FormNavigation";
-import { get589Form } from "../../utils/formUtils";
 import "./FormFlow.css";
+import { getForm } from "../../api/caseAPI";
 
 export function FormFlow() {
   const dispatch = useAppDispatch();
@@ -13,7 +13,7 @@ export function FormFlow() {
   const indexLevel2 = useAppSelector(state => state.case.indexLevel2);
 
   useEffect(() => {
-    get589Form().then(form => {
+    getForm("i589_form").then(form => {
       dispatch(updateForm(form));
     });
   }, []);
@@ -26,7 +26,7 @@ export function FormFlow() {
 
   return (
     <div className="form-flow">
-      <h1>Form</h1>
+      <div className="form-flow-top">Complete the form</div>
       <div className="form-flow-content">
         <FormNavigation steps={form.steps} />
         <FormContent referenceId={id ?? ""} />

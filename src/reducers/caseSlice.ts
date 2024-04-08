@@ -1,12 +1,12 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Form, FormFields } from "../model/FormModels";
+import { IForm, IFormFields } from "../model/FormModels";
 
 export interface FormFieldsMap {
-  [key: string]: FormFields;
+  [key: string]: IFormFields;
 }
 
 export interface CaseState {
-  form: Form;
+  form: IForm;
   indexLevel1: number;
   indexLevel2: number;
   totalLevel1s: number;
@@ -14,7 +14,7 @@ export interface CaseState {
 }
 
 const initialState: CaseState = {
-  form: {} as Form,
+  form: {} as IForm,
   indexLevel1: -1,
   indexLevel2: -1,
   totalLevel1s: 0,
@@ -25,7 +25,7 @@ export const caseSlice = createSlice({
   name: "case",
   initialState,
   reducers: {
-    updateForm: (state, action: PayloadAction<Form>) => {
+    updateForm: (state, action: PayloadAction<IForm>) => {
       state.form = action.payload;
       state.totalLevel1s = action.payload.steps.length;
       state.indexLevel1 = 0;
@@ -58,10 +58,12 @@ export const caseSlice = createSlice({
     },
     updateFormFieldsMap: (
       state,
-      action: PayloadAction<{ referenceId: string; formFields: FormFields }>,
+      action: PayloadAction<{ referenceId: string; formFields: IFormFields }>,
     ) => {
-      state.formFieldsMap[action.payload.referenceId] =
-        action.payload.formFields;
+      state.formFieldsMap = {
+        ...state.formFieldsMap,
+        [action.payload.referenceId]: action.payload.formFields,
+      };
     },
   },
 });

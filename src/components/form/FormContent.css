@@ -1,11 +1,6 @@
-.case-step-container {
-  display: flex;
-}
-
-.case-step-item {
-  display: flex;
-}
-
-.case-step-arrow {
-  margin: 0 20px;
+.form-content {
+  background-color: var(--white-color);
+  border-radius: 10px;
+  padding: 40px;
+  width: 100%;
 }

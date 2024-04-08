@@ -57,7 +57,6 @@ export const performApiRequest = async (
       self ? "" : baseUrl,
     );
 
-    console.log("********** Response **********", JSON.stringify(response));
     const responseData = await response.json();
 
     if (!response.ok) {

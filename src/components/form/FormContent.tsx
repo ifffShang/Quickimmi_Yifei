@@ -3,6 +3,8 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useFormTranslation } from "../../hooks/commonHooks";
 import { updateFormFieldsMap } from "../../reducers/caseSlice";
 import "./FormContent.css";
+import { getFormFields } from "../../api/caseAPI";
+import { FormField } from "./FormField";
 
 interface FormContentProps {
   referenceId: string;
@@ -19,25 +21,18 @@ export function FormContent(props: FormContentProps) {
 
   useEffect(() => {
     if (!props.referenceId) return;
-    fetch(`http://localhost:3000/forms/${props.referenceId}.json`).then(
-      response => {
-        if (response.ok) {
-          response
-            .json()
-            .then(data => {
-              dispatch(
-                updateFormFieldsMap({
-                  referenceId: props.referenceId,
-                  formFields: data,
-                }),
-              );
-            })
-            .catch(error => {
-              console.error(error);
-            });
-        }
-      },
-    );
+    getFormFields(props.referenceId)
+      .then(formFieldsRes => {
+        dispatch(
+          updateFormFieldsMap({
+            referenceId: props.referenceId,
+            formFields: formFieldsRes,
+          }),
+        );
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }, [props.referenceId]);
 
   if (!formFields) {
@@ -45,8 +40,18 @@ export function FormContent(props: FormContentProps) {
   }
 
   return (
-    <div>
-      <h1>{wt(formFields.id ?? "")}</h1>
+    <div className="form-content">
+      {formFields.fields.map((field, index) => (
+        <div key={index}>
+          <label>{wt(field.label)}</label>
+          <FormField
+            control={field.control}
+            label={field.label}
+            direction={field.direction}
+            subFields={field.fields}
+          />
+        </div>
+      ))}
       <div>
         <button>{wt("Previous")}</button>
         <button>{wt("Next")}</button>

@@ -1,9 +1,18 @@
 .form-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   background-color: var(--gray-color-4);
   height: 100%;
   padding: 20px 40px;
 }
 
+.form-flow-top {
+  background-color: var(--white-color);
+  border-radius: 10px;
+}
+
 .form-flow-content {
   display: flex;
+  gap: 10px;
 }

@@ -1,12 +1,13 @@
+import { Collapse, CollapseProps } from "antd";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useFormTranslation } from "../../hooks/commonHooks";
-import { FormStep } from "../../model/FormModels";
-import { setIndexLevel1, setIndexLevel2 } from "../../reducers/caseSlice";
+import { IFormStep } from "../../model/FormModels";
 import { QText } from "../common/Fonts";
+import { NavDown, NavUp } from "../icons/ArrowDown";
 import "./FormNavigation.css";
 
 export interface FormNavigationProps {
-  steps: FormStep[];
+  steps: IFormStep[];
 }
 
 export function FormNavigation(props: FormNavigationProps) {
@@ -14,42 +15,39 @@ export function FormNavigation(props: FormNavigationProps) {
   const dispatch = useAppDispatch();
   const indexLevel1 = useAppSelector(state => state.case.indexLevel1);
 
-  return (
-    <div className="form-navigation">
-      {props.steps.map((level1, index) => (
-        <div
-          className="form-navigation-level1"
-          key={index}
-          onClick={() => {
-            dispatch(setIndexLevel1(level1.order));
-          }}>
-          <div className={indexLevel1 === level1.order ? "font-bold" : ""}>
-            <QText level="large">{wt(level1.label)}</QText>
-          </div>
-          {level1.steps.map((level2, subIndex) => (
-            <div
-              className="form-navigation-level2"
-              key={subIndex}
-              onClick={() => {
-                dispatch(
-                  setIndexLevel2({
-                    indexLevel1: level1.order,
-                    indexLevel2: level2.order,
-                  }),
-                );
-              }}>
-              <div
-                className={
-                  indexLevel1 === level1.order && level2.order === indexLevel1
-                    ? "font-bold"
-                    : ""
-                }>
-                <QText level="small">{wt(level2.label)}</QText>
-              </div>
+  const items: CollapseProps["items"] = props.steps.map((level1, l1Index) => {
+    return {
+      key: l1Index,
+      label: <QText level="normal bold">{wt(level1.label)}</QText>,
+      children: (
+        <div>
+          {level1.steps.map((level2, l2Index) => (
+            <div className="form-navigation-l2" key={l2Index}>
+              <QText>{wt(level2.label)}</QText>
             </div>
           ))}
         </div>
-      ))}
+      ),
+    };
+  });
+
+  const expandIcon = (props: any) => {
+    if (props?.isActive) {
+      return <NavDown />;
+    }
+    return <NavUp />;
+  };
+
+  return (
+    <div className="form-navigation">
+      <Collapse
+        defaultActiveKey={indexLevel1}
+        expandIcon={expandIcon}
+        expandIconPosition="end"
+        size="large"
+        ghost
+        items={items}
+      />
     </div>
   );
 }

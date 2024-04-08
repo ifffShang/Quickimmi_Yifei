@@ -1,36 +1,37 @@
-export interface Form {
+export interface IForm {
   id: string;
   version: string;
   type: string;
-  steps: FormStep[];
+  steps: IFormStep[];
 }
 
-export interface FormStep {
+export interface IFormStep {
   id: string;
   label: string;
   order: number;
   type: string;
-  steps: FormStep[];
+  steps: IFormStep[];
   referenceId?: string;
 }
 
-export interface FormFields {
+export interface IFormFields {
   id: string;
   version: string;
   type: string;
-  fields: FormField[];
+  fields: IFormField[];
 }
 
-export interface FormField {
+export interface IFormField {
   id: string;
   label: string;
   order: number;
   control: ControlType;
-  fields?: FormField[];
+  direction: "horizontal" | "vertical";
+  fields?: IFormField[];
 }
 
 export type ControlType =
-  | "textbox"
+  | "text"
   | "textarea"
   | "radio"
   | "checkbox"
@@ -38,55 +39,7 @@ export type ControlType =
   | "file" // file upload link style
   | "dropdown"
   | "divider"
-  | "tips";
-
-export interface WorkflowField {
-  order: number;
-  control: ControlType;
-  name?: string;
-  label?: string;
-  options?: WorkflowFieldOptions[];
-  components?: WorkflowFieldComponent[];
-  dependsOn?: string;
-}
-
-export interface WorkflowFieldOptions {
-  label: string;
-  value: string;
-  dependsOnValue?: string;
-  options?: WorkflowFieldOptions[];
-}
-
-export interface WorkflowFieldComponent {
-  dependsOnValue: string;
-  component: string;
-}
-
-export interface Workflow {
-  id: string;
-  version: string;
-  type: string;
-  steps: WorkflowStep[];
-}
-
-export interface WorkflowStep {
-  id: string;
-  label: string;
-  order: number;
-  type: string;
-  referenceId: string;
-}
-
-export interface WorkflowForm {
-  id: string;
-  version: string;
-  type: string;
-  pages: WorkflowPage[];
-}
-
-export interface WorkflowPage {
-  order: number;
-  title: string;
-  subtitle: string;
-  fields: WorkflowField[];
-}
+  | "tips"
+  | "group"
+  | "component_passport_uploader"
+  | "component_nationality_dropdown";
