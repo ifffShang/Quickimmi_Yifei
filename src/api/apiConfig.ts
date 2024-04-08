@@ -1,14 +1,15 @@
-export const baseUrl = "https://dev.api.quickimmi.ai";
+export const baseUrl = "https://devapi.quickimmi.ai";
 
 export const fetchFunction = async (
   endPoint: string,
   method: string,
   data: any,
   additionalHeaders: any,
+  baseUrl?: string,
 ) => {
-  const url = `${baseUrl}/${endPoint}`;
+  const url = baseUrl ? `${baseUrl}/${endPoint}` : endPoint;
   const headers = {
-    accept: "application/json",
+    Accept: "application/json",
     "Content-Type": "application/json",
     ...additionalHeaders,
   };
@@ -24,8 +25,8 @@ export const fetchFunction = async (
     if (!response.ok) {
       const errorData = await response.json();
       const errorMessage =
-        errorData?.message ||
         errorData?.errorCode ||
+        errorData?.message ||
         `HTTP Error: ${response.status}`;
       throw new Error(errorMessage);
     }
@@ -42,6 +43,7 @@ export const performApiRequest = async (
   method: string,
   data: any,
   accessToken: string,
+  self = false,
 ) => {
   const additionalHeaders = { Authorization: `Bearer ${accessToken}` };
   const body = data ? JSON.stringify(data) : null;
@@ -52,7 +54,10 @@ export const performApiRequest = async (
       method,
       body,
       additionalHeaders,
+      self ? "" : baseUrl,
     );
+
+    console.log("********** Response **********", JSON.stringify(response));
     const responseData = await response.json();
 
     if (!response.ok) {

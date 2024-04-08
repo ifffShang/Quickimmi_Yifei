@@ -49,15 +49,6 @@ export function ConfirmCode() {
       return;
     }
 
-    try {
-      await createUser(auth.email);
-    } catch (error: any) {
-      if (error?.message !== "USER_EXIST") {
-        throw error;
-      }
-      return;
-    }
-
     if (auth.prevStep === "forgotpassword") {
       try {
         await confirmResetPassword({
@@ -87,6 +78,14 @@ export function ConfirmCode() {
         });
         if (isSignUpComplete) {
           setErrorMessage("");
+
+          // try {
+          //   await createUser(auth.email);
+          // } catch (error: any) {
+          //   if (error?.message !== "USER_EXIST") {
+          //     throw error;
+          //   }
+          // }
 
           navigate("/authsuccess");
         } else {

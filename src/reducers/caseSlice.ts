@@ -1,44 +1,78 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { Form, FormFields } from "../model/FormModels";
+
+export interface FormFieldsMap {
+  [key: string]: FormFields;
+}
 
 export interface CaseState {
-  currentStepOrder: number;
-  totalSteps: number;
+  form: Form;
+  indexLevel1: number;
+  indexLevel2: number;
+  totalLevel1s: number;
+  formFieldsMap: FormFieldsMap;
 }
 
 const initialState: CaseState = {
-  currentStepOrder: 0,
-  totalSteps: 0,
+  form: {} as Form,
+  indexLevel1: -1,
+  indexLevel2: -1,
+  totalLevel1s: 0,
+  formFieldsMap: {},
 };
 
 export const caseSlice = createSlice({
   name: "case",
   initialState,
   reducers: {
-    incrementStepOrder: state => {
-      if (state.currentStepOrder < state.totalSteps - 1)
-        state.currentStepOrder++;
+    updateForm: (state, action: PayloadAction<Form>) => {
+      state.form = action.payload;
+      state.totalLevel1s = action.payload.steps.length;
+      state.indexLevel1 = 0;
+      state.indexLevel2 = 0;
     },
-    decrementStepOrder: state => {
-      if (state.currentStepOrder > 0) state.currentStepOrder--;
+    incrementIndexLevel1: state => {
+      if (state.indexLevel1 < state.totalLevel1s - 1) state.indexLevel1++;
     },
-    setStepOrder: (state, action: PayloadAction<number>) => {
-      if (action.payload >= 0 && action.payload < state.totalSteps) {
-        state.currentStepOrder = action.payload;
+    decrementIndexLevel1: state => {
+      if (state.indexLevel1 > 0) state.indexLevel1--;
+    },
+    setIndexLevel1: (state, action: PayloadAction<number>) => {
+      if (
+        action.payload >= 0 &&
+        action.payload < state.totalLevel1s &&
+        state.indexLevel1 !== action.payload
+      ) {
+        state.indexLevel1 = action.payload;
+        state.indexLevel2 = 0;
       } else {
         console.error("Invalid step order");
       }
     },
-    setTotalSteps: (state, action: PayloadAction<number>) => {
-      state.totalSteps = action.payload;
+    setIndexLevel2: (
+      state,
+      action: PayloadAction<{ indexLevel1: number; indexLevel2: number }>,
+    ) => {
+      state.indexLevel1 = action.payload.indexLevel1;
+      state.indexLevel2 = action.payload.indexLevel2;
+    },
+    updateFormFieldsMap: (
+      state,
+      action: PayloadAction<{ referenceId: string; formFields: FormFields }>,
+    ) => {
+      state.formFieldsMap[action.payload.referenceId] =
+        action.payload.formFields;
     },
   },
 });
 
 export const {
-  incrementStepOrder,
-  decrementStepOrder,
-  setStepOrder,
-  setTotalSteps,
+  incrementIndexLevel1,
+  decrementIndexLevel1,
+  setIndexLevel1,
+  setIndexLevel2,
+  updateForm,
+  updateFormFieldsMap,
 } = caseSlice.actions;
 
 export default caseSlice.reducer;

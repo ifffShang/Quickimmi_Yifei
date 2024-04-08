@@ -1,13 +1,12 @@
-import React from "react";
+import { ControlType } from "../../model/FormModels";
 import { TextBox } from "../common/Controls";
-import { ControlType } from "../../model/CaseModels";
 
-export interface CaseFieldProps {
+export interface FormFieldProps {
   control: ControlType;
   label: string;
 }
 
-export function CaseField(props: CaseFieldProps) {
+export function FormField(props: FormFieldProps) {
   switch (props.control) {
     case "textbox":
       return <TextBox label={props.label} value={""} onChange={() => {}} />;

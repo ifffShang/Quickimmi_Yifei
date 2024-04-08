@@ -75,5 +75,8 @@
   "ConfirmNewPassword": "Enter New Password Again",
   "VerificationCode": "Verification Code",
   "PhoneNumber": "Phone Number",
-  "InputConfirmationCode": "Please input the verification code sent to: "
+  "InputConfirmationCode": "Please input the verification code sent to: ",
+  "PersonalInformation": "Personal Information",
+  "IdVerfication": "ID Verification",
+  "ContactInformation": "Contact Information"
 }

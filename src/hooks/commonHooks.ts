@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { textParser } from "../utils/parsers";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
-export function useWorkflowTranslation() {
+export function useFormTranslation() {
   const { t } = useTranslation();
   const wt = textParser(t);
   return { t, wt };

@@ -1,0 +1,9 @@
+.form-flow {
+  background-color: var(--gray-color-4);
+  height: 100%;
+  padding: 20px 40px;
+}
+
+.form-flow-content {
+  display: flex;
+}

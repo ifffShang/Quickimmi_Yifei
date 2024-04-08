@@ -4,6 +4,17 @@
   padding: 20px 40px;
 }
 
+.dashboard h2 {
+  margin-bottom: 20px;
+}
+
 .dashboard-panel {
   background-color: var(--white-color);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 40px;
 }

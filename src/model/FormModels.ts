@@ -1,3 +1,34 @@
+export interface Form {
+  id: string;
+  version: string;
+  type: string;
+  steps: FormStep[];
+}
+
+export interface FormStep {
+  id: string;
+  label: string;
+  order: number;
+  type: string;
+  steps: FormStep[];
+  referenceId?: string;
+}
+
+export interface FormFields {
+  id: string;
+  version: string;
+  type: string;
+  fields: FormField[];
+}
+
+export interface FormField {
+  id: string;
+  label: string;
+  order: number;
+  control: ControlType;
+  fields?: FormField[];
+}
+
 export type ControlType =
   | "textbox"
   | "textarea"
