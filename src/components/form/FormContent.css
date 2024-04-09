@@ -1,6 +1,23 @@
 .form-content {
+  position: relative;
+  width: 100%;
+  font-size: var(--font-size-p2);
+  margin-bottom: 60px;
+}
+
+.form-content-form {
+  padding: 40px;
   background-color: var(--white-color);
   border-radius: 10px;
-  padding: 40px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  max-height: calc(100% - 10px);
+}
+
+.form-content-controls {
+  position: absolute;
+  height: 60px;
+  bottom: -60px;
+  background-color: var(--white-color);
   width: 100%;
 }

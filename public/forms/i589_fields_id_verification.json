@@ -56,9 +56,30 @@
           "control": "component_nationality_dropdown"
         },
         {
-          "label": "text_LocationOfBirth",
-          "id": "location_of_birth",
+          "label": "text_Race",
+          "id": "race",
           "order": 0,
+          "control": "text"
+        }
+      ]
+    },
+    {
+      "label": "text_LocationOfBirth",
+      "id": "location_of_birth",
+      "order": 2,
+      "control": "group",
+      "direction": "vertical",
+      "fields": [
+        {
+          "label": "text_SelectBirthCountry",
+          "id": "select_birth_country",
+          "order": 0,
+          "control": "dropdown"
+        },
+        {
+          "label": "text_SelectBirthCity",
+          "id": "select_birth_country",
+          "order": 1,
           "control": "dropdown"
         }
       ]

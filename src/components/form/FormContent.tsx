@@ -41,18 +41,20 @@ export function FormContent(props: FormContentProps) {
 
   return (
     <div className="form-content">
-      {formFields.fields.map((field, index) => (
-        <div key={index}>
-          <label>{wt(field.label)}</label>
-          <FormField
-            control={field.control}
-            label={field.label}
-            direction={field.direction}
-            subFields={field.fields}
-          />
-        </div>
-      ))}
-      <div>
+      <div className="form-content-form">
+        {formFields.fields.map((field, index) => (
+          <div key={index}>
+            <label>{wt(field.label)}</label>
+            <FormField
+              control={field.control}
+              label={field.label}
+              direction={field.direction}
+              subFields={field.fields}
+            />
+          </div>
+        ))}
+      </div>
+      <div className="form-content-controls">
         <button>{wt("Previous")}</button>
         <button>{wt("Next")}</button>
       </div>

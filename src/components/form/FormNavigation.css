@@ -2,11 +2,12 @@
   background-color: var(--white-color);
   border-radius: 10px;
   flex: 0 0 250px;
+  align-self: flex-start;
 }
 
 .form-navigation .ant-collapse-header {
   border-radius: 0 !important;
-  border-bottom: 1px solid var(--gray-color-3) !important;
+  border-bottom: 1px solid var(--gray-color-4) !important;
 }
 
 .form-navigation .ant-collapse-content-box {
@@ -15,5 +16,13 @@
 
 .form-navigation-l2 {
   padding: 16px 20px 16px 40px;
-  border-bottom: 1px solid var(--gray-color-3);
+  border-bottom: 1px solid var(--gray-color-4);
+  color: var(--gray-color-3);
+  cursor: pointer;
+}
+
+.form-navigation-l2.active {
+  color: var(--gray-color-1);
+  border-right: 3px solid var(--primary-color);
+  background-color: var(--white-color);
 }

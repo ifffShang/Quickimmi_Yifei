@@ -1,10 +1,12 @@
 import { useEffect } from "react";
+import { getForm } from "../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { updateForm } from "../../reducers/caseSlice";
+import { QText } from "../common/Fonts";
+import { EditForm } from "../icons/Form";
 import { FormContent } from "./FormContent";
-import { FormNavigation } from "./FormNavigation";
 import "./FormFlow.css";
-import { getForm } from "../../api/caseAPI";
+import { FormNavigation } from "./FormNavigation";
 
 export function FormFlow() {
   const dispatch = useAppDispatch();
@@ -26,7 +28,12 @@ export function FormFlow() {
 
   return (
     <div className="form-flow">
-      <div className="form-flow-top">Complete the form</div>
+      <div className="form-flow-top">
+        <QText level="xlarge">Complete the form</QText>
+        <div className="form-flow-icon">
+          <EditForm />
+        </div>
+      </div>
       <div className="form-flow-content">
         <FormNavigation steps={form.steps} />
         <FormContent referenceId={id ?? ""} />

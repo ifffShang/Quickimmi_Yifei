@@ -13,6 +13,11 @@
   color: var(--gray-color-7);
 }
 
+.text.xlarge {
+  font-weight: 600;
+  font-size: var(--font-size-h2-small);
+}
+
 .text.large {
   font-weight: 600;
   font-size: var(--font-size-h3);
