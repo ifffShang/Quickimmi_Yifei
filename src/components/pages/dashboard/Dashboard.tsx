@@ -5,9 +5,11 @@ import { useAppSelector } from "../../../app/hooks";
 import { QText } from "../../common/Fonts";
 import { NewApplicationIcon } from "../../icons/Dashboard";
 import "./Dashboard.css";
+import { useTranslation } from "react-i18next";
 
 export function Dashboard() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
 
   useEffect(() => {
@@ -19,16 +21,16 @@ export function Dashboard() {
   return (
     <div className="dashboard">
       <h2>
-        <QText level="large">Dashboard</QText>
+        <QText level="large">{t("Dashboard.Dashboard")}</QText>
       </h2>
       <div className="dashboard-panel">
         <NewApplicationIcon />
-        <QText level="large">开始您的第一个申请吧</QText>
+        <QText level="large">{t("Dashboard.FirstApplication")}</QText>
         <QText level="small" color="gray">
-          体验快速智能移民通道就是现在
+          {t("Dashboard.GreetingMessage")}
         </QText>
         <Button type="primary" onClick={() => navigate("/newcase")}>
-          新建申请
+          {t("Dashboard.CreateNewApplication")}
         </Button>
       </div>
     </div>

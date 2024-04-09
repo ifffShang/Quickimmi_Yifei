@@ -78,5 +78,11 @@
   "InputConfirmationCode": "Please input the verification code sent to: ",
   "PersonalInformation": "Personal Information",
   "IdVerfication": "ID Verification",
-  "ContactInformation": "Contact Information"
+  "ContactInformation": "Contact Information",
+  "Dashboard": {
+    "Dashboard": "Dashboard",
+    "FirstApplication": "Start Your First Application",
+    "GreetingMessage": "Experience the fast and smart immigration service now.",
+    "CreateNewApplication": "Create"
+  }
 }

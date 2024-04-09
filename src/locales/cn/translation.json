@@ -71,5 +71,11 @@
   "Password": "密码",
   "ConfirmPassword": "确认密码",
   "Email": "邮箱",
-  "PhoneNumber": "手机号"
+  "PhoneNumber": "手机号",
+  "Dashboard": {
+    "Dashboard": "仪表盘",
+    "FirstApplication": "开始您的第一个申请吧",
+    "GreetingMessage": "体验快速智能移民通道就是现在",
+    "CreateNewApplication": "新建申请"
+  }
 }
