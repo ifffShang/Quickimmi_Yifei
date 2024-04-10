@@ -6,6 +6,7 @@ import { NewCase } from "../components/pages/newCase/NewCase";
 import { Checkout } from "../components/payment/Checkout";
 import "./MainView.css";
 import { SinglePageView } from "../components/pages/singlePage/SinglePageView";
+import { TestPageView } from "../components/pages/singlePage/Test";
 
 export const PATH = {
   Home: "/",
@@ -20,6 +21,7 @@ export const PATH = {
   TermsOfService: "/termsofservice",
   PrivacyPolicy: "/privacypolicy",
   ContactUs: "/contactus",
+  // Test: "/test",
 };
 
 export function MainView() {
@@ -56,6 +58,10 @@ export function MainView() {
           path={PATH.ContactUs}
           element={<SinglePageView type="contactus" />}
         />
+        {/* <Route
+          path={PATH.Test}
+          element={<TestPageView/>}
+        /> */}
       </Routes>
     </div>
   );
