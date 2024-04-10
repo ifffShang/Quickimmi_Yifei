@@ -1,56 +1,56 @@
 .loading {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .loading p {
-    text-align: center;
-    color: #828282;
-    margin-top: 0.5em;
-    font-size: 1em;
+  text-align: center;
+  color: #828282;
+  margin-top: 0.5em;
+  font-size: 1em;
 }
 
 .loading .ant-spin-dot-item {
-    background-color: #26ae5f;
-    width: 20px;
-    height: 20px;
+  background-color: #26ae5f;
+  width: 20px;
+  height: 20px;
 }
 
 .loading .ant-spin-dot {
-    font-size: 35px;
+  font-size: 35px;
 }
 
 /* Styles for viewports up to 1024px wide (e.g., tablets) */
 @media (max-width: 1024px) {
-    .loading .ant-spin-dot-item {
-        width: 15px;
-        height: 15px;
-    }
+  .loading .ant-spin-dot-item {
+    width: 15px;
+    height: 15px;
+  }
 
-    .loading .ant-spin-dot {
-        font-size: 26.25px;
-    }
+  .loading .ant-spin-dot {
+    font-size: 26.25px;
+  }
 
-    .loading p {
-        font-size: 0.9em;
-    }
+  .loading p {
+    font-size: 0.9em;
+  }
 }
 
 /* Styles for viewports up to 768px wide (e.g., mobile devices) */
 @media (max-width: 768px) {
-    .loading .ant-spin-dot-item {
-        width: 12px;
-        height: 12px;
-    }
+  .loading .ant-spin-dot-item {
+    width: 12px;
+    height: 12px;
+  }
 
-    .loading .ant-spin-dot {
-        font-size: 21px;
-    }
+  .loading .ant-spin-dot {
+    font-size: 21px;
+  }
 
-    .loading p {
-        font-size: 0.8em;
-    }
+  .loading p {
+    font-size: 0.8em;
+  }
 }
