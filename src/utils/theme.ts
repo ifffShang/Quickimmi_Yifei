@@ -25,6 +25,7 @@ export function getAntTheme() {
       Button: {
         colorPrimary: primaryColor,
         lineWidth: 0,
+        controlHeight: 25,
         borderRadius: 25,
         borderRadiusLG: 25,
         primaryShadow: "none",

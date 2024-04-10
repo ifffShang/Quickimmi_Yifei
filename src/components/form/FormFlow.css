@@ -18,7 +18,13 @@
   background-color: var(--white-color);
   border-radius: 10px;
   padding: 20px;
-  height: 80px;
+}
+
+.small .form-flow-top,
+.xsmall .form-flow-top {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .form-flow-icon {
@@ -41,6 +47,5 @@
 .form-flow-content {
   display: flex;
   gap: 10px;
-  flex-grow: 1;
-  overflow: auto;
+  overflow-y: auto;
 }

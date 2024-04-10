@@ -2,22 +2,35 @@
   position: relative;
   width: 100%;
   font-size: var(--font-size-p2);
-  margin-bottom: 60px;
+  flex-grow: 1;
+  overflow-y: auto;
 }
 
 .form-content-form {
   padding: 40px;
   background-color: var(--white-color);
-  border-radius: 10px;
-  box-sizing: border-box;
-  overflow-y: auto;
-  max-height: calc(100% - 10px);
+  border-radius: 10px 10px 0 0;
+}
+
+.xsmall .form-content-form,
+.small .form-content-form {
+  padding: 20px;
 }
 
 .form-content-controls {
-  position: absolute;
-  height: 60px;
-  bottom: -60px;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 40px;
   background-color: var(--white-color);
-  width: 100%;
+  border-radius: 0 0 10px 10px;
+  border-top: 1px solid var(--gray-color-4);
+}
+
+.xsmall .form-content-controls,
+.small .form-content-controls {
+  padding: 20px 10px;
+}
+
+.form-content-controls button {
+  width: 100px;
 }

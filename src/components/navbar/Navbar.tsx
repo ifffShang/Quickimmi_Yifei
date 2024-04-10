@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { resetAuthState } from "../../reducers/authSlice";
 import { Logo } from "../icons/Logo";
 import LanguageSelector from "./LanguageSelector";
-import { Menu } from "./Menu";
+import { Menu } from "../common/Menu";
 import "./Navbar.css";
 import { isAuthPath } from "../../utils/utils";
 
@@ -68,9 +68,9 @@ export function Navbar() {
         <div className="navbar-profile">
           <LanguageSelector />
         </div>
-        {/* <div>
-          <Menu items={menuItems} />
-        </div> */}
+        <div>
+          <Menu items={menuItems} popupPosition="bottom-left" />
+        </div>
       </div>
     </div>
   );

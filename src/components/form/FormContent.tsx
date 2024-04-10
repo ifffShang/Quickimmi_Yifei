@@ -5,6 +5,7 @@ import { updateFormFieldsMap } from "../../reducers/caseSlice";
 import "./FormContent.css";
 import { getFormFields } from "../../api/caseAPI";
 import { FormField } from "./FormField";
+import { Button } from "antd";
 
 interface FormContentProps {
   referenceId: string;
@@ -55,8 +56,8 @@ export function FormContent(props: FormContentProps) {
         ))}
       </div>
       <div className="form-content-controls">
-        <button>{wt("Previous")}</button>
-        <button>{wt("Next")}</button>
+        <Button type="primary">{wt("Previous")}</Button>
+        <Button type="primary">{wt("Next")}</Button>
       </div>
     </div>
   );

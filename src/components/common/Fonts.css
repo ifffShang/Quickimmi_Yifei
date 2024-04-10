@@ -18,6 +18,11 @@
   font-size: var(--font-size-h2-small);
 }
 
+.xsmall .text.xlarge,
+.small .text.xlarge {
+  font-size: var(--font-size-h3);
+}
+
 .text.large {
   font-weight: 600;
   font-size: var(--font-size-h3);

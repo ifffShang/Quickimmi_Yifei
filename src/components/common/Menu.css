@@ -22,12 +22,30 @@
 
 .menu-popup {
   position: absolute;
-  top: 52px;
-  right: 0px;
   background-color: var(--white-color);
   box-shadow: var(--shadow);
   border-radius: 5px;
-  width: 136px;
+  z-index: 999;
+}
+
+.menu-popup.popup-position-bottom-left {
+  top: 52px;
+  right: 0px;
+}
+
+.menu-popup.popup-position-bottom-right {
+  top: 52px;
+  left: 0px;
+}
+
+.menu-popup.popup-position-right {
+  top: 0px;
+  left: 52px;
+}
+
+.menu-popup.popup-position-left {
+  top: 0px;
+  right: 52px;
 }
 
 .menu-option {
@@ -37,4 +55,17 @@
   gap: 10px;
   padding: 10px;
   cursor: pointer;
+  white-space: nowrap;
+}
+
+.menu-option.option-align-right {
+  justify-content: flex-end;
+}
+
+.menu-option.option-align-left {
+  justify-content: flex-start;
+}
+
+.menu-option.option-align-center {
+  justify-content: center;
 }

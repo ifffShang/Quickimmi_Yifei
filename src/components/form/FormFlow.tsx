@@ -7,12 +7,16 @@ import { EditForm } from "../icons/Form";
 import { FormContent } from "./FormContent";
 import "./FormFlow.css";
 import { FormNavigation } from "./FormNavigation";
+import { ScreenSize } from "../../model/Models";
 
 export function FormFlow() {
   const dispatch = useAppDispatch();
   const form = useAppSelector(state => state.case.form);
   const indexLevel1 = useAppSelector(state => state.case.indexLevel1);
   const indexLevel2 = useAppSelector(state => state.case.indexLevel2);
+  const screenSize = useAppSelector(state => state.common.screenSize);
+  const isSmallScreen =
+    screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall;
 
   useEffect(() => {
     getForm("i589_form").then(form => {
@@ -29,13 +33,14 @@ export function FormFlow() {
   return (
     <div className="form-flow">
       <div className="form-flow-top">
+        {isSmallScreen && <FormNavigation steps={form.steps} />}
         <QText level="xlarge">Complete the form</QText>
-        <div className="form-flow-icon">
+        {/* <div className="form-flow-icon">
           <EditForm />
-        </div>
+        </div> */}
       </div>
       <div className="form-flow-content">
-        <FormNavigation steps={form.steps} />
+        {!isSmallScreen && <FormNavigation steps={form.steps} />}
         <FormContent referenceId={id ?? ""} />
       </div>
     </div>
