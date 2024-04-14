@@ -33,3 +33,7 @@ export const isAuthPath = (path: string) => {
     equalsIgnoreCase(path, PATH.ConfirmCode)
   );
 };
+
+export const showFormNavigation = () => {
+  return window.location.pathname === PATH.NewCase;
+};

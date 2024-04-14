@@ -26,7 +26,7 @@ export interface IFormField {
   label: string;
   order: number;
   control: ControlType;
-  direction: "horizontal" | "vertical";
+  maxChildPerRow: number;
   fields?: IFormField[];
 }
 
@@ -42,4 +42,5 @@ export type ControlType =
   | "tips"
   | "group"
   | "component_passport_uploader"
+  | "component_textbox_na"
   | "component_nationality_dropdown";

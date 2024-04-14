@@ -46,10 +46,12 @@ export function LanguageSelector() {
   return (
     <div
       ref={componentRef}
-      className={isPopupOpen ? "lang-container popup" : "lang-container"}>
+      className={isPopupOpen ? "lang-container popup" : "lang-container"}
+    >
       <div
         className="lang-display"
-        onClick={() => setIsPopupOpen(!isPopupOpen)}>
+        onClick={() => setIsPopupOpen(!isPopupOpen)}
+      >
         {languageDisplay}
         <ArrowDown />
       </div>

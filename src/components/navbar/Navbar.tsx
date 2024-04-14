@@ -7,7 +7,9 @@ import { Logo } from "../icons/Logo";
 import LanguageSelector from "./LanguageSelector";
 import { Menu } from "../common/Menu";
 import "./Navbar.css";
-import { isAuthPath } from "../../utils/utils";
+import { isAuthPath, showFormNavigation } from "../../utils/utils";
+import { ScreenSize } from "../../model/Models";
+import { FormNavigation } from "../form/FormNavigation";
 
 export function Navbar() {
   const dispatch = useAppDispatch();
@@ -16,6 +18,10 @@ export function Navbar() {
   const location = useLocation();
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
   const showNavbar = !isAuthPath(location.pathname);
+  const screenSize = useAppSelector(state => state.common.screenSize);
+  const isSmallScreen =
+    screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall;
+  const showFormNav = showFormNavigation();
 
   if (!showNavbar) {
     return null;
@@ -50,9 +56,15 @@ export function Navbar() {
     ];
   }
 
+  const containerCss =
+    isSmallScreen && showFormNav
+      ? "navbar-container form-nav"
+      : "navbar-container";
+
   return (
-    <div className="navbar-container">
+    <div className={containerCss}>
       <div className="navbar-group">
+        {isSmallScreen && showFormNav && <FormNavigation />}
         <div className="navbar-logo">
           <Link className="navbar-logo-link" to="/">
             <Logo />

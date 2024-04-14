@@ -4,7 +4,8 @@ export const PriceLaywer = () => (
     height="247"
     viewBox="0 0 300 247"
     fill="none"
-    xmlns="http://www.w3.org/2000/svg">
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path
       d="M277.62 163.78H35.0401C34.8001 163.78 34.6201 163.6 34.6201 163.36C34.6201 163.12 34.8001 162.94 35.0401 162.94H277.62C277.86 162.94 278.04 163.12 278.04 163.36C278.04 163.6 277.86 163.78 277.62 163.78Z"
       fill="#D1D3D4"
@@ -248,7 +249,8 @@ export const PriceApplicant = () => (
     height="247"
     viewBox="0 0 300 247"
     fill="none"
-    xmlns="http://www.w3.org/2000/svg">
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path
       d="M224.52 11.6802L223.56 18.6402L201 177.52H91.5L114.06 18.7002L115.02 11.7402C115.8 7.06019 119.76 3.58019 124.56 3.46019H217.44C222 3.40019 225.24 7.12019 224.52 11.6802Z"
       fill="white"
@@ -530,7 +532,8 @@ export const RoundCheck = () => (
     height="20"
     viewBox="0 0 20 20"
     fill="none"
-    xmlns="http://www.w3.org/2000/svg">
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <circle cx="10" cy="10" r="10" fill="#27AE60" />
     <path
       d="M9.35814 11.6469L15.2033 5.80176L16.1025 6.701L9.35814 13.4453L5.31152 9.39877L6.21078 8.49953L9.35814 11.6469Z"

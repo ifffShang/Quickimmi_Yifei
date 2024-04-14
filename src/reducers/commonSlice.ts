@@ -2,8 +2,10 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Language, ScreenSize } from "../model/Models";
 import { handleResize } from "../utils/utils";
 
+export type ModalType = "uploadpassport" | "";
 export interface CommonState {
   showModal?: boolean;
+  modalType?: ModalType;
   selectedLanguage: Language;
   screenSize: ScreenSize;
   showNavbar: boolean;
@@ -28,6 +30,10 @@ export const commonSlice = createSlice({
     updateShowNavbar: (state, action: PayloadAction<boolean>) => {
       state.showNavbar = action.payload;
     },
+    openModal: (state, action: PayloadAction<ModalType>) => {
+      state.showModal = true;
+      state.modalType = action.payload;
+    },
     closeModal: state => {
       state.showModal = false;
     },
@@ -38,6 +44,7 @@ export const {
   updateLanguage,
   updateScreenSize,
   updateShowNavbar,
+  openModal,
   closeModal,
 } = commonSlice.actions;
 

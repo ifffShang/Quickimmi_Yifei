@@ -1,36 +1,36 @@
 import { Collapse, CollapseProps } from "antd";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useFormTranslation } from "../../hooks/commonHooks";
-import { IFormStep } from "../../model/FormModels";
+import { ScreenSize } from "../../model/Models";
+import { setIndexLevel2 } from "../../reducers/caseSlice";
 import { QText } from "../common/Fonts";
+import { Menu, MenuItem } from "../common/Menu";
 import { NavDown, NavUp } from "../icons/ArrowDown";
 import "./FormNavigation.css";
-import { setIndexLevel2 } from "../../reducers/caseSlice";
-import { ScreenSize } from "../../model/Models";
-import { Menu, MenuItem } from "../common/Menu";
 
-export interface FormNavigationProps {
-  steps: IFormStep[];
-}
-
-export function FormNavigation(props: FormNavigationProps) {
+export function FormNavigation() {
   const { wt } = useFormTranslation();
   const dispatch = useAppDispatch();
   const indexLevel1 = useAppSelector(state => state.case.indexLevel1);
   const indexLevel2 = useAppSelector(state => state.case.indexLevel2);
   const screenSize = useAppSelector(state => state.common.screenSize);
+  const { steps } = useAppSelector(state => state.case.form);
+
+  if (!steps || steps.length === 0) {
+    return null;
+  }
 
   if (screenSize === ScreenSize.xsmall || screenSize === ScreenSize.small) {
     const items = [] as MenuItem[];
-    for (let l1 = 0; l1 < props.steps.length; l1++) {
+    for (let l1 = 0; l1 < steps.length; l1++) {
       items.push({
         key: `${l1}`,
-        label: <QText level="normal bold">{wt(props.steps[l1].label)}</QText>,
+        label: <QText level="normal bold">{wt(steps[l1].label)}</QText>,
       });
-      for (let l2 = 0; l2 < props.steps[l1].steps.length; l2++) {
+      for (let l2 = 0; l2 < steps[l1].steps.length; l2++) {
         items.push({
           key: `${l1}-${l2}`,
-          label: <QText>{wt(props.steps[l1].steps[l2].label)}</QText>,
+          label: <QText>{wt(steps[l1].steps[l2].label)}</QText>,
           onClick: () =>
             dispatch(
               setIndexLevel2({
@@ -47,7 +47,7 @@ export function FormNavigation(props: FormNavigationProps) {
   }
 
   // Below are the UI for large and medium screens
-  const items: CollapseProps["items"] = props.steps.map((level1, l1Index) => {
+  const items: CollapseProps["items"] = steps.map((level1, l1Index) => {
     return {
       key: l1Index,
       label: <QText level="normal bold">{wt(level1.label)}</QText>,
@@ -69,7 +69,8 @@ export function FormNavigation(props: FormNavigationProps) {
                       indexLevel2: l2Index,
                     }),
                   )
-                }>
+                }
+              >
                 <QText>{wt(level2.label)}</QText>
               </div>
             );

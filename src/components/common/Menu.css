@@ -1,6 +1,8 @@
 .menu-container {
   position: relative;
-  padding: 17px;
+  padding: 12px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .xsmall .menu-container,
@@ -13,7 +15,6 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  cursor: pointer;
 }
 
 .popup {
@@ -29,23 +30,23 @@
 }
 
 .menu-popup.popup-position-bottom-left {
-  top: 52px;
+  top: 42px;
   right: 0px;
 }
 
 .menu-popup.popup-position-bottom-right {
-  top: 52px;
+  top: 42px;
   left: 0px;
 }
 
 .menu-popup.popup-position-right {
   top: 0px;
-  left: 52px;
+  left: 42px;
 }
 
 .menu-popup.popup-position-left {
   top: 0px;
-  right: 52px;
+  right: 42px;
 }
 
 .menu-option {
@@ -56,6 +57,10 @@
   padding: 10px;
   cursor: pointer;
   white-space: nowrap;
+}
+
+.menu-option:hover {
+  background-color: var(--gray-color-4);
 }
 
 .menu-option.option-align-right {

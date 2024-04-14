@@ -1,13 +1,11 @@
 import { useEffect } from "react";
 import { getForm } from "../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { ScreenSize } from "../../model/Models";
 import { updateForm } from "../../reducers/caseSlice";
-import { QText } from "../common/Fonts";
-import { EditForm } from "../icons/Form";
 import { FormContent } from "./FormContent";
 import "./FormFlow.css";
 import { FormNavigation } from "./FormNavigation";
-import { ScreenSize } from "../../model/Models";
 
 export function FormFlow() {
   const dispatch = useAppDispatch();
@@ -32,15 +30,8 @@ export function FormFlow() {
 
   return (
     <div className="form-flow">
-      <div className="form-flow-top">
-        {isSmallScreen && <FormNavigation steps={form.steps} />}
-        <QText level="xlarge">Complete the form</QText>
-        {/* <div className="form-flow-icon">
-          <EditForm />
-        </div> */}
-      </div>
       <div className="form-flow-content">
-        {!isSmallScreen && <FormNavigation steps={form.steps} />}
+        {!isSmallScreen && <FormNavigation />}
         <FormContent referenceId={id ?? ""} />
       </div>
     </div>

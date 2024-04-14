@@ -48,10 +48,10 @@ export function Menu({ items, popupPosition, optionAlign }: MenuProps) {
   return (
     <div
       ref={componentRef}
-      className={isPopupOpen ? "menu-container popup" : "menu-container"}>
-      <div
-        className="menu-display"
-        onClick={() => setIsPopupOpen(!isPopupOpen)}>
+      className={isPopupOpen ? "menu-container popup" : "menu-container"}
+      onClick={() => setIsPopupOpen(!isPopupOpen)}
+    >
+      <div className="menu-display">
         <MenuOutlined />
       </div>
       {isPopupOpen && (

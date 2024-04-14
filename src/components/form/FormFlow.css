@@ -10,21 +10,7 @@
 
 .xsmall .form-flow,
 .small .form-flow {
-  padding: 40px 10px 0 10px;
-}
-
-.form-flow-top {
-  position: relative;
-  background-color: var(--white-color);
-  border-radius: 10px;
-  padding: 20px;
-}
-
-.small .form-flow-top,
-.xsmall .form-flow-top {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  padding: 10px 0;
 }
 
 .form-flow-icon {
@@ -46,6 +32,7 @@
 
 .form-flow-content {
   display: flex;
+  justify-content: center;
   gap: 10px;
   overflow-y: auto;
 }

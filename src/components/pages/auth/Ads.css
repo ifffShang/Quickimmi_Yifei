@@ -15,8 +15,9 @@
 
 .xsmall .ads,
 .small .ads {
-  padding: 40px;
-  margin-top: 80px;
+  display: none;
+  /* padding: 40px;
+  margin-top: 80px; */
 }
 
 .ads svg {

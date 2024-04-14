@@ -4,7 +4,8 @@ export const NewApplicationIcon = () => (
     height="160"
     viewBox="0 0 200 160"
     fill="none"
-    xmlns="http://www.w3.org/2000/svg">
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path
       d="M124.2 47.753H85.9404L89.9404 34.3197H128.2L124.2 47.753Z"
       fill="white"

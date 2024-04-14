@@ -8,6 +8,7 @@ export interface TextBoxProps {
   placeholder: string;
   value: string;
   onChange: (value: string) => void;
+  disabled?: boolean;
 }
 
 export function TextBox(props: TextBoxProps) {
@@ -17,6 +18,7 @@ export function TextBox(props: TextBoxProps) {
       placeholder={props.placeholder}
       value={props.value}
       onChange={e => props.onChange(e.target.value)}
+      disabled={props.disabled || false}
     />
   );
 }

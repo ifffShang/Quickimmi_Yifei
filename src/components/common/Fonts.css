@@ -32,6 +32,10 @@
   font-size: var(--font-size-p2);
 }
 
+.text.xsmall {
+  font-size: var(--font-size-p3);
+}
+
 .text.normal {
   font-size: var(--font-size-p2);
 }

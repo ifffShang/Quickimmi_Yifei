@@ -4,7 +4,8 @@ export const LawyerReview = () => (
     height="300"
     viewBox="0 0 500 300"
     fill="none"
-    xmlns="http://www.w3.org/2000/svg">
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path
       d="M52.6181 210.545V220.773L232.345 266.495L448.075 187.217V179.049L52.6181 210.545Z"
       fill="white"
@@ -250,7 +251,8 @@ export const ProgressNotification = () => (
     height="300"
     viewBox="0 0 500 300"
     fill="none"
-    xmlns="http://www.w3.org/2000/svg">
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path
       d="M245.528 247.553L336.74 165.441L328.611 158.984L368.516 149.884L359.736 183.642L352.558 178.066L276.543 247.553H245.528Z"
       fill="white"

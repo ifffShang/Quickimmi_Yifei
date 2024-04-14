@@ -4,7 +4,8 @@ export const ManAndComputer = () => (
     height="300"
     viewBox="0 0 500 300"
     fill="none"
-    xmlns="http://www.w3.org/2000/svg">
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path d="M283.612 192.845H235.369V205.082H283.612V192.845Z" fill="white" />
     <path
       d="M143.155 144.334C143.155 144.334 141.454 184.854 146.006 198.203H166.796C167.867 198.205 168.909 198.55 169.77 199.187C170.631 199.824 171.264 200.721 171.578 201.744L172.704 205.465H119.832C115.86 202.849 112.515 199.386 110.038 195.326C106.535 189.086 108.683 144.334 108.683 144.334H143.155Z"
@@ -741,7 +742,8 @@ export const AiComplete = () => (
     height="300"
     viewBox="0 0 500 300"
     fill="none"
-    xmlns="http://www.w3.org/2000/svg">
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <rect opacity="0.2" x="341" width="159" height="110" fill="#27AE60" />
     <path d="M397.013 22.5065H172.286V240.635H397.013V22.5065Z" fill="white" />
     <path
@@ -1005,7 +1007,8 @@ export const AiTranslate = () => (
     height="300"
     viewBox="0 0 500 300"
     fill="none"
-    xmlns="http://www.w3.org/2000/svg">
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <g clipPath="url(#clip0_567_1590)">
       <circle opacity="0.4" cx="400.6" cy="42.9" r="32.9" fill="#D9D9D9" />
       <circle cx="56.5" cy="165.5" r="33.5" fill="#D9D9D9" />

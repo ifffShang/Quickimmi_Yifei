@@ -3,12 +3,13 @@ import { ControlType, IFormField } from "../../model/FormModels";
 import { TextBox } from "./fields/Controls";
 import { NationalityDropdown } from "./fields/NationalityDropdown";
 import { PassportUploader } from "./fields/PassportUploader";
+import { TextboxWithNA } from "./fields/TextboxWithNA";
 import "./FormField.css";
 
 export interface FormFieldProps {
   control: ControlType;
   label: string;
-  direction?: "horizontal" | "vertical";
+  maxChildPerRow?: number;
   subFields?: IFormField[];
 }
 
@@ -37,22 +38,19 @@ export function FormField(props: FormFieldProps) {
       return <div>Tips not implemented</div>;
     case "component_passport_uploader":
       return <PassportUploader />;
+    case "component_textbox_na":
+      return <TextboxWithNA placeholder={wt(props.label)} />;
     case "component_nationality_dropdown":
       return <NationalityDropdown />;
     case "group":
       if (props.subFields && props.subFields.length > 0) {
-        let directionCss = "horizontal";
-        if (props.direction === "vertical") {
-          directionCss = "vertical";
-        }
+        const subFieldsCss = "horizontal-" + `${props.maxChildPerRow || 1}`;
         return (
-          <div className={directionCss}>
+          <div className={subFieldsCss}>
             {props.subFields.map((field, index) => (
-              <FormField
-                key={index}
-                control={field.control}
-                label={field.label}
-              />
+              <div className="sub-field" key={index}>
+                <FormField control={field.control} label={field.label} />
+              </div>
             ))}
           </div>
         );

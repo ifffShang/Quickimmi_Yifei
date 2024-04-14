@@ -4,7 +4,8 @@ export const EditForm = () => (
     height="140"
     viewBox="0 0 200 140"
     fill="none"
-    xmlns="http://www.w3.org/2000/svg">
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <g clipPath="url(#clip0_961_18016)">
       <path
         d="M155.1 14.8999L154.3 20.6999L135.5 153.1H44.25L63.05 20.7499L63.85 14.9499C64.5 11.0499 67.8 8.14991 71.8 8.04991H149.2C153 7.99991 155.7 11.0999 155.1 14.8999Z"

@@ -4,17 +4,31 @@
   font-size: var(--font-size-p2);
   flex-grow: 1;
   overflow-y: auto;
+  max-width: 1200px;
+}
+
+.form-content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 40px 20px 40px;
+  background-color: var(--white-color);
+  border-radius: 10px 10px 0 0;
+  border-bottom: 1px solid var(--gray-color-4);
 }
 
 .form-content-form {
   padding: 40px;
   background-color: var(--white-color);
-  border-radius: 10px 10px 0 0;
 }
 
 .xsmall .form-content-form,
 .small .form-content-form {
   padding: 20px;
+}
+
+.form-content-form > div {
+  margin-bottom: 40px;
 }
 
 .form-content-controls {
