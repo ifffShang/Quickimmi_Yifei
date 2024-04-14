@@ -38,7 +38,7 @@ export function FormContent(props: FormContentProps) {
       });
   }, [props.referenceId]);
 
-  if (!formFields) {
+  if (!formFields || !currentStep) {
     return <div>Loading...</div>;
   }
 

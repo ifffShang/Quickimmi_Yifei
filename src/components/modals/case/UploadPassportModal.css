@@ -7,3 +7,11 @@
   margin: 40px 0 0 0;
   align-self: center;
 }
+
+.upload-passport .upload-passport-controls {
+  margin: 40px 0 0 0;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

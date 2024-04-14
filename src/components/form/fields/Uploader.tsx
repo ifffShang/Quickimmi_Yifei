@@ -42,13 +42,6 @@ export function Uploader() {
     return isJpgOrPng && isLt2M;
   };
 
-  const uploadButton = (
-    <button style={{ border: 0, background: "none" }} type="button">
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </button>
-  );
-
   return (
     <div>
       <div>
@@ -64,7 +57,10 @@ export function Uploader() {
           {imageUrl ? (
             <img src={imageUrl} alt="avatar" style={{ width: "100%" }} />
           ) : (
-            uploadButton
+            <button style={{ border: 0, background: "none" }} type="button">
+              {loading ? <LoadingOutlined /> : <PlusOutlined />}
+              <div style={{ marginTop: 8 }}>Upload</div>
+            </button>
           )}
         </Upload>
       </div>

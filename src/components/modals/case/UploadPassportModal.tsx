@@ -1,3 +1,4 @@
+import { Button, Checkbox } from "antd";
 import { useFormTranslation } from "../../../hooks/commonHooks";
 import { QText } from "../../common/Fonts";
 import { Uploader } from "../../form/fields/Uploader";
@@ -17,6 +18,12 @@ export function UploadPassportModal() {
       <QText level="xsmall" color="gray">
         {wt("UploadPassportDescription2")}
       </QText>
+      <div className="upload-passport-controls">
+        <Button type="primary" size="large" disabled>
+          {wt("Upload")}
+        </Button>
+        <Checkbox>{wt("NoPassport")}</Checkbox>
+      </div>
     </div>
   );
 }

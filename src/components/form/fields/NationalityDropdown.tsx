@@ -124,11 +124,13 @@ export function NationalityDropdown(props: NationalityDropdownProps) {
             allowClear
             onChange={value => setCountry(value)}
             value={country}
-            notFoundContent="Not found">
+            notFoundContent="Not found"
+          >
             {countryData.map(item => (
               <Select.Option
                 key={item.isoCode}
-                value={item.name}>{`${item.flag} ${item.name}`}</Select.Option>
+                value={item.name}
+              >{`${item.flag} ${item.name}`}</Select.Option>
             ))}
           </Select>
         )}
@@ -141,7 +143,8 @@ export function NationalityDropdown(props: NationalityDropdownProps) {
             allowClear
             onChange={value => setState(value)}
             value={state}
-            notFoundContent="Not found">
+            notFoundContent="Not found"
+          >
             {stateData.map(item => (
               <Select.Option key={item.isoCode} value={item.name}>
                 {item.name}
@@ -158,7 +161,8 @@ export function NationalityDropdown(props: NationalityDropdownProps) {
             allowClear
             onChange={value => setCity(value)}
             value={city}
-            notFoundContent="Not found">
+            notFoundContent="Not found"
+          >
             {cityData.map(item => (
               <Select.Option key={item.name} value={item.name}>
                 {item.name}
