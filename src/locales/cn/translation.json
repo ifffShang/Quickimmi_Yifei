@@ -77,5 +77,22 @@
     "FirstApplication": "开始您的第一个申请吧",
     "GreetingMessage": "体验快速智能移民通道就是现在",
     "CreateNewApplication": "新建申请"
+  },
+  "Application": {
+    "EntryLocation": {
+      "Title": "请选择您的在美国的入境地址",
+      "PlaceHolder": {
+        "State": "州",
+        "City": "市"
+      }
+    },
+    "BirthLocation": {
+      "Title": "请选择您的出生地",
+      "PlaceHolder": {
+        "Country": "国家",
+        "State": "省/地区",
+        "City": "市"
+      }
+    }
   }
 }

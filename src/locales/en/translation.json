@@ -87,5 +87,22 @@
     "FirstApplication": "Start Your First Application",
     "GreetingMessage": "Experience the fast and smart immigration service now.",
     "CreateNewApplication": "Create"
+  },
+  "Application": {
+    "EntryLocation": {
+      "Title": "Enter the Place of Entry",
+      "PlaceHolder": {
+        "State": "Select a State",
+        "City": "Select a City"
+      }
+    },
+    "BirthLocation": {
+      "Title": "Enter the Place of Birth",
+      "PlaceHolder": {
+        "Country": "Select Country",
+        "State": "Select State",
+        "City": "Select City"
+      }
+    }
   }
 }
