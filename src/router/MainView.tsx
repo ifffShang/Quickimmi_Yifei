@@ -21,7 +21,7 @@ export const PATH = {
   TermsOfService: "/termsofservice",
   PrivacyPolicy: "/privacypolicy",
   ContactUs: "/contactus",
-  // Test: "/test",
+  Test: "/test",
 };
 
 export function MainView() {
@@ -58,10 +58,7 @@ export function MainView() {
           path={PATH.ContactUs}
           element={<SinglePageView type="contactus" />}
         />
-        {/* <Route
-          path={PATH.Test}
-          element={<TestPageView/>}
-        /> */}
+        <Route path={PATH.Test} element={<TestPageView />} />
       </Routes>
     </div>
   );
