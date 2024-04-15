@@ -12,6 +12,7 @@ export interface CaseState {
   totalLevel1s: number;
   currentStep: IFormStep;
   formFieldsMap: FormFieldsMap;
+  currentCaseId: string;
 }
 
 const initialState: CaseState = {
@@ -21,6 +22,7 @@ const initialState: CaseState = {
   totalLevel1s: 0,
   currentStep: {} as IFormStep,
   formFieldsMap: {},
+  currentCaseId: "",
 };
 
 export const caseSlice = createSlice({
@@ -75,6 +77,9 @@ export const caseSlice = createSlice({
         [action.payload.referenceId]: action.payload.formFields,
       };
     },
+    updateCurrentCaseId: (state, action: PayloadAction<string>) => {
+      state.currentCaseId = action.payload;
+    },
   },
 });
 
@@ -85,6 +90,7 @@ export const {
   setIndexLevel2,
   updateForm,
   updateFormFieldsMap,
+  updateCurrentCaseId,
 } = caseSlice.actions;
 
 export default caseSlice.reducer;

@@ -10,7 +10,7 @@ import {
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
   validateCode,
   validatePassword,
@@ -20,10 +20,12 @@ import { FormInput } from "../../form/fields/Controls";
 import { ErrorMessage, QText } from "../../common/Fonts";
 import { AuthComponent } from "./AuthComponent";
 import "./ConfirmCode.css";
-import { createUser } from "../../../api/authAPI";
+import { createUserApi } from "../../../api/authAPI";
+import { updateAuthState } from "../../../reducers/authSlice";
 
 export function ConfirmCode() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const auth = useAppSelector(state => state.auth);
   const [errorMessage, setErrorMessage] = useState("");
@@ -78,15 +80,19 @@ export function ConfirmCode() {
         });
         if (isSignUpComplete) {
           setErrorMessage("");
-
-          // try {
-          //   await createUser(auth.email);
-          // } catch (error: any) {
-          //   if (error?.message !== "USER_EXIST") {
-          //     throw error;
-          //   }
-          // }
-
+          try {
+            const userId = await createUserApi(auth.email);
+            userId &&
+              dispatch(
+                updateAuthState({
+                  userId,
+                }),
+              );
+          } catch (error: any) {
+            if (error?.message !== "USER_EXIST") {
+              throw error;
+            }
+          }
           navigate("/authsuccess");
         } else {
           setErrorMessage("Error confirming sign up. Please try again.");

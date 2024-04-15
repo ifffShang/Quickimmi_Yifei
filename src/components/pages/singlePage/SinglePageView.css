@@ -6,24 +6,6 @@
   overflow: hidden;
 }
 
-.single-page-return {
-  margin: 20px 40px 0;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  color: var(--gray-color-2);
-  gap: 10px;
-}
-
-.single-page-return svg {
-  fill: var(--primary-color);
-  width: 15px;
-}
-
-.single-page-return:hover {
-  color: var(--primary-color);
-}
-
 .single-page-content {
   flex-grow: 1;
   margin: 20px 40px 40px;

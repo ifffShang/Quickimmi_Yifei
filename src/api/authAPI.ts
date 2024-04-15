@@ -1,7 +1,7 @@
 import { performApiRequest } from "./apiConfig";
 
-export async function createUser(email: string) {
-  return await performApiRequest(
+export async function createUserApi(email: string): Promise<string> {
+  const userId = await performApiRequest(
     "api/user/create",
     "POST",
     {
@@ -11,4 +11,16 @@ export async function createUser(email: string) {
     },
     "",
   );
+  return userId?.toString() || "";
+}
+
+export async function getUserInfoApi(email: string): Promise<string> {
+  const userInfo = await performApiRequest(
+    `api/user/getByUsername?username=${email}`,
+    "GET",
+    null,
+    "",
+    false,
+  );
+  return userInfo?.userId?.toString() || "";
 }

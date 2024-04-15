@@ -5,12 +5,14 @@ import { fetchAuthSession, resendSignUpCode, signIn } from "aws-amplify/auth";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { createUserApi, getUserInfoApi } from "../../../api/authAPI";
 import { useAppDispatch } from "../../../app/hooks";
 import { updateAuthState } from "../../../reducers/authSlice";
-import { FormInput } from "../../form/fields/Controls";
-import { ErrorMessage, QText } from "../../common/Fonts";
-import { AuthComponent } from "./AuthComponent";
+import { signOutCurrentUser } from "../../../utils/authUtils";
 import { validateEmail, validatePassword } from "../../../utils/validators";
+import { ErrorMessage, QText } from "../../common/Fonts";
+import { FormInput } from "../../form/fields/Controls";
+import { AuthComponent } from "./AuthComponent";
 
 export function SignIn() {
   const dispatch = useAppDispatch();
@@ -46,6 +48,14 @@ export function SignIn() {
             accessToken: session.tokens?.accessToken?.toString(),
           }),
         );
+        try {
+          const userId = await getUserInfoApi(email);
+          dispatch(updateAuthState({ userId }));
+        } catch (error) {
+          console.error("Error getting user info: ", error);
+          await createUserApi(email);
+        }
+
         navigate("/dashboard");
       } else if (nextStep?.signInStep === "CONFIRM_SIGN_UP") {
         await resendSignUpCode({ username: email });
@@ -61,6 +71,9 @@ export function SignIn() {
       if (error?.message === "Incorrect username or password.") {
         setErrorMessage(t("ErrorMessage.IncorrectEmailOrPassword"));
         return;
+      }
+      if (error?.name === "UserAlreadyAuthenticatedException") {
+        signOutCurrentUser(dispatch);
       }
       console.error("Error signing in: ", error);
       setErrorMessage(t("ErrorMessage.ErrorSigningIn"));

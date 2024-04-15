@@ -7,6 +7,7 @@ export interface AuthState {
   isLoggedIn?: boolean;
   accessToken?: string;
   email?: string;
+  userId?: string;
 }
 
 const initialState: AuthState = {
@@ -14,6 +15,7 @@ const initialState: AuthState = {
   isLoggedIn: false,
   accessToken: "",
   email: "",
+  userId: "",
 };
 
 export const authSlice = createSlice({
@@ -23,16 +25,12 @@ export const authSlice = createSlice({
     updateAuthState: (state, action: PayloadAction<AuthState>) => {
       Object.assign(state, action.payload);
     },
-    updateAccessToken: (state, action: PayloadAction<string>) => {
-      state.accessToken = action.payload;
-    },
     resetAuthState: state => {
       Object.assign(state, initialState);
     },
   },
 });
 
-export const { updateAuthState, updateAccessToken, resetAuthState } =
-  authSlice.actions;
+export const { updateAuthState, resetAuthState } = authSlice.actions;
 
 export default authSlice.reducer;

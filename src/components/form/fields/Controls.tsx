@@ -1,8 +1,9 @@
-import { Input } from "antd";
-import React from "react";
+import { Input, Select } from "antd";
+import React, { useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { ErrorMessage } from "../../common/Fonts";
+import { ErrorMessage, QText } from "../../common/Fonts";
 import "./Controls.css";
+import { Uploader } from "./Uploader";
 
 export interface TextBoxProps {
   placeholder: string;
@@ -23,15 +24,33 @@ export function TextBox(props: TextBoxProps) {
   );
 }
 
-export interface DropdownProps {
+export interface QDropdownProps {
   label: string;
-  value: string;
-  options: string[];
+  value?: string;
+  options?: string[];
   onChange: (value: string) => void;
 }
 
-export function Dropdown() {
-  return <div>Dropdown not implemented</div>;
+export function QDropdown(props: QDropdownProps) {
+  const container = useRef(null);
+
+  const handleChange = (value: string) => {
+    props.onChange(value);
+  };
+  return (
+    <div className="dropdown-container" ref={container}>
+      <QText level="normal bold">{props.label}</QText>
+      <Select
+        className="dropdown-inner"
+        onChange={handleChange}
+        getPopupContainer={() => container.current || document.body} // This makes the dropdown menu follow the Select component's z-index
+        options={[
+          { value: "idcard", label: "Identification card" },
+          { value: "driverlicense", label: "Driver license" },
+        ]}
+      />
+    </div>
+  );
 }
 
 export interface FormInputProps {

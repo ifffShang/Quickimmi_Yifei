@@ -83,6 +83,10 @@
   "UploadPassportDescription1": "Upload images of the tront side of your business representative's These images will be used for identity verification purposes.",
   "UploadPassportDescription2": "Be sure that your images include all information on the front side of your ID, including any signatures. Images also need to be clear, without any warped or blurred portions.",
   "NoPassport": "I don't have a passport",
+  "UploadOtherId": "Upload Other ID",
+  "NoPassportSelected": "Your selection: I don't have a passport",
+  "ReturnToPassportUpload": "Return to Passport Upload",
+  "Confirm": "Confirm",
   "Dashboard": {
     "Dashboard": "Dashboard",
     "FirstApplication": "Start Your First Application",

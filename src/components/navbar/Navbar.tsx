@@ -1,15 +1,14 @@
-import { signOut } from "aws-amplify/auth";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { resetAuthState } from "../../reducers/authSlice";
+import { ScreenSize } from "../../model/Models";
+import { signOutCurrentUser } from "../../utils/authUtils";
+import { isAuthPath, showFormNavigation } from "../../utils/utils";
+import { Menu } from "../common/Menu";
+import { FormNavigation } from "../form/FormNavigation";
 import { Logo } from "../icons/Logo";
 import LanguageSelector from "./LanguageSelector";
-import { Menu } from "../common/Menu";
 import "./Navbar.css";
-import { isAuthPath, showFormNavigation } from "../../utils/utils";
-import { ScreenSize } from "../../model/Models";
-import { FormNavigation } from "../form/FormNavigation";
 
 export function Navbar() {
   const dispatch = useAppDispatch();
@@ -31,13 +30,6 @@ export function Navbar() {
     navigate("/signin");
   };
 
-  const signOutCurrentUser = () => {
-    signOut().then(() => {
-      console.log("User signed out");
-      dispatch(resetAuthState());
-    });
-  };
-
   let menuItems = [
     {
       key: "login",
@@ -51,7 +43,7 @@ export function Navbar() {
       {
         key: "signout",
         label: t("SignOut"),
-        onClick: signOutCurrentUser,
+        onClick: () => signOutCurrentUser(dispatch),
       },
     ];
   }

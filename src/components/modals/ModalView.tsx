@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { closeModal } from "../../reducers/commonSlice";
 import "./ModalView.css";
 import { UploadPassportModal } from "./case/UploadPassportModal";
+import { UploadOtherIdModal } from "./case/UploadOtherIdModal";
 
 function Modal({ children }: { children?: ReactNode }) {
   const dispatch = useAppDispatch();
@@ -35,9 +36,9 @@ export function ModalView() {
   let innerModal = null;
   if (common.modalType === "uploadpassport") {
     innerModal = <UploadPassportModal />;
-  } //else if (common.modalType === "signoutsccess") {
-  //   innerModal = <SignOutSccessMessage />;
-  // }
+  } else if (common.modalType === "uploadotherid") {
+    innerModal = <UploadOtherIdModal />;
+  }
 
   return <Modal>{innerModal}</Modal>;
 }

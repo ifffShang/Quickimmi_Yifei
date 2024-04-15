@@ -14,3 +14,21 @@ export async function getFormFields(referenceId: string): Promise<IFormFields> {
     true,
   );
 }
+
+export async function createNewCaseApi(
+  accessToken: string,
+  userId: string,
+  caseType: string,
+  reason: string,
+): Promise<string> {
+  return await performApiRequest(
+    "/api/case/create",
+    "POST",
+    {
+      userId,
+      caseType,
+      reason,
+    },
+    accessToken,
+  );
+}

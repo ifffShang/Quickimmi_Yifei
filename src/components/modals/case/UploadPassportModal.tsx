@@ -3,9 +3,14 @@ import { useFormTranslation } from "../../../hooks/commonHooks";
 import { QText } from "../../common/Fonts";
 import { Uploader } from "../../form/fields/Uploader";
 import "./UploadPassportModal.css";
+import { useState } from "react";
+import { useAppDispatch } from "../../../app/hooks";
+import { changeModalType } from "../../../reducers/commonSlice";
 
 export function UploadPassportModal() {
   const { wt } = useFormTranslation();
+  const dispatch = useAppDispatch();
+
   return (
     <div className="upload-passport">
       <QText level="large">{wt("UploadPassport")}</QText>
@@ -20,9 +25,11 @@ export function UploadPassportModal() {
       </QText>
       <div className="upload-passport-controls">
         <Button type="primary" size="large" disabled>
-          {wt("Upload")}
+          {wt("Confirm")}
         </Button>
-        <Checkbox>{wt("NoPassport")}</Checkbox>
+        <Checkbox onClick={() => dispatch(changeModalType("uploadotherid"))}>
+          {wt("NoPassport")}
+        </Checkbox>
       </div>
     </div>
   );

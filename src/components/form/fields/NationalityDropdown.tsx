@@ -111,7 +111,6 @@ export function NationalityDropdown(props: NationalityDropdownProps) {
 
   return (
     <div className="container">
-      <div className="title">{props.title || "Location"}</div>
       <div className="dropdowns-container">
         {props.countryIsShown && (
           <Select
