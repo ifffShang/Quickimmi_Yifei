@@ -119,17 +119,9 @@
     }
   },
   "Gender": "性别",
-  "GenderOptions": [
-    "男", 
-    "女"
-  ],
+  "GenderOptions": ["男", "女"],
   "MaritalStatus": "婚姻状况",
-  "MaritalStatusOptions": [
-    "已婚",
-    "未婚",
-    "离异",
-    "丧偶"
-  ],
+  "MaritalStatusOptions": ["已婚", "未婚", "离异", "丧偶"],
   "Race": "种族",
   "RaceOptions": [
     "美洲印第安人或阿拉斯加土著",
@@ -365,5 +357,6 @@
     "赞比亚人",
     "津巴布韦人"
   ],
-  "LocationOfBirth": "出生地"
+  "LocationOfBirth": "出生地",
+  "FluentInEnglish": "我可以流利地说英语"
 }

@@ -7,7 +7,7 @@ export function useFormTranslation() {
   const { t } = useTranslation();
   const wt = textParser(t);
   const wa = arrayMapper(t);
-  return { t, wt, wa};
+  return { t, wt, wa };
 }
 
 export function useClickOutsideOfRef(

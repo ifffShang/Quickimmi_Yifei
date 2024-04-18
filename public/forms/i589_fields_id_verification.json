@@ -93,6 +93,12 @@
           "control": "component_location_dropdown"
         }
       ]
+    },
+    {
+      "label": "text_FluentInEnglish",
+      "id": "fluent_in_english",
+      "order": 4,
+      "control": "checkbox"
     }
   ]
 }

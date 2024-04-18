@@ -119,17 +119,9 @@
     }
   },
   "Gender": "Gender",
-  "GenderOptions": [
-    "Male",
-    "Female"
-  ],
+  "GenderOptions": ["Male", "Female"],
   "MaritalStatus": "Marital Status",
-  "MaritalStatusOptions":[
-    "Single",
-    "Married",
-    "Divorced",
-    "Widowed"
-  ],
+  "MaritalStatusOptions": ["Single", "Married", "Divorced", "Widowed"],
   "Race": "Race",
   "RaceOptions": [
     "American Indian or Alaska Native",
@@ -365,5 +357,6 @@
     "Zambian",
     "Zimbabwean"
   ],
-  "LocationOfBirth": "Location of Birth"
+  "LocationOfBirth": "Location of Birth",
+  "FluentInEnglish": "I am fluent in English"
 }
