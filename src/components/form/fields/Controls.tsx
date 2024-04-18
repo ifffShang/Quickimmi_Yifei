@@ -3,7 +3,6 @@ import React, { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { ErrorMessage, QText } from "../../common/Fonts";
 import "./Controls.css";
-import { Uploader } from "./Uploader";
 
 export interface TextBoxProps {
   placeholder: string;
@@ -95,6 +94,31 @@ export function FormInput(props: FormInputProps) {
       {props.showErrorMessage && errorMessage && (
         <ErrorMessage>{t(errorMessage)}</ErrorMessage>
       )}
+    </div>
+  );
+}
+
+
+export interface SelectBoxProps {
+  options: { value: string; label: string }[]
+  onChange: (value: string) => void;
+  placeholder?: string;
+  value?: string;
+  disabled?: boolean;
+  allowClear?: boolean;
+}
+
+export function SelectBox(props: SelectBoxProps) {
+  return (
+    <div className="select-box">
+      <Select
+        onChange={props.onChange}
+        options={props.options}
+        disabled={props.disabled || false}
+        allowClear={props.allowClear || true}
+        placeholder={props.placeholder || "Select an option"}
+        value={props.value}
+      />
     </div>
   );
 }

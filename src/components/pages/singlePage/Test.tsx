@@ -6,7 +6,7 @@ import { QText } from "../../common/Fonts";
 import { QLink } from "../../common/Links";
 
 import { Loading } from "../../common/Loading";
-import { NationalityDropdown } from "../../form/fields/NationalityDropdown";
+import { LocationDropdown } from "../../form/fields/LocationDropdown";
 
 import "./SinglePageView.css";
 import { TermsOfService } from "./TermsOfService";
@@ -21,9 +21,8 @@ export function TestPageView() {
   return (
     <div style={{ padding: "50px" }}>
       {/* Test for NationalityDropdown empty */}
-      <NationalityDropdown
-        title="location - test"
-        selectBoxPlaceholder={{
+      <LocationDropdown
+        placeholder={{
           country: t("Application.BirthLocation.PlaceHolder.Country"),
           state: t("Application.BirthLocation.PlaceHolder.State"),
           city: t("Application.BirthLocation.PlaceHolder.City"),
@@ -34,9 +33,8 @@ export function TestPageView() {
       />
 
       {/*  Test for NationalityDropdown with prefills */}
-      <NationalityDropdown
-        title={t("Application.BirthLocation.Title")}
-        selectBoxPlaceholder={{
+      <LocationDropdown
+        placeholder={{
           country: t("Application.BirthLocation.PlaceHolder.Country"),
           state: t("Application.BirthLocation.PlaceHolder.State"),
           city: t("Application.BirthLocation.PlaceHolder.City"),
@@ -51,9 +49,8 @@ export function TestPageView() {
       />
 
       {/* Test for NationalityDropdown with only state and city */}
-      <NationalityDropdown
-        title={t("Application.EntryLocation.Title")}
-        selectBoxPlaceholder={{
+      <LocationDropdown
+        placeholder={{
           state: t("Application.EntryLocation.PlaceHolder.State"),
           city: t("Application.EntryLocation.PlaceHolder.City"),
         }}

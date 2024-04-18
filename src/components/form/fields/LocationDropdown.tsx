@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 import { Select } from "antd";
 import { City, Country, State } from "country-state-city";
-import "./NationalityDropdown.css";
+import "./LocationDropdown.css";
 
-export interface NationalityDropdownProps {
-  title?: string;
+export interface LocationDropdownProps {
   prefillData?: {
     country?: string;
     state?: string;
     city?: string;
   };
-  selectBoxPlaceholder?: {
+  placeholder?: {
     country?: string;
     state?: string;
     city?: string;
@@ -25,7 +24,7 @@ export interface NationalityDropdownProps {
   }) => void;
 }
 
-export function NationalityDropdown(props: NationalityDropdownProps) {
+export function LocationDropdown(props: LocationDropdownProps) {
   const [country, setCountry] = useState<
     { value: string; label: string; key: string } | undefined
   >();
@@ -111,70 +110,65 @@ export function NationalityDropdown(props: NationalityDropdownProps) {
 
   return (
     <div className="container">
-      <div className="dropdowns-container">
-        {props.countryIsShown && (
-          <Select
-            className="select"
-            placeholder={
-              props.selectBoxPlaceholder?.country || "Select a country"
-            }
-            labelInValue
-            showSearch
-            allowClear
-            onChange={value => setCountry(value)}
-            value={country}
-            notFoundContent="Not found"
-          >
-            {countryData.map(item => (
-              <Select.Option
-                key={item.isoCode}
-                value={item.name}
-              >{`${item.flag} ${item.name}`}</Select.Option>
-            ))}
-          </Select>
-        )}
-        {props.stateIsShown && (
-          <Select
-            className="select"
-            placeholder={props.selectBoxPlaceholder?.state || "Select a state"}
-            labelInValue
-            showSearch
-            allowClear
-            onChange={value => setState(value)}
-            value={state}
-            notFoundContent="Not found"
-          >
-            {stateData.map(item => (
-              <Select.Option key={item.isoCode} value={item.name}>
-                {item.name}
-              </Select.Option>
-            ))}
-          </Select>
-        )}
-        {props.cityIsShown && (
-          <Select
-            className="select"
-            placeholder={props.selectBoxPlaceholder?.city || "Select a city"}
-            labelInValue
-            showSearch
-            allowClear
-            onChange={value => setCity(value)}
-            value={city}
-            notFoundContent="Not found"
-          >
-            {cityData.map(item => (
-              <Select.Option key={item.name} value={item.name}>
-                {item.name}
-              </Select.Option>
-            ))}
-          </Select>
-        )}
-      </div>
+      {props.countryIsShown && (
+        <Select
+          placeholder={
+            props.placeholder?.country || "Select a country"
+          }
+          labelInValue
+          showSearch
+          allowClear
+          onChange={value => setCountry(value)}
+          value={country}
+          notFoundContent="Not found"
+        >
+          {countryData.map(item => (
+            <Select.Option
+              key={item.isoCode}
+              value={item.name}
+            >{`${item.flag} ${item.name}`}</Select.Option>
+          ))}
+        </Select>
+      )}
+      {props.stateIsShown && (
+        <Select
+          placeholder={props.placeholder?.state || "Select a state"}
+          labelInValue
+          showSearch
+          allowClear
+          onChange={value => setState(value)}
+          value={state}
+          notFoundContent="Not found"
+        >
+          {stateData.map(item => (
+            <Select.Option key={item.isoCode} value={item.name}>
+              {item.name}
+            </Select.Option>
+          ))}
+        </Select>
+      )}
+      {props.cityIsShown && (
+        <Select
+          placeholder={props.placeholder?.city || "Select a city"}
+          labelInValue
+          showSearch
+          allowClear
+          onChange={value => setCity(value)}
+          value={city}
+          notFoundContent="Not found"
+        >
+          {cityData.map(item => (
+            <Select.Option key={item.name} value={item.name}>
+              {item.name}
+            </Select.Option>
+          ))}
+        </Select>
+      )}
     </div>
   );
 }
 
-NationalityDropdown.defaultProps = {
+LocationDropdown.defaultProps = {
   countryIsShown: true,
   stateIsShown: true,
   cityIsShown: true,
