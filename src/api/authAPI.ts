@@ -1,6 +1,7 @@
+import { UserInfo } from "../model/UserModals";
 import { performApiRequest } from "./apiConfig";
 
-export async function createUserApi(email: string): Promise<string> {
+export async function createUserApi(email: string): Promise<number> {
   const userId = await performApiRequest(
     "api/user/create",
     "POST",
@@ -11,10 +12,10 @@ export async function createUserApi(email: string): Promise<string> {
     },
     "",
   );
-  return userId?.toString() || "";
+  return userId || 0;
 }
 
-export async function getUserInfoApi(email: string): Promise<string> {
+export async function getUserInfoApi(email: string): Promise<UserInfo> {
   const userInfo = await performApiRequest(
     `api/user/getByUsername?username=${email}`,
     "GET",
@@ -22,5 +23,5 @@ export async function getUserInfoApi(email: string): Promise<string> {
     "",
     false,
   );
-  return userInfo?.userId?.toString() || "";
+  return userInfo?.data;
 }

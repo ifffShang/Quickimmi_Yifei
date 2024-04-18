@@ -41,6 +41,7 @@ export type ControlType =
   | "divider"
   | "tips"
   | "group"
+  | "datepicker"
   | "component_passport_uploader"
   | "component_textbox_na"
   | "component_nationality_dropdown";

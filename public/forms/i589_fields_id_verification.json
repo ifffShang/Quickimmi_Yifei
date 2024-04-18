@@ -43,6 +43,12 @@
       ]
     },
     {
+      "label": "text_BirthDate",
+      "id": "nationality",
+      "order": 2,
+      "control": "datepicker"
+    },
+    {
       "label": "text_Nationality",
       "id": "nationality",
       "order": 2,

@@ -1,4 +1,4 @@
-import { Input, Select } from "antd";
+import { DatePicker, Input, Select } from "antd";
 import React, { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { ErrorMessage, QText } from "../../common/Fonts";
@@ -48,6 +48,16 @@ export function QDropdown(props: QDropdownProps) {
           { value: "idcard", label: "Identification card" },
           { value: "driverlicense", label: "Driver license" },
         ]}
+      />
+    </div>
+  );
+}
+
+export function QDatePicker() {
+  return (
+    <div className="datepicker-container">
+      <DatePicker
+        format={["MM/DD/YYYY", "MM/DD/YY", "MM-DD-YYYY", "MM-DD-YY"]}
       />
     </div>
   );

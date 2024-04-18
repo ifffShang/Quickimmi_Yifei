@@ -17,7 +17,7 @@ export async function getFormFields(referenceId: string): Promise<IFormFields> {
 
 export async function createNewCaseApi(
   accessToken: string,
-  userId: string,
+  userId: number,
   caseType: string,
   reason: string,
 ): Promise<string> {

@@ -1,6 +1,7 @@
+import { DatePicker } from "antd";
 import { useFormTranslation } from "../../hooks/commonHooks";
 import { ControlType, IFormField } from "../../model/FormModels";
-import { QDropdown, TextBox } from "./fields/Controls";
+import { QDatePicker, QDropdown, TextBox } from "./fields/Controls";
 import { NationalityDropdown } from "./fields/NationalityDropdown";
 import { PassportUploader } from "./fields/PassportUploader";
 import { TextboxWithNA } from "./fields/TextboxWithNA";
@@ -36,6 +37,8 @@ export function FormField(props: FormFieldProps) {
       return <div>Divider not implemented</div>;
     case "tips":
       return <div>Tips not implemented</div>;
+    case "datepicker":
+      return <QDatePicker />;
     case "component_passport_uploader":
       return <PassportUploader />;
     case "component_textbox_na":

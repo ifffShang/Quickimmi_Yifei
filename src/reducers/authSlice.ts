@@ -7,7 +7,7 @@ export interface AuthState {
   isLoggedIn?: boolean;
   accessToken?: string;
   email?: string;
-  userId?: string;
+  userId?: number;
 }
 
 const initialState: AuthState = {
@@ -15,7 +15,7 @@ const initialState: AuthState = {
   isLoggedIn: false,
   accessToken: "",
   email: "",
-  userId: "",
+  userId: 0,
 };
 
 export const authSlice = createSlice({

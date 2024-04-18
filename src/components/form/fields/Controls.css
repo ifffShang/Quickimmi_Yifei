@@ -46,3 +46,12 @@
   justify-content: center;
   align-items: center;
 }
+
+.datepicker-container {
+  max-width: 250px;
+  width: 100%;
+}
+
+.datepicker-container .ant-picker {
+  width: 100%;
+}

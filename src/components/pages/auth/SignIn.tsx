@@ -49,8 +49,8 @@ export function SignIn() {
           }),
         );
         try {
-          const userId = await getUserInfoApi(email);
-          dispatch(updateAuthState({ userId }));
+          const userInfo = await getUserInfoApi(email);
+          dispatch(updateAuthState({ userId: userInfo?.id || 0 }));
         } catch (error) {
           console.error("Error getting user info: ", error);
           await createUserApi(email);
