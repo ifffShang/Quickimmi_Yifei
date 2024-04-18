@@ -55,3 +55,16 @@
 .datepicker-container .ant-picker {
   width: 100%;
 }
+
+.select-box {
+  max-width: 250px;
+  width: 100%;
+}
+
+.select-box .ant-select {
+  width: 100%;
+}
+
+.select-box .ant-select .ant-select-selector {
+  border-radius: 4px !important;
+}

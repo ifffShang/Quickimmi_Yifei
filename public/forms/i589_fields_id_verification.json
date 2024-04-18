@@ -35,8 +35,8 @@
           "control": "text"
         },
         {
-          "label": "text_OtherName",
-          "id": "other_name",
+          "label": "text_OtherNames",
+          "id": "other_names",
           "order": 3,
           "control": "component_textbox_na"
         }
@@ -58,21 +58,37 @@
         {
           "label": "text_NationalityAtBirth",
           "id": "nationality_at_birth",
-          "order": 1,
-          "control": "component_nationality_dropdown"
+          "order": 0,
+          "control": "select",
+          "options": "NationalityOptions"
         },
         {
           "label": "text_Race",
           "id": "race",
-          "order": 0,
-          "control": "text"
+          "order": 1,
+          "control": "select",
+          "options": "RaceOptions"
+        },
+        {
+          "label": "text_Gender",
+          "id": "Gender",
+          "order": 2,
+          "control": "select",
+          "options": "GenderOptions"
+        },
+        {
+          "label": "text_Religion",
+          "id": "Religion",
+          "order": 3,
+          "control": "select",
+          "options": "ReligionOptions"
         }
       ]
     },
     {
       "label": "text_LocationOfBirth",
       "id": "location_of_birth",
-      "order": 2,
+      "order": 3,
       "control": "group",
       "maxChildPerRow": "1",
       "fields": [
@@ -80,15 +96,15 @@
           "label": "text_SelectBirthCountry",
           "id": "select_birth_country",
           "order": 0,
-          "control": "dropdown"
-        },
-        {
-          "label": "text_SelectBirthCity",
-          "id": "select_birth_country",
-          "order": 1,
-          "control": "dropdown"
+          "control": "component_location_dropdown"
         }
       ]
+    },
+    {
+      "label": "text_FluentInEnglish",
+      "id": "fluent_in_english",
+      "order": 4,
+      "control": "checkbox"
     }
   ]
 }

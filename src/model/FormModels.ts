@@ -22,6 +22,7 @@ export interface IFormFields {
 }
 
 export interface IFormField {
+  options?: string;
   id: string;
   label: string;
   order: number;
@@ -38,10 +39,11 @@ export type ControlType =
   | "fileplus" // file upload icon style
   | "file" // file upload link style
   | "dropdown"
+  | "select"
   | "divider"
   | "tips"
   | "group"
   | "datepicker"
   | "component_passport_uploader"
   | "component_textbox_na"
-  | "component_nationality_dropdown";
+  | "component_location_dropdown";

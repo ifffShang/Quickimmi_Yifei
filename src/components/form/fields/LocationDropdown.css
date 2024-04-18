@@ -1,0 +1,23 @@
+.horizontal-1 .sub-field .container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  max-width: calc(var(--selectbox-width) * 3 + 20px) !important;
+}
+
+.ant-select {
+  width: 100%;
+  flex: 0 1 auto;
+  max-width: 250px;
+}
+
+.ant-select .ant-select-selector {
+  border-radius: 4px !important;
+  border: 1px solid #d9d9d9 !important;
+  height: 40px !important;
+  background-color: #ffffff !important;
+  font-family: "Roboto", sans-serif;
+}
