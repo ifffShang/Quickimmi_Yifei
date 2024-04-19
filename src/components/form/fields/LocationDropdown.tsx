@@ -109,7 +109,7 @@ export function LocationDropdown(props: LocationDropdownProps) {
   }, [country, state, city]);
 
   return (
-    <div className="container">
+    <div className="location-dropdown-container">
       {props.countryIsShown && (
         <Select
           placeholder={props.placeholder?.country || "Select a country"}

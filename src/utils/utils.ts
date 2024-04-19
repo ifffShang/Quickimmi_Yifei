@@ -37,3 +37,18 @@ export const isAuthPath = (path: string) => {
 export const showFormNavigation = () => {
   return window.location.pathname === PATH.NewCase;
 };
+
+export const getCaseId = (caseId: number) => {
+  const encodedCaseId = encodeId(80000000 + caseId);
+  return "#I" + encodedCaseId;
+};
+
+export function encodeId(id: number) {
+  // Convert the id to a base36 string
+  return id.toString(36);
+}
+
+export function decodeId(encodedId: string) {
+  // Convert the base36 string back to an integer
+  return parseInt(encodedId, 36);
+}

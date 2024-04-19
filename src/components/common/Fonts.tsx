@@ -21,3 +21,19 @@ export function QText(props: TextProps) {
   const textClass = `text ${props.level || "normal"} ${props.color || "inherit"} ${props.margin || ""}`;
   return <div className={textClass}>{props.children}</div>;
 }
+
+export interface SingleLineProps {
+  title: string;
+  value: string;
+}
+
+export function SingleLine(props: SingleLineProps) {
+  return (
+    <div className="single-line">
+      <QText level="normal bold">{props.title}</QText>
+      <QText level="normal" color="gray">
+        {props.value}
+      </QText>
+    </div>
+  );
+}

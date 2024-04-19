@@ -28,6 +28,7 @@ export interface QDropdownProps {
   value?: string;
   options?: string[];
   onChange: (value: string) => void;
+  ignoreMaxWidth?: boolean;
 }
 
 export function QDropdown(props: QDropdownProps) {
@@ -36,6 +37,7 @@ export function QDropdown(props: QDropdownProps) {
   const handleChange = (value: string) => {
     props.onChange(value);
   };
+
   return (
     <div className="dropdown-container" ref={container}>
       <QText level="normal bold">{props.label}</QText>

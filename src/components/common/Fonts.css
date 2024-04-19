@@ -52,3 +52,8 @@
 .text.primary {
   color: var(--primary-color);
 }
+
+.single-line {
+  display: flex;
+  gap: 10px;
+}

@@ -1,4 +1,4 @@
-import { UserInfo } from "../model/UserModals";
+import { UserInfo } from "../model/ApiModals";
 import { performApiRequest } from "./apiConfig";
 
 export async function createUserApi(email: string): Promise<number> {

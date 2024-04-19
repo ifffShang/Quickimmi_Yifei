@@ -8,13 +8,13 @@
   max-width: calc(var(--selectbox-width) * 3 + 20px) !important;
 }
 
-.ant-select {
+.location-dropdown-container .ant-select {
   width: 100%;
   flex: 0 1 auto;
   max-width: 250px;
 }
 
-.ant-select .ant-select-selector {
+.location-dropdown-container .ant-select .ant-select-selector {
   border-radius: 4px !important;
   border: 1px solid #d9d9d9 !important;
   height: 40px !important;

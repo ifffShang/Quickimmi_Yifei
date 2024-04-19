@@ -54,6 +54,10 @@
   "SinglePage": {
     "ReturnHome": "Return to Home"
   },
+  "ViewDetails": "View Details",
+  "ApplicationType": "Application Type",
+  "LastUpdated": "Last Updated",
+  "MasterApplicant": "Master Applicant",
   "SelectCaseType": "Select Case Type",
   "EnterCaseDetails": "Enter Case Details",
   "ErrorMessage": {
@@ -87,11 +91,12 @@
   "NoPassportSelected": "Your selection: I don't have a passport",
   "ReturnToPassportUpload": "Return to Passport Upload",
   "Confirm": "Confirm",
+  "BirthDate": "Birth Date",
   "Dashboard": {
     "Dashboard": "Dashboard",
     "FirstApplication": "Start Your First Application",
     "GreetingMessage": "Experience the fast and smart immigration service now.",
-    "CreateNewApplication": "Create"
+    "CreateNewApplication": "New Application"
   },
   "ImmigrationType": "Immigration Type",
   "ImmigrationReason": "Immigration Reason",

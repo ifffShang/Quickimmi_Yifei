@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IForm, IFormFields, IFormStep } from "../model/FormModels";
+import { Case } from "../model/ApiModals";
 
 export interface FormFieldsMap {
   [key: string]: IFormFields;
@@ -13,6 +14,7 @@ export interface CaseState {
   currentStep: IFormStep;
   formFieldsMap: FormFieldsMap;
   currentCaseId: string;
+  cases: Case[];
 }
 
 const initialState: CaseState = {
@@ -23,6 +25,7 @@ const initialState: CaseState = {
   currentStep: {} as IFormStep,
   formFieldsMap: {},
   currentCaseId: "",
+  cases: [],
 };
 
 export const caseSlice = createSlice({
@@ -80,6 +83,9 @@ export const caseSlice = createSlice({
     updateCurrentCaseId: (state, action: PayloadAction<string>) => {
       state.currentCaseId = action.payload;
     },
+    updateCases: (state, action: PayloadAction<Case[]>) => {
+      state.cases = action.payload;
+    },
   },
 });
 
@@ -91,6 +97,7 @@ export const {
   updateForm,
   updateFormFieldsMap,
   updateCurrentCaseId,
+  updateCases,
 } = caseSlice.actions;
 
 export default caseSlice.reducer;

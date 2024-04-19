@@ -28,6 +28,7 @@ export function UploadOtherIdModal() {
         <QDropdown
           label={t("UploadOtherId")}
           onChange={setDropdownSelectedValue}
+          ignoreMaxWidth={true}
         />
       </div>
       {dropdownSelectedValue && (

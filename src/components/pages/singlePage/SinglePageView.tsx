@@ -14,7 +14,7 @@ export function SinglePageView(props: SinglePageViewProps) {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  let singlePageComponent = null;
+  let singlePageComponent;
   if (props.type === "termsofservice") {
     singlePageComponent = <TermsOfService />;
   } else if (props.type === "privacypolicy") {

@@ -54,6 +54,7 @@
   "SinglePage": {
     "ReturnHome": "返回主页"
   },
+  "View Details": "查看详情",
   "SelectCaseType": "选择申请类型",
   "EnterCaseDetails": "填写信息",
   "ErrorMessage": {
@@ -87,6 +88,7 @@
   "NoPassportSelected": "您的选择：我没有护照",
   "ReturnToPassportUpload": "返回护照上传",
   "Confirm": "确认",
+  "BirthDate": "出生日期",
   "Dashboard": {
     "Dashboard": "仪表盘",
     "FirstApplication": "开始您的第一个申请吧",
