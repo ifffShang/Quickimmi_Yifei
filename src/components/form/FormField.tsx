@@ -78,7 +78,14 @@ export function FormField(props: FormFieldProps) {
     case "tips":
       return <div>Tips not implemented</div>;
     case "datepicker":
-      return <QDatePicker />;
+      return (
+        <QDatePicker
+          placeholder={wt(props.label)}
+          value={fieldValue}
+          parentFieldKey={props.parentFieldKey}
+          fieldKey={props.fieldKey}
+        />
+      );
     case "component_passport_uploader":
       return <PassportUploader />;
     case "component_textbox_na":

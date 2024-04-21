@@ -1,11 +1,14 @@
-import { DatePicker, Input, Select, Checkbox } from "antd";
-import React, { useState, useRef } from "react";
+import { Checkbox, DatePicker, Input, Select } from "antd";
+import React, { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ErrorMessage, QText } from "../../common/Fonts";
-import "./Controls.css";
 import { useAppDispatch } from "../../../app/hooks";
-import { dispatchFormValue } from "../../../utils/utils";
 import { FieldKey, ParentFieldKey } from "../../../model/ApiModals";
+import { dispatchFormValue } from "../../../utils/utils";
+import { ErrorMessage, QText } from "../../common/Fonts";
+import dayjs from "dayjs";
+import "./Controls.css";
+
+/** TextBox control ***************************************************/
 
 export interface QTextBoxProps {
   placeholder: string;
@@ -45,6 +48,8 @@ export function QTextBox(props: QTextBoxProps) {
   );
 }
 
+/** Dropdown control ***************************************************/
+
 export interface QDropdownProps {
   label: string;
   value?: string;
@@ -76,15 +81,49 @@ export function QDropdown(props: QDropdownProps) {
   );
 }
 
-export function QDatePicker() {
+/** Date picker control ***************************************************/
+
+export interface QDatePickerProps {
+  placeholder?: string;
+  value?: string;
+  onChange?: (value: string) => void;
+  disabled?: boolean;
+  parentFieldKey?: ParentFieldKey;
+  fieldKey?: FieldKey;
+}
+
+export function QDatePicker(props: QDatePickerProps) {
+  const dispatch = useAppDispatch();
+  const [value, setValue] = useState(props.value || "");
+
+  const onDateChange = (date: dayjs.Dayjs, dateString: string | string[]) => {
+    if (props.disabled || !date) return;
+    if (Array.isArray(dateString)) dateString = dateString[0];
+    setValue(dateString);
+    props.onChange && props.onChange(dateString);
+    props.parentFieldKey &&
+      props.fieldKey &&
+      dispatchFormValue(
+        dispatch,
+        props.parentFieldKey,
+        props.fieldKey,
+        dateString,
+      );
+  };
+
   return (
     <div className="datepicker-container">
       <DatePicker
+        placeholder={props.placeholder}
+        value={value ? dayjs(value, "MM/DD/YYYY") : null}
         format={["MM/DD/YYYY", "MM/DD/YY", "MM-DD-YYYY", "MM-DD-YY"]}
+        onChange={onDateChange}
+        disabled={props.disabled || false}
       />
     </div>
   );
 }
+/**************************************************************************/
 
 export interface FormInputProps {
   value: string;

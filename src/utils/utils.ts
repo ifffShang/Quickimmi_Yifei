@@ -41,7 +41,7 @@ export const isAuthPath = (path: string) => {
 };
 
 export const showFormNavigation = () => {
-  return window.location.pathname === PATH.NewCase;
+  return window.location.pathname === PATH.CaseDetails;
 };
 
 export const getCaseId = (caseId: number) => {

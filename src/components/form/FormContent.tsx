@@ -7,6 +7,7 @@ import { updateFormFieldsMap } from "../../reducers/caseSlice";
 import { QText } from "../common/Fonts";
 import "./FormContent.css";
 import { FormField } from "./FormField";
+import { resetFormState } from "../../reducers/formSlice";
 
 interface FormContentProps {
   referenceId: string;
@@ -44,7 +45,8 @@ export function FormContent(props: FormContentProps) {
   }
 
   const saveApplicationCase = () => {
-    updateApplicationCaseApi(applicationCase, "accessToken");
+    console.log(".........", applicationCase);
+    //updateApplicationCaseApi(applicationCase, "accessToken");
   };
 
   return (

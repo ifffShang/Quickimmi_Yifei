@@ -1,12 +1,12 @@
 import { Route, Routes } from "react-router-dom";
 import { AuthPage } from "../components/pages/auth/AuthPage";
+import { CaseDetails } from "../components/pages/case/CaseDetails";
 import { Dashboard } from "../components/pages/dashboard/Dashboard";
 import { Home } from "../components/pages/home/Home";
-import { NewCase } from "../components/pages/newCase/NewCase";
-import { Checkout } from "../components/payment/Checkout";
-import "./MainView.css";
 import { SinglePageView } from "../components/pages/singlePage/SinglePageView";
 import { TestPageView } from "../components/pages/singlePage/Test";
+import { Checkout } from "../components/payment/Checkout";
+import "./MainView.css";
 
 export const PATH = {
   Home: "/",
@@ -16,7 +16,7 @@ export const PATH = {
   ConfirmCode: "/confirmcode",
   AuthSuccess: "/authsuccess",
   Dashboard: "/dashboard",
-  NewCase: "/newcase",
+  CaseDetails: "/casedetails",
   Checkout: "/checkout",
   TermsOfService: "/termsofservice",
   PrivacyPolicy: "/privacypolicy",
@@ -44,7 +44,7 @@ export function MainView() {
           element={<AuthPage type="authsuccess" />}
         />
         <Route path={PATH.Dashboard} element={<Dashboard />} />
-        <Route path={PATH.NewCase} element={<NewCase />} />
+        <Route path={PATH.CaseDetails} element={<CaseDetails />} />
         <Route path={PATH.Checkout} element={<Checkout />} />
         <Route
           path={PATH.TermsOfService}
