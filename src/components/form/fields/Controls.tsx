@@ -3,21 +3,43 @@ import React, { useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { ErrorMessage, QText } from "../../common/Fonts";
 import "./Controls.css";
+import { useAppDispatch } from "../../../app/hooks";
+import { dispatchFormValue } from "../../../utils/utils";
+import { FieldKey, ParentFieldKey } from "../../../model/ApiModals";
 
-export interface TextBoxProps {
+export interface QTextBoxProps {
   placeholder: string;
   value: string;
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
   disabled?: boolean;
+  parentFieldKey?: ParentFieldKey;
+  fieldKey?: FieldKey;
 }
 
-export function TextBox(props: TextBoxProps) {
+export function QTextBox(props: QTextBoxProps) {
+  const dispatch = useAppDispatch();
+  const [value, setValue] = useState(props.value);
+
+  const onTextBoxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (props.disabled) return;
+    setValue(e.target.value);
+    props.onChange && props.onChange(e.target.value);
+    props.parentFieldKey &&
+      props.fieldKey &&
+      dispatchFormValue(
+        dispatch,
+        props.parentFieldKey,
+        props.fieldKey,
+        e.target.value,
+      );
+  };
+
   return (
     <Input
       className="text-box"
       placeholder={props.placeholder}
-      value={props.value}
-      onChange={e => props.onChange(e.target.value)}
+      value={value}
+      onChange={onTextBoxChange}
       disabled={props.disabled || false}
     />
   );

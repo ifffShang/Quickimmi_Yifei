@@ -11,6 +11,8 @@
 .dashboard-panel {
   border-radius: 10px;
   display: flex;
+  gap: 20px;
+  flex-flow: wrap;
 }
 
 .dashboard-panel.no-application {

@@ -42,13 +42,17 @@ export interface ApplicationCase {
   id: number;
   userId: number;
   applicantName: string;
-  taskList: Task[];
   type: string;
+  currentStep: string;
   status: string;
-  caseProfile: CaseProfile;
-  submitted: number;
-  updatedAt: number;
+  taskList: Task[];
+  profile: AsylumCaseProfile;
+  submittedAt: number;
+  paid: boolean;
+  uscisReceiptNumber: string;
+  assignedLawyer: number;
   createdAt: number;
+  updatedAt: number;
 }
 
 export interface Task {
@@ -63,57 +67,92 @@ export interface Task {
   updatedAt: number;
 }
 
-export interface CaseProfile {
-  baseInfo: CaseBaseInfo;
-  applicantInfo: ApplicantInfo;
-  spouseInfo: SpouseInfo;
-  childInfo: ChildInfo;
+export interface AsylumCaseProfile {
+  applyForWithholdingYesCheckbox: string;
+  applicant: Applicant;
+  family: Family;
+  background: Background;
+  applicationDetails: ApplicationDetails;
+  signature: YourSignature;
+  declaration: Declaration;
 }
 
-export interface CaseBaseInfo {
-  immigrationType: string;
-  reason: string;
-  married: boolean | undefined;
-  includeSpouse: boolean | undefined;
-  childrenNum: number;
-  includeChildrenNum: number;
-  fairTreatment: boolean | undefined;
-  estimatePrice: number;
+export type ParentFieldKey =
+  | "applicant"
+  | "family"
+  | "background"
+  | "applicationDetails"
+  | "signature"
+  | "declaration";
+
+export type FieldKey =
+  | keyof Applicant
+  | keyof Family
+  | keyof Background
+  | keyof ApplicationDetails
+  | keyof YourSignature
+  | keyof Declaration;
+
+export interface Applicant {
+  passportDocumentId?: string;
+  aNumber?: string;
+  ssn?: string;
+  uscisOnlineAccountNumber?: string;
+  lastName?: string;
+  firstName?: string;
+  middleName?: string;
+  namesUsedBefore?: string;
+  streetNumberAndName?: string;
+  aptNumber?: string;
+  city?: string;
+  state?: string;
+  zipCode?: string;
+  telePhoneAreaCode?: string;
+  telePhoneNumber?: string;
+  inCareOf?: string;
+  telePhoneAreaCodeOfMailingAddress?: string;
+  telePhoneNumberOfMailingAddress?: string;
+  streetNumberAndNameOfMailingAddress?: string;
+  aptNumberOfMailingAddress?: string;
+  cityOfMailingAddress?: string;
+  stateOfMailingAddress?: string;
+  zipCodeOfMailingAddress?: string;
+  genderMaleCheckbox?: boolean;
+  genderFemaleCheckbox?: boolean;
+  maritalStatusSingleCheckbox?: boolean;
+  maritalStatusMarriedCheckbox?: boolean;
+  maritalStatusDivorcedCheckbox?: boolean;
+  maritalStatusWidowedCheckbox?: boolean;
+  birthDate?: string;
+  cityAndCountryOfBirth?: string;
+  nationality?: string;
+  nationalityAtBirth?: string;
+  race?: string;
+  religion?: string;
+  immigrationCourtProceedingACheckbox?: boolean;
+  immigrationCourtProceedingBCheckbox?: boolean;
+  immigrationCourtProceedingCCheckbox?: boolean;
+  whenLastLeaveCountry?: string;
+  i94Number?: string;
+  entryRecords?: EntryRecord[];
+  statusExpireDate?: string;
+  passportIssueCountry?: string;
+  passportNumber?: string;
+  travelDocumentNumber?: string;
+  nativeLanguage?: string;
+  expirationDate?: string;
+  fluentEnglishYesCheckbox?: boolean;
+  fluentEnglishNoCheckbox?: boolean;
+  otherFluentLanguages?: string;
+  haveNoChildrenCheckbox?: boolean;
+  haveChildrenCheckbox?: boolean;
+  childrenCnt?: string;
+  notMarriedCheckbox?: boolean;
 }
 
-export interface ApplicantInfo {
-  passport: Document;
-  firstName: string;
-  middleName: string;
-  lastName: string;
-  nationality: string;
-  race: string;
-  birthInDifferentCountry: boolean | undefined;
-  birthCountry: string;
-  birthCity: string;
-  age: string;
-  gender: string;
-  identifyNumber: string;
-  birthDate: string;
-  aNumber: string;
-  ssn: string;
-  uscisOnlineAccountNumber: string;
-  usPhoneNumber: string;
-  usEmail: string;
-  namesUsedBefore: string[];
-  streetNumberAndName: string;
-  aptNumber: string;
-  city: string;
-  state: string;
-  zipCode: string;
-  telePhoneNumber: string;
-  inCareOf: string;
-  streetNumberAndNameOfMailingAddress: string;
-  aptNumberOfMailingAddress: string;
-  cityOfMailingAddress: string;
-  stateOfMailingAddress: string;
-  zipCodeOfMailingAddress: string;
-  telePhoneNumberOfMailingAddress: string;
+export interface EntryRecord {
+  date: string;
+  port: string;
 }
 
 export interface Document {
@@ -128,82 +167,224 @@ export interface Document {
   updatedAt: number;
 }
 
-export interface SpouseInfo {
-  passport: Document;
+export interface Family {
+  spouse?: Spouse;
+  children?: Child[];
+  mother?: FamilyMember;
+  father?: FamilyMember;
+  siblings?: FamilyMember[];
+}
+
+export interface Spouse {
+  passportDocumentId: string;
+  notMarriedCheckbox: string;
+  aNumber: string;
+  passportNumber: string;
+  birthDate: string;
+  ssn: string;
+  lastName: string;
   firstName: string;
   middleName: string;
-  lastName: string;
+  namesUsedBefore: string;
+  marriageDate: string;
+  marriagePlace: string;
+  cityAndCountryOfBirth: string;
   nationality: string;
   race: string;
-  birthInDifferentCountry: boolean | undefined;
-  birthCountry: string;
-  birthCity: string;
-  identifyNumber: string;
-  birthDate: string;
-  age: string;
-  gender: string;
-  inUSA: boolean | undefined;
-  includedInThisApplication: boolean | undefined;
-  aNumber: string;
-  ssn: string;
-  uscisOnlineAccountNumber: string;
-  usPhoneNumber: string;
-  usEmail: string;
-  namesUsedBefore: string[];
-  marriageLicense: Document;
-  marryAtSameCountry: boolean | undefined;
-  marryAtOtherCountry: string;
-  marryCity: string;
-  addressSameAsApplicant: boolean | undefined;
-  address: string;
-  entryUsLastDate: string;
-  legalEntryUS: boolean | undefined;
-  entryUSPort: string;
-  visaType: string;
+  genderMaleCheckbox: boolean;
+  genderFemaleCheckbox: boolean;
+  personInUSYesCheckbox: boolean;
+  personInUSNoCheckbox: boolean;
+  specifyLocationIfNotInUS: string;
+  placeLastEntryIntoUS: string;
+  lastEntryUSDate: string;
   i94Number: string;
-  stayExpiredDate: string;
-  iImmiCourtProceeding: boolean | undefined;
-  entryRecords: UsEntryRecord[];
-  previousArrivalTime: string;
+  lastAdmittedStatus: string;
+  currentStatus: string;
+  statusExpireDate: string;
+  immigrationCourtProceedingYesCheckbox: boolean;
+  immigrationCourtProceedingNoCheckbox: boolean;
+  previousArrivalDate: string;
+  inThisApplicationYesCheckbox: boolean;
+  inThisApplicationNoCheckbox: boolean;
 }
 
-export interface UsEntryRecord {
-  date: string;
-  port: string;
-}
-
-export interface ChildInfo {
-  passport: Document;
+export interface Child {
+  passportDocumentId: string;
+  aNumber: string;
+  passportNumber: string;
+  martialStatus: string;
+  ssn: string;
+  lastName: string;
   firstName: string;
   middleName: string;
-  lastName: string;
+  birthDate: string;
+  cityAndCountryOfBirth: string;
   nationality: string;
   race: string;
-  birthInDifferentCountry: boolean | undefined;
-  birthCountry: string;
-  birthCity: string;
-  identifyNumber: string;
-  birthDate: string;
-  age: string;
-  gender: string;
-  aNumber: string;
-  ssn: string;
-  inUSA: boolean | undefined;
+  genderMaleCheckbox: boolean;
+  genderFemaleCheckbox: boolean;
+  personInUSYesCheckbox: boolean;
+  personInUSNoCheckbox: boolean;
+  specifyLocationIfNotInUS: string;
+  placeLastEntryIntoUS: string;
+  lastEntryUSDate: string;
+  i94Number: string;
+  lastAdmittedStatus: string;
+  currentStatus: string;
+  statusExpireDate: string;
+  immigrationCourtProceedingYesCheckbox: boolean;
+  immigrationCourtProceedingNoCheckbox: boolean;
+  inThisApplicationYesCheckbox: boolean;
+  inThisApplicationNoCheckbox: boolean;
+}
+
+export interface FamilyMember {
+  part: string;
+  question: string;
+  name: string;
+  cityTownAndBirth: string;
   location: string;
-  includedInThisApplication: boolean | undefined;
-  addressSameAsApplicant: boolean | undefined;
-  address: string;
-  entryUsLastDate: string;
-  legalEntryUS: boolean | undefined;
-  entryUSPort: string;
-  visaType: string;
-  i94Number: string;
-  stayExpiredDate: string;
-  iImmiCourtProceeding: boolean | undefined;
-  previousArrivalTime: string;
+  deceasedCheckbox: string;
 }
 
-export interface UsEntryRecord {
-  date: string;
-  port: string;
+export interface Background {
+  addressHistoriesBeforeUS?: AddressHistory[];
+  usAddressHistoriesPast5Years?: AddressHistory[];
+  educationHistories?: EducationHistory[];
+  employmentHistories?: EmploymentHistory[];
+}
+
+export interface AddressHistory {
+  part: string;
+  question: string;
+  numberAndStreet: string;
+  city: string;
+  province: string;
+  country: string;
+  startDate: string;
+  endDate: string;
+}
+
+export interface EducationHistory {
+  part: string;
+  question: string;
+  schoolName: string;
+  schoolType: string;
+  location: string;
+  startDate: string;
+  endDate: string;
+}
+
+export interface EmploymentHistory {
+  part: string;
+  question: string;
+  nameAndAddress: string;
+  occupation: string;
+  startDate: string;
+  endDate: string;
+}
+
+export interface ApplicationDetails {
+  asylumBasedOnRaceCheckbox?: boolean;
+  asylumBasedOnReligionCheckbox?: boolean;
+  asylumBasedOnNationalityCheckbox?: boolean;
+  asylumBasedOnPoliticalOptionCheckbox?: boolean;
+  asylumBasedOnParticularMembershipCheckbox?: boolean;
+  asylumBasedOnTortureConventionCheckbox?: boolean;
+  haveBeenHarmedYesCheckbox?: boolean;
+  haveBeenHarmedNoCheckbox?: boolean;
+  explainHaveBeenHarmedYes?: string;
+  explainHaveBeenHarmedYesPart?: string;
+  explainHaveBeenHarmedYesQuestion?: string;
+  fearReturnYesCheckbox?: boolean;
+  fearReturnNoCheckbox?: boolean;
+  explainFearReturnYes?: string;
+  explainFearReturnYesPart?: string;
+  explainFearReturnYesQuestion?: string;
+  familyMembersBeenChargedYesCheckbox?: boolean;
+  familyMembersBeenChargedNoCheckbox?: boolean;
+  explainFamilyMembersBeenChargedYes?: string;
+  explainFamilyMembersBeenChargedYesPart?: string;
+  explainFamilyMembersBeenChargedYesQuestion?: string;
+  youOrFamilyBelongAnyOrganizationYesCheckbox?: boolean;
+  youOrFamilyBelongAnyOrganizationNoCheckbox?: boolean;
+  explainYouOrFamilyBelongAnyOrganizationYes?: string;
+  explainYouOrFamilyBelongAnyOrganizationYesPart?: string;
+  explainYouOrFamilyBelongAnyOrganizationYesQuestion?: string;
+  youOrFamilyContinueBelongAnyOrganizationYesCheckbox?: boolean;
+  youOrFamilyContinueBelongAnyOrganizationNoCheckbox?: boolean;
+  explainYouOrFamilyContinueBelongAnyOrganizationYes?: string;
+  explainYouOrFamilyContinueBelongAnyOrganizationYesPart?: string;
+  explainYouOrFamilyContinueBelongAnyOrganizationYesQuestion?: string;
+  afraidOfReturnYesCheckbox?: boolean;
+  afraidOfReturnNoCheckbox?: boolean;
+  explainAfraidOfReturnYes?: string;
+  explainAfraidOfReturnYesPart?: string;
+  explainAfraidOfReturnYesQuestion?: string;
+  appliedBeforeYesCheckbox?: boolean;
+  appliedBeforeNoCheckbox?: boolean;
+  explainAppliedBeforeYes?: string;
+  explainAppliedBeforeYesPart?: string;
+  explainAppliedBeforeYesQuestion?: string;
+  stayInOtherCountryYesCheckbox?: boolean;
+  stayInOtherCountryNoCheckbox?: boolean;
+  anyLawfulStatusAnyCountryYesCheckbox?: boolean;
+  anyLawfulStatusAnyCountryNoCheckbox?: boolean;
+  explainAnyLawfulStatusAnyCountryYes?: string;
+  explainAnyLawfulStatusAnyCountryYesPart?: string;
+  explainAnyLawfulStatusAnyCountryYesQuestion?: string;
+  haveYouHarmOthersYesCheckbox?: boolean;
+  haveYouHarmOthersNoCheckbox?: boolean;
+  explainHaveYouHarmOthersYes?: string;
+  explainHaveYouHarmOthersYesPart?: string;
+  explainHaveYouHarmOthersYesQuestion?: string;
+  returnCountryYesCheckbox?: boolean;
+  returnCountryNoCheckbox?: boolean;
+  explainReturnCountryYes?: string;
+  explainReturnCountryYesPart?: string;
+  explainReturnCountryYesQuestion?: string;
+  moreThanOneYearAfterArrivalYesCheckbox?: boolean;
+  moreThanOneYearAfterArrivalNoCheckbox?: boolean;
+  explainMoreThanOneYearAfterArrivalYes?: string;
+  explainMoreThanOneYearAfterArrivalYesPart?: string;
+  explainMoreThanOneYearAfterArrivalYesQuestion?: string;
+  haveCommittedCrimeYesCheckbox?: boolean;
+  haveCommittedCrimeNoCheckbox?: boolean;
+  explainHaveCommittedCrimeYes?: string;
+  explainHaveCommittedCrimeYesPart?: string;
+  explainHaveCommittedCrimeYesQuestion?: string;
+}
+
+export interface YourSignature {
+  name?: string;
+  nameInNativeAlphabet?: string;
+  familyMemberAssistYesCheckbox?: boolean;
+  familyMemberAssistNoCheckbox?: boolean;
+  members?: Relationship[];
+  otherPeopleAssistYesCheckbox?: boolean;
+  otherPeopleAssistNoCheckbox?: boolean;
+  providePeopleCounselYesCheckbox?: boolean;
+  providePeopleCounselNoCheckbox?: boolean;
+  signature?: string;
+  date?: string;
+}
+export interface Relationship {
+  name: string;
+  relationship: string;
+}
+
+export interface Declaration {
+  preparerSignature?: string;
+  completeName?: string;
+  teleNumberAreacode?: string;
+  teleNumber?: string;
+  streetNumberAndName?: string;
+  aptNumber?: string;
+  city?: string;
+  state?: string;
+  zipCode?: string;
+  g28FormAttachedYesCheckbox?: boolean;
+  attorneyStateNarNumber?: string;
+  attorneyUscisOnlineAccountNumber?: string;
 }

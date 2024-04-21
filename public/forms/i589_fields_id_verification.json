@@ -2,6 +2,7 @@
   "id": "i589_fields_id_verification",
   "version": "2024-04-01",
   "type": "fields",
+  "key": "applicant",
   "fields": [
     {
       "label": "text_UploadPassport",
@@ -19,24 +20,28 @@
         {
           "label": "text_FirstName",
           "id": "first_name",
+          "key": "firstName",
           "order": 0,
           "control": "text"
         },
         {
           "label": "text_MiddleName",
           "id": "middle_name",
+          "key": "middleName",
           "order": 1,
           "control": "text"
         },
         {
           "label": "text_LastName",
           "id": "last_name",
+          "key": "lastName",
           "order": 2,
           "control": "text"
         },
         {
           "label": "text_OtherNames",
           "id": "other_names",
+          "key": "namesUsedBefore",
           "order": 3,
           "control": "component_textbox_na"
         }

@@ -1,4 +1,10 @@
+import {
+  AsylumCaseProfile,
+  FieldKey,
+  ParentFieldKey,
+} from "../model/ApiModals";
 import { ScreenSize } from "../model/Models";
+import { updateApplicant } from "../reducers/formSlice";
 import { PATH } from "../router/MainView";
 
 export const handleResize = (
@@ -51,4 +57,36 @@ export function encodeId(id: number) {
 export function decodeId(encodedId: string) {
   // Convert the base36 string back to an integer
   return parseInt(encodedId, 36);
+}
+
+export function getFieldValue(
+  caseDetails: AsylumCaseProfile,
+  parentKey: ParentFieldKey,
+  key: FieldKey,
+) {
+  if (!caseDetails) {
+    console.info("Case profile is missing");
+    return;
+  }
+  const parentValues = caseDetails[parentKey];
+  if (!parentValues) {
+    console.error(`Values of parent key ${parentKey} are missing`);
+    return;
+  }
+  return caseDetails[parentKey][key];
+}
+
+export function dispatchFormValue(
+  dispatch: React.Dispatch<any>,
+  parentKey: ParentFieldKey,
+  key: FieldKey,
+  value: any,
+) {
+  if (parentKey === "applicant") {
+    dispatch(
+      updateApplicant({
+        [key]: value,
+      }),
+    );
+  }
 }

@@ -1,3 +1,5 @@
+import { FieldKey, ParentFieldKey } from "./ApiModals";
+
 export interface IForm {
   id: string;
   version: string;
@@ -16,19 +18,21 @@ export interface IFormStep {
 
 export interface IFormFields {
   id: string;
+  key: ParentFieldKey;
   version: string;
   type: string;
   fields: IFormField[];
 }
 
 export interface IFormField {
-  options?: string;
   id: string;
+  key: FieldKey;
   label: string;
   order: number;
   control: ControlType;
   maxChildPerRow: number;
   fields?: IFormField[];
+  options?: string;
 }
 
 export type ControlType =

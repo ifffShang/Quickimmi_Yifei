@@ -3,6 +3,7 @@ import chatbotReducer from "../reducers/chatbotSlice";
 import caseReducer from "../reducers/caseSlice";
 import authReducer from "../reducers/authSlice";
 import commonReducer from "../reducers/commonSlice";
+import formReducer from "../reducers/formSlice";
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
 import { persistReducer, persistStore } from "redux-persist";
@@ -13,6 +14,7 @@ const reducers = combineReducers({
   case: caseReducer,
   auth: authReducer,
   common: commonReducer,
+  form: formReducer,
 });
 
 const persistConfig = {

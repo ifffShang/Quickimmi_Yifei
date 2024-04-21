@@ -1,5 +1,5 @@
 import { Checkbox, CheckboxProps } from "antd";
-import { TextBox } from "./Controls";
+import { QTextBox } from "./Controls";
 import { useState } from "react";
 import "./TextboxWithNA.css";
 
@@ -14,7 +14,7 @@ export function TextboxWithNA(props: TextBoxWithNAProps) {
   };
   return (
     <div className="textbox-na">
-      <TextBox
+      <QTextBox
         placeholder={props.placeholder}
         value={""}
         onChange={() => {}}

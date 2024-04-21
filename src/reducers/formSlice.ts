@@ -1,160 +1,33 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import {
+  Applicant,
   ApplicationCase,
-  CaseProfile,
-  Document,
-  Task,
+  AsylumCaseProfile,
 } from "../model/ApiModals";
 
-export interface FormState {
-  id: number;
-  userId: number;
-  applicantName: string;
-  taskList: Task[];
-  type: string;
-  status: string;
-  caseProfile: CaseProfile;
-  submitted: number;
-  updatedAt: number;
-  createdAt: number;
-}
-
-const initialDocument: Document = {
-  id: 0,
-  userId: 0,
-  caseId: 0,
-  status: "",
-  type: "",
-  name: "",
-  s3Location: "",
-  createdAt: Date.now(),
-  updatedAt: Date.now(),
-};
-
-const initialState: FormState = {
+const initialState: ApplicationCase = {
   id: 0,
   userId: 0,
   applicantName: "",
   taskList: [],
   type: "",
   status: "",
-  caseProfile: {
-    baseInfo: {
-      immigrationType: "",
-      reason: "",
-      married: undefined,
-      includeSpouse: undefined,
-      childrenNum: 0,
-      includeChildrenNum: 0,
-      fairTreatment: undefined,
-      estimatePrice: 0,
-    },
-    applicantInfo: {
-      passport: initialDocument,
-      firstName: "",
-      middleName: "",
-      lastName: "",
-      nationality: "",
-      race: "",
-      birthInDifferentCountry: undefined,
-      birthCountry: "",
-      birthCity: "",
-      age: "",
-      gender: "",
-      identifyNumber: "",
-      birthDate: "",
-      aNumber: "",
-      ssn: "",
-      uscisOnlineAccountNumber: "",
-      usPhoneNumber: "",
-      usEmail: "",
-      namesUsedBefore: [],
-      streetNumberAndName: "",
-      aptNumber: "",
-      city: "",
-      state: "",
-      zipCode: "",
-      telePhoneNumber: "",
-      inCareOf: "",
-      streetNumberAndNameOfMailingAddress: "",
-      aptNumberOfMailingAddress: "",
-      cityOfMailingAddress: "",
-      stateOfMailingAddress: "",
-      zipCodeOfMailingAddress: "",
-      telePhoneNumberOfMailingAddress: "",
-    },
-    spouseInfo: {
-      passport: initialDocument,
-      firstName: "",
-      middleName: "",
-      lastName: "",
-      nationality: "",
-      race: "",
-      birthInDifferentCountry: undefined,
-      birthCountry: "",
-      birthCity: "",
-      identifyNumber: "",
-      birthDate: "",
-      age: "",
-      gender: "",
-      inUSA: undefined,
-      includedInThisApplication: undefined,
-      aNumber: "",
-      ssn: "",
-      uscisOnlineAccountNumber: "",
-      usPhoneNumber: "",
-      usEmail: "",
-      namesUsedBefore: [],
-      marriageLicense: initialDocument,
-      marryAtSameCountry: undefined,
-      marryAtOtherCountry: "",
-      marryCity: "",
-      addressSameAsApplicant: undefined,
-      address: "",
-      entryUsLastDate: "",
-      legalEntryUS: undefined,
-      entryUSPort: "",
-      visaType: "",
-      i94Number: "",
-      stayExpiredDate: "",
-      iImmiCourtProceeding: undefined,
-      entryRecords: [],
-      previousArrivalTime: "",
-    },
-    childInfo: {
-      passport: initialDocument,
-      firstName: "",
-      middleName: "",
-      lastName: "",
-      nationality: "",
-      race: "",
-      birthInDifferentCountry: undefined,
-      birthCountry: "",
-      birthCity: "",
-      identifyNumber: "",
-      birthDate: "",
-      age: "",
-      gender: "",
-      aNumber: "",
-      ssn: "",
-      inUSA: undefined,
-      location: "",
-      includedInThisApplication: undefined,
-      addressSameAsApplicant: undefined,
-      address: "",
-      entryUsLastDate: "",
-      legalEntryUS: undefined,
-      entryUSPort: "",
-      visaType: "",
-      i94Number: "",
-      stayExpiredDate: "",
-      iImmiCourtProceeding: undefined,
-      previousArrivalTime: "",
-    },
+  submittedAt: 0,
+  updatedAt: 0,
+  createdAt: 0,
+  currentStep: "",
+  uscisReceiptNumber: "",
+  paid: false,
+  assignedLawyer: 0,
+  profile: {
+    applyForWithholdingYesCheckbox: "",
+    applicant: {},
+    family: {},
+    background: {},
+    applicationDetails: {},
+    signature: {},
+    declaration: {},
   },
-  submitted: Date.now(),
-  updatedAt: Date.now(),
-  createdAt: Date.now(),
 };
 
 export const formSlice = createSlice({
@@ -162,11 +35,31 @@ export const formSlice = createSlice({
   initialState,
   reducers: {
     updateFormState: (state, action: PayloadAction<ApplicationCase>) => {
-      state = action.payload;
+      for (const key in action.payload) {
+        if (Object.prototype.hasOwnProperty.call(action.payload, key)) {
+          const value = action.payload[key];
+          if (!value) {
+            action.payload[key] = initialState[key];
+          }
+        }
+      }
+      Object.assign(state, action.payload);
     },
+    updateCaseDetails: (state, action: PayloadAction<AsylumCaseProfile>) => {
+      Object.assign(state.profile, action.payload);
+    },
+    updateApplicant: (state, action: PayloadAction<Applicant>) => {
+      Object.assign(state.profile.applicant, action.payload);
+    },
+    resetFormState: () => initialState,
   },
 });
 
-export const { updateFormState } = formSlice.actions;
+export const {
+  resetFormState,
+  updateFormState,
+  updateApplicant,
+  updateCaseDetails,
+} = formSlice.actions;
 
 export default formSlice.reducer;

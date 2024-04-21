@@ -26,13 +26,17 @@ export function CaseCard(props: CaseCardProps) {
       );
       return;
     }
-    const caseDetails = await getCaseDetailsApi(props.caseId, accessToken);
-    if (!caseDetails) {
-      console.error(`Failed to get case details for case id ${props.caseId}`);
-      return;
+    try {
+      const caseDetails = await getCaseDetailsApi(props.caseId, accessToken);
+      if (!caseDetails) {
+        console.error(`Failed to get case details for case id ${props.caseId}`);
+        return;
+      }
+      dispatch(updateFormState(caseDetails));
+      navigate("/newcase");
+    } catch (err) {
+      console.error(err);
     }
-    dispatch(updateFormState(caseDetails));
-    navigate("/newcase");
   };
 
   return (

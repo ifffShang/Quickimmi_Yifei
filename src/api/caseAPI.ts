@@ -23,7 +23,7 @@ export async function createNewCaseApi(
   reason: string,
 ): Promise<string> {
   return await performApiRequest(
-    "/api/case/create",
+    "api/case/asylum/create",
     "POST",
     {
       userId,
@@ -39,7 +39,7 @@ export async function getCasesApi(
   accessToken: string,
 ): Promise<Case[]> {
   const res = await performApiRequest(
-    `/api/case/list?userId=${userId}`,
+    `api/case/list?userId=${userId}`,
     "GET",
     null,
     accessToken,
@@ -52,10 +52,23 @@ export async function getCaseDetailsApi(
   accessToken: string,
 ): Promise<ApplicationCase> {
   const res = await performApiRequest(
-    `/api/case/asylum/get?caseId=${caseId}`,
+    `api/case/asylum/get?id=${caseId}`,
     "GET",
     null,
     accessToken,
   );
   return <ApplicationCase>res.data;
+}
+
+export async function updateApplicationCaseApi(
+  data: ApplicationCase,
+  accessToken: string,
+): Promise<boolean> {
+  const res = await performApiRequest(
+    `api/case/asylum/update`,
+    "POST",
+    data,
+    accessToken,
+  );
+  return <boolean>res.data;
 }

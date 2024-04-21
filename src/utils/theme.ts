@@ -30,6 +30,7 @@ export function getAntTheme() {
         borderRadiusLG: 25,
         primaryShadow: "none",
         fontWeight: fontWeight,
+        defaultBorderColor: primaryColor,
         algorithm: true, // Enable algorithm
       },
       Input: {

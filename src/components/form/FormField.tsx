@@ -1,19 +1,23 @@
-import { DatePicker } from "antd";
+import { useAppSelector } from "../../app/hooks";
 import { useFormTranslation } from "../../hooks/commonHooks";
+import { FieldKey, ParentFieldKey } from "../../model/ApiModals";
 import { ControlType, IFormField } from "../../model/FormModels";
+import { getFieldValue } from "../../utils/utils";
+import "./FormField.css";
 import {
+  CheckBox,
   QDatePicker,
   QDropdown,
-  TextBox,
+  QTextBox,
   SelectBox,
-  CheckBox,
 } from "./fields/Controls";
 import { LocationDropdown } from "./fields/LocationDropdown";
 import { PassportUploader } from "./fields/PassportUploader";
 import { TextboxWithNA } from "./fields/TextboxWithNA";
-import "./FormField.css";
 
 export interface FormFieldProps {
+  parentFieldKey: ParentFieldKey;
+  fieldKey: FieldKey;
   control: ControlType;
   label: string;
   maxChildPerRow?: number;
@@ -23,10 +27,22 @@ export interface FormFieldProps {
 
 export function FormField(props: FormFieldProps) {
   const { wt, wa } = useFormTranslation();
+  const caseDetails = useAppSelector(state => state.form.profile);
+  const fieldValue = getFieldValue(
+    caseDetails,
+    props.parentFieldKey,
+    props.fieldKey,
+  );
+
   switch (props.control) {
     case "text":
       return (
-        <TextBox placeholder={wt(props.label)} value={""} onChange={() => {}} />
+        <QTextBox
+          placeholder={wt(props.label)}
+          value={fieldValue}
+          parentFieldKey={props.parentFieldKey}
+          fieldKey={props.fieldKey}
+        />
       );
     case "textarea":
       return <div>Textarea not implemented</div>;
@@ -77,6 +93,8 @@ export function FormField(props: FormFieldProps) {
             {props.subFields.map((field, index) => (
               <div className="sub-field" key={index}>
                 <FormField
+                  parentFieldKey={props.parentFieldKey}
+                  fieldKey={field.key}
                   control={field.control}
                   label={field.label}
                   options={field.options}
