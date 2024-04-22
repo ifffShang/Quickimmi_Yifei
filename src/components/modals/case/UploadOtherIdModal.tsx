@@ -34,7 +34,7 @@ export function UploadOtherIdModal() {
       {dropdownSelectedValue && (
         <>
           <div className="dropdown-inner-uploader">
-            <Uploader />
+            <Uploader documentType="ID_CARD" />
           </div>
           <div className="upload-passport-controls">
             <Button type="primary" size="large" disabled>

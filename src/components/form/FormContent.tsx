@@ -45,8 +45,7 @@ export function FormContent(props: FormContentProps) {
   }
 
   const saveApplicationCase = () => {
-    console.log(".........", applicationCase);
-    //updateApplicationCaseApi(applicationCase, "accessToken");
+    updateApplicationCaseApi(applicationCase, "accessToken");
   };
 
   return (

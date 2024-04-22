@@ -1,11 +1,10 @@
 import { Button, Checkbox } from "antd";
+import { useAppDispatch } from "../../../app/hooks";
 import { useFormTranslation } from "../../../hooks/commonHooks";
+import { changeModalType } from "../../../reducers/commonSlice";
 import { QText } from "../../common/Fonts";
 import { Uploader } from "../../form/fields/Uploader";
 import "./UploadPassportModal.css";
-import { useState } from "react";
-import { useAppDispatch } from "../../../app/hooks";
-import { changeModalType } from "../../../reducers/commonSlice";
 
 export function UploadPassportModal() {
   const { wt } = useFormTranslation();
@@ -15,7 +14,7 @@ export function UploadPassportModal() {
     <div className="upload-passport">
       <QText level="large">{wt("UploadPassport")}</QText>
       <div className="upload-passport-uploader">
-        <Uploader />
+        <Uploader documentType="PASSPORT_MAIN" />
       </div>
       <QText level="xsmall" color="gray">
         {wt("UploadPassportDescription1")}

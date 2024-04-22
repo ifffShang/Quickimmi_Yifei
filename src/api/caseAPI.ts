@@ -1,5 +1,10 @@
-import { ApplicationCase, Case } from "../model/ApiModals";
+import {
+  ApplicationCase,
+  Case,
+  GeneratePresignedUrlResponse,
+} from "../model/ApiModals";
 import { IForm, IFormFields } from "../model/FormModels";
+import { DocumentType } from "../model/Models";
 import { performApiRequest } from "./apiConfig";
 
 export async function getForm(id: string): Promise<IForm> {
@@ -71,4 +76,25 @@ export async function updateApplicationCaseApi(
     accessToken,
   );
   return <boolean>res.data;
+}
+
+export async function generateDocumentPresignedUrl(
+  userId: number,
+  caseId: number,
+  type: DocumentType,
+  documentName: string,
+  accessToken: string,
+): Promise<GeneratePresignedUrlResponse> {
+  const res = await performApiRequest(
+    "api/document/generatePresignedUrl/put",
+    "POST",
+    {
+      userId,
+      caseId,
+      type,
+      documentName,
+    },
+    accessToken,
+  );
+  return <GeneratePresignedUrlResponse>res.data;
 }

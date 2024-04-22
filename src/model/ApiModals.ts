@@ -155,18 +155,6 @@ export interface EntryRecord {
   port: string;
 }
 
-export interface Document {
-  id: number;
-  userId: number;
-  caseId: number;
-  status: string;
-  type: string;
-  name: string;
-  s3Location: string;
-  createdAt: number;
-  updatedAt: number;
-}
-
 export interface Family {
   spouse?: Spouse;
   children?: Child[];
@@ -387,4 +375,9 @@ export interface Declaration {
   g28FormAttachedYesCheckbox?: boolean;
   attorneyStateNarNumber?: string;
   attorneyUscisOnlineAccountNumber?: string;
+}
+
+export interface GeneratePresignedUrlResponse {
+  documentId: number;
+  presignedUrl: string;
 }
