@@ -8,6 +8,7 @@ import { QText } from "../common/Fonts";
 import "./FormContent.css";
 import { FormField } from "./FormField";
 import { resetFormState } from "../../reducers/formSlice";
+import { getUpdateApplicationCaseData } from "../../utils/utils";
 
 interface FormContentProps {
   referenceId: string;
@@ -16,7 +17,7 @@ interface FormContentProps {
 export function FormContent(props: FormContentProps) {
   const { wt } = useFormTranslation();
   const dispatch = useAppDispatch();
-  const applicationCase = useAppSelector(state => state.form);
+  const applicationCase = useAppSelector(state => state.form.applicationCase);
   const currentStep = useAppSelector(state => state.case.currentStep);
   const formFieldsMap = useAppSelector(state => state.case.formFieldsMap);
   const formFields =
@@ -45,7 +46,10 @@ export function FormContent(props: FormContentProps) {
   }
 
   const saveApplicationCase = () => {
-    updateApplicationCaseApi(applicationCase, "accessToken");
+    updateApplicationCaseApi(
+      getUpdateApplicationCaseData(applicationCase),
+      "accessToken",
+    );
   };
 
   return (

@@ -1,11 +1,12 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Language, ScreenSize } from "../model/Models";
+import { Language, ScreenSize } from "../model/models";
 import { handleResize } from "../utils/utils";
 
 export type ModalType = "uploadpassport" | "uploadotherid" | "";
 export interface CommonState {
   showModal?: boolean;
   modalType?: ModalType;
+  tmpImageUrl?: string;
   selectedLanguage: Language;
   screenSize: ScreenSize;
   showNavbar: boolean;
@@ -37,8 +38,13 @@ export const commonSlice = createSlice({
     changeModalType: (state, action: PayloadAction<ModalType>) => {
       state.modalType = action.payload;
     },
+    updateTmpImageUrl: (state, action: PayloadAction<string>) => {
+      state.tmpImageUrl = action.payload;
+    },
     closeModal: state => {
       state.showModal = false;
+      state.modalType = "";
+      state.tmpImageUrl = "";
     },
   },
 });
@@ -49,6 +55,7 @@ export const {
   updateShowNavbar,
   openModal,
   changeModalType,
+  updateTmpImageUrl,
   closeModal,
 } = commonSlice.actions;
 

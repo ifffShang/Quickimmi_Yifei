@@ -1,7 +1,7 @@
 import { useAppSelector } from "../../app/hooks";
 import { useFormTranslation } from "../../hooks/commonHooks";
-import { FieldKey, ParentFieldKey } from "../../model/ApiModals";
-import { ControlType, IFormField } from "../../model/FormModels";
+import { FieldKey, ParentFieldKey } from "../../model/apiModels";
+import { ControlType, IFormField } from "../../model/formModels";
 import { getFieldValue } from "../../utils/utils";
 import "./FormField.css";
 import {
@@ -27,12 +27,16 @@ export interface FormFieldProps {
 
 export function FormField(props: FormFieldProps) {
   const { wt, wa } = useFormTranslation();
-  const caseDetails = useAppSelector(state => state.form.profile);
+  const caseDetails = useAppSelector(
+    state => state.form.applicationCase?.profile,
+  );
   const fieldValue = getFieldValue(
     caseDetails,
     props.parentFieldKey,
     props.fieldKey,
   );
+
+  console.log(`Field ${props.fieldKey} value: ${fieldValue}`);
 
   switch (props.control) {
     case "text":

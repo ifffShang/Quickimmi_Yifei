@@ -1,7 +1,15 @@
+import { LoadingOutlined } from "@ant-design/icons";
 import { Button, Checkbox } from "antd";
-import { useAppDispatch } from "../../../app/hooks";
+import { useState } from "react";
+import { parsePassportApi } from "../../../api/caseAPI";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useFormTranslation } from "../../../hooks/commonHooks";
-import { changeModalType } from "../../../reducers/commonSlice";
+import { changeModalType, closeModal } from "../../../reducers/commonSlice";
+import {
+  updateApplicant,
+  updatePassportInfo,
+  updatePassportOrIdImageUrl,
+} from "../../../reducers/formSlice";
 import { QText } from "../../common/Fonts";
 import { Uploader } from "../../form/fields/Uploader";
 import "./UploadPassportModal.css";
@@ -9,12 +17,52 @@ import "./UploadPassportModal.css";
 export function UploadPassportModal() {
   const { wt } = useFormTranslation();
   const dispatch = useAppDispatch();
+  const accessToken = useAppSelector(state => state.auth.accessToken);
+  const [confirmDisabled, setConfirmDisabled] = useState(true);
+
+  const onPassportUploaded = async (documentId: number) => {
+    setConfirmDisabled(true);
+    try {
+      dispatch(
+        updateApplicant({
+          passportDocumentId: documentId?.toString(),
+        }),
+      );
+      if (!accessToken) {
+        throw new Error(`Access token ${accessToken} is missing`);
+      }
+      const passportInfo = await parsePassportApi(documentId, accessToken);
+      if (!passportInfo) {
+        throw new Error(
+          `Failed to parse passport info for document id ${documentId}`,
+        );
+      }
+      dispatch(updatePassportInfo(passportInfo));
+      setConfirmDisabled(false);
+    } catch (err) {
+      console.error(err);
+      setConfirmDisabled(false);
+    }
+  };
+
+  const onPassportImageUrlReceived = (imageUrl: string) => {
+    dispatch(updatePassportOrIdImageUrl(imageUrl));
+  };
+
+  const onConfirmButtonClick = () => {
+    dispatch(closeModal());
+  };
 
   return (
     <div className="upload-passport">
       <QText level="large">{wt("UploadPassport")}</QText>
       <div className="upload-passport-uploader">
-        <Uploader documentType="PASSPORT_MAIN" />
+        <Uploader
+          documentType="PASSPORT_MAIN"
+          documentName="passport-main"
+          onDocumentUploaded={onPassportUploaded}
+          onImageUrlReceived={onPassportImageUrlReceived}
+        />
       </div>
       <QText level="xsmall" color="gray">
         {wt("UploadPassportDescription1")}
@@ -23,8 +71,13 @@ export function UploadPassportModal() {
         {wt("UploadPassportDescription2")}
       </QText>
       <div className="upload-passport-controls">
-        <Button type="primary" size="large" disabled>
-          {wt("Confirm")}
+        <Button
+          type="primary"
+          size="large"
+          onClick={onConfirmButtonClick}
+          disabled={confirmDisabled}
+        >
+          {confirmDisabled ? <LoadingOutlined /> : wt("Confirm")}
         </Button>
         <Checkbox onClick={() => dispatch(changeModalType("uploadotherid"))}>
           {wt("NoPassport")}

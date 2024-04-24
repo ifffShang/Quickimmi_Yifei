@@ -23,9 +23,9 @@ export function Dashboard() {
   const cases = useAppSelector(state => state.case.cases);
 
   useEffect(() => {
-    // if (!isLoggedIn) {
-    //   navigate("/signin");
-    // }
+    if (!isLoggedIn) {
+      navigate("/signin");
+    }
   }, [isLoggedIn]);
 
   useEffect(() => {
@@ -99,6 +99,7 @@ export function Dashboard() {
           {t("Dashboard.CreateNewApplication")}
         </Button>
       </div>
+
       {innerContent}
     </div>
   );

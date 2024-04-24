@@ -1,12 +1,12 @@
 import { Button } from "antd";
+import { useState } from "react";
 import { useAppDispatch } from "../../../app/hooks";
 import { useFormTranslation } from "../../../hooks/commonHooks";
 import { changeModalType } from "../../../reducers/commonSlice";
 import { QText } from "../../common/Fonts";
-import { QLink, QReturnLink } from "../../common/Links";
+import { QReturnLink } from "../../common/Links";
 import { QDropdown } from "../../form/fields/Controls";
 import { Uploader } from "../../form/fields/Uploader";
-import { useState } from "react";
 import "./UploadOtherIdModal.css";
 
 export function UploadOtherIdModal() {
@@ -34,7 +34,11 @@ export function UploadOtherIdModal() {
       {dropdownSelectedValue && (
         <>
           <div className="dropdown-inner-uploader">
-            <Uploader documentType="ID_CARD" />
+            <Uploader
+              documentType="ID_CARD"
+              documentName="idcard"
+              onDocumentUploaded={() => {}}
+            />
           </div>
           <div className="upload-passport-controls">
             <Button type="primary" size="large" disabled>

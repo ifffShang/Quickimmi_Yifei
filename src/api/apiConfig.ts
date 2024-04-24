@@ -23,14 +23,20 @@ export const fetchFunction = async (
 
     // Check if the response status is OK
     if (!response.ok) {
-      const errorData = await response.json();
-      const errorMessage =
-        errorData?.errorCode ||
-        errorData?.message ||
-        `HTTP Error: ${response.status}`;
-      throw new Error(errorMessage);
+      if (
+        response.headers.get("content-type")?.includes("application/json") &&
+        response.status !== 204
+      ) {
+        const errorData = await response.json();
+        const errorMessage =
+          errorData?.errorCode ||
+          errorData?.message ||
+          `HTTP Error: ${response.status}`;
+        throw new Error(errorMessage);
+      } else {
+        throw new Error(`HTTP Error: ${response.status}`);
+      }
     }
-
     return response;
   } catch (error: any) {
     console.error(`Error fetching data from ${endPoint}:`, error.message);

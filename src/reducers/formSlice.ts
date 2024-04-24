@@ -1,55 +1,57 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { InitialApplicationCase } from "../consts/caseConsts";
 import {
   Applicant,
   ApplicationCase,
   AsylumCaseProfile,
-} from "../model/ApiModals";
+  ParsePassportResponse,
+} from "../model/apiModels";
 
-const initialState: ApplicationCase = {
-  id: 0,
-  userId: 0,
-  applicantName: "",
-  taskList: [],
-  type: "",
-  status: "",
-  submittedAt: 0,
-  updatedAt: 0,
-  createdAt: 0,
-  currentStep: "",
-  uscisReceiptNumber: "",
-  paid: false,
-  assignedLawyer: 0,
-  profile: {
-    applyForWithholdingYesCheckbox: "",
-    applicant: {},
-    family: {},
-    background: {},
-    applicationDetails: {},
-    signature: {},
-    declaration: {},
-  },
+export interface FormState {
+  applicationCase: ApplicationCase;
+  passportOrIdImageUrl: string;
+}
+
+const initialState: FormState = {
+  applicationCase: InitialApplicationCase,
+  passportOrIdImageUrl: "",
 };
 
 export const formSlice = createSlice({
   name: "form",
   initialState,
   reducers: {
-    updateFormState: (state, action: PayloadAction<ApplicationCase>) => {
+    updateApplicationCase: (state, action: PayloadAction<ApplicationCase>) => {
       for (const key in action.payload) {
         if (Object.prototype.hasOwnProperty.call(action.payload, key)) {
           const value = action.payload[key];
           if (!value) {
-            action.payload[key] = initialState[key];
+            action.payload[key] = InitialApplicationCase[key];
           }
         }
       }
-      Object.assign(state, action.payload);
+      Object.assign(state.applicationCase, action.payload);
     },
     updateCaseDetails: (state, action: PayloadAction<AsylumCaseProfile>) => {
-      Object.assign(state.profile, action.payload);
+      Object.assign(state.applicationCase.profile, action.payload);
     },
     updateApplicant: (state, action: PayloadAction<Applicant>) => {
-      Object.assign(state.profile.applicant, action.payload);
+      Object.assign(state.applicationCase.profile.applicant, action.payload);
+    },
+    updatePassportInfo: (
+      state,
+      action: PayloadAction<ParsePassportResponse>,
+    ) => {
+      const payload = {
+        firstName: action.payload.firstName,
+        lastName: action.payload.lastName,
+        middleName: action.payload.middleName,
+        birthDate: action.payload.birthDate,
+      };
+      Object.assign(state.applicationCase.profile.applicant, payload);
+    },
+    updatePassportOrIdImageUrl: (state, action: PayloadAction<string>) => {
+      state.passportOrIdImageUrl = action.payload;
     },
     resetFormState: () => initialState,
   },
@@ -57,9 +59,11 @@ export const formSlice = createSlice({
 
 export const {
   resetFormState,
-  updateFormState,
-  updateApplicant,
+  updateApplicationCase,
   updateCaseDetails,
+  updateApplicant,
+  updatePassportInfo,
+  updatePassportOrIdImageUrl,
 } = formSlice.actions;
 
 export default formSlice.reducer;

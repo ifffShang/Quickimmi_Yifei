@@ -2,9 +2,11 @@ import {
   ApplicationCase,
   Case,
   GeneratePresignedUrlResponse,
-} from "../model/ApiModals";
-import { IForm, IFormFields } from "../model/FormModels";
-import { DocumentType } from "../model/Models";
+  ParsePassportResponse,
+  UpdateApplicationCaseData,
+} from "../model/apiModels";
+import { IForm, IFormFields } from "../model/formModels";
+import { DocumentType } from "../model/models";
 import { performApiRequest } from "./apiConfig";
 
 export async function getForm(id: string): Promise<IForm> {
@@ -56,6 +58,8 @@ export async function getCaseDetailsApi(
   caseId: number,
   accessToken: string,
 ): Promise<ApplicationCase> {
+  await flushRedisCache(accessToken);
+
   const res = await performApiRequest(
     `api/case/asylum/get?id=${caseId}`,
     "GET",
@@ -66,7 +70,7 @@ export async function getCaseDetailsApi(
 }
 
 export async function updateApplicationCaseApi(
-  data: ApplicationCase,
+  data: UpdateApplicationCaseData,
   accessToken: string,
 ): Promise<boolean> {
   const res = await performApiRequest(
@@ -97,4 +101,31 @@ export async function generateDocumentPresignedUrl(
     accessToken,
   );
   return <GeneratePresignedUrlResponse>res.data;
+}
+
+export async function parsePassportApi(
+  documentId: number,
+  accessToken: string,
+): Promise<ParsePassportResponse> {
+  const res = await performApiRequest(
+    `api/document/parse/passport?documentId=${documentId}`,
+    "POST",
+    null,
+    accessToken,
+  );
+  return <ParsePassportResponse>res.data;
+}
+
+/**
+ * This is for development purposes only
+ * @returns
+ */
+export async function flushRedisCache(accessToken: string): Promise<boolean> {
+  const res = await performApiRequest(
+    "api/cache/flushAll",
+    "GET",
+    null,
+    accessToken,
+  );
+  return <boolean>res.data;
 }

@@ -1,11 +1,13 @@
 import {
+  ApplicationCase,
   AsylumCaseProfile,
   FieldKey,
   ParentFieldKey,
-} from "../model/ApiModals";
-import { ScreenSize } from "../model/Models";
+  UpdateApplicationCaseData,
+} from "../model/apiModels";
+import { ScreenSize } from "../model/models";
 import { updateApplicant } from "../reducers/formSlice";
-import { PATH } from "../router/MainView";
+import { PATH } from "../components/router/MainView";
 
 export const handleResize = (
   dispatch?: React.Dispatch<any>,
@@ -89,4 +91,14 @@ export function dispatchFormValue(
       }),
     );
   }
+}
+
+export function getUpdateApplicationCaseData(
+  applicationCase: ApplicationCase,
+): UpdateApplicationCaseData {
+  const profile = JSON.stringify(applicationCase.profile);
+  return {
+    ...applicationCase,
+    profile: applicationCase.profile,
+  };
 }

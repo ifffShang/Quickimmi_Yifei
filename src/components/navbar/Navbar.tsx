@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { ScreenSize } from "../../model/Models";
+import { ScreenSize } from "../../model/models";
 import { signOutCurrentUser } from "../../utils/authUtils";
 import { isAuthPath, showFormNavigation } from "../../utils/utils";
 import { Menu } from "../common/Menu";
@@ -58,15 +58,13 @@ export function Navbar() {
       <div className="navbar-group">
         {isSmallScreen && showFormNav && <FormNavigation />}
         <div className="navbar-logo">
-          <Link className="navbar-logo-link" to="/">
+          <Link
+            className="navbar-logo-link"
+            to={isLoggedIn ? "/dashboard" : "/"}
+          >
             <Logo />
           </Link>
         </div>
-        {isLoggedIn && (
-          <div className="navbar-menu">
-            <Link to="/dashboard">Dashboard</Link>
-          </div>
-        )}
       </div>
       <div className="navbar-group">
         <div className="navbar-profile">

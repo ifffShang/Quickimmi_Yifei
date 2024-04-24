@@ -1,5 +1,5 @@
 import { useAppSelector } from "../../app/hooks";
-import { ScreenSize } from "../../model/Models";
+import { ScreenSize } from "../../model/models";
 import { FormContent } from "./FormContent";
 import "./FormFlow.css";
 import { FormNavigation } from "./FormNavigation";

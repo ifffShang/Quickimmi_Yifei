@@ -1,5 +1,5 @@
 import React from "react";
-import { Message } from "../../model/Models";
+import { Message } from "../../model/models";
 import "./ChatBody.css";
 
 export interface ChatBodyProps {

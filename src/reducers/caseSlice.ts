@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IForm, IFormFields, IFormStep } from "../model/FormModels";
-import { Case } from "../model/ApiModals";
+import { IForm, IFormFields, IFormStep } from "../model/formModels";
+import { Case } from "../model/apiModels";
 
 export interface FormFieldsMap {
   [key: string]: IFormFields;

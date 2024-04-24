@@ -41,21 +41,19 @@ export function SignIn() {
       });
       if (isSignedIn) {
         const session = await fetchAuthSession();
+        if (!session || !session.tokens || !session.tokens.accessToken) {
+          throw new Error("Failed to fetch session after sign in");
+        }
+        const accessToken = session.tokens.accessToken.toString();
+        const userInfo = await getUserInfoApi(email, accessToken);
         dispatch(
           updateAuthState({
+            userId: userInfo?.id || 0,
             isLoggedIn: true,
             email,
-            accessToken: session.tokens?.accessToken?.toString(),
+            accessToken: accessToken,
           }),
         );
-        try {
-          const userInfo = await getUserInfoApi(email);
-          dispatch(updateAuthState({ userId: userInfo?.id || 0 }));
-        } catch (error) {
-          console.error("Error getting user info: ", error);
-          await createUserApi(email);
-        }
-
         navigate("/dashboard");
       } else if (nextStep?.signInStep === "CONFIRM_SIGN_UP") {
         await resendSignUpCode({ username: email });
@@ -77,6 +75,7 @@ export function SignIn() {
       }
       console.error("Error signing in: ", error);
       setErrorMessage(t("ErrorMessage.ErrorSigningIn"));
+      signOutCurrentUser(dispatch);
     }
   };
 

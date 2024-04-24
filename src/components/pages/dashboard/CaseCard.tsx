@@ -6,7 +6,10 @@ import { CaseIcon } from "../../icons/Dashboard";
 import "./CaseCard.css";
 import { getCaseDetailsApi } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { resetFormState, updateFormState } from "../../../reducers/formSlice";
+import {
+  resetFormState,
+  updateApplicationCase,
+} from "../../../reducers/formSlice";
 import { useNavigate } from "react-router-dom";
 
 export interface CaseCardProps {
@@ -33,7 +36,7 @@ export function CaseCard(props: CaseCardProps) {
         console.error(`Failed to get case details for case id ${props.caseId}`);
         return;
       }
-      dispatch(updateFormState(caseDetails));
+      dispatch(updateApplicationCase(caseDetails));
       navigate("/casedetails");
     } catch (err) {
       console.error(err);

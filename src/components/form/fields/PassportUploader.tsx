@@ -1,16 +1,14 @@
-import { Upload } from "antd";
-import { QText } from "../../common/Fonts";
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import { useState } from "react";
-import { useFormTranslation } from "../../../hooks/commonHooks";
-import { useAppDispatch } from "../../../app/hooks";
+import { PlusOutlined, LoadingOutlined } from "@ant-design/icons";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { openModal } from "../../../reducers/commonSlice";
 import "./PassportUploader.css";
 
 export function PassportUploader() {
   const dispatch = useAppDispatch();
-  const [loading, setLoading] = useState(false);
-  const { wt } = useFormTranslation();
+  const passportOrIdImageUrl = useAppSelector(
+    state => state.form.passportOrIdImageUrl,
+  );
+  const showModal = useAppSelector(state => state.common.showModal);
 
   const onButtonClick = () => {
     dispatch(openModal("uploadpassport"));
@@ -23,8 +21,20 @@ export function PassportUploader() {
         type="button"
         onClick={onButtonClick}
       >
-        {loading ? <LoadingOutlined /> : <PlusOutlined />}
-        <div style={{ marginTop: 8 }}>Upload</div>
+        {passportOrIdImageUrl && !showModal ? (
+          <img
+            src={passportOrIdImageUrl}
+            alt="avatar"
+            style={{ width: "100%" }}
+          />
+        ) : showModal ? (
+          <LoadingOutlined />
+        ) : (
+          <>
+            <PlusOutlined />
+            <div style={{ marginTop: 8 }}>Upload</div>
+          </>
+        )}
       </button>
     </div>
   );

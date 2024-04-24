@@ -2,7 +2,7 @@ import { Checkbox, DatePicker, Input, Select } from "antd";
 import React, { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch } from "../../../app/hooks";
-import { FieldKey, ParentFieldKey } from "../../../model/ApiModals";
+import { FieldKey, ParentFieldKey } from "../../../model/apiModels";
 import { dispatchFormValue } from "../../../utils/utils";
 import { ErrorMessage, QText } from "../../common/Fonts";
 import dayjs from "dayjs";
