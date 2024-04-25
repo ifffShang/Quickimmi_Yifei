@@ -1,3 +1,4 @@
+//export const baseUrl = "https://192.168.0.13:8080";
 export const baseUrl = "https://devapi.quickimmi.ai";
 
 export const fetchFunction = async (
@@ -7,7 +8,7 @@ export const fetchFunction = async (
   additionalHeaders: any,
   baseUrl?: string,
 ) => {
-  const url = baseUrl ? `${baseUrl}/${endPoint}` : endPoint;
+  const url = baseUrl ? `${baseUrl}/${endPoint}` : `/${endPoint}`;
   const headers = {
     Accept: "application/json",
     "Content-Type": "application/json",

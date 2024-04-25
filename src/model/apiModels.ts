@@ -111,7 +111,7 @@ export type FieldKey =
   | keyof Declaration;
 
 export interface Applicant {
-  passportDocumentId?: string;
+  passportDocumentId?: number;
   aNumber?: string;
   ssn?: string;
   uscisOnlineAccountNumber?: string;
@@ -410,4 +410,16 @@ export interface ParsePassportResponse {
   nationality: string;
   gender: string;
   expireDate: string;
+}
+
+export interface UploadedDocument {
+  id: number;
+  userId: number;
+  caseId: number;
+  status: string;
+  type: string;
+  name: string;
+  presignUrl: string;
+  createdAt: number;
+  updatedAt: number;
 }

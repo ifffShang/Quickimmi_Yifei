@@ -86,6 +86,7 @@ export const caseSlice = createSlice({
     updateCases: (state, action: PayloadAction<Case[]>) => {
       state.cases = action.payload;
     },
+    resetForm: () => initialState,
   },
 });
 
@@ -98,6 +99,7 @@ export const {
   updateFormFieldsMap,
   updateCurrentCaseId,
   updateCases,
+  resetForm,
 } = caseSlice.actions;
 
 export default caseSlice.reducer;

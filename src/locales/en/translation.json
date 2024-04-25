@@ -81,6 +81,7 @@
   "PhoneNumber": "Phone Number",
   "InputConfirmationCode": "Please input the verification code sent to: ",
   "PersonalInformation": "Personal Information",
+  "BasicInformation": "Basic Information",
   "IdVerfication": "ID Verification",
   "ContactInformation": "Contact Information",
   "UploadPassport": "Upload Passport",

@@ -43,6 +43,7 @@ export const formSlice = createSlice({
       action: PayloadAction<ParsePassportResponse>,
     ) => {
       const payload = {
+        passportNumber: action.payload.passportNumber,
         firstName: action.payload.firstName,
         lastName: action.payload.lastName,
         middleName: action.payload.middleName,

@@ -1,5 +1,5 @@
 {
-  "id": "i589_fields_id_verification",
+  "id": "i589_fields_basic_information",
   "version": "2024-04-01",
   "type": "fields",
   "key": "applicant",
@@ -7,6 +7,7 @@
     {
       "label": "text_UploadPassport",
       "id": "upload_id",
+      "key": "passportDocumentId",
       "control": "component_passport_uploader"
     },
     {

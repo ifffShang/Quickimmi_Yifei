@@ -48,4 +48,5 @@ export type ControlType =
   | "datepicker"
   | "component_passport_uploader"
   | "component_textbox_na"
-  | "component_location_dropdown";
+  | "component_location_dropdown"
+  | "component_generate_report";

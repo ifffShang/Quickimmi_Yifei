@@ -11,6 +11,7 @@ import {
   QTextBox,
   SelectBox,
 } from "./fields/Controls";
+import { GenerateDocument } from "./fields/GenerateDocument";
 import { LocationDropdown } from "./fields/LocationDropdown";
 import { PassportUploader } from "./fields/PassportUploader";
 import { TextboxWithNA } from "./fields/TextboxWithNA";
@@ -36,7 +37,9 @@ export function FormField(props: FormFieldProps) {
     props.fieldKey,
   );
 
-  console.log(`Field ${props.fieldKey} value: ${fieldValue}`);
+  console.log(
+    `Field ${props.parentFieldKey}-${props.fieldKey} value: ${fieldValue}`,
+  );
 
   switch (props.control) {
     case "text":
@@ -91,11 +94,13 @@ export function FormField(props: FormFieldProps) {
         />
       );
     case "component_passport_uploader":
-      return <PassportUploader />;
+      return <PassportUploader documentId={fieldValue} />;
     case "component_textbox_na":
       return <TextboxWithNA placeholder={wt(props.label)} />;
     case "component_location_dropdown":
       return <LocationDropdown />;
+    case "component_generate_report":
+      return <GenerateDocument />;
     case "group":
       if (props.subFields && props.subFields.length > 0) {
         const subFieldsCss = "horizontal-" + `${props.maxChildPerRow || 1}`;

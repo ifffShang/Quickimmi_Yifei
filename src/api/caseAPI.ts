@@ -4,6 +4,7 @@ import {
   GeneratePresignedUrlResponse,
   ParsePassportResponse,
   UpdateApplicationCaseData,
+  UploadedDocument,
 } from "../model/apiModels";
 import { IForm, IFormFields } from "../model/formModels";
 import { DocumentType } from "../model/models";
@@ -114,6 +115,39 @@ export async function parsePassportApi(
     accessToken,
   );
   return <ParsePassportResponse>res.data;
+}
+
+export async function getDocumentsApi(
+  accessToken: string,
+  caseId: number,
+  type?: DocumentType,
+): Promise<UploadedDocument[]> {
+  const data = {
+    caseId,
+  };
+  if (type) {
+    data["documentType"] = type;
+  }
+  const res = await performApiRequest(
+    `api/document/list`,
+    "GET",
+    data,
+    accessToken,
+  );
+  return <UploadedDocument[]>res.data;
+}
+
+export async function generateDocumentsApi(
+  accessToken: string,
+  caseId: number,
+): Promise<boolean> {
+  const res = await performApiRequest(
+    `/api/case/asylum/generateDocuments?id=${caseId}`,
+    "GET",
+    null,
+    accessToken,
+  );
+  return <boolean>res.data;
 }
 
 /**

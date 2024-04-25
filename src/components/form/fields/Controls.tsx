@@ -1,5 +1,5 @@
 import { Checkbox, DatePicker, Input, Select } from "antd";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch } from "../../../app/hooks";
 import { FieldKey, ParentFieldKey } from "../../../model/apiModels";
@@ -22,6 +22,10 @@ export interface QTextBoxProps {
 export function QTextBox(props: QTextBoxProps) {
   const dispatch = useAppDispatch();
   const [value, setValue] = useState(props.value);
+
+  useEffect(() => {
+    setValue(props.value);
+  }, [props.value]);
 
   const onTextBoxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (props.disabled) return;
@@ -95,6 +99,10 @@ export interface QDatePickerProps {
 export function QDatePicker(props: QDatePickerProps) {
   const dispatch = useAppDispatch();
   const [value, setValue] = useState(props.value || "");
+  useEffect(() => {
+    if (!props.value) return;
+    setValue(props.value);
+  }, [props.value]);
 
   const onDateChange = (date: dayjs.Dayjs, dateString: string | string[]) => {
     if (props.disabled || !date) return;

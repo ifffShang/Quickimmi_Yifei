@@ -4,11 +4,10 @@ import { getFormFields, updateApplicationCaseApi } from "../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useFormTranslation } from "../../hooks/commonHooks";
 import { updateFormFieldsMap } from "../../reducers/caseSlice";
+import { getUpdateApplicationCaseData } from "../../utils/utils";
 import { QText } from "../common/Fonts";
 import "./FormContent.css";
 import { FormField } from "./FormField";
-import { resetFormState } from "../../reducers/formSlice";
-import { getUpdateApplicationCaseData } from "../../utils/utils";
 
 interface FormContentProps {
   referenceId: string;

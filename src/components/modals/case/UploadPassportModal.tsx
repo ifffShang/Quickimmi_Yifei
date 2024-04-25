@@ -19,13 +19,15 @@ export function UploadPassportModal() {
   const dispatch = useAppDispatch();
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const [confirmDisabled, setConfirmDisabled] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const onPassportUploaded = async (documentId: number) => {
     setConfirmDisabled(true);
+    setLoading(true);
     try {
       dispatch(
         updateApplicant({
-          passportDocumentId: documentId?.toString(),
+          passportDocumentId: documentId,
         }),
       );
       if (!accessToken) {
@@ -39,9 +41,11 @@ export function UploadPassportModal() {
       }
       dispatch(updatePassportInfo(passportInfo));
       setConfirmDisabled(false);
+      setLoading(false);
     } catch (err) {
       console.error(err);
       setConfirmDisabled(false);
+      setLoading(false);
     }
   };
 
@@ -77,7 +81,15 @@ export function UploadPassportModal() {
           onClick={onConfirmButtonClick}
           disabled={confirmDisabled}
         >
-          {confirmDisabled ? <LoadingOutlined /> : wt("Confirm")}
+          {confirmDisabled ? (
+            loading ? (
+              <LoadingOutlined />
+            ) : (
+              wt("Confirm")
+            )
+          ) : (
+            wt("Confirm")
+          )}
         </Button>
         <Checkbox onClick={() => dispatch(changeModalType("uploadotherid"))}>
           {wt("NoPassport")}

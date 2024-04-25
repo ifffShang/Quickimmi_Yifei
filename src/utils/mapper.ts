@@ -10,5 +10,5 @@ export const arrayMapper =
     const options: string[] = t(key, { returnObjects: true }) as string[];
 
     // Map each string in the array to an object with a 'value' and 'label' property
-    return options.map(option => ({ value: option, label: option }));
+    return options?.map(option => ({ value: option, label: option }));
   };

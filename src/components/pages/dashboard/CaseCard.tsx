@@ -1,16 +1,11 @@
-import { Button, Progress } from "antd";
+import { Button } from "antd";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { getCaseId } from "../../../utils/utils";
 import { QText, SingleLine } from "../../common/Fonts";
 import { CaseIcon } from "../../icons/Dashboard";
 import "./CaseCard.css";
-import { getCaseDetailsApi } from "../../../api/caseAPI";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import {
-  resetFormState,
-  updateApplicationCase,
-} from "../../../reducers/formSlice";
-import { useNavigate } from "react-router-dom";
 
 export interface CaseCardProps {
   caseId: number;
@@ -19,7 +14,6 @@ export interface CaseCardProps {
 export function CaseCard(props: CaseCardProps) {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const accessToken = useAppSelector(state => state.auth.accessToken);
 
   const openCaseDetails = async () => {
@@ -29,18 +23,7 @@ export function CaseCard(props: CaseCardProps) {
       );
       return;
     }
-    try {
-      dispatch(resetFormState());
-      const caseDetails = await getCaseDetailsApi(props.caseId, accessToken);
-      if (!caseDetails) {
-        console.error(`Failed to get case details for case id ${props.caseId}`);
-        return;
-      }
-      dispatch(updateApplicationCase(caseDetails));
-      navigate("/casedetails");
-    } catch (err) {
-      console.error(err);
-    }
+    navigate("/case/" + props.caseId);
   };
 
   return (

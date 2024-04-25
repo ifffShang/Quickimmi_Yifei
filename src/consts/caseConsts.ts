@@ -1,7 +1,7 @@
 import { ApplicationCase } from "../model/apiModels";
 
 export const InitialApplicant = {
-  passportDocumentId: "",
+  passportDocumentId: 0,
   aNumber: "",
   ssn: "",
   uscisOnlineAccountNumber: "",

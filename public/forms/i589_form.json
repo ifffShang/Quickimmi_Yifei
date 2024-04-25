@@ -9,16 +9,22 @@
       "type": "level1",
       "steps": [
         {
-          "label": "text_IdVerfication",
-          "id": "id_verification",
+          "label": "text_BasicInformation",
+          "id": "basic_information",
           "type": "level2",
-          "referenceId": "i589_fields_id_verification"
+          "referenceId": "i589_fields_basic_information"
         },
         {
           "label": "text_ContactInformation",
           "id": "contact_information",
           "type": "level2",
           "referenceId": "i589_fields_contact_information"
+        },
+        {
+          "label": "text_GenerateReport",
+          "id": "generate_report",
+          "type": "level2",
+          "referenceId": "i589_fields_generate_report"
         }
       ]
     }

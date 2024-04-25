@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
 import { AuthPage } from "../pages/auth/AuthPage";
-import { CaseDetails } from "../pages/case/CaseDetails";
+import { CaseDetails } from "../pages/dashboard/CaseDetails";
 import { Dashboard } from "../pages/dashboard/Dashboard";
 import { Home } from "../pages/home/Home";
 import { SinglePageView } from "../pages/singlePage/SinglePageView";
@@ -20,9 +20,9 @@ export const PATH = {
   ConfirmCode: "/confirmcode",
   AuthSuccess: "/authsuccess",
   Dashboard: "/dashboard",
-  CaseDetails: "/casedetails",
+  CaseDetails: "/case/:id",
   Checkout: "/checkout",
-  Test: "/test",
+  Others: "*",
 };
 
 export const RouterConfig = [
@@ -87,9 +87,9 @@ export const RouterConfig = [
     needLogin: true,
   },
   {
-    path: PATH.Test,
-    element: <TestPageView />,
-    needLogin: false,
+    path: PATH.Others,
+    element: <Dashboard />,
+    needLogin: true,
   },
 ];
 

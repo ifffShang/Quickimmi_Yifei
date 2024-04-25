@@ -78,6 +78,7 @@
   "PhoneNumber": "电话号码",
   "InputConfirmationCode": "请输入发送到以下地址的验证码：",
   "PersonalInformation": "个人信息",
+  "BasicInformation": "Basic Information",
   "IdVerfication": "身份验证",
   "ContactInformation": "联系信息",
   "UploadPassport": "上传护照",

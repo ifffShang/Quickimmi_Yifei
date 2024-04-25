@@ -2,6 +2,7 @@
   "id": "i589_fields_contact_information",
   "version": "2024-04-01",
   "type": "fields",
+  "key": "applicant",
   "fields": [
     {
       "label": "text_ResidentalAddress",
