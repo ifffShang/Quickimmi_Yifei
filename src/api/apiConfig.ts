@@ -1,3 +1,4 @@
+//export const baseUrl = "https://192.168.0.13:8080";
 export const baseUrl = "https://devapi.quickimmi.ai";
 
 export const fetchFunction = async (
@@ -7,7 +8,7 @@ export const fetchFunction = async (
   additionalHeaders: any,
   baseUrl?: string,
 ) => {
-  const url = baseUrl ? `${baseUrl}/${endPoint}` : endPoint;
+  const url = baseUrl ? `${baseUrl}/${endPoint}` : `/${endPoint}`;
   const headers = {
     Accept: "application/json",
     "Content-Type": "application/json",
@@ -23,14 +24,20 @@ export const fetchFunction = async (
 
     // Check if the response status is OK
     if (!response.ok) {
-      const errorData = await response.json();
-      const errorMessage =
-        errorData?.errorCode ||
-        errorData?.message ||
-        `HTTP Error: ${response.status}`;
-      throw new Error(errorMessage);
+      if (
+        response.headers.get("content-type")?.includes("application/json") &&
+        response.status !== 204
+      ) {
+        const errorData = await response.json();
+        const errorMessage =
+          errorData?.errorCode ||
+          errorData?.message ||
+          `HTTP Error: ${response.status}`;
+        throw new Error(errorMessage);
+      } else {
+        throw new Error(`HTTP Error: ${response.status}`);
+      }
     }
-
     return response;
   } catch (error: any) {
     console.error(`Error fetching data from ${endPoint}:`, error.message);

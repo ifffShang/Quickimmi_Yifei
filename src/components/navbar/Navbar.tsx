@@ -1,13 +1,14 @@
-import { signOut } from "aws-amplify/auth";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { resetAuthState } from "../../reducers/authSlice";
+import { ScreenSize } from "../../model/models";
+import { signOutCurrentUser } from "../../utils/authUtils";
+import { isAuthPath, showFormNavigation } from "../../utils/utils";
+import { Menu } from "../common/Menu";
+import { FormNavigation } from "../form/FormNavigation";
 import { Logo } from "../icons/Logo";
 import LanguageSelector from "./LanguageSelector";
-import { Menu } from "./Menu";
 import "./Navbar.css";
-import { isAuthPath } from "../../utils/utils";
 
 export function Navbar() {
   const dispatch = useAppDispatch();
@@ -16,6 +17,10 @@ export function Navbar() {
   const location = useLocation();
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
   const showNavbar = !isAuthPath(location.pathname);
+  const screenSize = useAppSelector(state => state.common.screenSize);
+  const isSmallScreen =
+    screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall;
+  const showFormNav = showFormNavigation();
 
   if (!showNavbar) {
     return null;
@@ -23,13 +28,6 @@ export function Navbar() {
 
   const login = () => {
     navigate("/signin");
-  };
-
-  const signOutCurrentUser = () => {
-    signOut().then(() => {
-      console.log("User signed out");
-      dispatch(resetAuthState());
-    });
   };
 
   let menuItems = [
@@ -45,32 +43,36 @@ export function Navbar() {
       {
         key: "signout",
         label: t("SignOut"),
-        onClick: signOutCurrentUser,
+        onClick: () => signOutCurrentUser(dispatch),
       },
     ];
   }
 
+  const containerCss =
+    isSmallScreen && showFormNav
+      ? "navbar-container form-nav"
+      : "navbar-container";
+
   return (
-    <div className="navbar-container">
+    <div className={containerCss}>
       <div className="navbar-group">
+        {isSmallScreen && showFormNav && <FormNavigation />}
         <div className="navbar-logo">
-          <Link className="navbar-logo-link" to="/">
+          <Link
+            className="navbar-logo-link"
+            to={isLoggedIn ? "/dashboard" : "/"}
+          >
             <Logo />
           </Link>
         </div>
-        {isLoggedIn && (
-          <div className="navbar-menu">
-            <Link to="/dashboard">Dashboard</Link>
-          </div>
-        )}
       </div>
       <div className="navbar-group">
         <div className="navbar-profile">
           <LanguageSelector />
         </div>
-        {/* <div>
-          <Menu items={menuItems} />
-        </div> */}
+        <div>
+          <Menu items={menuItems} popupPosition="bottom-left" />
+        </div>
       </div>
     </div>
   );

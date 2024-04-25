@@ -6,22 +6,25 @@
     {
       "label": "text_PersonalInformation",
       "id": "personal_information",
-      "order": 0,
       "type": "level1",
       "steps": [
         {
-          "label": "text_IdVerfication",
-          "id": "id_verification",
-          "order": 0,
+          "label": "text_BasicInformation",
+          "id": "basic_information",
           "type": "level2",
-          "referenceId": "i589_fields_id_verification"
+          "referenceId": "i589_fields_basic_information"
         },
         {
           "label": "text_ContactInformation",
           "id": "contact_information",
-          "order": 1,
           "type": "level2",
           "referenceId": "i589_fields_contact_information"
+        },
+        {
+          "label": "text_GenerateReport",
+          "id": "generate_report",
+          "type": "level2",
+          "referenceId": "i589_fields_generate_report"
         }
       ]
     }

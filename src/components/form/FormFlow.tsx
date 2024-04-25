@@ -1,22 +1,16 @@
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { updateForm } from "../../reducers/caseSlice";
+import { useAppSelector } from "../../app/hooks";
+import { ScreenSize } from "../../model/models";
 import { FormContent } from "./FormContent";
-import { FormNavigation } from "./FormNavigation";
 import "./FormFlow.css";
-import { getForm } from "../../api/caseAPI";
+import { FormNavigation } from "./FormNavigation";
 
 export function FormFlow() {
-  const dispatch = useAppDispatch();
   const form = useAppSelector(state => state.case.form);
   const indexLevel1 = useAppSelector(state => state.case.indexLevel1);
   const indexLevel2 = useAppSelector(state => state.case.indexLevel2);
-
-  useEffect(() => {
-    getForm("i589_form").then(form => {
-      dispatch(updateForm(form));
-    });
-  }, []);
+  const screenSize = useAppSelector(state => state.common.screenSize);
+  const isSmallScreen =
+    screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall;
 
   if (!form || indexLevel1 === -1 || indexLevel2 === -1) {
     return <div>Loading...</div>;
@@ -26,9 +20,8 @@ export function FormFlow() {
 
   return (
     <div className="form-flow">
-      <div className="form-flow-top">Complete the form</div>
       <div className="form-flow-content">
-        <FormNavigation steps={form.steps} />
+        {!isSmallScreen && <FormNavigation />}
         <FormContent referenceId={id ?? ""} />
       </div>
     </div>

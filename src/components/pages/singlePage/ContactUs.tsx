@@ -20,7 +20,7 @@ export function ContactUs() {
               Email
             </QText>
           </h3>
-          <p>contactus@quickimmi.ai</p>
+          <p>contact@quickimmi.ai</p>
         </div>
         {/* <div className="phone">
           <h3>

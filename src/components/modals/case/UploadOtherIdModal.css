@@ -1,0 +1,23 @@
+.upload-other-id {
+  display: flex;
+  flex-direction: column;
+}
+
+.upload-other-id .upload-other-id-uploader {
+  margin: 20px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.upload-other-id .upload-other-id-controls {
+  margin: 20px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.upload-passport-controls {
+  margin: 40px auto;
+}

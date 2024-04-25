@@ -27,13 +27,15 @@ export function Home() {
         {selectedLanguage === "cn" ? (
           <div
             className="home-image landing-page-title"
-            aria-label="Fast-Track Your American Dream with AI">
+            aria-label="Fast-Track Your American Dream with AI"
+          >
             <FastTrackCn />
           </div>
         ) : (
           <div
             className={"home-image landing-page-title"}
-            aria-label="Fast-Track Your American Dream with AI">
+            aria-label="Fast-Track Your American Dream with AI"
+          >
             <FastTrack />
           </div>
         )}
@@ -46,7 +48,8 @@ export function Home() {
         <a
           href="https://forms.gle/7i85vwVHMbsBSe3a8"
           target="_blank"
-          rel="noopener noreferrer">
+          rel="noopener noreferrer"
+        >
           <Button type="primary" size="large">
             {t("LandingPage.JoinWaitingList")}
           </Button>

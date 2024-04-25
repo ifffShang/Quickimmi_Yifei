@@ -1,0 +1,109 @@
+{
+  "id": "i589_fields_basic_information",
+  "version": "2024-04-01",
+  "type": "fields",
+  "key": "applicant",
+  "fields": [
+    {
+      "label": "text_UploadPassport",
+      "id": "upload_id",
+      "key": "passportDocumentId",
+      "control": "component_passport_uploader"
+    },
+    {
+      "label": "text_PassportNumber",
+      "id": "passport_number",
+      "key": "passportNumber",
+      "control": "text"
+    },
+    {
+      "label": "text_Name",
+      "id": "name",
+      "control": "group",
+      "maxChildPerRow": "3",
+      "fields": [
+        {
+          "label": "text_FirstName",
+          "id": "first_name",
+          "key": "firstName",
+          "control": "text"
+        },
+        {
+          "label": "text_MiddleName",
+          "id": "middle_name",
+          "key": "middleName",
+          "control": "text"
+        },
+        {
+          "label": "text_LastName",
+          "id": "last_name",
+          "key": "lastName",
+          "control": "text"
+        },
+        {
+          "label": "text_OtherNames",
+          "id": "other_names",
+          "key": "namesUsedBefore",
+          "control": "component_textbox_na"
+        }
+      ]
+    },
+    {
+      "label": "text_BirthDate",
+      "id": "birth_date",
+      "key": "birthDate",
+      "control": "datepicker"
+    },
+    {
+      "label": "text_Nationality",
+      "id": "nationality",
+      "control": "group",
+      "maxChildPerRow": "3",
+      "fields": [
+        {
+          "label": "text_NationalityAtBirth",
+          "id": "nationality_at_birth",
+          "control": "select",
+          "options": "NationalityOptions"
+        },
+        {
+          "label": "text_Race",
+          "id": "race",
+          "control": "select",
+          "options": "RaceOptions"
+        },
+        {
+          "label": "text_Gender",
+          "id": "Gender",
+          "control": "select",
+          "options": "GenderOptions"
+        },
+        {
+          "label": "text_Religion",
+          "id": "Religion",
+          "control": "select",
+          "options": "ReligionOptions"
+        }
+      ]
+    },
+    {
+      "label": "text_LocationOfBirth",
+      "id": "location_of_birth",
+      "control": "group",
+      "maxChildPerRow": "1",
+      "fields": [
+        {
+          "label": "text_SelectBirthCountry",
+          "id": "select_birth_country",
+          "order": 0,
+          "control": "component_location_dropdown"
+        }
+      ]
+    },
+    {
+      "label": "text_FluentInEnglish",
+      "id": "fluent_in_english",
+      "control": "checkbox"
+    }
+  ]
+}

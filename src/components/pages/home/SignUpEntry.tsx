@@ -14,7 +14,8 @@ export function SignUpEntry() {
       <a
         href="https://forms.gle/7i85vwVHMbsBSe3a8"
         target="_blank"
-        rel="noopener noreferrer">
+        rel="noopener noreferrer"
+      >
         <Button type="default" size="large">
           {t("LandingPage.JoinWaitingList")}
         </Button>

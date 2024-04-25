@@ -1,5 +1,13 @@
-import { ScreenSize } from "../model/Models";
-import { PATH } from "../router/MainView";
+import {
+  ApplicationCase,
+  AsylumCaseProfile,
+  FieldKey,
+  ParentFieldKey,
+  UpdateApplicationCaseData,
+} from "../model/apiModels";
+import { ScreenSize } from "../model/models";
+import { updateApplicant } from "../reducers/formSlice";
+import { PATH } from "../components/router/MainView";
 
 export const handleResize = (
   dispatch?: React.Dispatch<any>,
@@ -33,3 +41,64 @@ export const isAuthPath = (path: string) => {
     equalsIgnoreCase(path, PATH.ConfirmCode)
   );
 };
+
+export const showFormNavigation = () => {
+  return window.location.pathname === PATH.CaseDetails;
+};
+
+export const getCaseId = (caseId: number) => {
+  const encodedCaseId = encodeId(80000000 + caseId);
+  return "#I" + encodedCaseId;
+};
+
+export function encodeId(id: number) {
+  // Convert the id to a base36 string
+  return id.toString(36);
+}
+
+export function decodeId(encodedId: string) {
+  // Convert the base36 string back to an integer
+  return parseInt(encodedId, 36);
+}
+
+export function getFieldValue(
+  caseDetails: AsylumCaseProfile,
+  parentKey: ParentFieldKey,
+  key: FieldKey,
+) {
+  if (!caseDetails) {
+    console.info("Case profile is missing");
+    return;
+  }
+  const parentValues = caseDetails[parentKey];
+  if (!parentValues) {
+    console.error(`Values of parent key ${parentKey} are missing`);
+    return;
+  }
+  return caseDetails[parentKey][key];
+}
+
+export function dispatchFormValue(
+  dispatch: React.Dispatch<any>,
+  parentKey: ParentFieldKey,
+  key: FieldKey,
+  value: any,
+) {
+  if (parentKey === "applicant") {
+    dispatch(
+      updateApplicant({
+        [key]: value,
+      }),
+    );
+  }
+}
+
+export function getUpdateApplicationCaseData(
+  applicationCase: ApplicationCase,
+): UpdateApplicationCaseData {
+  const profile = JSON.stringify(applicationCase.profile);
+  return {
+    ...applicationCase,
+    profile: applicationCase.profile,
+  };
+}

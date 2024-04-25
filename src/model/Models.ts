@@ -16,3 +16,9 @@ export enum ScreenSize {
   medium = 1500,
   large = 2100,
 }
+
+export type DocumentType =
+  | "PASSPORT_MAIN"
+  | "ID_CARD"
+  | "I94"
+  | "PASSPORT_FULL";

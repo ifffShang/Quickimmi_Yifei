@@ -1,8 +1,11 @@
+import { CloseOutlined } from "@ant-design/icons";
 import Link from "antd/es/typography/Link";
 import { ReactNode, useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { closeModal } from "../../reducers/commonSlice";
 import "./ModalView.css";
+import { UploadOtherIdModal } from "./case/UploadOtherIdModal";
+import { UploadPassportModal } from "./case/UploadPassportModal";
 
 function Modal({ children }: { children?: ReactNode }) {
   const dispatch = useAppDispatch();
@@ -15,7 +18,7 @@ function Modal({ children }: { children?: ReactNode }) {
     <div className="modalview-container">
       <div className="modalview-popup">
         <Link className="modalview-close" onClick={close}>
-          X
+          <CloseOutlined />
         </Link>
         <div className="modalview-content">{children}</div>
       </div>
@@ -30,12 +33,12 @@ export function ModalView() {
     return null;
   }
 
-  const innerModal = null;
-  // if (common.modalType === "confirmcode") {
-  //   innerModal = <ConfirmCode />;
-  // } else if (common.modalType === "signoutsccess") {
-  //   innerModal = <SignOutSccessMessage />;
-  // }
+  let innerModal;
+  if (common.modalType === "uploadpassport") {
+    innerModal = <UploadPassportModal />;
+  } else if (common.modalType === "uploadotherid") {
+    innerModal = <UploadOtherIdModal />;
+  }
 
   return <Modal>{innerModal}</Modal>;
 }

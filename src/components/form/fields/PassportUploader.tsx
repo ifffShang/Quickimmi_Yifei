@@ -1,28 +1,62 @@
-import { Upload } from "antd";
-import { QText } from "../../common/Fonts";
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import { useState } from "react";
+import { PlusOutlined, LoadingOutlined } from "@ant-design/icons";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { openModal } from "../../../reducers/commonSlice";
+import "./PassportUploader.css";
+import { useEffect } from "react";
+import { getDocumentsApi } from "../../../api/caseAPI";
 
-export function PassportUploader() {
-  const [loading, setLoading] = useState(false);
+export interface PassportUploaderProps {
+  documentId: number;
+}
 
-  const uploadButton = (
-    <button style={{ border: 0, background: "none" }} type="button">
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </button>
+export function PassportUploader(props: PassportUploaderProps) {
+  const dispatch = useAppDispatch();
+  const passportOrIdImageUrl = useAppSelector(
+    state => state.form.passportOrIdImageUrl,
   );
+  const accessToken = useAppSelector(state => state.auth.accessToken);
+  const showModal = useAppSelector(state => state.common.showModal);
+
+  const onButtonClick = () => {
+    dispatch(openModal("uploadpassport"));
+  };
+
+  useEffect(() => {
+    if (!accessToken || !props.documentId) return;
+    getDocumentsApi(accessToken, props.documentId, "PASSPORT_MAIN").then(
+      documents => {
+        if (documents.length > 0) {
+          const presignUrl = documents[0].presignUrl;
+
+          // get download presigned url and download the image
+          // set passportOrIdImageUrl
+        }
+      },
+    );
+  }, []);
+
   return (
-    <div>
-      <QText level="large">Upload passport</QText>
-      <Upload
-        name="passport"
-        listType="picture-card"
-        className="passport-uploader"
-        showUploadList={false}
-        action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload">
-        {uploadButton}
-      </Upload>
+    <div className="passport-uploader">
+      <button
+        className="passport-uploader-btn"
+        type="button"
+        onClick={onButtonClick}
+      >
+        {passportOrIdImageUrl && !showModal ? (
+          <img
+            src={passportOrIdImageUrl}
+            alt="avatar"
+            style={{ width: "100%" }}
+          />
+        ) : showModal ? (
+          <LoadingOutlined />
+        ) : (
+          <>
+            <PlusOutlined />
+            <div style={{ marginTop: 8 }}>Upload</div>
+          </>
+        )}
+      </button>
     </div>
   );
 }

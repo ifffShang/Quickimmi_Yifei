@@ -1,3 +1,20 @@
 .qlink.white {
   color: var(--white-color);
 }
+
+.qlink-return {
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: var(--gray-color-2);
+  gap: 10px;
+}
+
+.qlink-return svg {
+  fill: var(--primary-color);
+  width: 15px;
+}
+
+.qlink-return:hover {
+  color: var(--primary-color);
+}

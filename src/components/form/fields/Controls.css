@@ -28,3 +28,43 @@
   max-width: 250px;
   width: 100%;
 }
+
+.dropdown-container {
+  max-width: 400px;
+  width: 100%;
+  margin: 20px 0;
+}
+
+.dropdown-inner {
+  width: 100%;
+}
+
+.dropdown-inner-uploader {
+  margin: 20px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.datepicker-container {
+  max-width: 250px;
+  width: 100%;
+}
+
+.datepicker-container .ant-picker {
+  width: 100%;
+}
+
+.select-box {
+  max-width: 250px;
+  width: 100%;
+}
+
+.select-box .ant-select {
+  width: 100%;
+}
+
+.select-box .ant-select .ant-select-selector {
+  border-radius: 4px !important;
+}

@@ -17,6 +17,7 @@
     "antd": "^5.14.2",
     "aws-amplify": "^6.0.20",
     "base-64": "^1.0.0",
+    "country-state-city": "^3.2.1",
     "i18next": "^23.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

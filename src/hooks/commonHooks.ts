@@ -1,11 +1,13 @@
 import { useTranslation } from "react-i18next";
 import { textParser } from "../utils/parsers";
+import { arrayMapper } from "../utils/mapper";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 export function useFormTranslation() {
   const { t } = useTranslation();
   const wt = textParser(t);
-  return { t, wt };
+  const wa = arrayMapper(t);
+  return { t, wt, wa };
 }
 
 export function useClickOutsideOfRef(

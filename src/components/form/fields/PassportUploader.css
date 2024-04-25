@@ -1,0 +1,12 @@
+.passport-uploader-btn {
+  width: 100px;
+  height: 100px;
+  background-color: var(--upload-btn-background);
+  border: var(--upload-btn-border);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.passport-uploader-btn:hover {
+  border-color: var(--upload-btn-hover);
+}

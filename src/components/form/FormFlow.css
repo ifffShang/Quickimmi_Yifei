@@ -4,15 +4,35 @@
   gap: 10px;
   background-color: var(--gray-color-4);
   height: 100%;
-  padding: 20px 40px;
+  padding: 60px 40px 0 40px;
+  box-sizing: border-box;
 }
 
-.form-flow-top {
-  background-color: var(--white-color);
-  border-radius: 10px;
+.xsmall .form-flow,
+.small .form-flow {
+  padding: 10px 0;
+}
+
+.form-flow-icon {
+  padding: 0;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.form-flow-icon svg {
+  display: block;
+}
+
+.xsmall .form-flow-icon svg,
+.small .form-flow-icon svg {
+  width: 80px;
+  height: auto;
 }
 
 .form-flow-content {
   display: flex;
+  justify-content: center;
   gap: 10px;
+  overflow-y: auto;
 }

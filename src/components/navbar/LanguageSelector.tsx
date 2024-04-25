@@ -2,7 +2,7 @@ import i18next from "i18next";
 import { useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useClickOutsideOfRef } from "../../hooks/commonHooks";
-import { Language } from "../../model/Models";
+import { Language } from "../../model/models";
 import { updateLanguage } from "../../reducers/commonSlice";
 import { ArrowDown } from "../icons/ArrowDown";
 import "./LanguageSelector.css";
@@ -46,10 +46,12 @@ export function LanguageSelector() {
   return (
     <div
       ref={componentRef}
-      className={isPopupOpen ? "lang-container popup" : "lang-container"}>
+      className={isPopupOpen ? "lang-container popup" : "lang-container"}
+    >
       <div
         className="lang-display"
-        onClick={() => setIsPopupOpen(!isPopupOpen)}>
+        onClick={() => setIsPopupOpen(!isPopupOpen)}
+      >
         {languageDisplay}
         <ArrowDown />
       </div>

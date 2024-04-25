@@ -13,6 +13,16 @@
   color: var(--gray-color-7);
 }
 
+.text.xlarge {
+  font-weight: 600;
+  font-size: var(--font-size-h2-small);
+}
+
+.xsmall .text.xlarge,
+.small .text.xlarge {
+  font-size: var(--font-size-h3);
+}
+
 .text.large {
   font-weight: 600;
   font-size: var(--font-size-h3);
@@ -20,6 +30,10 @@
 
 .text.small {
   font-size: var(--font-size-p2);
+}
+
+.text.xsmall {
+  font-size: var(--font-size-p3);
 }
 
 .text.normal {
@@ -37,4 +51,9 @@
 
 .text.primary {
   color: var(--primary-color);
+}
+
+.single-line {
+  display: flex;
+  gap: 10px;
 }

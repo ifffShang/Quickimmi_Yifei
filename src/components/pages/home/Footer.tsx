@@ -33,7 +33,8 @@ function FooterLinks() {
               onClick={() => {
                 const container = document?.getElementById("home-container");
                 if (container) container.scrollTop = 0;
-              }}>
+              }}
+            >
               {t("Home")}
             </QLink>
           </li>

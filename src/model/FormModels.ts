@@ -1,3 +1,5 @@
+import { FieldKey, ParentFieldKey } from "./apiModels";
+
 export interface IForm {
   id: string;
   version: string;
@@ -8,7 +10,6 @@ export interface IForm {
 export interface IFormStep {
   id: string;
   label: string;
-  order: number;
   type: string;
   steps: IFormStep[];
   referenceId?: string;
@@ -16,6 +17,7 @@ export interface IFormStep {
 
 export interface IFormFields {
   id: string;
+  key: ParentFieldKey;
   version: string;
   type: string;
   fields: IFormField[];
@@ -23,11 +25,12 @@ export interface IFormFields {
 
 export interface IFormField {
   id: string;
+  key: FieldKey;
   label: string;
-  order: number;
   control: ControlType;
-  direction: "horizontal" | "vertical";
+  maxChildPerRow: number;
   fields?: IFormField[];
+  options?: string;
 }
 
 export type ControlType =
@@ -38,8 +41,12 @@ export type ControlType =
   | "fileplus" // file upload icon style
   | "file" // file upload link style
   | "dropdown"
+  | "select"
   | "divider"
   | "tips"
   | "group"
+  | "datepicker"
   | "component_passport_uploader"
-  | "component_nationality_dropdown";
+  | "component_textbox_na"
+  | "component_location_dropdown"
+  | "component_generate_report";

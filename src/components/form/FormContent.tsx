@@ -1,9 +1,12 @@
+import { Button } from "antd";
 import { useEffect } from "react";
+import { getFormFields, updateApplicationCaseApi } from "../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useFormTranslation } from "../../hooks/commonHooks";
 import { updateFormFieldsMap } from "../../reducers/caseSlice";
+import { getUpdateApplicationCaseData } from "../../utils/utils";
+import { QText } from "../common/Fonts";
 import "./FormContent.css";
-import { getFormFields } from "../../api/caseAPI";
 import { FormField } from "./FormField";
 
 interface FormContentProps {
@@ -13,6 +16,8 @@ interface FormContentProps {
 export function FormContent(props: FormContentProps) {
   const { wt } = useFormTranslation();
   const dispatch = useAppDispatch();
+  const applicationCase = useAppSelector(state => state.form.applicationCase);
+  const currentStep = useAppSelector(state => state.case.currentStep);
   const formFieldsMap = useAppSelector(state => state.case.formFieldsMap);
   const formFields =
     formFieldsMap && props.referenceId
@@ -35,26 +40,43 @@ export function FormContent(props: FormContentProps) {
       });
   }, [props.referenceId]);
 
-  if (!formFields) {
+  if (!formFields || !currentStep) {
     return <div>Loading...</div>;
   }
 
+  const saveApplicationCase = () => {
+    updateApplicationCaseApi(
+      getUpdateApplicationCaseData(applicationCase),
+      "accessToken",
+    );
+  };
+
   return (
     <div className="form-content">
-      {formFields.fields.map((field, index) => (
-        <div key={index}>
-          <label>{wt(field.label)}</label>
-          <FormField
-            control={field.control}
-            label={field.label}
-            direction={field.direction}
-            subFields={field.fields}
-          />
-        </div>
-      ))}
-      <div>
-        <button>{wt("Previous")}</button>
-        <button>{wt("Next")}</button>
+      <div className="form-content-header">
+        <QText level="large">{wt(currentStep.label || "")}</QText>
+      </div>
+      <div className="form-content-form">
+        {formFields.fields.map((field, index) => (
+          <div key={index}>
+            <QText level="normal bold">{wt(field.label)}</QText>
+            <FormField
+              parentFieldKey={formFields.key}
+              fieldKey={field.key}
+              control={field.control}
+              label={field.label}
+              maxChildPerRow={field.maxChildPerRow}
+              subFields={field.fields}
+            />
+          </div>
+        ))}
+      </div>
+      <div className="form-content-controls">
+        <Button type="primary">{wt("Previous")}</Button>
+        <Button className="default-button" onClick={saveApplicationCase}>
+          {wt("Save")}
+        </Button>
+        <Button type="primary">{wt("Next")}</Button>
       </div>
     </div>
   );
