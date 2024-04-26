@@ -8,6 +8,18 @@ import {
 import { ScreenSize } from "../model/models";
 import { updateApplicant } from "../reducers/formSlice";
 import { PATH } from "../components/router/MainView";
+import {
+  LocationObject,
+  LocationSelectOption,
+} from "../components/form/fields/LocationDropdown";
+import {
+  City,
+  Country,
+  ICity,
+  ICountry,
+  IState,
+  State,
+} from "country-state-city";
 
 export const handleResize = (
   dispatch?: React.Dispatch<any>,
@@ -43,7 +55,7 @@ export const isAuthPath = (path: string) => {
 };
 
 export const showFormNavigation = () => {
-  return window.location.pathname === PATH.CaseDetails;
+  return window.location.pathname.indexOf("/case") > -1;
 };
 
 export const getCaseId = (caseId: number) => {
@@ -96,9 +108,111 @@ export function dispatchFormValue(
 export function getUpdateApplicationCaseData(
   applicationCase: ApplicationCase,
 ): UpdateApplicationCaseData {
-  const profile = JSON.stringify(applicationCase.profile);
   return {
     ...applicationCase,
     profile: applicationCase.profile,
   };
+}
+
+export async function downloadImage(presignedUrl: string) {
+  try {
+    const response = await fetch(presignedUrl);
+    const image = await response.blob();
+    return URL.createObjectURL(image);
+  } catch (err) {
+    console.error("Error downloading image:", err);
+    return "";
+  }
+}
+
+export function parseCityAndCountryStr(
+  cityAndCountry: string,
+  locationObject?: LocationObject,
+) {
+  if (locationObject) {
+    return {
+      city: locationObject.city ?? "",
+      state: locationObject.state ?? "",
+      country: locationObject.country ?? "",
+    };
+  }
+  if (!cityAndCountry) return { city: "", state: "", country: "" };
+  const cityAndCountryArr = cityAndCountry.split(", ");
+  return {
+    city: cityAndCountryArr[0] ?? "",
+    state: cityAndCountryArr[1] ?? "",
+    country: cityAndCountryArr[2] ?? "",
+  };
+}
+
+export function formatCityAndCountryStr(
+  country?: string,
+  state?: string,
+  city?: string,
+) {
+  if (!city || !state || !country) return "";
+  if (!city || !state) return country;
+  if (!city) return `${state}, ${country}`;
+  if (state === city) return `${city}, ${country}`;
+  return `${city}, ${state}, ${country}`;
+}
+
+export interface LocationInfo {
+  countries: ICountry[];
+  countryPrefillOption?: LocationSelectOption;
+  states?: IState[];
+  statePrefillOption?: LocationSelectOption;
+  cities?: ICity[];
+  cityPrefillOption?: LocationSelectOption;
+}
+export function getPrefillLocationOptions(
+  cityAndCountry: string,
+  locationObject?: LocationObject,
+): LocationInfo {
+  const { country, state, city } = parseCityAndCountryStr(
+    cityAndCountry,
+    locationObject,
+  );
+
+  const allCountries = Country.getAllCountries();
+  const result = { countries: allCountries };
+  const prefillCountry = allCountries.find(c => c.name === country);
+
+  if (!prefillCountry) return result;
+  const countryPrefillOption = {
+    value: prefillCountry.name,
+    label: `${prefillCountry.flag} ${prefillCountry.name}`,
+    key: prefillCountry.isoCode,
+  };
+  result["countryPrefillOption"] = countryPrefillOption;
+
+  if (!state) return result;
+  const allStates = State.getStatesOfCountry(countryPrefillOption.key);
+  result["states"] = allStates;
+  const prefillState = allStates.find(s => s.name === state);
+
+  if (!prefillState) return result;
+  const statePrefillOption = {
+    value: prefillState.name,
+    label: prefillState.name,
+    key: prefillState.isoCode,
+  };
+  result["statePrefillOption"] = statePrefillOption;
+
+  if (!city) return result;
+  const allCities = City.getCitiesOfState(
+    countryPrefillOption.key,
+    statePrefillOption.key,
+  );
+  result["cities"] = allCities;
+  const prefillCity = allCities.find(c => c.name === city);
+
+  if (!prefillCity) return result;
+  const cityPrefillOption = {
+    value: prefillCity.name,
+    label: prefillCity.name,
+  };
+  result["cityPrefillOption"] = cityPrefillOption;
+
+  return result;
 }

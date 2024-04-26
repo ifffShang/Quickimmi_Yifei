@@ -1,9 +1,12 @@
-import { PlusOutlined, LoadingOutlined } from "@ant-design/icons";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { openModal } from "../../../reducers/commonSlice";
-import "./PassportUploader.css";
+import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { useEffect } from "react";
 import { getDocumentsApi } from "../../../api/caseAPI";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { openModal } from "../../../reducers/commonSlice";
+import { updatePassportOrIdImageUrl } from "../../../reducers/formSlice";
+import { downloadImage } from "../../../utils/utils";
+import "./PassportUploader.css";
+import { QLink } from "../../common/Links";
 
 export interface PassportUploaderProps {
   documentId: number;
@@ -27,9 +30,9 @@ export function PassportUploader(props: PassportUploaderProps) {
       documents => {
         if (documents.length > 0) {
           const presignUrl = documents[0].presignUrl;
-
-          // get download presigned url and download the image
-          // set passportOrIdImageUrl
+          downloadImage(presignUrl).then(url => {
+            dispatch(updatePassportOrIdImageUrl(url));
+          });
         }
       },
     );
@@ -37,26 +40,23 @@ export function PassportUploader(props: PassportUploaderProps) {
 
   return (
     <div className="passport-uploader">
-      <button
-        className="passport-uploader-btn"
-        type="button"
-        onClick={onButtonClick}
-      >
-        {passportOrIdImageUrl && !showModal ? (
+      <div className="passport-uploader-inner">
+        {showModal ? (
+          <LoadingOutlined />
+        ) : passportOrIdImageUrl ? (
           <img
             src={passportOrIdImageUrl}
             alt="avatar"
             style={{ width: "100%" }}
           />
-        ) : showModal ? (
-          <LoadingOutlined />
         ) : (
-          <>
+          <div onClick={onButtonClick}>
             <PlusOutlined />
             <div style={{ marginTop: 8 }}>Upload</div>
-          </>
+          </div>
         )}
-      </button>
+      </div>
+      <QLink onClick={onButtonClick}>Change document</QLink>
     </div>
   );
 }

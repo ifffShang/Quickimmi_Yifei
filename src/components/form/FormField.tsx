@@ -1,9 +1,9 @@
-import { useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useFormTranslation } from "../../hooks/commonHooks";
 import { FieldKey, ParentFieldKey } from "../../model/apiModels";
 import { ControlType, IFormField } from "../../model/formModels";
-import { getFieldValue } from "../../utils/utils";
-import "./FormField.css";
+import { updateApplicant } from "../../reducers/formSlice";
+import { formatCityAndCountryStr, getFieldValue } from "../../utils/utils";
 import {
   CheckBox,
   QDatePicker,
@@ -28,6 +28,7 @@ export interface FormFieldProps {
 
 export function FormField(props: FormFieldProps) {
   const { wt, wa } = useFormTranslation();
+  const dispatch = useAppDispatch();
   const caseDetails = useAppSelector(
     state => state.form.applicationCase?.profile,
   );
@@ -98,7 +99,19 @@ export function FormField(props: FormFieldProps) {
     case "component_textbox_na":
       return <TextboxWithNA placeholder={wt(props.label)} />;
     case "component_location_dropdown":
-      return <LocationDropdown />;
+      return (
+        <LocationDropdown
+          prefillStr={fieldValue}
+          onLocationChange={(...params) => {
+            const locationStr = formatCityAndCountryStr(...params);
+            dispatch(
+              updateApplicant({
+                [props.fieldKey]: locationStr,
+              }),
+            );
+          }}
+        />
+      );
     case "component_generate_report":
       return <GenerateDocument />;
     case "group":

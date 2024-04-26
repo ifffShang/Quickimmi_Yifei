@@ -179,6 +179,8 @@ export function FormInput(props: FormInputProps) {
   );
 }
 
+/** Select control ***************************************************/
+
 export interface SelectBoxProps {
   options: { value: string; label: string }[];
   onChange: (value: string) => void;
@@ -202,6 +204,8 @@ export function SelectBox(props: SelectBoxProps) {
     </div>
   );
 }
+
+/** Checkbox control ***************************************************/
 
 export interface CheckBoxProps {
   label: string;

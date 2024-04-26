@@ -67,6 +67,7 @@ export function FormContent(props: FormContentProps) {
               label={field.label}
               maxChildPerRow={field.maxChildPerRow}
               subFields={field.fields}
+              options={field.options}
             />
           </div>
         ))}

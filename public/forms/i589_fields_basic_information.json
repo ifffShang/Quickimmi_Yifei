@@ -55,50 +55,53 @@
       "control": "datepicker"
     },
     {
+      "label": "text_Gender",
+      "id": "gender",
+      "key": "gender",
+      "control": "select",
+      "options": "GenderOptions"
+    },
+    {
       "label": "text_Nationality",
       "id": "nationality",
       "control": "group",
       "maxChildPerRow": "3",
       "fields": [
         {
-          "label": "text_NationalityAtBirth",
-          "id": "nationality_at_birth",
+          "label": "text_PresentNationality",
+          "id": "nationality",
+          "key": "nationality",
           "control": "select",
           "options": "NationalityOptions"
         },
         {
-          "label": "text_Race",
-          "id": "race",
+          "label": "text_NationalityAtBirth",
+          "id": "nationality_at_birth",
+          "key": "nationalityAtBirth",
           "control": "select",
-          "options": "RaceOptions"
-        },
-        {
-          "label": "text_Gender",
-          "id": "Gender",
-          "control": "select",
-          "options": "GenderOptions"
-        },
-        {
-          "label": "text_Religion",
-          "id": "Religion",
-          "control": "select",
-          "options": "ReligionOptions"
+          "options": "NationalityOptions"
         }
       ]
     },
     {
+      "label": "text_Race",
+      "id": "race",
+      "key": "race",
+      "control": "select",
+      "options": "RaceOptions"
+    },
+    {
+      "label": "text_Religion",
+      "id": "religion",
+      "key": "religion",
+      "control": "select",
+      "options": "ReligionOptions"
+    },
+    {
       "label": "text_LocationOfBirth",
       "id": "location_of_birth",
-      "control": "group",
-      "maxChildPerRow": "1",
-      "fields": [
-        {
-          "label": "text_SelectBirthCountry",
-          "id": "select_birth_country",
-          "order": 0,
-          "control": "component_location_dropdown"
-        }
-      ]
+      "key": "cityAndCountryOfBirth",
+      "control": "component_location_dropdown"
     },
     {
       "label": "text_FluentInEnglish",

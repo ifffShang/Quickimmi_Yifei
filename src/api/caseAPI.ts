@@ -122,16 +122,12 @@ export async function getDocumentsApi(
   caseId: number,
   type?: DocumentType,
 ): Promise<UploadedDocument[]> {
-  const data = {
-    caseId,
-  };
-  if (type) {
-    data["documentType"] = type;
-  }
+  const documentTypeRequestParam = type ? `&documentType=${type}` : "";
+
   const res = await performApiRequest(
-    `api/document/list`,
+    `api/document/list?caseId=${caseId}${documentTypeRequestParam}`,
     "GET",
-    data,
+    null,
     accessToken,
   );
   return <UploadedDocument[]>res.data;
