@@ -1,4 +1,4 @@
-import { Message } from "../model/models";
+import { Message } from "../model/commonModels";
 
 export function askAi(): Promise<Message> {
   return new Promise(resolve => {

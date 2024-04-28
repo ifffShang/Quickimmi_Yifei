@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { ScreenSize } from "../../model/models";
+import { ScreenSize } from "../../model/commonModels";
 import { signOutCurrentUser } from "../../utils/authUtils";
 import { isAuthPath, showFormNavigation } from "../../utils/utils";
 import { Menu } from "../common/Menu";

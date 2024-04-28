@@ -1,7 +1,7 @@
 import { Collapse, CollapseProps } from "antd";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useFormTranslation } from "../../hooks/commonHooks";
-import { ScreenSize } from "../../model/models";
+import { ScreenSize } from "../../model/commonModels";
 import { setIndexLevel2 } from "../../reducers/caseSlice";
 import { QText } from "../common/Fonts";
 import { Menu, MenuItem } from "../common/Menu";

@@ -1,4 +1,4 @@
-import { ChildrenOnlyProps } from "../../model/models";
+import { ChildrenOnlyProps } from "../../model/commonModels";
 import "./Fonts.css";
 
 export function ErrorMessage({ children }: ChildrenOnlyProps) {

@@ -7,7 +7,7 @@ import {
   UploadedDocument,
 } from "../model/apiModels";
 import { IForm, IFormFields } from "../model/formModels";
-import { DocumentType } from "../model/models";
+import { DocumentType } from "../model/commonModels";
 import { performApiRequest } from "./apiConfig";
 
 export async function getForm(id: string): Promise<IForm> {

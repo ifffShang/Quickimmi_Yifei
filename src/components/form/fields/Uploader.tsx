@@ -3,7 +3,7 @@ import { GetProp, Upload, UploadProps } from "antd";
 import { useState } from "react";
 import { generateDocumentPresignedUrl } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { DocumentType } from "../../../model/models";
+import { DocumentType } from "../../../model/commonModels";
 import { updateTmpImageUrl } from "../../../reducers/commonSlice";
 import { ErrorMessage } from "../../common/Fonts";
 import "./Uploader.css";

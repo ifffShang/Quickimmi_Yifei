@@ -5,7 +5,7 @@ import {
   ParentFieldKey,
   UpdateApplicationCaseData,
 } from "../model/apiModels";
-import { ScreenSize } from "../model/models";
+import { ScreenSize } from "../model/commonModels";
 import { updateApplicant } from "../reducers/formSlice";
 import { PATH } from "../components/router/MainView";
 import {
