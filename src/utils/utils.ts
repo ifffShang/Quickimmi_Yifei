@@ -20,6 +20,7 @@ import {
   IState,
   State,
 } from "country-state-city";
+import { IFormOptions } from "../model/formModels";
 
 export const handleResize = (
   dispatch?: React.Dispatch<any>,
@@ -77,6 +78,7 @@ export function getFieldValue(
   caseDetails: AsylumCaseProfile,
   parentKey: ParentFieldKey,
   key: FieldKey,
+  options?: IFormOptions[] | string,
 ) {
   if (!caseDetails) {
     console.info("Case profile is missing");
@@ -87,6 +89,18 @@ export function getFieldValue(
     console.error(`Values of parent key ${parentKey} are missing`);
     return;
   }
+
+  if (key?.indexOf(",") > -1) {
+    const keys = key.split(",");
+    const keyValue = keys.map(k => caseDetails[parentKey][k]).join(",");
+    if (options && Array.isArray(options)) {
+      const option = options.find(option => option.keyValue === keyValue);
+      return option?.value;
+    } else {
+      console.error("Options are missing for multi key field");
+    }
+  }
+
   return caseDetails[parentKey][key];
 }
 

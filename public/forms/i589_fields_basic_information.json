@@ -44,7 +44,8 @@
           "label": "text_OtherNames",
           "id": "other_names",
           "key": "namesUsedBefore",
-          "control": "component_textbox_na"
+          "control": "component_textbox_na",
+          "options": "text_OtherNamesNAText"
         }
       ]
     },
@@ -57,9 +58,20 @@
     {
       "label": "text_Gender",
       "id": "gender",
-      "key": "gender",
+      "key": "genderMaleCheckbox,genderFemaleCheckbox",
       "control": "select",
-      "options": "GenderOptions"
+      "options": [
+        {
+          "value": "Male",
+          "label": "text_Male",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "Female",
+          "label": "text_Female",
+          "keyValue": "false,true"
+        }
+      ]
     },
     {
       "label": "text_Nationality",

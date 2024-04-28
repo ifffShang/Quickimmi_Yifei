@@ -30,7 +30,13 @@ export interface IFormField {
   control: ControlType;
   maxChildPerRow: number;
   fields?: IFormField[];
-  options?: string;
+  options?: IFormOptions[] | string;
+}
+
+export interface IFormOptions {
+  value: string;
+  label: string;
+  keyValue: string;
 }
 
 export type ControlType =

@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useFormTranslation } from "../../hooks/commonHooks";
 import { FieldKey, ParentFieldKey } from "../../model/apiModels";
-import { ControlType, IFormField } from "../../model/formModels";
+import { ControlType, IFormField, IFormOptions } from "../../model/formModels";
 import { updateApplicant } from "../../reducers/formSlice";
 import { formatCityAndCountryStr, getFieldValue } from "../../utils/utils";
 import {
@@ -23,7 +23,7 @@ export interface FormFieldProps {
   label: string;
   maxChildPerRow?: number;
   subFields?: IFormField[];
-  options?: string;
+  options?: IFormOptions[] | string;
 }
 
 export function FormField(props: FormFieldProps) {
@@ -36,11 +36,52 @@ export function FormField(props: FormFieldProps) {
     caseDetails,
     props.parentFieldKey,
     props.fieldKey,
+    props.options,
   );
 
   console.log(
     `Field ${props.parentFieldKey}-${props.fieldKey} value: ${fieldValue}`,
   );
+
+  const onOptionChange = (value: string) => {
+    if (props.options && Array.isArray(props.options)) {
+      const option = props.options.find(option => option.value === value);
+      if (option && option.keyValue) {
+        if (
+          option.keyValue?.indexOf(",") > -1 &&
+          props.fieldKey?.indexOf(",") > -1
+        ) {
+          const keys = props.fieldKey.split(",");
+          const keyValues = option.keyValue.split(",");
+          keys.forEach((key, index) => {
+            dispatch(
+              updateApplicant({
+                [key]: keyValues[index],
+              }),
+            );
+          });
+        } else {
+          dispatch(
+            updateApplicant({
+              [props.fieldKey]: option.keyValue,
+            }),
+          );
+        }
+      } else {
+        dispatch(
+          updateApplicant({
+            [props.fieldKey]: value,
+          }),
+        );
+      }
+    } else {
+      dispatch(
+        updateApplicant({
+          [props.fieldKey]: value,
+        }),
+      );
+    }
+  };
 
   switch (props.control) {
     case "text":
@@ -75,10 +116,9 @@ export function FormField(props: FormFieldProps) {
       return (
         <SelectBox
           placeholder={wt(props.label)}
-          onChange={value => {
-            console.log("Selected:", value);
-          }}
-          options={wa(props.options || "")}
+          onChange={onOptionChange}
+          options={props.options || ""}
+          value={fieldValue}
         />
       );
     case "divider":
@@ -97,7 +137,12 @@ export function FormField(props: FormFieldProps) {
     case "component_passport_uploader":
       return <PassportUploader documentId={fieldValue} />;
     case "component_textbox_na":
-      return <TextboxWithNA placeholder={wt(props.label)} />;
+      return (
+        <TextboxWithNA
+          placeholder={wt(props.label)}
+          options={props.options || ""}
+        />
+      );
     case "component_location_dropdown":
       return (
         <LocationDropdown

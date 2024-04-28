@@ -107,6 +107,7 @@
   "LastName": "Last Name",
   "MiddleName": "Middle Name",
   "OtherNames": "Other Names",
+  "OtherNamesNAText": "I don't have other names",
   "NewCaseField": {
     "EntryLocation": {
       "Title": "Enter the Place of Entry",
@@ -125,7 +126,8 @@
     }
   },
   "Gender": "Gender",
-  "GenderOptions": ["Male", "Female"],
+  "Male": "Male",
+  "Female": "Female",
   "MaritalStatus": "Marital Status",
   "MaritalStatusOptions": ["Single", "Married", "Divorced", "Widowed"],
   "Race": "Race",
@@ -165,6 +167,7 @@
     "Primal-indigenous",
     "Other"
   ],
+  "PresentNationality": "Present Nationality",
   "NationalityAtBirth": "Nationality at Birth",
   "NationalityOptions": [
     "Afghan",

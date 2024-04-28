@@ -7,6 +7,8 @@ import { dispatchFormValue } from "../../../utils/utils";
 import { ErrorMessage, QText } from "../../common/Fonts";
 import dayjs from "dayjs";
 import "./Controls.css";
+import { IFormOptions } from "../../../model/formModels";
+import { useFormTranslation } from "../../../hooks/commonHooks";
 
 /** TextBox control ***************************************************/
 
@@ -182,24 +184,38 @@ export function FormInput(props: FormInputProps) {
 /** Select control ***************************************************/
 
 export interface SelectBoxProps {
-  options: { value: string; label: string }[];
+  options: IFormOptions[] | string;
   onChange: (value: string) => void;
   placeholder?: string;
-  value?: string;
+  value?: any;
   disabled?: boolean;
   allowClear?: boolean;
 }
 
 export function SelectBox(props: SelectBoxProps) {
+  const { wa, wt } = useFormTranslation();
+  const options = Array.isArray(props.options)
+    ? props.options.map(option => ({
+        keyValue: option.keyValue,
+        label: wt(option.value),
+        value: option.value,
+      }))
+    : wa(props.options);
+  const [value, setValue] = useState(props.value);
+
+  const onValueChange = (value: string) => {
+    setValue(value);
+    props.onChange(value);
+  };
   return (
     <div className="select-box">
       <Select
-        onChange={props.onChange}
-        options={props.options}
+        onChange={onValueChange}
+        options={options}
         disabled={props.disabled || false}
         allowClear={props.allowClear || true}
         placeholder={props.placeholder || "Select an option"}
-        value={props.value}
+        value={value || undefined}
       />
     </div>
   );

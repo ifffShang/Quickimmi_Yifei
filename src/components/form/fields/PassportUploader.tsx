@@ -1,5 +1,5 @@
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getDocumentsApi } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { openModal } from "../../../reducers/commonSlice";
@@ -7,6 +7,8 @@ import { updatePassportOrIdImageUrl } from "../../../reducers/formSlice";
 import { downloadImage } from "../../../utils/utils";
 import "./PassportUploader.css";
 import { QLink } from "../../common/Links";
+import { Image } from "antd";
+import { QText } from "../../common/Fonts";
 
 export interface PassportUploaderProps {
   documentId: number;
@@ -19,18 +21,22 @@ export function PassportUploader(props: PassportUploaderProps) {
   );
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const showModal = useAppSelector(state => state.common.showModal);
+  const [loading, setLoading] = useState(false);
+  const [previewOpen, setPreviewOpen] = useState(false);
 
   const onButtonClick = () => {
     dispatch(openModal("uploadpassport"));
   };
 
   useEffect(() => {
+    setLoading(true);
     if (!accessToken || !props.documentId) return;
     getDocumentsApi(accessToken, props.documentId, "PASSPORT_MAIN").then(
       documents => {
         if (documents.length > 0) {
           const presignUrl = documents[0].presignUrl;
           downloadImage(presignUrl).then(url => {
+            setLoading(false);
             dispatch(updatePassportOrIdImageUrl(url));
           });
         }
@@ -41,19 +47,33 @@ export function PassportUploader(props: PassportUploaderProps) {
   return (
     <div className="passport-uploader">
       <div className="passport-uploader-inner">
-        {showModal ? (
-          <LoadingOutlined />
+        {showModal || loading ? (
+          <div className="passport-uploader-upload">
+            <LoadingOutlined />
+          </div>
         ) : passportOrIdImageUrl ? (
           <img
+            onClick={() => setPreviewOpen(true)}
             src={passportOrIdImageUrl}
             alt="avatar"
             style={{ width: "100%" }}
           />
         ) : (
-          <div onClick={onButtonClick}>
+          <div className="passport-uploader-upload" onClick={onButtonClick}>
             <PlusOutlined />
-            <div style={{ marginTop: 8 }}>Upload</div>
+            <QText level="xsmall">Upload</QText>
           </div>
+        )}
+        {previewOpen && (
+          <Image
+            wrapperStyle={{ display: "none" }}
+            preview={{
+              visible: previewOpen,
+              onVisibleChange: visible => setPreviewOpen(visible),
+              afterOpenChange: visible => !visible && setPreviewOpen(false),
+            }}
+            src={passportOrIdImageUrl}
+          />
         )}
       </div>
       <QLink onClick={onButtonClick}>Change document</QLink>

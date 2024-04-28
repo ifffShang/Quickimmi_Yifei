@@ -108,7 +108,8 @@ export type FieldKey =
   | keyof Background
   | keyof ApplicationDetails
   | keyof YourSignature
-  | keyof Declaration;
+  | keyof Declaration
+  | "genderMaleCheckbox,genderFemaleCheckbox";
 
 export interface Applicant {
   passportDocumentId?: number;
@@ -401,7 +402,7 @@ export interface GeneratePresignedUrlResponse {
 }
 
 export interface ParsePassportResponse {
-  passportNumber: string;
+  idNumber: string;
   firstName: string;
   middleName: string;
   lastName: string;
