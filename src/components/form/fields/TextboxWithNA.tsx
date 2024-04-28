@@ -3,7 +3,7 @@ import { QTextBox } from "./Controls";
 import { useState } from "react";
 import "./TextboxWithNA.css";
 import { useFormTranslation } from "../../../hooks/commonHooks";
-import { IFormOptions } from "../../../model/formModels";
+import { IFormOptions } from "../../../model/formFlowModels";
 
 export interface TextBoxWithNAProps {
   placeholder: string;

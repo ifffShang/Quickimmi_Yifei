@@ -1,7 +1,11 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useFormTranslation } from "../../hooks/commonHooks";
 import { FieldKey, ParentFieldKey } from "../../model/apiModels";
-import { ControlType, IFormField, IFormOptions } from "../../model/formModels";
+import {
+  ControlType,
+  IFormField,
+  IFormOptions,
+} from "../../model/formFlowModels";
 import { updateApplicant } from "../../reducers/formSlice";
 import { formatCityAndCountryStr, getFieldValue } from "../../utils/utils";
 import {

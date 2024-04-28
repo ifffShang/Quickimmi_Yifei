@@ -7,7 +7,7 @@ import { dispatchFormValue } from "../../../utils/utils";
 import { ErrorMessage, QText } from "../../common/Fonts";
 import dayjs from "dayjs";
 import "./Controls.css";
-import { IFormOptions } from "../../../model/formModels";
+import { IFormOptions } from "../../../model/formFlowModels";
 import { useFormTranslation } from "../../../hooks/commonHooks";
 
 /** TextBox control ***************************************************/

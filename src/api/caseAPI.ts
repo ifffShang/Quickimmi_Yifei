@@ -6,7 +6,7 @@ import {
   UpdateApplicationCaseData,
   UploadedDocument,
 } from "../model/apiModels";
-import { IForm, IFormFields } from "../model/formModels";
+import { IForm, IFormFields } from "../model/formFlowModels";
 import { DocumentType } from "../model/commonModels";
 import { performApiRequest } from "./apiConfig";
 

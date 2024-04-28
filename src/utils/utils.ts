@@ -20,7 +20,7 @@ import {
   IState,
   State,
 } from "country-state-city";
-import { IFormOptions } from "../model/formModels";
+import { IFormOptions } from "../model/formFlowModels";
 
 export const handleResize = (
   dispatch?: React.Dispatch<any>,
