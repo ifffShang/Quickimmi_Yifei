@@ -18,5 +18,5 @@
     "noImplicitThis": false,
     "noImplicitAny": false
   },
-  "include": ["src", "src/model"]
+  "include": ["src"]
 }
