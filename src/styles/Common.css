@@ -100,3 +100,7 @@
 .small .horizontal-3 > .sub-field {
   flex: 1 1 100%;
 }
+
+.horizontal-3 > .in-care-of-single-line {
+  min-width: 100%;
+}

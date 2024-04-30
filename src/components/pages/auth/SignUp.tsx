@@ -1,7 +1,7 @@
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import Link from "antd/es/typography/Link";
-import { signUp } from "aws-amplify/auth";
+import { resendSignUpCode, signUp } from "aws-amplify/auth";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
@@ -62,7 +62,15 @@ export function SignUp() {
       .catch(error => {
         console.error("Error signing up: ", error);
         if (error.name === "UsernameExistsException") {
-          setErrorMessage("User already exists. Please sign in.");
+          resendSignUpCode({ username: email }).then(() => {
+            dispatch(
+              updateAuthState({
+                prevStep: "signup",
+                email,
+              }),
+            );
+            navigate("/confirmcode");
+          });
           return;
         }
         setErrorMessage(

@@ -20,7 +20,8 @@ import {
   IState,
   State,
 } from "country-state-city";
-import { IFormOptions } from "../model/formFlowModels";
+import { ControlType, IFormOptions } from "../model/formFlowModels";
+import { Regex } from "../consts/consts";
 
 export const handleResize = (
   dispatch?: React.Dispatch<any>,
@@ -79,6 +80,7 @@ export function getFieldValue(
   parentKey: ParentFieldKey,
   key: FieldKey,
   options?: IFormOptions[] | string,
+  format?: string,
 ) {
   if (!caseDetails) {
     console.info("Case profile is missing");
@@ -92,10 +94,23 @@ export function getFieldValue(
 
   if (key?.indexOf(",") > -1) {
     const keys = key.split(",");
-    const keyValue = keys.map(k => caseDetails[parentKey][k]).join(",");
     if (options && Array.isArray(options)) {
+      const keyValue = keys.map(k => caseDetails[parentKey][k]).join(",");
       const option = options.find(option => option.keyValue === keyValue);
       return option?.value;
+    } else if (format) {
+      const regex = Regex[format]["FormatRegex"];
+      const output = Regex[format]["FormatOutput"];
+      const filterRegex = Regex[format]["FilterRegex"];
+      if (!regex || !output) {
+        console.error(`Regex or output is missing for format ${format}`);
+        return "";
+      }
+      const raw = keys
+        .map(k => caseDetails[parentKey][k])
+        .join("")
+        .replace(filterRegex, "");
+      return raw.replace(regex, output);
     } else {
       console.error("Options are missing for multi key field");
     }

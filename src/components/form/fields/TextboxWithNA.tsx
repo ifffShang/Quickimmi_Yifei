@@ -24,7 +24,7 @@ export function TextboxWithNA(props: TextBoxWithNAProps) {
       <QTextBox
         placeholder={props.placeholder}
         value={""}
-        onChange={() => {}}
+        onChange={() => ""}
         disabled={disabled}
       />
       <Checkbox onChange={onChange}>{options ? wt(options) : "N/A"}</Checkbox>

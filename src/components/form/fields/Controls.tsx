@@ -1,4 +1,4 @@
-import { Checkbox, DatePicker, Input, Select } from "antd";
+import { Checkbox, DatePicker, Input, InputRef, Select } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch } from "../../../app/hooks";
@@ -15,15 +15,16 @@ import { useFormTranslation } from "../../../hooks/commonHooks";
 export interface QTextBoxProps {
   placeholder: string;
   value: string;
-  onChange?: (value: string) => void;
+  onChange: (value: string) => string;
   disabled?: boolean;
   parentFieldKey?: ParentFieldKey;
   fieldKey?: FieldKey;
+  className?: string;
 }
 
 export function QTextBox(props: QTextBoxProps) {
-  const dispatch = useAppDispatch();
   const [value, setValue] = useState(props.value);
+  const inputRef = useRef<InputRef>(null);
 
   useEffect(() => {
     setValue(props.value);
@@ -31,21 +32,22 @@ export function QTextBox(props: QTextBoxProps) {
 
   const onTextBoxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (props.disabled) return;
-    setValue(e.target.value);
-    props.onChange && props.onChange(e.target.value);
-    props.parentFieldKey &&
-      props.fieldKey &&
-      dispatchFormValue(
-        dispatch,
-        props.parentFieldKey,
-        props.fieldKey,
-        e.target.value,
-      );
+    const cursorPosition = e.target.selectionStart;
+    const value = props.onChange(e.target.value);
+    setValue(value);
+    if (inputRef.current) {
+      const inputElement = inputRef.current as unknown as HTMLInputElement;
+      setTimeout(() => {
+        inputElement.selectionStart = cursorPosition;
+        inputElement.selectionEnd = cursorPosition;
+      }, 0);
+    }
   };
 
   return (
     <Input
-      className="text-box"
+      ref={inputRef}
+      className={"text-box" + (props.className ? ` ${props.className}` : "")}
       placeholder={props.placeholder}
       value={value}
       onChange={onTextBoxChange}
@@ -230,18 +232,22 @@ export interface CheckBoxProps {
   checked?: boolean;
 }
 
-export function CheckBox({ label, disabled = false, onChange }: CheckBoxProps) {
-  const [checked, setChecked] = useState(false);
+export function CheckBox(props: CheckBoxProps) {
+  const [checked, setChecked] = useState(props.checked || false);
 
   const handleChange = (e: any) => {
     setChecked(e.target.checked);
-    onChange(e.target.checked);
+    props.onChange(e.target.checked);
   };
 
   return (
     <div>
-      <Checkbox onChange={handleChange} disabled={disabled} checked={checked}>
-        {label}
+      <Checkbox
+        onChange={handleChange}
+        disabled={props.disabled}
+        checked={checked}
+      >
+        {props.label}
       </Checkbox>
     </div>
   );

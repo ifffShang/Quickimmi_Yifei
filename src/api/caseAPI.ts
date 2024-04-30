@@ -11,12 +11,18 @@ import { DocumentType } from "../model/commonModels";
 import { performApiRequest } from "./apiConfig";
 
 export async function getForm(id: string): Promise<IForm> {
-  return await performApiRequest(`forms/${id}.json`, "GET", null, "", true);
+  return await performApiRequest(
+    `forms/${id}.json?${new Date().getTime()}`,
+    "GET",
+    null,
+    "",
+    true,
+  );
 }
 
 export async function getFormFields(referenceId: string): Promise<IFormFields> {
   return await performApiRequest(
-    `forms/${referenceId}.json`,
+    `forms/${referenceId}.json?${new Date().getTime()}`,
     "GET",
     null,
     "",
@@ -67,7 +73,7 @@ export async function getCaseDetailsApi(
     null,
     accessToken,
   );
-  return <ApplicationCase>res.data;
+  return res.data as ApplicationCase;
 }
 
 export async function updateApplicationCaseApi(

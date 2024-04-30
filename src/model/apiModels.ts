@@ -109,7 +109,7 @@ export type FieldKey =
   | keyof ApplicationDetails
   | keyof YourSignature
   | keyof Declaration
-  | "genderMaleCheckbox,genderFemaleCheckbox";
+  | string;
 
 export interface Applicant {
   passportDocumentId?: number;
@@ -135,21 +135,21 @@ export interface Applicant {
   cityOfMailingAddress?: string;
   stateOfMailingAddress?: string;
   zipCodeOfMailingAddress?: string;
-  genderMaleCheckbox?: boolean | null;
-  genderFemaleCheckbox?: boolean | null;
-  maritalStatusSingleCheckbox?: boolean | null;
-  maritalStatusMarriedCheckbox?: boolean | null;
-  maritalStatusDivorcedCheckbox?: boolean | null;
-  maritalStatusWidowedCheckbox?: boolean | null;
+  genderMaleCheckbox?: string | null;
+  genderFemaleCheckbox?: string | null;
+  maritalStatusSingleCheckbox?: string | null;
+  maritalStatusMarriedCheckbox?: string | null;
+  maritalStatusDivorcedCheckbox?: string | null;
+  maritalStatusWidowedCheckbox?: string | null;
   birthDate?: string;
   cityAndCountryOfBirth?: string;
   nationality?: string;
   nationalityAtBirth?: string;
   race?: string;
   religion?: string;
-  immigrationCourtProceedingACheckbox?: boolean | null;
-  immigrationCourtProceedingBCheckbox?: boolean | null;
-  immigrationCourtProceedingCCheckbox?: boolean | null;
+  immigrationCourtProceedingACheckbox?: string | null;
+  immigrationCourtProceedingBCheckbox?: string | null;
+  immigrationCourtProceedingCCheckbox?: string | null;
   whenLastLeaveCountry?: string;
   i94Number?: string;
   entryRecords?: EntryRecord[];
@@ -159,13 +159,13 @@ export interface Applicant {
   travelDocumentNumber?: string;
   nativeLanguage?: string;
   expirationDate?: string;
-  fluentEnglishYesCheckbox?: boolean | null;
-  fluentEnglishNoCheckbox?: boolean | null;
+  fluentEnglishYesCheckbox?: string | null;
+  fluentEnglishNoCheckbox?: string | null;
   otherFluentLanguages?: string;
-  haveNoChildrenCheckbox?: boolean | null;
-  haveChildrenCheckbox?: boolean | null;
+  haveNoChildrenCheckbox?: string | null;
+  haveChildrenCheckbox?: string | null;
   childrenCnt?: string;
-  notMarriedCheckbox?: boolean | null;
+  notMarriedCheckbox?: string | null;
 }
 
 export interface EntryRecord {

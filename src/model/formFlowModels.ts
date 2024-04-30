@@ -29,8 +29,11 @@ export interface IFormField {
   label: string;
   control: ControlType;
   maxChildPerRow: number;
+  placeholder?: string;
   fields?: IFormField[];
   options?: IFormOptions[] | string;
+  format?: string;
+  className?: string;
 }
 
 export interface IFormOptions {
@@ -55,4 +58,5 @@ export type ControlType =
   | "component_passport_uploader"
   | "component_textbox_na"
   | "component_location_dropdown"
-  | "component_generate_report";
+  | "component_generate_report"
+  | "component_telephone_text";

@@ -1,4 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { Regex } from "../../consts/consts";
 import { useFormTranslation } from "../../hooks/commonHooks";
 import { FieldKey, ParentFieldKey } from "../../model/apiModels";
 import {
@@ -7,7 +8,11 @@ import {
   IFormOptions,
 } from "../../model/formFlowModels";
 import { updateApplicant } from "../../reducers/formSlice";
-import { formatCityAndCountryStr, getFieldValue } from "../../utils/utils";
+import {
+  dispatchFormValue,
+  formatCityAndCountryStr,
+  getFieldValue,
+} from "../../utils/utils";
 import {
   CheckBox,
   QDatePicker,
@@ -28,6 +33,9 @@ export interface FormFieldProps {
   maxChildPerRow?: number;
   subFields?: IFormField[];
   options?: IFormOptions[] | string;
+  placeholder?: string;
+  format?: string;
+  className?: string;
 }
 
 export function FormField(props: FormFieldProps) {
@@ -36,11 +44,15 @@ export function FormField(props: FormFieldProps) {
   const caseDetails = useAppSelector(
     state => state.form.applicationCase?.profile,
   );
+
+  const placeholder = props.placeholder ? wt(props.placeholder) : "";
+
   const fieldValue = getFieldValue(
     caseDetails,
     props.parentFieldKey,
     props.fieldKey,
     props.options,
+    props.format,
   );
 
   console.log(
@@ -87,14 +99,80 @@ export function FormField(props: FormFieldProps) {
     }
   };
 
+  const onTextChange = (value: string): string => {
+    if (
+      props.parentFieldKey &&
+      props.fieldKey &&
+      props.fieldKey.indexOf(",") > -1 &&
+      props.format
+    ) {
+      const formatRegex = Regex[props.format]["FormatRegex"];
+      const formatOutput = Regex[props.format]["FormatOutput"];
+      const filterRegex = Regex[props.format]["FilterRegex"];
+      const maxLen = Regex[props.format]["MaxLength"];
+      let digits = value.replace(filterRegex, "");
+      if (digits.length > maxLen) {
+        digits = digits.substring(0, maxLen);
+      }
+      const returnValue = digits.replace(formatRegex, formatOutput);
+
+      const extractRegex = Regex[props.format]["ExtractRegex"];
+      const keys = props.fieldKey.split(",");
+      const matches = returnValue.match(extractRegex);
+      if (matches) {
+        const group1 = matches[1];
+        const group2 = matches[2];
+        dispatch(
+          updateApplicant({
+            [keys[0]]: group1,
+            [keys[1]]: group2,
+          }),
+        );
+      }
+      return returnValue;
+    } else {
+      props.parentFieldKey &&
+        props.fieldKey &&
+        dispatchFormValue(
+          dispatch,
+          props.parentFieldKey,
+          props.fieldKey,
+          value,
+        );
+      return value;
+    }
+  };
+
+  const onCheckboxChange = (value: boolean) => {
+    if (!props.parentFieldKey || !props.fieldKey) return;
+
+    if (props.fieldKey.indexOf(",") > -1) {
+      const keys = props.fieldKey.split(",");
+      dispatch(
+        updateApplicant({
+          [keys[0]]: value,
+          [keys[1]]: !value,
+        }),
+      );
+      return;
+    }
+
+    dispatch(
+      updateApplicant({
+        [props.fieldKey]: value,
+      }),
+    );
+  };
+
   switch (props.control) {
     case "text":
       return (
         <QTextBox
-          placeholder={wt(props.label)}
+          placeholder={placeholder}
           value={fieldValue}
           parentFieldKey={props.parentFieldKey}
           fieldKey={props.fieldKey}
+          onChange={onTextChange}
         />
       );
     case "textarea":
@@ -102,14 +180,7 @@ export function FormField(props: FormFieldProps) {
     case "radio":
       return <div>Radio not implemented</div>;
     case "checkbox":
-      return (
-        <CheckBox
-          label={wt(props.label)}
-          onChange={value => {
-            console.log(`Checkbox is ${value ? "checked" : "unchecked"}`);
-          }}
-        />
-      );
+      return <CheckBox label={wt(props.label)} onChange={onCheckboxChange} />;
     case "fileplus":
       return <div>Fileplus not implemented</div>;
     case "file":
@@ -119,7 +190,7 @@ export function FormField(props: FormFieldProps) {
     case "select":
       return (
         <SelectBox
-          placeholder={wt(props.label)}
+          placeholder={placeholder}
           onChange={onOptionChange}
           options={props.options || ""}
           value={fieldValue}
@@ -132,7 +203,7 @@ export function FormField(props: FormFieldProps) {
     case "datepicker":
       return (
         <QDatePicker
-          placeholder={wt(props.label)}
+          placeholder={placeholder}
           value={fieldValue}
           parentFieldKey={props.parentFieldKey}
           fieldKey={props.fieldKey}
@@ -143,7 +214,7 @@ export function FormField(props: FormFieldProps) {
     case "component_textbox_na":
       return (
         <TextboxWithNA
-          placeholder={wt(props.label)}
+          placeholder={placeholder}
           options={props.options || ""}
         />
       );
@@ -169,13 +240,20 @@ export function FormField(props: FormFieldProps) {
         return (
           <div className={subFieldsCss}>
             {props.subFields.map((field, index) => (
-              <div className="sub-field" key={index}>
+              <div
+                className={
+                  "sub-field" + (field.className ? ` ${field.className}` : "")
+                }
+                key={index}
+              >
                 <FormField
                   parentFieldKey={props.parentFieldKey}
                   fieldKey={field.key}
                   control={field.control}
                   label={field.label}
                   options={field.options}
+                  placeholder={field.placeholder}
+                  className={field.className}
                 />
               </div>
             ))}

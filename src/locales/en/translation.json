@@ -129,7 +129,10 @@
   "Male": "Male",
   "Female": "Female",
   "MaritalStatus": "Marital Status",
-  "MaritalStatusOptions": ["Single", "Married", "Divorced", "Widowed"],
+  "Single": "Single",
+  "Married": "Married",
+  "Divorced": "Divorced",
+  "Widowed": "Widowed",
   "Race": "Race",
   "RaceOptions": [
     "American Indian or Alaska Native",
@@ -366,6 +369,8 @@
     "Zambian",
     "Zimbabwean"
   ],
+  "PhoneNumberFormat": "(Area code)-XXX-XXXX",
   "LocationOfBirth": "Location of Birth",
-  "FluentInEnglish": "I am fluent in English"
+  "FluentInEnglish": "I am fluent in English",
+  "ResidentalAddressInUs": "Residential Address in the U.S."
 }
