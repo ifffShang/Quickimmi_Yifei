@@ -1,14 +1,16 @@
 import { Button } from "antd";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { useAppSelector } from "../../../app/hooks";
 import { getCaseId } from "../../../utils/utils";
 import { QText, SingleLine } from "../../common/Fonts";
 import { CaseIcon } from "../../icons/Dashboard";
 import "./CaseCard.css";
+import { deleteCaseApi } from "../../../api/caseAPI";
 
 export interface CaseCardProps {
   caseId: number;
+  onDelete: () => void;
 }
 
 export function CaseCard(props: CaseCardProps) {
@@ -26,6 +28,22 @@ export function CaseCard(props: CaseCardProps) {
     navigate("/case/" + props.caseId);
   };
 
+  const deleteCase = async () => {
+    if (!accessToken || !props.caseId) {
+      console.error(
+        `Access token ${accessToken} or case id ${props.caseId} is missing`,
+      );
+      return;
+    }
+    deleteCaseApi(props.caseId, accessToken)
+      .then(() => {
+        props.onDelete();
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  };
+
   return (
     <div className="case-card-container">
       <CaseIcon />
@@ -35,11 +53,11 @@ export function CaseCard(props: CaseCardProps) {
           <div className="case-card-progress">
             <div
               className="case-card-progress-inner"
-              style={{ width: "80%" }}
+              style={{ width: "0%" }}
             ></div>
             <div className="case-card-progress-text">
               <QText level="small" color="gray">
-                Completion: 80%
+                Completion: 0%
               </QText>
             </div>
           </div>
@@ -51,6 +69,9 @@ export function CaseCard(props: CaseCardProps) {
         </div>
       </div>
       <div className="case-card-bottom">
+        <Button type="default" onClick={deleteCase}>
+          {t("Delete")}
+        </Button>
         <Button type="primary" onClick={openCaseDetails}>
           {t("ViewDetails") + " >"}
         </Button>

@@ -17,18 +17,11 @@ export function Dashboard() {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
-  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const userId = useAppSelector(state => state.auth.userId);
   const cases = useAppSelector(state => state.case.cases);
 
-  useEffect(() => {
-    if (!isLoggedIn) {
-      navigate("/signin");
-    }
-  }, [isLoggedIn]);
-
-  useEffect(() => {
+  const getCases = async () => {
     if (!accessToken || !userId) {
       console.error(
         `Access token ${accessToken} or user id ${userId} is missing`,
@@ -36,7 +29,6 @@ export function Dashboard() {
       setLoading(false);
       return;
     }
-
     getCasesApi(userId, accessToken)
       .then(cases => {
         dispatch(updateCases(cases));
@@ -46,7 +38,11 @@ export function Dashboard() {
         console.error(err);
         setLoading(false);
       });
-  }, []);
+  };
+
+  useEffect(() => {
+    getCases();
+  }, [accessToken, userId]);
 
   const createNewCase = async () => {
     if (!accessToken || !userId) {
@@ -58,11 +54,12 @@ export function Dashboard() {
     const caseId = await createNewCaseApi(
       accessToken,
       userId,
-      "Asylum",
-      "Asylum reason",
+      "Asylum create reason",
+      userId,
+      false,
     );
     dispatch(updateCurrentCaseId(caseId));
-    navigate("/newcase");
+    navigate("/case/" + caseId);
   };
 
   if (loading) {
@@ -73,7 +70,7 @@ export function Dashboard() {
     cases && cases.length > 0 ? (
       <div className="dashboard-panel has-application">
         {cases.map(c => (
-          <CaseCard key={c.id} caseId={c.id} />
+          <CaseCard key={c.id} caseId={c.id} onDelete={getCases} />
         ))}
       </div>
     ) : (

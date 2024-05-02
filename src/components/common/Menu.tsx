@@ -6,6 +6,7 @@ import { useClickOutsideOfRef } from "../../hooks/commonHooks";
 export interface MenuItem {
   key: string;
   label: string | React.ReactNode;
+  selected?: boolean;
   onClick?: () => void;
 }
 
@@ -37,6 +38,11 @@ export function Menu({ items, popupPosition, optionAlign }: MenuProps) {
     };
     if (item.onClick) {
       attributes.onClick = () => onClick(item);
+    } else {
+      attributes.className += " header";
+    }
+    if (item.selected) {
+      attributes.className += " selected";
     }
     return (
       <div key={index} {...attributes}>

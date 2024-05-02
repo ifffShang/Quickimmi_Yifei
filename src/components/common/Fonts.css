@@ -28,6 +28,10 @@
   font-size: var(--font-size-h3);
 }
 
+.text.medium {
+  font-size: var(--font-size-p1);
+}
+
 .text.small {
   font-size: var(--font-size-p2);
 }

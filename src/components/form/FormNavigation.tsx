@@ -6,11 +6,14 @@ import { setIndexLevel2 } from "../../reducers/caseSlice";
 import { QText } from "../common/Fonts";
 import { Menu, MenuItem } from "../common/Menu";
 import { NavDown, NavUp } from "../icons/ArrowDown";
+import { LeftCircleOutlined } from "@ant-design/icons";
 import "./FormNavigation.css";
+import { useNavigate } from "react-router-dom";
 
 export function FormNavigation() {
-  const { wt } = useFormTranslation();
+  const { wt, t } = useFormTranslation();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const indexLevel1 = useAppSelector(state => state.case.indexLevel1);
   const indexLevel2 = useAppSelector(state => state.case.indexLevel2);
   const screenSize = useAppSelector(state => state.common.screenSize);
@@ -22,6 +25,15 @@ export function FormNavigation() {
 
   if (screenSize === ScreenSize.xsmall || screenSize === ScreenSize.small) {
     const items = [] as MenuItem[];
+    items.push({
+      key: "Dashboard",
+      label: (
+        <QText level="normal bold" color="primary">
+          <LeftCircleOutlined /> {t("Dashboard.Dashboard")}
+        </QText>
+      ),
+      onClick: () => navigate("/dashboard"),
+    });
     for (let l1 = 0; l1 < steps.length; l1++) {
       items.push({
         key: `${l1}`,
@@ -31,6 +43,7 @@ export function FormNavigation() {
         items.push({
           key: `${l1}-${l2}`,
           label: <QText>{wt(steps[l1].steps[l2].label)}</QText>,
+          selected: indexLevel1 === l1 && indexLevel2 === l2,
           onClick: () =>
             dispatch(
               setIndexLevel2({
@@ -89,6 +102,15 @@ export function FormNavigation() {
 
   return (
     <div className="form-navigation">
+      <div
+        className="form-navigation-return"
+        onClick={() => navigate("/dashboard")}
+      >
+        <LeftCircleOutlined />
+        <QText level="medium" color="primary">
+          Dashboard
+        </QText>
+      </div>
       <Collapse
         defaultActiveKey={indexLevel1}
         expandIcon={expandIcon}

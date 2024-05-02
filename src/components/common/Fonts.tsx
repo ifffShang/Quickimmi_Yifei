@@ -7,7 +7,14 @@ export function ErrorMessage({ children }: ChildrenOnlyProps) {
 
 export interface TextProps {
   children: string | JSX.Element | React.ReactNode;
-  level?: "xlarge" | "large" | "normal" | "normal bold" | "small" | "xsmall";
+  level?:
+    | "xlarge"
+    | "large"
+    | "medium"
+    | "normal"
+    | "normal bold"
+    | "small"
+    | "xsmall";
   color?: "primary" | "secondary" | "gray" | "inherit";
   margin?: "margin-bottom-10";
 }

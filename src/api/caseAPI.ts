@@ -33,19 +33,35 @@ export async function getFormFields(referenceId: string): Promise<IFormFields> {
 export async function createNewCaseApi(
   accessToken: string,
   userId: number,
-  caseType: string,
   reason: string,
+  createdBy: number,
+  createdByLawyer: boolean,
 ): Promise<string> {
-  return await performApiRequest(
+  const res = await performApiRequest(
     "api/case/asylum/create",
     "POST",
     {
       userId,
-      caseType,
       reason,
+      createdBy,
+      createdByLawyer,
     },
     accessToken,
   );
+  return <string>res.data;
+}
+
+export async function deleteCaseApi(
+  caseId: number,
+  accessToken: string,
+): Promise<boolean> {
+  const res = await performApiRequest(
+    `api/case/delete?caseId=${caseId}`,
+    "GET",
+    null,
+    accessToken,
+  );
+  return <boolean>res.data;
 }
 
 export async function getCasesApi(
