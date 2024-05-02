@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IForm, IFormFields, IFormStep } from "../model/formModels";
+import { IForm, IFormFields, IFormStep } from "../model/formFlowModels";
 import { Case } from "../model/apiModels";
 
 export interface FormFieldsMap {

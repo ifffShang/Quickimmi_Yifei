@@ -3,9 +3,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .uploader-container .uploader {
   display: flex;
   justify-content: center;
+}
+
+.uploader-container button {
+  cursor: pointer;
 }

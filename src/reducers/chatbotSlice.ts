@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Message } from "../model/models";
+import { Message } from "../model/commonModels";
 
 export interface ChatbotState {
   messages: Message[];

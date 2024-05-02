@@ -13,6 +13,7 @@ import { validateEmail, validatePassword } from "../../../utils/validators";
 import { ErrorMessage, QText } from "../../common/Fonts";
 import { FormInput } from "../../form/fields/Controls";
 import { AuthComponent } from "./AuthComponent";
+import { UserInfo } from "../../../model/apiModels";
 
 export function SignIn() {
   const dispatch = useAppDispatch();
@@ -45,7 +46,17 @@ export function SignIn() {
           throw new Error("Failed to fetch session after sign in");
         }
         const accessToken = session.tokens.accessToken.toString();
-        const userInfo = await getUserInfoApi(email, accessToken);
+        let userInfo: UserInfo;
+        try {
+          userInfo = await getUserInfoApi(email, accessToken);
+        } catch (error: any) {
+          if (error?.message === "USE_NOT_FOUND") {
+            await createUserApi(email, accessToken);
+            userInfo = await getUserInfoApi(email, accessToken);
+          } else {
+            throw error;
+          }
+        }
         dispatch(
           updateAuthState({
             userId: userInfo?.id || 0,

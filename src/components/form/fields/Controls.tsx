@@ -1,4 +1,12 @@
-import { Checkbox, DatePicker, Input, Select } from "antd";
+import {
+  Checkbox,
+  DatePicker,
+  Input,
+  InputRef,
+  Radio,
+  Select,
+  Space,
+} from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch } from "../../../app/hooks";
@@ -7,21 +15,24 @@ import { dispatchFormValue } from "../../../utils/utils";
 import { ErrorMessage, QText } from "../../common/Fonts";
 import dayjs from "dayjs";
 import "./Controls.css";
+import { IFormOptions } from "../../../model/formFlowModels";
+import { useFormTranslation } from "../../../hooks/commonHooks";
 
 /** TextBox control ***************************************************/
 
 export interface QTextBoxProps {
   placeholder: string;
   value: string;
-  onChange?: (value: string) => void;
+  onChange: (value: string) => string;
   disabled?: boolean;
   parentFieldKey?: ParentFieldKey;
   fieldKey?: FieldKey;
+  className?: string;
 }
 
 export function QTextBox(props: QTextBoxProps) {
-  const dispatch = useAppDispatch();
   const [value, setValue] = useState(props.value);
+  const inputRef = useRef<InputRef>(null);
 
   useEffect(() => {
     setValue(props.value);
@@ -29,21 +40,22 @@ export function QTextBox(props: QTextBoxProps) {
 
   const onTextBoxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (props.disabled) return;
-    setValue(e.target.value);
-    props.onChange && props.onChange(e.target.value);
-    props.parentFieldKey &&
-      props.fieldKey &&
-      dispatchFormValue(
-        dispatch,
-        props.parentFieldKey,
-        props.fieldKey,
-        e.target.value,
-      );
+    const cursorPosition = e.target.selectionStart;
+    const value = props.onChange(e.target.value);
+    setValue(value);
+    if (inputRef.current) {
+      const inputElement = inputRef.current as unknown as HTMLInputElement;
+      setTimeout(() => {
+        inputElement.selectionStart = cursorPosition;
+        inputElement.selectionEnd = cursorPosition;
+      }, 0);
+    }
   };
 
   return (
     <Input
-      className="text-box"
+      ref={inputRef}
+      className={"text-box" + (props.className ? ` ${props.className}` : "")}
       placeholder={props.placeholder}
       value={value}
       onChange={onTextBoxChange}
@@ -179,29 +191,47 @@ export function FormInput(props: FormInputProps) {
   );
 }
 
+/** Select control ***************************************************/
+
 export interface SelectBoxProps {
-  options: { value: string; label: string }[];
+  options: IFormOptions[] | string;
   onChange: (value: string) => void;
   placeholder?: string;
-  value?: string;
+  value?: any;
   disabled?: boolean;
   allowClear?: boolean;
 }
 
 export function SelectBox(props: SelectBoxProps) {
+  const { wa, wt } = useFormTranslation();
+  const options = Array.isArray(props.options)
+    ? props.options.map(option => ({
+        keyValue: option.keyValue,
+        label: wt(option.label),
+        value: option.value,
+      }))
+    : wa(props.options);
+  const [value, setValue] = useState(props.value);
+
+  const onValueChange = (value: string) => {
+    setValue(value);
+    props.onChange(value);
+  };
   return (
     <div className="select-box">
       <Select
-        onChange={props.onChange}
-        options={props.options}
+        onChange={onValueChange}
+        options={options}
         disabled={props.disabled || false}
         allowClear={props.allowClear || true}
         placeholder={props.placeholder || "Select an option"}
-        value={props.value}
+        value={value || undefined}
       />
     </div>
   );
 }
+
+/** Checkbox control ***************************************************/
 
 export interface CheckBoxProps {
   label: string;
@@ -210,19 +240,61 @@ export interface CheckBoxProps {
   checked?: boolean;
 }
 
-export function CheckBox({ label, disabled = false, onChange }: CheckBoxProps) {
-  const [checked, setChecked] = useState(false);
+export function CheckBox(props: CheckBoxProps) {
+  const [checked, setChecked] = useState(props.checked || false);
 
   const handleChange = (e: any) => {
     setChecked(e.target.checked);
-    onChange(e.target.checked);
+    props.onChange(e.target.checked);
   };
 
   return (
     <div>
-      <Checkbox onChange={handleChange} disabled={disabled} checked={checked}>
-        {label}
+      <Checkbox
+        onChange={handleChange}
+        disabled={props.disabled}
+        checked={checked}
+      >
+        {props.label}
       </Checkbox>
     </div>
+  );
+}
+
+/** Radio control ***************************************************/
+
+export interface RadioSelectProps {
+  options: IFormOptions[] | string;
+  onChange: (value: string) => void;
+  value?: any;
+  disabled?: boolean;
+  allowClear?: boolean;
+}
+
+export function RadioSelect(props: RadioSelectProps) {
+  const { wa, wt } = useFormTranslation();
+  const options = Array.isArray(props.options)
+    ? props.options.map(option => ({
+        keyValue: option.keyValue,
+        label: wt(option.label),
+        value: option.value,
+      }))
+    : wa(props.options);
+  const [value, setValue] = useState(props.value);
+
+  const onValueChange = (value: string) => {
+    setValue(value);
+    props.onChange(value);
+  };
+  return (
+    <Radio.Group onChange={e => onValueChange(e.target.value)} value={value}>
+      <Space direction="vertical">
+        {options.map(option => (
+          <Radio key={option.value} value={option.value}>
+            {option.label}
+          </Radio>
+        ))}
+      </Space>
+    </Radio.Group>
   );
 }

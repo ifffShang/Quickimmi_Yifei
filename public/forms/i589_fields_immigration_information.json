@@ -1,0 +1,59 @@
+{
+  "id": "i589_fields_immigration_information",
+  "version": "2024-04-01",
+  "type": "fields",
+  "key": "applicant",
+  "fields": [
+    {
+      "label": "text_AlienRegistrationNumber",
+      "placeholder": "text_AlienRegistrationNumber",
+      "id": "alien_registration_number",
+      "key": "anumber",
+      "control": "text"
+    },
+    {
+      "label": "text_UscisOnlineAccountNumber",
+      "placeholder": "text_UscisOnlineAccountNumber",
+      "id": "uscis_online_account_number",
+      "key": "uscisOnlineAccountNumber",
+      "control": "text"
+    },
+    {
+      "label": "text_I94Number",
+      "placeholder": "text_I94Number",
+      "id": "i94_number",
+      "key": "i94Number",
+      "control": "text"
+    },
+    {
+      "label": "text_SSN",
+      "placeholder": "text_SSN",
+      "id": "ssn",
+      "key": "ssn",
+      "control": "text"
+    },
+    {
+      "label": "text_ImmigrationCourt",
+      "id": "immigration_court",
+      "key": "immigrationCourtProceedingACheckbox,immigrationCourtProceedingBCheckbox,immigrationCourtProceedingCCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "never",
+          "label": "text_ImmigrationCourtNever",
+          "keyValue": "true,false,false"
+        },
+        {
+          "value": "now",
+          "label": "text_ImmigrationCourtNow",
+          "keyValue": "false,true,false"
+        },
+        {
+          "value": "past",
+          "label": "text_ImmigrationCourtPast",
+          "keyValue": "false,false,true"
+        }
+      ]
+    }
+  ]
+}

@@ -38,7 +38,7 @@ export function FormContent(props: FormContentProps) {
       .catch(error => {
         console.error(error);
       });
-  }, [props.referenceId]);
+  }, [props.referenceId, dispatch]);
 
   if (!formFields || !currentStep) {
     return <div>Loading...</div>;
@@ -67,6 +67,10 @@ export function FormContent(props: FormContentProps) {
               label={field.label}
               maxChildPerRow={field.maxChildPerRow}
               subFields={field.fields}
+              options={field.options}
+              placeholder={field.placeholder}
+              format={field.format}
+              className={field.className}
             />
           </div>
         ))}

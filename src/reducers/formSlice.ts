@@ -43,7 +43,20 @@ export const formSlice = createSlice({
       action: PayloadAction<ParsePassportResponse>,
     ) => {
       const payload = {
-        passportNumber: action.payload.passportNumber,
+        passportNumber: action.payload.idNumber,
+        firstName: action.payload.firstName,
+        lastName: action.payload.lastName,
+        middleName: action.payload.middleName,
+        birthDate: action.payload.birthDate,
+      };
+      Object.assign(state.applicationCase.profile.applicant, payload);
+    },
+    updateTravelDocumentInfo: (
+      state,
+      action: PayloadAction<ParsePassportResponse>,
+    ) => {
+      const payload = {
+        travelDocumentNumber: action.payload.idNumber,
         firstName: action.payload.firstName,
         lastName: action.payload.lastName,
         middleName: action.payload.middleName,

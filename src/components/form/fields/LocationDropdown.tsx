@@ -1,140 +1,113 @@
-import { useEffect, useState } from "react";
 import { Select } from "antd";
-import { City, Country, State } from "country-state-city";
+import { City, ICity, IState, State } from "country-state-city";
+import { useEffect, useState } from "react";
+import { getPrefillLocationOptions } from "../../../utils/utils";
 import "./LocationDropdown.css";
 
+export interface LocationSelectOption {
+  value: string;
+  label: string;
+  key?: string;
+}
+export interface LocationObject {
+  country?: string;
+  state?: string;
+  city?: string;
+}
 export interface LocationDropdownProps {
-  prefillData?: {
-    country?: string;
-    state?: string;
-    city?: string;
-  };
-  placeholder?: {
-    country?: string;
-    state?: string;
-    city?: string;
-  };
-  countryIsShown?: boolean;
-  stateIsShown?: boolean;
-  cityIsShown?: boolean;
-  onLocationChange?: (data: {
-    country?: string;
-    state?: string;
-    city?: string;
-  }) => void;
+  prefillStr?: string;
+  prefillData?: LocationObject;
+  placeholder?: LocationObject;
+  onLocationChange?: (country?: string, state?: string, city?: string) => void;
 }
 
 export function LocationDropdown(props: LocationDropdownProps) {
-  const [country, setCountry] = useState<
-    { value: string; label: string; key: string } | undefined
-  >();
-  const [state, setState] = useState<
-    { value: string; label: string; key: string } | undefined
-  >();
-  const [city, setCity] = useState<
-    { value: string; label: string } | undefined
-  >();
+  const {
+    countries,
+    countryPrefillOption,
+    states,
+    statePrefillOption,
+    cities,
+    cityPrefillOption,
+  } = getPrefillLocationOptions(props.prefillStr ?? "", props.prefillData);
 
-  // Init countryData, stateData, cityData
-  const countryData = Country.getAllCountries();
-  const [stateData, setStateData] = useState<any[]>([]);
-  const [cityData, setCityData] = useState<any[]>([]);
+  const [country, setCountry] = useState<LocationSelectOption | undefined>(
+    countryPrefillOption,
+  );
+  const [state, setState] = useState<LocationSelectOption | undefined>(
+    statePrefillOption,
+  );
+  const [city, setCity] = useState<LocationSelectOption | undefined>(
+    cityPrefillOption,
+  );
 
-  useEffect(() => {
-    // Get prefill country data from countryData
-    const preFillCountry = countryData.find(
-      c => c.name === props.prefillData?.country,
-    );
-    const preFillCountryVal = preFillCountry
-      ? {
-          value: preFillCountry.name,
-          label: `${preFillCountry.flag} ${preFillCountry.name}`,
-          key: preFillCountry.isoCode,
-        }
-      : undefined;
-    // Set country with prefill data
-    setCountry(preFillCountryVal);
-  }, [props.prefillData?.country]);
+  const [stateData, setStateData] = useState<IState[]>(states ?? []);
+  const [cityData, setCityData] = useState<ICity[]>(cities ?? []);
 
-  useEffect(() => {
-    if (country) {
-      // Get state data of the selected country
-      const stateData = State.getStatesOfCountry(country.key);
-      // Get prefill state data from stateData
-      const prefillState = stateData.find(
-        s => s.name === props.prefillData?.state,
-      );
-      const prefillStateVal = prefillState
-        ? {
-            value: prefillState.name,
-            label: prefillState.name,
-            key: prefillState.isoCode,
-          }
-        : undefined;
-      // Set state with prefill data and stateData
-      setStateData(stateData);
-      setState(prefillStateVal);
-    } else {
+  const onCountryChange = (country: LocationSelectOption) => {
+    if (!country || !country.key) {
+      console.error("Country or country key is not available.");
+      return;
+    }
+    setCountry(country);
+    const newStateData = State.getStatesOfCountry(country.key);
+    if (!newStateData || newStateData.length === 0) {
       setStateData([]);
       setState(undefined);
-    }
-  }, [country, props.prefillData?.state]);
-
-  useEffect(() => {
-    if (state && country) {
-      // Get city data of the selected state and country
-      const cityData = City.getCitiesOfState(country.key, state.key);
-      const initCity = cityData.find(c => c.name === props.prefillData?.city);
-      const initCityVal = initCity
-        ? {
-            value: initCity.name,
-            label: initCity.name,
-          }
-        : undefined;
-      setCityData(cityData);
-      setCity(initCityVal);
-    } else {
-      setCityData([]);
+      const newCityData = City.getCitiesOfCountry(country.key);
+      setCityData(newCityData ?? []);
       setCity(undefined);
+      return;
     }
-  }, [state, props.prefillData?.city]);
+    setStateData(newStateData);
+    setCityData([]);
+    setState(undefined);
+    setCity(undefined);
+  };
 
-  // Call onLocationChange callback whenever selections change
+  const onStateChange = (state: LocationSelectOption) => {
+    if (!country || !country.key || !state || !state.key) return;
+    const newCityData = City.getCitiesOfState(country.key, state.key);
+    setCityData(newCityData);
+    setState(state);
+    setCity(undefined);
+  };
+
+  const onCityChange = (city: LocationSelectOption) => {
+    setCity(city);
+  };
+
   useEffect(() => {
-    props.onLocationChange?.({
-      country: country?.value,
-      state: state?.value,
-      city: city?.value,
-    });
+    props.onLocationChange?.(country?.value, state?.value, city?.value);
   }, [country, state, city]);
 
   return (
-    <div className="location-dropdown-container">
-      {props.countryIsShown && (
+    <div className="location-dropdown-container horizontal-3">
+      <Select
+        className="sub-field"
+        placeholder={props.placeholder?.country || "Select a country"}
+        labelInValue
+        showSearch
+        allowClear
+        onChange={onCountryChange}
+        value={country}
+        notFoundContent="Not found"
+      >
+        {countries.map(item => (
+          <Select.Option
+            key={item.isoCode}
+            value={item.name}
+          >{`${item.flag} ${item.name}`}</Select.Option>
+        ))}
+      </Select>
+      {stateData.length > 0 && (
         <Select
-          placeholder={props.placeholder?.country || "Select a country"}
-          labelInValue
-          showSearch
-          allowClear
-          onChange={value => setCountry(value)}
-          value={country}
-          notFoundContent="Not found"
-        >
-          {countryData.map(item => (
-            <Select.Option
-              key={item.isoCode}
-              value={item.name}
-            >{`${item.flag} ${item.name}`}</Select.Option>
-          ))}
-        </Select>
-      )}
-      {props.stateIsShown && (
-        <Select
+          className="sub-field"
           placeholder={props.placeholder?.state || "Select a state"}
           labelInValue
           showSearch
           allowClear
-          onChange={value => setState(value)}
+          onChange={onStateChange}
           value={state}
           notFoundContent="Not found"
         >
@@ -145,13 +118,14 @@ export function LocationDropdown(props: LocationDropdownProps) {
           ))}
         </Select>
       )}
-      {props.cityIsShown && (
+      {cityData.length > 0 && (
         <Select
+          className="sub-field"
           placeholder={props.placeholder?.city || "Select a city"}
           labelInValue
           showSearch
           allowClear
-          onChange={value => setCity(value)}
+          onChange={onCityChange}
           value={city}
           notFoundContent="Not found"
         >
@@ -165,9 +139,3 @@ export function LocationDropdown(props: LocationDropdownProps) {
     </div>
   );
 }
-
-LocationDropdown.defaultProps = {
-  countryIsShown: true,
-  stateIsShown: true,
-  cityIsShown: true,
-};

@@ -5,33 +5,111 @@
   "key": "applicant",
   "fields": [
     {
-      "label": "text_ResidentalAddress",
-      "id": "residental_address",
+      "label": "text_TelephoneNumberInUs",
+      "placeholder": "text_PhoneNumberFormat",
+      "id": "telephone_number",
+      "key": "telePhoneAreaCode,telePhoneNumber",
+      "control": "text",
+      "format": "PhoneNumberRegex"
+    },
+    {
+      "label": "text_ResidentalAddressInUs",
+      "id": "residental_address_in_us",
       "control": "group",
+      "maxChildPerRow": "3",
       "fields": [
         {
           "label": "text_Street",
+          "placeholder": "text_Street",
           "id": "street",
+          "key": "streetNumberAndName",
+          "control": "text"
+        },
+        {
+          "label": "text_ApartmentNumber",
+          "placeholder": "text_ApartmentNumber",
+          "id": "apartment_number",
+          "key": "aptNumber",
           "control": "text"
         },
         {
           "label": "text_City",
+          "placeholder": "text_City",
           "id": "city",
+          "key": "city",
           "control": "text"
         },
         {
           "label": "text_State",
+          "placeholder": "text_State",
           "id": "state",
+          "key": "state",
           "control": "text"
         },
         {
           "label": "text_ZipCode",
+          "placeholder": "text_ZipCode",
           "id": "zip_code",
+          "key": "zipCode",
+          "control": "text"
+        }
+      ]
+    },
+    {
+      "label": "text_TelephoneNumberOfMailingInUs",
+      "placeholder": "text_PhoneNumberFormat",
+      "id": "telephone_number_mailing",
+      "key": "telePhoneAreaCodeOfMailingAddress,telePhoneNumberOfMailingAddress",
+      "control": "text",
+      "format": "PhoneNumberRegex"
+    },
+    {
+      "label": "text_MailingAddressInUs",
+      "id": "mailing_address_in_us",
+      "control": "group",
+      "maxChildPerRow": "3",
+      "fields": [
+        {
+          "label": "text_InCareOfName",
+          "placeholder": "text_InCareOfName",
+          "id": "in_care_of_name_mailing_address",
+          "key": "inCareOf",
+          "control": "text",
+          "className": "in-care-of-single-line"
+        },
+        {
+          "label": "text_Street",
+          "placeholder": "text_Street",
+          "id": "street_mailing_address",
+          "key": "streetNumberAndNameOfMailingAddress",
           "control": "text"
         },
         {
-          "label": "text_Country",
-          "id": "country",
+          "label": "text_ApartmentNumber",
+          "placeholder": "text_ApartmentNumber",
+          "id": "apartment_number_mailing_address",
+          "key": "aptNumberOfMailingAddress",
+          "control": "text"
+        },
+        {
+          "label": "text_City",
+          "placeholder": "text_City",
+          "id": "city_mailing_address",
+          "key": "cityOfMailingAddress",
+          "control": "text"
+        },
+        {
+          "label": "text_State",
+          "placeholder": "text_State",
+          "id": "state_mailing_address",
+          "key": "stateOfMailingAddress",
+          "control": "text"
+        },
+        {
+          "label": "text_ZipCode",
+          "placeholder": "text_ZipCode",
+          "id": "zip_code_mailing_address",
+          "key": "zipCodeOfMailingAddress",
           "control": "text"
         }
       ]

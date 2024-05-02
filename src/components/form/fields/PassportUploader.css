@@ -1,12 +1,40 @@
-.passport-uploader-btn {
+.passport-uploader {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+}
+
+.passport-uploader-upload {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.passport-uploader-upload svg {
+  width: 14px;
+  height: 14px;
+}
+
+.passport-uploader-inner {
   width: 100px;
   height: 100px;
   background-color: var(--upload-btn-background);
   border: var(--upload-btn-border);
   border-radius: 4px;
   cursor: pointer;
+  display: flex;
 }
 
-.passport-uploader-btn:hover {
+.passport-uploader-inner:hover {
   border-color: var(--upload-btn-hover);
+}
+
+.passport-uploader-inner img {
+  cursor: pointer;
+  align-self: center;
 }

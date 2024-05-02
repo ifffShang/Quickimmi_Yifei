@@ -2,7 +2,7 @@ import i18next from "i18next";
 import { useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useClickOutsideOfRef } from "../../hooks/commonHooks";
-import { Language } from "../../model/models";
+import { Language } from "../../model/commonModels";
 import { updateLanguage } from "../../reducers/commonSlice";
 import { ArrowDown } from "../icons/ArrowDown";
 import "./LanguageSelector.css";

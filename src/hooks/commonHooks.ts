@@ -1,12 +1,13 @@
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { textParser } from "../utils/parsers";
 import { arrayMapper } from "../utils/mapper";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { textParser } from "../utils/parsers";
 
 export function useFormTranslation() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const ent = i18n.getFixedT("en");
   const wt = textParser(t);
-  const wa = arrayMapper(t);
+  const wa = arrayMapper(t, ent);
   return { t, wt, wa };
 }
 

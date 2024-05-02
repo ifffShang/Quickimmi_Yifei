@@ -1,7 +1,10 @@
 import { UserInfo } from "../model/apiModels";
 import { performApiRequest } from "./apiConfig";
 
-export async function createUserApi(email: string): Promise<number> {
+export async function createUserApi(
+  email: string,
+  accessToken: string,
+): Promise<number> {
   const userId = await performApiRequest(
     "api/user/create",
     "POST",
@@ -10,7 +13,8 @@ export async function createUserApi(email: string): Promise<number> {
       username: email,
       email,
     },
-    "",
+    accessToken,
+    false,
   );
   return userId || 0;
 }

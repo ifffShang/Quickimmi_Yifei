@@ -21,6 +21,12 @@
           "referenceId": "i589_fields_contact_information"
         },
         {
+          "label": "text_ImmigrationInformation",
+          "id": "immigration_information",
+          "type": "level2",
+          "referenceId": "i589_fields_immigration_information"
+        },
+        {
           "label": "text_GenerateReport",
           "id": "generate_report",
           "type": "level2",

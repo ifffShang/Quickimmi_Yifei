@@ -107,6 +107,7 @@
   "LastName": "Last Name",
   "MiddleName": "Middle Name",
   "OtherNames": "Other Names",
+  "OtherNamesNAText": "I don't have other names",
   "NewCaseField": {
     "EntryLocation": {
       "Title": "Enter the Place of Entry",
@@ -125,9 +126,13 @@
     }
   },
   "Gender": "Gender",
-  "GenderOptions": ["Male", "Female"],
+  "Male": "Male",
+  "Female": "Female",
   "MaritalStatus": "Marital Status",
-  "MaritalStatusOptions": ["Single", "Married", "Divorced", "Widowed"],
+  "Single": "Single",
+  "Married": "Married",
+  "Divorced": "Divorced",
+  "Widowed": "Widowed",
   "Race": "Race",
   "RaceOptions": [
     "American Indian or Alaska Native",
@@ -165,6 +170,7 @@
     "Primal-indigenous",
     "Other"
   ],
+  "PresentNationality": "Present Nationality",
   "NationalityAtBirth": "Nationality at Birth",
   "NationalityOptions": [
     "Afghan",
@@ -363,6 +369,11 @@
     "Zambian",
     "Zimbabwean"
   ],
+  "PhoneNumberFormat": "(Area code)-XXX-XXXX",
   "LocationOfBirth": "Location of Birth",
-  "FluentInEnglish": "I am fluent in English"
+  "FluentInEnglish": "I am fluent in English",
+  "ResidentalAddressInUs": "Residential Address in the U.S.",
+  "ImmigrationCourtNever": "I have never been in Immigration Court proceedings.",
+  "ImmigrationCourtNow": "I am now in Immigration Court proceedings.",
+  "ImmigrationCourtPast": "I am not now in Immigration Court proceedings, but I have been in the past"
 }

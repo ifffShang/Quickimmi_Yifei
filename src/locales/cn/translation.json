@@ -104,6 +104,7 @@
   "LastName": "姓",
   "MiddleName": "中间名",
   "OtherNames": "曾用名",
+  "OtherNamesNAText": "我没有其他名字",
   "NewCaseField": {
     "EntryLocation": {
       "Title": "请选择您的在美国的入境地址",
@@ -122,9 +123,13 @@
     }
   },
   "Gender": "性别",
-  "GenderOptions": ["男", "女"],
+  "Male": "男",
+  "Female": "女",
   "MaritalStatus": "婚姻状况",
-  "MaritalStatusOptions": ["已婚", "未婚", "离异", "丧偶"],
+  "Single": "未婚",
+  "Married": "已婚",
+  "Divorced": "离异",
+  "Widowed": "丧偶",
   "Race": "种族",
   "RaceOptions": [
     "美洲印第安人或阿拉斯加土著",
@@ -162,6 +167,7 @@
     "原始-土著宗教",
     "其他"
   ],
+  "PresentNationality": "当前国籍",
   "NationalityAtBirth": "出生国籍",
   "NationalityOptions": [
     "阿富汗人",
@@ -360,6 +366,7 @@
     "赞比亚人",
     "津巴布韦人"
   ],
+  "PhoneNumberFormat": "(区域代码)-XXX-XXXX",
   "LocationOfBirth": "出生地",
   "FluentInEnglish": "我可以流利地说英语"
 }

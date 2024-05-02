@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { ChatbotFloating } from "./components/chatbot/ChatbotFloating";
 import { ModalView } from "./components/modals/ModalView";
 import { Navbar } from "./components/navbar/Navbar";
-import { ScreenSize } from "./model/models";
+import { ScreenSize } from "./model/commonModels";
 import { updateScreenSize } from "./reducers/commonSlice";
 import { MainView } from "./components/router/MainView";
 import "./styles/Common.css";

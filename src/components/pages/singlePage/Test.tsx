@@ -1,17 +1,9 @@
-import { useState } from "react";
-import { LeftOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { QText } from "../../common/Fonts";
-import { QLink } from "../../common/Links";
 
-import { Loading } from "../../common/Loading";
 import { LocationDropdown } from "../../form/fields/LocationDropdown";
 
 import "./SinglePageView.css";
-import { TermsOfService } from "./TermsOfService";
-import { PrivacyPolicy } from "./PrivacyPolicy";
-import { ContactUs } from "./ContactUs";
 
 export function TestPageView() {
   const { t } = useTranslation();
@@ -57,7 +49,6 @@ export function TestPageView() {
         prefillData={{
           country: "United States",
         }}
-        countryIsShown={false}
         onLocationChange={(data: any) => {
           console.log("onLocationChange Data", data);
         }}

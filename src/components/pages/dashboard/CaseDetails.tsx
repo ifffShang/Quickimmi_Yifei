@@ -37,7 +37,7 @@ export function CaseDetails() {
         }
       })();
     });
-  }, []);
+  }, [id, accessToken, dispatch]);
 
   if (!id) {
     navigate("/dashboard");

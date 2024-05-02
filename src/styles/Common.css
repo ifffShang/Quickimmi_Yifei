@@ -46,14 +46,6 @@
     0 9px 28px 8px rgba(39, 174, 96, 0.05);
 }
 
-.font-bold {
-  font-weight: var(--font-weight-bold);
-}
-
-.font-gray {
-  color: var(--gray-color-2);
-}
-
 .single-line {
   display: flex;
   gap: 10px;
@@ -62,4 +54,53 @@
 
 .default-button {
   border: 1px solid var(--gray-color-3);
+}
+
+.horizontal-1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.horizontal-2 {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.horizontal-2 > .sub-field {
+  flex: 0 1 auto;
+  max-width: calc(50% - 20px);
+}
+
+.horizontal-3 {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  max-width: calc(var(--textbox-width) * 3 + 60px);
+}
+
+.horizontal-3 > .sub-field {
+  flex: 0 1 auto;
+  min-width: calc(33.33% - 20px);
+}
+
+.xsmall .horizontal-2 > .sub-field,
+.small .horizontal-2 > .sub-field,
+.xsmall .horizontal-3 > .sub-field,
+.small .horizontal-3 > .sub-field {
+  flex: 1 1 100%;
+}
+
+.horizontal-3 > .in-care-of-single-line {
+  min-width: 100%;
 }

@@ -6,17 +6,23 @@ import {
   UpdateApplicationCaseData,
   UploadedDocument,
 } from "../model/apiModels";
-import { IForm, IFormFields } from "../model/formModels";
-import { DocumentType } from "../model/models";
+import { IForm, IFormFields } from "../model/formFlowModels";
+import { DocumentType } from "../model/commonModels";
 import { performApiRequest } from "./apiConfig";
 
 export async function getForm(id: string): Promise<IForm> {
-  return await performApiRequest(`forms/${id}.json`, "GET", null, "", true);
+  return await performApiRequest(
+    `forms/${id}.json?${new Date().getTime()}`,
+    "GET",
+    null,
+    "",
+    true,
+  );
 }
 
 export async function getFormFields(referenceId: string): Promise<IFormFields> {
   return await performApiRequest(
-    `forms/${referenceId}.json`,
+    `forms/${referenceId}.json?${new Date().getTime()}`,
     "GET",
     null,
     "",
@@ -67,7 +73,7 @@ export async function getCaseDetailsApi(
     null,
     accessToken,
   );
-  return <ApplicationCase>res.data;
+  return res.data as ApplicationCase;
 }
 
 export async function updateApplicationCaseApi(
@@ -122,16 +128,12 @@ export async function getDocumentsApi(
   caseId: number,
   type?: DocumentType,
 ): Promise<UploadedDocument[]> {
-  const data = {
-    caseId,
-  };
-  if (type) {
-    data["documentType"] = type;
-  }
+  const documentTypeRequestParam = type ? `&documentType=${type}` : "";
+
   const res = await performApiRequest(
-    `api/document/list`,
+    `api/document/list?caseId=${caseId}${documentTypeRequestParam}`,
     "GET",
-    data,
+    null,
     accessToken,
   );
   return <UploadedDocument[]>res.data;
@@ -162,4 +164,31 @@ export async function flushRedisCache(accessToken: string): Promise<boolean> {
     accessToken,
   );
   return <boolean>res.data;
+}
+
+export async function uploadFileToPresignUrl(
+  presignedUrl: string,
+  file: any,
+  onProgress: (percent: number) => void,
+  onSuccess: () => void,
+  onError: (error: Error) => void,
+) {
+  const xhr = new XMLHttpRequest();
+  xhr.open("PUT", presignedUrl, true);
+  xhr.upload.onprogress = e => {
+    if (e.lengthComputable) {
+      onProgress((e.loaded / e.total) * 100);
+    }
+  };
+  xhr.onload = () => {
+    if (xhr.status < 200 || xhr.status >= 300) {
+      onError(new Error(`Upload failed with status ${xhr.status}`));
+      return;
+    }
+    onSuccess();
+  };
+  xhr.onerror = () => {
+    onError(new Error(`Upload failed due to ${xhr.statusText}`));
+  };
+  xhr.send(file as Blob);
 }

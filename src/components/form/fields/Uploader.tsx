@@ -3,10 +3,11 @@ import { GetProp, Upload, UploadProps } from "antd";
 import { useState } from "react";
 import { generateDocumentPresignedUrl } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { DocumentType } from "../../../model/models";
+import { DocumentType } from "../../../model/commonModels";
 import { updateTmpImageUrl } from "../../../reducers/commonSlice";
 import { ErrorMessage } from "../../common/Fonts";
 import "./Uploader.css";
+import { GeneratePresignedUrlResponse } from "../../../model/apiModels";
 
 export type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 export const getBase64 = (img: FileType, callback: (url: string) => void) => {
@@ -18,8 +19,11 @@ export const getBase64 = (img: FileType, callback: (url: string) => void) => {
 export interface UploaderProps {
   documentType: DocumentType;
   documentName: string;
-  onDocumentUploaded: (documentId: number) => void;
   onImageUrlReceived?: (imageUrl: string) => void;
+  onPresignedUrlReceived?: (
+    presignedUrlRes: GeneratePresignedUrlResponse,
+    file: any,
+  ) => void;
 }
 
 export function Uploader(props: UploaderProps) {
@@ -48,43 +52,27 @@ export function Uploader(props: UploaderProps) {
   };
 
   const uploadWithPresignedUrl = async options => {
+    const { file, onSuccess, onError } = options;
+
     try {
       if (!userId || !caseId || !accessToken) {
         throw new Error("User id, case id or access token is missing");
       }
-      const { file, onProgress, onSuccess, onError } = options;
       const fileExt = file.name.split(".").pop();
-      const presignedUrl = await generateDocumentPresignedUrl(
+      const res = await generateDocumentPresignedUrl(
         userId,
         caseId,
         props.documentType,
         props.documentName + "." + fileExt,
         accessToken,
       );
-
-      const xhr = new XMLHttpRequest();
-      xhr.open("PUT", presignedUrl.presignedUrl, true);
-      xhr.upload.onprogress = e => {
-        if (e.lengthComputable) {
-          onProgress({ percent: (e.loaded / e.total) * 100 }, file);
-        }
-      };
-      xhr.onload = () => {
-        if (xhr.status < 200 || xhr.status >= 300) {
-          onError(new Error(`Upload failed with status ${xhr.status}`), xhr);
-          return;
-        }
-        onSuccess({}, file, xhr);
-        props.onDocumentUploaded(presignedUrl.documentId);
-      };
-      xhr.onerror = () => {
-        onError(new Error("Upload failed"), xhr);
-      };
-      xhr.send(file as Blob);
+      onSuccess(res, file, null);
+      props.onPresignedUrlReceived?.(res, file);
     } catch (error) {
       setLoading(false);
       dispatch(updateTmpImageUrl(""));
       setErrorMessage("Failed to upload the file, please try again.");
+      onError(error);
       console.error(error);
     }
   };

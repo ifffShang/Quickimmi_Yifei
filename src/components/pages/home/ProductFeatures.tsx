@@ -7,7 +7,7 @@ import {
 import "./ProductFeatures.css";
 import { TextBlock } from "./Common";
 import { useAppSelector } from "../../../app/hooks";
-import { ScreenSize } from "../../../model/models";
+import { ScreenSize } from "../../../model/commonModels";
 
 function SupportedImmigrationTypes() {
   const { t } = useTranslation();

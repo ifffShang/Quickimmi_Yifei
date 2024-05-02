@@ -1,9 +1,14 @@
-import { PlusOutlined, LoadingOutlined } from "@ant-design/icons";
+import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
+import { useEffect, useState } from "react";
+import { getDocumentsApi } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { openModal } from "../../../reducers/commonSlice";
+import { updatePassportOrIdImageUrl } from "../../../reducers/formSlice";
+import { downloadImage } from "../../../utils/utils";
 import "./PassportUploader.css";
-import { useEffect } from "react";
-import { getDocumentsApi } from "../../../api/caseAPI";
+import { QLink } from "../../common/Links";
+import { Image } from "antd";
+import { QText } from "../../common/Fonts";
 
 export interface PassportUploaderProps {
   documentId: number;
@@ -16,6 +21,8 @@ export function PassportUploader(props: PassportUploaderProps) {
   );
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const showModal = useAppSelector(state => state.common.showModal);
+  const [loading, setLoading] = useState(false);
+  const [previewOpen, setPreviewOpen] = useState(false);
 
   const onButtonClick = () => {
     dispatch(openModal("uploadpassport"));
@@ -23,40 +30,56 @@ export function PassportUploader(props: PassportUploaderProps) {
 
   useEffect(() => {
     if (!accessToken || !props.documentId) return;
-    getDocumentsApi(accessToken, props.documentId, "PASSPORT_MAIN").then(
-      documents => {
+    setLoading(true);
+    getDocumentsApi(accessToken, props.documentId, "PASSPORT_MAIN")
+      .then(documents => {
         if (documents.length > 0) {
           const presignUrl = documents[0].presignUrl;
-
-          // get download presigned url and download the image
-          // set passportOrIdImageUrl
+          downloadImage(presignUrl).then(url => {
+            setLoading(false);
+            dispatch(updatePassportOrIdImageUrl(url));
+          });
         }
-      },
-    );
+      })
+      .catch(error => {
+        console.error(error);
+        setLoading(false);
+      });
   }, []);
 
   return (
     <div className="passport-uploader">
-      <button
-        className="passport-uploader-btn"
-        type="button"
-        onClick={onButtonClick}
-      >
-        {passportOrIdImageUrl && !showModal ? (
+      <div className="passport-uploader-inner">
+        {showModal || loading ? (
+          <div className="passport-uploader-upload">
+            <LoadingOutlined />
+          </div>
+        ) : passportOrIdImageUrl ? (
           <img
+            onClick={() => setPreviewOpen(true)}
             src={passportOrIdImageUrl}
             alt="avatar"
             style={{ width: "100%" }}
           />
-        ) : showModal ? (
-          <LoadingOutlined />
         ) : (
-          <>
+          <div className="passport-uploader-upload" onClick={onButtonClick}>
             <PlusOutlined />
-            <div style={{ marginTop: 8 }}>Upload</div>
-          </>
+            <QText level="xsmall">Upload</QText>
+          </div>
         )}
-      </button>
+        {previewOpen && (
+          <Image
+            wrapperStyle={{ display: "none" }}
+            preview={{
+              visible: previewOpen,
+              onVisibleChange: visible => setPreviewOpen(visible),
+              afterOpenChange: visible => !visible && setPreviewOpen(false),
+            }}
+            src={passportOrIdImageUrl}
+          />
+        )}
+      </div>
+      <QLink onClick={onButtonClick}>Change document</QLink>
     </div>
   );
 }

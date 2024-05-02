@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Language, ScreenSize } from "../model/models";
+import { Language, ScreenSize } from "../model/commonModels";
 import { handleResize } from "../utils/utils";
 
 export type ModalType = "uploadpassport" | "uploadotherid" | "";
