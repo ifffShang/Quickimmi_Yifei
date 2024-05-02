@@ -372,5 +372,8 @@
   "PhoneNumberFormat": "(Area code)-XXX-XXXX",
   "LocationOfBirth": "Location of Birth",
   "FluentInEnglish": "I am fluent in English",
-  "ResidentalAddressInUs": "Residential Address in the U.S."
+  "ResidentalAddressInUs": "Residential Address in the U.S.",
+  "ImmigrationCourtNever": "I have never been in Immigration Court proceedings.",
+  "ImmigrationCourtNow": "I am now in Immigration Court proceedings.",
+  "ImmigrationCourtPast": "I am not now in Immigration Court proceedings, but I have been in the past"
 }

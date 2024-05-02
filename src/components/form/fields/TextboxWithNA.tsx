@@ -1,33 +1,68 @@
-import { Checkbox, CheckboxProps } from "antd";
+import { Button, Checkbox, CheckboxProps } from "antd";
 import { QTextBox } from "./Controls";
 import { useState } from "react";
 import "./TextboxWithNA.css";
 import { useFormTranslation } from "../../../hooks/commonHooks";
-import { IFormOptions } from "../../../model/formFlowModels";
+import { PlusCircleFilled, MinusCircleFilled } from "@ant-design/icons";
 
 export interface TextBoxWithNAProps {
   placeholder: string;
-  options?: IFormOptions[] | string;
+  value?: string;
+  onChange: (value: string) => string;
 }
+
+interface TextBoxList {
+  id: number;
+  value: string;
+}
+
 export function TextboxWithNA(props: TextBoxWithNAProps) {
   const { wt } = useFormTranslation();
-  const [disabled, setDisabled] = useState(false);
-  const options = Array.isArray(props.options)
-    ? props.options.toString()
-    : props.options;
+  const prefillTexts = props.value
+    ? props.value.split(", ").map((value, index) => ({
+        id: index,
+        value,
+      }))
+    : [];
+  const [textboxList, setTextboxList] = useState<TextBoxList[]>(prefillTexts);
+  const newId =
+    textboxList.length === 0 ? 0 : textboxList[textboxList.length - 1].id + 1;
 
-  const onChange: CheckboxProps["onChange"] = e => {
-    setDisabled(e.target.checked);
-  };
   return (
     <div className="textbox-na">
-      <QTextBox
-        placeholder={props.placeholder}
-        value={""}
-        onChange={() => ""}
-        disabled={disabled}
-      />
-      <Checkbox onChange={onChange}>{options ? wt(options) : "N/A"}</Checkbox>
+      {textboxList.map(textbox => (
+        <div className="textbox-na-text" key={textbox.id}>
+          <QTextBox
+            placeholder={props.placeholder}
+            value={textbox.value}
+            onChange={(value: string) => {
+              const newTextboxList = [...textboxList];
+              newTextboxList[textbox.id].value = value || "";
+              setTextboxList(newTextboxList);
+              props.onChange(newTextboxList.map(t => t.value).join(", "));
+              return value || "";
+            }}
+          />
+          <Button
+            className="textbox-na-btn"
+            shape="circle"
+            icon={<MinusCircleFilled />}
+            onClick={() =>
+              setTextboxList([...textboxList.filter(t => t.id !== textbox.id)])
+            }
+          />
+        </div>
+      ))}
+      <Button
+        className="textbox-na-btn"
+        shape="circle"
+        icon={<PlusCircleFilled />}
+        onClick={() =>
+          setTextboxList([...textboxList, { id: newId, value: "" }])
+        }
+      >
+        {wt(props.placeholder)}
+      </Button>
     </div>
   );
 }

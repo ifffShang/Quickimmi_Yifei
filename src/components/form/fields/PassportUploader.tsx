@@ -29,10 +29,10 @@ export function PassportUploader(props: PassportUploaderProps) {
   };
 
   useEffect(() => {
-    setLoading(true);
     if (!accessToken || !props.documentId) return;
-    getDocumentsApi(accessToken, props.documentId, "PASSPORT_MAIN").then(
-      documents => {
+    setLoading(true);
+    getDocumentsApi(accessToken, props.documentId, "PASSPORT_MAIN")
+      .then(documents => {
         if (documents.length > 0) {
           const presignUrl = documents[0].presignUrl;
           downloadImage(presignUrl).then(url => {
@@ -40,8 +40,11 @@ export function PassportUploader(props: PassportUploaderProps) {
             dispatch(updatePassportOrIdImageUrl(url));
           });
         }
-      },
-    );
+      })
+      .catch(error => {
+        console.error(error);
+        setLoading(false);
+      });
   }, []);
 
   return (

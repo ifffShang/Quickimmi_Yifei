@@ -1,7 +1,7 @@
 import { LoadingOutlined } from "@ant-design/icons";
 import { Button, Checkbox } from "antd";
-import { useState } from "react";
-import { parsePassportApi } from "../../../api/caseAPI";
+import { useRef, useState } from "react";
+import { parsePassportApi, uploadFileToPresignUrl } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useFormTranslation } from "../../../hooks/commonHooks";
 import { changeModalType, closeModal } from "../../../reducers/commonSlice";
@@ -13,6 +13,7 @@ import {
 import { QText } from "../../common/Fonts";
 import { Uploader } from "../../form/fields/Uploader";
 import "./UploadPassportModal.css";
+import { GeneratePresignedUrlResponse } from "../../../model/apiModels";
 
 export function UploadPassportModal() {
   const { wt } = useFormTranslation();
@@ -20,10 +21,24 @@ export function UploadPassportModal() {
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const [confirmDisabled, setConfirmDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [progressPercetage, setProgressPercentage] = useState(0);
+  const presignedUrlResRef = useRef<GeneratePresignedUrlResponse | null>(null);
+  const fileRef = useRef<File | null>(null);
 
-  const onPassportUploaded = async (documentId: number) => {
-    setConfirmDisabled(true);
-    setLoading(true);
+  const onPassportImageUrlReceived = (imageUrl: string) => {
+    dispatch(updatePassportOrIdImageUrl(imageUrl));
+  };
+
+  const onPresignedUrlReceived = (
+    res: GeneratePresignedUrlResponse,
+    file: any,
+  ) => {
+    setConfirmDisabled(false);
+    presignedUrlResRef.current = res;
+    fileRef.current = file;
+  };
+
+  const parsePassport = async (documentId: number) => {
     try {
       dispatch(
         updateApplicant({
@@ -40,21 +55,51 @@ export function UploadPassportModal() {
         );
       }
       dispatch(updatePassportInfo(passportInfo));
-      setConfirmDisabled(false);
-      setLoading(false);
+      dispatch(closeModal());
     } catch (err) {
       console.error(err);
-      setConfirmDisabled(false);
-      setLoading(false);
     }
   };
 
-  const onPassportImageUrlReceived = (imageUrl: string) => {
-    dispatch(updatePassportOrIdImageUrl(imageUrl));
+  const onProgress = (percent: number) => {
+    setProgressPercentage(percent);
+  };
+
+  const onSuccess = () => {
+    if (!presignedUrlResRef.current || !presignedUrlResRef.current.documentId) {
+      console.error("Document ID is missing");
+      return;
+    }
+    parsePassport(presignedUrlResRef.current.documentId);
+  };
+
+  const onError = (error: Error) => {
+    setLoading(false);
+    setConfirmDisabled(true);
+    console.error(error);
   };
 
   const onConfirmButtonClick = () => {
-    dispatch(closeModal());
+    try {
+      if (
+        !presignedUrlResRef.current ||
+        !presignedUrlResRef.current.presignedUrl ||
+        !fileRef.current
+      ) {
+        throw new Error("Presigned URL or file is missing");
+      }
+      setConfirmDisabled(true);
+      setLoading(true);
+      uploadFileToPresignUrl(
+        presignedUrlResRef.current.presignedUrl,
+        fileRef.current,
+        onProgress,
+        onSuccess,
+        onError,
+      );
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -64,8 +109,8 @@ export function UploadPassportModal() {
         <Uploader
           documentType="PASSPORT_MAIN"
           documentName="passport-main"
-          onDocumentUploaded={onPassportUploaded}
           onImageUrlReceived={onPassportImageUrlReceived}
+          onPresignedUrlReceived={onPresignedUrlReceived}
         />
       </div>
       <QText level="xsmall" color="gray">
@@ -83,7 +128,7 @@ export function UploadPassportModal() {
         >
           {confirmDisabled ? (
             loading ? (
-              <LoadingOutlined />
+              <LoadingOutlined label={progressPercetage.toString()} />
             ) : (
               wt("Confirm")
             )

@@ -1,4 +1,12 @@
-import { Checkbox, DatePicker, Input, InputRef, Select } from "antd";
+import {
+  Checkbox,
+  DatePicker,
+  Input,
+  InputRef,
+  Radio,
+  Select,
+  Space,
+} from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch } from "../../../app/hooks";
@@ -199,7 +207,7 @@ export function SelectBox(props: SelectBoxProps) {
   const options = Array.isArray(props.options)
     ? props.options.map(option => ({
         keyValue: option.keyValue,
-        label: wt(option.value),
+        label: wt(option.label),
         value: option.value,
       }))
     : wa(props.options);
@@ -250,5 +258,43 @@ export function CheckBox(props: CheckBoxProps) {
         {props.label}
       </Checkbox>
     </div>
+  );
+}
+
+/** Radio control ***************************************************/
+
+export interface RadioSelectProps {
+  options: IFormOptions[] | string;
+  onChange: (value: string) => void;
+  value?: any;
+  disabled?: boolean;
+  allowClear?: boolean;
+}
+
+export function RadioSelect(props: RadioSelectProps) {
+  const { wa, wt } = useFormTranslation();
+  const options = Array.isArray(props.options)
+    ? props.options.map(option => ({
+        keyValue: option.keyValue,
+        label: wt(option.label),
+        value: option.value,
+      }))
+    : wa(props.options);
+  const [value, setValue] = useState(props.value);
+
+  const onValueChange = (value: string) => {
+    setValue(value);
+    props.onChange(value);
+  };
+  return (
+    <Radio.Group onChange={e => onValueChange(e.target.value)} value={value}>
+      <Space direction="vertical">
+        {options.map(option => (
+          <Radio key={option.value} value={option.value}>
+            {option.label}
+          </Radio>
+        ))}
+      </Space>
+    </Radio.Group>
   );
 }

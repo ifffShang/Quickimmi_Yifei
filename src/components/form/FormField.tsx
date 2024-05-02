@@ -18,6 +18,7 @@ import {
   QDatePicker,
   QDropdown,
   QTextBox,
+  RadioSelect,
   SelectBox,
 } from "./fields/Controls";
 import { GenerateDocument } from "./fields/GenerateDocument";
@@ -178,7 +179,13 @@ export function FormField(props: FormFieldProps) {
     case "textarea":
       return <div>Textarea not implemented</div>;
     case "radio":
-      return <div>Radio not implemented</div>;
+      return (
+        <RadioSelect
+          onChange={onOptionChange}
+          options={props.options || ""}
+          value={fieldValue}
+        />
+      );
     case "checkbox":
       return <CheckBox label={wt(props.label)} onChange={onCheckboxChange} />;
     case "fileplus":
@@ -215,7 +222,10 @@ export function FormField(props: FormFieldProps) {
       return (
         <TextboxWithNA
           placeholder={placeholder}
-          options={props.options || ""}
+          value={fieldValue}
+          onChange={(value: string) => {
+            return onTextChange(value);
+          }}
         />
       );
     case "component_location_dropdown":

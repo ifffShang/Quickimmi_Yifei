@@ -37,7 +37,7 @@ export function UploadOtherIdModal() {
             <Uploader
               documentType="ID_CARD"
               documentName="idcard"
-              onDocumentUploaded={() => {}}
+              onPresignedUrlReceived={() => {}}
             />
           </div>
           <div className="upload-passport-controls">
