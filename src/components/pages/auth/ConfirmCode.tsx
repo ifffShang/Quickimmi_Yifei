@@ -20,7 +20,6 @@ import { FormInput } from "../../form/fields/Controls";
 import { ErrorMessage, QText } from "../../common/Fonts";
 import { AuthComponent } from "./AuthComponent";
 import "./ConfirmCode.css";
-import { createUserApi } from "../../../api/authAPI";
 import { updateAuthState } from "../../../reducers/authSlice";
 
 export function ConfirmCode() {
@@ -80,19 +79,6 @@ export function ConfirmCode() {
         });
         if (isSignUpComplete) {
           setErrorMessage("");
-          try {
-            const userId = await createUserApi(auth.email);
-            userId &&
-              dispatch(
-                updateAuthState({
-                  userId,
-                }),
-              );
-          } catch (error: any) {
-            if (error?.message !== "USER_EXIST") {
-              throw error;
-            }
-          }
           navigate("/authsuccess");
         } else {
           setErrorMessage("Error confirming sign up. Please try again.");
