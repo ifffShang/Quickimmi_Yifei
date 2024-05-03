@@ -25,7 +25,27 @@
           "id": "immigration_information",
           "type": "level2",
           "referenceId": "i589_fields_immigration_information"
-        },
+        }
+      ]
+    },
+    {
+      "label": "text_FamilyInformation",
+      "id": "family_information",
+      "type": "level1",
+      "steps": [
+        {
+          "label": "text_SpouseInformation",
+          "id": "spouse_information",
+          "type": "level2",
+          "referenceId": "i589_fields_spouse_information"
+        }
+      ]
+    },
+    {
+      "label": "text_GenerateDocument",
+      "id": "generate_document",
+      "type": "level1",
+      "steps": [
         {
           "label": "text_GenerateReport",
           "id": "generate_report",

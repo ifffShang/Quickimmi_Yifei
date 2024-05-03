@@ -1,15 +1,10 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { getDocumentsApi } from "../api/caseAPI";
+import { replaceDocumentUrls, clearDocumentUrls } from "../reducers/formSlice";
 import { arrayMapper } from "../utils/mapper";
 import { textParser } from "../utils/parsers";
 import { downloadImage } from "../utils/utils";
-import { getDocumentsApi } from "../api/caseAPI";
-import {
-  addDocumentUrls,
-  clearDocumentUrls,
-  updatePassportOrIdImageUrl,
-} from "../reducers/formSlice";
-import { DocumentType } from "../model/commonModels";
 
 export function useFormTranslation() {
   const { t, i18n } = useTranslation();
@@ -52,6 +47,7 @@ export function useDocumentsOnLoad(params: GetDocumentsOnLoadParams) {
       return;
     }
     params.setLoading(true);
+    params.dispatch(clearDocumentUrls());
     getDocumentsApi(params.accessToken, params.caseId)
       .then(documents => {
         if (!documents) {
@@ -59,19 +55,19 @@ export function useDocumentsOnLoad(params: GetDocumentsOnLoadParams) {
           params.setLoading(false);
           return;
         }
-        params.dispatch(clearDocumentUrls());
-        documents.forEach(doc => {
-          const presignUrl = doc.presignUrl;
-          downloadImage(presignUrl)
-            .then(url => {
-              params.setLoading(false);
-              params.dispatch(addDocumentUrls(url));
-            })
-            .catch(error => {
-              params.setLoading(false);
-              console.error(error);
-            });
+        const downloadDocumentPromises = documents.map(doc => {
+          return downloadImage(doc.presignUrl);
         });
+
+        Promise.all(downloadDocumentPromises)
+          .then(urls => {
+            params.setLoading(false);
+            params.dispatch(replaceDocumentUrls(urls));
+          })
+          .catch(error => {
+            params.setLoading(false);
+            console.error(error);
+          });
       })
       .catch(error => {
         console.error(error);

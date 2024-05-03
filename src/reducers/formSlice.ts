@@ -83,8 +83,8 @@ export const formSlice = createSlice({
     updatePassportOrIdImageUrl: (state, action: PayloadAction<string>) => {
       state.passportOrIdImageUrl = action.payload;
     },
-    addDocumentUrls: (state, action: PayloadAction<string>) => {
-      state.documentUrls = [...state.documentUrls, action.payload];
+    replaceDocumentUrls: (state, action: PayloadAction<string[]>) => {
+      state.documentUrls = action.payload;
     },
     clearDocumentUrls: state => {
       state.documentUrls = [];
@@ -105,7 +105,7 @@ export const {
   updatePassportInfo,
   updateIdCardInfo,
   updatePassportOrIdImageUrl,
-  addDocumentUrls,
+  replaceDocumentUrls,
   clearDocumentUrls,
 } = formSlice.actions;
 

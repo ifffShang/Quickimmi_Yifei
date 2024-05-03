@@ -68,7 +68,7 @@ export function FormNavigation() {
         <div>
           {level1.steps.map((level2, l2Index) => {
             const css =
-              indexLevel2 === l2Index
+              indexLevel2 === l2Index && indexLevel1 === l1Index
                 ? "form-navigation-l2 active"
                 : "form-navigation-l2";
             return (

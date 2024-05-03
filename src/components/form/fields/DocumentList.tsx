@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useDocumentsOnLoad } from "../../../hooks/commonHooks";
 import "./DocumentList.css";
+import { Loading } from "../../common/Loading";
 
 export function DocumentList() {
   const dispatch = useAppDispatch();
@@ -19,7 +20,7 @@ export function DocumentList() {
 
   return (
     <div className="document-list">
-      {loading && <div>Loading...</div>}
+      {loading && <Loading />}
       {documentUrls.map(url => {
         return <img key={url} src={url} />;
       })}
