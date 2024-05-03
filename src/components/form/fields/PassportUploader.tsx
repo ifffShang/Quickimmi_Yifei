@@ -1,6 +1,6 @@
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
-import { getDocumentsApi } from "../../../api/caseAPI";
+import { getDocumentByIdApi, getDocumentsApi } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { openModal } from "../../../reducers/commonSlice";
 import { updatePassportOrIdImageUrl } from "../../../reducers/formSlice";
@@ -31,15 +31,13 @@ export function PassportUploader(props: PassportUploaderProps) {
   useEffect(() => {
     if (!accessToken || !props.documentId) return;
     setLoading(true);
-    getDocumentsApi(accessToken, props.documentId, "PASSPORT_MAIN")
-      .then(documents => {
-        if (documents.length > 0) {
-          const presignUrl = documents[0].presignUrl;
-          downloadImage(presignUrl).then(url => {
-            setLoading(false);
-            dispatch(updatePassportOrIdImageUrl(url));
-          });
-        }
+    getDocumentByIdApi(accessToken, props.documentId)
+      .then(document => {
+        const presignUrl = document.presignUrl;
+        downloadImage(presignUrl).then(url => {
+          setLoading(false);
+          dispatch(updatePassportOrIdImageUrl(url));
+        });
       })
       .catch(error => {
         console.error(error);

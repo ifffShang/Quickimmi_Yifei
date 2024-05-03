@@ -167,6 +167,10 @@ export function parseCityAndCountryStr(
   }
   if (!cityAndCountry) return { city: "", state: "", country: "" };
   const cityAndCountryArr = cityAndCountry.split(", ");
+  if (cityAndCountryArr.length === 1)
+    return { city: "", state: "", country: cityAndCountryArr[0] };
+  if (cityAndCountryArr.length === 2)
+    return { city: "", state: "", country: cityAndCountryArr[1] };
   return {
     city: cityAndCountryArr[0] ?? "",
     state: cityAndCountryArr[1] ?? "",

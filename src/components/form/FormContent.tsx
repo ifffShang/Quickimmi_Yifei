@@ -6,6 +6,7 @@ import { useFormTranslation } from "../../hooks/commonHooks";
 import { updateFormFieldsMap } from "../../reducers/caseSlice";
 import { getUpdateApplicationCaseData } from "../../utils/utils";
 import { QText } from "../common/Fonts";
+import { Loading } from "../common/Loading";
 import "./FormContent.css";
 import { FormField } from "./FormField";
 
@@ -41,7 +42,16 @@ export function FormContent(props: FormContentProps) {
   }, [props.referenceId, dispatch]);
 
   if (!formFields || !currentStep) {
-    return <div>Loading...</div>;
+    return (
+      <div className="form-content">
+        <div className="form-content-header">
+          <QText level="large">{wt(currentStep.label || "")}</QText>
+        </div>
+        <div className="form-content-form">
+          <Loading />
+        </div>
+      </div>
+    );
   }
 
   const saveApplicationCase = () => {

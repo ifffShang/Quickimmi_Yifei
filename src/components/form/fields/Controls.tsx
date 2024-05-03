@@ -7,16 +7,64 @@ import {
   Select,
   Space,
 } from "antd";
+import dayjs from "dayjs";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch } from "../../../app/hooks";
+import { useFormTranslation } from "../../../hooks/commonHooks";
 import { FieldKey, ParentFieldKey } from "../../../model/apiModels";
+import { IFormOptions } from "../../../model/formFlowModels";
 import { dispatchFormValue } from "../../../utils/utils";
 import { ErrorMessage, QText } from "../../common/Fonts";
-import dayjs from "dayjs";
 import "./Controls.css";
-import { IFormOptions } from "../../../model/formFlowModels";
-import { useFormTranslation } from "../../../hooks/commonHooks";
+
+/** Form input (sign in, passport) ***********************************************/
+
+export interface FormInputProps {
+  value: string;
+  placeholder: string;
+  onChange: (value: string) => void;
+  validate?: (value: string) => string;
+  showErrorMessage?: boolean;
+  isRequired?: boolean;
+  isPassword?: boolean;
+  autoComplete?: string;
+  icon?: React.ReactNode;
+}
+export function FormInput(props: FormInputProps) {
+  const { t } = useTranslation();
+  const errorMessage = props.validate ? props.validate(props.value) : "";
+
+  return (
+    <div className="form-input-container">
+      <div className="input-form">
+        {props.isPassword ? (
+          <Input.Password
+            placeholder={props.placeholder}
+            value={props.value}
+            onChange={e => props.onChange(e.target.value)}
+            autoComplete={props.autoComplete}
+            prefix={props.icon}
+            status={props.showErrorMessage && errorMessage ? "error" : ""}
+          />
+        ) : (
+          <Input
+            placeholder={props.placeholder}
+            value={props.value}
+            onChange={e => props.onChange(e.target.value)}
+            autoComplete={props.autoComplete}
+            prefix={props.icon}
+            status={props.showErrorMessage && errorMessage ? "error" : ""}
+          />
+        )}
+        {props.isRequired && <div className="input-required-mark">*</div>}
+      </div>
+      {props.showErrorMessage && errorMessage && (
+        <ErrorMessage>{t(errorMessage)}</ErrorMessage>
+      )}
+    </div>
+  );
+}
 
 /** TextBox control ***************************************************/
 
@@ -66,10 +114,15 @@ export function QTextBox(props: QTextBoxProps) {
 
 /** Dropdown control ***************************************************/
 
+export interface QDropdownOption {
+  value: string;
+  label: string;
+}
+
 export interface QDropdownProps {
   label: string;
   value?: string;
-  options?: string[];
+  options: QDropdownOption[];
   onChange: (value: string) => void;
   ignoreMaxWidth?: boolean;
 }
@@ -88,10 +141,7 @@ export function QDropdown(props: QDropdownProps) {
         className="dropdown-inner"
         onChange={handleChange}
         getPopupContainer={() => container.current || document.body} // This makes the dropdown menu follow the Select component's z-index
-        options={[
-          { value: "idcard", label: "Identification card" },
-          { value: "driverlicense", label: "Driver license" },
-        ]}
+        options={props.options}
       />
     </div>
   );
@@ -111,9 +161,9 @@ export interface QDatePickerProps {
 export function QDatePicker(props: QDatePickerProps) {
   const dispatch = useAppDispatch();
   const [value, setValue] = useState(props.value || "");
+
   useEffect(() => {
-    if (!props.value) return;
-    setValue(props.value);
+    setValue(props.value || "");
   }, [props.value]);
 
   const onDateChange = (date: dayjs.Dayjs, dateString: string | string[]) => {
@@ -143,53 +193,6 @@ export function QDatePicker(props: QDatePickerProps) {
     </div>
   );
 }
-/**************************************************************************/
-
-export interface FormInputProps {
-  value: string;
-  placeholder: string;
-  onChange: (value: string) => void;
-  validate?: (value: string) => string;
-  showErrorMessage?: boolean;
-  isRequired?: boolean;
-  isPassword?: boolean;
-  autoComplete?: string;
-  icon?: React.ReactNode;
-}
-export function FormInput(props: FormInputProps) {
-  const { t } = useTranslation();
-  const errorMessage = props.validate ? props.validate(props.value) : "";
-
-  return (
-    <div className="form-input-container">
-      <div className="input-form">
-        {props.isPassword ? (
-          <Input.Password
-            placeholder={props.placeholder}
-            value={props.value}
-            onChange={e => props.onChange(e.target.value)}
-            autoComplete={props.autoComplete}
-            prefix={props.icon}
-            status={props.showErrorMessage && errorMessage ? "error" : ""}
-          />
-        ) : (
-          <Input
-            placeholder={props.placeholder}
-            value={props.value}
-            onChange={e => props.onChange(e.target.value)}
-            autoComplete={props.autoComplete}
-            prefix={props.icon}
-            status={props.showErrorMessage && errorMessage ? "error" : ""}
-          />
-        )}
-        {props.isRequired && <div className="input-required-mark">*</div>}
-      </div>
-      {props.showErrorMessage && errorMessage && (
-        <ErrorMessage>{t(errorMessage)}</ErrorMessage>
-      )}
-    </div>
-  );
-}
 
 /** Select control ***************************************************/
 
@@ -211,7 +214,12 @@ export function SelectBox(props: SelectBoxProps) {
         value: option.value,
       }))
     : wa(props.options);
-  const [value, setValue] = useState(props.value);
+  const prefillValue = options.find(option => option.value === props.value);
+  const [value, setValue] = useState(prefillValue?.value || undefined);
+
+  useEffect(() => {
+    setValue(prefillValue?.value || undefined);
+  }, [props.value]);
 
   const onValueChange = (value: string) => {
     setValue(value);
@@ -225,7 +233,7 @@ export function SelectBox(props: SelectBoxProps) {
         disabled={props.disabled || false}
         allowClear={props.allowClear || true}
         placeholder={props.placeholder || "Select an option"}
-        value={value || undefined}
+        value={value}
       />
     </div>
   );
@@ -242,6 +250,10 @@ export interface CheckBoxProps {
 
 export function CheckBox(props: CheckBoxProps) {
   const [checked, setChecked] = useState(props.checked || false);
+
+  useEffect(() => {
+    setChecked(props.checked || false);
+  }, [props.checked]);
 
   const handleChange = (e: any) => {
     setChecked(e.target.checked);
@@ -281,6 +293,10 @@ export function RadioSelect(props: RadioSelectProps) {
       }))
     : wa(props.options);
   const [value, setValue] = useState(props.value);
+
+  useEffect(() => {
+    setValue(props.value || "");
+  }, [props.value]);
 
   const onValueChange = (value: string) => {
     setValue(value);

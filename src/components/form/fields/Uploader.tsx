@@ -18,7 +18,7 @@ export const getBase64 = (img: FileType, callback: (url: string) => void) => {
 
 export interface UploaderProps {
   documentType: DocumentType;
-  documentName: string;
+  documentName?: string;
   onImageUrlReceived?: (imageUrl: string) => void;
   onPresignedUrlReceived?: (
     presignedUrlRes: GeneratePresignedUrlResponse,
@@ -63,7 +63,7 @@ export function Uploader(props: UploaderProps) {
         userId,
         caseId,
         props.documentType,
-        props.documentName + "." + fileExt,
+        props.documentName ? props.documentName + "." + fileExt : file.name,
         accessToken,
       );
       onSuccess(res, file, null);

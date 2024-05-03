@@ -59,4 +59,5 @@ export type ControlType =
   | "component_textbox_na"
   | "component_location_dropdown"
   | "component_generate_report"
-  | "component_telephone_text";
+  | "component_telephone_text"
+  | "component_list_reports";

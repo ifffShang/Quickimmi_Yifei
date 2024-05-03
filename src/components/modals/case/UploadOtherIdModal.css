@@ -12,12 +12,12 @@
 }
 
 .upload-other-id .upload-other-id-controls {
-  margin: 20px 0 0 0;
+  margin: 40px 0 40px 0;
+  align-self: center;
+  width: 150px;
   display: flex;
-  flex-direction: column;
-  gap: 20px;
 }
 
-.upload-passport-controls {
-  margin: 40px auto;
+.upload-other-id .upload-other-id-controls button {
+  width: 100%;
 }

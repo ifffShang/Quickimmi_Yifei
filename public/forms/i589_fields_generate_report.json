@@ -8,6 +8,11 @@
       "label": "text_TestPurpose",
       "id": "generate_report",
       "control": "component_generate_report"
+    },
+    {
+      "label": "text_Reports",
+      "id": "generate_report",
+      "control": "component_list_reports"
     }
   ]
 }

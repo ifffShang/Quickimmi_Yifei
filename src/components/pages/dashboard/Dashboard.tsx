@@ -6,11 +6,10 @@ import { createNewCaseApi, getCasesApi } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { updateCases, updateCurrentCaseId } from "../../../reducers/caseSlice";
 import { QText } from "../../common/Fonts";
-import { CaseIcon, NewApplicationIcon } from "../../icons/Dashboard";
-import "./Dashboard.css";
 import { Loading } from "../../common/Loading";
-import { getCaseId } from "../../../utils/utils";
+import { NewApplicationIcon } from "../../icons/Dashboard";
 import { CaseCard } from "./CaseCard";
+import "./Dashboard.css";
 
 export function Dashboard() {
   const navigate = useNavigate();

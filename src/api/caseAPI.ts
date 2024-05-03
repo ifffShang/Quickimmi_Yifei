@@ -139,6 +139,19 @@ export async function parsePassportApi(
   return <ParsePassportResponse>res.data;
 }
 
+export async function getDocumentByIdApi(
+  accessToken: string,
+  documentId: number,
+): Promise<UploadedDocument> {
+  const res = await performApiRequest(
+    `api/document/get?documentId=${documentId}`,
+    "GET",
+    null,
+    accessToken,
+  );
+  return <UploadedDocument>res.data;
+}
+
 export async function getDocumentsApi(
   accessToken: string,
   caseId: number,

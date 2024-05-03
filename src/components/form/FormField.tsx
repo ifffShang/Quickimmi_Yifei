@@ -16,11 +16,11 @@ import {
 import {
   CheckBox,
   QDatePicker,
-  QDropdown,
   QTextBox,
   RadioSelect,
   SelectBox,
 } from "./fields/Controls";
+import { DocumentList } from "./fields/DocumentList";
 import { GenerateDocument } from "./fields/GenerateDocument";
 import { LocationDropdown } from "./fields/LocationDropdown";
 import { PassportUploader } from "./fields/PassportUploader";
@@ -192,8 +192,6 @@ export function FormField(props: FormFieldProps) {
       return <div>Fileplus not implemented</div>;
     case "file":
       return <div>File not implemented</div>;
-    case "dropdown":
-      return <QDropdown label="test" onChange={() => {}} />;
     case "select":
       return (
         <SelectBox
@@ -244,6 +242,8 @@ export function FormField(props: FormFieldProps) {
       );
     case "component_generate_report":
       return <GenerateDocument />;
+    case "component_list_reports":
+      return <DocumentList />;
     case "group":
       if (props.subFields && props.subFields.length > 0) {
         const subFieldsCss = "horizontal-" + `${props.maxChildPerRow || 1}`;

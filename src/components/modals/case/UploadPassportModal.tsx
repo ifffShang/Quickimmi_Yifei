@@ -21,7 +21,6 @@ export function UploadPassportModal() {
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const [confirmDisabled, setConfirmDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [progressPercetage, setProgressPercentage] = useState(0);
   const presignedUrlResRef = useRef<GeneratePresignedUrlResponse | null>(null);
   const fileRef = useRef<File | null>(null);
 
@@ -62,7 +61,7 @@ export function UploadPassportModal() {
   };
 
   const onProgress = (percent: number) => {
-    setProgressPercentage(percent);
+    console.log(percent);
   };
 
   const onSuccess = () => {
@@ -128,7 +127,7 @@ export function UploadPassportModal() {
         >
           {confirmDisabled ? (
             loading ? (
-              <LoadingOutlined label={progressPercetage.toString()} />
+              <LoadingOutlined />
             ) : (
               wt("Confirm")
             )
