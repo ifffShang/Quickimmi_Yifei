@@ -80,7 +80,7 @@
   "VerificationCode": "Verification Code",
   "PhoneNumber": "Phone Number",
   "InputConfirmationCode": "Please input the verification code sent to: ",
-  
+
   "UploadPassport": "Upload Passport",
   "UploadPassportDescription1": "Upload images of the front side of your business representative's These images will be used for identity verification purposes.",
   "UploadPassportDescription2": "Be sure that your images include all information on the front side of your ID, including any signatures. Images also need to be clear, without any warped or blurred portions.",
@@ -89,7 +89,6 @@
   "NoPassportSelected": "Your selection: I don't have a passport",
   "ReturnToPassportUpload": "Return to Passport Upload",
   "Confirm": "Confirm",
-  "BirthDate": "Birth Date",
   "Dashboard": {
     "Dashboard": "Dashboard",
     "FirstApplication": "Start Your First Application",
@@ -121,7 +120,7 @@
 
   "IdNumber": "ID Number",
   "IdInformation": "ID Information",
-  
+
   "PassportNumber": "Passport Number",
   "TravelDocumentNumber": "Travel Document Number",
   "IdExpirationDate": "ID Expiration Date",
@@ -130,9 +129,33 @@
   "FirstName": "First Name",
   "LastName": "Last Name",
   "MiddleName": "Middle Name",
-  "OtherNames": "Other Names",
-  "OtherNamesNAText": "I don't have other names",
+  "OtherNamesLabel": "Other Names",
+  "OtherNames": "Add any other names used",
+
+  "IDInformation": "ID Information",
+  "IDExpirationDate": "ID Expiration Date",
+  "IDIssuingCountry": "ID Issuing Country",
+
+  "InformationOfBirth": "Information of Birth",
+  "DateOfBirth": "Date of Birth",
+  "Gender": "Gender",
+  "LocationOfBirth": "Location of Birth",
   
+
+  "PersonalDemographics": "Personal Demographics",
+  "Race": "Race",
+  "Religion": "Religion",
+
+  "Nationality": "Nationality",
+  "PresentNationality": "Present Nationality",
+  "NationalityAtBirth": "Nationality at Birth",
+
+  "Language": "Language",
+  "NativeLanguage": "Native Language",
+  "FluentInEnglish": "I am fluent in English",
+  "OtherFluentLanguagesLabel": "Other Fluent Languages",
+  "OtherFluentLanguages": "Add another language you speak fluently",
+
   "NewCaseField": {
     "EntryLocation": {
       "Title": "Enter the Place of Entry",
@@ -150,7 +173,6 @@
       }
     }
   },
-  "Gender": "Gender",
   "Male": "Male",
   "Female": "Female",
   "MaritalStatus": "Marital Status",
@@ -158,7 +180,6 @@
   "Married": "Married",
   "Divorced": "Divorced",
   "Widowed": "Widowed",
-  "Race": "Race",
   "RaceOptions": [
     "American Indian or Alaska Native",
     "Asian",
@@ -167,7 +188,6 @@
     "Native Hawaiian or Other Pacific Islander",
     "White"
   ],
-  "Religion": "Religion",
   "ReligionOptions": [
     "African Traditional & Diasporic",
     "Agnostic",
@@ -195,8 +215,6 @@
     "Primal-indigenous",
     "Other"
   ],
-  "PresentNationality": "Present Nationality",
-  "NationalityAtBirth": "Nationality at Birth",
   "NationalityOptions": [
     "Afghan",
     "Albanian",
@@ -395,9 +413,7 @@
     "Zimbabwean"
   ],
   "PhoneNumberFormat": "(Area code)-XXX-XXXX",
-  "LocationOfBirth": "Location of Birth",
-  "FluentInEnglish": "I am fluent in English",
-  "ResidentalAddressInUs": "Residential Address in the U.S.",
+  "ResidentialAddressInUs": "Residential Address in the U.S.",
   "ImmigrationCourtNever": "I have never been in Immigration Court proceedings.",
   "ImmigrationCourtNow": "I am now in Immigration Court proceedings.",
   "ImmigrationCourtPast": "I am not now in Immigration Court proceedings, but I have been in the past"

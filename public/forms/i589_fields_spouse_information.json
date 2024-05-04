@@ -5,6 +5,35 @@
   "key": "applicant",
   "fields": [
     {
+      "label": "text_MaritalStatus",
+      "placeholder": "text_MaritalStatus",
+      "id": "maritalStatus",
+      "key": "maritalStatusSingleCheckbox,maritalStatusMarriedCheckbox,maritalStatusDivorcedCheckbox,maritalStatusWidowedCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "Single",
+          "label": "text_Single",
+          "keyValue": "true,false,false,false"
+        },
+        {
+          "value": "Married",
+          "label": "text_Married",
+          "keyValue": "false,true,false,false"
+        },
+        {
+          "value": "Divorced",
+          "label": "text_Divorced",
+          "keyValue": "false,false,true,false"
+        },
+        {
+          "value": "Widowed",
+          "label": "text_Widowed",
+          "keyValue": "false,false,false,true"
+        }
+      ]
+    },
+    {
       "label": "text_Name",
       "id": "name",
       "control": "group",

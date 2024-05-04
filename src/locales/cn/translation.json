@@ -85,7 +85,7 @@
   "NoPassportSelected": "您的选择：我没有护照",
   "ReturnToPassportUpload": "返回护照上传",
   "Confirm": "确认",
-  "BirthDate": "出生日期",
+  
   "Dashboard": {
     "Dashboard": "仪表盘",
     "FirstApplication": "开始您的第一个申请吧",
@@ -119,14 +119,38 @@
   "IdInformation": "证件信息",
   "PassportNumber": "护照号码",
   "TravelDocumentNumber": "旅行证件号码",
-  
+
   "IdExpirationDate": "证件到期日期",
   "IdIssuingCountry": "证件签发国家",
   "FirstName": "名",
   "LastName": "姓",
   "MiddleName": "中间名",
-  "OtherNames": "曾用名",
-  "OtherNamesNAText": "我没有其他名字",
+  "OtherNamesLabel": "曾用名",
+  "OtherNames": "添加一个曾用名",
+
+  "IDInformation": "证件信息",
+  "IDExpirationDate": "证件有效期",
+  "IDIssuingCountry": "证件发行国",
+
+  "InformationOfBirth": "出生信息",
+  "DateOfBirth": "出生日期",
+  "Gender": "性别",
+  "LocationOfBirth": "出生地点",
+  
+  "PersonalDemographics": "个人特征",
+  "Race": "种族",
+  "Religion": "宗教",
+
+  "Nationality":"国籍",
+  "NationalityAtBirth": "出生时国籍",
+  "PresentNationality": "现在的国籍",
+
+  "Language": "语言",
+  "NativeLanguage": "母语",
+  "FluentInEnglish": "我可以流利地说英语",
+  "OtherFluentLanguagesLabel": "其他流利语言",
+  "OtherFluentLanguages": "添加另一种你能流利说的语言",
+
 
   "NewCaseField": {
     "EntryLocation": {
@@ -145,7 +169,6 @@
       }
     }
   },
-  "Gender": "性别",
   "Male": "男",
   "Female": "女",
   "MaritalStatus": "婚姻状况",
@@ -153,7 +176,6 @@
   "Married": "已婚",
   "Divorced": "离异",
   "Widowed": "丧偶",
-  "Race": "种族",
   "RaceOptions": [
     "美洲印第安人或阿拉斯加土著",
     "亚洲人",
@@ -162,7 +184,6 @@
     "夏威夷土著或其他太平洋岛民",
     "白人"
   ],
-  "Religion": "宗教",
   "ReligionOptions": [
     "非洲传统宗教与散居民族宗教",
     "不可知论者",
@@ -190,8 +211,6 @@
     "原始-土著宗教",
     "其他"
   ],
-  "PresentNationality": "当前国籍",
-  "NationalityAtBirth": "出生国籍",
   "NationalityOptions": [
     "阿富汗人",
     "阿尔巴尼亚人",
@@ -389,7 +408,5 @@
     "赞比亚人",
     "津巴布韦人"
   ],
-  "PhoneNumberFormat": "(区域代码)-XXX-XXXX",
-  "LocationOfBirth": "出生地",
-  "FluentInEnglish": "我可以流利地说英语"
+  "PhoneNumberFormat": "(区域代码)-XXX-XXXX"
 }

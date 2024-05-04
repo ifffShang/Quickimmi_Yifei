@@ -63,64 +63,72 @@
       ]
     },
     {
-      "label": "text_OtherNames",
+      "label": "text_OtherNamesLabel",
       "placeholder": "text_OtherNames",
       "id": "other_names",
       "key": "namesUsedBefore",
       "control": "component_textbox_na"
     },
     {
-      "label": "text_BirthDate",
-      "placeholder": "text_BirthDate",
-      "id": "birth_date",
-      "key": "birthDate",
-      "control": "datepicker"
-    },
-    {
-      "label": "text_Gender",
-      "placeholder": "text_Gender",
-      "id": "gender",
-      "key": "genderMaleCheckbox,genderFemaleCheckbox",
-      "control": "select",
-      "options": [
+      "label": "text_IDInformation",
+      "id": "id_information",
+      "control": "group",
+      "maxChildPerRow": "3",
+      "fields": [
         {
-          "value": "Male",
-          "label": "text_Male",
-          "keyValue": "true,false"
+          "label": "text_IDExpirationDate",
+          "placeholder": "text_IDExpirationDate",
+          "id": "id_expiration_date",
+          "key": "idExpirationDate",
+          "control": "datepicker"
         },
         {
-          "value": "Female",
-          "label": "text_Female",
-          "keyValue": "false,true"
+          "label": "text_IDIssuingCountry",
+          "placeholder": "text_IDIssuingCountry",
+          "id": "id_issuing_country",
+          "key": "idIssuingCountry",
+          "control": "component_location_dropdown"
         }
       ]
     },
     {
-      "label": "text_MaritalStatus",
-      "placeholder": "text_MaritalStatus",
-      "id": "maritalStatus",
-      "key": "maritalStatusSingleCheckbox,maritalStatusMarriedCheckbox,maritalStatusDivorcedCheckbox,maritalStatusWidowedCheckbox",
-      "control": "select",
-      "options": [
+      "label": "text_InformationOfBirth",
+      "id": "information_of_birth",
+      "control": "group",
+      "maxChildPerRow": "3",
+      "fields": [
         {
-          "value": "Single",
-          "label": "text_Single",
-          "keyValue": "true,false,false,false"
+          "label": "text_DateOfBirth",
+          "placeholder": "text_DateOfBirth",
+          "id": "date_of_birth",
+          "key": "dateOfBirth",
+          "control": "datepicker"
         },
         {
-          "value": "Married",
-          "label": "text_Married",
-          "keyValue": "false,true,false,false"
+          "label": "text_Gender",
+          "placeholder": "text_Gender",
+          "id": "gender",
+          "key": "genderMaleCheckbox,genderFemaleCheckbox",
+          "control": "select",
+          "options": [
+            {
+              "value": "Male",
+              "label": "text_Male",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "Female",
+              "label": "text_Female",
+              "keyValue": "false,true"
+            }
+          ]
         },
         {
-          "value": "Divorced",
-          "label": "text_Divorced",
-          "keyValue": "false,false,true,false"
-        },
-        {
-          "value": "Widowed",
-          "label": "text_Widowed",
-          "keyValue": "false,false,false,true"
+          "label": "text_LocationOfBirth",
+          "placeholder": "text_LocationOfBirth",
+          "id": "location_of_birth",
+          "key": "cityAndCountryOfBirth",
+          "control": "component_location_dropdown"
         }
       ]
     },
@@ -131,51 +139,52 @@
       "maxChildPerRow": "3",
       "fields": [
         {
-          "label": "text_PresentNationality",
-          "placeholder": "text_PresentNationality",
-          "id": "nationality",
-          "key": "nationality",
-          "control": "select",
-          "options": "NationalityOptions"
-        },
-        {
           "label": "text_NationalityAtBirth",
           "placeholder": "text_NationalityAtBirth",
           "id": "nationality_at_birth",
           "key": "nationalityAtBirth",
           "control": "select",
           "options": "NationalityOptions"
+        },
+        {
+          "label": "text_PresentNationality",
+          "placeholder": "text_PresentNationality",
+          "id": "nationality",
+          "key": "nationality",
+          "control": "select",
+          "options": "NationalityOptions"
         }
       ]
     },
     {
-      "label": "text_Race",
-      "placeholder": "text_Race",
-      "id": "race",
-      "key": "race",
-      "control": "select",
-      "options": "RaceOptions"
-    },
-    {
-      "label": "text_Religion",
-      "placeholder": "text_Religion",
-      "id": "religion",
-      "key": "religion",
-      "control": "select",
-      "options": "ReligionOptions"
-    },
-    {
-      "label": "text_LocationOfBirth",
-      "placeholder": "text_LocationOfBirth",
-      "id": "location_of_birth",
-      "key": "cityAndCountryOfBirth",
-      "control": "component_location_dropdown"
+      "label": "text_PersonalDemographics",
+      "id": "personal_demographics",
+      "control": "group",
+      "maxChildPerRow": "3",
+      "fields": [
+        {
+          "label": "text_Race",
+          "placeholder": "text_Race",
+          "id": "race",
+          "key": "race",
+          "control": "select",
+          "options": "RaceOptions"
+        },
+        {
+          "label": "text_Religion",
+          "placeholder": "text_Religion",
+          "id": "religion",
+          "key": "religion",
+          "control": "select",
+          "options": "ReligionOptions"
+        }
+      ]
     },
     {
       "label": "text_Language",
       "id": "language",
       "control": "group",
-      "maxChildPerRow": "1",
+      "maxChildPerRow": "3",
       "fields": [
         {
           "label": "text_NativeLanguage",
@@ -201,15 +210,15 @@
               "keyValue": "false,true"
             }
           ]
-        },
-        {
-          "label": "text_OtherFluentLanguages",
-          "placeholder": "text_OtherFluentLanguages",
-          "id": "other_fluent_languages",
-          "key": "otherFluentLanguages",
-          "control": "component_textbox_na"
         }
       ]
+    },
+    {
+      "label": "text_OtherFluentLanguagesLabel",
+      "placeholder": "text_OtherFluentLanguages",
+      "id": "other_fluent_languages",
+      "key": "otherFluentLanguages",
+      "control": "component_textbox_na"
     }
   ]
 }
