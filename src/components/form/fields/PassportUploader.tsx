@@ -34,16 +34,19 @@ export function PassportUploader(props: PassportUploaderProps) {
     getDocumentByIdApi(accessToken, props.documentId)
       .then(document => {
         const presignUrl = document.presignUrl;
-        downloadImage(presignUrl).then(url => {
+        downloadImage(presignUrl).then(doc => {
+          if (!doc || !doc.url) {
+            throw new Error("Failed to download image");
+          }
           setLoading(false);
-          dispatch(updatePassportOrIdImageUrl(url));
+          dispatch(updatePassportOrIdImageUrl(doc.url));
         });
       })
       .catch(error => {
         console.error(error);
         setLoading(false);
       });
-  }, []);
+  }, [accessToken, props.documentId, dispatch]);
 
   return (
     <div className="passport-uploader">

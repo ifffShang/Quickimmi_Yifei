@@ -2,34 +2,66 @@
   "id": "i589_fields_spouse_information",
   "version": "2024-04-01",
   "type": "fields",
-  "key": "applicant",
+  "key": "family>spouse",
   "fields": [
     {
-      "label": "text_Name",
-      "id": "name",
-      "control": "group",
-      "maxChildPerRow": "3",
+      "label": "none",
+      "id": "marriage_status_section",
+      "control": "section",
       "fields": [
         {
-          "label": "text_FirstName",
-          "placeholder": "text_FirstName",
-          "id": "first_name_spouse",
-          "key": "firstName",
-          "control": "text"
-        },
+          "label": "text_MaritalStatus",
+          "id": "marriage_status",
+          "key": "notMarriedCheckbox",
+          "control": "radio",
+          "options": [
+            {
+              "value": "true",
+              "label": "text_NotMarried",
+              "keyValue": "true"
+            },
+            {
+              "value": "false",
+              "label": "text_Married",
+              "keyValue": "false"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "none",
+      "id": "spouse_section",
+      "control": "section",
+      "fields": [
         {
-          "label": "text_MiddleName",
-          "placeholder": "text_MiddleName",
-          "id": "middle_name_spouse",
-          "key": "middleName",
-          "control": "text"
-        },
-        {
-          "label": "text_LastName",
-          "placeholder": "text_LastName",
-          "id": "last_name_spouse",
-          "key": "lastName",
-          "control": "text"
+          "label": "text_Name",
+          "id": "name",
+          "control": "group",
+          "maxChildPerRow": "3",
+          "fields": [
+            {
+              "label": "text_FirstName",
+              "placeholder": "text_FirstName",
+              "id": "first_name_spouse",
+              "key": "firstName",
+              "control": "text"
+            },
+            {
+              "label": "text_MiddleName",
+              "placeholder": "text_MiddleName",
+              "id": "middle_name_spouse",
+              "key": "middleName",
+              "control": "text"
+            },
+            {
+              "label": "text_LastName",
+              "placeholder": "text_LastName",
+              "id": "last_name_spouse",
+              "key": "lastName",
+              "control": "text"
+            }
+          ]
         }
       ]
     },

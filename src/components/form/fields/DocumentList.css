@@ -1,5 +1,3 @@
-.document-list img {
+.document-list a {
   display: block;
-  max-width: 400px;
-  width: 100%;
 }

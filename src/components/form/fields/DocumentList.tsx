@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useDocumentsOnLoad } from "../../../hooks/commonHooks";
-import "./DocumentList.css";
 import { Loading } from "../../common/Loading";
+import "./DocumentList.css";
+import { saveAs } from "file-saver";
 
 export function DocumentList() {
   const dispatch = useAppDispatch();
@@ -21,8 +22,30 @@ export function DocumentList() {
   return (
     <div className="document-list">
       {loading && <Loading />}
-      {documentUrls.map(url => {
-        return <img key={url} src={url} />;
+      {documentUrls.map((url, index) => {
+        return (
+          <a
+            key={index}
+            href="#"
+            onClick={e => {
+              e.preventDefault();
+              //saveAs(url.document, url.filename);
+              let fileUrl = "";
+              if (url.filename.indexOf(".pdf") > -1) {
+                fileUrl = URL.createObjectURL(
+                  new Blob([url.document], { type: "application/pdf" }),
+                );
+              } else {
+                fileUrl = URL.createObjectURL(url.document);
+              }
+              window.open(fileUrl, "_blank");
+            }}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {url.filename}
+          </a>
+        );
       })}
     </div>
   );

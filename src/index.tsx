@@ -10,6 +10,7 @@ import awsExports from "./aws-exports";
 import "./index.css";
 import "./locales/i18n";
 import reportWebVitals from "./reportWebVitals";
+import { pdfjs } from "react-pdf";
 
 // Configure Amplify in index file or root file
 Amplify.configure({
@@ -20,6 +21,8 @@ Amplify.configure({
     },
   },
 });
+
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
