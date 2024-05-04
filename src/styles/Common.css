@@ -87,6 +87,7 @@
   margin-bottom: 20px;
   flex-wrap: wrap;
   max-width: calc(var(--textbox-width) * 3 + 60px);
+  width: 100%;
 }
 
 .horizontal-3 > .sub-field {
@@ -101,7 +102,7 @@
   flex: 1 1 100%;
 }
 
-.horizontal-3 > .in-care-of-single-line {
+.horizontal-3 > .single-line {
   min-width: 100%;
 }
 

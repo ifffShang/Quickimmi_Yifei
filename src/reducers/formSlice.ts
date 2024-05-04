@@ -49,7 +49,12 @@ export const formSlice = createSlice({
         firstName: action.payload.firstName,
         lastName: action.payload.lastName,
         middleName: action.payload.middleName,
+        genderMaleCheckbox: action.payload.gender === "Male",
+        genderFemaleCheckbox: action.payload.gender === "Female",
+        nationality: action.payload.nationality,
+        expirationDate: action.payload.expireDate,
         birthDate: action.payload.birthDate,
+        cityAndCountryOfBirth: action.payload.birthPlace,
       };
       Object.assign(state.applicationCase.profile.applicant, payload);
     },
@@ -58,10 +63,10 @@ export const formSlice = createSlice({
         firstName: action.payload.firstName,
         lastName: action.payload.lastName,
         middleName: action.payload.middleName,
-        birthDate: action.payload.birthDate,
         genderMaleCheckbox: action.payload.gender === "Male",
         genderFemaleCheckbox: action.payload.gender === "Female",
         nationality: action.payload.nationality,
+        birthDate: action.payload.birthDate,
         cityAndCountryOfBirth: action.payload.birthPlace,
       };
       Object.assign(state.applicationCase.profile.applicant, payload);
@@ -75,6 +80,10 @@ export const formSlice = createSlice({
         firstName: action.payload.firstName,
         lastName: action.payload.lastName,
         middleName: action.payload.middleName,
+        genderMaleCheckbox: action.payload.gender === "Male",
+        genderFemaleCheckbox: action.payload.gender === "Female",
+        nationality: action.payload.nationality,
+        expirationDate: action.payload.expireDate,
         birthDate: action.payload.birthDate,
         cityAndCountryOfBirth: action.payload.birthPlace,
       };

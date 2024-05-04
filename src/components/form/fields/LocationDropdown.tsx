@@ -18,7 +18,7 @@ export interface LocationDropdownProps {
   prefillStr?: string;
   prefillData?: LocationObject;
   placeholder?: LocationObject;
-  onLocationChange?: (country?: string, state?: string, city?: string) => void;
+  onLocationChange: (country?: string, state?: string, city?: string) => void;
 }
 
 export function LocationDropdown(props: LocationDropdownProps) {
@@ -78,11 +78,33 @@ export function LocationDropdown(props: LocationDropdownProps) {
   };
 
   useEffect(() => {
-    props.onLocationChange?.(country?.value, state?.value, city?.value);
+    const {
+      countryPrefillOption,
+      states,
+      statePrefillOption,
+      cities,
+      cityPrefillOption,
+    } = getPrefillLocationOptions(props.prefillStr ?? "", props.prefillData);
+
+    setStateData(states ?? []);
+    setCityData(cities ?? []);
+    setCountry(countryPrefillOption);
+    setState(statePrefillOption);
+    setCity(cityPrefillOption);
+
+    props.onLocationChange(
+      countryPrefillOption?.value,
+      statePrefillOption?.value,
+      cityPrefillOption?.value,
+    );
+  }, [props.prefillStr, props.prefillData]);
+
+  useEffect(() => {
+    props.onLocationChange(country?.value, state?.value, city?.value);
   }, [country, state, city]);
 
   return (
-    <div className="location-dropdown-container">
+    <div className="location-dropdown-container horizontal-3">
       <Select
         className="sub-field"
         placeholder={props.placeholder?.country || "Select a country"}

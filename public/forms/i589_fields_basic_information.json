@@ -79,15 +79,16 @@
           "label": "text_IDExpirationDate",
           "placeholder": "text_IDExpirationDate",
           "id": "id_expiration_date",
-          "key": "idExpirationDate",
+          "key": "expirationDate",
           "control": "datepicker"
         },
         {
           "label": "text_IDIssuingCountry",
           "placeholder": "text_IDIssuingCountry",
           "id": "id_issuing_country",
-          "key": "idIssuingCountry",
-          "control": "component_location_dropdown"
+          "key": "passportIssueCountry",
+          "control": "component_location_dropdown",
+          "className": "single-line"
         }
       ]
     },
@@ -101,7 +102,7 @@
           "label": "text_DateOfBirth",
           "placeholder": "text_DateOfBirth",
           "id": "date_of_birth",
-          "key": "dateOfBirth",
+          "key": "birthDate",
           "control": "datepicker"
         },
         {
@@ -109,7 +110,8 @@
           "placeholder": "text_LocationOfBirth",
           "id": "location_of_birth",
           "key": "cityAndCountryOfBirth",
-          "control": "component_location_dropdown"
+          "control": "component_location_dropdown",
+          "className": "single-line"
         }
       ]
     },

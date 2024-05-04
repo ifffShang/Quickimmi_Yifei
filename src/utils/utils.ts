@@ -189,9 +189,13 @@ export function parseCityAndCountryStr(
   if (!cityAndCountry) return { city: "", state: "", country: "" };
   const cityAndCountryArr = cityAndCountry.split(", ");
   if (cityAndCountryArr.length === 1)
-    return { city: "", state: "", country: cityAndCountryArr[0] };
+    return { city: "", state: "", country: cityAndCountryArr[0] ?? "" };
   if (cityAndCountryArr.length === 2)
-    return { city: "", state: "", country: cityAndCountryArr[1] };
+    return {
+      city: cityAndCountryArr[0] ?? "",
+      state: cityAndCountryArr[0] ?? "",
+      country: cityAndCountryArr[1] ?? "",
+    };
   return {
     city: cityAndCountryArr[0] ?? "",
     state: cityAndCountryArr[1] ?? "",
@@ -204,8 +208,8 @@ export function formatCityAndCountryStr(
   state?: string,
   city?: string,
 ) {
-  if (!city || !state || !country) return "";
-  if (!city || !state) return country;
+  if (!city && !state && !country) return "";
+  if (!city && !state) return country;
   if (!city) return `${state}, ${country}`;
   if (state === city) return `${city}, ${country}`;
   return `${city}, ${state}, ${country}`;
@@ -230,7 +234,9 @@ export function getPrefillLocationOptions(
 
   const allCountries = Country.getAllCountries();
   const result = { countries: allCountries };
-  const prefillCountry = allCountries.find(c => c.name === country);
+  const prefillCountry = allCountries.find(
+    c => c.name.toLocaleLowerCase() === country.toLocaleLowerCase(),
+  );
 
   if (!prefillCountry) return result;
   const countryPrefillOption = {
@@ -243,9 +249,34 @@ export function getPrefillLocationOptions(
   if (!state) return result;
   const allStates = State.getStatesOfCountry(countryPrefillOption.key);
   result["states"] = allStates;
-  const prefillState = allStates.find(s => s.name === state);
+  const prefillState = allStates.find(
+    s => s.name.toLocaleLowerCase() === state.toLocaleLowerCase(),
+  );
 
-  if (!prefillState) return result;
+  if (!prefillState) {
+    // if we can't find the state, we will try to find the city, user might have entered city and country only
+    allStates.forEach(s => {
+      const cities = City.getCitiesOfState(countryPrefillOption.key, s.isoCode);
+      const prefillCity = cities.find(
+        c => c.name.toLocaleLowerCase() === state.toLocaleLowerCase(),
+      );
+      if (prefillCity) {
+        result["statePrefillOption"] = {
+          value: s.name,
+          label: s.name,
+          key: s.isoCode,
+        };
+        result["cities"] = cities;
+        result["cityPrefillOption"] = {
+          value: prefillCity.name,
+          label: prefillCity.name,
+        };
+        return result;
+      }
+    });
+    return result;
+  }
+
   const statePrefillOption = {
     value: prefillState.name,
     label: prefillState.name,
@@ -259,7 +290,9 @@ export function getPrefillLocationOptions(
     statePrefillOption.key,
   );
   result["cities"] = allCities;
-  const prefillCity = allCities.find(c => c.name === city);
+  const prefillCity = allCities.find(
+    c => c.name.toLocaleLowerCase() === city.toLocaleLowerCase(),
+  );
 
   if (!prefillCity) return result;
   const cityPrefillOption = {

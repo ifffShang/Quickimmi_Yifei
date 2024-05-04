@@ -75,7 +75,7 @@
           "id": "in_care_of_name_mailing_address",
           "key": "inCareOf",
           "control": "text",
-          "className": "in-care-of-single-line"
+          "className": "single-line"
         },
         {
           "label": "text_Street",
