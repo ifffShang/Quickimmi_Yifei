@@ -38,6 +38,68 @@
           "id": "spouse_information",
           "type": "level2",
           "referenceId": "i589_fields_spouse_information"
+        },
+        {
+          "label": "text_ChildrenInformation",
+          "id": "children_information",
+          "type": "level2",
+          "referenceId": "i589_fields_children_information"
+        },
+        {
+          "label": "text_ParentsInformation",
+          "id": "parents_information",
+          "type": "level2",
+          "referenceId": "i589_fields_parents_information"
+        },
+        {
+          "label": "text_SiblingsInformation",
+          "id": "siblings_information",
+          "type": "level2",
+          "referenceId": "i589_fields_siblings_information"
+        }
+      ]
+    },
+    {
+      "label": "text_BackgroundInformation",
+      "id": "background_information",
+      "type": "level1",
+      "steps": [
+        {
+          "label": "text_AddressInformation",
+          "id": "address_information",
+          "type": "level2",
+          "referenceId": "i589_fields_address_information"
+        },
+        {
+          "label": "text_EducationInformation",
+          "id": "education_information",
+          "type": "level2",
+          "referenceId": "i589_fields_education_information"
+        },
+        {
+          "label": "text_EmploymentInformation",
+          "id": "employment_information",
+          "type": "level2",
+          "referenceId": "i589_fields_employment_information"
+        }
+      ]
+    },
+    {
+      "label": "text_ApplicationInformation",
+      "id": "application_information",
+      "type": "level1",
+      "steps": [
+        {
+          "label": "text_AsylumClaim",
+          "id": "asylum_claim",
+          "type": "level2",
+          "referenceId": "i589_fields_asylum_claim"
+        },
+        {
+          "label": "text_AdditionalInformation",
+          "id": "additional_information",
+          "type": "level2",
+          "referenceId": "i589_fields_additional_information"
         }
       ]
     },

@@ -3,5 +3,8 @@
   "editor.formatOnSave": true,
   "[css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "cSpell.words": [
+    "Quickimmi"
+  ]
 }
