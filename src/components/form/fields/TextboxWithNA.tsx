@@ -1,9 +1,8 @@
-import { Button, Checkbox, CheckboxProps } from "antd";
-import { QTextBox } from "./Controls";
+import { MinusCircleFilled, PlusCircleFilled } from "@ant-design/icons";
+import { Button } from "antd";
 import { useState } from "react";
+import { QTextBox } from "./Controls";
 import "./TextboxWithNA.css";
-import { useFormTranslation } from "../../../hooks/commonHooks";
-import { PlusCircleFilled, MinusCircleFilled } from "@ant-design/icons";
 
 export interface TextBoxWithNAProps {
   placeholder: string;
@@ -17,7 +16,6 @@ interface TextBoxList {
 }
 
 export function TextboxWithNA(props: TextBoxWithNAProps) {
-  const { wt } = useFormTranslation();
   const prefillTexts = props.value
     ? props.value.split(", ").map((value, index) => ({
         id: index,
@@ -61,7 +59,7 @@ export function TextboxWithNA(props: TextBoxWithNAProps) {
           setTextboxList([...textboxList, { id: newId, value: "" }])
         }
       >
-        {wt(props.placeholder)}
+        {props.placeholder}
       </Button>
     </div>
   );

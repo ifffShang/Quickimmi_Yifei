@@ -122,18 +122,18 @@
       "maxChildPerRow": "3",
       "fields": [
         {
-          "label": "text_NationalityAtBirth",
-          "placeholder": "text_NationalityAtBirth",
-          "id": "nationality_at_birth",
-          "key": "nationalityAtBirth",
-          "control": "select",
-          "options": "NationalityOptions"
-        },
-        {
           "label": "text_PresentNationality",
           "placeholder": "text_PresentNationality",
           "id": "nationality",
           "key": "nationality",
+          "control": "select",
+          "options": "NationalityOptions"
+        },
+        {
+          "label": "text_NationalityAtBirth",
+          "placeholder": "text_NationalityAtBirth",
+          "id": "nationality_at_birth",
+          "key": "nationalityAtBirth",
           "control": "select",
           "options": "NationalityOptions"
         }

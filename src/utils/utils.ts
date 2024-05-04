@@ -98,6 +98,10 @@ export function getFieldValue(
     console.info("Case profile is missing");
     return;
   }
+  if (!key) {
+    console.info("Key is missing, skip, this is for group control.");
+    return;
+  }
   const parentValues = caseDetails[parentKey];
   if (!parentValues) {
     console.error(`Values of parent key ${parentKey} are missing`);

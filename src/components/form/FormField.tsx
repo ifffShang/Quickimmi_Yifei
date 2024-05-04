@@ -40,7 +40,7 @@ export interface FormFieldProps {
 }
 
 export function FormField(props: FormFieldProps) {
-  const { wt, wa } = useFormTranslation();
+  const { wt } = useFormTranslation();
   const dispatch = useAppDispatch();
   const caseDetails = useAppSelector(
     state => state.form.applicationCase?.profile,
@@ -58,6 +58,7 @@ export function FormField(props: FormFieldProps) {
 
   console.log(
     `Field ${props.parentFieldKey}-${props.fieldKey} value: ${fieldValue}`,
+    props,
   );
 
   const onOptionChange = (value: string) => {
