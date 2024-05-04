@@ -5,28 +5,28 @@
   "key": "applicant",
   "fields": [
     {
-      "label": "text_AlienRegistrationNumber",
+      "label": "text_AlienRegistrationNumberLabel",
       "placeholder": "text_AlienRegistrationNumber",
       "id": "alien_registration_number",
       "key": "anumber",
       "control": "text"
     },
     {
-      "label": "text_UscisOnlineAccountNumber",
+      "label": "text_UscisOnlineAccountNumberLabel",
       "placeholder": "text_UscisOnlineAccountNumber",
       "id": "uscis_online_account_number",
       "key": "uscisOnlineAccountNumber",
       "control": "text"
     },
     {
-      "label": "text_I94Number",
+      "label": "text_I94NumberLabel",
       "placeholder": "text_I94Number",
       "id": "i94_number",
       "key": "i94Number",
       "control": "text"
     },
     {
-      "label": "text_SSN",
+      "label": "text_SSNLabel",
       "placeholder": "text_SSN",
       "id": "ssn",
       "key": "ssn",

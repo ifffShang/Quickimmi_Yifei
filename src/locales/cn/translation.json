@@ -54,9 +54,12 @@
   "SinglePage": {
     "ReturnHome": "返回主页"
   },
-  "View Details": "查看详情",
-  "SelectCaseType": "选择申请类型",
-  "EnterCaseDetails": "填写信息",
+  "ViewDetails": "查看详情",
+  "ApplicationType": "选择申请类型",
+  "LastUpdated": "上次更新",
+  "MasterApplicant": "主申请人",
+  "SelectCaseType": "选择案件类型",
+  "EnterCaseDetails": "输入案件详情",
   "ErrorMessage": {
     "InvalidPasswordFormat": "密码必须至少包含8个字符，并且包括至少1个数字、1个大写字母和1个小写字母",
     "InvalidEmailFormat": "无效的电子邮件格式",
@@ -85,7 +88,6 @@
   "NoPassportSelected": "您的选择：我没有护照",
   "ReturnToPassportUpload": "返回护照上传",
   "Confirm": "确认",
-
   "Dashboard": {
     "Dashboard": "仪表盘",
     "FirstApplication": "开始您的第一个申请吧",
@@ -119,9 +121,9 @@
   "IdInformation": "证件信息",
   "PassportNumber": "护照号码",
   "TravelDocumentNumber": "旅行证件号码",
-
   "IdExpirationDate": "证件到期日期",
   "IdIssuingCountry": "证件签发国家",
+
   "FirstName": "名",
   "LastName": "姓",
   "MiddleName": "中间名",
@@ -137,7 +139,7 @@
   "Gender": "性别",
   "LocationOfBirth": "出生地点",
 
-  "PersonalDemographics": "个人特征",
+  "PersonalDemographics": "特征",
   "Race": "种族",
   "Religion": "宗教",
 
@@ -151,23 +153,6 @@
   "OtherFluentLanguagesLabel": "其他流利语言",
   "OtherFluentLanguages": "添加另一种你能流利说的语言",
 
-  "NewCaseField": {
-    "EntryLocation": {
-      "Title": "请选择您的在美国的入境地址",
-      "PlaceHolder": {
-        "State": "州",
-        "City": "市"
-      }
-    },
-    "BirthLocation": {
-      "Title": "请选择您的出生地",
-      "PlaceHolder": {
-        "Country": "国家",
-        "State": "省/地区",
-        "City": "市"
-      }
-    }
-  },
   "Male": "男",
   "Female": "女",
   "MaritalStatus": "婚姻状况",
@@ -175,6 +160,7 @@
   "Married": "已婚",
   "Divorced": "离异",
   "Widowed": "丧偶",
+
   "RaceOptions": [
     "美洲印第安人或阿拉斯加土著",
     "亚洲人",
@@ -407,5 +393,29 @@
     "赞比亚人",
     "津巴布韦人"
   ],
-  "PhoneNumberFormat": "(区域代码)-XXX-XXXX"
+
+  "TelephoneNumberInUs": "美国电话号码",
+  "PhoneNumberFormat": "(区号)-XXX-XXXX",
+  "ResidentialAddressInUs": "美国居住地址",
+  "Street": "街道",
+  "ApartmentNumber": "公寓号",
+  "City": "城市",
+  "State": "州",
+  "ZipCode": "邮政编码",
+  "TelephoneNumberOfMailingInUs": "美国邮寄地址电话号码",
+  "InCareOfName": "收件人姓名",
+  "MailingAddressInUs": "美国邮寄地址",
+
+  "AlienRegistrationNumberLabel": "外国人注册号码",
+  "AlienRegistrationNumber": "如适用，请填写",
+  "UscisOnlineAccountNumberLabel": "美国公民及移民服务局在线账户号码",
+  "UscisOnlineAccountNumber": "如适用，请填写",
+  "I94NumberLabel": "I-94 号码",
+  "I94Number": "如适用，请填写",
+  "SSNLabel": "社会安全号码",
+  "SSN": "如适用，请填写",
+  "ImmigrationCourt": "移民法庭",
+  "ImmigrationCourtNever": "我从未参加过移民法庭程序。",
+  "ImmigrationCourtNow": "我目前正在移民法庭程序中。",
+  "ImmigrationCourtPast": "我现在不在移民法庭程序中，但我过去曾经参加过。"
 }

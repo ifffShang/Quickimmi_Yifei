@@ -80,7 +80,6 @@
   "VerificationCode": "Verification Code",
   "PhoneNumber": "Phone Number",
   "InputConfirmationCode": "Please input the verification code sent to: ",
-
   "UploadPassport": "Upload Passport",
   "UploadPassportDescription1": "Upload images of the front side of your business representative's These images will be used for identity verification purposes.",
   "UploadPassportDescription2": "Be sure that your images include all information on the front side of your ID, including any signatures. Images also need to be clear, without any warped or blurred portions.",
@@ -120,7 +119,6 @@
 
   "IdNumber": "ID Number",
   "IdInformation": "ID Information",
-
   "PassportNumber": "Passport Number",
   "TravelDocumentNumber": "Travel Document Number",
   "IdExpirationDate": "ID Expiration Date",
@@ -155,23 +153,6 @@
   "OtherFluentLanguagesLabel": "Other Fluent Languages",
   "OtherFluentLanguages": "Add another language you speak fluently",
 
-  "NewCaseField": {
-    "EntryLocation": {
-      "Title": "Enter the Place of Entry",
-      "PlaceHolder": {
-        "State": "Select a State",
-        "City": "Select a City"
-      }
-    },
-    "BirthLocation": {
-      "Title": "Enter the Place of Birth",
-      "PlaceHolder": {
-        "Country": "Select Country",
-        "State": "Select State",
-        "City": "Select City"
-      }
-    }
-  },
   "Male": "Male",
   "Female": "Female",
   "MaritalStatus": "Marital Status",
@@ -179,6 +160,7 @@
   "Married": "Married",
   "Divorced": "Divorced",
   "Widowed": "Widowed",
+
   "RaceOptions": [
     "American Indian or Alaska Native",
     "Asian",
@@ -411,8 +393,28 @@
     "Zambian",
     "Zimbabwean"
   ],
+
+  "TelephoneNumberInUs": "Telephone Number in the U.S.",
   "PhoneNumberFormat": "(Area code)-XXX-XXXX",
   "ResidentialAddressInUs": "Residential Address in the U.S.",
+  "Street": "Street",
+  "ApartmentNumber": "Apartment Number",
+  "City": "City",
+  "State": "State",
+  "ZipCode": "Zip Code",
+  "TelephoneNumberOfMailingInUs": "Telephone Number of Mailing Address in US",
+  "InCareOfName": "Recipient name",
+  "MailingAddressInUs": "Mailing Address in US",
+  
+  "AlienRegistrationNumberLabel": "Alien Registration Number",
+  "AlienRegistrationNumber": "Enter if applicable",
+  "UscisOnlineAccountNumberLabel": "USCIS Online Account Number",
+  "UscisOnlineAccountNumber": "Enter if applicable",
+  "I94NumberLabel": "I-94 Number",
+  "I94Number": "Enter if applicable",
+  "SSNLabel": "Social Security Number",
+  "SSN": "Enter if applicable",
+  "ImmigrationCourt": "Immigration Court",
   "ImmigrationCourtNever": "I have never been in Immigration Court proceedings.",
   "ImmigrationCourtNow": "I am now in Immigration Court proceedings.",
   "ImmigrationCourtPast": "I am not now in Immigration Court proceedings, but I have been in the past"

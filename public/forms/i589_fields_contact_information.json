@@ -13,8 +13,8 @@
       "format": "PhoneNumberRegex"
     },
     {
-      "label": "text_ResidentalAddressInUs",
-      "id": "residental_address_in_us",
+      "label": "text_ResidentialAddressInUs",
+      "id": "residential_address_in_us",
       "control": "group",
       "maxChildPerRow": "3",
       "fields": [

@@ -105,25 +105,6 @@
           "control": "datepicker"
         },
         {
-          "label": "text_Gender",
-          "placeholder": "text_Gender",
-          "id": "gender",
-          "key": "genderMaleCheckbox,genderFemaleCheckbox",
-          "control": "select",
-          "options": [
-            {
-              "value": "Male",
-              "label": "text_Male",
-              "keyValue": "true,false"
-            },
-            {
-              "value": "Female",
-              "label": "text_Female",
-              "keyValue": "false,true"
-            }
-          ]
-        },
-        {
           "label": "text_LocationOfBirth",
           "placeholder": "text_LocationOfBirth",
           "id": "location_of_birth",
@@ -162,6 +143,25 @@
       "control": "group",
       "maxChildPerRow": "3",
       "fields": [
+        {
+          "label": "text_Gender",
+          "placeholder": "text_Gender",
+          "id": "gender",
+          "key": "genderMaleCheckbox,genderFemaleCheckbox",
+          "control": "select",
+          "options": [
+            {
+              "value": "Male",
+              "label": "text_Male",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "Female",
+              "label": "text_Female",
+              "keyValue": "false,true"
+            }
+          ]
+        },
         {
           "label": "text_Race",
           "placeholder": "text_Race",
