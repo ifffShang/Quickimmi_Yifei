@@ -228,6 +228,7 @@ export function SelectBox(props: SelectBoxProps) {
   return (
     <div className="select-box">
       <Select
+        showSearch
         onChange={onValueChange}
         options={options}
         disabled={props.disabled || false}
