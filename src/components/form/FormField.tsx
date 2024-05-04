@@ -230,6 +230,7 @@ export function FormField(props: FormFieldProps) {
       return (
         <LocationDropdown
           prefillStr={fieldValue}
+          placeholder={{country: `${placeholder}`}}
           onLocationChange={(...params) => {
             const locationStr = formatCityAndCountryStr(...params);
             dispatch(
