@@ -82,7 +82,7 @@ export function LocationDropdown(props: LocationDropdownProps) {
   }, [country, state, city]);
 
   return (
-    <div className="location-dropdown-container horizontal-3">
+    <div className="location-dropdown-container">
       <Select
         className="sub-field"
         placeholder={props.placeholder?.country || "Select a country"}
