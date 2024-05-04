@@ -1,11 +1,11 @@
-.horizontal-1 .sub-field .container {
+.location-dropdown-container {
+  max-width: calc(var(--textbox-width)* 3 + 60px) !important;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
   margin-bottom: 20px;
   flex-wrap: wrap;
-  max-width: calc(var(--selectbox-width) * 3 + 20px) !important;
 }
 
 .location-dropdown-container .ant-select {

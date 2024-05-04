@@ -34,6 +34,20 @@
       ]
     },
     {
+      "label": "text_ExpirationDateLabel",
+      "placeholder": "text_ExpirationDate",
+      "id": "expiration_date",
+      "key": "expirationDate",
+      "control": "datepicker"
+    },
+    {
+      "label": "text_PassportIssueCountryLabel",
+      "placeholder": "text_PassportIssueCountry",
+      "id": "passport_issue_country",
+      "key": "passportIssueCountry",
+      "control": "component_location_dropdown"
+    },
+    {
       "label": "text_Name",
       "id": "name",
       "control": "group",
@@ -63,57 +77,25 @@
       ]
     },
     {
-      "label": "text_OtherNamesLabel",
-      "placeholder": "text_OtherNames",
-      "id": "other_names",
+      "label": "text_NamesUsedBeforeLabel",
+      "placeholder": "text_NamesUsedBefore",
+      "id": "names_used_before",
       "key": "namesUsedBefore",
       "control": "component_textbox_na"
     },
     {
-      "label": "text_IDInformation",
-      "id": "id_information",
-      "control": "group",
-      "maxChildPerRow": "3",
-      "fields": [
-        {
-          "label": "text_IDExpirationDate",
-          "placeholder": "text_IDExpirationDate",
-          "id": "id_expiration_date",
-          "key": "expirationDate",
-          "control": "datepicker"
-        },
-        {
-          "label": "text_IDIssuingCountry",
-          "placeholder": "text_IDIssuingCountry",
-          "id": "id_issuing_country",
-          "key": "passportIssueCountry",
-          "control": "component_location_dropdown",
-          "className": "single-line"
-        }
-      ]
+      "label": "text_BirthDate",
+      "placeholder": "text_BirthDate",
+      "id": "birth_date",
+      "key": "birthDate",
+      "control": "datepicker"
     },
     {
-      "label": "text_InformationOfBirth",
-      "id": "information_of_birth",
-      "control": "group",
-      "maxChildPerRow": "3",
-      "fields": [
-        {
-          "label": "text_DateOfBirth",
-          "placeholder": "text_DateOfBirth",
-          "id": "date_of_birth",
-          "key": "birthDate",
-          "control": "datepicker"
-        },
-        {
-          "label": "text_LocationOfBirth",
-          "placeholder": "text_LocationOfBirth",
-          "id": "location_of_birth",
-          "key": "cityAndCountryOfBirth",
-          "control": "component_location_dropdown",
-          "className": "single-line"
-        }
-      ]
+      "label": "text_CityAndCountryOfBirth",
+      "placeholder": "text_CityAndCountryOfBirth",
+      "id": "city_and_country_of_birth",
+      "key": "cityAndCountryOfBirth",
+      "control": "component_location_dropdown"
     },
     {
       "label": "text_Nationality",

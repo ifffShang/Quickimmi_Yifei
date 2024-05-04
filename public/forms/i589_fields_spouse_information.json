@@ -5,6 +5,35 @@
   "key": "family>spouse",
   "fields": [
     {
+      "label": "text_MaritalStatus",
+      "placeholder": "text_MaritalStatus",
+      "id": "maritalStatus",
+      "key": "maritalStatusSingleCheckbox,maritalStatusMarriedCheckbox,maritalStatusDivorcedCheckbox,maritalStatusWidowedCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "Single",
+          "label": "text_Single",
+          "keyValue": "true,false,false,false"
+        },
+        {
+          "value": "Married",
+          "label": "text_Married",
+          "keyValue": "false,true,false,false"
+        },
+        {
+          "value": "Divorced",
+          "label": "text_Divorced",
+          "keyValue": "false,false,true,false"
+        },
+        {
+          "value": "Widowed",
+          "label": "text_Widowed",
+          "keyValue": "false,false,false,true"
+        }
+      ]
+    },
+    {
       "label": "none",
       "id": "marriage_status_section",
       "control": "section",
@@ -30,38 +59,85 @@
       ]
     },
     {
-      "label": "none",
-      "id": "spouse_section",
-      "control": "section",
+      "label": "text_SpouseUploadID",
+      "id": "spouse_upload_id",
+      "control": "group",
       "fields": [
         {
-          "label": "text_Name",
-          "id": "name",
-          "control": "group",
-          "maxChildPerRow": "3",
-          "fields": [
+          "label": "text_SpouseUploadPassport",
+          "id": "spouse_upload_passport",
+          "key": "spousePassportUpload",
+          "control": "component_passport_uploader"
+        }
+      ]
+    },
+    {
+      "label": "text_SpouseApplication",
+      "id": "spouse_application",
+      "control": "group",
+      "maxChildPerRow": "1",
+      "fields": [
+        {
+          "label": "text_SpouseIsInUS",
+          "id": "spouse_is_in_us",
+          "key": "spouseIsInUSYesCheckbox,spouseIsInUSNoCheckbox",
+          "control": "checkbox",
+          "options": [
             {
-              "label": "text_FirstName",
-              "placeholder": "text_FirstName",
-              "id": "first_name_spouse",
-              "key": "firstName",
-              "control": "text"
+              "value": "true",
+              "label": "text_Yes",
+              "keyValue": "true,false"
             },
             {
-              "label": "text_MiddleName",
-              "placeholder": "text_MiddleName",
-              "id": "middle_name_spouse",
-              "key": "middleName",
-              "control": "text"
-            },
-            {
-              "label": "text_LastName",
-              "placeholder": "text_LastName",
-              "id": "last_name_spouse",
-              "key": "lastName",
-              "control": "text"
+              "value": "false",
+              "label": "text_No",
+              "keyValue": "false,true"
             }
           ]
+        },
+        {
+          "label": "text_SpouseIncludedInApplication",
+          "id": "spouse_included_in_application",
+          "key": "spouseIncludedInApplicationYesCheckbox, spouseIncludedInApplicationNoCheckbox",
+          "control": "checkbox",
+          "options": [
+            {
+              "value": "true",
+              "label": "text_Yes",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "false",
+              "label": "text_No",
+              "keyValue": "false,true"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "text_Name",
+      "id": "spouse_name",
+      "control": "group",
+      "maxChildPerRow": "3",
+      "fields": [
+        {
+          "label": "text_LastName",
+          "id": "spouse_last_name",
+          "key": "spouseLastName",
+          "control": "text"
+        },
+        {
+          "label": "text_MiddleName",
+          "id": "spouse_middle_name",
+          "key": "spouseMiddleName",
+          "control": "text"
+        },
+        {
+          "label": "text_FirstName",
+          "id": "spouse_first_name",
+          "key": "spouseFirstName",
+          "control": "text"
         }
       ]
     },
@@ -72,6 +148,7 @@
       "key": "namesUsedBefore",
       "control": "component_textbox_na"
     },
+
     {
       "label": "text_BirthDate",
       "placeholder": "text_BirthDate",
@@ -95,35 +172,6 @@
           "value": "Female",
           "label": "text_Female",
           "keyValue": "false,true"
-        }
-      ]
-    },
-    {
-      "label": "text_MaritalStatus",
-      "placeholder": "text_MaritalStatus",
-      "id": "maritalStatus_spouse",
-      "key": "maritalStatusSingleCheckbox,maritalStatusMarriedCheckbox,maritalStatusDivorcedCheckbox,maritalStatusWidowedCheckbox",
-      "control": "select",
-      "options": [
-        {
-          "value": "Single",
-          "label": "text_Single",
-          "keyValue": "true,false,false,false"
-        },
-        {
-          "value": "Married",
-          "label": "text_Married",
-          "keyValue": "false,true,false,false"
-        },
-        {
-          "value": "Divorced",
-          "label": "text_Divorced",
-          "keyValue": "false,false,true,false"
-        },
-        {
-          "value": "Widowed",
-          "label": "text_Widowed",
-          "keyValue": "false,false,false,true"
         }
       ]
     },

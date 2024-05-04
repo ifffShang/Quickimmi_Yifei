@@ -124,23 +124,21 @@
   "IdInformation": "证件信息",
   "PassportNumber": "护照号码",
   "TravelDocumentNumber": "旅行证件号码",
-  "IdExpirationDate": "证件到期日期",
-  "IdIssuingCountry": "证件签发国家",
 
   "FirstName": "名",
   "LastName": "姓",
   "MiddleName": "中间名",
-  "OtherNamesLabel": "曾用名",
-  "OtherNames": "添加一个曾用名",
+  "NamesUsedBeforeLabel": "曾用名",
+  "NamesUsedBefore": "添加一个曾用名",
 
-  "IDInformation": "证件信息",
-  "IDExpirationDate": "证件有效期",
-  "IDIssuingCountry": "证件发行国",
-
+  "ExpirationDateLabel": "证件到期日期",
+  "ExpirationDate": "MM/DD/YYYY",
+  "PassportIssueCountryLabel": "证件签发国家",
+ 
   "InformationOfBirth": "出生信息",
-  "DateOfBirth": "出生日期",
+  "BirthDate": "出生日期",
   "Gender": "性别",
-  "LocationOfBirth": "出生地点",
+  "CityAndCountryOfBirth": "出生地点",
 
   "PersonalDemographics": "特征",
   "Race": "种族",
