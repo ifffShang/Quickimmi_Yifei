@@ -104,6 +104,7 @@ export const {
   updateApplicant,
   updatePassportInfo,
   updateIdCardInfo,
+  updateTravelDocumentInfo,
   updatePassportOrIdImageUrl,
   replaceDocumentUrls,
   clearDocumentUrls,

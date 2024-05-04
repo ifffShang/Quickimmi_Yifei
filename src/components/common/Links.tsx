@@ -22,7 +22,7 @@ export function QLink(props: QLinkProps) {
 }
 
 export interface QReturnLinkProps {
-  text: string;
+  text: React.ReactNode | string;
   onClick?: () => void;
   margin?: string;
 }
@@ -36,7 +36,7 @@ export function QReturnLink(props: QReturnLinkProps) {
       <QLink onClick={props.onClick}>
         <div className="qlink-return">
           <LeftOutlined />
-          <QText>{props.text}</QText>
+          {props.text}
         </div>
       </QLink>
     </div>

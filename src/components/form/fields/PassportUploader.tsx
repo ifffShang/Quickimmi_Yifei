@@ -60,7 +60,6 @@ export function PassportUploader(props: PassportUploaderProps) {
             onClick={() => setPreviewOpen(true)}
             src={passportOrIdImageUrl}
             alt="avatar"
-            style={{ width: "100%" }}
           />
         ) : (
           <div className="passport-uploader-upload" onClick={onButtonClick}>

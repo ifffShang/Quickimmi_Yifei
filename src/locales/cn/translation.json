@@ -88,6 +88,9 @@
   "NoPassportSelected": "您的选择：我没有护照",
   "ReturnToPassportUpload": "返回护照上传",
   "Confirm": "确认",
+  "IdentificationCard": "身份证",
+  "TravelDocument": "旅行证件",
+  "SelectDocumentType": "选择证件类型",
   "Dashboard": {
     "Dashboard": "仪表盘",
     "FirstApplication": "开始您的第一个申请吧",

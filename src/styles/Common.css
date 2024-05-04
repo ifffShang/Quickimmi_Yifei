@@ -104,3 +104,9 @@
 .horizontal-3 > .in-care-of-single-line {
   min-width: 100%;
 }
+
+.ant-upload img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto !important;
+}

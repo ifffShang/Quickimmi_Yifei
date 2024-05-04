@@ -120,7 +120,8 @@ export interface QDropdownOption {
 }
 
 export interface QDropdownProps {
-  label: string;
+  label?: string;
+  placeholder?: string;
   value?: string;
   options: QDropdownOption[];
   onChange: (value: string) => void;
@@ -136,12 +137,13 @@ export function QDropdown(props: QDropdownProps) {
 
   return (
     <div className="dropdown-container" ref={container}>
-      <QText level="normal bold">{props.label}</QText>
+      {props.label && <QText level="normal bold">{props.label}</QText>}
       <Select
         className="dropdown-inner"
         onChange={handleChange}
         getPopupContainer={() => container.current || document.body} // This makes the dropdown menu follow the Select component's z-index
         options={props.options}
+        placeholder={props.placeholder || "Select an option"}
       />
     </div>
   );

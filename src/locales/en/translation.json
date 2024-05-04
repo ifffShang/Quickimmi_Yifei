@@ -123,6 +123,9 @@
   "TravelDocumentNumber": "Travel Document Number",
   "IdExpirationDate": "ID Expiration Date",
   "IdIssuingCountry": "ID Issuing Country",
+  "IdentificationCard": "Identification Card",
+  "TravelDocument": "Travel Document",
+  "SelectDocumentType": "Select a document type",
 
   "FirstName": "First Name",
   "LastName": "Last Name",

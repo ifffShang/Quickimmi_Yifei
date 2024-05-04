@@ -15,7 +15,7 @@ interface FormContentProps {
 }
 
 export function FormContent(props: FormContentProps) {
-  const { wt } = useFormTranslation();
+  const { wt, t } = useFormTranslation();
   const dispatch = useAppDispatch();
   const applicationCase = useAppSelector(state => state.form.applicationCase);
   const currentStep = useAppSelector(state => state.case.currentStep);
@@ -45,7 +45,7 @@ export function FormContent(props: FormContentProps) {
     return (
       <div className="form-content">
         <div className="form-content-header">
-          <QText level="large">{wt(currentStep.label || "")}</QText>
+          <QText level="large">{t("Loading...")}</QText>
         </div>
         <div className="form-content-form">
           <Loading />

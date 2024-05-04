@@ -11,6 +11,7 @@ import {
   updateApplicant,
   updateIdCardInfo,
   updatePassportOrIdImageUrl,
+  updateTravelDocumentInfo,
 } from "../../../reducers/formSlice";
 import { QText } from "../../common/Fonts";
 import { QReturnLink } from "../../common/Links";
@@ -64,6 +65,10 @@ export function UploadOtherIdModal() {
       }
       if (dropdownSelectedValue === "ID_CARD") {
         dispatch(updateIdCardInfo(idInfo));
+      }
+
+      if (dropdownSelectedValue === "TRAVEL_ID") {
+        dispatch(updateTravelDocumentInfo(idInfo));
       }
       dispatch(closeModal());
     } catch (err) {
@@ -125,10 +130,10 @@ export function UploadOtherIdModal() {
           {wt("NoPassportSelected")}
         </QText>
         <QDropdown
-          label={t("UploadOtherId")}
           onChange={(value: string) =>
             setDropdownSelectedValue(value as DocumentType)
           }
+          placeholder={t("SelectDocumentType")}
           ignoreMaxWidth={true}
           options={[
             { value: "ID_CARD", label: t("IdentificationCard") },
