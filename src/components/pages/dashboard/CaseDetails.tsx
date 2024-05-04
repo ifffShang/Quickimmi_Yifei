@@ -19,10 +19,8 @@ export function CaseDetails() {
 
     getForm("i589_form").then(form => {
       dispatch(updateForm(form));
-
       (async function () {
         try {
-          dispatch(resetFormState());
           const caseDetails = await getCaseDetailsApi(
             parseInt(id),
             accessToken,
@@ -37,6 +35,10 @@ export function CaseDetails() {
         }
       })();
     });
+
+    return () => {
+      dispatch(resetFormState());
+    };
   }, []);
 
   if (!id) {

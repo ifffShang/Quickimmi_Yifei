@@ -10,7 +10,7 @@ import {
 export interface FormState {
   applicationCase: ApplicationCase;
   passportOrIdImageUrl: string;
-  documentUrls: string[];
+  documentUrls: any[];
 }
 
 const initialState: FormState = {
@@ -83,7 +83,7 @@ export const formSlice = createSlice({
     updatePassportOrIdImageUrl: (state, action: PayloadAction<string>) => {
       state.passportOrIdImageUrl = action.payload;
     },
-    replaceDocumentUrls: (state, action: PayloadAction<string[]>) => {
+    replaceDocumentUrls: (state, action: PayloadAction<any[]>) => {
       state.documentUrls = action.payload;
     },
     clearDocumentUrls: state => {

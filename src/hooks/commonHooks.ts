@@ -4,7 +4,7 @@ import { getDocumentsApi } from "../api/caseAPI";
 import { replaceDocumentUrls, clearDocumentUrls } from "../reducers/formSlice";
 import { arrayMapper } from "../utils/mapper";
 import { textParser } from "../utils/parsers";
-import { downloadImage } from "../utils/utils";
+import { downloadDocument, downloadImage } from "../utils/utils";
 
 export function useFormTranslation() {
   const { t, i18n } = useTranslation();
@@ -43,7 +43,7 @@ export interface GetDocumentsOnLoadParams {
 export function useDocumentsOnLoad(params: GetDocumentsOnLoadParams) {
   useEffect(() => {
     if (!params.accessToken || !params.caseId || params.caseId === 0) {
-      console.error("Access token or document id is missing");
+      console.error("Access token or case id is missing");
       return;
     }
     params.setLoading(true);
@@ -55,9 +55,11 @@ export function useDocumentsOnLoad(params: GetDocumentsOnLoadParams) {
           params.setLoading(false);
           return;
         }
-        const downloadDocumentPromises = documents.map(doc => {
-          return downloadImage(doc.presignUrl);
-        });
+        const downloadDocumentPromises = documents
+          .filter(doc => doc.status === "uploaded")
+          .map(doc => {
+            return downloadDocument(doc.presignUrl, doc.name);
+          });
 
         Promise.all(downloadDocumentPromises)
           .then(urls => {

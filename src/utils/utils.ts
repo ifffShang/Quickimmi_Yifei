@@ -75,6 +75,18 @@ export function decodeId(encodedId: string) {
   return parseInt(encodedId, 36);
 }
 
+export function getValueFromCaseDetails(
+  caseDetails: AsylumCaseProfile,
+  parentKey: ParentFieldKey,
+  key: FieldKey,
+) {
+  if (parentKey.indexOf(">") > -1) {
+    const [parentKeyLevel1, parentKeyLevel2] = parentKey.split(">");
+    return caseDetails[parentKeyLevel1][parentKeyLevel2][key];
+  }
+  return caseDetails[parentKey][key];
+}
+
 export function getFieldValue(
   caseDetails: AsylumCaseProfile,
   parentKey: ParentFieldKey,
@@ -143,14 +155,23 @@ export function getUpdateApplicationCaseData(
   };
 }
 
-export async function downloadImage(presignedUrl: string) {
+export async function downloadImage(presignedUrl: string, filename?: string) {
   try {
     const response = await fetch(presignedUrl);
     const image = await response.blob();
-    return URL.createObjectURL(image);
+    return { url: URL.createObjectURL(image), filename: filename || "" };
   } catch (err) {
     console.error("Error downloading image:", err);
-    return "";
+  }
+}
+
+export async function downloadDocument(presignedUrl: string, filename: string) {
+  try {
+    const response = await fetch(presignedUrl);
+    const doc = await response.blob();
+    return { document: doc, filename: filename };
+  } catch (err) {
+    console.error("Error downloading document:", err);
   }
 }
 
