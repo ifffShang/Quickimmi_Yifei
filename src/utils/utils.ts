@@ -246,9 +246,11 @@ export function getPrefillLocationOptions(
   };
   result["countryPrefillOption"] = countryPrefillOption;
 
-  if (!state) return result;
   const allStates = State.getStatesOfCountry(countryPrefillOption.key);
   result["states"] = allStates;
+
+  if (!state) return result;
+
   const prefillState = allStates.find(
     s => s.name.toLocaleLowerCase() === state.toLocaleLowerCase(),
   );
