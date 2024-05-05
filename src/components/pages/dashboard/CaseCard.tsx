@@ -19,6 +19,7 @@ export function CaseCard(props: CaseCardProps) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const accessToken = useAppSelector(state => state.auth.accessToken);
+  const userId = useAppSelector(state => state.auth.userId);
 
   const openCaseDetails = async () => {
     if (!accessToken || !props.caseId) {
@@ -55,19 +56,22 @@ export function CaseCard(props: CaseCardProps) {
           <div className="case-card-progress">
             <div
               className="case-card-progress-inner"
-              style={{ width: "0%" }}
+              style={{ width: "5%" }}
             ></div>
             <div className="case-card-progress-text">
               <QText level="small" color="gray">
-                Completion: 0%
+                Completion: 5%
               </QText>
             </div>
           </div>
         </div>
         <div className="case-card-details">
-          <SingleLine title={t("ApplicationType") + ": "} value="Asylum-4" />
-          <SingleLine title={t("LastUpdated") + ": "} value="Asylum-4" />
-          <SingleLine title={t("MasterApplicant") + ": "} value="Asylum-4" />
+          <SingleLine title={t("ApplicationType") + ": "} value="Asylum" />
+          <SingleLine title={t("LastUpdated") + ": "} value={"4/13/2024"} />
+          <SingleLine
+            title={t("MasterApplicant") + ": "}
+            value={userId?.toString() || ""}
+          />
         </div>
       </div>
       <div className="case-card-bottom">
