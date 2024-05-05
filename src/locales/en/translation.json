@@ -135,6 +135,7 @@
   "ExpirationDateLabel": "ID Expiration Date",
   "ExpirationDate": "MM/DD/YYYY",
   "PassportIssueCountryLabel": "ID Issuing Country",
+  "PassportIssueCountry": "Passport Issue Country",
 
   "InformationOfBirth": "Information of Birth",
   "BirthDate": "Date of Birth",
