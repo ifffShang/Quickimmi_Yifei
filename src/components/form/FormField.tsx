@@ -25,7 +25,7 @@ import { GenerateDocument } from "./fields/GenerateDocument";
 import { LocationDropdown } from "./fields/LocationDropdown";
 import { PassportUploader } from "./fields/PassportUploader";
 import { TextboxWithNA } from "./fields/TextboxWithNA";
-import { Identity } from "../../model/commonModels";
+import { Identity, KeyValues } from "../../model/commonModels";
 import { QText } from "../common/Fonts";
 import "./FormField.css";
 
@@ -73,34 +73,26 @@ export function FormField(props: FormFieldProps) {
           props.fieldKey?.indexOf(",") > -1
         ) {
           const keys = props.fieldKey.split(",");
-          const keyValues = option.keyValue.split(",");
+          const values = option.keyValue.split(",");
+          const keyValues = {} as KeyValues;
           keys.forEach((key, index) => {
-            dispatch(
-              updateApplicant({
-                [key]: keyValues[index],
-              }),
-            );
+            keyValues[key] = values[index];
           });
+          dispatchFormValue(dispatch, props.parentFieldKey, keyValues);
         } else {
-          dispatch(
-            updateApplicant({
-              [props.fieldKey]: option.keyValue,
-            }),
-          );
+          dispatchFormValue(dispatch, props.parentFieldKey, {
+            [props.fieldKey]: option.keyValue,
+          });
         }
       } else {
-        dispatch(
-          updateApplicant({
-            [props.fieldKey]: value,
-          }),
-        );
+        dispatchFormValue(dispatch, props.parentFieldKey, {
+          [props.fieldKey]: value,
+        });
       }
     } else {
-      dispatch(
-        updateApplicant({
-          [props.fieldKey]: value,
-        }),
-      );
+      dispatchFormValue(dispatch, props.parentFieldKey, {
+        [props.fieldKey]: value,
+      });
     }
   };
 
@@ -127,23 +119,18 @@ export function FormField(props: FormFieldProps) {
       if (matches) {
         const group1 = matches[1];
         const group2 = matches[2];
-        dispatch(
-          updateApplicant({
-            [keys[0]]: group1,
-            [keys[1]]: group2,
-          }),
-        );
+        dispatchFormValue(dispatch, props.parentFieldKey, {
+          [keys[0]]: group1,
+          [keys[1]]: group2,
+        });
       }
       return returnValue;
     } else {
       props.parentFieldKey &&
         props.fieldKey &&
-        dispatchFormValue(
-          dispatch,
-          props.parentFieldKey,
-          props.fieldKey,
-          value,
-        );
+        dispatchFormValue(dispatch, props.parentFieldKey, {
+          [props.fieldKey]: value,
+        });
       return value;
     }
   };
@@ -153,20 +140,15 @@ export function FormField(props: FormFieldProps) {
 
     if (props.fieldKey.indexOf(",") > -1) {
       const keys = props.fieldKey.split(",");
-      dispatch(
-        updateApplicant({
-          [keys[0]]: value,
-          [keys[1]]: !value,
-        }),
-      );
+      dispatchFormValue(dispatch, props.parentFieldKey, {
+        [keys[0]]: value,
+        [keys[1]]: !value,
+      });
       return;
     }
-
-    dispatch(
-      updateApplicant({
-        [props.fieldKey]: value,
-      }),
-    );
+    dispatchFormValue(dispatch, props.parentFieldKey, {
+      [props.fieldKey]: value,
+    });
   };
 
   switch (props.control) {
@@ -289,7 +271,7 @@ export function FormField(props: FormFieldProps) {
           const [key, value] = props.visibility.split("=");
           if (key && key.indexOf(".") > -1) {
             const keys = key.split(".");
-            if (caseDetails[keys[0]][keys[1]] !== value) {
+            if (caseDetails[keys[0]][keys[1]]?.toString() !== value) {
               return null;
             }
           }

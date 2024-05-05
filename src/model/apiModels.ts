@@ -165,37 +165,37 @@ export interface Family {
 }
 
 export interface Spouse {
-  passportDocumentId: string;
-  notMarriedCheckbox: string;
-  aNumber: string;
-  passportNumber: string;
-  birthDate: string;
-  ssn: string;
-  lastName: string;
-  firstName: string;
-  middleName: string;
-  namesUsedBefore: string;
-  marriageDate: string;
-  marriagePlace: string;
-  cityAndCountryOfBirth: string;
-  nationality: string;
-  race: string;
-  genderMaleCheckbox: boolean;
-  genderFemaleCheckbox: boolean;
-  personInUSYesCheckbox: boolean;
-  personInUSNoCheckbox: boolean;
-  specifyLocationIfNotInUS: string;
-  placeLastEntryIntoUS: string;
-  lastEntryUSDate: string;
-  i94Number: string;
-  lastAdmittedStatus: string;
-  currentStatus: string;
-  statusExpireDate: string;
-  immigrationCourtProceedingYesCheckbox: boolean;
-  immigrationCourtProceedingNoCheckbox: boolean;
-  previousArrivalDate: string;
-  inThisApplicationYesCheckbox: boolean;
-  inThisApplicationNoCheckbox: boolean;
+  passportDocumentId?: string;
+  notMarriedCheckbox?: string;
+  aNumber?: string;
+  passportNumber?: string;
+  birthDate?: string;
+  ssn?: string;
+  lastName?: string;
+  firstName?: string;
+  middleName?: string;
+  namesUsedBefore?: string;
+  marriageDate?: string;
+  marriagePlace?: string;
+  cityAndCountryOfBirth?: string;
+  nationality?: string;
+  race?: string;
+  genderMaleCheckbox?: string | null;
+  genderFemaleCheckbox?: string | null;
+  personInUSYesCheckbox?: string | null;
+  personInUSNoCheckbox?: string | null;
+  specifyLocationIfNotInUS?: string;
+  placeLastEntryIntoUS?: string;
+  lastEntryUSDate?: string;
+  i94Number?: string;
+  lastAdmittedStatus?: string;
+  currentStatus?: string;
+  statusExpireDate?: string;
+  immigrationCourtProceedingYesCheckbox?: string | null;
+  immigrationCourtProceedingNoCheckbox?: string | null;
+  previousArrivalDate?: string;
+  inThisApplicationYesCheckbox?: string | null;
+  inThisApplicationNoCheckbox?: string | null;
 }
 
 export interface Child {

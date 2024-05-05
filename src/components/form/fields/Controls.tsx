@@ -174,12 +174,9 @@ export function QDatePicker(props: QDatePickerProps) {
     props.onChange && props.onChange(dateString);
     props.parentFieldKey &&
       props.fieldKey &&
-      dispatchFormValue(
-        dispatch,
-        props.parentFieldKey,
-        props.fieldKey,
-        dateString,
-      );
+      dispatchFormValue(dispatch, props.parentFieldKey, {
+        [props.fieldKey]: dateString,
+      });
   };
 
   return (

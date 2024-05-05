@@ -1,4 +1,4 @@
-import { ApplicationCase } from "../model/apiModels";
+import { ApplicationCase, Spouse } from "../model/apiModels";
 
 export const InitialApplicant = {
   passportDocumentId: 0,
@@ -76,6 +76,7 @@ export const InitialFamily = {
   },
   children: [],
   siblings: [],
+  spouse: {},
 };
 
 export const InitialBackground = {
@@ -208,4 +209,38 @@ export const InitialApplicationCase: ApplicationCase = {
     signature: InitialSignature,
     declaration: InitialDeclaration,
   },
+};
+
+export const InitialSpouse: Spouse = {
+  passportDocumentId: "",
+  notMarriedCheckbox: "",
+  aNumber: "",
+  passportNumber: "",
+  birthDate: "",
+  ssn: "",
+  lastName: "",
+  firstName: "",
+  middleName: "",
+  namesUsedBefore: "",
+  marriageDate: "",
+  marriagePlace: "",
+  cityAndCountryOfBirth: "",
+  nationality: "",
+  race: "",
+  genderMaleCheckbox: null,
+  genderFemaleCheckbox: null,
+  personInUSYesCheckbox: null,
+  personInUSNoCheckbox: null,
+  specifyLocationIfNotInUS: "",
+  placeLastEntryIntoUS: "",
+  lastEntryUSDate: "",
+  i94Number: "",
+  lastAdmittedStatus: "",
+  currentStatus: "",
+  statusExpireDate: "",
+  immigrationCourtProceedingYesCheckbox: null,
+  immigrationCourtProceedingNoCheckbox: null,
+  previousArrivalDate: "",
+  inThisApplicationYesCheckbox: null,
+  inThisApplicationNoCheckbox: null,
 };

@@ -1,10 +1,12 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { InitialApplicationCase } from "../consts/caseConsts";
+import { InitialApplicationCase, InitialSpouse } from "../consts/caseConsts";
 import {
   Applicant,
   ApplicationCase,
   AsylumCaseProfile,
+  Family,
   ParsePassportResponse,
+  Spouse,
 } from "../model/apiModels";
 
 export interface FormState {
@@ -39,6 +41,15 @@ export const formSlice = createSlice({
     },
     updateApplicant: (state, action: PayloadAction<Applicant>) => {
       Object.assign(state.applicationCase.profile.applicant, action.payload);
+    },
+    updateSpouse: (state, action: PayloadAction<Spouse>) => {
+      if (!state.applicationCase.profile.family.spouse) {
+        state.applicationCase.profile.family.spouse = InitialSpouse;
+      }
+      Object.assign(
+        state.applicationCase.profile.family.spouse,
+        action.payload,
+      );
     },
     updatePassportInfo: (
       state,
@@ -111,6 +122,7 @@ export const {
   updateApplicationCase,
   updateCaseDetails,
   updateApplicant,
+  updateSpouse,
   updatePassportInfo,
   updateIdCardInfo,
   updateTravelDocumentInfo,

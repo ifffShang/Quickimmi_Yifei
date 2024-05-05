@@ -107,20 +107,23 @@
           "fields": [
             {
               "label": "text_LastName",
+              "placeholder": "text_LastName",
               "id": "spouse_last_name",
-              "key": "spouseLastName",
+              "key": "lastName",
               "control": "text"
             },
             {
               "label": "text_MiddleName",
+              "placeholder": "text_MiddleName",
               "id": "spouse_middle_name",
-              "key": "spouseMiddleName",
+              "key": "middleName",
               "control": "text"
             },
             {
               "label": "text_FirstName",
+              "placeholder": "text_FirstName",
               "id": "spouse_first_name",
-              "key": "spouseFirstName",
+              "key": "firstName",
               "control": "text"
             }
           ]

@@ -3,8 +3,8 @@ import {
   AsylumCaseProfile,
   UpdateApplicationCaseData,
 } from "../model/apiModels";
-import { ScreenSize } from "../model/commonModels";
-import { updateApplicant } from "../reducers/formSlice";
+import { KeyValues, ScreenSize } from "../model/commonModels";
+import { updateApplicant, updateSpouse } from "../reducers/formSlice";
 import { PATH } from "../components/router/MainView";
 import {
   LocationObject,
@@ -131,21 +131,18 @@ export function getFieldValue(
     }
   }
 
-  return caseDetails[parentKey][key];
+  return caseDetailSection[key];
 }
 
 export function dispatchFormValue(
   dispatch: React.Dispatch<any>,
   parentKey: string,
-  key: string,
-  value: any,
+  keyValues: KeyValues,
 ) {
   if (parentKey === "applicant") {
-    dispatch(
-      updateApplicant({
-        [key]: value,
-      }),
-    );
+    dispatch(updateApplicant(keyValues));
+  } else if (parentKey === "family.spouse") {
+    dispatch(updateSpouse(keyValues));
   }
 }
 
