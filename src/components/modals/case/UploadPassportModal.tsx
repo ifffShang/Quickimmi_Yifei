@@ -22,6 +22,7 @@ export function UploadPassportModal() {
   const [confirmDisabled, setConfirmDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
   const presignedUrlResRef = useRef<GeneratePresignedUrlResponse | null>(null);
+  const modalData = useAppSelector(state => state.common.modalData);
   const fileRef = useRef<File | null>(null);
 
   const onPassportImageUrlReceived = (imageUrl: string) => {
@@ -110,6 +111,7 @@ export function UploadPassportModal() {
           documentName="passport-main"
           onImageUrlReceived={onPassportImageUrlReceived}
           onPresignedUrlReceived={onPresignedUrlReceived}
+          identity={modalData?.identity || "Applicant"}
         />
       </div>
       <QText level="xsmall" color="gray">

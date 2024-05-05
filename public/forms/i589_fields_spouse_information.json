@@ -2,263 +2,249 @@
   "id": "i589_fields_spouse_information",
   "version": "2024-04-01",
   "type": "fields",
-  "key": "family>spouse",
+  "key": "family.spouse",
   "fields": [
     {
-      "label": "text_MaritalStatus",
-      "placeholder": "text_MaritalStatus",
-      "id": "maritalStatus",
-      "key": "maritalStatusSingleCheckbox,maritalStatusMarriedCheckbox,maritalStatusDivorcedCheckbox,maritalStatusWidowedCheckbox",
-      "control": "select",
-      "options": [
+      "label": "none",
+      "id": "marriage_status_section",
+      "key": "applicant",
+      "control": "section",
+      "fields": [
         {
-          "value": "Single",
-          "label": "text_Single",
-          "keyValue": "true,false,false,false"
-        },
-        {
-          "value": "Married",
-          "label": "text_Married",
-          "keyValue": "false,true,false,false"
-        },
-        {
-          "value": "Divorced",
-          "label": "text_Divorced",
-          "keyValue": "false,false,true,false"
-        },
-        {
-          "value": "Widowed",
-          "label": "text_Widowed",
-          "keyValue": "false,false,false,true"
+          "label": "text_MaritalStatus",
+          "placeholder": "text_MaritalStatus",
+          "id": "maritalStatus",
+          "key": "maritalStatusSingleCheckbox,maritalStatusMarriedCheckbox,maritalStatusDivorcedCheckbox,maritalStatusWidowedCheckbox",
+          "control": "select",
+          "options": [
+            {
+              "value": "Single",
+              "label": "text_Single",
+              "keyValue": "true,false,false,false"
+            },
+            {
+              "value": "Married",
+              "label": "text_Married",
+              "keyValue": "false,true,false,false"
+            },
+            {
+              "value": "Divorced",
+              "label": "text_Divorced",
+              "keyValue": "false,false,true,false"
+            },
+            {
+              "value": "Widowed",
+              "label": "text_Widowed",
+              "keyValue": "false,false,false,true"
+            }
+          ]
         }
       ]
     },
     {
       "label": "none",
-      "id": "marriage_status_section",
+      "id": "spouse_form",
+      "key": "family.spouse",
+      "visibility": "applicant.maritalStatusSingleCheckbox=false",
       "control": "section",
       "fields": [
         {
-          "label": "text_MaritalStatus",
-          "id": "marriage_status",
-          "key": "notMarriedCheckbox",
-          "control": "radio",
-          "options": [
-            {
-              "value": "true",
-              "label": "text_NotMarried",
-              "keyValue": "true"
-            },
-            {
-              "value": "false",
-              "label": "text_Married",
-              "keyValue": "false"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "label": "text_SpouseUploadID",
-      "id": "spouse_upload_id",
-      "control": "group",
-      "fields": [
-        {
           "label": "text_SpouseUploadPassport",
+          "placeholder": "text_UploadPassport",
           "id": "spouse_upload_passport",
-          "key": "spousePassportUpload",
+          "key": "passportDocumentId",
           "control": "component_passport_uploader"
-        }
-      ]
-    },
-    {
-      "label": "text_SpouseApplication",
-      "id": "spouse_application",
-      "control": "group",
-      "maxChildPerRow": "1",
-      "fields": [
+        },
         {
-          "label": "text_SpouseIsInUS",
-          "id": "spouse_is_in_us",
-          "key": "spouseIsInUSYesCheckbox,spouseIsInUSNoCheckbox",
-          "control": "checkbox",
-          "options": [
+          "label": "text_SpouseApplication",
+          "id": "spouse_application",
+          "control": "group",
+          "maxChildPerRow": "1",
+          "fields": [
             {
-              "value": "true",
-              "label": "text_Yes",
-              "keyValue": "true,false"
+              "label": "text_SpouseIsInUS",
+              "id": "spouse_is_in_us",
+              "key": "spouseIsInUSYesCheckbox,spouseIsInUSNoCheckbox",
+              "control": "checkbox",
+              "options": [
+                {
+                  "value": "true",
+                  "label": "text_Yes",
+                  "keyValue": "true,false"
+                },
+                {
+                  "value": "false",
+                  "label": "text_No",
+                  "keyValue": "false,true"
+                }
+              ]
             },
             {
-              "value": "false",
-              "label": "text_No",
-              "keyValue": "false,true"
+              "label": "text_SpouseIncludedInApplication",
+              "id": "spouse_included_in_application",
+              "key": "spouseIncludedInApplicationYesCheckbox, spouseIncludedInApplicationNoCheckbox",
+              "control": "checkbox",
+              "options": [
+                {
+                  "value": "true",
+                  "label": "text_Yes",
+                  "keyValue": "true,false"
+                },
+                {
+                  "value": "false",
+                  "label": "text_No",
+                  "keyValue": "false,true"
+                }
+              ]
             }
           ]
         },
         {
-          "label": "text_SpouseIncludedInApplication",
-          "id": "spouse_included_in_application",
-          "key": "spouseIncludedInApplicationYesCheckbox, spouseIncludedInApplicationNoCheckbox",
-          "control": "checkbox",
-          "options": [
+          "label": "text_Name",
+          "id": "spouse_name",
+          "control": "group",
+          "maxChildPerRow": "3",
+          "fields": [
             {
-              "value": "true",
-              "label": "text_Yes",
-              "keyValue": "true,false"
+              "label": "text_LastName",
+              "id": "spouse_last_name",
+              "key": "spouseLastName",
+              "control": "text"
             },
             {
-              "value": "false",
-              "label": "text_No",
-              "keyValue": "false,true"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "label": "text_Name",
-      "id": "spouse_name",
-      "control": "group",
-      "maxChildPerRow": "3",
-      "fields": [
-        {
-          "label": "text_LastName",
-          "id": "spouse_last_name",
-          "key": "spouseLastName",
-          "control": "text"
-        },
-        {
-          "label": "text_MiddleName",
-          "id": "spouse_middle_name",
-          "key": "spouseMiddleName",
-          "control": "text"
-        },
-        {
-          "label": "text_FirstName",
-          "id": "spouse_first_name",
-          "key": "spouseFirstName",
-          "control": "text"
-        }
-      ]
-    },
-    {
-      "label": "text_OtherNames",
-      "placeholder": "text_OtherNames",
-      "id": "other_names_spouse",
-      "key": "namesUsedBefore",
-      "control": "component_textbox_na"
-    },
-
-    {
-      "label": "text_BirthDate",
-      "placeholder": "text_BirthDate",
-      "id": "birth_date_spouse",
-      "key": "birthDate",
-      "control": "datepicker"
-    },
-    {
-      "label": "text_Gender",
-      "placeholder": "text_Gender",
-      "id": "gender_spouse",
-      "key": "genderMaleCheckbox,genderFemaleCheckbox",
-      "control": "select",
-      "options": [
-        {
-          "value": "Male",
-          "label": "text_Male",
-          "keyValue": "true,false"
-        },
-        {
-          "value": "Female",
-          "label": "text_Female",
-          "keyValue": "false,true"
-        }
-      ]
-    },
-    {
-      "label": "text_Nationality",
-      "id": "nationality_spouse",
-      "control": "group",
-      "maxChildPerRow": "3",
-      "fields": [
-        {
-          "label": "text_PresentNationality",
-          "placeholder": "text_PresentNationality",
-          "id": "nationality",
-          "key": "nationality",
-          "control": "select",
-          "options": "NationalityOptions"
-        },
-        {
-          "label": "text_NationalityAtBirth",
-          "placeholder": "text_NationalityAtBirth",
-          "id": "nationality_at_birth",
-          "key": "nationalityAtBirth",
-          "control": "select",
-          "options": "NationalityOptions"
-        }
-      ]
-    },
-    {
-      "label": "text_Race",
-      "placeholder": "text_Race",
-      "id": "race_spouse",
-      "key": "race",
-      "control": "select",
-      "options": "RaceOptions"
-    },
-    {
-      "label": "text_Religion",
-      "placeholder": "text_Religion",
-      "id": "religion_spouse",
-      "key": "religion",
-      "control": "select",
-      "options": "ReligionOptions"
-    },
-    {
-      "label": "text_LocationOfBirth",
-      "placeholder": "text_LocationOfBirth",
-      "id": "location_of_birth_spouse",
-      "key": "cityAndCountryOfBirth",
-      "control": "component_location_dropdown"
-    },
-    {
-      "label": "text_Language",
-      "id": "language_spouse",
-      "control": "group",
-      "maxChildPerRow": "1",
-      "fields": [
-        {
-          "label": "text_NativeLanguage",
-          "placeholder": "text_NativeLanguage",
-          "id": "native_language_spouse",
-          "key": "nativeLanguage",
-          "control": "text"
-        },
-        {
-          "label": "text_FluentInEnglish",
-          "id": "fluent_in_english_spouse",
-          "key": "fluentEnglishYesCheckbox,fluentEnglishNoCheckbox",
-          "control": "checkbox",
-          "options": [
-            {
-              "value": "true",
-              "label": "text_Yes",
-              "keyValue": "true,false"
+              "label": "text_MiddleName",
+              "id": "spouse_middle_name",
+              "key": "spouseMiddleName",
+              "control": "text"
             },
             {
-              "value": "false",
-              "label": "text_No",
-              "keyValue": "false,true"
+              "label": "text_FirstName",
+              "id": "spouse_first_name",
+              "key": "spouseFirstName",
+              "control": "text"
             }
           ]
         },
         {
-          "label": "text_OtherFluentLanguages",
-          "placeholder": "text_OtherFluentLanguages",
-          "id": "other_fluent_languages_spouse",
-          "key": "otherFluentLanguages",
+          "label": "text_OtherNames",
+          "placeholder": "text_OtherNames",
+          "id": "other_names_spouse",
+          "key": "namesUsedBefore",
           "control": "component_textbox_na"
+        },
+
+        {
+          "label": "text_BirthDate",
+          "placeholder": "text_BirthDate",
+          "id": "birth_date_spouse",
+          "key": "birthDate",
+          "control": "datepicker"
+        },
+        {
+          "label": "text_Gender",
+          "placeholder": "text_Gender",
+          "id": "gender_spouse",
+          "key": "genderMaleCheckbox,genderFemaleCheckbox",
+          "control": "select",
+          "options": [
+            {
+              "value": "Male",
+              "label": "text_Male",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "Female",
+              "label": "text_Female",
+              "keyValue": "false,true"
+            }
+          ]
+        },
+        {
+          "label": "text_Nationality",
+          "id": "nationality_spouse",
+          "control": "group",
+          "maxChildPerRow": "3",
+          "fields": [
+            {
+              "label": "text_PresentNationality",
+              "placeholder": "text_PresentNationality",
+              "id": "nationality",
+              "key": "nationality",
+              "control": "select",
+              "options": "NationalityOptions"
+            },
+            {
+              "label": "text_NationalityAtBirth",
+              "placeholder": "text_NationalityAtBirth",
+              "id": "nationality_at_birth",
+              "key": "nationalityAtBirth",
+              "control": "select",
+              "options": "NationalityOptions"
+            }
+          ]
+        },
+        {
+          "label": "text_Race",
+          "placeholder": "text_Race",
+          "id": "race_spouse",
+          "key": "race",
+          "control": "select",
+          "options": "RaceOptions"
+        },
+        {
+          "label": "text_Religion",
+          "placeholder": "text_Religion",
+          "id": "religion_spouse",
+          "key": "religion",
+          "control": "select",
+          "options": "ReligionOptions"
+        },
+        {
+          "label": "text_LocationOfBirth",
+          "placeholder": "text_LocationOfBirth",
+          "id": "location_of_birth_spouse",
+          "key": "cityAndCountryOfBirth",
+          "control": "component_location_dropdown"
+        },
+        {
+          "label": "text_Language",
+          "id": "language_spouse",
+          "control": "group",
+          "maxChildPerRow": "1",
+          "fields": [
+            {
+              "label": "text_NativeLanguage",
+              "placeholder": "text_NativeLanguage",
+              "id": "native_language_spouse",
+              "key": "nativeLanguage",
+              "control": "text"
+            },
+            {
+              "label": "text_FluentInEnglish",
+              "id": "fluent_in_english_spouse",
+              "key": "fluentEnglishYesCheckbox,fluentEnglishNoCheckbox",
+              "control": "checkbox",
+              "options": [
+                {
+                  "value": "true",
+                  "label": "text_Yes",
+                  "keyValue": "true,false"
+                },
+                {
+                  "value": "false",
+                  "label": "text_No",
+                  "keyValue": "false,true"
+                }
+              ]
+            },
+            {
+              "label": "text_OtherFluentLanguages",
+              "placeholder": "text_OtherFluentLanguages",
+              "id": "other_fluent_languages_spouse",
+              "key": "otherFluentLanguages",
+              "control": "component_textbox_na"
+            }
+          ]
         }
       ]
     }

@@ -3,7 +3,7 @@ import { GetProp, Upload, UploadProps } from "antd";
 import { useState } from "react";
 import { generateDocumentPresignedUrl } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { DocumentType } from "../../../model/commonModels";
+import { DocumentType, Identity } from "../../../model/commonModels";
 import { updateTmpImageUrl } from "../../../reducers/commonSlice";
 import { ErrorMessage } from "../../common/Fonts";
 import "./Uploader.css";
@@ -18,6 +18,7 @@ export const getBase64 = (img: FileType, callback: (url: string) => void) => {
 
 export interface UploaderProps {
   documentType: DocumentType;
+  identity: Identity;
   documentName?: string;
   onImageUrlReceived?: (imageUrl: string) => void;
   onPresignedUrlReceived?: (
@@ -64,6 +65,7 @@ export function Uploader(props: UploaderProps) {
         caseId,
         props.documentType,
         props.documentName ? props.documentName + "." + fileExt : file.name,
+        props.identity,
         accessToken,
       );
       onSuccess(res, file, null);

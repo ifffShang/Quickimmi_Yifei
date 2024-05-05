@@ -7,7 +7,7 @@ import {
   UploadedDocument,
 } from "../model/apiModels";
 import { IForm, IFormFields } from "../model/formFlowModels";
-import { DocumentType } from "../model/commonModels";
+import { DocumentType, Identity } from "../model/commonModels";
 import { performApiRequest } from "./apiConfig";
 
 export async function getForm(id: string): Promise<IForm> {
@@ -110,6 +110,7 @@ export async function generateDocumentPresignedUrl(
   caseId: number,
   type: DocumentType,
   documentName: string,
+  identify: Identity,
   accessToken: string,
 ): Promise<GeneratePresignedUrlResponse> {
   const res = await performApiRequest(
@@ -120,6 +121,7 @@ export async function generateDocumentPresignedUrl(
       caseId,
       type,
       documentName,
+      identify,
     },
     accessToken,
   );

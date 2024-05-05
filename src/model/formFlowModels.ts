@@ -1,5 +1,3 @@
-import { FieldKey, ParentFieldKey } from "./apiModels";
-
 export interface IForm {
   id: string;
   version: string;
@@ -17,7 +15,7 @@ export interface IFormStep {
 
 export interface IFormFields {
   id: string;
-  key: ParentFieldKey;
+  key: string;
   version: string;
   type: string;
   fields: IFormField[];
@@ -25,7 +23,7 @@ export interface IFormFields {
 
 export interface IFormField {
   id: string;
-  key: FieldKey;
+  key: string;
   label: string;
   control: ControlType;
   maxChildPerRow: number;
@@ -34,6 +32,7 @@ export interface IFormField {
   options?: IFormOptions[] | string;
   format?: string;
   className?: string;
+  visibility?: string;
 }
 
 export interface IFormOptions {
@@ -53,8 +52,9 @@ export type ControlType =
   | "select"
   | "divider"
   | "tips"
-  | "group"
   | "datepicker"
+  | "group"
+  | "section"
   | "component_passport_uploader"
   | "component_textbox_na"
   | "component_location_dropdown"

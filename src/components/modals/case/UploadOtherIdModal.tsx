@@ -23,6 +23,7 @@ export function UploadOtherIdModal() {
   const { wt, t } = useFormTranslation();
   const dispatch = useAppDispatch();
   const accessToken = useAppSelector(state => state.auth.accessToken);
+  const modalData = useAppSelector(state => state.common.modalData);
 
   const [loading, setLoading] = useState(false);
   const [confirmDisabled, setConfirmDisabled] = useState(true);
@@ -148,6 +149,7 @@ export function UploadOtherIdModal() {
               documentType={dropdownSelectedValue}
               onImageUrlReceived={onIdImageUrlReceived}
               onPresignedUrlReceived={onPresignedUrlReceived}
+              identity={modalData?.identity || "Applicant"}
             />
           </div>
           <div className="upload-other-id-controls">

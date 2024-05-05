@@ -1,5 +1,5 @@
 .location-dropdown-container {
-  max-width: calc(var(--textbox-width)* 3 + 60px) !important;
+  max-width: calc(var(--textbox-width) * 3 + 60px) !important;
   display: flex;
   justify-content: flex-start;
   align-items: center;

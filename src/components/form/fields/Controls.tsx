@@ -12,7 +12,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch } from "../../../app/hooks";
 import { useFormTranslation } from "../../../hooks/commonHooks";
-import { FieldKey, ParentFieldKey } from "../../../model/apiModels";
 import { IFormOptions } from "../../../model/formFlowModels";
 import { dispatchFormValue } from "../../../utils/utils";
 import { ErrorMessage, QText } from "../../common/Fonts";
@@ -73,8 +72,8 @@ export interface QTextBoxProps {
   value: string;
   onChange: (value: string) => string;
   disabled?: boolean;
-  parentFieldKey?: ParentFieldKey;
-  fieldKey?: FieldKey;
+  parentFieldKey?: string;
+  fieldKey?: string;
   className?: string;
 }
 
@@ -156,8 +155,8 @@ export interface QDatePickerProps {
   value?: string;
   onChange?: (value: string) => void;
   disabled?: boolean;
-  parentFieldKey?: ParentFieldKey;
-  fieldKey?: FieldKey;
+  parentFieldKey?: string;
+  fieldKey?: string;
 }
 
 export function QDatePicker(props: QDatePickerProps) {

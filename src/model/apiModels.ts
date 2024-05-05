@@ -94,23 +94,6 @@ export interface AsylumCaseProfile {
   declaration: Declaration;
 }
 
-export type ParentFieldKey =
-  | "applicant"
-  | "family"
-  | "background"
-  | "applicationDetails"
-  | "signature"
-  | "declaration";
-
-export type FieldKey =
-  | keyof Applicant
-  | keyof Family
-  | keyof Background
-  | keyof ApplicationDetails
-  | keyof YourSignature
-  | keyof Declaration
-  | string;
-
 export interface Applicant {
   passportDocumentId?: number;
   aNumber?: string;

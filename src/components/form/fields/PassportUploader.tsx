@@ -9,9 +9,11 @@ import "./PassportUploader.css";
 import { QLink } from "../../common/Links";
 import { Image } from "antd";
 import { QText } from "../../common/Fonts";
+import { Identity } from "../../../model/commonModels";
 
 export interface PassportUploaderProps {
   documentId: number;
+  identity: Identity;
 }
 
 export function PassportUploader(props: PassportUploaderProps) {
@@ -25,7 +27,12 @@ export function PassportUploader(props: PassportUploaderProps) {
   const [previewOpen, setPreviewOpen] = useState(false);
 
   const onButtonClick = () => {
-    dispatch(openModal("uploadpassport"));
+    dispatch(
+      openModal({
+        modalType: "uploadpassport",
+        modalData: { identity: props.identity },
+      }),
+    );
   };
 
   useEffect(() => {

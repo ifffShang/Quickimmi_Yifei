@@ -1,8 +1,6 @@
 import {
   ApplicationCase,
   AsylumCaseProfile,
-  FieldKey,
-  ParentFieldKey,
   UpdateApplicationCaseData,
 } from "../model/apiModels";
 import { ScreenSize } from "../model/commonModels";
@@ -75,22 +73,21 @@ export function decodeId(encodedId: string) {
   return parseInt(encodedId, 36);
 }
 
-export function getValueFromCaseDetails(
+export function getCaseDetailSection(
   caseDetails: AsylumCaseProfile,
-  parentKey: ParentFieldKey,
-  key: FieldKey,
+  parentKey: string,
 ) {
-  if (parentKey.indexOf(">") > -1) {
-    const [parentKeyLevel1, parentKeyLevel2] = parentKey.split(">");
-    return caseDetails[parentKeyLevel1][parentKeyLevel2][key];
+  if (parentKey.indexOf(".") > -1) {
+    const [parentKeyLevel1, parentKeyLevel2] = parentKey.split(".");
+    return caseDetails[parentKeyLevel1][parentKeyLevel2];
   }
-  return caseDetails[parentKey][key];
+  return caseDetails[parentKey];
 }
 
 export function getFieldValue(
   caseDetails: AsylumCaseProfile,
-  parentKey: ParentFieldKey,
-  key: FieldKey,
+  parentKey: string,
+  key: string,
   options?: IFormOptions[] | string,
   format?: string,
 ) {
@@ -98,20 +95,22 @@ export function getFieldValue(
     console.info("Case profile is missing");
     return;
   }
-  if (!key) {
-    console.info("Key is missing, skip, this is for group control.");
+  if (!key || !parentKey) {
+    console.info(
+      "Key or parentKey is missing, skip, this is for group control.",
+    );
     return;
   }
-  const parentValues = caseDetails[parentKey];
-  if (!parentValues) {
-    console.error(`Values of parent key ${parentKey} are missing`);
+  const caseDetailSection = getCaseDetailSection(caseDetails, parentKey);
+  if (!caseDetailSection) {
+    console.info(`Values of parent key ${parentKey} are missing`);
     return;
   }
 
   if (key?.indexOf(",") > -1) {
     const keys = key.split(",");
     if (options && Array.isArray(options)) {
-      const keyValue = keys.map(k => caseDetails[parentKey][k]).join(",");
+      const keyValue = keys.map(k => caseDetailSection[k]).join(",");
       const option = options.find(option => option.keyValue === keyValue);
       return option?.value;
     } else if (format) {
@@ -123,7 +122,7 @@ export function getFieldValue(
         return "";
       }
       const raw = keys
-        .map(k => caseDetails[parentKey][k])
+        .map(k => caseDetailSection[k])
         .join("")
         .replace(filterRegex, "");
       return raw.replace(regex, output);
@@ -137,8 +136,8 @@ export function getFieldValue(
 
 export function dispatchFormValue(
   dispatch: React.Dispatch<any>,
-  parentKey: ParentFieldKey,
-  key: FieldKey,
+  parentKey: string,
+  key: string,
   value: any,
 ) {
   if (parentKey === "applicant") {

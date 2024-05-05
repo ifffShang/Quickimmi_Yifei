@@ -1,7 +1,7 @@
+import { Divider } from "antd";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Regex } from "../../consts/consts";
 import { useFormTranslation } from "../../hooks/commonHooks";
-import { FieldKey, ParentFieldKey } from "../../model/apiModels";
 import {
   ControlType,
   IFormField,
@@ -25,10 +25,13 @@ import { GenerateDocument } from "./fields/GenerateDocument";
 import { LocationDropdown } from "./fields/LocationDropdown";
 import { PassportUploader } from "./fields/PassportUploader";
 import { TextboxWithNA } from "./fields/TextboxWithNA";
+import { Identity } from "../../model/commonModels";
+import { QText } from "../common/Fonts";
+import "./FormField.css";
 
 export interface FormFieldProps {
-  parentFieldKey: ParentFieldKey;
-  fieldKey: FieldKey;
+  parentFieldKey: string;
+  fieldKey: string;
   control: ControlType;
   label: string;
   maxChildPerRow?: number;
@@ -37,6 +40,7 @@ export interface FormFieldProps {
   placeholder?: string;
   format?: string;
   className?: string;
+  visibility?: string;
 }
 
 export function FormField(props: FormFieldProps) {
@@ -58,7 +62,6 @@ export function FormField(props: FormFieldProps) {
 
   console.log(
     `Field ${props.parentFieldKey}-${props.fieldKey} value: ${fieldValue}`,
-    props,
   );
 
   const onOptionChange = (value: string) => {
@@ -203,7 +206,7 @@ export function FormField(props: FormFieldProps) {
         />
       );
     case "divider":
-      return <div>Divider not implemented</div>;
+      return <Divider />;
     case "tips":
       return <div>Tips not implemented</div>;
     case "datepicker":
@@ -215,8 +218,13 @@ export function FormField(props: FormFieldProps) {
           fieldKey={props.fieldKey}
         />
       );
-    case "component_passport_uploader":
-      return <PassportUploader documentId={fieldValue} />;
+    case "component_passport_uploader": {
+      let identity: Identity = "Applicant";
+      if (props.parentFieldKey === "family.spouse") {
+        identity = "Spouse";
+      }
+      return <PassportUploader documentId={fieldValue} identity={identity} />;
+    }
     case "component_textbox_na":
       return (
         <TextboxWithNA
@@ -265,12 +273,52 @@ export function FormField(props: FormFieldProps) {
                   options={field.options}
                   placeholder={field.placeholder}
                   className={field.className}
+                  maxChildPerRow={field.maxChildPerRow}
+                  subFields={field.fields}
+                  format={field.format}
+                  visibility={field.visibility}
                 />
               </div>
             ))}
           </div>
         );
-      } else return <div>Group not implemented</div>;
+      } else return <div>Group needs sub fields</div>;
+    case "section":
+      if (props.subFields && props.subFields.length > 0) {
+        if (props.visibility) {
+          const [key, value] = props.visibility.split("=");
+          if (key && key.indexOf(".") > -1) {
+            const keys = key.split(".");
+            if (caseDetails[keys[0]][keys[1]] !== value) {
+              return null;
+            }
+          }
+        }
+        return (
+          <div className="section-container">
+            {props.subFields.map((field, index) => (
+              <div key={index}>
+                {field.label !== "none" && (
+                  <QText level="normal bold">{wt(field.label)}</QText>
+                )}
+                <FormField
+                  parentFieldKey={props.fieldKey || props.parentFieldKey}
+                  fieldKey={field.key}
+                  control={field.control}
+                  label={field.label}
+                  options={field.options}
+                  placeholder={field.placeholder}
+                  className={field.className}
+                  maxChildPerRow={field.maxChildPerRow}
+                  subFields={field.fields}
+                  format={field.format}
+                  visibility={field.visibility}
+                />
+              </div>
+            ))}
+          </div>
+        );
+      } else return <div>Section needs sub fields</div>;
     default:
       return <div>Control not found</div>;
   }

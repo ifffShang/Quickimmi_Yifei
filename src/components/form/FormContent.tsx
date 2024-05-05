@@ -69,7 +69,9 @@ export function FormContent(props: FormContentProps) {
       <div className="form-content-form">
         {formFields.fields.map((field, index) => (
           <div key={index}>
-            <QText level="normal bold">{wt(field.label)}</QText>
+            {field.label !== "none" && (
+              <QText level="normal bold">{wt(field.label)}</QText>
+            )}
             <FormField
               parentFieldKey={formFields.key}
               fieldKey={field.key}
@@ -81,6 +83,7 @@ export function FormContent(props: FormContentProps) {
               placeholder={field.placeholder}
               format={field.format}
               className={field.className}
+              visibility={field.visibility}
             />
           </div>
         ))}
