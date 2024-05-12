@@ -2,40 +2,39 @@
   "id": "i589_fields_immigration_information",
   "version": "2024-04-01",
   "type": "fields",
-  "key": "applicant",
   "fields": [
     {
       "label": "text_AlienRegistrationNumberLabel",
       "placeholder": "text_AlienRegistrationNumber",
       "id": "alien_registration_number",
-      "key": "anumber",
+      "key": "applicant.anumber",
       "control": "text"
     },
     {
       "label": "text_UscisOnlineAccountNumberLabel",
       "placeholder": "text_UscisOnlineAccountNumber",
       "id": "uscis_online_account_number",
-      "key": "uscisOnlineAccountNumber",
+      "key": "applicant.uscisOnlineAccountNumber",
       "control": "text"
     },
     {
       "label": "text_I94NumberLabel",
       "placeholder": "text_I94Number",
       "id": "i94_number",
-      "key": "i94Number",
+      "key": "applicant.i94Number",
       "control": "text"
     },
     {
       "label": "text_SSNLabel",
       "placeholder": "text_SSN",
       "id": "ssn",
-      "key": "ssn",
+      "key": "applicant.ssn",
       "control": "text"
     },
     {
       "label": "text_ImmigrationCourt",
       "id": "immigration_court",
-      "key": "immigrationCourtProceedingACheckbox,immigrationCourtProceedingBCheckbox,immigrationCourtProceedingCCheckbox",
+      "key": "applicant.immigrationCourtProceedingACheckbox,applicant.immigrationCourtProceedingBCheckbox,applicant.immigrationCourtProceedingCCheckbox",
       "control": "radio",
       "options": [
         {

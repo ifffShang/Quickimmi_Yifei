@@ -2,13 +2,12 @@
   "id": "i589_fields_basic_information",
   "version": "2024-04-01",
   "type": "fields",
-  "key": "applicant",
   "fields": [
     {
       "label": "text_UploadPassport",
       "placeholder": "text_UploadPassport",
       "id": "upload_id",
-      "key": "passportDocumentId",
+      "key": "applicant.passportDocumentId",
       "control": "component_passport_uploader"
     },
     {
@@ -21,14 +20,14 @@
           "label": "text_PassportNumber",
           "placeholder": "text_PassportNumber",
           "id": "passport_number",
-          "key": "passportNumber",
+          "key": "applicant.passportNumber",
           "control": "text"
         },
         {
           "label": "text_TravelDocumentNumber",
           "placeholder": "text_TravelDocumentNumber",
           "id": "travel_document_number",
-          "key": "travelDocumentNumber",
+          "key": "applicant.travelDocumentNumber",
           "control": "text"
         }
       ]
@@ -37,14 +36,14 @@
       "label": "text_ExpirationDateLabel",
       "placeholder": "text_ExpirationDate",
       "id": "expiration_date",
-      "key": "expirationDate",
+      "key": "applicant.expirationDate",
       "control": "datepicker"
     },
     {
       "label": "text_PassportIssueCountryLabel",
       "placeholder": "text_PassportIssueCountry",
       "id": "passport_issue_country",
-      "key": "passportIssueCountry",
+      "key": "applicant.passportIssueCountry",
       "control": "text"
     },
     {
@@ -57,21 +56,21 @@
           "label": "text_FirstName",
           "placeholder": "text_FirstName",
           "id": "first_name",
-          "key": "firstName",
+          "key": "applicant.firstName",
           "control": "text"
         },
         {
           "label": "text_MiddleName",
           "placeholder": "text_MiddleName",
           "id": "middle_name",
-          "key": "middleName",
+          "key": "applicant.middleName",
           "control": "text"
         },
         {
           "label": "text_LastName",
           "placeholder": "text_LastName",
           "id": "last_name",
-          "key": "lastName",
+          "key": "applicant.lastName",
           "control": "text"
         }
       ]
@@ -80,21 +79,21 @@
       "label": "text_NamesUsedBeforeLabel",
       "placeholder": "text_NamesUsedBefore",
       "id": "names_used_before",
-      "key": "namesUsedBefore",
+      "key": "applicant.namesUsedBefore",
       "control": "component_textbox_na"
     },
     {
       "label": "text_BirthDate",
       "placeholder": "text_BirthDate",
       "id": "birth_date",
-      "key": "birthDate",
+      "key": "applicant.birthDate",
       "control": "datepicker"
     },
     {
       "label": "text_CityAndCountryOfBirth",
       "placeholder": "text_CityAndCountryOfBirth",
       "id": "city_and_country_of_birth",
-      "key": "cityAndCountryOfBirth",
+      "key": "applicant.cityAndCountryOfBirth",
       "control": "component_location_dropdown"
     },
     {
@@ -107,7 +106,7 @@
           "label": "text_PresentNationality",
           "placeholder": "text_PresentNationality",
           "id": "nationality",
-          "key": "nationality",
+          "key": "applicant.nationality",
           "control": "select",
           "options": "NationalityOptions"
         },
@@ -115,7 +114,7 @@
           "label": "text_NationalityAtBirth",
           "placeholder": "text_NationalityAtBirth",
           "id": "nationality_at_birth",
-          "key": "nationalityAtBirth",
+          "key": "applicant.nationalityAtBirth",
           "control": "select",
           "options": "NationalityOptions"
         }
@@ -131,7 +130,7 @@
           "label": "text_Gender",
           "placeholder": "text_Gender",
           "id": "gender",
-          "key": "genderMaleCheckbox,genderFemaleCheckbox",
+          "key": "applicant.genderMaleCheckbox,applicant.genderFemaleCheckbox",
           "control": "select",
           "options": [
             {
@@ -150,7 +149,7 @@
           "label": "text_Race",
           "placeholder": "text_Race",
           "id": "race",
-          "key": "race",
+          "key": "applicant.race",
           "control": "select",
           "options": "RaceOptions"
         },
@@ -158,7 +157,7 @@
           "label": "text_Religion",
           "placeholder": "text_Religion",
           "id": "religion",
-          "key": "religion",
+          "key": "applicant.religion",
           "control": "select",
           "options": "ReligionOptions"
         }
@@ -174,13 +173,13 @@
           "label": "text_NativeLanguage",
           "placeholder": "text_NativeLanguage",
           "id": "native_language",
-          "key": "nativeLanguage",
+          "key": "applicant.nativeLanguage",
           "control": "text"
         },
         {
           "label": "text_FluentInEnglish",
           "id": "fluent_in_english",
-          "key": "fluentEnglishYesCheckbox,fluentEnglishNoCheckbox",
+          "key": "applicant.fluentEnglishYesCheckbox,applicant.fluentEnglishNoCheckbox",
           "control": "checkbox",
           "options": [
             {
@@ -201,7 +200,7 @@
       "label": "text_OtherFluentLanguagesLabel",
       "placeholder": "text_OtherFluentLanguages",
       "id": "other_fluent_languages",
-      "key": "otherFluentLanguages",
+      "key": "applicant.otherFluentLanguages",
       "control": "component_textbox_na"
     }
   ]

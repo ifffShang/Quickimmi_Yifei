@@ -4,16 +4,14 @@ import { useRef, useState } from "react";
 import { parsePassportApi, uploadFileToPresignUrl } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useFormTranslation } from "../../../hooks/commonHooks";
+import { GeneratePresignedUrlResponse } from "../../../model/apiModels";
+import { Identity } from "../../../model/commonModels";
 import { changeModalType, closeModal } from "../../../reducers/commonSlice";
-import {
-  updateApplicant,
-  updatePassportInfo,
-  updatePassportOrIdImageUrl,
-} from "../../../reducers/formSlice";
+import { updatePassportInfo } from "../../../reducers/formSlice";
+import { dispatchFormValue } from "../../../utils/utils";
 import { QText } from "../../common/Fonts";
 import { Uploader } from "../../form/fields/Uploader";
 import "./UploadPassportModal.css";
-import { GeneratePresignedUrlResponse } from "../../../model/apiModels";
 
 export function UploadPassportModal() {
   const { wt } = useFormTranslation();
@@ -25,8 +23,18 @@ export function UploadPassportModal() {
   const modalData = useAppSelector(state => state.common.modalData);
   const fileRef = useRef<File | null>(null);
 
+  if (!modalData || !modalData.fieldKey) {
+    console.error("Field key is missing");
+    return null;
+  }
+
+  let identity: Identity = "Applicant";
+  if (modalData.fieldKey.indexOf("family.spouse")) {
+    identity = "Spouse";
+  }
+
   const onPassportImageUrlReceived = (imageUrl: string) => {
-    dispatch(updatePassportOrIdImageUrl(imageUrl));
+    modalData?.updatePassportOrIdImageUrl(imageUrl);
   };
 
   const onPresignedUrlReceived = (
@@ -40,11 +48,9 @@ export function UploadPassportModal() {
 
   const parsePassport = async (documentId: number) => {
     try {
-      dispatch(
-        updateApplicant({
-          passportDocumentId: documentId,
-        }),
-      );
+      dispatchFormValue(dispatch, {
+        [modalData.fieldKey]: documentId,
+      });
       if (!accessToken) {
         throw new Error(`Access token ${accessToken} is missing`);
       }
@@ -54,7 +60,9 @@ export function UploadPassportModal() {
           `Failed to parse passport info for document id ${documentId}`,
         );
       }
-      dispatch(updatePassportInfo(passportInfo));
+      dispatch(
+        updatePassportInfo({ ...passportInfo, fieldKey: modalData.fieldKey }),
+      );
       dispatch(closeModal());
     } catch (err) {
       console.error(err);
@@ -111,7 +119,7 @@ export function UploadPassportModal() {
           documentName="passport-main"
           onImageUrlReceived={onPassportImageUrlReceived}
           onPresignedUrlReceived={onPresignedUrlReceived}
-          identity={modalData?.identity || "Applicant"}
+          identity={identity}
         />
       </div>
       <QText level="xsmall" color="gray">

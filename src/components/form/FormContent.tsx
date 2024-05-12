@@ -73,7 +73,6 @@ export function FormContent(props: FormContentProps) {
               <QText level="normal bold">{wt(field.label)}</QText>
             )}
             <FormField
-              parentFieldKey={formFields.key}
               fieldKey={field.key}
               control={field.control}
               label={field.label}

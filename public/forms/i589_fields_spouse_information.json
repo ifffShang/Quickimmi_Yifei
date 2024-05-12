@@ -2,57 +2,47 @@
   "id": "i589_fields_spouse_information",
   "version": "2024-04-01",
   "type": "fields",
-  "key": "family.spouse",
   "fields": [
     {
-      "label": "none",
-      "id": "marriage_status_section",
-      "key": "applicant",
-      "control": "section",
-      "fields": [
+      "label": "text_MaritalStatus",
+      "placeholder": "text_MaritalStatus",
+      "id": "maritalStatus",
+      "key": "applicant.maritalStatusSingleCheckbox,applicant.maritalStatusMarriedCheckbox,applicant.maritalStatusDivorcedCheckbox,applicant.maritalStatusWidowedCheckbox",
+      "control": "select",
+      "options": [
         {
-          "label": "text_MaritalStatus",
-          "placeholder": "text_MaritalStatus",
-          "id": "maritalStatus",
-          "key": "maritalStatusSingleCheckbox,maritalStatusMarriedCheckbox,maritalStatusDivorcedCheckbox,maritalStatusWidowedCheckbox",
-          "control": "select",
-          "options": [
-            {
-              "value": "Single",
-              "label": "text_Single",
-              "keyValue": "true,false,false,false"
-            },
-            {
-              "value": "Married",
-              "label": "text_Married",
-              "keyValue": "false,true,false,false"
-            },
-            {
-              "value": "Divorced",
-              "label": "text_Divorced",
-              "keyValue": "false,false,true,false"
-            },
-            {
-              "value": "Widowed",
-              "label": "text_Widowed",
-              "keyValue": "false,false,false,true"
-            }
-          ]
+          "value": "Single",
+          "label": "text_Single",
+          "keyValue": "true,false,false,false"
+        },
+        {
+          "value": "Married",
+          "label": "text_Married",
+          "keyValue": "false,true,false,false"
+        },
+        {
+          "value": "Divorced",
+          "label": "text_Divorced",
+          "keyValue": "false,false,true,false"
+        },
+        {
+          "value": "Widowed",
+          "label": "text_Widowed",
+          "keyValue": "false,false,false,true"
         }
       ]
     },
     {
       "label": "none",
       "id": "spouse_form",
-      "key": "family.spouse",
-      "visibility": "applicant.maritalStatusSingleCheckbox=false",
+      "visibility": "applicant.maritalStatusMarriedCheckbox=true|applicant.maritalStatusDivorcedCheckbox=true|applicant.maritalStatusWidowedCheckbox=true",
       "control": "section",
       "fields": [
         {
           "label": "text_SpouseUploadPassport",
           "placeholder": "text_UploadPassport",
           "id": "spouse_upload_passport",
-          "key": "passportDocumentId",
+          "key": "family.spouse.passportDocumentId",
           "control": "component_passport_uploader"
         },
         {
@@ -64,7 +54,7 @@
             {
               "label": "text_SpouseIsInUS",
               "id": "spouse_is_in_us",
-              "key": "spouseIsInUSYesCheckbox,spouseIsInUSNoCheckbox",
+              "key": "family.spouse.spouseIsInUSYesCheckbox,family.spouse.spouseIsInUSNoCheckbox",
               "control": "checkbox",
               "options": [
                 {
@@ -82,7 +72,7 @@
             {
               "label": "text_SpouseIncludedInApplication",
               "id": "spouse_included_in_application",
-              "key": "spouseIncludedInApplicationYesCheckbox, spouseIncludedInApplicationNoCheckbox",
+              "key": "family.spouse.spouseIncludedInApplicationYesCheckbox, family.spouse.spouseIncludedInApplicationNoCheckbox",
               "control": "checkbox",
               "options": [
                 {
@@ -109,21 +99,21 @@
               "label": "text_LastName",
               "placeholder": "text_LastName",
               "id": "spouse_last_name",
-              "key": "lastName",
+              "key": "family.spouse.lastName",
               "control": "text"
             },
             {
               "label": "text_MiddleName",
               "placeholder": "text_MiddleName",
               "id": "spouse_middle_name",
-              "key": "middleName",
+              "key": "family.spouse.middleName",
               "control": "text"
             },
             {
               "label": "text_FirstName",
               "placeholder": "text_FirstName",
               "id": "spouse_first_name",
-              "key": "firstName",
+              "key": "family.spouse.firstName",
               "control": "text"
             }
           ]
@@ -132,7 +122,7 @@
           "label": "text_OtherNames",
           "placeholder": "text_OtherNames",
           "id": "other_names_spouse",
-          "key": "namesUsedBefore",
+          "key": "family.spouse.namesUsedBefore",
           "control": "component_textbox_na"
         },
 
@@ -140,14 +130,14 @@
           "label": "text_BirthDate",
           "placeholder": "text_BirthDate",
           "id": "birth_date_spouse",
-          "key": "birthDate",
+          "key": "family.spouse.birthDate",
           "control": "datepicker"
         },
         {
           "label": "text_Gender",
           "placeholder": "text_Gender",
           "id": "gender_spouse",
-          "key": "genderMaleCheckbox,genderFemaleCheckbox",
+          "key": "family.spouse.genderMaleCheckbox,family.spouse.genderFemaleCheckbox",
           "control": "select",
           "options": [
             {
@@ -172,7 +162,7 @@
               "label": "text_PresentNationality",
               "placeholder": "text_PresentNationality",
               "id": "nationality",
-              "key": "nationality",
+              "key": "family.spouse.nationality",
               "control": "select",
               "options": "NationalityOptions"
             },
@@ -180,7 +170,7 @@
               "label": "text_NationalityAtBirth",
               "placeholder": "text_NationalityAtBirth",
               "id": "nationality_at_birth",
-              "key": "nationalityAtBirth",
+              "key": "family.spouse.nationalityAtBirth",
               "control": "select",
               "options": "NationalityOptions"
             }
@@ -190,7 +180,7 @@
           "label": "text_Race",
           "placeholder": "text_Race",
           "id": "race_spouse",
-          "key": "race",
+          "key": "family.spouse.race",
           "control": "select",
           "options": "RaceOptions"
         },
@@ -198,7 +188,7 @@
           "label": "text_Religion",
           "placeholder": "text_Religion",
           "id": "religion_spouse",
-          "key": "religion",
+          "key": "family.spouse.religion",
           "control": "select",
           "options": "ReligionOptions"
         },
@@ -206,7 +196,7 @@
           "label": "text_LocationOfBirth",
           "placeholder": "text_LocationOfBirth",
           "id": "location_of_birth_spouse",
-          "key": "cityAndCountryOfBirth",
+          "key": "family.spouse.cityAndCountryOfBirth",
           "control": "component_location_dropdown"
         },
         {
@@ -219,13 +209,13 @@
               "label": "text_NativeLanguage",
               "placeholder": "text_NativeLanguage",
               "id": "native_language_spouse",
-              "key": "nativeLanguage",
+              "key": "family.spouse.nativeLanguage",
               "control": "text"
             },
             {
               "label": "text_FluentInEnglish",
               "id": "fluent_in_english_spouse",
-              "key": "fluentEnglishYesCheckbox,fluentEnglishNoCheckbox",
+              "key": "family.spouse.fluentEnglishYesCheckbox,family.spouse.fluentEnglishNoCheckbox",
               "control": "checkbox",
               "options": [
                 {
@@ -244,7 +234,7 @@
               "label": "text_OtherFluentLanguages",
               "placeholder": "text_OtherFluentLanguages",
               "id": "other_fluent_languages_spouse",
-              "key": "otherFluentLanguages",
+              "key": "family.spouse.otherFluentLanguages",
               "control": "component_textbox_na"
             }
           ]

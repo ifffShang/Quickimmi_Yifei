@@ -1,16 +1,4 @@
 import {
-  ApplicationCase,
-  AsylumCaseProfile,
-  UpdateApplicationCaseData,
-} from "../model/apiModels";
-import { KeyValues, ScreenSize } from "../model/commonModels";
-import { updateApplicant, updateSpouse } from "../reducers/formSlice";
-import { PATH } from "../components/router/MainView";
-import {
-  LocationObject,
-  LocationSelectOption,
-} from "../components/form/fields/LocationDropdown";
-import {
   City,
   Country,
   ICity,
@@ -18,8 +6,21 @@ import {
   IState,
   State,
 } from "country-state-city";
-import { ControlType, IFormOptions } from "../model/formFlowModels";
+import {
+  LocationObject,
+  LocationSelectOption,
+} from "../components/form/fields/LocationDropdown";
+import { PATH } from "../components/router/MainView";
 import { Regex } from "../consts/consts";
+import {
+  ApplicationCase,
+  AsylumCaseProfile,
+  AsylumCaseProfileOptional,
+  UpdateApplicationCaseData,
+} from "../model/apiModels";
+import { KeyValues, ScreenSize } from "../model/commonModels";
+import { ControlType, IFormOptions } from "../model/formFlowModels";
+import { updateCaseFields } from "../reducers/formSlice";
 
 export const handleResize = (
   dispatch?: React.Dispatch<any>,
@@ -73,44 +74,48 @@ export function decodeId(encodedId: string) {
   return parseInt(encodedId, 36);
 }
 
-export function getCaseDetailSection(
+export function getCaseDetailValue(
   caseDetails: AsylumCaseProfile,
-  parentKey: string,
+  key: string,
 ) {
-  if (parentKey.indexOf(".") > -1) {
-    const [parentKeyLevel1, parentKeyLevel2] = parentKey.split(".");
-    return caseDetails[parentKeyLevel1][parentKeyLevel2];
+  if (key.indexOf(".") > -1) {
+    const keys = key.split(".");
+    let result = caseDetails;
+    for (const keyEntry of keys) {
+      result = result[keyEntry];
+      if (!result) return null;
+    }
+    return result;
   }
-  return caseDetails[parentKey];
+  return caseDetails[key];
 }
 
 export function getFieldValue(
   caseDetails: AsylumCaseProfile,
-  parentKey: string,
   key: string,
+  control: ControlType,
   options?: IFormOptions[] | string,
   format?: string,
 ) {
+  if (control === "group" || control === "section") {
+    return;
+  }
+
   if (!caseDetails) {
     console.info("Case profile is missing");
     return;
   }
-  if (!key || !parentKey) {
-    console.info(
-      "Key or parentKey is missing, skip, this is for group control.",
-    );
-    return;
-  }
-  const caseDetailSection = getCaseDetailSection(caseDetails, parentKey);
-  if (!caseDetailSection) {
-    console.info(`Values of parent key ${parentKey} are missing`);
+  if (!key) {
+    console.info("Key is missing");
     return;
   }
 
   if (key?.indexOf(",") > -1) {
     const keys = key.split(",");
     if (options && Array.isArray(options)) {
-      const keyValue = keys.map(k => caseDetailSection[k]).join(",");
+      const keyValue = keys
+        .map(k => getCaseDetailValue(caseDetails, k))
+        .join(",");
       const option = options.find(option => option.keyValue === keyValue);
       return option?.value;
     } else if (format) {
@@ -122,7 +127,7 @@ export function getFieldValue(
         return "";
       }
       const raw = keys
-        .map(k => caseDetailSection[k])
+        .map(k => getCaseDetailValue(caseDetails, k))
         .join("")
         .replace(filterRegex, "");
       return raw.replace(regex, output);
@@ -131,18 +136,39 @@ export function getFieldValue(
     }
   }
 
-  return caseDetailSection[key];
+  return getCaseDetailValue(caseDetails, key);
+}
+
+function createNestedObject(keys: string[], value: any) {
+  return keys.reduceRight((result, key, i) => {
+    return { [key]: result };
+  }, value);
 }
 
 export function dispatchFormValue(
   dispatch: React.Dispatch<any>,
-  parentKey: string,
   keyValues: KeyValues,
 ) {
-  if (parentKey === "applicant") {
-    dispatch(updateApplicant(keyValues));
-  } else if (parentKey === "family.spouse") {
-    dispatch(updateSpouse(keyValues));
+  for (const [key, value] of Object.entries(keyValues)) {
+    const keys = key.split(".");
+    if (keys.length === 1) {
+      dispatch(updateCaseFields({ [keys[0]]: value }));
+    } else {
+      const caseWithUpdatedField = createNestedObject(keys, value);
+      dispatch(updateCaseFields(caseWithUpdatedField));
+    }
+  }
+}
+
+export function getUpdateProfileData(
+  key: string,
+  profile: AsylumCaseProfileOptional,
+) {
+  const keys = key.split(".");
+  if (keys.length === 1) {
+    return { [keys[0]]: profile };
+  } else {
+    return createNestedObject(keys, profile);
   }
 }
 

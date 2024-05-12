@@ -1,36 +1,35 @@
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
+import { Image } from "antd";
 import { useEffect, useState } from "react";
-import { getDocumentByIdApi, getDocumentsApi } from "../../../api/caseAPI";
+import { getDocumentByIdApi } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { openModal } from "../../../reducers/commonSlice";
-import { updatePassportOrIdImageUrl } from "../../../reducers/formSlice";
 import { downloadImage } from "../../../utils/utils";
-import "./PassportUploader.css";
-import { QLink } from "../../common/Links";
-import { Image } from "antd";
 import { QText } from "../../common/Fonts";
-import { Identity } from "../../../model/commonModels";
+import { QLink } from "../../common/Links";
+import "./PassportUploader.css";
 
 export interface PassportUploaderProps {
   documentId: number;
-  identity: Identity;
+  fieldKey: string;
 }
 
 export function PassportUploader(props: PassportUploaderProps) {
   const dispatch = useAppDispatch();
-  const passportOrIdImageUrl = useAppSelector(
-    state => state.form.passportOrIdImageUrl,
-  );
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const showModal = useAppSelector(state => state.common.showModal);
   const [loading, setLoading] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
+  const [passportOrIdImageUrl, setPassportOrIdImageUrl] = useState<string>("");
 
   const onButtonClick = () => {
     dispatch(
       openModal({
         modalType: "uploadpassport",
-        modalData: { identity: props.identity },
+        modalData: {
+          fieldKey: props.fieldKey,
+          updatePassportOrIdImageUrl: setPassportOrIdImageUrl,
+        },
       }),
     );
   };
@@ -46,7 +45,7 @@ export function PassportUploader(props: PassportUploaderProps) {
             throw new Error("Failed to download image");
           }
           setLoading(false);
-          dispatch(updatePassportOrIdImageUrl(doc.url));
+          setPassportOrIdImageUrl(doc.url);
         });
       })
       .catch(error => {

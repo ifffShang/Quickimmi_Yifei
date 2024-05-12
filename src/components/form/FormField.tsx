@@ -2,17 +2,20 @@ import { Divider } from "antd";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Regex } from "../../consts/consts";
 import { useFormTranslation } from "../../hooks/commonHooks";
+import { Identity, KeyValues } from "../../model/commonModels";
 import {
   ControlType,
   IFormField,
   IFormOptions,
 } from "../../model/formFlowModels";
-import { updateApplicant } from "../../reducers/formSlice";
 import {
   dispatchFormValue,
   formatCityAndCountryStr,
+  getCaseDetailValue,
   getFieldValue,
 } from "../../utils/utils";
+import { QText } from "../common/Fonts";
+import "./FormField.css";
 import {
   CheckBox,
   QDatePicker,
@@ -25,12 +28,8 @@ import { GenerateDocument } from "./fields/GenerateDocument";
 import { LocationDropdown } from "./fields/LocationDropdown";
 import { PassportUploader } from "./fields/PassportUploader";
 import { TextboxWithNA } from "./fields/TextboxWithNA";
-import { Identity, KeyValues } from "../../model/commonModels";
-import { QText } from "../common/Fonts";
-import "./FormField.css";
 
 export interface FormFieldProps {
-  parentFieldKey: string;
   fieldKey: string;
   control: ControlType;
   label: string;
@@ -54,14 +53,14 @@ export function FormField(props: FormFieldProps) {
 
   const fieldValue = getFieldValue(
     caseDetails,
-    props.parentFieldKey,
     props.fieldKey,
+    props.control,
     props.options,
     props.format,
   );
 
   console.log(
-    `Field ${props.parentFieldKey}-${props.fieldKey} value: ${fieldValue}`,
+    `Field key ${props.fieldKey}, value: ${fieldValue}, control: ${props.control}`,
   );
 
   const onOptionChange = (value: string) => {
@@ -78,31 +77,26 @@ export function FormField(props: FormFieldProps) {
           keys.forEach((key, index) => {
             keyValues[key] = values[index];
           });
-          dispatchFormValue(dispatch, props.parentFieldKey, keyValues);
+          dispatchFormValue(dispatch, keyValues);
         } else {
-          dispatchFormValue(dispatch, props.parentFieldKey, {
+          dispatchFormValue(dispatch, {
             [props.fieldKey]: option.keyValue,
           });
         }
       } else {
-        dispatchFormValue(dispatch, props.parentFieldKey, {
+        dispatchFormValue(dispatch, {
           [props.fieldKey]: value,
         });
       }
     } else {
-      dispatchFormValue(dispatch, props.parentFieldKey, {
+      dispatchFormValue(dispatch, {
         [props.fieldKey]: value,
       });
     }
   };
 
   const onTextChange = (value: string): string => {
-    if (
-      props.parentFieldKey &&
-      props.fieldKey &&
-      props.fieldKey.indexOf(",") > -1 &&
-      props.format
-    ) {
+    if (props.fieldKey && props.fieldKey.indexOf(",") > -1 && props.format) {
       const formatRegex = Regex[props.format]["FormatRegex"];
       const formatOutput = Regex[props.format]["FormatOutput"];
       const filterRegex = Regex[props.format]["FilterRegex"];
@@ -119,16 +113,15 @@ export function FormField(props: FormFieldProps) {
       if (matches) {
         const group1 = matches[1];
         const group2 = matches[2];
-        dispatchFormValue(dispatch, props.parentFieldKey, {
+        dispatchFormValue(dispatch, {
           [keys[0]]: group1,
           [keys[1]]: group2,
         });
       }
       return returnValue;
     } else {
-      props.parentFieldKey &&
-        props.fieldKey &&
-        dispatchFormValue(dispatch, props.parentFieldKey, {
+      props.fieldKey &&
+        dispatchFormValue(dispatch, {
           [props.fieldKey]: value,
         });
       return value;
@@ -136,18 +129,25 @@ export function FormField(props: FormFieldProps) {
   };
 
   const onCheckboxChange = (value: boolean) => {
-    if (!props.parentFieldKey || !props.fieldKey) return;
+    if (!props.fieldKey) return;
 
     if (props.fieldKey.indexOf(",") > -1) {
       const keys = props.fieldKey.split(",");
-      dispatchFormValue(dispatch, props.parentFieldKey, {
+      dispatchFormValue(dispatch, {
         [keys[0]]: value,
         [keys[1]]: !value,
       });
       return;
     }
-    dispatchFormValue(dispatch, props.parentFieldKey, {
+    dispatchFormValue(dispatch, {
       [props.fieldKey]: value,
+    });
+  };
+
+  const onLocationChange = (...params: any[]) => {
+    const locationStr = formatCityAndCountryStr(...params);
+    dispatchFormValue(dispatch, {
+      [props.fieldKey]: locationStr,
     });
   };
 
@@ -157,7 +157,6 @@ export function FormField(props: FormFieldProps) {
         <QTextBox
           placeholder={placeholder}
           value={fieldValue}
-          parentFieldKey={props.parentFieldKey}
           fieldKey={props.fieldKey}
           onChange={onTextChange}
         />
@@ -196,39 +195,27 @@ export function FormField(props: FormFieldProps) {
         <QDatePicker
           placeholder={placeholder}
           value={fieldValue}
-          parentFieldKey={props.parentFieldKey}
           fieldKey={props.fieldKey}
         />
       );
     case "component_passport_uploader": {
-      let identity: Identity = "Applicant";
-      if (props.parentFieldKey === "family.spouse") {
-        identity = "Spouse";
-      }
-      return <PassportUploader documentId={fieldValue} identity={identity} />;
+      return (
+        <PassportUploader documentId={fieldValue} fieldKey={props.fieldKey} />
+      );
     }
     case "component_textbox_na":
       return (
         <TextboxWithNA
           placeholder={placeholder}
           value={fieldValue}
-          onChange={(value: string) => {
-            return onTextChange(value);
-          }}
+          onChange={onTextChange}
         />
       );
     case "component_location_dropdown":
       return (
         <LocationDropdown
           prefillStr={fieldValue}
-          onLocationChange={(...params) => {
-            const locationStr = formatCityAndCountryStr(...params);
-            dispatch(
-              updateApplicant({
-                [props.fieldKey]: locationStr,
-              }),
-            );
-          }}
+          onLocationChange={onLocationChange}
         />
       );
     case "component_generate_report":
@@ -248,7 +235,6 @@ export function FormField(props: FormFieldProps) {
                 key={index}
               >
                 <FormField
-                  parentFieldKey={props.parentFieldKey}
                   fieldKey={field.key}
                   control={field.control}
                   label={field.label}
@@ -268,12 +254,18 @@ export function FormField(props: FormFieldProps) {
     case "section":
       if (props.subFields && props.subFields.length > 0) {
         if (props.visibility) {
-          const [key, value] = props.visibility.split("=");
-          if (key && key.indexOf(".") > -1) {
-            const keys = key.split(".");
-            if (caseDetails[keys[0]][keys[1]]?.toString() !== value) {
-              return null;
+          //| represents the "or" logic
+          if (props.visibility.indexOf("|") > -1) {
+            const visibilityArray = props.visibility.split("|");
+            let hasTrue = false;
+            for (let i = 0; i < visibilityArray.length; i++) {
+              const [key, value] = visibilityArray[i].split("=");
+              const caseDetailValue = getCaseDetailValue(caseDetails, key);
+              if (caseDetailValue === value) {
+                hasTrue = true;
+              }
             }
+            if (!hasTrue) return null;
           }
         }
         return (
@@ -284,7 +276,6 @@ export function FormField(props: FormFieldProps) {
                   <QText level="normal bold">{wt(field.label)}</QText>
                 )}
                 <FormField
-                  parentFieldKey={props.fieldKey || props.parentFieldKey}
                   fieldKey={field.key}
                   control={field.control}
                   label={field.label}

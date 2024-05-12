@@ -8,11 +8,10 @@ import { GeneratePresignedUrlResponse } from "../../../model/apiModels";
 import { DocumentType } from "../../../model/commonModels";
 import { changeModalType, closeModal } from "../../../reducers/commonSlice";
 import {
-  updateApplicant,
   updateIdCardInfo,
-  updatePassportOrIdImageUrl,
   updateTravelDocumentInfo,
 } from "../../../reducers/formSlice";
+import { dispatchFormValue } from "../../../utils/utils";
 import { QText } from "../../common/Fonts";
 import { QReturnLink } from "../../common/Links";
 import { QDropdown } from "../../form/fields/Controls";
@@ -33,8 +32,13 @@ export function UploadOtherIdModal() {
   const presignedUrlResRef = useRef<GeneratePresignedUrlResponse | null>(null);
   const fileRef = useRef<File | null>(null);
 
+  if (!modalData || !modalData.fieldKey) {
+    console.error("Field key is missing");
+    return null;
+  }
+
   const onIdImageUrlReceived = (imageUrl: string) => {
-    dispatch(updatePassportOrIdImageUrl(imageUrl));
+    modalData?.updatePassportOrIdImageUrl(imageUrl);
   };
 
   const onPresignedUrlReceived = (
@@ -48,11 +52,9 @@ export function UploadOtherIdModal() {
 
   const parseIdCard = async (documentId: number) => {
     try {
-      dispatch(
-        updateApplicant({
-          passportDocumentId: documentId,
-        }),
-      );
+      dispatchFormValue(dispatch, {
+        [modalData.fieldKey]: documentId,
+      });
       if (!accessToken) {
         throw new Error(`Access token ${accessToken} is missing`);
       }
@@ -64,6 +66,9 @@ export function UploadOtherIdModal() {
         dispatch(closeModal());
         return;
       }
+
+      idInfo.fieldKey = modalData?.fieldKey;
+
       if (dropdownSelectedValue === "ID_CARD") {
         dispatch(updateIdCardInfo(idInfo));
       }

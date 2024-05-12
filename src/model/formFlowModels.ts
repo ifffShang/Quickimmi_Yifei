@@ -15,7 +15,6 @@ export interface IFormStep {
 
 export interface IFormFields {
   id: string;
-  key: string;
   version: string;
   type: string;
   fields: IFormField[];

@@ -94,6 +94,16 @@ export interface AsylumCaseProfile {
   declaration: Declaration;
 }
 
+export interface AsylumCaseProfileOptional {
+  applyForWithholdingYesCheckbox?: string;
+  applicant?: Applicant;
+  family?: Family;
+  background?: Background;
+  applicationDetails?: ApplicationDetails;
+  signature?: YourSignature;
+  declaration?: Declaration;
+}
+
 export interface Applicant {
   passportDocumentId?: number;
   aNumber?: string;
@@ -385,6 +395,7 @@ export interface GeneratePresignedUrlResponse {
 }
 
 export interface ParsePassportResponse {
+  fieldKey: string;
   idNumber: string;
   firstName: string;
   middleName: string;

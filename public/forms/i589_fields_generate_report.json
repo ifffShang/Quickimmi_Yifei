@@ -2,7 +2,6 @@
   "id": "i589_fields_generate_report",
   "version": "2024-04-01",
   "type": "fields",
-  "key": "applicant",
   "fields": [
     {
       "label": "text_TestPurpose",

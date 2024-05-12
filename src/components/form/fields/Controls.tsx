@@ -72,7 +72,6 @@ export interface QTextBoxProps {
   value: string;
   onChange: (value: string) => string;
   disabled?: boolean;
-  parentFieldKey?: string;
   fieldKey?: string;
   className?: string;
 }
@@ -174,7 +173,7 @@ export function QDatePicker(props: QDatePickerProps) {
     props.onChange && props.onChange(dateString);
     props.parentFieldKey &&
       props.fieldKey &&
-      dispatchFormValue(dispatch, props.parentFieldKey, {
+      dispatchFormValue(dispatch, {
         [props.fieldKey]: dateString,
       });
   };
