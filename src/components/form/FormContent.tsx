@@ -70,7 +70,7 @@ export function FormContent(props: FormContentProps) {
         {formFields.fields.map((field, index) => (
           <div key={index}>
             {field.label !== "none" && (
-              <QText level="normal bold">{wt(field.label)}</QText>
+              <QText level="field-label">{wt(field.label)}</QText>
             )}
             <FormField
               fieldKey={field.key}

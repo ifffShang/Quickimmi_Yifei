@@ -61,3 +61,14 @@
   display: flex;
   gap: 10px;
 }
+
+.text.field-label {
+  font-size: var(--font-size-p2);
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.text.placeholder {
+  color: var(--gray-color-7);
+  font-size: var(--inline-placeholder);
+}

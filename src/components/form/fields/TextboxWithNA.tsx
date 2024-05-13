@@ -31,7 +31,7 @@ export function TextboxWithNA(props: TextBoxWithNAProps) {
       {textboxList.map(textbox => (
         <div className="textbox-na-text" key={textbox.id}>
           <QTextBox
-            placeholder={props.placeholder}
+            placeholder={""}
             value={textbox.value}
             onChange={(value: string) => {
               const newTextboxList = [...textboxList];

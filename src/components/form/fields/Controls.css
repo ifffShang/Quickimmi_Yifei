@@ -24,9 +24,23 @@
   top: 38px;
 }
 
+.text-box-container {
+  position: relative;
+}
+
 .text-box {
   max-width: 250px;
   width: 100%;
+}
+
+.text-box-inline-placeholder {
+  position: absolute;
+  background: white;
+  top: -4px;
+  line-height: 1;
+  padding-left: 2px;
+  padding-right: 2px;
+  left: 10px;
 }
 
 .dropdown-container {
@@ -59,6 +73,7 @@
 .select-box {
   max-width: 250px;
   width: 100%;
+  position: relative;
 }
 
 .select-box .ant-select {

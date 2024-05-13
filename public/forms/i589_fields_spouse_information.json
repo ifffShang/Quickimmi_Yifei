@@ -7,28 +7,28 @@
       "label": "text_MaritalStatus",
       "placeholder": "text_MaritalStatus",
       "id": "maritalStatus",
-      "key": "applicant.maritalStatusSingleCheckbox,applicant.maritalStatusMarriedCheckbox,applicant.maritalStatusDivorcedCheckbox,applicant.maritalStatusWidowedCheckbox",
+      "key": "applicant.maritalStatusSingleCheckbox,applicant.maritalStatusMarriedCheckbox,applicant.maritalStatusDivorcedCheckbox,applicant.maritalStatusWidowedCheckbox,family.spouse.notMarriedCheckbox",
       "control": "select",
       "options": [
         {
           "value": "Single",
           "label": "text_Single",
-          "keyValue": "true,false,false,false"
+          "keyValue": "true,false,false,false,true"
         },
         {
           "value": "Married",
           "label": "text_Married",
-          "keyValue": "false,true,false,false"
+          "keyValue": "false,true,false,false,false"
         },
         {
           "value": "Divorced",
           "label": "text_Divorced",
-          "keyValue": "false,false,true,false"
+          "keyValue": "false,false,true,false,false"
         },
         {
           "value": "Widowed",
           "label": "text_Widowed",
-          "keyValue": "false,false,false,true"
+          "keyValue": "false,false,false,true,false"
         }
       ]
     },

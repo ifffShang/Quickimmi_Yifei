@@ -14,7 +14,9 @@ export interface TextProps {
     | "normal"
     | "normal bold"
     | "small"
-    | "xsmall";
+    | "xsmall"
+    | "field-label"
+    | "placeholder";
   color?: "primary" | "secondary" | "gray" | "inherit";
   margin?: "margin-bottom-10";
 }

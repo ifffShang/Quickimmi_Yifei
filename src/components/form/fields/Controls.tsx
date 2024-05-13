@@ -99,14 +99,21 @@ export function QTextBox(props: QTextBoxProps) {
   };
 
   return (
-    <Input
-      ref={inputRef}
-      className={"text-box" + (props.className ? ` ${props.className}` : "")}
-      placeholder={props.placeholder}
-      value={value}
-      onChange={onTextBoxChange}
-      disabled={props.disabled || false}
-    />
+    <div className="text-box-container">
+      <Input
+        ref={inputRef}
+        className={"text-box" + (props.className ? ` ${props.className}` : "")}
+        placeholder={props.placeholder}
+        value={value}
+        onChange={onTextBoxChange}
+        disabled={props.disabled || false}
+      />
+      {value && (
+        <div className="text-box-inline-placeholder">
+          <QText level="placeholder">{props.placeholder}</QText>
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -233,6 +240,11 @@ export function SelectBox(props: SelectBoxProps) {
         placeholder={props.placeholder || "Select an option"}
         value={value}
       />
+      {value && (
+        <div className="text-box-inline-placeholder">
+          <QText level="placeholder">{props.placeholder}</QText>
+        </div>
+      )}
     </div>
   );
 }
