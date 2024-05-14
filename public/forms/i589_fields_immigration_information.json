@@ -18,11 +18,26 @@
       "control": "text"
     },
     {
-      "label": "text_I94NumberLabel",
-      "placeholder": "text_I94Number",
-      "id": "i94_number",
-      "key": "applicant.i94Number",
-      "control": "text"
+      "label": "text_I94",
+      "id": "i94",
+      "control": "group",
+      "maxChildPerRow": "1",
+      "fields": [
+        {
+          "label": "text_I94NumberLabel",
+          "placeholder": "text_I94NumberLabel",
+          "id": "i94_number",
+          "key": "applicant.i94Number",
+          "control": "text"
+        },
+        {
+          "label": "text_WhenLastLeaveCountry",
+          "placeholder": "text_WhenLastLeaveCountry",
+          "id": "when_last_leave_country",
+          "key": "applicant.whenLastLeaveCountry",
+          "control": "datepicker"
+        }
+      ]
     },
     {
       "label": "text_SSNLabel",

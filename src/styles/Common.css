@@ -61,7 +61,6 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
   gap: 10px;
   margin-bottom: 20px;
 }
@@ -103,7 +102,7 @@
   flex: 1 1 100%;
 }
 
-.horizontal-3 > .single-line {
+.horizontal-3 > .form-field-single-line {
   min-width: 100%;
 }
 

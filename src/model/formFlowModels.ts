@@ -32,6 +32,7 @@ export interface IFormField {
   format?: string;
   className?: string;
   visibility?: string;
+  hideHeader?: boolean;
 }
 
 export interface IFormOptions {
@@ -59,4 +60,5 @@ export type ControlType =
   | "component_location_dropdown"
   | "component_generate_report"
   | "component_telephone_text"
-  | "component_list_reports";
+  | "component_list_reports"
+  | "component_mailing_same_as_residential";

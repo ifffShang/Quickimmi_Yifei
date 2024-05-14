@@ -33,7 +33,7 @@
   width: 100%;
 }
 
-.text-box-inline-placeholder {
+.inline-placeholder {
   position: absolute;
   background: white;
   top: -4px;
@@ -62,6 +62,7 @@
 }
 
 .datepicker-container {
+  position: relative;
   max-width: 250px;
   width: 100%;
 }

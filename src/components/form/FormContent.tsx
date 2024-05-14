@@ -69,7 +69,7 @@ export function FormContent(props: FormContentProps) {
       <div className="form-content-form">
         {formFields.fields.map((field, index) => (
           <div key={index}>
-            {field.label !== "none" && (
+            {!field.hideHeader && (
               <QText level="field-label">{wt(field.label)}</QText>
             )}
             <FormField
@@ -83,6 +83,7 @@ export function FormContent(props: FormContentProps) {
               format={field.format}
               className={field.className}
               visibility={field.visibility}
+              hideHeader={field.hideHeader}
             />
           </div>
         ))}

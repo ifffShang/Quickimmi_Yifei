@@ -38,7 +38,7 @@ export interface SingleLineProps {
 
 export function SingleLine(props: SingleLineProps) {
   return (
-    <div className="single-line">
+    <div className="single-line-text">
       <QText level="normal bold">{props.title}</QText>
       <QText level="normal" color="gray">
         {props.value}

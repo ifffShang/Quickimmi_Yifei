@@ -109,7 +109,7 @@ export function QTextBox(props: QTextBoxProps) {
         disabled={props.disabled || false}
       />
       {value && (
-        <div className="text-box-inline-placeholder">
+        <div className="inline-placeholder">
           <QText level="placeholder">{props.placeholder}</QText>
         </div>
       )}
@@ -174,7 +174,17 @@ export function QDatePicker(props: QDatePickerProps) {
   }, [props.value]);
 
   const onDateChange = (date: dayjs.Dayjs, dateString: string | string[]) => {
-    if (props.disabled || !date) return;
+    if (props.disabled) return;
+    if (!date || !dateString) {
+      setValue("");
+      props.onChange && props.onChange("");
+      props.parentFieldKey &&
+        props.fieldKey &&
+        dispatchFormValue(dispatch, {
+          [props.fieldKey]: "",
+        });
+      return;
+    }
     if (Array.isArray(dateString)) dateString = dateString[0];
     setValue(dateString);
     props.onChange && props.onChange(dateString);
@@ -194,6 +204,11 @@ export function QDatePicker(props: QDatePickerProps) {
         onChange={onDateChange}
         disabled={props.disabled || false}
       />
+      {value && (
+        <div className="inline-placeholder">
+          <QText level="placeholder">{props.placeholder}</QText>
+        </div>
+      )}
     </div>
   );
 }
@@ -241,7 +256,7 @@ export function SelectBox(props: SelectBoxProps) {
         value={value}
       />
       {value && (
-        <div className="text-box-inline-placeholder">
+        <div className="inline-placeholder">
           <QText level="placeholder">{props.placeholder}</QText>
         </div>
       )}

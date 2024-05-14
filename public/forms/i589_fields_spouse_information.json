@@ -33,7 +33,8 @@
       ]
     },
     {
-      "label": "none",
+      "label": "",
+      "hideHeader": "true",
       "id": "spouse_form",
       "visibility": "applicant.maritalStatusMarriedCheckbox=true|applicant.maritalStatusDivorcedCheckbox=true|applicant.maritalStatusWidowedCheckbox=true",
       "control": "section",

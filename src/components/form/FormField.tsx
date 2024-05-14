@@ -28,6 +28,7 @@ import { GenerateDocument } from "./fields/GenerateDocument";
 import { LocationDropdown } from "./fields/LocationDropdown";
 import { PassportUploader } from "./fields/PassportUploader";
 import { TextboxWithNA } from "./fields/TextboxWithNA";
+import { SameAddressCheckbox } from "./fields/SameAddressCheckbox";
 
 export interface FormFieldProps {
   fieldKey: string;
@@ -40,6 +41,7 @@ export interface FormFieldProps {
   format?: string;
   className?: string;
   visibility?: string;
+  hideHeader?: boolean;
 }
 
 export function FormField(props: FormFieldProps) {
@@ -222,6 +224,8 @@ export function FormField(props: FormFieldProps) {
       return <GenerateDocument />;
     case "component_list_reports":
       return <DocumentList />;
+    case "component_mailing_same_as_residential":
+      return <SameAddressCheckbox label={wt(props.label)} />;
     case "group":
       if (props.subFields && props.subFields.length > 0) {
         const subFieldsCss = "horizontal-" + `${props.maxChildPerRow || 1}`;
