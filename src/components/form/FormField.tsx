@@ -174,7 +174,13 @@ export function FormField(props: FormFieldProps) {
         />
       );
     case "checkbox":
-      return <CheckBox label={wt(props.label)} onChange={onCheckboxChange} />;
+      return (
+        <CheckBox
+          label={wt(props.label)}
+          onChange={onCheckboxChange}
+          checked={fieldValue === "true"}
+        />
+      );
     case "fileplus":
       return <div>Fileplus not implemented</div>;
     case "file":

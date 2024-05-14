@@ -150,11 +150,14 @@ export function dispatchFormValue(
   keyValues: KeyValues,
 ) {
   for (const [key, value] of Object.entries(keyValues)) {
+    let valueUsed = value;
+    if (value === false) valueUsed = "false";
+    if (value === true) valueUsed = "true";
     const keys = key.split(".");
     if (keys.length === 1) {
-      dispatch(updateCaseFields({ [keys[0]]: value }));
+      dispatch(updateCaseFields({ [keys[0]]: valueUsed }));
     } else {
-      const caseWithUpdatedField = createNestedObject(keys, value);
+      const caseWithUpdatedField = createNestedObject(keys, valueUsed);
       dispatch(updateCaseFields(caseWithUpdatedField));
     }
   }
