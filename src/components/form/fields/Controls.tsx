@@ -10,10 +10,8 @@ import {
 import dayjs from "dayjs";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch } from "../../../app/hooks";
 import { useFormTranslation } from "../../../hooks/commonHooks";
 import { IFormOptions } from "../../../model/formFlowModels";
-import { dispatchFormValue } from "../../../utils/utils";
 import { ErrorMessage, QText } from "../../common/Fonts";
 import "./Controls.css";
 
@@ -161,12 +159,10 @@ export interface QDatePickerProps {
   value?: string;
   onChange?: (value: string) => void;
   disabled?: boolean;
-  parentFieldKey?: string;
   fieldKey?: string;
 }
 
 export function QDatePicker(props: QDatePickerProps) {
-  const dispatch = useAppDispatch();
   const [value, setValue] = useState(props.value || "");
 
   useEffect(() => {
@@ -178,21 +174,11 @@ export function QDatePicker(props: QDatePickerProps) {
     if (!date || !dateString) {
       setValue("");
       props.onChange && props.onChange("");
-      props.parentFieldKey &&
-        props.fieldKey &&
-        dispatchFormValue(dispatch, {
-          [props.fieldKey]: "",
-        });
       return;
     }
     if (Array.isArray(dateString)) dateString = dateString[0];
     setValue(dateString);
     props.onChange && props.onChange(dateString);
-    props.parentFieldKey &&
-      props.fieldKey &&
-      dispatchFormValue(dispatch, {
-        [props.fieldKey]: dateString,
-      });
   };
 
   return (

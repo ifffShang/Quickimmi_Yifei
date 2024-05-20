@@ -84,6 +84,7 @@ export function FormContent(props: FormContentProps) {
               className={field.className}
               visibility={field.visibility}
               hideHeader={field.hideHeader}
+              fieldIndex={field.fieldIndex}
             />
           </div>
         ))}

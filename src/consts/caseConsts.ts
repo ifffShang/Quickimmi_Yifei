@@ -53,7 +53,7 @@ export const InitialApplicant = {
   otherFluentLanguages: "",
   haveNoChildrenCheckbox: null,
   haveChildrenCheckbox: null,
-  childrenCnt: "",
+  childrenCnt: 0,
   notMarriedCheckbox: null,
 };
 

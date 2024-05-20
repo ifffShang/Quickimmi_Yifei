@@ -12,6 +12,7 @@ import "./PassportUploader.css";
 export interface PassportUploaderProps {
   documentId: number;
   fieldKey: string;
+  onChange: (value: any) => void;
 }
 
 export function PassportUploader(props: PassportUploaderProps) {
@@ -29,6 +30,7 @@ export function PassportUploader(props: PassportUploaderProps) {
         modalData: {
           fieldKey: props.fieldKey,
           updatePassportOrIdImageUrl: setPassportOrIdImageUrl,
+          onChange: props.onChange,
         },
       }),
     );

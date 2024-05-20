@@ -1,0 +1,14 @@
+.entry-records-btn {
+  color: var(--gray-color-2);
+}
+
+.entry-record-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  border-left: 4px solid var(--primary-color);
+  padding-left: 10px;
+}

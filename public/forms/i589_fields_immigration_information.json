@@ -36,6 +36,13 @@
           "id": "when_last_leave_country",
           "key": "applicant.whenLastLeaveCountry",
           "control": "datepicker"
+        },
+        {
+          "label": "text_EntryRecords",
+          "placeholder": "text_EntryRecords",
+          "id": "entry_records",
+          "key": "applicant.entryRecords",
+          "control": "component_entry_records"
         }
       ]
     },

@@ -1,8 +1,9 @@
-import { Divider } from "antd";
+import { Button, Divider } from "antd";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Regex } from "../../consts/consts";
 import { useFormTranslation } from "../../hooks/commonHooks";
-import { Identity, KeyValues } from "../../model/commonModels";
+import { EntryRecord } from "../../model/apiModels";
+import { KeyValues } from "../../model/commonModels";
 import {
   ControlType,
   IFormField,
@@ -16,6 +17,7 @@ import {
 } from "../../utils/utils";
 import { QText } from "../common/Fonts";
 import "./FormField.css";
+import { AddChildControl } from "./fields/AddChildControl";
 import {
   CheckBox,
   QDatePicker,
@@ -24,11 +26,12 @@ import {
   SelectBox,
 } from "./fields/Controls";
 import { DocumentList } from "./fields/DocumentList";
+import { EntryRecords } from "./fields/EntryRecords";
 import { GenerateDocument } from "./fields/GenerateDocument";
 import { LocationDropdown } from "./fields/LocationDropdown";
 import { PassportUploader } from "./fields/PassportUploader";
-import { TextboxWithNA } from "./fields/TextboxWithNA";
 import { SameAddressCheckbox } from "./fields/SameAddressCheckbox";
+import { TextboxWithNA } from "./fields/TextboxWithNA";
 
 export interface FormFieldProps {
   fieldKey: string;
@@ -42,6 +45,7 @@ export interface FormFieldProps {
   className?: string;
   visibility?: string;
   hideHeader?: boolean;
+  fieldIndex?: number;
 }
 
 export function FormField(props: FormFieldProps) {
@@ -59,10 +63,11 @@ export function FormField(props: FormFieldProps) {
     props.control,
     props.options,
     props.format,
+    props.fieldIndex,
   );
 
   console.log(
-    `Field key ${props.fieldKey}, value: ${fieldValue}, control: ${props.control}`,
+    `Field key ${props.fieldKey}, value: ${JSON.stringify(fieldValue)}, control: ${props.control}`,
   );
 
   const onOptionChange = (value: string) => {
@@ -79,21 +84,33 @@ export function FormField(props: FormFieldProps) {
           keys.forEach((key, index) => {
             keyValues[key] = values[index];
           });
-          dispatchFormValue(dispatch, keyValues);
+          dispatchFormValue(dispatch, keyValues, props.fieldIndex);
         } else {
-          dispatchFormValue(dispatch, {
-            [props.fieldKey]: option.keyValue,
-          });
+          dispatchFormValue(
+            dispatch,
+            {
+              [props.fieldKey]: option.keyValue,
+            },
+            props.fieldIndex,
+          );
         }
       } else {
-        dispatchFormValue(dispatch, {
-          [props.fieldKey]: value,
-        });
+        dispatchFormValue(
+          dispatch,
+          {
+            [props.fieldKey]: value,
+          },
+          props.fieldIndex,
+        );
       }
     } else {
-      dispatchFormValue(dispatch, {
-        [props.fieldKey]: value,
-      });
+      dispatchFormValue(
+        dispatch,
+        {
+          [props.fieldKey]: value,
+        },
+        props.fieldIndex,
+      );
     }
   };
 
@@ -115,17 +132,25 @@ export function FormField(props: FormFieldProps) {
       if (matches) {
         const group1 = matches[1];
         const group2 = matches[2];
-        dispatchFormValue(dispatch, {
-          [keys[0]]: group1,
-          [keys[1]]: group2,
-        });
+        dispatchFormValue(
+          dispatch,
+          {
+            [keys[0]]: group1,
+            [keys[1]]: group2,
+          },
+          props.fieldIndex,
+        );
       }
       return returnValue;
     } else {
       props.fieldKey &&
-        dispatchFormValue(dispatch, {
-          [props.fieldKey]: value,
-        });
+        dispatchFormValue(
+          dispatch,
+          {
+            [props.fieldKey]: value,
+          },
+          props.fieldIndex,
+        );
       return value;
     }
   };
@@ -135,22 +160,34 @@ export function FormField(props: FormFieldProps) {
 
     if (props.fieldKey.indexOf(",") > -1) {
       const keys = props.fieldKey.split(",");
-      dispatchFormValue(dispatch, {
-        [keys[0]]: value,
-        [keys[1]]: !value,
-      });
+      dispatchFormValue(
+        dispatch,
+        {
+          [keys[0]]: value,
+          [keys[1]]: !value,
+        },
+        props.fieldIndex,
+      );
       return;
     }
-    dispatchFormValue(dispatch, {
-      [props.fieldKey]: value,
-    });
+    dispatchFormValue(
+      dispatch,
+      {
+        [props.fieldKey]: value,
+      },
+      props.fieldIndex,
+    );
   };
 
   const onLocationChange = (...params: any[]) => {
     const locationStr = formatCityAndCountryStr(...params);
-    dispatchFormValue(dispatch, {
-      [props.fieldKey]: locationStr,
-    });
+    dispatchFormValue(
+      dispatch,
+      {
+        [props.fieldKey]: locationStr,
+      },
+      props.fieldIndex,
+    );
   };
 
   switch (props.control) {
@@ -204,11 +241,34 @@ export function FormField(props: FormFieldProps) {
           placeholder={placeholder}
           value={fieldValue}
           fieldKey={props.fieldKey}
+          onChange={(value: string) => {
+            props.fieldKey &&
+              dispatchFormValue(
+                dispatch,
+                {
+                  [props.fieldKey]: value,
+                },
+                props.fieldIndex,
+              );
+          }}
         />
       );
     case "component_passport_uploader": {
       return (
-        <PassportUploader documentId={fieldValue} fieldKey={props.fieldKey} />
+        <PassportUploader
+          documentId={fieldValue}
+          fieldKey={props.fieldKey}
+          onChange={(value: any) => {
+            props.fieldKey &&
+              dispatchFormValue(
+                dispatch,
+                {
+                  [props.fieldKey]: value,
+                },
+                props.fieldIndex,
+              );
+          }}
+        />
       );
     }
     case "component_textbox_na":
@@ -232,6 +292,36 @@ export function FormField(props: FormFieldProps) {
       return <DocumentList />;
     case "component_mailing_same_as_residential":
       return <SameAddressCheckbox label={wt(props.label)} />;
+    case "component_entry_records":
+      return (
+        <EntryRecords
+          value={fieldValue}
+          placeholder={placeholder}
+          onChange={(value: EntryRecord[]) => {
+            dispatchFormValue(
+              dispatch,
+              {
+                [props.fieldKey]: value,
+              },
+              props.fieldIndex,
+            );
+          }}
+        />
+      );
+    case "component_add_child":
+      return (
+        <AddChildControl
+          onClick={() => {
+            dispatchFormValue(
+              dispatch,
+              {
+                [props.fieldKey]: parseInt(fieldValue) + 1,
+              },
+              props.fieldIndex,
+            );
+          }}
+        />
+      );
     case "group":
       if (props.subFields && props.subFields.length > 0) {
         const subFieldsCss = "horizontal-" + `${props.maxChildPerRow || 1}`;
@@ -255,6 +345,7 @@ export function FormField(props: FormFieldProps) {
                   subFields={field.fields}
                   format={field.format}
                   visibility={field.visibility}
+                  fieldIndex={props.fieldIndex}
                 />
               </div>
             ))}
@@ -262,6 +353,7 @@ export function FormField(props: FormFieldProps) {
         );
       } else return <div>Group needs sub fields</div>;
     case "section":
+    case "removable_section":
       if (props.subFields && props.subFields.length > 0) {
         if (props.visibility) {
           //| represents the "or" logic
@@ -275,14 +367,61 @@ export function FormField(props: FormFieldProps) {
                 hasTrue = true;
               }
             }
-            if (!hasTrue) return null;
+            if (!hasTrue) return <></>;
+          }
+          if (props.visibility === "count") {
+            if (!fieldValue) return <></>;
+            const childNum = parseInt(fieldValue);
+            return (
+              <>
+                {[...Array(2)].map((_, childIndex) => (
+                  <div key={childIndex} className="section-container">
+                    {props.control === "removable_section" && (
+                      <Button
+                        onClick={() => {
+                          dispatchFormValue(
+                            dispatch,
+                            {
+                              [props.fieldKey]: parseInt(fieldValue) - 1,
+                            },
+                            props.fieldIndex,
+                          );
+                        }}
+                      >
+                        Remove
+                      </Button>
+                    )}
+                    {props?.subFields?.map((field, index) => (
+                      <div key={index}>
+                        {field.label && (
+                          <QText level="normal bold">{wt(field.label)}</QText>
+                        )}
+                        <FormField
+                          fieldKey={field.key}
+                          control={field.control}
+                          label={field.label}
+                          options={field.options}
+                          placeholder={field.placeholder}
+                          className={field.className}
+                          maxChildPerRow={field.maxChildPerRow}
+                          subFields={field.fields}
+                          format={field.format}
+                          visibility={field.visibility}
+                          fieldIndex={childIndex}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </>
+            );
           }
         }
         return (
           <div className="section-container">
             {props.subFields.map((field, index) => (
               <div key={index}>
-                {field.label !== "none" && (
+                {field.label && (
                   <QText level="normal bold">{wt(field.label)}</QText>
                 )}
                 <FormField

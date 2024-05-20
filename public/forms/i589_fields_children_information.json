@@ -1,49 +1,21 @@
 {
-  "id": "i589_fields_spouse_information",
+  "id": "i589_fields_children_information",
   "version": "2024-04-01",
   "type": "fields",
   "fields": [
     {
-      "label": "text_MaritalStatus",
-      "placeholder": "text_MaritalStatus",
-      "id": "maritalStatus",
-      "key": "applicant.maritalStatusSingleCheckbox,applicant.maritalStatusMarriedCheckbox,applicant.maritalStatusDivorcedCheckbox,applicant.maritalStatusWidowedCheckbox,family.spouse.notMarriedCheckbox",
-      "control": "select",
-      "options": [
-        {
-          "value": "Single",
-          "label": "text_Single",
-          "keyValue": "true,false,false,false,true"
-        },
-        {
-          "value": "Married",
-          "label": "text_Married",
-          "keyValue": "false,true,false,false,false"
-        },
-        {
-          "value": "Divorced",
-          "label": "text_Divorced",
-          "keyValue": "false,false,true,false,false"
-        },
-        {
-          "value": "Widowed",
-          "label": "text_Widowed",
-          "keyValue": "false,false,false,true,false"
-        }
-      ]
-    },
-    {
       "label": "",
       "hideHeader": "true",
-      "id": "spouse_form",
-      "visibility": "applicant.maritalStatusMarriedCheckbox=true|applicant.maritalStatusDivorcedCheckbox=true|applicant.maritalStatusWidowedCheckbox=true",
-      "control": "section",
+      "id": "children_form",
+      "key": "applicant.childrenCnt",
+      "visibility": "count",
+      "control": "removable_section",
       "fields": [
         {
-          "label": "text_SpouseUploadPassport",
+          "label": "text_ChildUploadPassport",
           "placeholder": "text_UploadPassport",
-          "id": "spouse_upload_passport",
-          "key": "family.spouse.passportDocumentId",
+          "id": "children_upload_passport",
+          "key": "family.children[].passportDocumentId",
           "control": "component_passport_uploader"
         },
         {
@@ -55,51 +27,51 @@
             {
               "label": "text_PassportNumber",
               "placeholder": "text_PassportNumber",
-              "id": "spouse_passport_number",
-              "key": "family.spouse.passportNumber",
+              "id": "children_passport_number",
+              "key": "family.children[].passportNumber",
               "control": "text"
             },
             {
               "label": "text_TravelDocumentNumber",
               "placeholder": "text_TravelDocumentNumber",
-              "id": "spouse_travel_document_number",
-              "key": "family.spouse.travelDocumentNumber",
+              "id": "children_travel_document_number",
+              "key": "family.children[].travelDocumentNumber",
               "control": "text"
             }
           ]
         },
         {
           "label": "text_Marigage",
-          "id": "spouse_marriage_information",
+          "id": "children_marriage_information",
           "control": "group",
           "maxChildPerRow": "3",
           "fields": [
             {
               "label": "text_MarriageDate",
               "placeholder": "text_MarriageDate",
-              "id": "spouse_marriage_date",
-              "key": "family.spouse.marriageDate",
+              "id": "children_marriage_date",
+              "key": "family.children[].marriageDate",
               "control": "datepicker"
             },
             {
               "label": "text_MarriagePlace",
               "placeholder": "text_MarriagePlace",
-              "id": "spouse_marriage_place",
-              "key": "family.spouse.marriagePlace",
+              "id": "children_marriage_place",
+              "key": "family.children[].marriagePlace",
               "control": "text"
             }
           ]
         },
         {
-          "label": "text_SpouseApplication",
-          "id": "spouse_application",
+          "label": "text_ChildrenApplication",
+          "id": "children_application",
           "control": "group",
           "maxChildPerRow": "3",
           "fields": [
             {
-              "label": "text_SpouseIsInUS",
-              "id": "spouse_is_in_us",
-              "key": "family.spouse.personInUSYesCheckbox,family.spouse.personInUSNoCheckbox",
+              "label": "text_ChildrenIsInUS",
+              "id": "children_is_in_us",
+              "key": "family.children[].personInUSYesCheckbox,family.children[].personInUSNoCheckbox",
               "control": "checkbox",
               "options": [
                 {
@@ -117,22 +89,22 @@
             {
               "label": "text_SpecifyLocationIfNotInUS",
               "placeholder": "text_SpecifyLocationIfNotInUS",
-              "id": "spouse_location_not_in_us",
-              "key": "family.spouse.specifyLocationIfNotInUS",
+              "id": "children_location_not_in_us",
+              "key": "family.children[].specifyLocationIfNotInUS",
               "control": "text"
             }
           ]
         },
         {
-          "label": "text_SpouseIncludedInApplication",
-          "id": "spouse_included_in_application",
+          "label": "text_ChildrenIncludedInApplication",
+          "id": "children_included_in_application",
           "control": "group",
           "maxChildPerRow": "1",
           "fields": [
             {
-              "label": "text_SpouseIncludedInApplication",
-              "id": "spouse_included_in_application",
-              "key": "family.spouse.inThisApplicationYesCheckbox,family.spouse.inThisApplicationNoCheckbox",
+              "label": "text_ChildrenIncludedInApplication",
+              "id": "children_included_in_application",
+              "key": "family.children[].inThisApplicationYesCheckbox,family.children[].inThisApplicationNoCheckbox",
               "control": "checkbox",
               "options": [
                 {
@@ -151,29 +123,29 @@
         },
         {
           "label": "text_Name",
-          "id": "spouse_name",
+          "id": "children_name",
           "control": "group",
           "maxChildPerRow": "3",
           "fields": [
             {
               "label": "text_LastName",
               "placeholder": "text_LastName",
-              "id": "spouse_last_name",
-              "key": "family.spouse.lastName",
+              "id": "children_last_name",
+              "key": "family.children[].lastName",
               "control": "text"
             },
             {
               "label": "text_MiddleName",
               "placeholder": "text_MiddleName",
-              "id": "spouse_middle_name",
-              "key": "family.spouse.middleName",
+              "id": "children_middle_name",
+              "key": "family.children[].middleName",
               "control": "text"
             },
             {
               "label": "text_FirstName",
               "placeholder": "text_FirstName",
-              "id": "spouse_first_name",
-              "key": "family.spouse.firstName",
+              "id": "children_first_name",
+              "key": "family.children[].firstName",
               "control": "text"
             }
           ]
@@ -181,22 +153,22 @@
         {
           "label": "text_OtherNames",
           "placeholder": "text_OtherNames",
-          "id": "other_names_spouse",
-          "key": "family.spouse.namesUsedBefore",
+          "id": "other_names_Children",
+          "key": "family.children[].namesUsedBefore",
           "control": "component_textbox_na"
         },
         {
           "label": "text_BirthDate",
           "placeholder": "text_BirthDate",
-          "id": "birth_date_spouse",
-          "key": "family.spouse.birthDate",
+          "id": "birth_date_Children",
+          "key": "family.children[].birthDate",
           "control": "datepicker"
         },
         {
           "label": "text_Gender",
           "placeholder": "text_Gender",
-          "id": "gender_spouse",
-          "key": "family.spouse.genderMaleCheckbox,family.spouse.genderFemaleCheckbox",
+          "id": "gender_Children",
+          "key": "family.children[].genderMaleCheckbox,family.children[].genderFemaleCheckbox",
           "control": "select",
           "options": [
             {
@@ -213,7 +185,7 @@
         },
         {
           "label": "text_Nationality",
-          "id": "nationality_spouse",
+          "id": "nationality_Children",
           "control": "group",
           "maxChildPerRow": "3",
           "fields": [
@@ -221,7 +193,7 @@
               "label": "text_PresentNationality",
               "placeholder": "text_PresentNationality",
               "id": "nationality",
-              "key": "family.spouse.nationality",
+              "key": "family.children[].nationality",
               "control": "select",
               "options": "NationalityOptions"
             },
@@ -229,7 +201,7 @@
               "label": "text_NationalityAtBirth",
               "placeholder": "text_NationalityAtBirth",
               "id": "nationality_at_birth",
-              "key": "family.spouse.nationalityAtBirth",
+              "key": "family.children[].nationalityAtBirth",
               "control": "select",
               "options": "NationalityOptions"
             }
@@ -238,43 +210,43 @@
         {
           "label": "text_Race",
           "placeholder": "text_Race",
-          "id": "race_spouse",
-          "key": "family.spouse.race",
+          "id": "race_Children",
+          "key": "family.children[].race",
           "control": "select",
           "options": "RaceOptions"
         },
         {
           "label": "text_Religion",
           "placeholder": "text_Religion",
-          "id": "religion_spouse",
-          "key": "family.spouse.religion",
+          "id": "religion_Children",
+          "key": "family.children[].religion",
           "control": "select",
           "options": "ReligionOptions"
         },
         {
           "label": "text_LocationOfBirth",
           "placeholder": "text_LocationOfBirth",
-          "id": "location_of_birth_spouse",
-          "key": "family.spouse.cityAndCountryOfBirth",
+          "id": "location_of_birth_Children",
+          "key": "family.children[].cityAndCountryOfBirth",
           "control": "component_location_dropdown"
         },
         {
           "label": "text_Language",
-          "id": "language_spouse",
+          "id": "language_Children",
           "control": "group",
           "maxChildPerRow": "1",
           "fields": [
             {
               "label": "text_NativeLanguage",
               "placeholder": "text_NativeLanguage",
-              "id": "native_language_spouse",
-              "key": "family.spouse.nativeLanguage",
+              "id": "native_language_Children",
+              "key": "family.children[].nativeLanguage",
               "control": "text"
             },
             {
               "label": "text_FluentInEnglish",
-              "id": "fluent_in_english_spouse",
-              "key": "family.spouse.fluentEnglishYesCheckbox,family.spouse.fluentEnglishNoCheckbox",
+              "id": "fluent_in_english_Children",
+              "key": "family.children[].fluentEnglishYesCheckbox,family.children[].fluentEnglishNoCheckbox",
               "control": "checkbox",
               "options": [
                 {
@@ -292,8 +264,8 @@
             {
               "label": "text_OtherFluentLanguages",
               "placeholder": "text_OtherFluentLanguages",
-              "id": "other_fluent_languages_spouse",
-              "key": "family.spouse.otherFluentLanguages",
+              "id": "other_fluent_languages_Children",
+              "key": "family.children[].otherFluentLanguages",
               "control": "component_textbox_na"
             }
           ]
@@ -302,55 +274,55 @@
           "label": "text_SSNLabel",
           "placeholder": "text_SSN",
           "id": "ssn",
-          "key": "family.spouse.ssn",
+          "key": "family.children[].ssn",
           "control": "text"
         },
         {
-          "label": "text_SpouseImmigrationStatus",
-          "id": "spouse_immigration_status",
+          "label": "text_ChildrenImmigrationStatus",
+          "id": "children_immigration_status",
           "control": "group",
           "maxChildPerRow": "3",
           "fields": [
             {
-              "label": "text_SpouseLastEntryUSDate",
-              "placeholder": "text_SpouseLastEntryUSDate",
-              "id": "spouse_last_entry_us_date",
-              "key": "family.spouse.lastEntryUSDate",
+              "label": "text_ChildrenLastEntryUSDate",
+              "placeholder": "text_ChildrenLastEntryUSDate",
+              "id": "children_last_entry_us_date",
+              "key": "family.children[].lastEntryUSDate",
               "control": "datepicker"
             },
             {
               "label": "text_i94Number",
               "placeholder": "text_i94Number",
-              "id": "spouse_i94_number",
-              "key": "family.spouse.i94Number",
+              "id": "children_i94_number",
+              "key": "family.children[].i94Number",
               "control": "text"
             },
             {
               "label": "text_LastAdmittedStatus",
               "placeholder": "text_LastAdmittedStatus",
-              "id": "spouse_last_admitted_status",
-              "key": "family.spouse.lastAdmittedStatus",
+              "id": "children_last_admitted_status",
+              "key": "family.children[].lastAdmittedStatus",
               "control": "text"
             },
             {
               "label": "text_CurrentStatus",
               "placeholder": "text_CurrentStatus",
-              "id": "spouse_current_status",
-              "key": "family.spouse.currentStatus",
+              "id": "children_current_status",
+              "key": "family.children[].currentStatus",
               "control": "text"
             },
             {
               "label": "text_StatusExpireDate",
               "placeholder": "text_StatusExpireDate",
-              "id": "spouse_status_expire_date",
-              "key": "family.spouse.statusExpireDate",
+              "id": "children_status_expire_date",
+              "key": "family.children[].statusExpireDate",
               "control": "datepicker"
             },
             {
               "label": "text_PreviousArrivalDate",
               "placeholder": "text_PreviousArrivalDate",
-              "id": "spouse_previous_arrival_date",
-              "key": "family.spouse.previousArrivalDate",
+              "id": "children_previous_arrival_date",
+              "key": "family.children[].previousArrivalDate",
               "control": "datepicker"
             }
           ]
@@ -358,7 +330,7 @@
         {
           "label": "text_ImmigrationCourt",
           "id": "immigration_court",
-          "key": "family.spouse.immigrationCourtProceedingYesCheckbox,family.spouse.immigrationCourtProceedingNoCheckbox",
+          "key": "family.children[].immigrationCourtProceedingYesCheckbox,family.children[].immigrationCourtProceedingNoCheckbox",
           "control": "radio",
           "options": [
             {
@@ -372,8 +344,20 @@
               "keyValue": "false,true"
             }
           ]
+        },
+        {
+          "label": "",
+          "id": "children_information",
+          "control": "divider"
         }
       ]
+    },
+    {
+      "label": "text_NumberOfChildren",
+      "placeholder": "text_NumberOfChildren",
+      "id": "children_number",
+      "key": "applicant.childrenCnt",
+      "control": "component_add_child"
     }
   ]
 }

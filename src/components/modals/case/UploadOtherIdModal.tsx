@@ -11,7 +11,6 @@ import {
   updateIdCardInfo,
   updateTravelDocumentInfo,
 } from "../../../reducers/formSlice";
-import { dispatchFormValue } from "../../../utils/utils";
 import { QText } from "../../common/Fonts";
 import { QReturnLink } from "../../common/Links";
 import { QDropdown } from "../../form/fields/Controls";
@@ -32,8 +31,8 @@ export function UploadOtherIdModal() {
   const presignedUrlResRef = useRef<GeneratePresignedUrlResponse | null>(null);
   const fileRef = useRef<File | null>(null);
 
-  if (!modalData || !modalData.fieldKey) {
-    console.error("Field key is missing");
+  if (!modalData || !modalData.onChange || !modalData.fieldKey) {
+    console.error("OnChange or fieldKey is missing in modal data");
     return null;
   }
 
@@ -52,9 +51,7 @@ export function UploadOtherIdModal() {
 
   const parseIdCard = async (documentId: number) => {
     try {
-      dispatchFormValue(dispatch, {
-        [modalData.fieldKey]: documentId,
-      });
+      modalData?.onChange(documentId);
       if (!accessToken) {
         throw new Error(`Access token ${accessToken} is missing`);
       }

@@ -77,14 +77,34 @@ export function decodeId(encodedId: string) {
 export function getCaseDetailValue(
   caseDetails: AsylumCaseProfile,
   key: string,
+  fieldIndex?: number,
 ) {
   if (key.indexOf(".") > -1) {
     const keys = key.split(".");
-    let result = caseDetails;
+    let result: any = caseDetails;
     for (const keyEntry of keys) {
-      result = result[keyEntry];
+      if (keyEntry.indexOf("[]") > -1) {
+        if (keyEntry.indexOf("[]") === -1 || typeof fieldIndex !== "number") {
+          console.error(
+            `[getCaseDetailValue] Field index is missing for array field. Key: ${keyEntry} fieldIndex: ${fieldIndex}`,
+          );
+          return null;
+        }
+        const realKeyEntry = keyEntry.replace("[]", "");
+        if (result[realKeyEntry] && Array.isArray(result[realKeyEntry])) {
+          result = result[realKeyEntry][fieldIndex];
+        } else {
+          result = null;
+          console.error("Result should be an array for key: ", keyEntry);
+        }
+        continue;
+      }
+      if (result === 0) return 0;
+      if (result === false) return "false";
       if (!result) return null;
+      result = result[keyEntry];
     }
+    if (result === true) return "true";
     return result;
   }
   return caseDetails[key];
@@ -96,8 +116,9 @@ export function getFieldValue(
   control: ControlType,
   options?: IFormOptions[] | string,
   format?: string,
+  fieldIndex?: number,
 ) {
-  if (control === "group" || control === "section") {
+  if (control === "group") {
     return;
   }
 
@@ -114,7 +135,7 @@ export function getFieldValue(
     const keys = key.split(",");
     if (options && Array.isArray(options)) {
       const keyValue = keys
-        .map(k => getCaseDetailValue(caseDetails, k))
+        .map(k => getCaseDetailValue(caseDetails, k, fieldIndex))
         .join(",");
       const option = options.find(option => option.keyValue === keyValue);
       return option?.value;
@@ -127,7 +148,7 @@ export function getFieldValue(
         return "";
       }
       const raw = keys
-        .map(k => getCaseDetailValue(caseDetails, k))
+        .map(k => getCaseDetailValue(caseDetails, k, fieldIndex))
         .join("")
         .replace(filterRegex, "");
       return raw.replace(regex, output);
@@ -136,11 +157,23 @@ export function getFieldValue(
     }
   }
 
-  return getCaseDetailValue(caseDetails, key);
+  return getCaseDetailValue(caseDetails, key, fieldIndex);
 }
 
-function createNestedObject(keys: string[], value: any) {
+function createNestedObject(keys: string[], value: any, fieldIndex?: number) {
   return keys.reduceRight((result, key, i) => {
+    if (key.indexOf("[]") > -1) {
+      if (key.indexOf("[]") === -1 || typeof fieldIndex !== "number") {
+        console.error(
+          `[createNestedObject] Field index is missing for array field. Key: ${key} fieldIndex: ${fieldIndex}`,
+        );
+        return null;
+      }
+      const subKey = key.replace("[]", "");
+      const array: any[] = [];
+      array[fieldIndex] = result;
+      return { [subKey]: array };
+    }
     return { [key]: result };
   }, value);
 }
@@ -148,6 +181,7 @@ function createNestedObject(keys: string[], value: any) {
 export function dispatchFormValue(
   dispatch: React.Dispatch<any>,
   keyValues: KeyValues,
+  fieldIndex?: number,
 ) {
   for (const [key, value] of Object.entries(keyValues)) {
     let valueUsed = value;
@@ -155,9 +189,26 @@ export function dispatchFormValue(
     if (value === true) valueUsed = "true";
     const keys = key.split(".");
     if (keys.length === 1) {
-      dispatch(updateCaseFields({ [keys[0]]: valueUsed }));
+      let subKey = keys[0];
+      if (subKey.indexOf("[]") > -1) {
+        if (key.indexOf("[]") === -1 || typeof fieldIndex !== "number") {
+          console.error(
+            `[dispatchFormValue] Field index is missing for array field. Key: ${key} fieldIndex: ${fieldIndex}`,
+          );
+          return null;
+        }
+        subKey = subKey.replace("[]", "");
+        const array: any[] = [];
+        array[fieldIndex] = value;
+        valueUsed = array;
+      }
+      dispatch(updateCaseFields({ [key]: valueUsed }));
     } else {
-      const caseWithUpdatedField = createNestedObject(keys, valueUsed);
+      const caseWithUpdatedField = createNestedObject(
+        keys,
+        valueUsed,
+        fieldIndex,
+      );
       dispatch(updateCaseFields(caseWithUpdatedField));
     }
   }

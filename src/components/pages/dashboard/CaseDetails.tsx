@@ -14,9 +14,9 @@ export function CaseDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const accessToken = useAppSelector(state => state.auth.accessToken);
+
   useEffect(() => {
     if (!id || !accessToken) return;
-
     getForm("i589_form").then(form => {
       dispatch(updateForm(form));
       (async function () {
@@ -35,7 +35,6 @@ export function CaseDetails() {
         }
       })();
     });
-
     return () => {
       dispatch(resetFormState());
     };

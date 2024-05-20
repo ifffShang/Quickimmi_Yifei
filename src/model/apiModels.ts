@@ -157,13 +157,14 @@ export interface Applicant {
   otherFluentLanguages?: string;
   haveNoChildrenCheckbox?: string | null;
   haveChildrenCheckbox?: string | null;
-  childrenCnt?: string;
+  childrenCnt?: number;
   notMarriedCheckbox?: string | null;
 }
 
 export interface EntryRecord {
   date: string;
-  port: string;
+  place: string;
+  status: string;
 }
 
 export interface Family {
