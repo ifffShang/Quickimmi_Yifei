@@ -103,6 +103,7 @@ export interface AsylumCaseProfileOptional {
   signature?: YourSignature;
   declaration?: Declaration;
   overwriteChildren?: boolean;
+  overwriteSiblings?: boolean;
 }
 
 export interface Applicant {
@@ -241,12 +242,12 @@ export interface Child {
 }
 
 export interface FamilyMember {
-  part: string;
-  question: string;
-  name: string;
-  cityTownAndBirth: string;
-  location: string;
-  deceasedCheckbox: string;
+  part?: string; // Fulfill by backend
+  question?: string; // Fulfill by backend
+  name?: string;
+  cityTownAndBirth?: string;
+  location?: string;
+  deceasedCheckbox?: string;
 }
 
 export interface Background {
@@ -257,33 +258,33 @@ export interface Background {
 }
 
 export interface AddressHistory {
-  part: string;
-  question: string;
-  numberAndStreet: string;
-  city: string;
-  province: string;
-  country: string;
-  startDate: string;
-  endDate: string;
+  part?: string; // Fulfill by backend
+  question?: string; // Fulfill by backend
+  numberAndStreet?: string;
+  city?: string;
+  province?: string;
+  country?: string;
+  startDate?: string;
+  endDate?: string;
 }
 
 export interface EducationHistory {
-  part: string;
-  question: string;
-  schoolName: string;
-  schoolType: string;
-  location: string;
-  startDate: string;
-  endDate: string;
+  part?: string; // Fulfill by backend
+  question?: string; // Fulfill by backend
+  schoolName?: string;
+  schoolType?: string;
+  location?: string;
+  startDate?: string;
+  endDate?: string;
 }
 
 export interface EmploymentHistory {
-  part: string;
-  question: string;
-  nameAndAddress: string;
-  occupation: string;
-  startDate: string;
-  endDate: string;
+  part?: string; // Fulfill by backend
+  question?: string; // Fulfill by backend
+  nameAndAddress?: string;
+  occupation?: string;
+  startDate?: string;
+  endDate?: string;
 }
 
 export interface ApplicationDetails {

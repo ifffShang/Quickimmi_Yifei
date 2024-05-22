@@ -356,7 +356,7 @@
       "placeholder": "text_NumberOfChildren",
       "id": "children_number",
       "key": "applicant.childrenCnt-family.children",
-      "control": "component_add_child"
+      "control": "component_add_item"
     }
   ]
 }

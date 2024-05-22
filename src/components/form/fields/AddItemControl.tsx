@@ -1,21 +1,21 @@
 import { Button } from "antd";
 import { QText } from "../../common/Fonts";
 import { PlusCircleFilled } from "@ant-design/icons";
-import "./AddChildControl.css";
+import "./AddItemControl.css";
 
-export interface AddChildControlProps {
+export interface AddItemControlProps {
   onClick: () => void;
 }
-export function AddChildControl(props: AddChildControlProps) {
+export function AddItemControl(props: AddItemControlProps) {
   return (
-    <div className="add-child">
+    <div className="add-item">
       <Button
-        className="add-child-btn"
+        className="add-item-btn"
         shape="circle"
         icon={<PlusCircleFilled />}
         onClick={e => props.onClick()}
       />
-      <QText>{"If no child, move forward to next section"}</QText>
+      <QText>{"If no item, move forward to next section"}</QText>
     </div>
   );
 }

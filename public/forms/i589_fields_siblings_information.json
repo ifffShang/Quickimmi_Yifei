@@ -1,0 +1,72 @@
+{
+  "id": "i589_fields_siblings_information",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    {
+      "label": "text_Siblings",
+      "hideHeader": "true",
+      "id": "siblings",
+      "key": "count-family.siblings",
+      "control": "removable_section",
+      "fields": [
+        {
+          "label": "text_Siblings",
+          "id": "siblings",
+          "control": "group",
+          "maxChildPerRow": "1",
+          "fields": [
+            {
+              "label": "text_SiblingsName",
+              "placeholder": "text_SiblingsName",
+              "id": "siblings_name",
+              "key": "family.siblings[].name",
+              "control": "text"
+            },
+
+            {
+              "label": "text_SiblingsDeseasedCheckbox",
+              "placeholder": "text_SiblingsDeseasedCheckbox",
+              "id": "siblings_deceased_checkbox",
+              "key": "family.siblings[].deceasedCheckbox",
+              "control": "checkbox",
+              "options": [
+                {
+                  "value": "true",
+                  "label": "text_Yes",
+                  "keyValue": "true"
+                },
+                {
+                  "value": "false",
+                  "label": "text_No",
+                  "keyValue": "false"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "text_SiblingsBirthLocation",
+          "placeholder": "text_SiblingsBirthLocation",
+          "id": "siblings_birth_location",
+          "key": "family.siblings[].cityTownAndBirth",
+          "control": "component_location_dropdown"
+        },
+        {
+          "label": "text_SiblingsCurrentLocation",
+          "placeholder": "text_SiblingsCurrentLocation",
+          "id": "siblings_current_location",
+          "key": "family.siblings[].location",
+          "control": "component_location_dropdown"
+        }
+      ]
+    },
+    {
+      "label": "text_NumberOfSiblings",
+      "placeholder": "text_NumberOfSiblings",
+      "id": "sibling_number",
+      "key": "count-family.siblings",
+      "control": "component_add_item"
+    }
+  ]
+}

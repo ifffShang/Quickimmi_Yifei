@@ -1,4 +1,4 @@
-import { Button, Divider } from "antd";
+import { Divider } from "antd";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Regex } from "../../consts/consts";
 import { useFormTranslation } from "../../hooks/commonHooks";
@@ -10,6 +10,8 @@ import {
   IFormOptions,
 } from "../../model/formFlowModels";
 import {
+  createKeyValuesForAddItem,
+  createKeyValuesForRemoveItem,
   dispatchFormValue,
   formatCityAndCountryStr,
   getCaseDetailValue,
@@ -17,7 +19,7 @@ import {
 } from "../../utils/utils";
 import { QText } from "../common/Fonts";
 import "./FormField.css";
-import { AddChildControl } from "./fields/AddChildControl";
+import { AddItemControl } from "./fields/AddItemControl";
 import {
   CheckBox,
   QDatePicker,
@@ -33,7 +35,6 @@ import { PassportUploader } from "./fields/PassportUploader";
 import { SameAddressCheckbox } from "./fields/SameAddressCheckbox";
 import { TextboxWithNA } from "./fields/TextboxWithNA";
 import { RemovableSectionHeader } from "./parts/RemovableSectionHeader";
-import { InitialChild } from "../../consts/caseConsts";
 
 export interface FormFieldProps {
   fieldKey: string;
@@ -192,6 +193,11 @@ export function FormField(props: FormFieldProps) {
     );
   };
 
+  const onAddItemClick = () => {
+    const keyValues = createKeyValuesForAddItem(props.fieldKey, fieldValue);
+    dispatchFormValue(dispatch, keyValues, props.fieldIndex);
+  };
+
   switch (props.control) {
     case "text":
       return (
@@ -311,22 +317,8 @@ export function FormField(props: FormFieldProps) {
           }}
         />
       );
-    case "component_add_child":
-      return (
-        <AddChildControl
-          onClick={() => {
-            dispatchFormValue(
-              dispatch,
-              {
-                [fieldValue.countKey]: parseInt(fieldValue.count) + 1,
-                [fieldValue.arrKey]: [...fieldValue.arr, InitialChild],
-                overwriteChildren: true,
-              },
-              props.fieldIndex,
-            );
-          }}
-        />
-      );
+    case "component_add_item":
+      return <AddItemControl onClick={() => onAddItemClick()} />;
     case "group":
       if (props.subFields && props.subFields.length > 0) {
         const subFieldsCss = "horizontal-" + `${props.maxChildPerRow || 1}`;
@@ -385,16 +377,12 @@ export function FormField(props: FormFieldProps) {
                       label={wt(props.label)}
                       fieldIndex={arrIndex}
                       onRemove={() => {
-                        const newArr = [...fieldValue.arr].splice(arrIndex, 1);
-                        dispatchFormValue(
-                          dispatch,
-                          {
-                            [fieldValue.countKey]: fieldValue.count - 1,
-                            [fieldValue.arrKey]: [...newArr],
-                            overwriteChildren: true,
-                          },
+                        const keyValues = createKeyValuesForRemoveItem(
+                          props.fieldKey,
+                          fieldValue,
                           arrIndex,
                         );
+                        dispatchFormValue(dispatch, keyValues, arrIndex);
                       }}
                     />
                   )}

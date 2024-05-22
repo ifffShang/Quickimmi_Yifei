@@ -3,7 +3,6 @@ import _ from "lodash";
 import { InitialApplicationCase } from "../consts/caseConsts";
 import {
   ApplicationCase,
-  AsylumCaseProfile,
   AsylumCaseProfileOptional,
   ParsePassportResponse,
 } from "../model/apiModels";
@@ -62,6 +61,12 @@ export const formSlice = createSlice({
       if (action.payload.overwriteChildren) {
         state.applicationCase.profile.family.children =
           action.payload?.family?.children ?? [];
+        delete action.payload.overwriteChildren;
+      }
+      if (action.payload.overwriteSiblings) {
+        state.applicationCase.profile.family.siblings =
+          action.payload?.family?.siblings ?? [];
+        delete action.payload.overwriteSiblings;
       }
       const profile = _.merge(state.applicationCase.profile, action.payload);
       state.applicationCase.profile = profile;

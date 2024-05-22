@@ -22,6 +22,7 @@ import { Identity, KeyValues, ScreenSize } from "../model/commonModels";
 import { ControlType, IFormOptions } from "../model/formFlowModels";
 import { updateCaseFields } from "../reducers/formSlice";
 import _ from "lodash";
+import { InitialChild, InitialFamilyMember } from "../consts/caseConsts";
 
 export const handleResize = (
   dispatch?: React.Dispatch<any>,
@@ -135,9 +136,12 @@ export function getFieldValue(
   // count-array pair
   if (key.indexOf("-") > -1) {
     const [countKey, arrKey] = key.split("-");
-    const count = getCaseDetailValue(caseDetails, countKey, fieldIndex);
     const arr = getCaseDetailValue(caseDetails, arrKey, fieldIndex);
-    return { countKey, count, arrKey, arr };
+    if (countKey !== "count") {
+      const count = getCaseDetailValue(caseDetails, countKey, fieldIndex);
+      return { countKey, count, arrKey, arr };
+    }
+    return { arrKey, arr };
   }
 
   if (key?.indexOf(",") > -1) {
@@ -410,4 +414,44 @@ export function getIdentity(fieldKey: string, fieldIndex?: number) {
     identity = ("Child_" + (fieldIndex + 1)) as Identity;
   }
   return identity;
+}
+
+export function createKeyValuesForAddItem(fieldKey: string, fieldValue: any) {
+  const keyValues: any = {};
+  if (fieldValue.countKey) {
+    keyValues[fieldValue.countKey] = parseInt(fieldValue.count) + 1;
+  }
+  if (fieldValue.arrKey) {
+    if (fieldKey.indexOf("children") > -1) {
+      keyValues[fieldValue.arrKey] = [...fieldValue.arr, InitialChild];
+      keyValues["overwriteChildren"] = true;
+    } else if (fieldKey.indexOf("siblings") > -1) {
+      keyValues[fieldValue.arrKey] = [...fieldValue.arr, InitialFamilyMember];
+      keyValues["overwriteSiblings"] = true;
+    }
+  }
+  return keyValues;
+}
+
+export function createKeyValuesForRemoveItem(
+  fieldKey: string,
+  fieldValue: any,
+  arrIndex: number,
+) {
+  const newArr = [...fieldValue.arr];
+  newArr.splice(arrIndex, 1);
+  const keyValues: any = {};
+  if (fieldValue.countKey) {
+    keyValues[fieldValue.countKey] = fieldValue.count - 1;
+  }
+  if (fieldValue.arrKey) {
+    if (fieldKey.indexOf("children") > -1) {
+      keyValues[fieldValue.arrKey] = newArr;
+      keyValues["overwriteChildren"] = true;
+    } else if (fieldKey.indexOf("siblings") > -1) {
+      keyValues[fieldValue.arrKey] = newArr;
+      keyValues["overwriteSiblings"] = true;
+    }
+  }
+  return keyValues;
 }

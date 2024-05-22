@@ -1,4 +1,4 @@
-.add-child {
+.add-item {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -6,7 +6,7 @@
   gap: 10px;
 }
 
-.add-child-btn svg {
+.add-item-btn svg {
   color: var(--gray-color-3);
   font-size: var(--font-size-h2);
 }
