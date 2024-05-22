@@ -260,6 +260,7 @@ export function FormField(props: FormFieldProps) {
         <PassportUploader
           documentId={fieldValue}
           fieldKey={props.fieldKey}
+          fieldIndex={props.fieldIndex}
           onChange={(value: any) => {
             props.fieldKey &&
               dispatchFormValue(
@@ -319,6 +320,7 @@ export function FormField(props: FormFieldProps) {
               {
                 [fieldValue.countKey]: parseInt(fieldValue.count) + 1,
                 [fieldValue.arrKey]: [...fieldValue.arr, InitialChild],
+                overwriteChildren: true,
               },
               props.fieldIndex,
             );
@@ -389,6 +391,7 @@ export function FormField(props: FormFieldProps) {
                           {
                             [fieldValue.countKey]: fieldValue.count - 1,
                             [fieldValue.arrKey]: [...newArr],
+                            overwriteChildren: true,
                           },
                           arrIndex,
                         );

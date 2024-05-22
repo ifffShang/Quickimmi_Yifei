@@ -102,6 +102,7 @@ export interface AsylumCaseProfileOptional {
   applicationDetails?: ApplicationDetails;
   signature?: YourSignature;
   declaration?: Declaration;
+  overwriteChildren?: boolean;
 }
 
 export interface Applicant {
@@ -397,6 +398,7 @@ export interface GeneratePresignedUrlResponse {
 
 export interface ParsePassportResponse {
   fieldKey: string;
+  fieldIndex?: number;
   idNumber: string;
   firstName: string;
   middleName: string;

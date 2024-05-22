@@ -13,6 +13,7 @@ export interface PassportUploaderProps {
   documentId: number;
   fieldKey: string;
   onChange: (value: any) => void;
+  fieldIndex?: number;
 }
 
 export function PassportUploader(props: PassportUploaderProps) {
@@ -29,6 +30,7 @@ export function PassportUploader(props: PassportUploaderProps) {
         modalType: "uploadpassport",
         modalData: {
           fieldKey: props.fieldKey,
+          fieldIndex: props.fieldIndex,
           updatePassportOrIdImageUrl: setPassportOrIdImageUrl,
           onChange: props.onChange,
         },

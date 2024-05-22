@@ -59,13 +59,9 @@ export const formSlice = createSlice({
       state,
       action: PayloadAction<AsylumCaseProfileOptional>,
     ) => {
-      if (
-        action.payload.family?.children &&
-        state.applicationCase.profile.family?.children &&
-        action.payload.family.children.length <
-          state.applicationCase.profile.family.children.length
-      ) {
-        state.applicationCase.profile.family.children = [];
+      if (action.payload.overwriteChildren) {
+        state.applicationCase.profile.family.children =
+          action.payload?.family?.children ?? [];
       }
       const profile = _.merge(state.applicationCase.profile, action.payload);
       state.applicationCase.profile = profile;
@@ -96,7 +92,11 @@ export const formSlice = createSlice({
           expirationDate: action.payload.expireDate,
         };
       }
-      const payloadToUpdate = getUpdateProfileData(fieldKey, payload);
+      const payloadToUpdate = getUpdateProfileData(
+        fieldKey,
+        payload,
+        action.payload.fieldIndex,
+      );
       const profile = _.merge(state.applicationCase.profile, payloadToUpdate);
       Object.assign(state.applicationCase.profile, profile);
     },
@@ -116,7 +116,11 @@ export const formSlice = createSlice({
         birthDate: action.payload.birthDate,
         cityAndCountryOfBirth: action.payload.birthPlace,
       };
-      const payloadToUpdate = getUpdateProfileData(fieldKey, payload);
+      const payloadToUpdate = getUpdateProfileData(
+        fieldKey,
+        payload,
+        action.payload.fieldIndex,
+      );
       const profile = _.merge(state.applicationCase.profile, payloadToUpdate);
       Object.assign(state.applicationCase.profile, profile);
     },
@@ -146,7 +150,11 @@ export const formSlice = createSlice({
           expirationDate: action.payload.expireDate,
         };
       }
-      const payloadToUpdate = getUpdateProfileData(fieldKey, payload);
+      const payloadToUpdate = getUpdateProfileData(
+        fieldKey,
+        payload,
+        action.payload.fieldIndex,
+      );
       const profile = _.merge(state.applicationCase.profile, payloadToUpdate);
       Object.assign(state.applicationCase.profile, profile);
     },

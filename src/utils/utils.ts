@@ -18,9 +18,10 @@ import {
   AsylumCaseProfileOptional,
   UpdateApplicationCaseData,
 } from "../model/apiModels";
-import { KeyValues, ScreenSize } from "../model/commonModels";
+import { Identity, KeyValues, ScreenSize } from "../model/commonModels";
 import { ControlType, IFormOptions } from "../model/formFlowModels";
 import { updateCaseFields } from "../reducers/formSlice";
+import _ from "lodash";
 
 export const handleResize = (
   dispatch?: React.Dispatch<any>,
@@ -191,6 +192,7 @@ export function dispatchFormValue(
   keyValues: KeyValues,
   fieldIndex?: number,
 ) {
+  let caseFieldsToUpdate: any = {};
   for (const [key, value] of Object.entries(keyValues)) {
     let valueUsed = value;
     if (value === false) valueUsed = "false";
@@ -210,27 +212,29 @@ export function dispatchFormValue(
         array[fieldIndex] = value;
         valueUsed = array;
       }
-      dispatch(updateCaseFields({ [key]: valueUsed }));
+      caseFieldsToUpdate[key] = valueUsed;
     } else {
       const caseWithUpdatedField = createNestedObject(
         keys,
         valueUsed,
         fieldIndex,
       );
-      dispatch(updateCaseFields(caseWithUpdatedField));
+      caseFieldsToUpdate = _.merge(caseFieldsToUpdate, caseWithUpdatedField);
     }
   }
+  dispatch(updateCaseFields(caseFieldsToUpdate));
 }
 
 export function getUpdateProfileData(
   key: string,
   profile: AsylumCaseProfileOptional,
+  fieldIndex?: number,
 ) {
   const keys = key.split(".");
   if (keys.length === 1) {
     return { [keys[0]]: profile };
   } else {
-    return createNestedObject(keys, profile);
+    return createNestedObject(keys, profile, fieldIndex);
   }
 }
 
@@ -392,4 +396,18 @@ export function getPrefillLocationOptions(
   result["cityPrefillOption"] = cityPrefillOption;
 
   return result;
+}
+
+export function getIdentity(fieldKey: string, fieldIndex?: number) {
+  let identity: Identity = "Applicant";
+  if (fieldKey.indexOf("family.spouse") > -1) {
+    identity = "Spouse";
+  } else if (fieldKey.indexOf("family.children") > -1) {
+    if (fieldIndex === undefined || isNaN(fieldIndex) || fieldIndex === null) {
+      console.error("Field index is missing in modal data for family.children");
+      return "Child_1";
+    }
+    identity = ("Child_" + (fieldIndex + 1)) as Identity;
+  }
+  return identity;
 }

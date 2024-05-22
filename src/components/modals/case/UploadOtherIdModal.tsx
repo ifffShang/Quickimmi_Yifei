@@ -16,6 +16,7 @@ import { QReturnLink } from "../../common/Links";
 import { QDropdown } from "../../form/fields/Controls";
 import { Uploader } from "../../form/fields/Uploader";
 import "./UploadOtherIdModal.css";
+import { getIdentity } from "../../../utils/utils";
 
 export function UploadOtherIdModal() {
   const { wt, t } = useFormTranslation();
@@ -35,6 +36,8 @@ export function UploadOtherIdModal() {
     console.error("OnChange or fieldKey is missing in modal data");
     return null;
   }
+
+  const identity = getIdentity(modalData.fieldKey, modalData.fieldIndex);
 
   const onIdImageUrlReceived = (imageUrl: string) => {
     modalData?.updatePassportOrIdImageUrl(imageUrl);
@@ -65,6 +68,7 @@ export function UploadOtherIdModal() {
       }
 
       idInfo.fieldKey = modalData?.fieldKey;
+      idInfo.fieldIndex = modalData?.fieldIndex;
 
       if (dropdownSelectedValue === "ID_CARD") {
         dispatch(updateIdCardInfo(idInfo));
@@ -151,7 +155,7 @@ export function UploadOtherIdModal() {
               documentType={dropdownSelectedValue}
               onImageUrlReceived={onIdImageUrlReceived}
               onPresignedUrlReceived={onPresignedUrlReceived}
-              identity={modalData?.identity || "Applicant"}
+              identity={identity}
             />
           </div>
           <div className="upload-other-id-controls">
