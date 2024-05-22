@@ -32,6 +32,8 @@ import { LocationDropdown } from "./fields/LocationDropdown";
 import { PassportUploader } from "./fields/PassportUploader";
 import { SameAddressCheckbox } from "./fields/SameAddressCheckbox";
 import { TextboxWithNA } from "./fields/TextboxWithNA";
+import { RemovableSectionHeader } from "./parts/RemovableSectionHeader";
+import { InitialChild } from "../../consts/caseConsts";
 
 export interface FormFieldProps {
   fieldKey: string;
@@ -315,7 +317,8 @@ export function FormField(props: FormFieldProps) {
             dispatchFormValue(
               dispatch,
               {
-                [props.fieldKey]: parseInt(fieldValue) + 1,
+                [fieldValue.countKey]: parseInt(fieldValue.count) + 1,
+                [fieldValue.arrKey]: [...fieldValue.arr, InitialChild],
               },
               props.fieldIndex,
             );
@@ -369,53 +372,53 @@ export function FormField(props: FormFieldProps) {
             }
             if (!hasTrue) return <></>;
           }
-          if (props.visibility === "count") {
-            if (!fieldValue) return <></>;
-            const childNum = parseInt(fieldValue);
-            return (
-              <>
-                {[...Array(2)].map((_, childIndex) => (
-                  <div key={childIndex} className="section-container">
-                    {props.control === "removable_section" && (
-                      <Button
-                        onClick={() => {
-                          dispatchFormValue(
-                            dispatch,
-                            {
-                              [props.fieldKey]: parseInt(fieldValue) - 1,
-                            },
-                            props.fieldIndex,
-                          );
-                        }}
-                      >
-                        Remove
-                      </Button>
-                    )}
-                    {props?.subFields?.map((field, index) => (
-                      <div key={index}>
-                        {field.label && (
-                          <QText level="normal bold">{wt(field.label)}</QText>
-                        )}
-                        <FormField
-                          fieldKey={field.key}
-                          control={field.control}
-                          label={field.label}
-                          options={field.options}
-                          placeholder={field.placeholder}
-                          className={field.className}
-                          maxChildPerRow={field.maxChildPerRow}
-                          subFields={field.fields}
-                          format={field.format}
-                          visibility={field.visibility}
-                          fieldIndex={childIndex}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </>
-            );
-          }
+        }
+        if (fieldValue && Array.isArray(fieldValue.arr)) {
+          return (
+            <>
+              {fieldValue.arr.map((_i, arrIndex) => (
+                <div key={arrIndex} className="section-container">
+                  {props.control === "removable_section" && (
+                    <RemovableSectionHeader
+                      label={wt(props.label)}
+                      fieldIndex={arrIndex}
+                      onRemove={() => {
+                        const newArr = [...fieldValue.arr].splice(arrIndex, 1);
+                        dispatchFormValue(
+                          dispatch,
+                          {
+                            [fieldValue.countKey]: fieldValue.count - 1,
+                            [fieldValue.arrKey]: [...newArr],
+                          },
+                          arrIndex,
+                        );
+                      }}
+                    />
+                  )}
+                  {props?.subFields?.map((field, index) => (
+                    <div key={index}>
+                      {field.label && (
+                        <QText level="normal bold">{wt(field.label)}</QText>
+                      )}
+                      <FormField
+                        fieldKey={field.key}
+                        control={field.control}
+                        label={field.label}
+                        options={field.options}
+                        placeholder={field.placeholder}
+                        className={field.className}
+                        maxChildPerRow={field.maxChildPerRow}
+                        subFields={field.fields}
+                        format={field.format}
+                        visibility={field.visibility}
+                        fieldIndex={arrIndex}
+                      />
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </>
+          );
         }
         return (
           <div className="section-container">

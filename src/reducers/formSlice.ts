@@ -55,13 +55,18 @@ export const formSlice = createSlice({
       );
       Object.assign(state.applicationCase, result);
     },
-    updateCaseDetails: (state, action: PayloadAction<AsylumCaseProfile>) => {
-      Object.assign(state.applicationCase.profile, action.payload);
-    },
     updateCaseFields: (
       state,
       action: PayloadAction<AsylumCaseProfileOptional>,
     ) => {
+      if (
+        action.payload.family?.children &&
+        state.applicationCase.profile.family?.children &&
+        action.payload.family.children.length <
+          state.applicationCase.profile.family.children.length
+      ) {
+        state.applicationCase.profile.family.children = [];
+      }
       const profile = _.merge(state.applicationCase.profile, action.payload);
       state.applicationCase.profile = profile;
     },
@@ -193,7 +198,6 @@ export const formSlice = createSlice({
 export const {
   resetFormState,
   updateApplicationCase,
-  updateCaseDetails,
   updateCaseFields,
   updatePassportInfo,
   updateIdCardInfo,

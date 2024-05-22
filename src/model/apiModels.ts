@@ -210,33 +210,33 @@ export interface Spouse {
 }
 
 export interface Child {
-  passportDocumentId: string;
-  aNumber: string;
-  passportNumber: string;
-  martialStatus: string;
-  ssn: string;
-  lastName: string;
-  firstName: string;
-  middleName: string;
-  birthDate: string;
-  cityAndCountryOfBirth: string;
-  nationality: string;
-  race: string;
-  genderMaleCheckbox: boolean;
-  genderFemaleCheckbox: boolean;
-  personInUSYesCheckbox: boolean;
-  personInUSNoCheckbox: boolean;
-  specifyLocationIfNotInUS: string;
-  placeLastEntryIntoUS: string;
-  lastEntryUSDate: string;
-  i94Number: string;
-  lastAdmittedStatus: string;
-  currentStatus: string;
-  statusExpireDate: string;
-  immigrationCourtProceedingYesCheckbox: boolean;
-  immigrationCourtProceedingNoCheckbox: boolean;
-  inThisApplicationYesCheckbox: boolean;
-  inThisApplicationNoCheckbox: boolean;
+  passportDocumentId?: string;
+  aNumber?: string;
+  passportNumber?: string;
+  martialStatus?: string;
+  ssn?: string;
+  lastName?: string;
+  firstName?: string;
+  middleName?: string;
+  birthDate?: string;
+  cityAndCountryOfBirth?: string;
+  nationality?: string;
+  race?: string;
+  genderMaleCheckbox?: string | null;
+  genderFemaleCheckbox?: string | null;
+  personInUSYesCheckbox?: string | null;
+  personInUSNoCheckbox?: string | null;
+  specifyLocationIfNotInUS?: string;
+  placeLastEntryIntoUS?: string;
+  lastEntryUSDate?: string;
+  i94Number?: string;
+  lastAdmittedStatus?: string;
+  currentStatus?: string;
+  statusExpireDate?: string;
+  immigrationCourtProceedingYesCheckbox?: string | null;
+  immigrationCourtProceedingNoCheckbox?: string | null;
+  inThisApplicationYesCheckbox?: string | null;
+  inThisApplicationNoCheckbox?: string | null;
 }
 
 export interface FamilyMember {

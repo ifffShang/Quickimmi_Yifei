@@ -131,6 +131,14 @@ export function getFieldValue(
     return;
   }
 
+  // count-array pair
+  if (key.indexOf("-") > -1) {
+    const [countKey, arrKey] = key.split("-");
+    const count = getCaseDetailValue(caseDetails, countKey, fieldIndex);
+    const arr = getCaseDetailValue(caseDetails, arrKey, fieldIndex);
+    return { countKey, count, arrKey, arr };
+  }
+
   if (key?.indexOf(",") > -1) {
     const keys = key.split(",");
     if (options && Array.isArray(options)) {

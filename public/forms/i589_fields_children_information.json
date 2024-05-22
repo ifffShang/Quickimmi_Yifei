@@ -4,11 +4,10 @@
   "type": "fields",
   "fields": [
     {
-      "label": "",
+      "label": "text_Child",
       "hideHeader": "true",
       "id": "children_form",
-      "key": "applicant.childrenCnt",
-      "visibility": "count",
+      "key": "applicant.childrenCnt-family.children",
       "control": "removable_section",
       "fields": [
         {
@@ -356,7 +355,7 @@
       "label": "text_NumberOfChildren",
       "placeholder": "text_NumberOfChildren",
       "id": "children_number",
-      "key": "applicant.childrenCnt",
+      "key": "applicant.childrenCnt-family.children",
       "control": "component_add_child"
     }
   ]
