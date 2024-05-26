@@ -194,7 +194,7 @@ export function FormField(props: FormFieldProps) {
   };
 
   const onAddItemClick = () => {
-    const keyValues = createKeyValuesForAddItem(props.fieldKey, fieldValue);
+    const keyValues = createKeyValuesForAddItem(fieldValue);
     dispatchFormValue(dispatch, keyValues, props.fieldIndex);
   };
 
@@ -378,7 +378,6 @@ export function FormField(props: FormFieldProps) {
                       fieldIndex={arrIndex}
                       onRemove={() => {
                         const keyValues = createKeyValuesForRemoveItem(
-                          props.fieldKey,
                           fieldValue,
                           arrIndex,
                         );

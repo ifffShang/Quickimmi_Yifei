@@ -104,6 +104,8 @@ export interface AsylumCaseProfileOptional {
   declaration?: Declaration;
   overwriteChildren?: boolean;
   overwriteSiblings?: boolean;
+  overwriteAddressHistoriesBeforeUS?: boolean;
+  overwriteUsAddressHistoriesPast5Years?: boolean;
 }
 
 export interface Applicant {

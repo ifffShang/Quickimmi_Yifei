@@ -20,9 +20,14 @@ import {
 } from "../model/apiModels";
 import { Identity, KeyValues, ScreenSize } from "../model/commonModels";
 import { ControlType, IFormOptions } from "../model/formFlowModels";
-import { updateCaseFields } from "../reducers/formSlice";
+import { ArrayFields, updateCaseFields } from "../reducers/formSlice";
 import _ from "lodash";
-import { InitialChild, InitialFamilyMember } from "../consts/caseConsts";
+import {
+  InitialAddressHistoryBeforeUS,
+  InitialChild,
+  InitialFamilyMember,
+  InitialUSAddressHistoryPast5Y,
+} from "../consts/caseConsts";
 
 export const handleResize = (
   dispatch?: React.Dispatch<any>,
@@ -416,25 +421,20 @@ export function getIdentity(fieldKey: string, fieldIndex?: number) {
   return identity;
 }
 
-export function createKeyValuesForAddItem(fieldKey: string, fieldValue: any) {
+export function createKeyValuesForAddItem(fieldValue: any) {
   const keyValues: any = {};
   if (fieldValue.countKey) {
     keyValues[fieldValue.countKey] = parseInt(fieldValue.count) + 1;
   }
   if (fieldValue.arrKey) {
-    if (fieldKey.indexOf("children") > -1) {
-      keyValues[fieldValue.arrKey] = [...fieldValue.arr, InitialChild];
-      keyValues["overwriteChildren"] = true;
-    } else if (fieldKey.indexOf("siblings") > -1) {
-      keyValues[fieldValue.arrKey] = [...fieldValue.arr, InitialFamilyMember];
-      keyValues["overwriteSiblings"] = true;
-    }
+    const arrayField = getArrayFieldInfo(fieldValue.arrKey);
+    keyValues[arrayField.overwriteField] = true;
+    keyValues[fieldValue.arrKey] = [...fieldValue.arr, arrayField.default];
   }
   return keyValues;
 }
 
 export function createKeyValuesForRemoveItem(
-  fieldKey: string,
   fieldValue: any,
   arrIndex: number,
 ) {
@@ -445,13 +445,20 @@ export function createKeyValuesForRemoveItem(
     keyValues[fieldValue.countKey] = fieldValue.count - 1;
   }
   if (fieldValue.arrKey) {
-    if (fieldKey.indexOf("children") > -1) {
-      keyValues[fieldValue.arrKey] = newArr;
-      keyValues["overwriteChildren"] = true;
-    } else if (fieldKey.indexOf("siblings") > -1) {
-      keyValues[fieldValue.arrKey] = newArr;
-      keyValues["overwriteSiblings"] = true;
-    }
+    const arrayField = getArrayFieldInfo(fieldValue.arrKey);
+    keyValues[arrayField.overwriteField] = true;
+    keyValues[fieldValue.arrKey] = newArr;
   }
   return keyValues;
+}
+
+export function getArrayFieldInfo(fieldKey: string) {
+  const arrayField = ArrayFields.find(f => f.field === fieldKey);
+  if (!arrayField) {
+    console.error(
+      `[getArrayFieldInfo] Array field is missing for key: ${fieldKey}`,
+    );
+    return ArrayFields[0];
+  }
+  return arrayField;
 }

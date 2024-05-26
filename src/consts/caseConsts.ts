@@ -1,4 +1,5 @@
 import {
+  AddressHistory,
   ApplicationCase,
   Child,
   FamilyMember,
@@ -285,4 +286,37 @@ export const InitialFamilyMember: FamilyMember = {
   cityTownAndBirth: "",
   location: "",
   deceasedCheckbox: "",
+};
+
+export const InitialAddressHistoryBeforeUS: AddressHistory = {
+  numberAndStreet: "",
+  city: "",
+  province: "",
+  country: "",
+  startDate: "",
+  endDate: "",
+};
+
+export const InitialUSAddressHistoryPast5Y: AddressHistory = {
+  numberAndStreet: "",
+  city: "",
+  province: "",
+  country: "",
+  startDate: "",
+  endDate: "",
+};
+
+export const InitialEducationHistory = {
+  schoolName: "",
+  schoolType: "",
+  location: "",
+  startDate: "",
+  endDate: "",
+};
+
+export const InitialEmploymentHistory = {
+  nameAndAddress: "",
+  occupation: "",
+  startDate: "",
+  endDate: "",
 };

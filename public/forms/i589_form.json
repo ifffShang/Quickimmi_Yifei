@@ -65,10 +65,16 @@
       "type": "level1",
       "steps": [
         {
-          "label": "text_AddressInformation",
+          "label": "text_AddressInformationI",
           "id": "address_information",
           "type": "level2",
-          "referenceId": "i589_fields_address_information"
+          "referenceId": "i589_fields_address_before_usa"
+        },
+        {
+          "label": "text_AddressInformationII",
+          "id": "address_information",
+          "type": "level2",
+          "referenceId": "i589_fields_address_past_5y"
         },
         {
           "label": "text_EducationInformation",

@@ -1,6 +1,13 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import _ from "lodash";
-import { InitialApplicationCase } from "../consts/caseConsts";
+import {
+  InitialAddressHistoryBeforeUS,
+  InitialApplicationCase,
+  InitialChild,
+  InitialEducationHistory,
+  InitialFamilyMember,
+  InitialUSAddressHistoryPast5Y,
+} from "../consts/caseConsts";
 import {
   ApplicationCase,
   AsylumCaseProfileOptional,
@@ -42,6 +49,39 @@ function deepAssign(update: any, current: any, init: any) {
   return result;
 }
 
+export const ArrayFields = [
+  {
+    field: "family.children",
+    overwriteField: "overwriteChildren",
+    default: InitialChild,
+  },
+  {
+    field: "family.siblings",
+    overwriteField: "overwriteSiblings",
+    default: InitialFamilyMember,
+  },
+  {
+    field: "background.addressHistoriesBeforeUS",
+    overwriteField: "overwriteAddressHistoriesBeforeUS",
+    default: InitialAddressHistoryBeforeUS,
+  },
+  {
+    field: "background.usAddressHistoriesPast5Years",
+    overwriteField: "overwriteUsAddressHistoriesPast5Years",
+    default: InitialUSAddressHistoryPast5Y,
+  },
+  {
+    field: "background.educationHistories",
+    overwriteField: "overwriteEducationHistories",
+    default: InitialEducationHistory,
+  },
+  {
+    field: "background.educationHistories",
+    overwriteField: "overwriteEducationHistories",
+    default: InitialEducationHistory,
+  },
+];
+
 export const formSlice = createSlice({
   name: "form",
   initialState,
@@ -58,16 +98,18 @@ export const formSlice = createSlice({
       state,
       action: PayloadAction<AsylumCaseProfileOptional>,
     ) => {
-      if (action.payload.overwriteChildren) {
-        state.applicationCase.profile.family.children =
-          action.payload?.family?.children ?? [];
-        delete action.payload.overwriteChildren;
-      }
-      if (action.payload.overwriteSiblings) {
-        state.applicationCase.profile.family.siblings =
-          action.payload?.family?.siblings ?? [];
-        delete action.payload.overwriteSiblings;
-      }
+      ArrayFields.forEach(item => {
+        const { field, overwriteField } = item;
+        if (action.payload[overwriteField]) {
+          _.set(
+            state.applicationCase.profile,
+            field,
+            _.get(action.payload, field) ?? [],
+          );
+          delete action.payload[overwriteField];
+        }
+      });
+
       const profile = _.merge(state.applicationCase.profile, action.payload);
       state.applicationCase.profile = profile;
     },
