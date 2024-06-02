@@ -5,7 +5,9 @@ import {
   InitialApplicationCase,
   InitialChild,
   InitialEducationHistory,
+  InitialEmploymentHistory,
   InitialFamilyMember,
+  InitialMember,
   InitialUSAddressHistoryPast5Y,
 } from "../consts/caseConsts";
 import {
@@ -76,9 +78,14 @@ export const ArrayFields = [
     default: InitialEducationHistory,
   },
   {
-    field: "background.educationHistories",
-    overwriteField: "overwriteEducationHistories",
-    default: InitialEducationHistory,
+    field: "background.employmentHistories",
+    overwriteField: "overwriteEmploymentHistories",
+    default: InitialEmploymentHistory,
+  },
+  {
+    field: "signature.members",
+    overwriteField: "overwriteMembers",
+    default: InitialMember,
   },
 ];
 

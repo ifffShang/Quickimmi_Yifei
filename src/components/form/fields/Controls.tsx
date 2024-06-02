@@ -14,6 +14,7 @@ import { useFormTranslation } from "../../../hooks/commonHooks";
 import { IFormOptions } from "../../../model/formFlowModels";
 import { ErrorMessage, QText } from "../../common/Fonts";
 import "./Controls.css";
+import TextArea from "antd/es/input/TextArea";
 
 /** Form input (sign in, passport) ***********************************************/
 
@@ -104,6 +105,59 @@ export function QTextBox(props: QTextBoxProps) {
         placeholder={props.placeholder}
         value={value}
         onChange={onTextBoxChange}
+        disabled={props.disabled || false}
+      />
+      {value && (
+        <div className="inline-placeholder">
+          <QText level="placeholder">{props.placeholder}</QText>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/** TextArea control ***************************************************/
+
+export interface QTextAreaProps {
+  placeholder: string;
+  value: string;
+  onChange: (value: string) => string;
+  disabled?: boolean;
+  fieldKey?: string;
+  className?: string;
+}
+
+export function QTextArea(props: QTextAreaProps) {
+  const [value, setValue] = useState(props.value);
+  const inputRef = useRef<InputRef>(null);
+
+  useEffect(() => {
+    setValue(props.value);
+  }, [props.value]);
+
+  const onTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (props.disabled) return;
+    const cursorPosition = e.target.selectionStart;
+    const value = props.onChange(e.target.value);
+    setValue(value);
+    if (inputRef.current) {
+      const inputElement = inputRef.current as unknown as HTMLInputElement;
+      setTimeout(() => {
+        inputElement.selectionStart = cursorPosition;
+        inputElement.selectionEnd = cursorPosition;
+      }, 0);
+    }
+  };
+
+  return (
+    <div className="text-box-container">
+      <TextArea
+        rows={4}
+        ref={inputRef}
+        className={"text-box" + (props.className ? ` ${props.className}` : "")}
+        placeholder={props.placeholder}
+        value={value}
+        onChange={onTextAreaChange}
         disabled={props.disabled || false}
       />
       {value && (

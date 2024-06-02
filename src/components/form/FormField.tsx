@@ -23,6 +23,7 @@ import { AddItemControl } from "./fields/AddItemControl";
 import {
   CheckBox,
   QDatePicker,
+  QTextArea,
   QTextBox,
   RadioSelect,
   SelectBox,
@@ -209,7 +210,14 @@ export function FormField(props: FormFieldProps) {
         />
       );
     case "textarea":
-      return <div>Textarea not implemented</div>;
+      return (
+        <QTextArea
+          placeholder={placeholder}
+          value={fieldValue}
+          fieldKey={props.fieldKey}
+          onChange={onTextChange}
+        />
+      );
     case "radio":
       return (
         <RadioSelect

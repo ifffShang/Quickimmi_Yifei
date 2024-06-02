@@ -100,12 +100,25 @@
           "id": "asylum_claim",
           "type": "level2",
           "referenceId": "i589_fields_asylum_claim"
+        }
+      ]
+    },
+    {
+      "label": "text_SignatureInformation",
+      "id": "PartD,PartE",
+      "type": "level1",
+      "steps": [
+        {
+          "label": "text_Signature",
+          "id": "signature",
+          "type": "level2",
+          "referenceId": "i589_fields_signature"
         },
         {
-          "label": "text_AdditionalInformation",
-          "id": "additional_information",
+          "label": "text_Declaration",
+          "id": "declaration",
           "type": "level2",
-          "referenceId": "i589_fields_additional_information"
+          "referenceId": "i589_fields_declaration"
         }
       ]
     },

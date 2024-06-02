@@ -320,3 +320,8 @@ export const InitialEmploymentHistory = {
   startDate: "",
   endDate: "",
 };
+
+export const InitialMember = {
+  name: "",
+  relationship: "",
+};

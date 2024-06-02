@@ -299,65 +299,65 @@ export interface ApplicationDetails {
   haveBeenHarmedYesCheckbox?: boolean | null;
   haveBeenHarmedNoCheckbox?: boolean | null;
   explainHaveBeenHarmedYes?: string;
-  explainHaveBeenHarmedYesPart?: string;
-  explainHaveBeenHarmedYesQuestion?: string;
+  explainHaveBeenHarmedYesPart?: string; // Fulfill by backend
+  explainHaveBeenHarmedYesQuestion?: string; // Fulfill by backend
   fearReturnYesCheckbox?: boolean | null;
   fearReturnNoCheckbox?: boolean | null;
   explainFearReturnYes?: string;
-  explainFearReturnYesPart?: string;
-  explainFearReturnYesQuestion?: string;
+  explainFearReturnYesPart?: string; // Fulfill by backend
+  explainFearReturnYesQuestion?: string; // Fulfill by backend
   familyMembersBeenChargedYesCheckbox?: boolean | null;
   familyMembersBeenChargedNoCheckbox?: boolean | null;
   explainFamilyMembersBeenChargedYes?: string;
-  explainFamilyMembersBeenChargedYesPart?: string;
-  explainFamilyMembersBeenChargedYesQuestion?: string;
+  explainFamilyMembersBeenChargedYesPart?: string; // Fulfill by backend
+  explainFamilyMembersBeenChargedYesQuestion?: string; // Fulfill by backend
   youOrFamilyBelongAnyOrganizationYesCheckbox?: boolean | null;
   youOrFamilyBelongAnyOrganizationNoCheckbox?: boolean | null;
   explainYouOrFamilyBelongAnyOrganizationYes?: string;
-  explainYouOrFamilyBelongAnyOrganizationYesPart?: string;
-  explainYouOrFamilyBelongAnyOrganizationYesQuestion?: string;
+  explainYouOrFamilyBelongAnyOrganizationYesPart?: string; // Fulfill by backend
+  explainYouOrFamilyBelongAnyOrganizationYesQuestion?: string; // Fulfill by backend
   youOrFamilyContinueBelongAnyOrganizationYesCheckbox?: boolean | null;
   youOrFamilyContinueBelongAnyOrganizationNoCheckbox?: boolean | null;
   explainYouOrFamilyContinueBelongAnyOrganizationYes?: string;
-  explainYouOrFamilyContinueBelongAnyOrganizationYesPart?: string;
-  explainYouOrFamilyContinueBelongAnyOrganizationYesQuestion?: string;
+  explainYouOrFamilyContinueBelongAnyOrganizationYesPart?: string; // Fulfill by backend
+  explainYouOrFamilyContinueBelongAnyOrganizationYesQuestion?: string; // Fulfill by backend
   afraidOfReturnYesCheckbox?: boolean | null;
   afraidOfReturnNoCheckbox?: boolean | null;
   explainAfraidOfReturnYes?: string;
-  explainAfraidOfReturnYesPart?: string;
-  explainAfraidOfReturnYesQuestion?: string;
+  explainAfraidOfReturnYesPart?: string; // Fulfill by backend
+  explainAfraidOfReturnYesQuestion?: string; // Fulfill by backend
   appliedBeforeYesCheckbox?: boolean | null;
   appliedBeforeNoCheckbox?: boolean | null;
   explainAppliedBeforeYes?: string;
-  explainAppliedBeforeYesPart?: string;
-  explainAppliedBeforeYesQuestion?: string;
+  explainAppliedBeforeYesPart?: string; // Fulfill by backend
+  explainAppliedBeforeYesQuestion?: string; // Fulfill by backend
   stayInOtherCountryYesCheckbox?: boolean | null;
   stayInOtherCountryNoCheckbox?: boolean | null;
   anyLawfulStatusAnyCountryYesCheckbox?: boolean | null;
   anyLawfulStatusAnyCountryNoCheckbox?: boolean | null;
   explainAnyLawfulStatusAnyCountryYes?: string;
-  explainAnyLawfulStatusAnyCountryYesPart?: string;
-  explainAnyLawfulStatusAnyCountryYesQuestion?: string;
+  explainAnyLawfulStatusAnyCountryYesPart?: string; // Fulfill by backend
+  explainAnyLawfulStatusAnyCountryYesQuestion?: string; // Fulfill by backend
   haveYouHarmOthersYesCheckbox?: boolean | null;
   haveYouHarmOthersNoCheckbox?: boolean | null;
   explainHaveYouHarmOthersYes?: string;
-  explainHaveYouHarmOthersYesPart?: string;
-  explainHaveYouHarmOthersYesQuestion?: string;
+  explainHaveYouHarmOthersYesPart?: string; // Fulfill by backend
+  explainHaveYouHarmOthersYesQuestion?: string; // Fulfill by backend
   returnCountryYesCheckbox?: boolean | null;
   returnCountryNoCheckbox?: boolean | null;
   explainReturnCountryYes?: string;
-  explainReturnCountryYesPart?: string;
-  explainReturnCountryYesQuestion?: string;
+  explainReturnCountryYesPart?: string; // Fulfill by backend
+  explainReturnCountryYesQuestion?: string; // Fulfill by backend
   moreThanOneYearAfterArrivalYesCheckbox?: boolean | null;
   moreThanOneYearAfterArrivalNoCheckbox?: boolean | null;
   explainMoreThanOneYearAfterArrivalYes?: string;
-  explainMoreThanOneYearAfterArrivalYesPart?: string;
-  explainMoreThanOneYearAfterArrivalYesQuestion?: string;
+  explainMoreThanOneYearAfterArrivalYesPart?: string; // Fulfill by backend
+  explainMoreThanOneYearAfterArrivalYesQuestion?: string; // Fulfill by backend
   haveCommittedCrimeYesCheckbox?: boolean | null;
   haveCommittedCrimeNoCheckbox?: boolean | null;
   explainHaveCommittedCrimeYes?: string;
-  explainHaveCommittedCrimeYesPart?: string;
-  explainHaveCommittedCrimeYesQuestion?: string;
+  explainHaveCommittedCrimeYesPart?: string; // Fulfill by backend
+  explainHaveCommittedCrimeYesQuestion?: string; // Fulfill by backend
 }
 
 export interface YourSignature {
