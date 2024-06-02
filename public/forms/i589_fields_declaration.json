@@ -4,18 +4,26 @@
   "type": "fields",
   "fields": [
     {
-      "label": "text_PrepareSignature",
-      "placeholder": "text_PrepareSignature",
-      "id": "PartE.preparerSignature",
-      "key": "declaration.preparerSignature",
-      "control": "text"
-    },
-    {
-      "label": "text_CompleteName",
-      "placeholder": "text_CompleteName",
-      "id": "PartE.completeName",
-      "key": "declaration.completeName",
-      "control": "text"
+      "label": "text_PreparerInformation",
+      "id": "PartE.preparer",
+      "control": "group",
+      "maxChildPerRow": "1",
+      "fields": [
+        {
+          "label": "text_PreparerSignature",
+          "placeholder": "text_PreparerSignature",
+          "id": "PartE.preparerSignature",
+          "key": "declaration.preparerSignature",
+          "control": "text"
+        },
+        {
+          "label": "text_PrintCompleteNameOfPreparer",
+          "placeholder": "text_PrintCompleteNameOfPreparer",
+          "id": "PartE.completeName",
+          "key": "declaration.completeName",
+          "control": "text"
+        }
+      ]
     },
     {
       "label": "text_DaytimeTelephoneNumber",
@@ -70,6 +78,7 @@
     },
     {
       "label": "text_G28FormAttached",
+      "hideHeader": "true",
       "placeholder": "text_G28FormAttached",
       "id": "PartE.g28FormAttachedYesCheckbox",
       "key": "declaration.g28FormAttachedYesCheckbox",
@@ -88,15 +97,15 @@
       ]
     },
     {
-      "label": "text_AttorneyStateNarNumber",
-      "placeholder": "text_AttorneyStateNarNumber",
-      "id": "PartE.attorneyStateNarNumber",
+      "label": "text_AttorneyStateBarNumber",
+      "placeholder": "text_AttorneyStateBarNumberPlaceholder",
+      "id": "PartE.attorneyStateBarNumber",
       "key": "declaration.attorneyStateNarNumber",
       "control": "text"
     },
     {
       "label": "text_AttorneyUscisOnlineAccountNumber",
-      "placeholder": "text_AttorneyUscisOnlineAccountNumber",
+      "placeholder": "text_AttorneyUscisOnlineAccountNumberPlaceholder",
       "id": "PartE.attorneyUscisOnlineAccountNumber",
       "key": "declaration.attorneyUscisOnlineAccountNumber",
       "control": "text"

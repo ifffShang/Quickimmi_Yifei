@@ -361,19 +361,22 @@ export function FormField(props: FormFieldProps) {
     case "removable_section":
       if (props.subFields && props.subFields.length > 0) {
         if (props.visibility) {
+          let visibilityArray;
           //| represents the "or" logic
           if (props.visibility.indexOf("|") > -1) {
-            const visibilityArray = props.visibility.split("|");
-            let hasTrue = false;
-            for (let i = 0; i < visibilityArray.length; i++) {
-              const [key, value] = visibilityArray[i].split("=");
-              const caseDetailValue = getCaseDetailValue(caseDetails, key);
-              if (caseDetailValue === value) {
-                hasTrue = true;
-              }
-            }
-            if (!hasTrue) return <></>;
+            visibilityArray = props.visibility.split("|");
+          } else {
+            visibilityArray = [props.visibility];
           }
+          let hasTrue = false;
+          for (let i = 0; i < visibilityArray.length; i++) {
+            const [key, value] = visibilityArray[i].split("=");
+            const caseDetailValue = getCaseDetailValue(caseDetails, key);
+            if (caseDetailValue === value) {
+              hasTrue = true;
+            }
+          }
+          if (!hasTrue) return <></>;
         }
         if (fieldValue && Array.isArray(fieldValue.arr)) {
           return (

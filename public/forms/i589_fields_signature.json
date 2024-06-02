@@ -4,25 +4,22 @@
   "type": "fields",
   "fields": [
     {
-      "label": "text_PrintName",
-      "placeholder": "text_PrintName",
+      "label": "text_PrintCompleteName",
       "id": "PartD.name",
       "key": "signature.name",
       "control": "text"
     },
     {
       "label": "text_NameInNativeAlphabet",
-      "placeholder": "text_NameInNativeAlphabet",
       "id": "PartD.nameInNativeAlphabet",
       "key": "signature.nameInNativeAlphabet",
       "control": "text"
     },
     {
       "label": "text_FamilyMemberAssist",
-      "placeholder": "text_FamilyMemberAssist",
       "id": "PartD.familyMemberAssist",
       "key": "signature.familyMemberAssistYesCheckbox,signature.familyMemberAssistNoCheckbox",
-      "control": "checkbox",
+      "control": "select",
       "options": [
         {
           "value": "true",
@@ -37,11 +34,20 @@
       ]
     },
     {
-      "label": "text_AddMember",
-      "placeholder": "text_AddMember",
+      "label": "",
+      "hideHeader": "true",
       "id": "PartD.members",
-      "key": "count-signature.members",
-      "control": "component_add_item"
+      "visibility": "signature.familyMemberAssistYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ListNameAndRelationship",
+          "placeholder": "text_ListNameAndRelationship",
+          "id": "PartD.members",
+          "key": "count-signature.members",
+          "control": "component_add_item"
+        }
+      ]
     },
     {
       "label": "text_Members",
