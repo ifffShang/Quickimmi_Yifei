@@ -38,46 +38,46 @@
       "hideHeader": "true",
       "id": "PartD.members",
       "visibility": "signature.familyMemberAssistYesCheckbox=true",
-      "control": "section",
+      "control": "removable_section",
       "fields": [
         {
           "label": "text_ListNameAndRelationship",
-          "placeholder": "text_ListNameAndRelationship",
+          "placeholder": "text_AddMember",
           "id": "PartD.members",
           "key": "count-signature.members",
+          "className": "add-item-compact",
           "control": "component_add_item"
         }
       ]
     },
     {
-      "label": "text_Members",
+      "label": "text_FamilyMember",
       "hideHeader": "true",
       "id": "PartD.members",
       "key": "count-signature.members",
+      "visibility": "signature.familyMemberAssistYesCheckbox=true",
       "control": "removable_section",
       "fields": [
         {
-          "label": "text_MemberName",
-          "placeholder": "text_MemberName",
+          "placeholder": "text_Name",
           "id": "PartD.member.name",
           "key": "signature.members[].name",
           "control": "text"
         },
         {
-          "label": "text_MemberRelationship",
-          "placeholder": "text_MemberRelationship",
+          "placeholder": "text_Relationship",
           "id": "PartD.member.relationship",
           "key": "signature.members[].relationship",
           "control": "text"
         }
       ]
     },
+
     {
       "label": "text_OtherPeopleAssist",
-      "placeholder": "text_OtherPeopleAssist",
       "id": "PartD.otherPeopleAssist",
       "key": "signature.otherPeopleAssistYesCheckbox,signature.otherPeopleAssistNoCheckbox",
-      "control": "checkbox",
+      "control": "select",
       "options": [
         {
           "value": "true",
@@ -93,10 +93,9 @@
     },
     {
       "label": "text_ProvideCounsel",
-      "placeholder": "text_ProvideCounsel",
       "id": "PartD.provideCounsel",
       "key": "signature.providePeopleCounselYesCheckbox,signature.providePeopleCounselNoCheckbox",
-      "control": "checkbox",
+      "control": "select",
       "options": [
         {
           "value": "true",

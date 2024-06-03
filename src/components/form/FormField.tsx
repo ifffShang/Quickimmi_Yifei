@@ -326,7 +326,13 @@ export function FormField(props: FormFieldProps) {
         />
       );
     case "component_add_item":
-      return <AddItemControl onClick={() => onAddItemClick()} />;
+      return (
+        <AddItemControl
+          className={props.className}
+          placeholder={placeholder}
+          onClick={() => onAddItemClick()}
+        />
+      );
     case "group":
       if (props.subFields && props.subFields.length > 0) {
         const subFieldsCss = "horizontal-" + `${props.maxChildPerRow || 1}`;

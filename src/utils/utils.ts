@@ -134,7 +134,9 @@ export function getFieldValue(
     return;
   }
   if (!key) {
-    console.info("Key is missing");
+    if (control !== "removable_section") {
+      console.error("Key is missing for control type: ", control);
+    }
     return;
   }
 

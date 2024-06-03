@@ -4,18 +4,23 @@ import { PlusCircleFilled } from "@ant-design/icons";
 import "./AddItemControl.css";
 
 export interface AddItemControlProps {
+  placeholder: string;
   onClick: () => void;
+  className?: string;
 }
 export function AddItemControl(props: AddItemControlProps) {
   return (
-    <div className="add-item">
+    <div
+      className={"add-item" + (props.className ? " " + props.className : "")}
+    >
       <Button
         className="add-item-btn"
         shape="circle"
         icon={<PlusCircleFilled />}
         onClick={e => props.onClick()}
-      />
-      <QText>{"If no item, move forward to next section"}</QText>
+      >
+        <QText>{props.placeholder}</QText>
+      </Button>
     </div>
   );
 }
