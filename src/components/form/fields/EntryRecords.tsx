@@ -4,10 +4,13 @@ import { useEffect, useState } from "react";
 import { EntryRecord } from "../../../model/apiModels";
 import { QDatePicker, QTextBox } from "./Controls";
 import "./EntryRecords.css";
+import { useTranslation } from "react-i18next";
+import { QText } from "../../common/Fonts";
 
 export interface EntryRecordsProps {
   value?: EntryRecord[];
   placeholder: string;
+  label: string;
   onChange: (value: EntryRecord[]) => void;
 }
 
@@ -19,6 +22,7 @@ export interface EntryRecordState {
 }
 
 export function EntryRecords(props: EntryRecordsProps) {
+  const { t } = useTranslation();
   const initialRecords =
     props.value?.map((record, index) => ({
       id: index,
@@ -41,10 +45,14 @@ export function EntryRecords(props: EntryRecordsProps) {
 
   return (
     <div className="entry-records">
+      <QText level="xsmall" margin="margin-bottom-10">
+        {props.label}
+      </QText>
       {records.map((record, index) => (
         <div key={record.id} className="entry-record-item">
           <QDatePicker
             value={record.date}
+            placeholder={t("Date")}
             onChange={(value: string) => {
               const newRecords = [...records];
               newRecords[index].date = value;
@@ -61,7 +69,7 @@ export function EntryRecords(props: EntryRecordsProps) {
           />
           <QTextBox
             value={record.place}
-            placeholder="Place"
+            placeholder={t("Place")}
             onChange={(value: string) => {
               const newRecords = [...records];
               newRecords[index].place = value;
@@ -78,7 +86,7 @@ export function EntryRecords(props: EntryRecordsProps) {
           />
           <QTextBox
             value={record.status}
-            placeholder="Status"
+            placeholder={t("Status")}
             onChange={(value: string) => {
               const newRecords = [...records];
               newRecords[index].status = value;

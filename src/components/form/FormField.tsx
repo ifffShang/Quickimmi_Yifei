@@ -313,6 +313,7 @@ export function FormField(props: FormFieldProps) {
       return (
         <EntryRecords
           value={fieldValue}
+          label={wt(props.label)}
           placeholder={placeholder}
           onChange={(value: EntryRecord[]) => {
             dispatchFormValue(
@@ -404,7 +405,7 @@ export function FormField(props: FormFieldProps) {
                   )}
                   {props?.subFields?.map((field, index) => (
                     <div key={index}>
-                      {field.label && (
+                      {field.label && field.hideHeader !== true && (
                         <QText level="normal bold">{wt(field.label)}</QText>
                       )}
                       <FormField
@@ -431,7 +432,7 @@ export function FormField(props: FormFieldProps) {
           <div className="section-container">
             {props.subFields.map((field, index) => (
               <div key={index}>
-                {field.label && (
+                {field.label && field.hideHeader !== true && (
                   <QText level="normal bold">{wt(field.label)}</QText>
                 )}
                 <FormField

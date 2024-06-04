@@ -9,6 +9,7 @@ import {
 import { IForm, IFormFields } from "../model/formFlowModels";
 import { DocumentType, Identity } from "../model/commonModels";
 import { performApiRequest } from "./apiConfig";
+import { convertBooleans } from "../utils/utils";
 
 export async function getForm(id: string): Promise<IForm> {
   return await performApiRequest(
@@ -21,13 +22,14 @@ export async function getForm(id: string): Promise<IForm> {
 }
 
 export async function getFormFields(referenceId: string): Promise<IFormFields> {
-  return await performApiRequest(
+  const response = await performApiRequest(
     `forms/${referenceId}.json?${new Date().getTime()}`,
     "GET",
     null,
     "",
     true,
   );
+  return convertBooleans(<IFormFields>response);
 }
 
 export async function createNewCaseApi(

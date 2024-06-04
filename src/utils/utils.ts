@@ -134,7 +134,12 @@ export function getFieldValue(
     return;
   }
   if (!key) {
-    if (control !== "removable_section") {
+    if (
+      control !== "divider" &&
+      control !== "section" &&
+      control !== "removable_section" &&
+      control !== "component_mailing_same_as_residential"
+    ) {
       console.error("Key is missing for control type: ", control);
     }
     return;
@@ -463,4 +468,15 @@ export function getArrayFieldInfo(fieldKey: string) {
     return ArrayFields[0];
   }
   return arrayField;
+}
+
+export function convertBooleans(obj: any) {
+  for (const key in obj) {
+    if (typeof obj[key] === "object") {
+      convertBooleans(obj[key]);
+    } else if (obj[key] === "true" || obj[key] === "false") {
+      obj[key] = obj[key] === "true";
+    }
+  }
+  return obj;
 }

@@ -332,7 +332,7 @@ export function CheckBox(props: CheckBoxProps) {
         disabled={props.disabled}
         checked={checked}
       >
-        {props.label}
+        <QText level="normal bold">{props.label}</QText>
       </Checkbox>
     </div>
   );
