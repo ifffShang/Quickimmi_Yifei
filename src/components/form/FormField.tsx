@@ -378,8 +378,15 @@ export function FormField(props: FormFieldProps) {
           let hasTrue = false;
           for (let i = 0; i < visibilityArray.length; i++) {
             const [key, value] = visibilityArray[i].split("=");
-            const caseDetailValue = getCaseDetailValue(caseDetails, key);
-            if (caseDetailValue === value) {
+            const caseDetailValue = getCaseDetailValue(
+              caseDetails,
+              key,
+              props.fieldIndex,
+            );
+            if (
+              caseDetailValue === value ||
+              (!caseDetailValue && (value === "null" || value === "undefined"))
+            ) {
               hasTrue = true;
             }
           }
@@ -446,6 +453,7 @@ export function FormField(props: FormFieldProps) {
                   subFields={field.fields}
                   format={field.format}
                   visibility={field.visibility}
+                  fieldIndex={props.fieldIndex}
                 />
               </div>
             ))}

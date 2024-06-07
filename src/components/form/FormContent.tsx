@@ -69,7 +69,7 @@ export function FormContent(props: FormContentProps) {
       <div className="form-content-form">
         {formFields.fields.map((field, index) => (
           <div key={index}>
-            {!field.hideHeader && (
+            {!field.hideHeader && field.label && (
               <QText level="field-label">{wt(field.label)}</QText>
             )}
             <FormField
@@ -90,11 +90,11 @@ export function FormContent(props: FormContentProps) {
         ))}
       </div>
       <div className="form-content-controls">
-        <Button type="primary">{wt("Previous")}</Button>
+        <Button type="primary">{t("Previous")}</Button>
         <Button className="default-button" onClick={saveApplicationCase}>
-          {wt("Save")}
+          {t("Save")}
         </Button>
-        <Button type="primary">{wt("Next")}</Button>
+        <Button type="primary">{t("Next")}</Button>
       </div>
     </div>
   );

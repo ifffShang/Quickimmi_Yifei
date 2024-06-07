@@ -126,15 +126,15 @@ export function UploadOtherIdModal() {
 
   return (
     <div className="upload-other-id">
-      <QText level="large">{wt("UploadOtherId")}</QText>
+      <QText level="large">{t("UploadOtherId")}</QText>
       <QReturnLink
         onClick={() => dispatch(changeModalType("uploadpassport"))}
-        text={wt("ReturnToPassportUpload")}
+        text={t("ReturnToPassportUpload")}
         margin={"10px 0"}
       />
       <div className="upload-other-id-uploader">
         <QText level="xsmall" color="gray">
-          {wt("NoPassportSelected")}
+          {t("NoPassportSelected")}
         </QText>
         <QDropdown
           onChange={(value: string) =>
