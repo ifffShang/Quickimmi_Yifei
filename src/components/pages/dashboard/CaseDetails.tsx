@@ -15,7 +15,6 @@ export function CaseDetails() {
 
   useEffect(() => {
     if (!id || !accessToken) return;
-
     getForm("i589_form").then(form => {
       dispatch(updateForm(form));
       (async function () {
@@ -31,7 +30,6 @@ export function CaseDetails() {
         }
       })();
     });
-
     return () => {
       dispatch(resetFormState());
     };

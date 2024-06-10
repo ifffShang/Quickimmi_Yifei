@@ -1,0 +1,34 @@
+.add-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.add-item-compact {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
+.add-item-compact .add-item-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  font-size: var(--font-size-p3);
+  font-weight: normal;
+}
+
+.add-item-compact .add-item-btn svg {
+  color: var(--primary-color);
+  font-size: var(--font-size-h3);
+}
+
+.add-item-btn svg {
+  color: var(--gray-color-3);
+  font-size: var(--font-size-h2);
+}

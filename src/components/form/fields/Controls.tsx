@@ -10,12 +10,11 @@ import {
 import dayjs from "dayjs";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch } from "../../../app/hooks";
 import { useFormTranslation } from "../../../hooks/commonHooks";
 import { IFormOptions } from "../../../model/formFlowModels";
-import { dispatchFormValue } from "../../../utils/utils";
 import { ErrorMessage, QText } from "../../common/Fonts";
 import "./Controls.css";
+import TextArea from "antd/es/input/TextArea";
 
 /** Form input (sign in, passport) ***********************************************/
 
@@ -109,7 +108,60 @@ export function QTextBox(props: QTextBoxProps) {
         disabled={props.disabled || false}
       />
       {value && (
-        <div className="text-box-inline-placeholder">
+        <div className="inline-placeholder">
+          <QText level="placeholder">{props.placeholder}</QText>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/** TextArea control ***************************************************/
+
+export interface QTextAreaProps {
+  placeholder: string;
+  value: string;
+  onChange: (value: string) => string;
+  disabled?: boolean;
+  fieldKey?: string;
+  className?: string;
+}
+
+export function QTextArea(props: QTextAreaProps) {
+  const [value, setValue] = useState(props.value);
+  const inputRef = useRef<InputRef>(null);
+
+  useEffect(() => {
+    setValue(props.value);
+  }, [props.value]);
+
+  const onTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (props.disabled) return;
+    const cursorPosition = e.target.selectionStart;
+    const value = props.onChange(e.target.value);
+    setValue(value);
+    if (inputRef.current) {
+      const inputElement = inputRef.current as unknown as HTMLInputElement;
+      setTimeout(() => {
+        inputElement.selectionStart = cursorPosition;
+        inputElement.selectionEnd = cursorPosition;
+      }, 0);
+    }
+  };
+
+  return (
+    <div className="text-box-container">
+      <TextArea
+        rows={4}
+        ref={inputRef}
+        className={"text-box" + (props.className ? ` ${props.className}` : "")}
+        placeholder={props.placeholder}
+        value={value}
+        onChange={onTextAreaChange}
+        disabled={props.disabled || false}
+      />
+      {value && (
+        <div className="inline-placeholder">
           <QText level="placeholder">{props.placeholder}</QText>
         </div>
       )}
@@ -161,12 +213,10 @@ export interface QDatePickerProps {
   value?: string;
   onChange?: (value: string) => void;
   disabled?: boolean;
-  parentFieldKey?: string;
   fieldKey?: string;
 }
 
 export function QDatePicker(props: QDatePickerProps) {
-  const dispatch = useAppDispatch();
   const [value, setValue] = useState(props.value || "");
 
   useEffect(() => {
@@ -174,15 +224,15 @@ export function QDatePicker(props: QDatePickerProps) {
   }, [props.value]);
 
   const onDateChange = (date: dayjs.Dayjs, dateString: string | string[]) => {
-    if (props.disabled || !date) return;
+    if (props.disabled) return;
+    if (!date || !dateString) {
+      setValue("");
+      props.onChange && props.onChange("");
+      return;
+    }
     if (Array.isArray(dateString)) dateString = dateString[0];
     setValue(dateString);
     props.onChange && props.onChange(dateString);
-    props.parentFieldKey &&
-      props.fieldKey &&
-      dispatchFormValue(dispatch, {
-        [props.fieldKey]: dateString,
-      });
   };
 
   return (
@@ -194,6 +244,11 @@ export function QDatePicker(props: QDatePickerProps) {
         onChange={onDateChange}
         disabled={props.disabled || false}
       />
+      {value && (
+        <div className="inline-placeholder">
+          <QText level="placeholder">{props.placeholder}</QText>
+        </div>
+      )}
     </div>
   );
 }
@@ -241,7 +296,7 @@ export function SelectBox(props: SelectBoxProps) {
         value={value}
       />
       {value && (
-        <div className="text-box-inline-placeholder">
+        <div className="inline-placeholder">
           <QText level="placeholder">{props.placeholder}</QText>
         </div>
       )}
@@ -253,12 +308,54 @@ export function SelectBox(props: SelectBoxProps) {
 
 export interface CheckBoxProps {
   label: string;
+  onChange: (keyValueChecked: string) => void;
+  disabled?: boolean;
+  checked?: boolean;
+  options?: IFormOptions[] | string;
+}
+
+export function CheckBox(props: CheckBoxProps) {
+  const [checked, setChecked] = useState(props.checked || false);
+
+  useEffect(() => {
+    setChecked(props.checked || false);
+  }, [props.checked]);
+
+  const handleChange = (e: any) => {
+    setChecked(e.target.checked);
+    if (props.options && Array.isArray(props.options)) {
+      const keyValue = props.options.find(
+        option => option.value === e.target.checked,
+      )?.keyValue;
+      props.onChange(keyValue || "");
+    } else {
+      props.onChange(e.target.checked);
+    }
+  };
+
+  return (
+    <div>
+      <Checkbox
+        onChange={handleChange}
+        disabled={props.disabled}
+        checked={checked}
+      >
+        <QText level="normal bold">{props.label}</QText>
+      </Checkbox>
+    </div>
+  );
+}
+
+/** Pure Checkbox control ***************************************************/
+
+export interface PureCheckBoxProps {
+  label: string;
   onChange: (checked: boolean) => void;
   disabled?: boolean;
   checked?: boolean;
 }
 
-export function CheckBox(props: CheckBoxProps) {
+export function PureCheckBox(props: PureCheckBoxProps) {
   const [checked, setChecked] = useState(props.checked || false);
 
   useEffect(() => {
@@ -277,7 +374,7 @@ export function CheckBox(props: CheckBoxProps) {
         disabled={props.disabled}
         checked={checked}
       >
-        {props.label}
+        <QText level="normal bold">{props.label}</QText>
       </Checkbox>
     </div>
   );

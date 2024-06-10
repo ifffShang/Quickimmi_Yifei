@@ -1,0 +1,459 @@
+{
+  "id": "i589_fields_asylum_claim",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    {
+      "label": "text_AsylumBasedOn",
+      "id": "asylum_based_on",
+      "key": "applicationDetails.asylumBasedOnRaceCheckbox,applicationDetails.asylumBasedOnReligionCheckbox,applicationDetails.asylumBasedOnNationalityCheckbox,applicationDetails.asylumBasedOnPoliticalOptionCheckbox,applicationDetails.asylumBasedOnParticularMembershipCheckbox,applicationDetails.asylumBasedOnTortureConventionCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "Race",
+          "label": "text_Race",
+          "keyValue": "true,false,false,false,false,false"
+        },
+        {
+          "value": "Religion",
+          "label": "text_Religion",
+          "keyValue": "false,true,false,false,false,false"
+        },
+        {
+          "value": "Nationality",
+          "label": "text_Nationality",
+          "keyValue": "false,false,true,false,false,false"
+        },
+        {
+          "value": "PoliticalOption",
+          "label": "text_PoliticalOption",
+          "keyValue": "false,false,false,true,false,false"
+        },
+        {
+          "value": "Membership",
+          "label": "text_MembershipInAParticularSocialGroup",
+          "keyValue": "false,false,false,false,true,false"
+        },
+        {
+          "value": "Torture",
+          "label": "text_TortureConvention",
+          "keyValue": "false,false,false,false,false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_HasExperiencedHarm",
+      "id": "has_experienced_harm",
+      "key": "applicationDetails.haveBeenHarmedYesCheckbox,applicationDetails.haveBeenHarmedNoCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        },
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "PartD.members",
+      "visibility": "applicationDetails.haveBeenHarmedYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainedHarmedIncident",
+          "id": "explained_harmed_incident",
+          "key": "applicationDetails.explainHaveBeenHarmedYes",
+          "control": "textarea"
+        }
+      ]
+    },
+    {
+      "label": "text_FearReturnHome",
+      "id": "fear_return_home",
+      "key": "applicationDetails.fearReturnYesCheckbox,applicationDetails.fearReturnNoCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        },
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "PartD.members",
+      "visibility": "applicationDetails.fearReturnYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainFearReturnHome",
+          "id": "explain_fear_return",
+          "key": "applicationDetails.explainFearReturnYes",
+          "control": "textarea"
+        }
+      ]
+    },
+    {
+      "label": "text_FamilyMemberCharged",
+      "id": "family_member_charged",
+      "key": "applicationDetails.familyMembersBeenChargedYesCheckbox,applicationDetails.familyMembersBeenChargedNoCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        },
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "PartD.members",
+      "visibility": "applicationDetails.familyMembersBeenChargedYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainFamilyMemberCharged",
+          "id": "explain_fear_return",
+          "key": "applicationDetails.explainFamilyMembersBeenChargedYes",
+          "control": "textarea"
+        }
+      ]
+    },
+    {
+      "label": "text_YouOrFamilyBelongToGroup",
+      "id": "you_or_family_belong_to_group",
+      "key": "applicationDetails.youOrFamilyBelongAnyOrganizationYesCheckbox,applicationDetails.youOrFamilyBelongAnyOrganizationNoCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        },
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "PartD.members",
+      "visibility": "applicationDetails.youOrFamilyBelongAnyOrganizationYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainYouOrFamilyBelongToGroup",
+          "id": "explain_you_or_family_belong_to_group",
+          "key": "applicationDetails.explainYouOrFamilyBelongAnyOrganizationYes",
+          "control": "textarea"
+        }
+      ]
+    },
+    {
+      "label": "text_YouOrFamilyContinueBelongToGroup",
+      "id": "you_or_family_belong_to_group",
+      "key": "applicationDetails.youOrFamilyContinueBelongAnyOrganizationYesCheckbox,applicationDetails.youOrFamilyContinueBelongAnyOrganizationNoCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        },
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "PartD.members",
+      "visibility": "applicationDetails.youOrFamilyContinueBelongAnyOrganizationYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainYouOrFamilyContinueBelongToGroup",
+          "id": "explain_you_or_family_belong_to_group",
+          "key": "applicationDetails.explainYouOrFamilyContinueBelongAnyOrganizationYes",
+          "control": "textarea"
+        }
+      ]
+    },
+    {
+      "label": "text_AfraidOfBeingTorturedWhenReturned",
+      "id": "afraid_of_being_tortured_when_returned",
+      "key": "applicationDetails.afraidOfReturnYesCheckbox,applicationDetails.afraidOfReturnNoCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        },
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "PartD.members",
+      "visibility": "applicationDetails.afraidOfReturnYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainAfraidOfBeingTorturedWhenReturned",
+          "id": "explain_afraid_of_being_tortured_when_returned",
+          "key": "applicationDetails.explainAfraidOfReturnYes",
+          "control": "textarea"
+        }
+      ]
+    },
+    {
+      "label": "text_AppliedRefugeeOrAsylumBefore",
+      "id": "PartC.1.",
+      "key": "applicationDetails.appliedBeforeYesCheckbox,applicationDetails.appliedBeforeNoCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        },
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "PartD.members",
+      "visibility": "applicationDetails.appliedBeforeYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainAppliedRefugeeOrAsylumBefore",
+          "id": "PartC.1.",
+          "key": "applicationDetails.explainAppliedBeforeYes",
+          "control": "textarea"
+        }
+      ]
+    },
+    {
+      "label": "text_TravelOtherCountryBeforeUS",
+      "id": "PartC.2.A.",
+      "key": "applicationDetails.stayInOtherCountryYesCheckbox,applicationDetails.stayInOtherCountryNoCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        },
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        }
+      ]
+    },
+    {
+      "label": "text_AnyLawfulStatusAnyCountry",
+      "id": "PartC.2.B.",
+      "key": "applicationDetails.anyLawfulStatusAnyCountryYesCheckbox,applicationDetails.anyLawfulStatusAnyCountryNoCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        },
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "PartD.members",
+      "visibility": "applicationDetails.anyLawfulStatusAnyCountryYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainAnyLawfulStatusAnyCountry",
+          "id": "PartC.2.B.",
+          "key": "applicationDetails.explainAnyLawfulStatusAnyCountryYesQuestion",
+          "control": "textarea"
+        }
+      ]
+    },
+    {
+      "label": "text_HaveHarmedOthers",
+      "id": "PartC.3.",
+      "key": "applicationDetails.haveYouHarmOthersYesCheckbox,applicationDetails.haveYouHarmOthersNoCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        },
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "PartD.members",
+      "visibility": "applicationDetails.haveYouHarmOthersYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainHaveHarmedOthers",
+          "id": "PartC.3.",
+          "key": "applicationDetails.explainHaveYouHarmOthersYes",
+          "control": "textarea"
+        }
+      ]
+    },
+    {
+      "label": "text_ReturnCountryAfterBeingHarmed",
+      "id": "PartC.4.",
+      "key": "applicationDetails.returnCountryYesCheckbox,applicationDetails.returnCountryNoCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        },
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "PartD.members",
+      "visibility": "applicationDetails.returnCountryYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainReturnCountryAfterBeingHarmed",
+          "id": "PartC.4.",
+          "key": "applicationDetails.explainReturnCountryYes",
+          "control": "textarea"
+        }
+      ]
+    },
+    {
+      "label": "text_AppliedOneYearAfterYourLastArrival",
+      "id": "PartC.5.",
+      "key": "applicationDetails.moreThanOneYearAfterArrivalYesCheckbox,applicationDetails.moreThanOneYearAfterArrivalNoCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        },
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "PartD.members",
+      "visibility": "applicationDetails.moreThanOneYearAfterArrivalYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainAppliedOneYearAfterYourLastArrival",
+          "id": "PartC.5.",
+          "key": "applicationDetails.explainMoreThanOneYearAfterArrivalYes",
+          "control": "textarea"
+        }
+      ]
+    },
+    {
+      "label": "text_HaveCommittedCrime",
+      "id": "PartC.6.",
+      "key": "applicationDetails.haveCommittedCrimeYesCheckbox,applicationDetails.haveCommittedCrimeNoCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        },
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "PartD.members",
+      "visibility": "applicationDetails.haveCommittedCrimeYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainHaveCommittedCrime",
+          "id": "PartC.6.",
+          "key": "applicationDetails.explainHaveCommittedCrimeYes",
+          "control": "textarea"
+        }
+      ]
+    }
+  ]
+}

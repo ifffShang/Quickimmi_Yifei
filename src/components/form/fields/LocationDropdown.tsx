@@ -3,6 +3,7 @@ import { City, ICity, IState, State } from "country-state-city";
 import { useEffect, useState } from "react";
 import { getPrefillLocationOptions } from "../../../utils/utils";
 import "./LocationDropdown.css";
+import { useFormTranslation } from "../../../hooks/commonHooks";
 
 export interface LocationSelectOption {
   value: string;
@@ -31,6 +32,7 @@ export function LocationDropdown(props: LocationDropdownProps) {
     cityPrefillOption,
   } = getPrefillLocationOptions(props.prefillStr ?? "", props.prefillData);
 
+  const { t } = useFormTranslation();
   const [country, setCountry] = useState<LocationSelectOption | undefined>(
     countryPrefillOption,
   );
@@ -107,7 +109,7 @@ export function LocationDropdown(props: LocationDropdownProps) {
     <div className="location-dropdown-container horizontal-3">
       <Select
         className="sub-field"
-        placeholder={props.placeholder?.country || "Select a country"}
+        placeholder={props.placeholder?.country || t("Select a country")}
         labelInValue
         showSearch
         allowClear
@@ -125,7 +127,7 @@ export function LocationDropdown(props: LocationDropdownProps) {
       {stateData.length > 0 && (
         <Select
           className="sub-field"
-          placeholder={props.placeholder?.state || "Select a state"}
+          placeholder={props.placeholder?.state || t("Select a state")}
           labelInValue
           showSearch
           allowClear
@@ -143,7 +145,7 @@ export function LocationDropdown(props: LocationDropdownProps) {
       {cityData.length > 0 && (
         <Select
           className="sub-field"
-          placeholder={props.placeholder?.city || "Select a city"}
+          placeholder={props.placeholder?.city || t("Select a city")}
           labelInValue
           showSearch
           allowClear

@@ -1,10 +1,10 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { getDocumentsApi } from "../api/caseAPI";
-import { replaceDocumentUrls, clearDocumentUrls } from "../reducers/formSlice";
+import { clearDocumentUrls, replaceDocumentUrls } from "../reducers/formSlice";
 import { arrayMapper } from "../utils/mapper";
 import { textParser } from "../utils/parsers";
-import { downloadDocument, downloadImage } from "../utils/utils";
+import { downloadDocument } from "../utils/utils";
 
 export function useFormTranslation() {
   const { t, i18n } = useTranslation();

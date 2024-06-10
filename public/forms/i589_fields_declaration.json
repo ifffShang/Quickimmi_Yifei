@@ -1,0 +1,114 @@
+{
+  "id": "i589_fields_declaration",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    {
+      "label": "text_PreparerInformation",
+      "id": "PartE.preparer",
+      "control": "group",
+      "maxChildPerRow": "1",
+      "fields": [
+        {
+          "label": "text_PreparerSignature",
+          "placeholder": "text_PreparerSignature",
+          "id": "PartE.preparerSignature",
+          "key": "declaration.preparerSignature",
+          "control": "text"
+        },
+        {
+          "label": "text_PrintCompleteNameOfPreparer",
+          "placeholder": "text_PrintCompleteNameOfPreparer",
+          "id": "PartE.completeName",
+          "key": "declaration.completeName",
+          "control": "text"
+        }
+      ]
+    },
+    {
+      "label": "text_DaytimeTelephoneNumber",
+      "placeholder": "text_DaytimeTelephoneNumber",
+      "id": "PartE.daytimeTelephoneNumber",
+      "key": "declaration.teleNumberAreacode,declaration.teleNumber",
+      "control": "text",
+      "format": "PhoneNumberRegex"
+    },
+    {
+      "label": "text_AddressOfPreparer",
+      "id": "PartE.streetNumberAndNameOfPreparer",
+      "control": "group",
+      "maxChildPerRow": "3",
+      "fields": [
+        {
+          "label": "text_StreetNumberAndNameOfPreparer",
+          "placeholder": "text_StreetNumberAndNameOfPreparer",
+          "id": "PartE.streetNumberAndNameOfPreparer",
+          "key": "declaration.streetNumberAndName",
+          "control": "text"
+        },
+        {
+          "label": "text_ApartmentNumber",
+          "placeholder": "text_ApartmentNumber",
+          "id": "PartE.aptNumber",
+          "key": "declaration.aptNumber",
+          "control": "text"
+        },
+        {
+          "label": "text_City",
+          "placeholder": "text_City",
+          "id": "PartE.city",
+          "key": "declaration.city",
+          "control": "text"
+        },
+        {
+          "label": "text_State",
+          "placeholder": "text_State",
+          "id": "PartE.state",
+          "key": "declaration.state",
+          "control": "text"
+        },
+        {
+          "label": "text_ZipCode",
+          "placeholder": "text_ZipCode",
+          "id": "PartE.zipCode",
+          "key": "declaration.zipCode",
+          "control": "text"
+        }
+      ]
+    },
+    {
+      "label": "text_G28FormAttached",
+      "hideHeader": "true",
+      "placeholder": "text_G28FormAttached",
+      "id": "PartE.g28FormAttachedYesCheckbox",
+      "key": "declaration.g28FormAttachedYesCheckbox",
+      "control": "checkbox",
+      "options": [
+        {
+          "value": "true",
+          "label": "text_Yes",
+          "keyValue": "true"
+        },
+        {
+          "value": "false",
+          "label": "text_No",
+          "keyValue": "false"
+        }
+      ]
+    },
+    {
+      "label": "text_AttorneyStateBarNumber",
+      "placeholder": "text_AttorneyStateBarNumberPlaceholder",
+      "id": "PartE.attorneyStateBarNumber",
+      "key": "declaration.attorneyStateNarNumber",
+      "control": "text"
+    },
+    {
+      "label": "text_AttorneyUscisOnlineAccountNumber",
+      "placeholder": "text_AttorneyUscisOnlineAccountNumberPlaceholder",
+      "id": "PartE.attorneyUscisOnlineAccountNumber",
+      "key": "declaration.attorneyUscisOnlineAccountNumber",
+      "control": "text"
+    }
+  ]
+}

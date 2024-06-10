@@ -1,4 +1,10 @@
-import { ApplicationCase, Spouse } from "../model/apiModels";
+import {
+  AddressHistory,
+  ApplicationCase,
+  Child,
+  FamilyMember,
+  Spouse,
+} from "../model/apiModels";
 
 export const InitialApplicant = {
   passportDocumentId: 0,
@@ -53,7 +59,7 @@ export const InitialApplicant = {
   otherFluentLanguages: "",
   haveNoChildrenCheckbox: null,
   haveChildrenCheckbox: null,
-  childrenCnt: "",
+  childrenCnt: 0,
   notMarriedCheckbox: null,
 };
 
@@ -243,4 +249,79 @@ export const InitialSpouse: Spouse = {
   previousArrivalDate: "",
   inThisApplicationYesCheckbox: null,
   inThisApplicationNoCheckbox: null,
+};
+
+export const InitialChild: Child = {
+  passportDocumentId: "",
+  aNumber: "",
+  passportNumber: "",
+  martialStatus: "",
+  ssn: "",
+  lastName: "",
+  firstName: "",
+  middleName: "",
+  birthDate: "",
+  cityAndCountryOfBirth: "",
+  nationality: "",
+  race: "",
+  genderMaleCheckbox: null,
+  genderFemaleCheckbox: null,
+  personInUSYesCheckbox: null,
+  personInUSNoCheckbox: null,
+  specifyLocationIfNotInUS: "",
+  placeLastEntryIntoUS: "",
+  lastEntryUSDate: "",
+  i94Number: "",
+  lastAdmittedStatus: "",
+  currentStatus: "",
+  statusExpireDate: "",
+  immigrationCourtProceedingYesCheckbox: null,
+  immigrationCourtProceedingNoCheckbox: null,
+  inThisApplicationYesCheckbox: null,
+  inThisApplicationNoCheckbox: null,
+};
+
+export const InitialFamilyMember: FamilyMember = {
+  name: "",
+  cityTownAndBirth: "",
+  location: "",
+  deceasedCheckbox: "",
+};
+
+export const InitialAddressHistoryBeforeUS: AddressHistory = {
+  numberAndStreet: "",
+  city: "",
+  province: "",
+  country: "",
+  startDate: "",
+  endDate: "",
+};
+
+export const InitialUSAddressHistoryPast5Y: AddressHistory = {
+  numberAndStreet: "",
+  city: "",
+  province: "",
+  country: "",
+  startDate: "",
+  endDate: "",
+};
+
+export const InitialEducationHistory = {
+  schoolName: "",
+  schoolType: "",
+  location: "",
+  startDate: "",
+  endDate: "",
+};
+
+export const InitialEmploymentHistory = {
+  nameAndAddress: "",
+  occupation: "",
+  startDate: "",
+  endDate: "",
+};
+
+export const InitialMember = {
+  name: "",
+  relationship: "",
 };

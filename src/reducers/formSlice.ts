@@ -1,9 +1,17 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import _ from "lodash";
-import { InitialApplicationCase } from "../consts/caseConsts";
+import {
+  InitialAddressHistoryBeforeUS,
+  InitialApplicationCase,
+  InitialChild,
+  InitialEducationHistory,
+  InitialEmploymentHistory,
+  InitialFamilyMember,
+  InitialMember,
+  InitialUSAddressHistoryPast5Y,
+} from "../consts/caseConsts";
 import {
   ApplicationCase,
-  AsylumCaseProfile,
   AsylumCaseProfileOptional,
   ParsePassportResponse,
 } from "../model/apiModels";
@@ -43,6 +51,44 @@ function deepAssign(update: any, current: any, init: any) {
   return result;
 }
 
+export const ArrayFields = [
+  {
+    field: "family.children",
+    overwriteField: "overwriteChildren",
+    default: InitialChild,
+  },
+  {
+    field: "family.siblings",
+    overwriteField: "overwriteSiblings",
+    default: InitialFamilyMember,
+  },
+  {
+    field: "background.addressHistoriesBeforeUS",
+    overwriteField: "overwriteAddressHistoriesBeforeUS",
+    default: InitialAddressHistoryBeforeUS,
+  },
+  {
+    field: "background.usAddressHistoriesPast5Years",
+    overwriteField: "overwriteUsAddressHistoriesPast5Years",
+    default: InitialUSAddressHistoryPast5Y,
+  },
+  {
+    field: "background.educationHistories",
+    overwriteField: "overwriteEducationHistories",
+    default: InitialEducationHistory,
+  },
+  {
+    field: "background.employmentHistories",
+    overwriteField: "overwriteEmploymentHistories",
+    default: InitialEmploymentHistory,
+  },
+  {
+    field: "signature.members",
+    overwriteField: "overwriteMembers",
+    default: InitialMember,
+  },
+];
+
 export const formSlice = createSlice({
   name: "form",
   initialState,
@@ -55,13 +101,22 @@ export const formSlice = createSlice({
       );
       Object.assign(state.applicationCase, result);
     },
-    updateCaseDetails: (state, action: PayloadAction<AsylumCaseProfile>) => {
-      Object.assign(state.applicationCase.profile, action.payload);
-    },
     updateCaseFields: (
       state,
       action: PayloadAction<AsylumCaseProfileOptional>,
     ) => {
+      ArrayFields.forEach(item => {
+        const { field, overwriteField } = item;
+        if (action.payload[overwriteField]) {
+          _.set(
+            state.applicationCase.profile,
+            field,
+            _.get(action.payload, field) ?? [],
+          );
+          delete action.payload[overwriteField];
+        }
+      });
+
       const profile = _.merge(state.applicationCase.profile, action.payload);
       state.applicationCase.profile = profile;
     },
@@ -78,8 +133,9 @@ export const formSlice = createSlice({
         firstName: action.payload.firstName,
         lastName: action.payload.lastName,
         middleName: action.payload.middleName,
-        genderMaleCheckbox: action.payload.gender === "Male",
-        genderFemaleCheckbox: action.payload.gender === "Female",
+        genderMaleCheckbox: action.payload.gender === "Male" ? "true" : "false",
+        genderFemaleCheckbox:
+          action.payload.gender === "Female" ? "true" : "false",
         nationality: action.payload.nationality,
         birthDate: action.payload.birthDate,
         cityAndCountryOfBirth: action.payload.birthPlace,
@@ -90,7 +146,11 @@ export const formSlice = createSlice({
           expirationDate: action.payload.expireDate,
         };
       }
-      const payloadToUpdate = getUpdateProfileData(fieldKey, payload);
+      const payloadToUpdate = getUpdateProfileData(
+        fieldKey,
+        payload,
+        action.payload.fieldIndex,
+      );
       const profile = _.merge(state.applicationCase.profile, payloadToUpdate);
       Object.assign(state.applicationCase.profile, profile);
     },
@@ -110,7 +170,11 @@ export const formSlice = createSlice({
         birthDate: action.payload.birthDate,
         cityAndCountryOfBirth: action.payload.birthPlace,
       };
-      const payloadToUpdate = getUpdateProfileData(fieldKey, payload);
+      const payloadToUpdate = getUpdateProfileData(
+        fieldKey,
+        payload,
+        action.payload.fieldIndex,
+      );
       const profile = _.merge(state.applicationCase.profile, payloadToUpdate);
       Object.assign(state.applicationCase.profile, profile);
     },
@@ -126,8 +190,9 @@ export const formSlice = createSlice({
         firstName: action.payload.firstName,
         lastName: action.payload.lastName,
         middleName: action.payload.middleName,
-        genderMaleCheckbox: action.payload.gender === "Male",
-        genderFemaleCheckbox: action.payload.gender === "Female",
+        genderMaleCheckbox: action.payload.gender === "Male" ? "true" : "false",
+        genderFemaleCheckbox:
+          action.payload.gender === "Female" ? "true" : "false",
         nationality: action.payload.nationality,
         birthDate: action.payload.birthDate,
         cityAndCountryOfBirth: action.payload.birthPlace,
@@ -139,9 +204,45 @@ export const formSlice = createSlice({
           expirationDate: action.payload.expireDate,
         };
       }
-      const payloadToUpdate = getUpdateProfileData(fieldKey, payload);
+      const payloadToUpdate = getUpdateProfileData(
+        fieldKey,
+        payload,
+        action.payload.fieldIndex,
+      );
       const profile = _.merge(state.applicationCase.profile, payloadToUpdate);
       Object.assign(state.applicationCase.profile, profile);
+    },
+    syncUpMailingAndResidenceAddress: (
+      state,
+      action: PayloadAction<boolean>,
+    ) => {
+      if (action.payload) {
+        state.applicationCase.profile.applicant.streetNumberAndNameOfMailingAddress =
+          state.applicationCase.profile.applicant.streetNumberAndName;
+        state.applicationCase.profile.applicant.aptNumberOfMailingAddress =
+          state.applicationCase.profile.applicant.aptNumber;
+        state.applicationCase.profile.applicant.cityOfMailingAddress =
+          state.applicationCase.profile.applicant.city;
+        state.applicationCase.profile.applicant.stateOfMailingAddress =
+          state.applicationCase.profile.applicant.state;
+        state.applicationCase.profile.applicant.zipCodeOfMailingAddress =
+          state.applicationCase.profile.applicant.zipCode;
+        state.applicationCase.profile.applicant.telePhoneAreaCodeOfMailingAddress =
+          state.applicationCase.profile.applicant.telePhoneAreaCode;
+        state.applicationCase.profile.applicant.telePhoneNumberOfMailingAddress =
+          state.applicationCase.profile.applicant.telePhoneNumber;
+      } else {
+        state.applicationCase.profile.applicant.streetNumberAndNameOfMailingAddress =
+          "";
+        state.applicationCase.profile.applicant.aptNumberOfMailingAddress = "";
+        state.applicationCase.profile.applicant.cityOfMailingAddress = "";
+        state.applicationCase.profile.applicant.stateOfMailingAddress = "";
+        state.applicationCase.profile.applicant.zipCodeOfMailingAddress = "";
+        state.applicationCase.profile.applicant.telePhoneAreaCodeOfMailingAddress =
+          "";
+        state.applicationCase.profile.applicant.telePhoneNumberOfMailingAddress =
+          "";
+      }
     },
     replaceDocumentUrls: (state, action: PayloadAction<any[]>) => {
       state.documentUrls = action.payload;
@@ -159,11 +260,11 @@ export const formSlice = createSlice({
 export const {
   resetFormState,
   updateApplicationCase,
-  updateCaseDetails,
   updateCaseFields,
   updatePassportInfo,
   updateIdCardInfo,
   updateTravelDocumentInfo,
+  syncUpMailingAndResidenceAddress,
   replaceDocumentUrls,
   clearDocumentUrls,
 } = formSlice.actions;

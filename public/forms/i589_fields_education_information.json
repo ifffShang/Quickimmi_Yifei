@@ -1,0 +1,65 @@
+{
+  "id": "i589_fields_education_information",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    {
+      "label": "text_MostRecentSchool",
+      "hideHeader": "true",
+      "control": "label"
+    },
+    {
+      "label": "text_School",
+      "hideHeader": "true",
+      "id": "education_information",
+      "key": "count-background.educationHistories",
+      "control": "removable_section",
+      "fields": [
+        {
+          "label": "text_SchoolName",
+          "id": "school_name",
+          "key": "background.educationHistories[].schoolName",
+          "control": "text"
+        },
+        {
+          "label": "text_SchoolType",
+          "id": "school_type",
+          "key": "background.educationHistories[].schoolType",
+          "control": "text"
+        },
+        {
+          "label": "text_Location",
+          "placeholder": "text_SchoolAddress",
+          "id": "location",
+          "key": "background.educationHistories[].location",
+          "control": "text"
+        },
+        {
+          "label": "text_AttendedFrom",
+          "placeholder": "text_MM/DD/YYYY",
+          "id": "education_start_date",
+          "key": "background.educationHistories[].startDate",
+          "control": "datepicker"
+        },
+        {
+          "label": "text_To",
+          "placeholder": "text_MM/DD/YYYY",
+          "id": "education_end_date",
+          "key": "background.educationHistories[].endDate",
+          "control": "datepicker"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "control": "divider"
+    },
+    {
+      "label": "",
+      "placeholder": "text_AddASchool",
+      "id": "education_information",
+      "key": "count-background.educationHistories",
+      "control": "component_add_item"
+    }
+  ]
+}

@@ -2,13 +2,16 @@ import { Divider } from "antd";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Regex } from "../../consts/consts";
 import { useFormTranslation } from "../../hooks/commonHooks";
-import { Identity, KeyValues } from "../../model/commonModels";
+import { EntryRecord } from "../../model/apiModels";
+import { KeyValues } from "../../model/commonModels";
 import {
   ControlType,
   IFormField,
   IFormOptions,
 } from "../../model/formFlowModels";
 import {
+  createKeyValuesForAddItem,
+  createKeyValuesForRemoveItem,
   dispatchFormValue,
   formatCityAndCountryStr,
   getCaseDetailValue,
@@ -16,18 +19,23 @@ import {
 } from "../../utils/utils";
 import { QText } from "../common/Fonts";
 import "./FormField.css";
+import { AddItemControl } from "./fields/AddItemControl";
 import {
   CheckBox,
   QDatePicker,
+  QTextArea,
   QTextBox,
   RadioSelect,
   SelectBox,
 } from "./fields/Controls";
 import { DocumentList } from "./fields/DocumentList";
+import { EntryRecords } from "./fields/EntryRecords";
 import { GenerateDocument } from "./fields/GenerateDocument";
 import { LocationDropdown } from "./fields/LocationDropdown";
 import { PassportUploader } from "./fields/PassportUploader";
+import { SameAddressCheckbox } from "./fields/SameAddressCheckbox";
 import { TextboxWithNA } from "./fields/TextboxWithNA";
+import { RemovableSectionHeader } from "./parts/RemovableSectionHeader";
 
 export interface FormFieldProps {
   fieldKey: string;
@@ -40,6 +48,8 @@ export interface FormFieldProps {
   format?: string;
   className?: string;
   visibility?: string;
+  hideHeader?: boolean;
+  fieldIndex?: number;
 }
 
 export function FormField(props: FormFieldProps) {
@@ -57,10 +67,11 @@ export function FormField(props: FormFieldProps) {
     props.control,
     props.options,
     props.format,
+    props.fieldIndex,
   );
 
   console.log(
-    `Field key ${props.fieldKey}, value: ${fieldValue}, control: ${props.control}`,
+    `Field key ${props.fieldKey}, value: ${JSON.stringify(fieldValue)}, control: ${props.control}`,
   );
 
   const onOptionChange = (value: string) => {
@@ -77,21 +88,33 @@ export function FormField(props: FormFieldProps) {
           keys.forEach((key, index) => {
             keyValues[key] = values[index];
           });
-          dispatchFormValue(dispatch, keyValues);
+          dispatchFormValue(dispatch, keyValues, props.fieldIndex);
         } else {
-          dispatchFormValue(dispatch, {
-            [props.fieldKey]: option.keyValue,
-          });
+          dispatchFormValue(
+            dispatch,
+            {
+              [props.fieldKey]: option.keyValue,
+            },
+            props.fieldIndex,
+          );
         }
       } else {
-        dispatchFormValue(dispatch, {
-          [props.fieldKey]: value,
-        });
+        dispatchFormValue(
+          dispatch,
+          {
+            [props.fieldKey]: value,
+          },
+          props.fieldIndex,
+        );
       }
     } else {
-      dispatchFormValue(dispatch, {
-        [props.fieldKey]: value,
-      });
+      dispatchFormValue(
+        dispatch,
+        {
+          [props.fieldKey]: value,
+        },
+        props.fieldIndex,
+      );
     }
   };
 
@@ -113,45 +136,97 @@ export function FormField(props: FormFieldProps) {
       if (matches) {
         const group1 = matches[1];
         const group2 = matches[2];
-        dispatchFormValue(dispatch, {
-          [keys[0]]: group1,
-          [keys[1]]: group2,
-        });
+        dispatchFormValue(
+          dispatch,
+          {
+            [keys[0]]: group1,
+            [keys[1]]: group2,
+          },
+          props.fieldIndex,
+        );
       }
       return returnValue;
     } else {
       props.fieldKey &&
-        dispatchFormValue(dispatch, {
-          [props.fieldKey]: value,
-        });
+        dispatchFormValue(
+          dispatch,
+          {
+            [props.fieldKey]: value,
+          },
+          props.fieldIndex,
+        );
       return value;
     }
   };
 
-  const onCheckboxChange = (value: boolean) => {
+  const onCheckboxChange = (value: string) => {
+    if (!props.fieldKey) return;
+
+    if (props.fieldKey.indexOf(",") > -1 && value.indexOf(",") > -1) {
+      const keys = props.fieldKey.split(",");
+      const values = value.split(",");
+      dispatchFormValue(
+        dispatch,
+        {
+          [keys[0]]: values[0],
+          [keys[1]]: values[1],
+        },
+        props.fieldIndex,
+      );
+      return;
+    }
+    dispatchFormValue(
+      dispatch,
+      {
+        [props.fieldKey]: value,
+      },
+      props.fieldIndex,
+    );
+  };
+
+  const onPureCheckboxChange = (value: boolean) => {
     if (!props.fieldKey) return;
 
     if (props.fieldKey.indexOf(",") > -1) {
       const keys = props.fieldKey.split(",");
-      dispatchFormValue(dispatch, {
-        [keys[0]]: value,
-        [keys[1]]: !value,
-      });
+      dispatchFormValue(
+        dispatch,
+        {
+          [keys[0]]: value,
+          [keys[1]]: !value,
+        },
+        props.fieldIndex,
+      );
       return;
     }
-    dispatchFormValue(dispatch, {
-      [props.fieldKey]: value,
-    });
+    dispatchFormValue(
+      dispatch,
+      {
+        [props.fieldKey]: value,
+      },
+      props.fieldIndex,
+    );
   };
 
   const onLocationChange = (...params: any[]) => {
     const locationStr = formatCityAndCountryStr(...params);
-    dispatchFormValue(dispatch, {
-      [props.fieldKey]: locationStr,
-    });
+    dispatchFormValue(
+      dispatch,
+      {
+        [props.fieldKey]: locationStr,
+      },
+      props.fieldIndex,
+    );
+  };
+
+  const onAddItemClick = () => {
+    const keyValues = createKeyValuesForAddItem(fieldValue);
+    dispatchFormValue(dispatch, keyValues, props.fieldIndex);
   };
 
   switch (props.control) {
+    case "label":
+      return <QText level="normal bold">{wt(props.label)}</QText>;
     case "text":
       return (
         <QTextBox
@@ -162,7 +237,14 @@ export function FormField(props: FormFieldProps) {
         />
       );
     case "textarea":
-      return <div>Textarea not implemented</div>;
+      return (
+        <QTextArea
+          placeholder={placeholder}
+          value={fieldValue}
+          fieldKey={props.fieldKey}
+          onChange={onTextChange}
+        />
+      );
     case "radio":
       return (
         <RadioSelect
@@ -172,7 +254,14 @@ export function FormField(props: FormFieldProps) {
         />
       );
     case "checkbox":
-      return <CheckBox label={wt(props.label)} onChange={onCheckboxChange} />;
+      return (
+        <CheckBox
+          label={wt(props.label)}
+          onChange={onCheckboxChange}
+          checked={fieldValue}
+          options={props.options || ""}
+        />
+      );
     case "fileplus":
       return <div>Fileplus not implemented</div>;
     case "file":
@@ -196,11 +285,35 @@ export function FormField(props: FormFieldProps) {
           placeholder={placeholder}
           value={fieldValue}
           fieldKey={props.fieldKey}
+          onChange={(value: string) => {
+            props.fieldKey &&
+              dispatchFormValue(
+                dispatch,
+                {
+                  [props.fieldKey]: value,
+                },
+                props.fieldIndex,
+              );
+          }}
         />
       );
     case "component_passport_uploader": {
       return (
-        <PassportUploader documentId={fieldValue} fieldKey={props.fieldKey} />
+        <PassportUploader
+          documentId={fieldValue}
+          fieldKey={props.fieldKey}
+          fieldIndex={props.fieldIndex}
+          onChange={(value: any) => {
+            props.fieldKey &&
+              dispatchFormValue(
+                dispatch,
+                {
+                  [props.fieldKey]: value,
+                },
+                props.fieldIndex,
+              );
+          }}
+        />
       );
     }
     case "component_textbox_na":
@@ -222,6 +335,33 @@ export function FormField(props: FormFieldProps) {
       return <GenerateDocument />;
     case "component_list_reports":
       return <DocumentList />;
+    case "component_mailing_same_as_residential":
+      return <SameAddressCheckbox label={wt(props.label)} />;
+    case "component_entry_records":
+      return (
+        <EntryRecords
+          value={fieldValue}
+          label={wt(props.label)}
+          placeholder={placeholder}
+          onChange={(value: EntryRecord[]) => {
+            dispatchFormValue(
+              dispatch,
+              {
+                [props.fieldKey]: value,
+              },
+              props.fieldIndex,
+            );
+          }}
+        />
+      );
+    case "component_add_item":
+      return (
+        <AddItemControl
+          className={props.className}
+          placeholder={placeholder}
+          onClick={() => onAddItemClick()}
+        />
+      );
     case "group":
       if (props.subFields && props.subFields.length > 0) {
         const subFieldsCss = "horizontal-" + `${props.maxChildPerRow || 1}`;
@@ -245,6 +385,7 @@ export function FormField(props: FormFieldProps) {
                   subFields={field.fields}
                   format={field.format}
                   visibility={field.visibility}
+                  fieldIndex={props.fieldIndex}
                 />
               </div>
             ))}
@@ -252,27 +393,81 @@ export function FormField(props: FormFieldProps) {
         );
       } else return <div>Group needs sub fields</div>;
     case "section":
+    case "removable_section":
       if (props.subFields && props.subFields.length > 0) {
         if (props.visibility) {
+          let visibilityArray;
           //| represents the "or" logic
           if (props.visibility.indexOf("|") > -1) {
-            const visibilityArray = props.visibility.split("|");
-            let hasTrue = false;
-            for (let i = 0; i < visibilityArray.length; i++) {
-              const [key, value] = visibilityArray[i].split("=");
-              const caseDetailValue = getCaseDetailValue(caseDetails, key);
-              if (caseDetailValue === value) {
-                hasTrue = true;
-              }
-            }
-            if (!hasTrue) return null;
+            visibilityArray = props.visibility.split("|");
+          } else {
+            visibilityArray = [props.visibility];
           }
+          let hasTrue = false;
+          for (let i = 0; i < visibilityArray.length; i++) {
+            const [key, value] = visibilityArray[i].split("=");
+            const caseDetailValue = getCaseDetailValue(
+              caseDetails,
+              key,
+              props.fieldIndex,
+            );
+            if (
+              caseDetailValue === value ||
+              (!caseDetailValue && (value === "null" || value === "undefined"))
+            ) {
+              hasTrue = true;
+            }
+          }
+          if (!hasTrue) return <></>;
+        }
+        if (fieldValue && Array.isArray(fieldValue.arr)) {
+          return (
+            <>
+              {fieldValue.arr.map((_i, arrIndex) => (
+                <div key={arrIndex} className="section-container">
+                  {props.control === "removable_section" && (
+                    <RemovableSectionHeader
+                      label={wt(props.label)}
+                      fieldIndex={arrIndex}
+                      onRemove={() => {
+                        const keyValues = createKeyValuesForRemoveItem(
+                          fieldValue,
+                          arrIndex,
+                        );
+                        dispatchFormValue(dispatch, keyValues, arrIndex);
+                      }}
+                    />
+                  )}
+                  {props?.subFields?.map((field, index) => (
+                    <div key={index}>
+                      {field.label && field.hideHeader !== true && (
+                        <QText level="normal bold">{wt(field.label)}</QText>
+                      )}
+                      <FormField
+                        fieldKey={field.key}
+                        control={field.control}
+                        label={field.label}
+                        options={field.options}
+                        placeholder={field.placeholder}
+                        className={field.className}
+                        maxChildPerRow={field.maxChildPerRow}
+                        subFields={field.fields}
+                        format={field.format}
+                        visibility={field.visibility}
+                        fieldIndex={arrIndex}
+                      />
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </>
+          );
         }
         return (
           <div className="section-container">
             {props.subFields.map((field, index) => (
               <div key={index}>
-                {field.label !== "none" && (
+                {field.label && field.hideHeader !== true && (
                   <QText level="normal bold">{wt(field.label)}</QText>
                 )}
                 <FormField
@@ -286,6 +481,7 @@ export function FormField(props: FormFieldProps) {
                   subFields={field.fields}
                   format={field.format}
                   visibility={field.visibility}
+                  fieldIndex={props.fieldIndex}
                 />
               </div>
             ))}

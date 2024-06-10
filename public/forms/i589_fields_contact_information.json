@@ -55,6 +55,12 @@
       ]
     },
     {
+      "label": "text_MailingAddressSameAsResidentialAddress",
+      "hideHeader": "true",
+      "id": "mailing_address_same_as_residential_address",
+      "control": "component_mailing_same_as_residential"
+    },
+    {
       "label": "text_TelephoneNumberOfMailingInUs",
       "placeholder": "text_PhoneNumberFormat",
       "id": "telephone_number_mailing",
@@ -74,7 +80,7 @@
           "id": "in_care_of_name_mailing_address",
           "key": "applicant.inCareOf",
           "control": "text",
-          "className": "single-line"
+          "className": "form-field-single-line"
         },
         {
           "label": "text_Street",

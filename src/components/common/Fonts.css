@@ -57,7 +57,7 @@
   color: var(--primary-color);
 }
 
-.single-line {
+.single-line-text {
   display: flex;
   gap: 10px;
 }

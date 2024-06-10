@@ -1,0 +1,75 @@
+{
+  "id": "i589_fields_siblings_information",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    {
+      "label": "text_Sibling",
+      "hideHeader": "true",
+      "id": "siblings",
+      "key": "count-family.siblings",
+      "control": "removable_section",
+      "fields": [
+        {
+          "label": "text_FullName",
+          "id": "siblings_name",
+          "key": "family.siblings[].name",
+          "control": "text"
+        },
+        {
+          "label": "text_CityAndCountryOfBirth",
+          "placeholder": "text_CityAndCountryOfBirth",
+          "id": "siblings_birth_location",
+          "key": "family.siblings[].cityTownAndBirth",
+          "control": "component_location_dropdown"
+        },
+        {
+          "label": "text_Deceased",
+          "hideHeader": "true",
+          "placeholder": "text_Deceased",
+          "id": "siblings_deceased_checkbox",
+          "key": "family.siblings[].deceasedCheckbox,family.siblings[].location",
+          "control": "checkbox",
+          "options": [
+            {
+              "value": "true",
+              "label": "text_Yes",
+              "keyValue": "true,N/A"
+            },
+            {
+              "value": "false",
+              "label": "text_No",
+              "keyValue": "false,N/A"
+            }
+          ]
+        },
+        {
+          "label": "",
+          "id": "parents_current_location",
+          "visibility": "family.siblings[].deceasedCheckbox=false|family.siblings[].deceasedCheckbox=null",
+          "control": "section",
+          "fields": [
+            {
+              "label": "text_CurrentLocation",
+              "placeholder": "text_CurrentLocation",
+              "id": "siblings_current_location",
+              "key": "family.siblings[].location",
+              "control": "component_location_dropdown"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "",
+      "control": "divider"
+    },
+    {
+      "label": "",
+      "placeholder": "text_AddASibling",
+      "id": "sibling_number",
+      "key": "count-family.siblings",
+      "control": "component_add_item"
+    }
+  ]
+}

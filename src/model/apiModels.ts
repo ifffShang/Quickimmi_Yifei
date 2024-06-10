@@ -108,6 +108,10 @@ export interface AsylumCaseProfileOptional {
   applicationDetails?: ApplicationDetails;
   signature?: YourSignature;
   declaration?: Declaration;
+  overwriteChildren?: boolean;
+  overwriteSiblings?: boolean;
+  overwriteAddressHistoriesBeforeUS?: boolean;
+  overwriteUsAddressHistoriesPast5Years?: boolean;
 }
 
 export interface Applicant {
@@ -163,13 +167,14 @@ export interface Applicant {
   otherFluentLanguages?: string;
   haveNoChildrenCheckbox?: string | null;
   haveChildrenCheckbox?: string | null;
-  childrenCnt?: string;
+  childrenCnt?: number;
   notMarriedCheckbox?: string | null;
 }
 
 export interface EntryRecord {
   date: string;
-  port: string;
+  place: string;
+  status: string;
 }
 
 export interface Family {
@@ -215,42 +220,42 @@ export interface Spouse {
 }
 
 export interface Child {
-  passportDocumentId: string;
-  aNumber: string;
-  passportNumber: string;
-  martialStatus: string;
-  ssn: string;
-  lastName: string;
-  firstName: string;
-  middleName: string;
-  birthDate: string;
-  cityAndCountryOfBirth: string;
-  nationality: string;
-  race: string;
-  genderMaleCheckbox: boolean;
-  genderFemaleCheckbox: boolean;
-  personInUSYesCheckbox: boolean;
-  personInUSNoCheckbox: boolean;
-  specifyLocationIfNotInUS: string;
-  placeLastEntryIntoUS: string;
-  lastEntryUSDate: string;
-  i94Number: string;
-  lastAdmittedStatus: string;
-  currentStatus: string;
-  statusExpireDate: string;
-  immigrationCourtProceedingYesCheckbox: boolean;
-  immigrationCourtProceedingNoCheckbox: boolean;
-  inThisApplicationYesCheckbox: boolean;
-  inThisApplicationNoCheckbox: boolean;
+  passportDocumentId?: string;
+  aNumber?: string;
+  passportNumber?: string;
+  martialStatus?: string;
+  ssn?: string;
+  lastName?: string;
+  firstName?: string;
+  middleName?: string;
+  birthDate?: string;
+  cityAndCountryOfBirth?: string;
+  nationality?: string;
+  race?: string;
+  genderMaleCheckbox?: string | null;
+  genderFemaleCheckbox?: string | null;
+  personInUSYesCheckbox?: string | null;
+  personInUSNoCheckbox?: string | null;
+  specifyLocationIfNotInUS?: string;
+  placeLastEntryIntoUS?: string;
+  lastEntryUSDate?: string;
+  i94Number?: string;
+  lastAdmittedStatus?: string;
+  currentStatus?: string;
+  statusExpireDate?: string;
+  immigrationCourtProceedingYesCheckbox?: string | null;
+  immigrationCourtProceedingNoCheckbox?: string | null;
+  inThisApplicationYesCheckbox?: string | null;
+  inThisApplicationNoCheckbox?: string | null;
 }
 
 export interface FamilyMember {
-  part: string;
-  question: string;
-  name: string;
-  cityTownAndBirth: string;
-  location: string;
-  deceasedCheckbox: string;
+  part?: string; // Fulfill by backend
+  question?: string; // Fulfill by backend
+  name?: string;
+  cityTownAndBirth?: string;
+  location?: string;
+  deceasedCheckbox?: string;
 }
 
 export interface Background {
@@ -261,33 +266,33 @@ export interface Background {
 }
 
 export interface AddressHistory {
-  part: string;
-  question: string;
-  numberAndStreet: string;
-  city: string;
-  province: string;
-  country: string;
-  startDate: string;
-  endDate: string;
+  part?: string; // Fulfill by backend
+  question?: string; // Fulfill by backend
+  numberAndStreet?: string;
+  city?: string;
+  province?: string;
+  country?: string;
+  startDate?: string;
+  endDate?: string;
 }
 
 export interface EducationHistory {
-  part: string;
-  question: string;
-  schoolName: string;
-  schoolType: string;
-  location: string;
-  startDate: string;
-  endDate: string;
+  part?: string; // Fulfill by backend
+  question?: string; // Fulfill by backend
+  schoolName?: string;
+  schoolType?: string;
+  location?: string;
+  startDate?: string;
+  endDate?: string;
 }
 
 export interface EmploymentHistory {
-  part: string;
-  question: string;
-  nameAndAddress: string;
-  occupation: string;
-  startDate: string;
-  endDate: string;
+  part?: string; // Fulfill by backend
+  question?: string; // Fulfill by backend
+  nameAndAddress?: string;
+  occupation?: string;
+  startDate?: string;
+  endDate?: string;
 }
 
 export interface ApplicationDetails {
@@ -300,65 +305,65 @@ export interface ApplicationDetails {
   haveBeenHarmedYesCheckbox?: boolean | null;
   haveBeenHarmedNoCheckbox?: boolean | null;
   explainHaveBeenHarmedYes?: string;
-  explainHaveBeenHarmedYesPart?: string;
-  explainHaveBeenHarmedYesQuestion?: string;
+  explainHaveBeenHarmedYesPart?: string; // Fulfill by backend
+  explainHaveBeenHarmedYesQuestion?: string; // Fulfill by backend
   fearReturnYesCheckbox?: boolean | null;
   fearReturnNoCheckbox?: boolean | null;
   explainFearReturnYes?: string;
-  explainFearReturnYesPart?: string;
-  explainFearReturnYesQuestion?: string;
+  explainFearReturnYesPart?: string; // Fulfill by backend
+  explainFearReturnYesQuestion?: string; // Fulfill by backend
   familyMembersBeenChargedYesCheckbox?: boolean | null;
   familyMembersBeenChargedNoCheckbox?: boolean | null;
   explainFamilyMembersBeenChargedYes?: string;
-  explainFamilyMembersBeenChargedYesPart?: string;
-  explainFamilyMembersBeenChargedYesQuestion?: string;
+  explainFamilyMembersBeenChargedYesPart?: string; // Fulfill by backend
+  explainFamilyMembersBeenChargedYesQuestion?: string; // Fulfill by backend
   youOrFamilyBelongAnyOrganizationYesCheckbox?: boolean | null;
   youOrFamilyBelongAnyOrganizationNoCheckbox?: boolean | null;
   explainYouOrFamilyBelongAnyOrganizationYes?: string;
-  explainYouOrFamilyBelongAnyOrganizationYesPart?: string;
-  explainYouOrFamilyBelongAnyOrganizationYesQuestion?: string;
+  explainYouOrFamilyBelongAnyOrganizationYesPart?: string; // Fulfill by backend
+  explainYouOrFamilyBelongAnyOrganizationYesQuestion?: string; // Fulfill by backend
   youOrFamilyContinueBelongAnyOrganizationYesCheckbox?: boolean | null;
   youOrFamilyContinueBelongAnyOrganizationNoCheckbox?: boolean | null;
   explainYouOrFamilyContinueBelongAnyOrganizationYes?: string;
-  explainYouOrFamilyContinueBelongAnyOrganizationYesPart?: string;
-  explainYouOrFamilyContinueBelongAnyOrganizationYesQuestion?: string;
+  explainYouOrFamilyContinueBelongAnyOrganizationYesPart?: string; // Fulfill by backend
+  explainYouOrFamilyContinueBelongAnyOrganizationYesQuestion?: string; // Fulfill by backend
   afraidOfReturnYesCheckbox?: boolean | null;
   afraidOfReturnNoCheckbox?: boolean | null;
   explainAfraidOfReturnYes?: string;
-  explainAfraidOfReturnYesPart?: string;
-  explainAfraidOfReturnYesQuestion?: string;
+  explainAfraidOfReturnYesPart?: string; // Fulfill by backend
+  explainAfraidOfReturnYesQuestion?: string; // Fulfill by backend
   appliedBeforeYesCheckbox?: boolean | null;
   appliedBeforeNoCheckbox?: boolean | null;
   explainAppliedBeforeYes?: string;
-  explainAppliedBeforeYesPart?: string;
-  explainAppliedBeforeYesQuestion?: string;
+  explainAppliedBeforeYesPart?: string; // Fulfill by backend
+  explainAppliedBeforeYesQuestion?: string; // Fulfill by backend
   stayInOtherCountryYesCheckbox?: boolean | null;
   stayInOtherCountryNoCheckbox?: boolean | null;
   anyLawfulStatusAnyCountryYesCheckbox?: boolean | null;
   anyLawfulStatusAnyCountryNoCheckbox?: boolean | null;
   explainAnyLawfulStatusAnyCountryYes?: string;
-  explainAnyLawfulStatusAnyCountryYesPart?: string;
-  explainAnyLawfulStatusAnyCountryYesQuestion?: string;
+  explainAnyLawfulStatusAnyCountryYesPart?: string; // Fulfill by backend
+  explainAnyLawfulStatusAnyCountryYesQuestion?: string; // Fulfill by backend
   haveYouHarmOthersYesCheckbox?: boolean | null;
   haveYouHarmOthersNoCheckbox?: boolean | null;
   explainHaveYouHarmOthersYes?: string;
-  explainHaveYouHarmOthersYesPart?: string;
-  explainHaveYouHarmOthersYesQuestion?: string;
+  explainHaveYouHarmOthersYesPart?: string; // Fulfill by backend
+  explainHaveYouHarmOthersYesQuestion?: string; // Fulfill by backend
   returnCountryYesCheckbox?: boolean | null;
   returnCountryNoCheckbox?: boolean | null;
   explainReturnCountryYes?: string;
-  explainReturnCountryYesPart?: string;
-  explainReturnCountryYesQuestion?: string;
+  explainReturnCountryYesPart?: string; // Fulfill by backend
+  explainReturnCountryYesQuestion?: string; // Fulfill by backend
   moreThanOneYearAfterArrivalYesCheckbox?: boolean | null;
   moreThanOneYearAfterArrivalNoCheckbox?: boolean | null;
   explainMoreThanOneYearAfterArrivalYes?: string;
-  explainMoreThanOneYearAfterArrivalYesPart?: string;
-  explainMoreThanOneYearAfterArrivalYesQuestion?: string;
+  explainMoreThanOneYearAfterArrivalYesPart?: string; // Fulfill by backend
+  explainMoreThanOneYearAfterArrivalYesQuestion?: string; // Fulfill by backend
   haveCommittedCrimeYesCheckbox?: boolean | null;
   haveCommittedCrimeNoCheckbox?: boolean | null;
   explainHaveCommittedCrimeYes?: string;
-  explainHaveCommittedCrimeYesPart?: string;
-  explainHaveCommittedCrimeYesQuestion?: string;
+  explainHaveCommittedCrimeYesPart?: string; // Fulfill by backend
+  explainHaveCommittedCrimeYesQuestion?: string; // Fulfill by backend
 }
 
 export interface YourSignature {
@@ -402,6 +407,7 @@ export interface GeneratePresignedUrlResponse {
 
 export interface ParsePassportResponse {
   fieldKey: string;
+  fieldIndex?: number;
   idNumber: string;
   firstName: string;
   middleName: string;

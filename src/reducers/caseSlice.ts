@@ -19,8 +19,8 @@ export interface CaseState {
 
 const initialState: CaseState = {
   form: {} as IForm,
-  indexLevel1: -1,
-  indexLevel2: -1,
+  indexLevel1: 0,
+  indexLevel2: 0,
   totalLevel1s: 0,
   currentStep: {} as IFormStep,
   formFieldsMap: {},
@@ -35,9 +35,8 @@ export const caseSlice = createSlice({
     updateForm: (state, action: PayloadAction<IForm>) => {
       state.form = action.payload;
       state.totalLevel1s = action.payload.steps.length;
-      state.indexLevel1 = 0;
-      state.indexLevel2 = 0;
-      state.currentStep = action.payload.steps[0].steps[0];
+      state.currentStep =
+        action.payload.steps[state.indexLevel1].steps[state.indexLevel2];
     },
     incrementIndexLevel1: state => {
       if (state.indexLevel1 < state.totalLevel1s - 1) state.indexLevel1++;

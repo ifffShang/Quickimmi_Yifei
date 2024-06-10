@@ -5,10 +5,9 @@ import { parsePassportApi, uploadFileToPresignUrl } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useFormTranslation } from "../../../hooks/commonHooks";
 import { GeneratePresignedUrlResponse } from "../../../model/apiModels";
-import { Identity } from "../../../model/commonModels";
 import { changeModalType, closeModal } from "../../../reducers/commonSlice";
 import { updatePassportInfo } from "../../../reducers/formSlice";
-import { dispatchFormValue } from "../../../utils/utils";
+import { getIdentity } from "../../../utils/utils";
 import { QText } from "../../common/Fonts";
 import { Uploader } from "../../form/fields/Uploader";
 import "./UploadPassportModal.css";
@@ -23,15 +22,12 @@ export function UploadPassportModal() {
   const modalData = useAppSelector(state => state.common.modalData);
   const fileRef = useRef<File | null>(null);
 
-  if (!modalData || !modalData.fieldKey) {
-    console.error("Field key is missing");
+  if (!modalData || !modalData.onChange || !modalData.fieldKey) {
+    console.error("OnChange or fieldkey is missing in modal data");
     return null;
   }
 
-  let identity: Identity = "Applicant";
-  if (modalData.fieldKey.indexOf("family.spouse")) {
-    identity = "Spouse";
-  }
+  const identity = getIdentity(modalData.fieldKey, modalData.fieldIndex);
 
   const onPassportImageUrlReceived = (imageUrl: string) => {
     modalData?.updatePassportOrIdImageUrl(imageUrl);
@@ -48,9 +44,7 @@ export function UploadPassportModal() {
 
   const parsePassport = async (documentId: number) => {
     try {
-      dispatchFormValue(dispatch, {
-        [modalData.fieldKey]: documentId,
-      });
+      modalData?.onChange(documentId);
       if (!accessToken) {
         throw new Error(`Access token ${accessToken} is missing`);
       }
@@ -61,7 +55,11 @@ export function UploadPassportModal() {
         );
       }
       dispatch(
-        updatePassportInfo({ ...passportInfo, fieldKey: modalData.fieldKey }),
+        updatePassportInfo({
+          ...passportInfo,
+          fieldKey: modalData.fieldKey,
+          fieldIndex: modalData.fieldIndex,
+        }),
       );
       dispatch(closeModal());
     } catch (err) {

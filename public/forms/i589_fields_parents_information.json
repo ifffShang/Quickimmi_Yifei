@@ -1,0 +1,110 @@
+{
+  "id": "i589_fields_parents_information",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    {
+      "label": "text_Mother",
+      "placeholder": "text_FullName",
+      "id": "parents_name",
+      "key": "family.mother.name",
+      "control": "text"
+    },
+    {
+      "label": "text_CityAndCountryOfBirth",
+      "placeholder": "text_CityAndCountryOfBirth",
+      "id": "parents_birth_location",
+      "key": "family.mother.cityTownAndBirth",
+      "control": "component_location_dropdown"
+    },
+    {
+      "label": "text_Deceased",
+      "hideHeader": "true",
+      "placeholder": "text_Deceased",
+      "id": "parents_deceased_checkbox",
+      "key": "family.mother.deceasedCheckbox",
+      "control": "checkbox",
+      "options": [
+        {
+          "value": "true",
+          "label": "text_Yes",
+          "keyValue": "true"
+        },
+        {
+          "value": "false",
+          "label": "text_No",
+          "keyValue": "false"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "parents_current_location",
+      "visibility": "family.mother.deceasedCheckbox=false|family.mother.deceasedCheckbox=null",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_CurrentLocation",
+          "placeholder": "text_CurrentLocation",
+          "id": "parents_current_location",
+          "key": "family.mother.location",
+          "control": "component_location_dropdown"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "divider",
+      "control": "divider"
+    },
+    {
+      "label": "text_Father",
+      "placeholder": "text_FullName",
+      "id": "parents_name",
+      "key": "family.father.name",
+      "control": "text"
+    },
+    {
+      "label": "text_CityAndCountryOfBirth",
+      "placeholder": "text_CityAndCountryOfBirth",
+      "id": "parents_birth_location",
+      "key": "family.father.cityTownAndBirth",
+      "control": "component_location_dropdown"
+    },
+    {
+      "label": "text_Deceased",
+      "hideHeader": "true",
+      "placeholder": "text_Deceased",
+      "id": "parents_deceased_checkbox",
+      "key": "family.father.deceasedCheckbox",
+      "control": "checkbox",
+      "options": [
+        {
+          "value": "true",
+          "label": "text_Yes",
+          "keyValue": "true"
+        },
+        {
+          "value": "false",
+          "label": "text_No",
+          "keyValue": "false"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "parents_current_location",
+      "visibility": "family.father.deceasedCheckbox=false|family.father.deceasedCheckbox=null",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_CurrentLocation",
+          "placeholder": "text_CurrentLocation",
+          "id": "parents_current_location",
+          "key": "family.father.location",
+          "control": "component_location_dropdown"
+        }
+      ]
+    }
+  ]
+}

@@ -32,6 +32,8 @@ export interface IFormField {
   format?: string;
   className?: string;
   visibility?: string;
+  hideHeader?: boolean;
+  fieldIndex?: number;
 }
 
 export interface IFormOptions {
@@ -41,6 +43,7 @@ export interface IFormOptions {
 }
 
 export type ControlType =
+  | "label"
   | "text"
   | "textarea"
   | "radio"
@@ -54,9 +57,13 @@ export type ControlType =
   | "datepicker"
   | "group"
   | "section"
+  | "removable_section"
   | "component_passport_uploader"
   | "component_textbox_na"
   | "component_location_dropdown"
   | "component_generate_report"
   | "component_telephone_text"
-  | "component_list_reports";
+  | "component_list_reports"
+  | "component_mailing_same_as_residential"
+  | "component_entry_records"
+  | "component_add_item";

@@ -4,29 +4,51 @@
   "type": "fields",
   "fields": [
     {
-      "label": "text_AlienRegistrationNumberLabel",
-      "placeholder": "text_AlienRegistrationNumber",
+      "label": "text_AlienRegistrationNumber",
+      "placeholder": "text_EnterIfApplicable",
       "id": "alien_registration_number",
       "key": "applicant.anumber",
       "control": "text"
     },
     {
-      "label": "text_UscisOnlineAccountNumberLabel",
-      "placeholder": "text_UscisOnlineAccountNumber",
+      "label": "text_UscisOnlineAccountNumber",
+      "placeholder": "text_EnterIfApplicable",
       "id": "uscis_online_account_number",
       "key": "applicant.uscisOnlineAccountNumber",
       "control": "text"
     },
     {
-      "label": "text_I94NumberLabel",
-      "placeholder": "text_I94Number",
-      "id": "i94_number",
-      "key": "applicant.i94Number",
-      "control": "text"
+      "label": "text_I94",
+      "id": "i94",
+      "control": "group",
+      "maxChildPerRow": "1",
+      "fields": [
+        {
+          "label": "text_I94Number",
+          "placeholder": "text_EnterIfApplicable",
+          "id": "i94_number",
+          "key": "applicant.i94Number",
+          "control": "text"
+        },
+        {
+          "label": "text_WhenLastLeaveCountry",
+          "placeholder": "text_WhenLastLeaveCountry",
+          "id": "when_last_leave_country",
+          "key": "applicant.whenLastLeaveCountry",
+          "control": "datepicker"
+        },
+        {
+          "label": "text_EntryRecordsDescription",
+          "placeholder": "text_EntryRecords",
+          "id": "entry_records",
+          "key": "applicant.entryRecords",
+          "control": "component_entry_records"
+        }
+      ]
     },
     {
-      "label": "text_SSNLabel",
-      "placeholder": "text_SSN",
+      "label": "text_SSN",
+      "placeholder": "text_EnterIfApplicable",
       "id": "ssn",
       "key": "applicant.ssn",
       "control": "text"
