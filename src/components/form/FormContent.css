@@ -53,3 +53,25 @@
 .form-content-controls button {
   width: 100px;
 }
+
+.email-modal {
+  top: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50rem;
+}
+
+.email-modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.email-input {
+  margin-bottom: 20px;
+}
+
+.email-send-button {
+  width: 100px;
+}

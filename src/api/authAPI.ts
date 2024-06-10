@@ -4,6 +4,8 @@ import { performApiRequest } from "./apiConfig";
 export async function createUserApi(
   email: string,
   accessToken: string,
+  // Include a default role of "customer"
+  role: string = "customer",
 ): Promise<number> {
   const userId = await performApiRequest(
     "api/user/create",
@@ -12,6 +14,7 @@ export async function createUserApi(
       cognitoUsername: email,
       username: email,
       email,
+      role, // Add the role to API request 
     },
     accessToken,
     false,
@@ -22,9 +25,11 @@ export async function createUserApi(
 export async function getUserInfoApi(
   email: string,
   accessToken: string,
+  // Include a default role of "customer"
+  role: string = "customer",
 ): Promise<UserInfo> {
   const userInfo = await performApiRequest(
-    `api/user/getByUsername?username=${email}`,
+    `api/user/getByUsername?username=${email}&role${role}`,
     "GET",
     null,
     accessToken,
