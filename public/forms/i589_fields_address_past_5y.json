@@ -6,27 +6,29 @@
     {
       "label": "text_AddressPast5Years",
       "hideHeader": "true",
+      "control": "label"
+    },
+    {
+      "label": "text_Address",
+      "hideHeader": "true",
       "id": "address_berfore_us",
       "key": "count-background.usAddressHistoriesPast5Years",
       "control": "removable_section",
       "fields": [
         {
-          "label": "text_Street",
-          "placeholder": "text_Street",
+          "label": "text_NumberAndStreet",
           "id": "background_street",
           "key": "background.usAddressHistoriesPast5Years[].numberAndStreet",
           "control": "text"
         },
         {
-          "label": "text_City",
-          "placeholder": "text_City",
+          "label": "text_CityOrTown",
           "id": "background_city",
           "key": "background.usAddressHistoriesPast5Years[].city",
           "control": "text"
         },
         {
-          "label": "text_Province",
-          "placeholder": "text_Province",
+          "label": "text_DepartmentOrStateOrProvince",
           "id": "background_province",
           "key": "background.usAddressHistoriesPast5Years[].province",
           "control": "text"
@@ -40,14 +42,14 @@
         },
         {
           "label": "text_StartDate",
-          "placeholder": "text_StartDate",
+          "placeholder": "text_MM/DD/YYYY",
           "id": "background_start_date",
           "key": "background.usAddressHistoriesPast5Years[].startDate",
           "control": "datepicker"
         },
         {
           "label": "text_EndDate",
-          "placeholder": "text_EndDate",
+          "placeholder": "text_MM/DD/YYYY",
           "id": "background_end_date",
           "key": "background.usAddressHistoriesPast5Years[].endDate",
           "control": "datepicker"
@@ -55,8 +57,12 @@
       ]
     },
     {
-      "label": "text_AddressPast5Years",
-      "placeholder": "text_AddressPast5Years",
+      "label": "",
+      "control": "divider"
+    },
+    {
+      "label": "",
+      "placeholder": "text_AddAddress",
       "id": "address_past_5y",
       "key": "count-background.usAddressHistoriesPast5Years",
       "control": "component_add_item"

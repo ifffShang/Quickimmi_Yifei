@@ -196,6 +196,9 @@
   "Deceased": "Deceased",
   "CurrentLocation": "Current Location",
 
+  "Sibling": "Sibling",
+  "AddASibling": "Add a sibling",
+
   "TelephoneNumberInUs": "Telephone Number in the U.S.",
   "PhoneNumberFormat": "(Area code)-XXX-XXXX",
   "ResidentialAddressInUs": "Residential Address in the U.S.",
@@ -209,6 +212,33 @@
   "MailingAddressInUs": "Mailing Address in US",
 
   "EnterIfApplicable": "Enter if applicable",
+
+  "School": "School",
+  "AddASchool": "Add a school",
+  "MostRecentSchool": "List the most recent school that you attended",
+  "SchoolName": "Name of School",
+  "SchoolType": "Type of School",
+  "Location": "Location",
+  "SchoolAddress": "Address of School",
+  "AttendedFrom": "Attended from",
+  "To": "To",
+
+  "Employment": "Employment",
+  "AddEmployment": "Add employment",
+  "MostRecentEmployment": "Provide your employment during the past 5 years. List your present employment first.",
+  "NameAndAddressOfEmployer": "Name and Address of Employer",
+  "Occupation": "Your Occupation",
+  "StartDate": "Start Date",
+  "EndDate": "End Date",
+
+  "Address": "Address",
+  "AddAddress": "Add an address",
+  "AddressPast5Years": "List your addresses for the past 5 years. List your present address first.",
+  "NumberAndStreet": "Number and Street",
+  "CityOrTown": "City/Town",
+  "DepartmentOrStateOrProvince": "Department, Province, or State",
+  "Country": "Country",
+  "AddressBeforeUS": "List your last address where you lived before coming to the United States. If this is not the country where you fear persecution, also list the last address in the country where you fear persecution.",
 
   "AlienRegistrationNumber": "Alien Registration Number",
   "UscisOnlineAccountNumber": "USCIS Online Account Number",
@@ -287,6 +317,8 @@
   "No": "No",
 
   "Select a country": "Select a country",
+  "Select a city": "Select a city",
+  "Select a state": "Select a state",
 
   "RaceOptions": [
     "American Indian or Alaska Native",

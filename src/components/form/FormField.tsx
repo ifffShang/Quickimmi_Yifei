@@ -159,7 +159,32 @@ export function FormField(props: FormFieldProps) {
     }
   };
 
-  const onCheckboxChange = (value: boolean) => {
+  const onCheckboxChange = (value: string) => {
+    if (!props.fieldKey) return;
+
+    if (props.fieldKey.indexOf(",") > -1 && value.indexOf(",") > -1) {
+      const keys = props.fieldKey.split(",");
+      const values = value.split(",");
+      dispatchFormValue(
+        dispatch,
+        {
+          [keys[0]]: values[0],
+          [keys[1]]: values[1],
+        },
+        props.fieldIndex,
+      );
+      return;
+    }
+    dispatchFormValue(
+      dispatch,
+      {
+        [props.fieldKey]: value,
+      },
+      props.fieldIndex,
+    );
+  };
+
+  const onPureCheckboxChange = (value: boolean) => {
     if (!props.fieldKey) return;
 
     if (props.fieldKey.indexOf(",") > -1) {
@@ -200,6 +225,8 @@ export function FormField(props: FormFieldProps) {
   };
 
   switch (props.control) {
+    case "label":
+      return <QText level="normal bold">{wt(props.label)}</QText>;
     case "text":
       return (
         <QTextBox
@@ -231,7 +258,8 @@ export function FormField(props: FormFieldProps) {
         <CheckBox
           label={wt(props.label)}
           onChange={onCheckboxChange}
-          checked={fieldValue === "true"}
+          checked={fieldValue}
+          options={props.options || ""}
         />
       );
     case "fileplus":

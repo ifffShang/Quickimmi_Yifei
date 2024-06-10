@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { syncUpMailingAndResidenceAddress } from "../../../reducers/formSlice";
-import { CheckBox } from "./Controls";
+import { CheckBox, PureCheckBox } from "./Controls";
 
 export interface SameAddressCheckboxProps {
   label: string;
@@ -69,7 +69,7 @@ export function SameAddressCheckbox(props: SameAddressCheckboxProps) {
     }
   };
   return (
-    <CheckBox
+    <PureCheckBox
       label={props.label}
       onChange={onCheckboxChange}
       checked={checked}

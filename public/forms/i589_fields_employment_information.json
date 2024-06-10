@@ -4,36 +4,39 @@
   "type": "fields",
   "fields": [
     {
-      "label": "text_EmploymentInformation",
+      "label": "text_MostRecentEmployment",
+      "hideHeader": "true",
+      "control": "label"
+    },
+    {
+      "label": "text_Employment",
       "hideHeader": "true",
       "id": "employment_information",
       "key": "count-background.employmentHistories",
       "control": "removable_section",
       "fields": [
         {
-          "label": "text_NameAndAddress",
-          "placeholder": "text_NameAndAddress",
+          "label": "text_NameAndAddressOfEmployer",
           "id": "name_and_address",
           "key": "background.employmentHistories[].nameAndAddress",
           "control": "text"
         },
         {
           "label": "text_Occupation",
-          "placeholder": "text_Occupation",
           "id": "occupation",
           "key": "background.employmentHistories[].occupation",
           "control": "text"
         },
         {
           "label": "text_StartDate",
-          "placeholder": "text_StartDate",
+          "placeholder": "text_MM/DD/YYYY",
           "id": "employment_start_date",
           "key": "background.employmentHistories[].startDate",
           "control": "datepicker"
         },
         {
           "label": "text_EndDate",
-          "placeholder": "text_EndDate",
+          "placeholder": "text_MM/DD/YYYY",
           "id": "employment_end_date",
           "key": "background.employmentHistories[].endDate",
           "control": "datepicker"
@@ -41,8 +44,12 @@
       ]
     },
     {
-      "label": "text_EmploymentInformation",
-      "placeholder": "text_EmploymentInformation",
+      "label": "",
+      "control": "divider"
+    },
+    {
+      "label": "",
+      "placeholder": "text_AddEmployment",
       "id": "employment_information",
       "key": "count-background.employmentHistories",
       "control": "component_add_item"

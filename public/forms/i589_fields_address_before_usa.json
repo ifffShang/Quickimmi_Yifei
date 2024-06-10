@@ -6,48 +6,50 @@
     {
       "label": "text_AddressBeforeUS",
       "hideHeader": "true",
+      "control": "label"
+    },
+    {
+      "label": "text_Address",
+      "hideHeader": "true",
       "id": "address_berfore_us",
       "key": "count-background.addressHistoriesBeforeUS",
       "control": "removable_section",
       "fields": [
         {
-          "label": "text_Street",
+          "label": "text_NumberAndStreet",
           "placeholder": "text_Street",
           "id": "background_street",
           "key": "background.addressHistoriesBeforeUS[].numberAndStreet",
           "control": "text"
         },
         {
-          "label": "text_City",
-          "placeholder": "text_City",
+          "label": "text_CityOrTown",
           "id": "background_city",
           "key": "background.addressHistoriesBeforeUS[].city",
           "control": "text"
         },
         {
-          "label": "text_Province",
-          "placeholder": "text_Province",
+          "label": "text_DepartmentOrStateOrProvince",
           "id": "background_province",
           "key": "background.addressHistoriesBeforeUS[].province",
           "control": "text"
         },
         {
           "label": "text_Country",
-          "placeholder": "text_Country",
           "id": "background_country",
           "key": "background.addressHistoriesBeforeUS[].country",
           "control": "text"
         },
         {
           "label": "text_StartDate",
-          "placeholder": "text_StartDate",
+          "placeholder": "text_MM/DD/YYYY",
           "id": "background_start_date",
           "key": "background.addressHistoriesBeforeUS[].startDate",
           "control": "datepicker"
         },
         {
           "label": "text_EndDate",
-          "placeholder": "text_EndDate",
+          "placeholder": "text_MM/DD/YYYY",
           "id": "background_end_date",
           "key": "background.addressHistoriesBeforeUS[].endDate",
           "control": "datepicker"
@@ -55,8 +57,12 @@
       ]
     },
     {
-      "label": "text_AddressBeforeUS",
-      "placeholder": "text_AddressBeforeUS",
+      "label": "",
+      "control": "divider"
+    },
+    {
+      "label": "",
+      "placeholder": "text_AddAddress",
       "id": "address_berfore_us",
       "key": "count-background.addressHistoriesBeforeUS",
       "control": "component_add_item"

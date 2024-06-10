@@ -135,6 +135,7 @@ export function getFieldValue(
   }
   if (!key) {
     if (
+      control !== "label" &&
       control !== "divider" &&
       control !== "section" &&
       control !== "removable_section" &&

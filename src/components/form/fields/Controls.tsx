@@ -308,12 +308,54 @@ export function SelectBox(props: SelectBoxProps) {
 
 export interface CheckBoxProps {
   label: string;
+  onChange: (keyValueChecked: string) => void;
+  disabled?: boolean;
+  checked?: boolean;
+  options?: IFormOptions[] | string;
+}
+
+export function CheckBox(props: CheckBoxProps) {
+  const [checked, setChecked] = useState(props.checked || false);
+
+  useEffect(() => {
+    setChecked(props.checked || false);
+  }, [props.checked]);
+
+  const handleChange = (e: any) => {
+    setChecked(e.target.checked);
+    if (props.options && Array.isArray(props.options)) {
+      const keyValue = props.options.find(
+        option => option.value === e.target.checked,
+      )?.keyValue;
+      props.onChange(keyValue || "");
+    } else {
+      props.onChange(e.target.checked);
+    }
+  };
+
+  return (
+    <div>
+      <Checkbox
+        onChange={handleChange}
+        disabled={props.disabled}
+        checked={checked}
+      >
+        <QText level="normal bold">{props.label}</QText>
+      </Checkbox>
+    </div>
+  );
+}
+
+/** Pure Checkbox control ***************************************************/
+
+export interface PureCheckBoxProps {
+  label: string;
   onChange: (checked: boolean) => void;
   disabled?: boolean;
   checked?: boolean;
 }
 
-export function CheckBox(props: CheckBoxProps) {
+export function PureCheckBox(props: PureCheckBoxProps) {
   const [checked, setChecked] = useState(props.checked || false);
 
   useEffect(() => {

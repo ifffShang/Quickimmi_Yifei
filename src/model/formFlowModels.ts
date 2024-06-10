@@ -43,6 +43,7 @@ export interface IFormOptions {
 }
 
 export type ControlType =
+  | "label"
   | "text"
   | "textarea"
   | "radio"
