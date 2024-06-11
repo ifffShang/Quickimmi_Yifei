@@ -16,6 +16,9 @@ import { ErrorMessage } from "../../common/Fonts";
 import { QText } from "../../common/Fonts";
 import { AuthComponent } from "./AuthComponent";
 import { useNavigate } from "react-router-dom";
+import awsExports from "../../../aws-exports"; 
+import { Amplify } from "aws-amplify";
+
 
 export function SignUp() {
   const dispatch = useDispatch();
@@ -27,11 +30,31 @@ export function SignUp() {
   const [showFormInputErrorMessage, setShowFormInputErrorMessage] =
     useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [role, setRole] = useState("customer");
 
   useEffect(() => {
     setShowFormInputErrorMessage(false);
     setErrorMessage("");
   }, [email, password]);
+
+  // Configure Amplify with the user pool based on the role
+  useEffect(() => {
+    let userPoolConfig;
+    if (role === "lawyer") {
+      userPoolConfig = awsExports.CUSTOMER_POOL;
+    } else {
+      userPoolConfig = awsExports.CUSTOMER_POOL;
+    }
+
+    Amplify.configure({
+      Auth: {
+        Cognito: {
+          userPoolId: userPoolConfig.USER_POOL_ID,
+          userPoolClientId: userPoolConfig.USER_POOL_APP_CLIENT_ID,
+        },
+     },
+    });
+  }, [role]); 
 
   const signUpButtonOnClick = async () => {
     if (

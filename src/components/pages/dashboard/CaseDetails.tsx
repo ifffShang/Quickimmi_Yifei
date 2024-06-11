@@ -3,10 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getCaseDetailsApi, getForm } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { updateForm } from "../../../reducers/caseSlice";
-import {
-  resetFormState,
-  updateApplicationCase,
-} from "../../../reducers/formSlice";
+import { resetFormState, updateApplicationCase } from "../../../reducers/formSlice";
 import { FormFlow } from "../../form/FormFlow";
 
 export function CaseDetails() {
@@ -14,6 +11,7 @@ export function CaseDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const accessToken = useAppSelector(state => state.auth.accessToken);
+  const role = useAppSelector(state => state.auth.role); // Get user role from state
 
   useEffect(() => {
     if (!id || !accessToken) return;
@@ -21,10 +19,7 @@ export function CaseDetails() {
       dispatch(updateForm(form));
       (async function () {
         try {
-          const caseDetails = await getCaseDetailsApi(
-            parseInt(id),
-            accessToken,
-          );
+          const caseDetails = await getCaseDetailsApi(parseInt(id), accessToken);
           if (!caseDetails) {
             console.error(`Failed to get case details for case id ${id}`);
             return;
@@ -45,5 +40,5 @@ export function CaseDetails() {
     return null;
   }
 
-  return <FormFlow />;
+  return <FormFlow isLawyer={role === "lawyer"} />;
 }

@@ -1,5 +1,5 @@
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+import { Button, Switch } from "antd";
 import Link from "antd/es/typography/Link";
 import { fetchAuthSession, resendSignUpCode, signIn } from "aws-amplify/auth";
 import { useEffect, useState } from "react";
@@ -14,6 +14,9 @@ import { ErrorMessage, QText } from "../../common/Fonts";
 import { FormInput } from "../../form/fields/Controls";
 import { AuthComponent } from "./AuthComponent";
 import { UserInfo } from "../../../model/apiModels";
+import awsExports from "../../../aws-exports"; 
+import { Amplify } from "aws-amplify";
+
 
 export function SignIn() {
   const dispatch = useAppDispatch();
@@ -22,13 +25,31 @@ export function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [showFormInputErrorMessage, setShowFormInputErrorMessage] =
-    useState(false);
+  const [showFormInputErrorMessage, setShowFormInputErrorMessage] = useState(false);
+  const [role, setRole] = useState("customer");
 
   useEffect(() => {
     setShowFormInputErrorMessage(false);
     setErrorMessage("");
   }, [email, password]);
+
+  // Configure Amplify with the user pool based on the role
+  useEffect(() => {
+    let userPoolConfig;
+    if (role === "lawyer") {
+      userPoolConfig = awsExports.LAWYER_POOL;
+    } else {
+      userPoolConfig = awsExports.CUSTOMER_POOL;
+    }
+    Amplify.configure({
+      Auth: {
+        Cognito: {
+          userPoolId: userPoolConfig.USER_POOL_ID,
+          userPoolClientId: userPoolConfig.USER_POOL_APP_CLIENT_ID,
+        },
+     },
+    });
+  }, [role]); 
 
   const loginUser = async () => {
     try {
@@ -40,30 +61,39 @@ export function SignIn() {
         username: email,
         password,
       });
+
       if (isSignedIn) {
         const session = await fetchAuthSession();
         if (!session || !session.tokens || !session.tokens.accessToken) {
           throw new Error("Failed to fetch session after sign in");
         }
         const accessToken = session.tokens.accessToken.toString();
+
         let userInfo: UserInfo;
         try {
-          userInfo = await getUserInfoApi(email, accessToken);
+          userInfo = await getUserInfoApi(email, accessToken, role); 
+          console.log("User Info:", userInfo); // Log userInfo to debug
         } catch (error: any) {
           if (error?.message === "USE_NOT_FOUND") {
-            await createUserApi(email, accessToken);
-            userInfo = await getUserInfoApi(email, accessToken);
+            await createUserApi(email, accessToken, role); 
+            userInfo = await getUserInfoApi(email, accessToken, role);
+            console.log("User Info after creation:", userInfo); // Log userInfo to debug
           } else {
             throw error;
           }
         }
+
+        console.log(`Dispatching auth state for role: ${role}`, userInfo); // Add more logging
+
         dispatch(
           updateAuthState({
-            userId: userInfo?.id || 0,
+            userId: role === "customer" ? userInfo?.id || 0 : undefined,
+            lawyerId: role === "lawyer" ? userInfo?.id || 0 : undefined,
             isLoggedIn: true,
             email,
             accessToken: accessToken,
-          }),
+            role: role,
+          })
         );
         navigate("/dashboard");
       } else if (nextStep?.signInStep === "CONFIRM_SIGN_UP") {
@@ -72,7 +102,8 @@ export function SignIn() {
           updateAuthState({
             prevStep: "signin",
             email,
-          }),
+            role: role, 
+          })
         );
         navigate("/signup");
       }
@@ -92,6 +123,17 @@ export function SignIn() {
 
   const form = (
     <>
+      <div className="auth-toggle">
+        <QText>{t("I am a Lawyer")}</QText>
+        <Switch checked={role === "lawyer"} onChange={() => setRole(role === "customer" ? "lawyer" : "customer")} />
+        {/* <Checkbox
+        checked={role === "lawyer"}
+        onChange={() => setRole(role === "customer" ? "lawyer" : "customer")}
+        className="auth-checkbox"
+        >
+      </Checkbox> */}
+      </div>
+
       <FormInput
         placeholder={t("Email address")}
         value={email}

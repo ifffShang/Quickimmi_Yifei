@@ -49,3 +49,13 @@
 .small .auth-form {
   margin-bottom: 40px;
 }
+
+.auth-toggle {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  margin: 15px 0;
+}
+.auth-checkbox {
+  border-radius: 2px;
+}

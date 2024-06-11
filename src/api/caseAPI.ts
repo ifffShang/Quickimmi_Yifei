@@ -32,12 +32,12 @@ export async function getFormFields(referenceId: string): Promise<IFormFields> {
   return convertBooleans(<IFormFields>response);
 }
 
+// new application by customer
 export async function createNewCaseApi(
   accessToken: string,
   userId: number,
   reason: string,
-  createdBy: number,
-  createdByLawyer: boolean,
+  asylumType: string,
 ): Promise<string> {
   const res = await performApiRequest(
     "api/case/asylum/create",
@@ -45,13 +45,42 @@ export async function createNewCaseApi(
     {
       userId,
       reason,
-      createdBy,
-      createdByLawyer,
+      asylumType,
     },
     accessToken,
   );
   return <string>res.data;
 }
+
+// new case by lawyer 
+export async function createNewCaseByLawyerApi(
+  accessToken: string,
+  lawyerId: number,
+  applicantName: string,
+  asylumType: string,
+  maritalStatus: string,
+  applyWithChildren: boolean,
+  numberOfChildren: number,
+  providedCustomerEmail: string
+): Promise<string> {
+  const res = await performApiRequest(
+    "api/case/asylum/createByLawyer",
+    "POST",
+    {
+      lawyerId,
+      applicantName,
+      asylumType,
+      maritalStatus,
+      applyWithChildren,
+      numberOfChildren,
+      providedCustomerEmail
+    },
+    accessToken,
+  );
+  return <string>res.data;
+}
+
+
 
 export async function deleteCaseApi(
   caseId: number,
@@ -66,6 +95,7 @@ export async function deleteCaseApi(
   return <boolean>res.data;
 }
 
+// get all cases for a customer
 export async function getCasesApi(
   userId: number,
   accessToken: string,
@@ -78,6 +108,21 @@ export async function getCasesApi(
   );
   return <Case[]>res.data;
 }
+
+// get all cases for a lawyer
+export async function getCasesByLawyerApi(
+  lawyerId: number,
+  accessToken: string,
+): Promise<Case[]> {
+  const res = await performApiRequest(
+    `api/case/listByLawyerId?lawyerId=${lawyerId}`,
+    "GET",
+    null,
+    accessToken,
+  );
+  return <Case[]>res.data;
+}
+
 
 export async function getCaseDetailsApi(
   caseId: number,

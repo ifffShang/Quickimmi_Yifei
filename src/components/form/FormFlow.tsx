@@ -4,7 +4,11 @@ import { FormContent } from "./FormContent";
 import "./FormFlow.css";
 import { FormNavigation } from "./FormNavigation";
 
-export function FormFlow() {
+interface FormFlowProps {
+  isLawyer?: boolean;
+}
+
+export function FormFlow({ isLawyer }: FormFlowProps) {
   const form = useAppSelector(state => state.case.form);
   const indexLevel1 = useAppSelector(state => state.case.indexLevel1);
   const indexLevel2 = useAppSelector(state => state.case.indexLevel2);
@@ -22,7 +26,7 @@ export function FormFlow() {
     <div className="form-flow">
       <div className="form-flow-content">
         {!isSmallScreen && <FormNavigation />}
-        <FormContent referenceId={id ?? ""} />
+        <FormContent referenceId={id ?? ""} isLawyer={isLawyer} />
       </div>
     </div>
   );

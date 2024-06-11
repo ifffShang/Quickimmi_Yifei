@@ -12,12 +12,12 @@ import "./locales/i18n";
 import reportWebVitals from "./reportWebVitals";
 import { pdfjs } from "react-pdf";
 
-// Configure Amplify in index file or root file
+
 Amplify.configure({
   Auth: {
     Cognito: {
-      userPoolId: awsExports.USER_POOL_ID,
-      userPoolClientId: awsExports.USER_POOL_APP_CLIENT_ID,
+      userPoolId: awsExports.CUSTOMER_POOL.USER_POOL_ID,
+      userPoolClientId: awsExports.CUSTOMER_POOL.USER_POOL_APP_CLIENT_ID,
     },
   },
 });

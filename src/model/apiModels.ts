@@ -11,7 +11,7 @@ export interface UserInfo {
   birthDate: string;
   nationality: string;
   gender: string;
-  bitrhPlace: string;
+  birthPlace: string;
   address: string;
   stripeCustomerId: string;
   stripeAccountId: string;
@@ -19,6 +19,8 @@ export interface UserInfo {
   lastLoginAt: string;
   createdAt: number;
   updatedAt: number;
+  role: string;
+  asylumtype: string;
 }
 
 export interface Case {
@@ -38,6 +40,10 @@ export interface Case {
   userId: number;
 }
 
+// export interface AsylumType {
+//   AFFIRMATIVE("AFFIRMATIVE"), 
+//   DEFENSIVE("DEFENSIVE");
+// }
 export interface UpdateApplicationCaseData {
   id: number;
   userId: number;
