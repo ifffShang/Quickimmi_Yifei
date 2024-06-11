@@ -72,6 +72,7 @@
     "CodeRequired": "请输入验证码",
     "InvalidCodeFormat": "验证码必须是6位数字"
   },
+  "NotApplicableText": "不适用",
   "Email": "电子邮件",
   "Password": "密码",
   "NewPassword": "新密码",

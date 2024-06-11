@@ -28,14 +28,14 @@
               "placeholder": "text_PassportNumber",
               "id": "children_passport_number",
               "key": "family.children[].passportNumber",
-              "control": "text"
+              "control": "component_textbox_na"
             },
             {
               "label": "text_TravelDocumentNumber",
               "placeholder": "text_TravelDocumentNumber",
               "id": "children_travel_document_number",
               "key": "family.children[].travelDocumentNumber",
-              "control": "text"
+              "control": "component_textbox_na"
             }
           ]
         },
@@ -44,14 +44,14 @@
           "placeholder": "text_EnterIfApplicable",
           "id": "aNumber",
           "key": "family.children[].aNumber",
-          "control": "text"
+          "control": "component_textbox_na"
         },
         {
           "label": "text_SSN",
           "placeholder": "text_EnterIfApplicable",
           "id": "ssn",
           "key": "family.children[].ssn",
-          "control": "text"
+          "control": "component_textbox_na"
         },
         {
           "label": "text_Name",
@@ -71,7 +71,7 @@
               "placeholder": "text_MiddleName",
               "id": "children_middle_name",
               "key": "family.children[].middleName",
-              "control": "text"
+              "control": "component_textbox_na"
             },
             {
               "label": "text_FirstName",
@@ -87,7 +87,7 @@
           "placeholder": "text_NamesUsedBefore",
           "id": "other_names_Children",
           "key": "family.children[].namesUsedBefore",
-          "control": "component_textbox_na"
+          "control": "component_multi_textboxes_na"
         },
         {
           "label": "text_MartialStatus",
@@ -242,7 +242,7 @@
               "label": "text_I94Number",
               "id": "children_i94_number",
               "key": "family.children[].i94Number",
-              "control": "text"
+              "control": "component_textbox_na"
             },
             {
               "label": "text_LastAdmittedStatus",

@@ -21,14 +21,14 @@
           "placeholder": "text_PassportNumber",
           "id": "passport_number",
           "key": "applicant.passportNumber",
-          "control": "text"
+          "control": "component_textbox_na"
         },
         {
           "label": "text_TravelDocumentNumber",
           "placeholder": "text_TravelDocumentNumber",
           "id": "travel_document_number",
           "key": "applicant.travelDocumentNumber",
-          "control": "text"
+          "control": "component_textbox_na"
         }
       ]
     },
@@ -64,7 +64,7 @@
           "placeholder": "text_MiddleName",
           "id": "middle_name",
           "key": "applicant.middleName",
-          "control": "text"
+          "control": "component_textbox_na"
         },
         {
           "label": "text_LastName",
@@ -80,7 +80,7 @@
       "placeholder": "text_NamesUsedBefore",
       "id": "names_used_before",
       "key": "applicant.namesUsedBefore",
-      "control": "component_textbox_na"
+      "control": "component_multi_textboxes_na"
     },
     {
       "label": "text_BirthDate",
@@ -200,7 +200,7 @@
       "placeholder": "text_OtherFluentLanguages",
       "id": "other_fluent_languages",
       "key": "applicant.otherFluentLanguages",
-      "control": "component_textbox_na"
+      "control": "component_multi_textboxes_na"
     }
   ]
 }

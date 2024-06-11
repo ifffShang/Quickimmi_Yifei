@@ -128,11 +128,13 @@ export interface QTextAreaProps {
 }
 
 export function QTextArea(props: QTextAreaProps) {
-  const [value, setValue] = useState(props.value);
+  const [value, setValue] = useState(props.value === "N/A" ? "" : props.value);
   const inputRef = useRef<InputRef>(null);
 
   useEffect(() => {
-    setValue(props.value);
+    if (props.value === "N/A") {
+      setValue("");
+    } else setValue(props.value);
   }, [props.value]);
 
   const onTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

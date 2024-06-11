@@ -56,14 +56,14 @@
               "placeholder": "text_PassportNumber",
               "id": "spouse_passport_number",
               "key": "family.spouse.passportNumber",
-              "control": "text"
+              "control": "component_textbox_na"
             },
             {
               "label": "text_TravelDocumentNumber",
               "placeholder": "text_TravelDocumentNumber",
               "id": "spouse_travel_document_number",
               "key": "family.spouse.travelDocumentNumber",
-              "control": "text"
+              "control": "component_textbox_na"
             }
           ]
         },
@@ -92,7 +92,7 @@
               "placeholder": "text_MiddleName",
               "id": "spouse_middle_name",
               "key": "family.spouse.middleName",
-              "control": "text"
+              "control": "component_textbox_na"
             },
             {
               "label": "text_FirstName",
@@ -108,7 +108,7 @@
           "placeholder": "text_NamesUsedBefore",
           "id": "other_names_spouse",
           "key": "family.spouse.namesUsedBefore",
-          "control": "component_textbox_na"
+          "control": "component_multi_textboxes_na"
         },
         {
           "label": "text_Marriage",
@@ -200,14 +200,14 @@
           "placeholder": "text_EnterIfApplicable",
           "id": "alien_registration_number",
           "key": "family.spouse.aNumber",
-          "control": "text"
+          "control": "component_textbox_na"
         },
         {
           "label": "text_SSN",
           "placeholder": "text_EnterIfApplicable",
           "id": "ssn",
           "key": "family.spouse.ssn",
-          "control": "text"
+          "control": "component_textbox_na"
         },
         {
           "label": "text_SpouseIsInUS",
@@ -252,7 +252,7 @@
               "placeholder": "text_EnterIfApplicable",
               "id": "spouse_i94_number",
               "key": "family.spouse.i94Number",
-              "control": "text"
+              "control": "component_textbox_na"
             },
             {
               "label": "text_LastAdmittedStatus",

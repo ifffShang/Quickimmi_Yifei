@@ -8,14 +8,14 @@
       "placeholder": "text_EnterIfApplicable",
       "id": "alien_registration_number",
       "key": "applicant.anumber",
-      "control": "text"
+      "control": "component_textbox_na"
     },
     {
       "label": "text_UscisOnlineAccountNumber",
       "placeholder": "text_EnterIfApplicable",
       "id": "uscis_online_account_number",
       "key": "applicant.uscisOnlineAccountNumber",
-      "control": "text"
+      "control": "component_textbox_na"
     },
     {
       "label": "text_I94",
@@ -28,7 +28,7 @@
           "placeholder": "text_EnterIfApplicable",
           "id": "i94_number",
           "key": "applicant.i94Number",
-          "control": "text"
+          "control": "component_textbox_na"
         },
         {
           "label": "text_WhenLastLeaveCountry",
@@ -51,7 +51,7 @@
       "placeholder": "text_EnterIfApplicable",
       "id": "ssn",
       "key": "applicant.ssn",
-      "control": "text"
+      "control": "component_textbox_na"
     },
     {
       "label": "text_ImmigrationCourt",

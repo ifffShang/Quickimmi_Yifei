@@ -59,6 +59,7 @@ export type ControlType =
   | "section"
   | "removable_section"
   | "component_passport_uploader"
+  | "component_multi_textboxes_na"
   | "component_textbox_na"
   | "component_location_dropdown"
   | "component_generate_report"

@@ -34,8 +34,9 @@ import { GenerateDocument } from "./fields/GenerateDocument";
 import { LocationDropdown } from "./fields/LocationDropdown";
 import { PassportUploader } from "./fields/PassportUploader";
 import { SameAddressCheckbox } from "./fields/SameAddressCheckbox";
-import { TextboxWithNA } from "./fields/TextboxWithNA";
+import { MultipleTextboxesWithNA } from "./fields/MultipleTextboxesWithNA";
 import { RemovableSectionHeader } from "./parts/RemovableSectionHeader";
+import { TextboxWithNA } from "./fields/TextboxWithNA";
 
 export interface FormFieldProps {
   fieldKey: string;
@@ -53,7 +54,7 @@ export interface FormFieldProps {
 }
 
 export function FormField(props: FormFieldProps) {
-  const { wt } = useFormTranslation();
+  const { wt, t } = useFormTranslation();
   const dispatch = useAppDispatch();
   const caseDetails = useAppSelector(
     state => state.form.applicationCase?.profile,
@@ -322,6 +323,16 @@ export function FormField(props: FormFieldProps) {
           placeholder={placeholder}
           value={fieldValue}
           onChange={onTextChange}
+          notApplicableText={t("NotApplicableText")}
+        />
+      );
+    case "component_multi_textboxes_na":
+      return (
+        <MultipleTextboxesWithNA
+          placeholder={placeholder}
+          value={fieldValue}
+          onChange={onTextChange}
+          notApplicableText={t("NotApplicableText")}
         />
       );
     case "component_location_dropdown":
@@ -418,7 +429,23 @@ export function FormField(props: FormFieldProps) {
               hasTrue = true;
             }
           }
-          if (!hasTrue) return <></>;
+          if (!hasTrue) {
+            // When textarea is hidden, assign the value to "N/A"
+            const keys = props.subFields.filter(
+              field => field.control === "textarea",
+            );
+            for (let i = 0; i < keys.length; i++) {
+              const key = keys[i].key;
+              dispatchFormValue(
+                dispatch,
+                {
+                  [key]: "N/A",
+                },
+                props.fieldIndex,
+              );
+            }
+            return <></>;
+          }
         }
         if (fieldValue && Array.isArray(fieldValue.arr)) {
           return (
