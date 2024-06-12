@@ -41,7 +41,7 @@ export interface Case {
 }
 
 // export interface AsylumType {
-//   AFFIRMATIVE("AFFIRMATIVE"), 
+//   AFFIRMATIVE("AFFIRMATIVE"),
 //   DEFENSIVE("DEFENSIVE");
 // }
 export interface UpdateApplicationCaseData {

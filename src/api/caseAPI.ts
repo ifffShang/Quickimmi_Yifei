@@ -52,7 +52,7 @@ export async function createNewCaseApi(
   return <string>res.data;
 }
 
-// new case by lawyer 
+// new case by lawyer
 export async function createNewCaseByLawyerApi(
   accessToken: string,
   lawyerId: number,
@@ -61,7 +61,7 @@ export async function createNewCaseByLawyerApi(
   maritalStatus: string,
   applyWithChildren: boolean,
   numberOfChildren: number,
-  providedCustomerEmail: string
+  providedCustomerEmail: string,
 ): Promise<string> {
   const res = await performApiRequest(
     "api/case/asylum/createByLawyer",
@@ -73,14 +73,12 @@ export async function createNewCaseByLawyerApi(
       maritalStatus,
       applyWithChildren,
       numberOfChildren,
-      providedCustomerEmail
+      providedCustomerEmail,
     },
     accessToken,
   );
   return <string>res.data;
 }
-
-
 
 export async function deleteCaseApi(
   caseId: number,
@@ -122,7 +120,6 @@ export async function getCasesByLawyerApi(
   );
   return <Case[]>res.data;
 }
-
 
 export async function getCaseDetailsApi(
   caseId: number,

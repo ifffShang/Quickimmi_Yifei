@@ -14,7 +14,7 @@ export async function createUserApi(
       cognitoUsername: email,
       username: email,
       email,
-      role, // Add the role to API request 
+      role, // Add the role to API request
     },
     accessToken,
     false,

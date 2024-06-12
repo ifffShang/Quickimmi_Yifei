@@ -12,7 +12,6 @@ import "./locales/i18n";
 import reportWebVitals from "./reportWebVitals";
 import { pdfjs } from "react-pdf";
 
-
 Amplify.configure({
   Auth: {
     Cognito: {

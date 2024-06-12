@@ -14,9 +14,8 @@ import { ErrorMessage, QText } from "../../common/Fonts";
 import { FormInput } from "../../form/fields/Controls";
 import { AuthComponent } from "./AuthComponent";
 import { UserInfo } from "../../../model/apiModels";
-import awsExports from "../../../aws-exports"; 
+import awsExports from "../../../aws-exports";
 import { Amplify } from "aws-amplify";
-
 
 export function SignIn() {
   const dispatch = useAppDispatch();
@@ -25,7 +24,8 @@ export function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [showFormInputErrorMessage, setShowFormInputErrorMessage] = useState(false);
+  const [showFormInputErrorMessage, setShowFormInputErrorMessage] =
+    useState(false);
   const [role, setRole] = useState("customer");
 
   useEffect(() => {
@@ -47,9 +47,9 @@ export function SignIn() {
           userPoolId: userPoolConfig.USER_POOL_ID,
           userPoolClientId: userPoolConfig.USER_POOL_APP_CLIENT_ID,
         },
-     },
+      },
     });
-  }, [role]); 
+  }, [role]);
 
   const loginUser = async () => {
     try {
@@ -71,11 +71,11 @@ export function SignIn() {
 
         let userInfo: UserInfo;
         try {
-          userInfo = await getUserInfoApi(email, accessToken, role); 
+          userInfo = await getUserInfoApi(email, accessToken, role);
           console.log("User Info:", userInfo); // Log userInfo to debug
         } catch (error: any) {
           if (error?.message === "USE_NOT_FOUND") {
-            await createUserApi(email, accessToken, role); 
+            await createUserApi(email, accessToken, role);
             userInfo = await getUserInfoApi(email, accessToken, role);
             console.log("User Info after creation:", userInfo); // Log userInfo to debug
           } else {
@@ -93,7 +93,7 @@ export function SignIn() {
             email,
             accessToken: accessToken,
             role: role,
-          })
+          }),
         );
         navigate("/dashboard");
       } else if (nextStep?.signInStep === "CONFIRM_SIGN_UP") {
@@ -102,8 +102,8 @@ export function SignIn() {
           updateAuthState({
             prevStep: "signin",
             email,
-            role: role, 
-          })
+            role: role,
+          }),
         );
         navigate("/signup");
       }
@@ -125,7 +125,10 @@ export function SignIn() {
     <>
       <div className="auth-toggle">
         <QText>{t("I am a Lawyer")}</QText>
-        <Switch checked={role === "lawyer"} onChange={() => setRole(role === "customer" ? "lawyer" : "customer")} />
+        <Switch
+          checked={role === "lawyer"}
+          onChange={() => setRole(role === "customer" ? "lawyer" : "customer")}
+        />
         {/* <Checkbox
         checked={role === "lawyer"}
         onChange={() => setRole(role === "customer" ? "lawyer" : "customer")}

@@ -16,9 +16,8 @@ import { ErrorMessage } from "../../common/Fonts";
 import { QText } from "../../common/Fonts";
 import { AuthComponent } from "./AuthComponent";
 import { useNavigate } from "react-router-dom";
-import awsExports from "../../../aws-exports"; 
+import awsExports from "../../../aws-exports";
 import { Amplify } from "aws-amplify";
-
 
 export function SignUp() {
   const dispatch = useDispatch();
@@ -52,9 +51,9 @@ export function SignUp() {
           userPoolId: userPoolConfig.USER_POOL_ID,
           userPoolClientId: userPoolConfig.USER_POOL_APP_CLIENT_ID,
         },
-     },
+      },
     });
-  }, [role]); 
+  }, [role]);
 
   const signUpButtonOnClick = async () => {
     if (

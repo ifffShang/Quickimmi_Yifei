@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import { Button } from "antd";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { createNewCaseApi, getCasesApi, createNewCaseByLawyerApi, getCasesByLawyerApi } from "../../../api/caseAPI";
+import {
+  createNewCaseApi,
+  getCasesApi,
+  createNewCaseByLawyerApi,
+  getCasesByLawyerApi,
+} from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { updateCases, updateCurrentCaseId } from "../../../reducers/caseSlice";
 import { QText } from "../../common/Fonts";
@@ -18,13 +23,15 @@ export function Dashboard() {
   const [loading, setLoading] = useState(false);
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const userId = useAppSelector(state => state.auth.userId);
-  const lawyerId = useAppSelector(state => state.auth.lawyerId); 
+  const lawyerId = useAppSelector(state => state.auth.lawyerId);
   const role = useAppSelector(state => state.auth.role);
   const cases = useAppSelector(state => state.case.cases);
 
   const getCases = async () => {
     if (!accessToken || (!userId && !lawyerId)) {
-      console.error(`Access token ${accessToken} or user id ${userId} is missing`);
+      console.error(
+        `Access token ${accessToken} or user id ${userId} is missing`,
+      );
       setLoading(false);
       return;
     }
@@ -40,7 +47,9 @@ export function Dashboard() {
         cases.forEach(c => console.log(`Case ID: ${c.id}`));
       } else {
         cases = await getCasesApi(userId!, accessToken);
-        console.log(`Number of cases assigned to the customer: ${cases.length}`);
+        console.log(
+          `Number of cases assigned to the customer: ${cases.length}`,
+        );
         console.log("CustomerID", userId);
         cases.forEach(c => console.log(`Case ID: ${c.id}`));
       }
@@ -59,14 +68,16 @@ export function Dashboard() {
   // Create new applications for Customers
   const CreateNewApplication = async () => {
     if (!accessToken || !userId) {
-      console.error(`Access token ${accessToken} or user id ${userId} is missing`);
+      console.error(
+        `Access token ${accessToken} or user id ${userId} is missing`,
+      );
       return;
     }
     const caseId = await createNewCaseApi(
-      accessToken, 
-      userId, 
-      "Asylum create reason", 
-      "AFFIRMATIVE"
+      accessToken,
+      userId,
+      "Asylum create reason",
+      "AFFIRMATIVE",
     );
     dispatch(updateCurrentCaseId(caseId));
     navigate("/case/" + caseId);
@@ -75,19 +86,21 @@ export function Dashboard() {
   // Create new cases for Lawyers
   const CreateNewCaseForLawyer = async () => {
     if (!accessToken || !lawyerId) {
-      console.error(`Access token ${accessToken} or user id ${userId} is missing`);
+      console.error(
+        `Access token ${accessToken} or user id ${userId} is missing`,
+      );
       return;
     }
     try {
       const caseId = await createNewCaseByLawyerApi(
         accessToken,
-        lawyerId, 
+        lawyerId,
         "Applicant Name",
         "AFFIRMATIVE",
         "Single",
         false,
         0,
-        "12456@example.com"
+        "12456@example.com",
       );
       dispatch(updateCurrentCaseId(caseId));
       navigate("/case/" + caseId);
@@ -101,45 +114,53 @@ export function Dashboard() {
   }
 
   // Customer Dashboard Content
-  const customerContent = cases && cases.length > 0 ? (
-    <div className="dashboard-panel has-application">
-      {cases.map(c => (
-        <CaseCard key={c.id} caseId={c.id} onDelete={getCases} />
-      ))}
-    </div>
-  ) : (
-    <div className="dashboard-panel no-application">
-      <NewApplicationIcon />
-      <QText level="large">{t("Dashboard.FirstApplication")}</QText>
-      <QText level="small" color="gray">{t("Dashboard.GreetingMessage")}</QText>
-      <Button type="primary" onClick={CreateNewApplication}>
-        {t("Dashboard.CreateNewApplication")}
-      </Button>
-    </div>
-  );
+  const customerContent =
+    cases && cases.length > 0 ? (
+      <div className="dashboard-panel has-application">
+        {cases.map(c => (
+          <CaseCard key={c.id} caseId={c.id} onDelete={getCases} />
+        ))}
+      </div>
+    ) : (
+      <div className="dashboard-panel no-application">
+        <NewApplicationIcon />
+        <QText level="large">{t("Dashboard.FirstApplication")}</QText>
+        <QText level="small" color="gray">
+          {t("Dashboard.GreetingMessage")}
+        </QText>
+        <Button type="primary" onClick={CreateNewApplication}>
+          {t("Dashboard.CreateNewApplication")}
+        </Button>
+      </div>
+    );
 
   // Lawyer Dashboard Content
-  const lawyerContent = cases && cases.length > 0 ? (
-    <div className="dashboard-panel has-application">
-      {cases.map(c => (
-        <CaseCard key={c.id} caseId={c.id} onDelete={getCases} />
-      ))}
-    </div>
-  ) : (
-    <div className="dashboard-panel no-application">
-      <NewApplicationIcon />
-      <QText level="large">You have no cases assigned</QText>
-      <QText level="small" color="gray">Please check back later or create a new case.</QText>
-      <Button type="primary" onClick={CreateNewCaseForLawyer}>
-        Create New Case
-      </Button>
-    </div>
-  );
+  const lawyerContent =
+    cases && cases.length > 0 ? (
+      <div className="dashboard-panel has-application">
+        {cases.map(c => (
+          <CaseCard key={c.id} caseId={c.id} onDelete={getCases} />
+        ))}
+      </div>
+    ) : (
+      <div className="dashboard-panel no-application">
+        <NewApplicationIcon />
+        <QText level="large">You have no cases assigned</QText>
+        <QText level="small" color="gray">
+          Please check back later or create a new case.
+        </QText>
+        <Button type="primary" onClick={CreateNewCaseForLawyer}>
+          Create New Case
+        </Button>
+      </div>
+    );
 
   return (
     <div className="dashboard">
       <div className="dashboard-header">
-        <h2><QText level="large">{t("Dashboard.Dashboard")}</QText></h2>
+        <h2>
+          <QText level="large">{t("Dashboard.Dashboard")}</QText>
+        </h2>
         {role === "lawyer" ? (
           <Button type="primary" onClick={CreateNewCaseForLawyer}>
             {t("Dashboard.CreateNewApplication")}
@@ -150,7 +171,7 @@ export function Dashboard() {
           </Button>
         )}
       </div>
-  
+
       {role === "lawyer" ? lawyerContent : customerContent}
     </div>
   );
