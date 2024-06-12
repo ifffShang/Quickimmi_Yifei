@@ -95,6 +95,9 @@
     "GreetingMessage": "Experience the fast and smart immigration service now.",
     "CreateNewApplication": "New Application"
   },
+
+  "CompleteForm": "Complete Form",
+
   "ImmigrationType": "Immigration Type",
   "ImmigrationReason": "Immigration Reason",
   "Tips": "Tips",

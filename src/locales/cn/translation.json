@@ -98,6 +98,9 @@
     "GreetingMessage": "体验快速智能移民通道就是现在",
     "CreateNewApplication": "新建申请"
   },
+
+  "CompleteForm": "资料完善",
+
   "ImmigrationType": "移民类型",
   "ImmigrationReason": "移民原因",
   "Tips": "提示",

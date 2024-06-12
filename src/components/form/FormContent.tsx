@@ -1,14 +1,14 @@
-import { Button, Checkbox, Input, Select, Modal } from "antd";
+import { Button, Checkbox, Input, Modal, Select } from "antd";
 import { useEffect, useState } from "react";
-import { getFormFields, updateApplicationCaseApi } from "../../api/caseAPI";
+import { getFormFields } from "../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useFormTranslation } from "../../hooks/commonHooks";
 import { updateFormFieldsMap } from "../../reducers/caseSlice";
-import { getUpdateApplicationCaseData } from "../../utils/utils";
 import { QText } from "../common/Fonts";
 import { Loading } from "../common/Loading";
 import "./FormContent.css";
 import { FormField } from "./FormField";
+import { updateApplicationCaseFunc } from "../../utils/functionUtils";
 
 const { Option } = Select;
 
@@ -20,6 +20,7 @@ interface FormContentProps {
 export function FormContent(props: FormContentProps) {
   const { wt, t } = useFormTranslation();
   const dispatch = useAppDispatch();
+  const accessToken = useAppSelector(state => state.auth.accessToken);
   const applicationCase = useAppSelector(state => state.form.applicationCase);
   const currentStep = useAppSelector(state => state.case.currentStep);
   const formFieldsMap = useAppSelector(state => state.case.formFieldsMap);
@@ -74,13 +75,6 @@ export function FormContent(props: FormContentProps) {
     );
   }
 
-  const saveApplicationCase = () => {
-    updateApplicationCaseApi(
-      getUpdateApplicationCaseData(applicationCase),
-      "accessToken",
-    );
-  };
-
   const CustomerForm = (
     <div className="form-content">
       <div className="form-content-header">
@@ -111,7 +105,12 @@ export function FormContent(props: FormContentProps) {
       </div>
       <div className="form-content-controls">
         <Button type="primary">{t("Previous")}</Button>
-        <Button className="default-button" onClick={saveApplicationCase}>
+        <Button
+          className="default-button"
+          onClick={() =>
+            updateApplicationCaseFunc(applicationCase, accessToken)
+          }
+        >
           {t("Save")}
         </Button>
         <Button type="primary">{t("Next")}</Button>
@@ -157,7 +156,12 @@ export function FormContent(props: FormContentProps) {
       </div>
       <div className="form-content-controls">
         <Button type="primary">{wt("Previous")}</Button>
-        <Button className="default-button" onClick={saveApplicationCase}>
+        <Button
+          className="default-button"
+          onClick={() =>
+            updateApplicationCaseFunc(applicationCase, accessToken)
+          }
+        >
           {wt("Save")}
         </Button>
         <Button type="primary" onClick={showModal}>
@@ -173,7 +177,7 @@ export function FormContent(props: FormContentProps) {
       visible={isModalVisible}
       onCancel={handleCancel}
       className="email-modal"
-      footer={null} 
+      footer={null}
     >
       <div className="email-modal-content">
         <Input

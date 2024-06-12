@@ -102,7 +102,7 @@ export function FormNavigation() {
 
   return (
     <div className="form-navigation">
-      <div
+      {/* <div
         className="form-navigation-return"
         onClick={() => navigate("/dashboard")}
       >
@@ -110,7 +110,7 @@ export function FormNavigation() {
         <QText level="medium" color="primary">
           Dashboard
         </QText>
-      </div>
+      </div> */}
       <Collapse
         defaultActiveKey={indexLevel1}
         expandIcon={expandIcon}

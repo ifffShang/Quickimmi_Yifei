@@ -2,6 +2,7 @@ import { useAppSelector } from "../../app/hooks";
 import { ScreenSize } from "../../model/commonModels";
 import { FormContent } from "./FormContent";
 import "./FormFlow.css";
+import { FormHeader } from "./FormHeader";
 import { FormNavigation } from "./FormNavigation";
 
 interface FormFlowProps {
@@ -24,6 +25,7 @@ export function FormFlow({ isLawyer }: FormFlowProps) {
 
   return (
     <div className="form-flow">
+      <FormHeader />
       <div className="form-flow-content">
         {!isSmallScreen && <FormNavigation />}
         <FormContent referenceId={id ?? ""} isLawyer={isLawyer} />
