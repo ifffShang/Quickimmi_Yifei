@@ -1,6 +1,4 @@
 .form-navigation {
-  background-color: var(--white-color);
-  border-radius: 10px;
   flex: 0 0 250px;
   align-self: flex-start;
 }
@@ -13,6 +11,11 @@
   border-bottom: 1px solid var(--gray-color-4);
   color: var(--primary-color);
   gap: 10px;
+}
+
+.form-navigation-collapse {
+  border-radius: 10px;
+  background-color: var(--white-color);
 }
 
 .form-navigation .ant-collapse-header {
@@ -29,10 +32,22 @@
   border-bottom: 1px solid var(--gray-color-4);
   color: var(--gray-color-2);
   cursor: pointer;
+  border-radius: 0;
 }
 
 .form-navigation-l2.active {
   color: var(--primary-color);
   border-right: 3px solid var(--primary-color);
-  background-color: var(--white-color);
+}
+
+.standalone.form-navigation-l2 {
+  font-weight: 600;
+  padding: 16px 24px 16px 16px;
+  border: none;
+  color: var(--font-color-collapse-level1);
+}
+
+.standalone.form-navigation-l2.active {
+  color: var(--primary-color);
+  border-right: none;
 }

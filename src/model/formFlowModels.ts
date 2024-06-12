@@ -10,6 +10,7 @@ export interface IFormStep {
   label: string;
   type: string;
   steps: IFormStep[];
+  standalone?: boolean;
   referenceId?: string;
 }
 

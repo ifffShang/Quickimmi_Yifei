@@ -1,7 +1,6 @@
 import Link from "antd/es/typography/Link";
 import { LeftOutlined } from "@ant-design/icons";
 import "./Links.css";
-import { QText } from "./Fonts";
 
 export interface QLinkProps {
   onClick?: () => void;

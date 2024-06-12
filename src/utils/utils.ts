@@ -139,7 +139,9 @@ export function getFieldValue(
       control !== "divider" &&
       control !== "section" &&
       control !== "removable_section" &&
-      control !== "component_mailing_same_as_residential"
+      control !== "component_mailing_same_as_residential" &&
+      control !== "component_generate_report" &&
+      control !== "component_list_reports"
     ) {
       console.error("Key is missing for control type: ", control);
     }

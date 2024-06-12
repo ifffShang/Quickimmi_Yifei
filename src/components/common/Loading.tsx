@@ -18,3 +18,12 @@ export function Loading(props: LoadingProps) {
     </div>
   );
 }
+
+export function CentralizedLoading(props: LoadingProps) {
+  return (
+    <div className="loading centralized-loading">
+      <Spin />
+      <p>{props.text || ""}</p>
+    </div>
+  );
+}

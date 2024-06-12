@@ -2,22 +2,12 @@
   position: relative;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   padding: 20px 40px;
   background-color: var(--white-color);
   box-sizing: border-box;
   border-radius: 10px;
-  min-height: 120px;
-  max-width: 1460px;
-  width: 100%;
-  margin: 0 auto;
-}
-
-.form-header-right {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  height: 100%;
+  height: 120px;
 }
 
 .form-header-save {
@@ -33,7 +23,7 @@
 }
 
 .form-header-tags {
-  margin-top: 30px;
+  margin-top: 25px;
 }
 
 .form-header-tag {

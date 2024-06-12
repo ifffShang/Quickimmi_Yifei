@@ -1,12 +1,10 @@
-import { useTranslation } from "react-i18next";
-import { QText } from "../common/Fonts";
-import "./FormHeader.css";
-import { EditForm } from "../icons/Form";
 import { Button } from "antd";
-import { updateApplicationCaseApi } from "../../api/caseAPI";
-import { getUpdateApplicationCaseData } from "../../utils/utils";
+import { useTranslation } from "react-i18next";
 import { useAppSelector } from "../../app/hooks";
 import { updateApplicationCaseFunc } from "../../utils/functionUtils";
+import { QText } from "../common/Fonts";
+import { EditForm } from "../icons/Form";
+import "./FormHeader.css";
 
 export function FormHeader() {
   const { t } = useTranslation();
@@ -23,21 +21,19 @@ export function FormHeader() {
           </div>
         </div>
       </div>
-      <div className="form-header-right">
-        <div className="form-header-save">
-          <Button
-            type="primary"
-            className="form-header-save-btn"
-            onClick={() =>
-              updateApplicationCaseFunc(applicationCase, accessToken)
-            }
-          >
-            {t("Save")}
-          </Button>
-        </div>
-        <div className="form-header-icon">
-          <EditForm />
-        </div>
+      <div className="form-header-save">
+        <Button
+          type="primary"
+          className="form-header-save-btn"
+          onClick={() =>
+            updateApplicationCaseFunc(applicationCase, accessToken)
+          }
+        >
+          {t("Save")}
+        </Button>
+      </div>
+      <div className="form-header-icon">
+        <EditForm />
       </div>
     </div>
   );

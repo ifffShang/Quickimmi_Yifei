@@ -19,6 +19,13 @@
   font-size: 35px;
 }
 
+.centralized-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
 /* Styles for viewports up to 1024px wide (e.g., tablets) */
 @media (max-width: 1024px) {
   .loading .ant-spin-dot-item {

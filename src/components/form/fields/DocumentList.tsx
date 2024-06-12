@@ -3,7 +3,6 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useDocumentsOnLoad } from "../../../hooks/commonHooks";
 import { Loading } from "../../common/Loading";
 import "./DocumentList.css";
-import { saveAs } from "file-saver";
 
 export function DocumentList() {
   const dispatch = useAppDispatch();

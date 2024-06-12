@@ -1,4 +1,6 @@
+import { LeftCircleOutlined } from "@ant-design/icons";
 import { Collapse, CollapseProps } from "antd";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useFormTranslation } from "../../hooks/commonHooks";
 import { ScreenSize } from "../../model/commonModels";
@@ -6,9 +8,8 @@ import { setIndexLevel2 } from "../../reducers/caseSlice";
 import { QText } from "../common/Fonts";
 import { Menu, MenuItem } from "../common/Menu";
 import { NavDown, NavUp } from "../icons/ArrowDown";
-import { LeftCircleOutlined } from "@ant-design/icons";
 import "./FormNavigation.css";
-import { useNavigate } from "react-router-dom";
+import { StandaloneSteps } from "./parts/StandaloneSteps";
 
 export function FormNavigation() {
   const { wt, t } = useFormTranslation();
@@ -59,39 +60,55 @@ export function FormNavigation() {
     );
   }
 
+  let standaloneSteps = [] as CollapseProps["items"];
+
   // Below are the UI for large and medium screens
-  const items: CollapseProps["items"] = steps.map((level1, l1Index) => {
-    return {
-      key: l1Index,
-      label: <QText level="normal bold">{wt(level1.label)}</QText>,
-      children: (
-        <div>
-          {level1.steps.map((level2, l2Index) => {
-            const css =
-              indexLevel2 === l2Index && indexLevel1 === l1Index
-                ? "form-navigation-l2 active"
-                : "form-navigation-l2";
-            return (
-              <div
-                className={css}
-                key={l2Index}
-                onClick={() =>
-                  dispatch(
-                    setIndexLevel2({
-                      indexLevel1: l1Index,
-                      indexLevel2: l2Index,
-                    }),
-                  )
-                }
-              >
-                <QText>{wt(level2.label)}</QText>
-              </div>
-            );
-          })}
-        </div>
-      ),
-    };
-  });
+  const items: CollapseProps["items"] = steps.reduce(
+    (result, level1, l1Index) => {
+      const item = {
+        key: l1Index,
+        label: <QText level="normal bold">{wt(level1.label)}</QText>,
+        children: (
+          <div>
+            {level1.steps.map((level2, l2Index) => {
+              let css = level1.standalone ? "standalone " : "";
+              css +=
+                indexLevel2 === l2Index && indexLevel1 === l1Index
+                  ? "form-navigation-l2 active"
+                  : "form-navigation-l2";
+              return (
+                <div
+                  className={css}
+                  key={l2Index}
+                  onClick={() =>
+                    dispatch(
+                      setIndexLevel2({
+                        indexLevel1: l1Index,
+                        indexLevel2: l2Index,
+                      }),
+                    )
+                  }
+                >
+                  <QText>{wt(level2.label)}</QText>
+                </div>
+              );
+            })}
+          </div>
+        ),
+      };
+
+      if (!result) result = [];
+      if (!standaloneSteps) standaloneSteps = [];
+
+      if (level1.standalone) {
+        standaloneSteps.push(item);
+      } else {
+        result.push(item);
+      }
+      return result;
+    },
+    [] as CollapseProps["items"],
+  );
 
   const expandIcon = (props: any) => {
     if (props?.isActive) {
@@ -112,6 +129,7 @@ export function FormNavigation() {
         </QText>
       </div> */}
       <Collapse
+        className="form-navigation-collapse"
         defaultActiveKey={indexLevel1}
         expandIcon={expandIcon}
         expandIconPosition="end"
@@ -119,6 +137,7 @@ export function FormNavigation() {
         ghost
         items={items}
       />
+      <StandaloneSteps steps={standaloneSteps} />
     </div>
   );
 }

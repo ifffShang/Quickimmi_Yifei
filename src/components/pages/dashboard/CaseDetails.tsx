@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getCaseDetailsApi, getForm } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
@@ -8,6 +8,7 @@ import {
   updateApplicationCase,
 } from "../../../reducers/formSlice";
 import { FormFlow } from "../../form/FormFlow";
+import { CentralizedLoading } from "../../common/Loading";
 
 export function CaseDetails() {
   const dispatch = useAppDispatch();
@@ -15,9 +16,11 @@ export function CaseDetails() {
   const navigate = useNavigate();
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const role = useAppSelector(state => state.auth.role); // Get user role from state
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (!id || !accessToken) return;
+    setIsLoading(true);
     getForm("i589_form").then(form => {
       dispatch(updateForm(form));
       (async function () {
@@ -31,8 +34,10 @@ export function CaseDetails() {
             return;
           }
           dispatch(updateApplicationCase(caseDetails));
+          setIsLoading(false);
         } catch (err) {
           console.error(err);
+          setIsLoading(false);
         }
       })();
     });
@@ -46,5 +51,13 @@ export function CaseDetails() {
     return null;
   }
 
-  return <FormFlow isLawyer={role === "lawyer"} />;
+  return (
+    <>
+      {isLoading ? (
+        <CentralizedLoading />
+      ) : (
+        <FormFlow isLawyer={role === "lawyer"} />
+      )}
+    </>
+  );
 }
