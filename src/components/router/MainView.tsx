@@ -7,6 +7,8 @@ import { Home } from "../pages/home/Home";
 import { SinglePageView } from "../pages/singlePage/SinglePageView";
 import { TestPageView } from "../pages/singlePage/Test";
 import { Checkout } from "../payment/Checkout";
+import { FormFlow } from "../form/FormFlow";
+import { LawyerPreForm } from "../form/LawyerPreForm";
 import "./MainView.css";
 
 export const PATH = {
@@ -22,6 +24,7 @@ export const PATH = {
   Dashboard: "/dashboard",
   CaseDetails: "/case/:id",
   Checkout: "/checkout",
+  LawyerPreForm: "/lawyerPreForm", 
   Others: "*",
 };
 
@@ -84,6 +87,11 @@ export const RouterConfig = [
   {
     path: PATH.Checkout,
     element: <Checkout />,
+    needLogin: true,
+  },
+  {
+    path: PATH.LawyerPreForm,
+    element: <FormFlow isLawyer={true} lawyerNewCase={true} />,
     needLogin: true,
   },
   {
