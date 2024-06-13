@@ -38,19 +38,125 @@ function useFetchCaseSummary() {
       setLoading(true);
       // Mock data
       const mockCaseSummary: CaseSummary = {
-        id: 400002,
-        applicantName: "Lili Han",
-        caseType: "Asylum",
-        asylumType: "Political",
-        maritalStatus: "Married",
-        applyWithSpouse: true,
-        numberOfChildren: 2,
-        numberOfApplyingChildren: 1,
-        currentStep: "Review and Sign",
-        progress: "In Progress",
-        desc: "Lawyer review in progress",
-        createdAt: 1617283200000, // Timestamp for 2024-02-12
-        updatedAt: 1617955200000, // Timestamp for 2024-03-19
+        "id": 55,
+        "applicantName": "Brandon Qi",
+        "caseType": "Asylum",
+        "asylumType": "AFFIRMATIVE",
+        "maritalStatus": "Married",
+        "applyWithSpouse": false,
+        "numberOfChildren": 2,
+        "numberOfApplyingChildren": 1,
+        "currentStep": "FILLING_APPLICATION",
+        "progress": {
+          "steps": [
+            {
+              "name": "FILLING_APPLICATION",
+              "status": "NOT_START",
+              "substeps": [
+                {
+                  "name": "FILLING_DETAILS",
+                  "status": "NOT_START",
+                  "metadata": null,
+                  "startedAt": 1716788746776,
+                  "updatedAt": 1716788746776
+                }
+              ],
+              "startedAt": 1716788746776,
+              "updatedAt": 1716788746776
+            },
+            {
+              "name": "REVIEW_AND_SIGN",
+              "status": "NOT_START",
+              "substeps": [
+                {
+                  "name": "LAWYER_REVIEW",
+                  "status": "NOT_START",
+                  "metadata": null,
+                  "startedAt": 1716788746776,
+                  "updatedAt": 1716788746776
+                },
+                {
+                  "name": "CLIENT_SIGNATURE",
+                  "status": "NOT_START",
+                  "metadata": null,
+                  "startedAt": 1716788746776,
+                  "updatedAt": 1716788746776
+                }
+              ],
+              "startedAt": 1716788746776,
+              "updatedAt": 1716788746776
+            },
+            {
+              "name": "SUBMIT_APPLICATION",
+              "status": "NOT_START",
+              "substeps": [
+                {
+                  "name": "SUBMIT_APPLICATION",
+                  "status": "NOT_START",
+                  "metadata": null,
+                  "startedAt": 1716788746776,
+                  "updatedAt": 1716788746776
+                },
+                {
+                  "name": "NOTICE_RECEIPT",
+                  "status": "NOT_START",
+                  "metadata": null,
+                  "startedAt": 1716788746776,
+                  "updatedAt": 1716788746776
+                }
+              ],
+              "startedAt": 1716788746776,
+              "updatedAt": 1716788746776
+            },
+            {
+              "name": "FINGERPRINT_INTERVIEW",
+              "status": "NOT_START",
+              "substeps": [
+                {
+                  "name": "FINGERPRINT_COLLECTION",
+                  "status": "NOT_START",
+                  "metadata": null,
+                  "startedAt": 1716788746776,
+                  "updatedAt": 1716788746776
+                },
+                {
+                  "name": "INTERVIEW",
+                  "status": "NOT_START",
+                  "metadata": null,
+                  "startedAt": 1716788746776,
+                  "updatedAt": 1716788746776
+                }
+              ],
+              "startedAt": 1716788746776,
+              "updatedAt": 1716788746776
+            },
+            {
+              "name": "FINAL_RESULT",
+              "status": "NOT_START",
+              "substeps": [
+                {
+                  "name": "FINAL_REVIEW",
+                  "status": "NOT_START",
+                  "metadata": null,
+                  "startedAt": 1716788746776,
+                  "updatedAt": 1716788746776
+                },
+                {
+                  "name": "RESULT",
+                  "status": "NOT_START",
+                  "metadata": null,
+                  "startedAt": 1716788746776,
+                  "updatedAt": 1716788746776
+                }
+              ],
+              "startedAt": 1716788746776,
+              "updatedAt": 1716788746776
+            }
+          ]
+        },
+        "desc": null,
+        "createdAt": 1715912208190,
+        "updatedAt": 1718259472477
       };
       setCaseSummary(mockCaseSummary);
     } catch (err) {

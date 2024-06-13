@@ -1,9 +1,6 @@
 import React from "react";
 import { Layout, Menu } from "antd";
-import {
-  DashboardOutlined,
-  FileOutlined,
-} from "@ant-design/icons";
+import { DashboardOutlined, FileOutlined } from "@ant-design/icons";
 import "./CaseStatusMenuSider.css";
 
 const { Sider } = Layout;

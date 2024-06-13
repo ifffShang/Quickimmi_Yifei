@@ -77,23 +77,48 @@ export interface ApplicationCase {
   createdAt: number;
   updatedAt: number;
 }
-
+export interface Substep {
+  name: string;
+  status: string;
+  metadata: string | null;
+  startedAt: number;
+  updatedAt: number;
+}
+export interface Step {
+  name: string;
+  status: string;
+  substeps: Substep[];
+  startedAt: number;
+  updatedAt: number;
+}
+export interface Progress {
+  steps: Step[];
+}
 export interface CaseSummary {
   id: number;
   applicantName: string;
   caseType: string;
-  asylumType: string;
+  asylumType: string | null;
   maritalStatus: string;
   applyWithSpouse: boolean;
   numberOfChildren: number;
   numberOfApplyingChildren: number;
   currentStep: string;
-  progress: string;
-  desc: string;
+  progress: Progress;
+  desc: string | null;
   createdAt: number;
   updatedAt: number;
 }
+export enum CaseType {
+  Asylum = "Asylum",
+  H1B = "H1b",
+  NIW = "Niw",
+}
 
+export enum AsylumType {
+  AFFIRMATIVE = "AFFIRMATIVE",
+  DEFENSIVE = "DEFENSIVE",
+}
 export interface Task {
   id: number;
   caseId: number;
@@ -445,15 +470,4 @@ export interface UploadedDocument {
   presignUrl: string;
   createdAt: number;
   updatedAt: number;
-}
-
-export enum CaseType {
-  Asylum = "Asylum",
-  H1B = "H1b",
-  NIW = "Niw",
-}
-
-export enum AsylumType {
-  AFFIRMATIVE = "AFFIRMATIVE",
-  DEFENSIVE = "DEFENSIVE",
 }
