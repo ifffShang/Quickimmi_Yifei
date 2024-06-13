@@ -24,7 +24,7 @@ export const PATH = {
   Dashboard: "/dashboard",
   CaseDetails: "/case/:id",
   Checkout: "/checkout",
-  LawyerPreForm: "/lawyerPreForm", 
+  LawyerPreForm: "/lawyerNewCase", 
   Others: "*",
 };
 

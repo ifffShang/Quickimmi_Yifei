@@ -88,7 +88,7 @@ export function Dashboard() {
       console.error(`Access token ${accessToken} or lawyer id ${lawyerId} is missing`);
       return;
     }
-    navigate('/lawyerPreForm');
+    navigate('/lawyerNewCase');
   };
 
   if (loading) {

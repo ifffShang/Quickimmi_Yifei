@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Input, Select, Checkbox, Modal } from "antd";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
@@ -11,7 +11,7 @@ import "./LawyerPreForm.css";
 const { Option } = Select;
 
 export function LawyerPreForm() {
-  const { wt, t } = useFormTranslation();
+  const { wt } = useFormTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const accessToken = useAppSelector(state => state.auth.accessToken);
@@ -24,6 +24,23 @@ export function LawyerPreForm() {
   const [numberOfChildren, setNumberOfChildren] = useState(0);
   const [providedCustomerEmail, setProvidedCustomerEmail] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isSendButtonDisabled, setIsSendButtonDisabled] = useState(true);
+  const [isEmailSendButtonDisabled, setIsEmailSendButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    const isFormValid = applicantName && applicationType && maritalStatus && (!applyWithChildren || (applyWithChildren && numberOfChildren));
+    setIsSendButtonDisabled(!isFormValid);
+  }, [applicantName, applicationType, maritalStatus, applyWithChildren, numberOfChildren]);
+
+  useEffect(() => {
+    const isEmailValid = providedCustomerEmail && validateEmail(providedCustomerEmail);
+    setIsEmailSendButtonDisabled(!isEmailValid);
+  }, [providedCustomerEmail]);
+
+  const validateEmail = (email: string) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -57,63 +74,63 @@ export function LawyerPreForm() {
     setIsModalVisible(false);
   };
 
-return (
-    <div className="form-content">
-        <div className="form-content-header">
-            <QText level="large">{wt("New Case")}</QText>
+  return (
+    <div className="form-content-preForm">
+      <div className="form-content-header-preForm">
+        <QText level="large">{wt("New Case")}</QText>
+      </div>
+      <div className="form-content-form-preForm">
+        <div className="field-section-preForm">
+          <QText level="field-label">{wt("Applicant's name")}</QText>
+          <Input className="field-input-preForm" placeholder="Enter applicant's name" value={applicantName} onChange={e => setApplicantName(e.target.value)} />
         </div>
-        <div className="form-content-form">
-            <div className="field-section">
-                <QText level="field-label">{wt("Applicant's name")}</QText>
-                <Input className="field-input" placeholder="Enter applicant's name" value={applicantName} onChange={e => setApplicantName(e.target.value)} />
-            </div>
-            <div className="field-section">
-                <QText level="field-label">{wt("Immigration type")}</QText>
-                <Select className="field-input" placeholder="Select immigration type" value={applicationType} onChange={value => setApplicationType(value)}>
-                    <Option value="AFFIRMATIVE">Affirmative</Option>
-                    <Option value="DEFENSIVE">Defensive</Option>
-                </Select>
-            </div>
-            <div className="field-section">
-                <QText level="field-label">{wt("Marital status")}</QText>
-                <Select className="field-input" placeholder="Select marital status" value={maritalStatus} onChange={value => setMaritalStatus(value)}>
-                    <Option value="Single">Single</Option>
-                    <Option value="Married">Married</Option>
-                    <Option value="Divorced">Divorced</Option>
-                    <Option value="Widowed">Widowed</Option>
-                </Select>
-            </div>
-            <div className="field-section">
-                <Checkbox checked={applyWithChildren} onChange={e => setApplyWithChildren(e.target.checked)}>{wt("Children applying with me")}</Checkbox>
-                {applyWithChildren && (
-                <div>
-                    <QText level="field-label">{wt("Number of children")}</QText>
-                    <Input className="field-input" type="number" value={numberOfChildren} onChange={e => setNumberOfChildren(parseInt(e.target.value))} />
-                </div>
-                )}
-            </div>
+        <div className="field-section-preForm">
+          <QText level="field-label">{wt("Immigration type")}</QText>
+          <Select className="field-input-preForm" placeholder="Select immigration type" value={applicationType} onChange={value => setApplicationType(value)}>
+            <Option value="AFFIRMATIVE">Affirmative</Option>
+            <Option value="DEFENSIVE">Defensive</Option>
+          </Select>
         </div>
-        <div className="form-content-controls">
-            <Button type="primary" onClick={showModal}>Send</Button>
+        <div className="field-section-preForm">
+          <QText level="field-label">{wt("Marital status")}</QText>
+          <Select className="field-input-preForm" placeholder="Select marital status" value={maritalStatus} onChange={value => setMaritalStatus(value)}>
+            <Option value="Single">Single</Option>
+            <Option value="Married">Married</Option>
+            <Option value="Divorced">Divorced</Option>
+            <Option value="Widowed">Widowed</Option>
+          </Select>
         </div>
-        <Modal
-            title="Input client email"
-            visible={isModalVisible}
-            onCancel={handleCancel}
-            footer={null}
-            className="email-modal"
-        >
-            <div className="email-modal-content">
-                <QText level="field-label">{wt("Invite customer through email")}</QText>
-                <Input
-                    placeholder="Enter client email"
-                    value={providedCustomerEmail}
-                    onChange={e => setProvidedCustomerEmail(e.target.value)}
-                    className="email-input"
-                />
-                <Button type="primary" onClick={handleOk} className="email-send-button">Send</Button>
+        <div className="field-section-preForm">
+          <Checkbox checked={applyWithChildren} onChange={e => setApplyWithChildren(e.target.checked)}>{wt("Children applying with me")}</Checkbox>
+          {applyWithChildren && (
+            <div>
+              <QText level="field-label">{wt("Number of children")}</QText>
+              <Input className="field-input-preForm" type="number" value={numberOfChildren} onChange={e => setNumberOfChildren(parseInt(e.target.value))} />
             </div>
-        </Modal>
+          )}
+        </div>
+      </div>
+      <div className="form-content-controls-preForm">
+        <Button type="primary" onClick={showModal} disabled={isSendButtonDisabled}>Send</Button>
+      </div>
+      <Modal
+        title="Input client email"
+        visible={isModalVisible}
+        onCancel={handleCancel}
+        footer={null}
+        className="email-modal-preForm"
+      >
+        <div className="email-modal-content-preForm">
+          <QText level="field-label">{wt("Invite customer through email")}</QText>
+          <Input
+            placeholder="Enter client email"
+            value={providedCustomerEmail}
+            onChange={e => setProvidedCustomerEmail(e.target.value)}
+            className="email-input-preForm"
+          />
+          <Button type="primary" onClick={handleOk} className="email-send-button-preForm" disabled={isEmailSendButtonDisabled}>Send</Button>
+        </div>
+      </Modal>
     </div>
   );
 }
