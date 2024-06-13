@@ -14,7 +14,7 @@ interface FormFlowProps {
   lawyerNewCase?: boolean;
 }
 
-export function FormFlow({ isLawyer, lawyerNewCase }: FormFlowProps) {
+export function FormFlow({ isLawyer, lawyerNewCase = false }: FormFlowProps) {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const form = useAppSelector(state => state.case.form);
@@ -44,7 +44,7 @@ export function FormFlow({ isLawyer, lawyerNewCase }: FormFlowProps) {
       )}
       <div className="form-flow-content">
         {!isSmallScreen && !lawyerNewCase && <FormNavigation />}
-        {isLawyer ? (
+        {lawyerNewCase ? (
           <LawyerPreForm />
         ) : (
           <FormContent referenceId={id ?? ""} isLawyer={isLawyer} />

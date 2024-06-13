@@ -90,7 +90,8 @@ export function Dashboard() {
       );
       return;
     }
-    navigate("/lawyerPreForm");
+
+    navigate('/lawyerNewCase');
   };
 
   if (loading) {

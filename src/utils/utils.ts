@@ -53,6 +53,11 @@ export const equalsIgnoreCase = (str1: string, str2: string) => {
   return str1.toLowerCase() === str2.toLowerCase();
 };
 
+export const validateEmail = (email: string) => {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
+};
+
 export const isAuthPath = (path: string) => {
   return (
     equalsIgnoreCase(path, PATH.SignIn) ||
