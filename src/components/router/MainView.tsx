@@ -6,6 +6,8 @@ import { Dashboard } from "../pages/dashboard/Dashboard";
 import { Home } from "../pages/home/Home";
 import { SinglePageView } from "../pages/singlePage/SinglePageView";
 import { Checkout } from "../payment/Checkout";
+import { FormFlow } from "../form/FormFlow";
+import { LawyerPreForm } from "../form/LawyerPreForm";
 import "./MainView.css";
 import CaseStatusLayout from "../pages/casestatus/CaseStatusLayout";
 
@@ -23,6 +25,7 @@ export const PATH = {
   CaseStatus: "/casestatus/:id",
   CaseDetails: "/case/:id",
   Checkout: "/checkout",
+  LawyerPreForm: "/lawyerPreForm", 
   Others: "*",
 };
 
@@ -90,6 +93,11 @@ export const RouterConfig = [
   {
     path: PATH.Checkout,
     element: <Checkout />,
+    needLogin: true,
+  },
+  {
+    path: PATH.LawyerPreForm,
+    element: <FormFlow isLawyer={true} lawyerNewCase={true} />,
     needLogin: true,
   },
   {

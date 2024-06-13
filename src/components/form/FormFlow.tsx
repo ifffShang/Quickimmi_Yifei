@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
 import { ScreenSize } from "../../model/commonModels";
 import { FormContent } from "./FormContent";
+import { LawyerPreForm } from "./LawyerPreForm";
 import "./FormFlow.css";
 import { FormHeader } from "./FormHeader";
 import { FormNavigation } from "./FormNavigation";
@@ -10,9 +11,10 @@ import { useTranslation } from "react-i18next";
 
 interface FormFlowProps {
   isLawyer?: boolean;
+  lawyerNewCase?: boolean;
 }
 
-export function FormFlow({ isLawyer }: FormFlowProps) {
+export function FormFlow({ isLawyer, lawyerNewCase }: FormFlowProps) {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const form = useAppSelector(state => state.case.form);
@@ -41,8 +43,12 @@ export function FormFlow({ isLawyer }: FormFlowProps) {
         </div>
       )}
       <div className="form-flow-content">
-        {!isSmallScreen && <FormNavigation />}
-        <FormContent referenceId={id ?? ""} isLawyer={isLawyer} />
+        {!isSmallScreen && !lawyerNewCase && <FormNavigation />}
+        {isLawyer ? (
+          <LawyerPreForm />
+        ) : (
+          <FormContent referenceId={id ?? ""} isLawyer={isLawyer} />
+        )}
       </div>
     </div>
   );

@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import {
   createNewCaseApi,
   getCasesApi,
-  createNewCaseByLawyerApi,
   getCasesByLawyerApi,
 } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
@@ -86,27 +85,10 @@ export function Dashboard() {
   // Create new cases for Lawyers
   const CreateNewCaseForLawyer = async () => {
     if (!accessToken || !lawyerId) {
-      console.error(
-        `Access token ${accessToken} or user id ${userId} is missing`,
-      );
+      console.error(`Access token ${accessToken} or lawyer id ${lawyerId} is missing`);
       return;
     }
-    try {
-      const caseId = await createNewCaseByLawyerApi(
-        accessToken,
-        lawyerId,
-        "Applicant Name",
-        "AFFIRMATIVE",
-        "Single",
-        false,
-        0,
-        "12456@example.com",
-      );
-      dispatch(updateCurrentCaseId(caseId));
-      navigate("/case/" + caseId);
-    } catch (error) {
-      console.error("Failed to create new case for lawyer:", error);
-    }
+    navigate('/lawyerPreForm');
   };
 
   if (loading) {
