@@ -18,7 +18,8 @@ export function FormNavigation() {
   const indexLevel1 = useAppSelector(state => state.case.indexLevel1);
   const indexLevel2 = useAppSelector(state => state.case.indexLevel2);
   const screenSize = useAppSelector(state => state.common.screenSize);
-  const { steps } = useAppSelector(state => state.case.form);
+  // Added default value for steps to ensure it's always defined
+  const { steps } = useAppSelector(state => state.case.form || { steps: [] });
 
   if (!steps || steps.length === 0) {
     return null;
