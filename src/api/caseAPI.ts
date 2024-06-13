@@ -1,6 +1,7 @@
 import {
   ApplicationCase,
   Case,
+  CaseSummary,
   GeneratePresignedUrlResponse,
   ParsePassportResponse,
   UpdateApplicationCaseData,
@@ -134,6 +135,19 @@ export async function getCaseDetailsApi(
     accessToken,
   );
   return res.data as ApplicationCase;
+}
+
+export async function getCaseSummaryApi(
+  caseId: number,
+  accessToken: string,
+): Promise<CaseSummary> {
+  const res = await performApiRequest(
+    `api/case/asylum/get?id=${caseId}`,
+    "GET",
+    null,
+    accessToken,
+  );
+  return res.data as CaseSummary;
 }
 
 export async function updateApplicationCaseApi(

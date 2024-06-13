@@ -78,6 +78,22 @@ export interface ApplicationCase {
   updatedAt: number;
 }
 
+export interface CaseSummary {
+  id: number;
+  applicantName: string;
+  caseType: string;
+  asylumType: string;
+  maritalStatus: string;
+  applyWithSpouse: boolean;
+  numberOfChildren: number;
+  numberOfApplyingChildren: number;
+  currentStep: string;
+  progress: string;
+  desc: string;
+  createdAt: number;
+  updatedAt: number;
+}
+
 export interface Task {
   id: number;
   caseId: number;
@@ -429,4 +445,15 @@ export interface UploadedDocument {
   presignUrl: string;
   createdAt: number;
   updatedAt: number;
+}
+
+export enum CaseType {
+  Asylum = "Asylum",
+  H1B = "H1b",
+  NIW = "Niw",
+}
+
+export enum AsylumType {
+  AFFIRMATIVE = "AFFIRMATIVE",
+  DEFENSIVE = "DEFENSIVE",
 }
