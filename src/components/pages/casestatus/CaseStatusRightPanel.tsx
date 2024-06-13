@@ -91,7 +91,7 @@ export function CaseStatusRightPanel() {
   return (
     <div className="caseStatus">
       <CaseStatusCard caseSummary={caseSummary} />
-      <CaseProgressCard currentStep={caseSummary.currentStep} />
+      <CaseProgressCard caseSummary={caseSummary} />
     </div>
   );
 }

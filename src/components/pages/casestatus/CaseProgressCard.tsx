@@ -5,7 +5,7 @@ import { CaseSummary } from "../../../model/apiModels";
 import "./CaseProgressCard.css";
 
 interface CaseProgressCardProps {
-  currentStep: string;
+  caseSummary: CaseSummary;
 }
 
 const { Step } = Steps;
@@ -27,10 +27,10 @@ function getCurrentStepIndex(currentStep: string) {
   }
 }
 
-const CaseProgressCard: React.FC<CaseProgressCardProps> = ({ currentStep }) => {
+const CaseProgressCard: React.FC<CaseProgressCardProps> = ({ caseSummary }) => {
   return (
     <Card title={`案件进展`}>
-      <Steps current={getCurrentStepIndex(currentStep)}>
+      <Steps current={getCurrentStepIndex(caseSummary.currentStep)}>
         <Step title="信息完整" />
         <Step title="审核签署" />
         <Step title="递交申请" />
