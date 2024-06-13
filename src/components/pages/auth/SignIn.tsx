@@ -124,7 +124,7 @@ export function SignIn() {
   const form = (
     <>
       <div className="auth-toggle">
-        <QText>{t("I am a Lawyer")}</QText>
+        <QText>{t("IAmLawyer")}</QText>
         <Switch
           checked={role === "lawyer"}
           onChange={() => setRole(role === "customer" ? "lawyer" : "customer")}
