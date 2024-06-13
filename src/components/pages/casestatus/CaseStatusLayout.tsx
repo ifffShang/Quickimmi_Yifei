@@ -6,12 +6,12 @@ import CaseStatusMenuSider from "./CaseStatusMenuSider";
 import "./CaseStatusLayout.css";
 import { useNavigate } from "react-router-dom";
 
-const { Header, Content } = Layout;
+const { Content } = Layout;
 
 const CaseStatusLayout: React.FC = () => {
   const navigate = useNavigate();
   const handleBackClick = () => {
-    navigate("/dashboard"); // Adjust this path according to your routing setup
+    navigate("/dashboard");
   };
 
   return (

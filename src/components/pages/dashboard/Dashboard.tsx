@@ -85,10 +85,12 @@ export function Dashboard() {
   // Create new cases for Lawyers
   const CreateNewCaseForLawyer = async () => {
     if (!accessToken || !lawyerId) {
-      console.error(`Access token ${accessToken} or lawyer id ${lawyerId} is missing`);
+      console.error(
+        `Access token ${accessToken} or lawyer id ${lawyerId} is missing`,
+      );
       return;
     }
-    navigate('/lawyerPreForm');
+    navigate("/lawyerPreForm");
   };
 
   if (loading) {

@@ -3,8 +3,6 @@ import { Layout, Menu } from "antd";
 import {
   DashboardOutlined,
   FileOutlined,
-  TeamOutlined,
-  UserOutlined,
 } from "@ant-design/icons";
 import "./CaseStatusMenuSider.css";
 
@@ -19,14 +17,14 @@ const CaseStatusMenuSider: React.FC = () => {
           总览
         </Menu.Item>
         <Menu.Item key="2" icon={<FileOutlined />}>
-          申请表格
-        </Menu.Item>
-        <Menu.Item key="3" icon={<UserOutlined />}>
           附属文件
         </Menu.Item>
-        <Menu.Item key="4" icon={<TeamOutlined />}>
-          任务列表
-        </Menu.Item>
+        {/*<Menu.Item key="3" icon={<FileOutlined />}>*/}
+        {/*  申请表格*/}
+        {/*</Menu.Item>*/}
+        {/*<Menu.Item key="4" icon={<TeamOutlined />}>*/}
+        {/*  任务列表*/}
+        {/*</Menu.Item>*/}
       </Menu>
     </Sider>
   );
