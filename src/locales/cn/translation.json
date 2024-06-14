@@ -10,7 +10,9 @@
   "Compare": "比较",
   "Login": "登录",
   "SignUp": "注册",
+  "ForgotPassword": "忘记密码",
   "SignOut": "退出",
+  "ReturnToDashboard": "返回仪表盘",
   "LandingPage": {
     "BrandText": "AI助力，快速移民，轻松实现美国梦",
     "Lawyer": "律师",
@@ -74,6 +76,7 @@
   },
   "NotApplicableText": "不适用",
   "Email": "电子邮件",
+  "IAmLawyer": "我是律师",
   "Password": "密码",
   "NewPassword": "新密码",
   "ConfirmPassword": "确认密码",
@@ -94,6 +97,7 @@
   "SelectDocumentType": "选择证件类型",
   "Dashboard": {
     "Dashboard": "仪表盘",
+    "ReturnToDashboard": "返回仪表盘",
     "FirstApplication": "开始您的第一个申请吧",
     "GreetingMessage": "体验快速智能移民通道就是现在",
     "CreateNewApplication": "新建申请"
@@ -104,6 +108,14 @@
   "ImmigrationType": "移民类型",
   "ImmigrationReason": "移民原因",
   "Tips": "提示",
+
+  "Asylum": "庇护",
+  "CaseNumber": "案件编号",
+  "DownloadFile": "下载文件",
+  "Draft": "草稿",
+  "CreatedAt": "创建时间",
+  "LatestUpdate": "最新操作时间",
+  "ErrorFetchingCaseSummary": "获取案例摘要时出错",
 
   "PersonalInformation": "个人信息",
   "BasicInformation": "基本信息",
@@ -163,6 +175,7 @@
 
   "UploadSpousePassportOrOtherID": "上传配偶的护照或其他身份证明",
   "SpouseIsInUS": "配偶是否在美国?",
+  "SpousePartnerApplication": "配偶/伴侣申请",
   "Male": "男",
   "Female": "女",
   "MaritalStatus": "婚姻状况",
@@ -185,7 +198,10 @@
   "SpecifyLocationIfNotInUS": "如果不在美国，请填写位置",
 
   "Child": "子女",
+  "NumberOfChildren": "子女数量",
   "ChildUploadPassport": "上传子女的护照或其他身份证明",
+  "ChildApplyingWithMe": "子女和我一起申请",
+  "NumberOfChildApplication": "子女申请数量",
   "AddAChild": "添加一个子女",
   "MartialStatus": "婚姻状况",
   "ChildrenIsInUS": "这个子女是否在美国？",

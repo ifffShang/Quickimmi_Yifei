@@ -1,5 +1,5 @@
-import { Button, Checkbox, Input, Modal, Select } from "antd";
-import { useEffect, useState } from "react";
+import { Button } from "antd";
+import { useEffect } from "react";
 import { getFormFields } from "../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useFormTranslation } from "../../hooks/commonHooks";
@@ -9,21 +9,20 @@ import { Loading } from "../common/Loading";
 import "./FormContent.css";
 import { FormField } from "./FormField";
 import { updateApplicationCaseFunc } from "../../utils/functionUtils";
-
-const { Option } = Select;
+import CaseStatusLayout from "../pages/casestatus/CaseStatusLayout";
 
 interface FormContentProps {
   referenceId: string;
-  isLawyer?: boolean; // Add a prop to indicate if the content is for a lawyer
+  isLawyer?: boolean;
 }
 
 export function FormContent(props: FormContentProps) {
   const { wt, t } = useFormTranslation();
   const dispatch = useAppDispatch();
-  const accessToken = useAppSelector(state => state.auth.accessToken);
-  const applicationCase = useAppSelector(state => state.form.applicationCase);
-  const currentStep = useAppSelector(state => state.case.currentStep);
-  const formFieldsMap = useAppSelector(state => state.case.formFieldsMap);
+  const accessToken = useAppSelector((state) => state.auth.accessToken);
+  const applicationCase = useAppSelector((state) => state.form.applicationCase);
+  const currentStep = useAppSelector((state) => state.case.currentStep);
+  const formFieldsMap = useAppSelector((state) => state.case.formFieldsMap);
   const formFields =
     formFieldsMap && props.referenceId
       ? formFieldsMap[props.referenceId]
@@ -32,15 +31,15 @@ export function FormContent(props: FormContentProps) {
   useEffect(() => {
     if (!props.referenceId) return;
     getFormFields(props.referenceId)
-      .then(formFieldsRes => {
+      .then((formFieldsRes) => {
         dispatch(
           updateFormFieldsMap({
             referenceId: props.referenceId,
             formFields: formFieldsRes,
-          }),
+          })
         );
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   }, [props.referenceId, dispatch]);
@@ -102,12 +101,8 @@ export function FormContent(props: FormContentProps) {
   );
 
   const LawyerForm = (
-    <div></div>
+    <CaseStatusLayout />
   );
 
-  return (
-    <>
-      {props.isLawyer ? LawyerForm : CustomerForm}
-    </>
-  );
+  return <>{props.isLawyer ? LawyerForm : CustomerForm}</>;
 }

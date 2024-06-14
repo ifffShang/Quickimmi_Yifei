@@ -2,12 +2,14 @@ import React from "react";
 import { Card, Descriptions, Tag } from "antd";
 import { DownloadOutlined } from "@ant-design/icons";
 import { CaseSummary } from "../../../model/apiModels";
+import { useTranslation } from "react-i18next";
 import "./CaseStatusCard.css";
 interface CaseStatusCardProps {
   caseSummary: CaseSummary;
 }
 
 const CaseStatusCard: React.FC<CaseStatusCardProps> = ({ caseSummary }) => {
+  const { t } = useTranslation();
   const {
     id,
     applicantName,
@@ -23,10 +25,10 @@ const CaseStatusCard: React.FC<CaseStatusCardProps> = ({ caseSummary }) => {
   return (
     <Card
       title={
-        <>
+        <div className="case-card-header">
           <div>
             <span style={{ fontWeight: "bold", fontSize: "16px" }}>
-              案件编号：#
+              {t("CaseNumber") + ":#"}
             </span>
             {id}
           </div>
@@ -35,41 +37,41 @@ const CaseStatusCard: React.FC<CaseStatusCardProps> = ({ caseSummary }) => {
               color="#F2F2F2"
               style={{ marginTop: "10px", color: "#828282" }}
             >
-              庇护-4
+              {t("Asylum") + "-4"}
             </Tag>
           </div>
-        </>
+        </div>
       }
       extra={
-        <>
+        <div className="case-card-header">
           <a href="#">
-            <DownloadOutlined /> 下载文件
+            <DownloadOutlined /> {t("DownloadFile")}
           </a>{" "}
           <Tag color="orange" className="draft-tag">
-            草稿
+            {t("Draft")}
           </Tag>
-        </>
+        </div>
       }
       className="case-card"
     >
       <Descriptions column={3}>
-        <Descriptions.Item label="创建时间">
+        <Descriptions.Item label={t("CreatedAt")}>
           {new Date(createdAt).toLocaleDateString()}
         </Descriptions.Item>
-        <Descriptions.Item label="最新操作时间">
+        <Descriptions.Item label={t("LastUpdated")}>
           {new Date(updatedAt).toLocaleDateString()}
         </Descriptions.Item>
-        <Descriptions.Item label="主要申请人">
+        <Descriptions.Item label={t("MasterApplicant")}>
           {applicantName}
         </Descriptions.Item>
-        <Descriptions.Item label="婚姻状态">{maritalStatus}</Descriptions.Item>
-        <Descriptions.Item label="配偶伴侣申请">
-          {applyWithSpouse ? "是" : "否"}
+        <Descriptions.Item label={t("MaritalStatus")}>{maritalStatus}</Descriptions.Item>
+        <Descriptions.Item label={t("SpousePartnerApplication")}>
+          {applyWithSpouse ? "Yes" : "No"}
         </Descriptions.Item>
-        <Descriptions.Item label="子女数量">
+        <Descriptions.Item label={t("NumberOfChildren")}>
           {numberOfChildren}
         </Descriptions.Item>
-        <Descriptions.Item label="子女申请数量">
+        <Descriptions.Item label={t("NumberOfChildApplication")}>
           {numberOfApplyingChildren}
         </Descriptions.Item>
       </Descriptions>

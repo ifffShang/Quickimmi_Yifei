@@ -36,14 +36,14 @@ export function FormFlow({ isLawyer, lawyerNewCase = false }: FormFlowProps) {
         <div className="form-top">
           <QReturnLink
             onClick={() => navigate("/dashboard")}
-            text={t("Return to dashboard")}
+            text={t("ReturnToDashboard")}
             margin="20px 0 15px 0"
           />
           <FormHeader />
         </div>
       )}
       <div className="form-flow-content">
-        {!isSmallScreen && !lawyerNewCase && <FormNavigation />}
+        {!isSmallScreen && !isLawyer && <FormNavigation />}
         {lawyerNewCase ? (
           <LawyerPreForm />
         ) : (
