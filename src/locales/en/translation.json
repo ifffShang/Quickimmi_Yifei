@@ -10,7 +10,9 @@
   "Compare": "Compare",
   "Login": "Log in",
   "SignUp": "Sign up",
+  "ForgotPassword": "Forgot password",
   "SignOut": "Sign out",
+  "ReturnToDashboard": "Return to Dashboard",
   "LandingPage": {
     "BrandText": "Fast-Track Your American Dream with AI",
     "Lawyer": "Lawyer",
@@ -74,6 +76,7 @@
   },
   "NotApplicableText": "N/A",
   "Email": "Email",
+  "IAmLawyer": "I am a lawyer",
   "Password": "Password",
   "NewPassword": "New Password",
   "ConfirmPassword": "Confirm Password",
@@ -101,6 +104,14 @@
   "ImmigrationType": "Immigration Type",
   "ImmigrationReason": "Immigration Reason",
   "Tips": "Tips",
+
+  "Asylum": "Asylum",
+  "CaseNumber": "Case Number",
+  "DownloadFile": "DownloadFile",
+  "Draft": "Draft",
+  "CreatedAt": "Created At",
+  "LatestUpdate": "Latest Update",
+
 
   "PersonalInformation": "Personal",
   "BasicInformation": "Basic",
@@ -164,6 +175,7 @@
 
   "UploadSpousePassportOrOtherID": "Upload spouse's passport or other identity document",
   "SpouseIsInUS": "Is this person in the U.S.?",
+  "SpousePartnerApplication": "Spouse/Partner Application",
   "Male": "Male",
   "Female": "Female",
   "MaritalStatus": "Marital Status",
@@ -186,7 +198,10 @@
   "SpecifyLocationIfNotInUS": "Specify location if not in the U.S.",
 
   "Child": "Child",
+  "NumberOfChildren": "Number of Children",
   "ChildUploadPassport": "Upload child's passport or other identity document",
+  "ChildApplyingWithMe": "Children applying with me",
+  "NumberOfChildApplication": "Number of child application",
   "AddAChild": "Add a child",
   "MartialStatus": "Martial Status",
   "ChildrenIsInUS": "Is this child in the U.S.?",

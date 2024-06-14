@@ -138,7 +138,7 @@ export function SignIn() {
       </div>
 
       <FormInput
-        placeholder={t("Email address")}
+        placeholder={t("Email")}
         value={email}
         onChange={setEmail}
         validate={validateEmail}
@@ -161,9 +161,9 @@ export function SignIn() {
 
   const actions = (
     <>
-      <Link onClick={() => navigate("/forgotpassword")}>Forgot Password?</Link>
+      <Link onClick={() => navigate("/forgotpassword")}>{t("ForgotPassword")}</Link>
       <Button type="primary" onClick={loginUser}>
-        Login
+        {t("Login")}
       </Button>
     </>
   );
@@ -188,7 +188,7 @@ export function SignIn() {
 
   return (
     <AuthComponent
-      formHeader="Sign In"
+      formHeader={t("Login")}
       form={form}
       actions={actions}
       error={error}

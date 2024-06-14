@@ -96,7 +96,7 @@ export function LawyerPreForm() {
           </Select>
         </div>
         <div className="field-section-preForm">
-          <Checkbox checked={applyWithChildren} onChange={e => setApplyWithChildren(e.target.checked)}>{t("ChildrenApplyingWithMe")}</Checkbox>
+          <Checkbox checked={applyWithChildren} onChange={e => setApplyWithChildren(e.target.checked)}>{t("ChildApplyingWithMe")}</Checkbox>
           {applyWithChildren && (
             <div>
               <QText level="field-label">{t("NumberOfChildren")}</QText>
