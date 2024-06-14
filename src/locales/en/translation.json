@@ -111,6 +111,7 @@
   "Draft": "Draft",
   "CreatedAt": "Created At",
   "LatestUpdate": "Latest Update",
+  "ErrorFetchingCaseSummary": "Error fetching case summary",
 
 
   "PersonalInformation": "Personal",

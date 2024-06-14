@@ -115,6 +115,7 @@
   "Draft": "草稿",
   "CreatedAt": "创建时间",
   "LatestUpdate": "最新操作时间",
+  "ErrorFetchingCaseSummary": "获取案例摘要时出错",
 
   "PersonalInformation": "个人信息",
   "BasicInformation": "基本信息",
