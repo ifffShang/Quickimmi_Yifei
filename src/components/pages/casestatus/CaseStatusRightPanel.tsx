@@ -17,12 +17,14 @@ function useFetchCaseSummary() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const accessToken = useAppSelector(state => state.auth.accessToken);
+  const state = useAppSelector(state => state);
   const userId = useAppSelector(state => state.auth.userId);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [caseSummary, setCaseSummary] = useState<CaseSummary | null>(null);
 
   const fetchCaseSummary = useCallback(async () => {
+    console.error("state", state);
     if (!accessToken || !userId) {
       console.error("Access token or user id is missing");
       setError("Access token or user id is missing");

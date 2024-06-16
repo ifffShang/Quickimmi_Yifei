@@ -56,7 +56,7 @@ export async function createNewCaseApi(
 // new case by lawyer
 export async function createNewCaseByLawyerApi(
   accessToken: string,
-  lawyerId: number,
+  userId: number,
   applicantName: string,
   asylumType: string,
   maritalStatus: string,
@@ -68,7 +68,7 @@ export async function createNewCaseByLawyerApi(
     "api/case/asylum/createByLawyer",
     "POST",
     {
-      lawyerId,
+      userId,
       applicantName,
       asylumType,
       maritalStatus,
@@ -110,11 +110,11 @@ export async function getCasesApi(
 
 // get all cases for a lawyer
 export async function getCasesByLawyerApi(
-  lawyerId: number,
+  userId: number,
   accessToken: string,
 ): Promise<Case[]> {
   const res = await performApiRequest(
-    `api/case/listByLawyerId?lawyerId=${lawyerId}`,
+    `api/case/listByLawyerId?lawyerId=${userId}`,
     "GET",
     null,
     accessToken,

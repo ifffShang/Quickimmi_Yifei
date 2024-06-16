@@ -4,7 +4,7 @@ import { Button, Input, Select, Checkbox, Modal } from "antd";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useTranslation } from "react-i18next";
 import { createNewCaseByLawyerApi } from "../../api/caseAPI";
-import { updateCurrentCaseId } from "../../reducers/caseSlice";
+import {resetForm, updateCurrentCaseId} from "../../reducers/caseSlice";
 import { validateEmail } from "../../utils/utils";
 import { QText } from "../common/Fonts";
 import "./LawyerPreForm.css";
@@ -12,11 +12,24 @@ import "./LawyerPreForm.css";
 const { Option } = Select;
 
 export function LawyerPreForm() {
+  /*
+    Type:
+    [
+      {
+        "Type" : "Asylum",
+        "SubType": [
+          "Affirmative",
+          "Defensive"
+        ]
+      }
+    ]
+   */
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const accessToken = useAppSelector(state => state.auth.accessToken);
-  const lawyerId = useAppSelector(state => state.auth.lawyerId);
+  const userId = useAppSelector(state => state.auth.userId);
+  const isLawyer = useAppSelector(state => state.auth.isLawyer);
 
   const [applicantName, setApplicantName] = useState("");
   const [applicationType, setApplicationType] = useState("");
@@ -42,14 +55,21 @@ export function LawyerPreForm() {
   };
 
   const handleOk = async () => {
-    if (!accessToken || !lawyerId) {
-      console.error(`Access token ${accessToken} or lawyer id ${lawyerId} is missing`);
+    if (!isLawyer) {
+      console.error('Only Lawyer has the permission to create case from this page.');
+      // TODO: pop up error message
+      return;
+    }
+    if (!accessToken || !userId) {
+      console.error(`Access token ${accessToken} or lawyer id ${userId} is missing`);
+      // TODO: pop up error message
       return;
     }
     try {
+      // TODO: this API is to create Asylum case now, when introducing new immigration type, decide which API to call based on the immigration type selection.
       const caseId = await createNewCaseByLawyerApi(
         accessToken,
-        lawyerId,
+        userId,
         applicantName,
         applicationType,
         maritalStatus,
@@ -57,6 +77,7 @@ export function LawyerPreForm() {
         numberOfChildren,
         providedCustomerEmail
       );
+      dispatch(resetForm());
       dispatch(updateCurrentCaseId(caseId));
       navigate("/case/" + caseId);
     } catch (error) {

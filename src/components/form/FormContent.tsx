@@ -13,7 +13,6 @@ import CaseStatusLayout from "../pages/casestatus/CaseStatusLayout";
 
 interface FormContentProps {
   referenceId: string;
-  isLawyer?: boolean;
 }
 
 export function FormContent(props: FormContentProps) {
@@ -100,9 +99,5 @@ export function FormContent(props: FormContentProps) {
     </div>
   );
 
-  const LawyerForm = (
-    <CaseStatusLayout />
-  );
-
-  return <>{props.isLawyer ? LawyerForm : CustomerForm}</>;
+  return CustomerForm;
 }

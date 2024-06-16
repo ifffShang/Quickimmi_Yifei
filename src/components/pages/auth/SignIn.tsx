@@ -87,8 +87,8 @@ export function SignIn() {
 
         dispatch(
           updateAuthState({
-            userId: role === "customer" ? userInfo?.id || 0 : undefined,
-            lawyerId: role === "lawyer" ? userInfo?.id || 0 : undefined,
+            userId: userInfo?.id || undefined,
+            isLawyer: role === "lawyer",
             isLoggedIn: true,
             email,
             accessToken: accessToken,
