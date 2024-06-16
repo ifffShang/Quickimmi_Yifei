@@ -27,9 +27,12 @@ export function FormFlow({ isLawyer, lawyerNewCase = false }: FormFlowProps) {
     screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall;
 
   if (!form || indexLevel1 === -1 || indexLevel2 === -1) {
-    return <Loading />;
+    return (
+      <div className="form-flow">
+        <Loading />
+      </div>
+    );
   }
-
   return (
     <div className="form-flow">
       {screenSize !== ScreenSize.xsmall && (
@@ -56,7 +59,9 @@ export function FormFlow({ isLawyer, lawyerNewCase = false }: FormFlowProps) {
             />
           </div>
         ) : (
-          <Loading />
+          <div>
+            <Loading />
+          </div>
         )}
       </div>
     </div>
