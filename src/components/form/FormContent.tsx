@@ -18,10 +18,10 @@ interface FormContentProps {
 export function FormContent(props: FormContentProps) {
   const { wt, t } = useFormTranslation();
   const dispatch = useAppDispatch();
-  const accessToken = useAppSelector((state) => state.auth.accessToken);
-  const applicationCase = useAppSelector((state) => state.form.applicationCase);
-  const currentStep = useAppSelector((state) => state.case.currentStep);
-  const formFieldsMap = useAppSelector((state) => state.case.formFieldsMap);
+  const accessToken = useAppSelector(state => state.auth.accessToken);
+  const applicationCase = useAppSelector(state => state.form.applicationCase);
+  const currentStep = useAppSelector(state => state.case.currentStep);
+  const formFieldsMap = useAppSelector(state => state.case.formFieldsMap);
   const formFields =
     formFieldsMap && props.referenceId
       ? formFieldsMap[props.referenceId]
@@ -30,15 +30,15 @@ export function FormContent(props: FormContentProps) {
   useEffect(() => {
     if (!props.referenceId) return;
     getFormFields(props.referenceId)
-      .then((formFieldsRes) => {
+      .then(formFieldsRes => {
         dispatch(
           updateFormFieldsMap({
             referenceId: props.referenceId,
             formFields: formFieldsRes,
-          })
+          }),
         );
       })
-      .catch((error) => {
+      .catch(error => {
         console.error(error);
       });
   }, [props.referenceId, dispatch]);

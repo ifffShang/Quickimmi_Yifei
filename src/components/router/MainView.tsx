@@ -25,7 +25,7 @@ export const PATH = {
   CaseStatus: "/casestatus/:id",
   CaseDetails: "/case/:id",
   Checkout: "/checkout",
-  LawyerPreForm: "/lawyerNewCase", 
+  LawyerPreForm: "/lawyerNewCase",
   Others: "*",
 };
 

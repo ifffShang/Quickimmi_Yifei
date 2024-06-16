@@ -4,7 +4,7 @@ import { Button, Input, Select, Checkbox, Modal } from "antd";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useTranslation } from "react-i18next";
 import { createNewCaseByLawyerApi } from "../../api/caseAPI";
-import {resetForm, updateCurrentCaseId} from "../../reducers/caseSlice";
+import { resetForm, updateCurrentCaseId } from "../../reducers/caseSlice";
 import { validateEmail } from "../../utils/utils";
 import { QText } from "../common/Fonts";
 import "./LawyerPreForm.css";
@@ -39,16 +39,27 @@ export function LawyerPreForm() {
   const [providedCustomerEmail, setProvidedCustomerEmail] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isSendButtonDisabled, setIsSendButtonDisabled] = useState(true);
-  const [isEmailSendButtonDisabled, setIsEmailSendButtonDisabled] = useState(true);
+  const [isEmailSendButtonDisabled, setIsEmailSendButtonDisabled] =
+    useState(true);
 
   useEffect(() => {
-    const isFormValid = applicantName && applicationType && maritalStatus && (!applyWithChildren || (applyWithChildren && numberOfChildren));
+    const isFormValid =
+      applicantName &&
+      applicationType &&
+      maritalStatus &&
+      (!applyWithChildren || (applyWithChildren && numberOfChildren));
     setIsSendButtonDisabled(!isFormValid);
-    const isEmailValid = providedCustomerEmail && validateEmail(providedCustomerEmail);
+    const isEmailValid =
+      providedCustomerEmail && validateEmail(providedCustomerEmail);
     setIsEmailSendButtonDisabled(!isEmailValid);
-  }, [applicantName, applicationType, maritalStatus, applyWithChildren, numberOfChildren, providedCustomerEmail]);
-
-  
+  }, [
+    applicantName,
+    applicationType,
+    maritalStatus,
+    applyWithChildren,
+    numberOfChildren,
+    providedCustomerEmail,
+  ]);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -56,12 +67,16 @@ export function LawyerPreForm() {
 
   const handleOk = async () => {
     if (!isLawyer) {
-      console.error('Only Lawyer has the permission to create case from this page.');
+      console.error(
+        "Only Lawyer has the permission to create case from this page.",
+      );
       // TODO: pop up error message
       return;
     }
     if (!accessToken || !userId) {
-      console.error(`Access token ${accessToken} or lawyer id ${userId} is missing`);
+      console.error(
+        `Access token ${accessToken} or lawyer id ${userId} is missing`,
+      );
       // TODO: pop up error message
       return;
     }
@@ -75,7 +90,7 @@ export function LawyerPreForm() {
         maritalStatus,
         applyWithChildren,
         numberOfChildren,
-        providedCustomerEmail
+        providedCustomerEmail,
       );
       dispatch(resetForm());
       dispatch(updateCurrentCaseId(caseId));
@@ -98,18 +113,33 @@ export function LawyerPreForm() {
       <div className="form-content-form-preForm">
         <div className="field-section-preForm">
           <QText level="field-label">{t("Name")}</QText>
-          <Input className="field-input-preForm" placeholder="Enter applicant's name" value={applicantName} onChange={e => setApplicantName(e.target.value)} />
+          <Input
+            className="field-input-preForm"
+            placeholder="Enter applicant's name"
+            value={applicantName}
+            onChange={e => setApplicantName(e.target.value)}
+          />
         </div>
         <div className="field-section-preForm">
           <QText level="field-label">{t("ImmigrationType")}</QText>
-          <Select className="field-input-preForm" placeholder="Select immigration type" value={applicationType} onChange={value => setApplicationType(value)}>
+          <Select
+            className="field-input-preForm"
+            placeholder="Select immigration type"
+            value={applicationType}
+            onChange={value => setApplicationType(value)}
+          >
             <Option value="AFFIRMATIVE">Affirmative</Option>
             <Option value="DEFENSIVE">Defensive</Option>
           </Select>
         </div>
         <div className="field-section-preForm">
           <QText level="field-label">{t("MaritalStatus")}</QText>
-          <Select className="field-input-preForm" placeholder="Select marital status" value={maritalStatus} onChange={value => setMaritalStatus(value)}>
+          <Select
+            className="field-input-preForm"
+            placeholder="Select marital status"
+            value={maritalStatus}
+            onChange={value => setMaritalStatus(value)}
+          >
             <Option value="Single">{t("Single")}</Option>
             <Option value="Married">{t("Married")}</Option>
             <Option value="Divorced">{t("Divorced")}</Option>
@@ -117,17 +147,35 @@ export function LawyerPreForm() {
           </Select>
         </div>
         <div className="field-section-preForm">
-          <Checkbox checked={applyWithChildren} onChange={e => setApplyWithChildren(e.target.checked)}>{t("ChildApplyingWithMe")}</Checkbox>
+          <Checkbox
+            checked={applyWithChildren}
+            onChange={e => setApplyWithChildren(e.target.checked)}
+          >
+            {t("ChildApplyingWithMe")}
+          </Checkbox>
           {applyWithChildren && (
             <div>
               <QText level="field-label">{t("NumberOfChildren")}</QText>
-              <Input className="field-input-preForm" type="number" value={numberOfChildren} onChange={e => setNumberOfChildren(Math.max(0, parseInt(e.target.value)))} />
+              <Input
+                className="field-input-preForm"
+                type="number"
+                value={numberOfChildren}
+                onChange={e =>
+                  setNumberOfChildren(Math.max(0, parseInt(e.target.value)))
+                }
+              />
             </div>
           )}
         </div>
       </div>
       <div className="form-content-controls-preForm">
-        <Button type="primary" onClick={showModal} disabled={isSendButtonDisabled}>{t("Send")}</Button>
+        <Button
+          type="primary"
+          onClick={showModal}
+          disabled={isSendButtonDisabled}
+        >
+          {t("Send")}
+        </Button>
       </div>
       <Modal
         title="Input client email"
@@ -144,7 +192,14 @@ export function LawyerPreForm() {
             onChange={e => setProvidedCustomerEmail(e.target.value)}
             className="email-input-preForm"
           />
-          <Button type="primary" onClick={handleOk} className="email-send-button-preForm" disabled={isEmailSendButtonDisabled}>{t("Send")}</Button>
+          <Button
+            type="primary"
+            onClick={handleOk}
+            className="email-send-button-preForm"
+            disabled={isEmailSendButtonDisabled}
+          >
+            {t("Send")}
+          </Button>
         </div>
       </Modal>
     </div>

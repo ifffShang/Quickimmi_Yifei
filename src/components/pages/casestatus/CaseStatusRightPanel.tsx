@@ -8,7 +8,7 @@ import { DownloadOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import CaseProgressCard from "./CaseProgressCard";
 import CaseStatusCard from "./CaseStatusCard";
 import "./CaseStatusRightPanel.css";
-import {getCaseSummaryApi} from "../../../api/caseAPI";
+import { getCaseSummaryApi } from "../../../api/caseAPI";
 
 const { Step } = Steps;
 
@@ -51,125 +51,125 @@ function useFetchCaseSummary() {
       //     });
       // Mock data
       const mockCaseSummary: CaseSummary = {
-        "id": 55,
-        "applicantName": "Brandon Qi",
-        "caseType": "Asylum",
-        "asylumType": "AFFIRMATIVE",
-        "maritalStatus": "Married",
-        "applyWithSpouse": false,
-        "numberOfChildren": 2,
-        "numberOfApplyingChildren": 1,
-        "currentStep": "FILLING_APPLICATION",
-        "progress": {
-          "steps": [
+        id: 55,
+        applicantName: "Brandon Qi",
+        caseType: "Asylum",
+        asylumType: "AFFIRMATIVE",
+        maritalStatus: "Married",
+        applyWithSpouse: false,
+        numberOfChildren: 2,
+        numberOfApplyingChildren: 1,
+        currentStep: "FILLING_APPLICATION",
+        progress: {
+          steps: [
             {
-              "name": "FILLING_APPLICATION",
-              "status": "NOT_START",
-              "substeps": [
+              name: "FILLING_APPLICATION",
+              status: "NOT_START",
+              substeps: [
                 {
-                  "name": "FILLING_DETAILS",
-                  "status": "NOT_START",
-                  "metadata": null,
-                  "startedAt": 1716788746776,
-                  "updatedAt": 1716788746776
-                }
+                  name: "FILLING_DETAILS",
+                  status: "NOT_START",
+                  metadata: null,
+                  startedAt: 1716788746776,
+                  updatedAt: 1716788746776,
+                },
               ],
-              "startedAt": 1716788746776,
-              "updatedAt": 1716788746776
+              startedAt: 1716788746776,
+              updatedAt: 1716788746776,
             },
             {
-              "name": "REVIEW_AND_SIGN",
-              "status": "NOT_START",
-              "substeps": [
+              name: "REVIEW_AND_SIGN",
+              status: "NOT_START",
+              substeps: [
                 {
-                  "name": "LAWYER_REVIEW",
-                  "status": "NOT_START",
-                  "metadata": null,
-                  "startedAt": 1716788746776,
-                  "updatedAt": 1716788746776
+                  name: "LAWYER_REVIEW",
+                  status: "NOT_START",
+                  metadata: null,
+                  startedAt: 1716788746776,
+                  updatedAt: 1716788746776,
                 },
                 {
-                  "name": "CLIENT_SIGNATURE",
-                  "status": "NOT_START",
-                  "metadata": null,
-                  "startedAt": 1716788746776,
-                  "updatedAt": 1716788746776
-                }
+                  name: "CLIENT_SIGNATURE",
+                  status: "NOT_START",
+                  metadata: null,
+                  startedAt: 1716788746776,
+                  updatedAt: 1716788746776,
+                },
               ],
-              "startedAt": 1716788746776,
-              "updatedAt": 1716788746776
+              startedAt: 1716788746776,
+              updatedAt: 1716788746776,
             },
             {
-              "name": "SUBMIT_APPLICATION",
-              "status": "NOT_START",
-              "substeps": [
+              name: "SUBMIT_APPLICATION",
+              status: "NOT_START",
+              substeps: [
                 {
-                  "name": "SUBMIT_APPLICATION",
-                  "status": "NOT_START",
-                  "metadata": null,
-                  "startedAt": 1716788746776,
-                  "updatedAt": 1716788746776
+                  name: "SUBMIT_APPLICATION",
+                  status: "NOT_START",
+                  metadata: null,
+                  startedAt: 1716788746776,
+                  updatedAt: 1716788746776,
                 },
                 {
-                  "name": "NOTICE_RECEIPT",
-                  "status": "NOT_START",
-                  "metadata": null,
-                  "startedAt": 1716788746776,
-                  "updatedAt": 1716788746776
-                }
+                  name: "NOTICE_RECEIPT",
+                  status: "NOT_START",
+                  metadata: null,
+                  startedAt: 1716788746776,
+                  updatedAt: 1716788746776,
+                },
               ],
-              "startedAt": 1716788746776,
-              "updatedAt": 1716788746776
+              startedAt: 1716788746776,
+              updatedAt: 1716788746776,
             },
             {
-              "name": "FINGERPRINT_INTERVIEW",
-              "status": "NOT_START",
-              "substeps": [
+              name: "FINGERPRINT_INTERVIEW",
+              status: "NOT_START",
+              substeps: [
                 {
-                  "name": "FINGERPRINT_COLLECTION",
-                  "status": "NOT_START",
-                  "metadata": null,
-                  "startedAt": 1716788746776,
-                  "updatedAt": 1716788746776
+                  name: "FINGERPRINT_COLLECTION",
+                  status: "NOT_START",
+                  metadata: null,
+                  startedAt: 1716788746776,
+                  updatedAt: 1716788746776,
                 },
                 {
-                  "name": "INTERVIEW",
-                  "status": "NOT_START",
-                  "metadata": null,
-                  "startedAt": 1716788746776,
-                  "updatedAt": 1716788746776
-                }
+                  name: "INTERVIEW",
+                  status: "NOT_START",
+                  metadata: null,
+                  startedAt: 1716788746776,
+                  updatedAt: 1716788746776,
+                },
               ],
-              "startedAt": 1716788746776,
-              "updatedAt": 1716788746776
+              startedAt: 1716788746776,
+              updatedAt: 1716788746776,
             },
             {
-              "name": "FINAL_RESULT",
-              "status": "NOT_START",
-              "substeps": [
+              name: "FINAL_RESULT",
+              status: "NOT_START",
+              substeps: [
                 {
-                  "name": "FINAL_REVIEW",
-                  "status": "NOT_START",
-                  "metadata": null,
-                  "startedAt": 1716788746776,
-                  "updatedAt": 1716788746776
+                  name: "FINAL_REVIEW",
+                  status: "NOT_START",
+                  metadata: null,
+                  startedAt: 1716788746776,
+                  updatedAt: 1716788746776,
                 },
                 {
-                  "name": "RESULT",
-                  "status": "NOT_START",
-                  "metadata": null,
-                  "startedAt": 1716788746776,
-                  "updatedAt": 1716788746776
-                }
+                  name: "RESULT",
+                  status: "NOT_START",
+                  metadata: null,
+                  startedAt: 1716788746776,
+                  updatedAt: 1716788746776,
+                },
               ],
-              "startedAt": 1716788746776,
-              "updatedAt": 1716788746776
-            }
-          ]
+              startedAt: 1716788746776,
+              updatedAt: 1716788746776,
+            },
+          ],
         },
-        "desc": null,
-        "createdAt": 1715912208190,
-        "updatedAt": 1718259472477
+        desc: null,
+        createdAt: 1715912208190,
+        updatedAt: 1718259472477,
       };
       setCaseSummary(mockCaseSummary);
     } catch (err) {

@@ -97,7 +97,7 @@ export function Dashboard() {
       return;
     }
 
-    navigate('/lawyerNewCase');
+    navigate("/lawyerNewCase");
   };
 
   if (loading) {

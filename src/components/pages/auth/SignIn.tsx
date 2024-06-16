@@ -161,7 +161,9 @@ export function SignIn() {
 
   const actions = (
     <>
-      <Link onClick={() => navigate("/forgotpassword")}>{t("ForgotPassword")}</Link>
+      <Link onClick={() => navigate("/forgotpassword")}>
+        {t("ForgotPassword")}
+      </Link>
       <Button type="primary" onClick={loginUser}>
         {t("Login")}
       </Button>
