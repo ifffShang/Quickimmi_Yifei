@@ -9,6 +9,7 @@ import { FormNavigation } from "./FormNavigation";
 import { QReturnLink } from "../common/Links";
 import { useTranslation } from "react-i18next";
 import { useScreenSize } from "../../utils/screenSizeUtil";
+import { Loading } from "../common/Loading";
 
 interface FormFlowProps {
   isLawyer?: boolean;
@@ -26,7 +27,9 @@ export function FormFlow({ isLawyer, lawyerNewCase = false }: FormFlowProps) {
     screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall;
 
   if (!form || indexLevel1 === -1 || indexLevel2 === -1) {
-    return <div>Loading...</div>;
+    return (
+      <Loading />
+    );
   }
 
   return (
@@ -38,14 +41,15 @@ export function FormFlow({ isLawyer, lawyerNewCase = false }: FormFlowProps) {
             text={t("ReturnToDashboard")}
             margin="20px 0 15px 0"
           />
+          <FormHeader />
         </div>
       )}
       <div className="form-flow-content">
+        {!isSmallScreen && <FormNavigation />}
         {lawyerNewCase ? (
           <LawyerPreForm />
         ) : form && indexLevel1 !== -1 && indexLevel2 !== -1 ? (
           <div>
-            {!isSmallScreen && <FormNavigation />}
             <FormHeader />
             <FormContent
               referenceId={
@@ -54,7 +58,7 @@ export function FormFlow({ isLawyer, lawyerNewCase = false }: FormFlowProps) {
             />
           </div>
         ) : (
-          <div>Loading...</div>
+          <Loading />
         )}
       </div>
     </div>
