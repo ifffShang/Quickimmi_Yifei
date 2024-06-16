@@ -27,9 +27,7 @@ export function FormFlow({ isLawyer, lawyerNewCase = false }: FormFlowProps) {
     screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall;
 
   if (!form || indexLevel1 === -1 || indexLevel2 === -1) {
-    return (
-      <Loading />
-    );
+    return <Loading />;
   }
 
   return (
