@@ -8,6 +8,7 @@ import { DownloadOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import CaseProgressCard from "./CaseProgressCard";
 import CaseStatusCard from "./CaseStatusCard";
 import "./CaseStatusRightPanel.css";
+import {getCaseSummaryApi} from "../../../api/caseAPI";
 
 const { Step } = Steps;
 
@@ -36,6 +37,16 @@ function useFetchCaseSummary() {
 
     try {
       setLoading(true);
+      // getCaseSummaryApi(id, accessToken)
+      //     .then((data) => {
+      //       setCaseSummary(data);
+      //       setLoading(false);
+      //     })
+      //     .catch((error) => {
+      //       console.error("Failed to fetch case summary:", error);
+      //       setError("Failed to fetch case summary. Please try again later.");
+      //       setLoading(false);
+      //     });
       // Mock data
       const mockCaseSummary: CaseSummary = {
         "id": 55,

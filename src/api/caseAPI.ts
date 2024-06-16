@@ -138,7 +138,7 @@ export async function getCaseDetailsApi(
 }
 
 export async function getCaseSummaryApi(
-  caseId: number,
+  caseId: string,
   accessToken: string,
 ): Promise<CaseSummary> {
   const res = await performApiRequest(
