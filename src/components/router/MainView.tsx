@@ -10,7 +10,7 @@ import { FormFlow } from "../form/FormFlow";
 import { LawyerPreForm } from "../form/LawyerPreForm";
 import "./MainView.css";
 import CaseStatusLayout from "../pages/casestatus/CaseStatusLayout";
-import {CaseDocuments} from "../pages/casedocuments/CaseDocuments";
+import { CaseDocuments } from "../pages/casedocuments/CaseDocuments";
 
 export const PATH = {
   Home: "/",

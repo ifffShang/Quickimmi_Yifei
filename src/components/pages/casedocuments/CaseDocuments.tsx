@@ -1,7 +1,3 @@
 export function CaseDocuments() {
-    return (
-        <>
-            Coming Soon...
-        </>
-    );
+  return <>Coming Soon...</>;
 }
