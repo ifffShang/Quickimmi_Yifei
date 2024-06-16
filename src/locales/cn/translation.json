@@ -13,6 +13,7 @@
   "ForgotPassword": "忘记密码",
   "SignOut": "退出",
   "ReturnToDashboard": "返回仪表盘",
+  "ReturnTocCaseSummaryPage": "查看案件进展",
   "LandingPage": {
     "BrandText": "AI助力，快速移民，轻松实现美国梦",
     "Lawyer": "律师",
@@ -571,5 +572,8 @@
     "也门人",
     "赞比亚人",
     "津巴布韦人"
-  ]
+  ],
+  "CaseStatusMenuOverview": "简介",
+  "CaseStatusMenuDocuments": "相关文件",
+  "CaseStatusMenuApplicationForm": "申请表格"
 }

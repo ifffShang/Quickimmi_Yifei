@@ -28,7 +28,7 @@ export function CaseCard(props: CaseCardProps) {
       );
       return;
     }
-    navigate("/case/" + props.caseId);
+    navigate("/casestatus/" + props.caseId);
   };
 
   const deleteCase = async () => {

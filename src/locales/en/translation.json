@@ -13,6 +13,7 @@
   "ForgotPassword": "Forgot password",
   "SignOut": "Sign out",
   "ReturnToDashboard": "Return to Dashboard",
+  "ReturnTocCaseSummaryPage": "Return to Case Summary",
   "LandingPage": {
     "BrandText": "Fast-Track Your American Dream with AI",
     "Lawyer": "Lawyer",
@@ -571,5 +572,9 @@
     "Yemeni",
     "Zambian",
     "Zimbabwean"
-  ]
+  ],
+
+  "CaseStatusMenuOverview": "Overview",
+  "CaseStatusMenuDocuments": "Documents",
+  "CaseStatusMenuApplicationForm": "Application Form"
 }

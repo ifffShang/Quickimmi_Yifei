@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
 import { ScreenSize } from "../../model/commonModels";
 import { FormContent } from "./FormContent";
@@ -18,6 +18,7 @@ interface FormFlowProps {
 
 export function FormFlow({ isLawyer, lawyerNewCase = false }: FormFlowProps) {
   const navigate = useNavigate();
+  const { id: caseId } = useParams<{ id: string }>(); // Get caseId from URL params
   const { t } = useTranslation();
   const form = useAppSelector(state => state.case.form);
   const indexLevel1 = useAppSelector(state => state.case.indexLevel1);
@@ -38,8 +39,8 @@ export function FormFlow({ isLawyer, lawyerNewCase = false }: FormFlowProps) {
       {screenSize !== ScreenSize.xsmall && (
         <div className="form-top">
           <QReturnLink
-            onClick={() => navigate("/dashboard")}
-            text={t("ReturnToDashboard")}
+            onClick={() => navigate(`/casestatus/${caseId}`)}
+            text={t("ReturnTocCaseSummaryPage")}
             margin="20px 0 15px 0"
           />
           <FormHeader />
