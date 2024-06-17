@@ -9,7 +9,9 @@ import "./FormHeader.css";
 export function FormHeader() {
   const { t } = useTranslation();
   const applicationCase = useAppSelector(state => state.form.applicationCase);
+  const percentage = useAppSelector(state => state.form.percentage);
   const accessToken = useAppSelector(state => state.auth.accessToken);
+  const percentageNumber = percentage?.overall?.avg ?? 0;
 
   return (
     <div className="form-header">
@@ -17,7 +19,9 @@ export function FormHeader() {
         <QText level="xlarge">{t("Complete Form")}</QText>
         <div className="form-header-tags">
           <div className="form-header-tag">
-            <QText level="xsmall">{t("Total progress") + " 0%"}</QText>
+            <QText level="xsmall">
+              {t("Total progress") + ": " + percentageNumber + "%"}
+            </QText>
           </div>
         </div>
       </div>
@@ -26,7 +30,7 @@ export function FormHeader() {
           type="primary"
           className="form-header-save-btn"
           onClick={() =>
-            updateApplicationCaseFunc(applicationCase, accessToken)
+            updateApplicationCaseFunc(applicationCase, percentage, accessToken)
           }
         >
           {t("Save")}

@@ -134,6 +134,9 @@ export async function getCaseDetailsApi(
     null,
     accessToken,
   );
+  res.data.percentage = res.data.percentage
+    ? JSON.parse(res.data.percentage)
+    : null;
   return res.data as ApplicationCase;
 }
 

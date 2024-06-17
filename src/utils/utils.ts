@@ -6,6 +6,7 @@ import {
   IState,
   State,
 } from "country-state-city";
+import _ from "lodash";
 import {
   LocationObject,
   LocationSelectOption,
@@ -21,13 +22,6 @@ import {
 import { Identity, KeyValues, ScreenSize } from "../model/commonModels";
 import { ControlType, IFormOptions } from "../model/formFlowModels";
 import { ArrayFields, updateCaseFields } from "../reducers/formSlice";
-import _ from "lodash";
-import {
-  InitialAddressHistoryBeforeUS,
-  InitialChild,
-  InitialFamilyMember,
-  InitialUSAddressHistoryPast5Y,
-} from "../consts/caseConsts";
 
 export const handleResize = (
   dispatch?: React.Dispatch<any>,
@@ -122,6 +116,18 @@ export function getCaseDetailValue(
   return caseDetails[key];
 }
 
+export function hasFormKey(control: ControlType) {
+  return (
+    control !== "label" &&
+    control !== "divider" &&
+    control !== "section" &&
+    control !== "removable_section" &&
+    control !== "component_mailing_same_as_residential" &&
+    control !== "component_generate_report" &&
+    control !== "component_list_reports"
+  );
+}
+
 export function getFieldValue(
   caseDetails: AsylumCaseProfile,
   key: string,
@@ -139,15 +145,7 @@ export function getFieldValue(
     return;
   }
   if (!key) {
-    if (
-      control !== "label" &&
-      control !== "divider" &&
-      control !== "section" &&
-      control !== "removable_section" &&
-      control !== "component_mailing_same_as_residential" &&
-      control !== "component_generate_report" &&
-      control !== "component_list_reports"
-    ) {
+    if (hasFormKey(control)) {
       console.error("Key is missing for control type: ", control);
     }
     return;

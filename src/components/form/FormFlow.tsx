@@ -8,6 +8,7 @@ import { FormHeader } from "./FormHeader";
 import { FormNavigation } from "./FormNavigation";
 import { QReturnLink } from "../common/Links";
 import { useTranslation } from "react-i18next";
+import { Loading } from "../common/Loading";
 
 interface FormFlowProps {
   isLawyer?: boolean;
@@ -25,10 +26,15 @@ export function FormFlow({ isLawyer, lawyerNewCase = false }: FormFlowProps) {
     screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall;
 
   if (!form || indexLevel1 === -1 || indexLevel2 === -1) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
-  const id = form.steps[indexLevel1].steps[indexLevel2].referenceId;
+  const sectionId = form.steps[indexLevel1].id;
+  const referenceId = form.steps[indexLevel1].steps[indexLevel2].referenceId;
+
+  if (!sectionId || !referenceId) {
+    return <Loading />;
+  }
 
   return (
     <div className="form-flow">
@@ -47,7 +53,11 @@ export function FormFlow({ isLawyer, lawyerNewCase = false }: FormFlowProps) {
         {lawyerNewCase ? (
           <LawyerPreForm />
         ) : (
-          <FormContent referenceId={id ?? ""} isLawyer={isLawyer} />
+          <FormContent
+            sectionId={sectionId}
+            referenceId={referenceId}
+            isLawyer={isLawyer}
+          />
         )}
       </div>
     </div>

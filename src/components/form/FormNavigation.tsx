@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useFormTranslation } from "../../hooks/commonHooks";
 import { ScreenSize } from "../../model/commonModels";
 import { setIndexLevel2 } from "../../reducers/caseSlice";
-import { QText } from "../common/Fonts";
+import { QTag, QText } from "../common/Fonts";
 import { Menu, MenuItem } from "../common/Menu";
 import { NavDown, NavUp } from "../icons/ArrowDown";
 import "./FormNavigation.css";
@@ -15,6 +15,7 @@ export function FormNavigation() {
   const { wt, t } = useFormTranslation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const percentage = useAppSelector(state => state.form.percentage);
   const indexLevel1 = useAppSelector(state => state.case.indexLevel1);
   const indexLevel2 = useAppSelector(state => state.case.indexLevel2);
   const screenSize = useAppSelector(state => state.common.screenSize);
@@ -39,7 +40,16 @@ export function FormNavigation() {
     for (let l1 = 0; l1 < steps.length; l1++) {
       items.push({
         key: `${l1}`,
-        label: <QText level="normal bold">{wt(steps[l1].label)}</QText>,
+        label: (
+          <div className="nav-l1-label">
+            <QText level="normal bold">{wt(steps[l1].label)}</QText>
+            <QTag>
+              {percentage &&
+                percentage[steps[l1].id] &&
+                percentage[steps[l1].id].avg + "%"}
+            </QTag>
+          </div>
+        ),
       });
       for (let l2 = 0; l2 < steps[l1].steps.length; l2++) {
         items.push({
@@ -68,7 +78,16 @@ export function FormNavigation() {
     (result, level1, l1Index) => {
       const item = {
         key: l1Index,
-        label: <QText level="normal bold">{wt(level1.label)}</QText>,
+        label: (
+          <div className="nav-l1-label">
+            <QText level="normal bold">{wt(level1.label)}</QText>
+            <QTag>
+              {percentage &&
+                percentage[level1.id] &&
+                percentage[level1.id].avg + "%"}
+            </QTag>
+          </div>
+        ),
         children: (
           <div>
             {level1.steps.map((level2, l2Index) => {

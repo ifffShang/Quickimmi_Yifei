@@ -46,3 +46,7 @@ export function SingleLine(props: SingleLineProps) {
     </div>
   );
 }
+
+export function QTag({ children }: ChildrenOnlyProps) {
+  return <div className="qtag">{children}</div>;
+}

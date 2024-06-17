@@ -76,11 +76,18 @@ export interface ApplicationCase {
   assignedLawyer: number;
   createdAt: number;
   updatedAt: number;
+  progress?: Progress;
 }
+
+export interface Percentage {
+  overall: { avg: number };
+  [key: string]: { avg: number; [key: string]: number };
+}
+
 export interface Substep {
   name: string;
   status: string;
-  metadata: string | null;
+  metadata: any;
   startedAt: number;
   updatedAt: number;
 }

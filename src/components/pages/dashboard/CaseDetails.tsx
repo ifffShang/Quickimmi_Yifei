@@ -6,9 +6,14 @@ import { updateForm } from "../../../reducers/caseSlice";
 import {
   resetFormState,
   updateApplicationCase,
+  updatePercentage,
 } from "../../../reducers/formSlice";
 import { FormFlow } from "../../form/FormFlow";
 import { CentralizedLoading } from "../../common/Loading";
+import {
+  buildFormPercentageObject,
+  extractPercentageFromMetadata,
+} from "../../../utils/percentageUtils";
 
 export function CaseDetails() {
   const dispatch = useAppDispatch();
@@ -33,7 +38,19 @@ export function CaseDetails() {
             console.error(`Failed to get case details for case id ${id}`);
             return;
           }
+
+          const currentPercentage = extractPercentageFromMetadata(
+            caseDetails.progress,
+          );
+          if (!currentPercentage) {
+            const defaultPercentage = buildFormPercentageObject(form);
+            dispatch(updatePercentage(defaultPercentage));
+          } else {
+            dispatch(updatePercentage(currentPercentage));
+          }
+
           dispatch(updateApplicationCase(caseDetails));
+
           setIsLoading(false);
         } catch (err) {
           console.error(err);

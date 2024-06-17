@@ -14,17 +14,22 @@ import {
   ApplicationCase,
   AsylumCaseProfileOptional,
   ParsePassportResponse,
+  Percentage,
 } from "../model/apiModels";
 import { getUpdateProfileData } from "../utils/utils";
 
 export interface FormState {
   applicationCase: ApplicationCase;
   documentUrls: any[];
+  percentage: Percentage;
 }
 
 const initialState: FormState = {
   applicationCase: InitialApplicationCase,
   documentUrls: [],
+  percentage: {
+    overall: { avg: 0 },
+  },
 };
 
 function deepAssign(update: any, current: any, init: any) {
@@ -100,6 +105,41 @@ export const formSlice = createSlice({
         InitialApplicationCase,
       );
       Object.assign(state.applicationCase, result);
+
+      const percentage = action.payload.progress;
+    },
+    updatePercentage: (state, action: PayloadAction<Percentage>) => {
+      state.percentage = action.payload;
+    },
+    updateOnePercentage: (
+      state,
+      action: PayloadAction<{
+        sectionId: string;
+        referenceId: string;
+        value: number;
+      }>,
+    ) => {
+      const { sectionId, referenceId, value } = action.payload;
+      state.percentage[sectionId][referenceId] = value;
+      let sum = 0;
+      let count = 0;
+      Object.entries(state.percentage[sectionId]).forEach(([key, value]) => {
+        if (key !== "avg") {
+          sum += value;
+          count++;
+        }
+      });
+      state.percentage[sectionId]["avg"] = Math.round(sum / count);
+
+      sum = 0;
+      count = 0;
+      Object.entries(state.percentage).forEach(([key, value]) => {
+        if (key !== "overall") {
+          sum += value.avg;
+          count++;
+        }
+      });
+      state.percentage.overall.avg = Math.round(sum / count);
     },
     updateCaseFields: (
       state,
@@ -260,6 +300,8 @@ export const formSlice = createSlice({
 export const {
   resetFormState,
   updateApplicationCase,
+  updatePercentage,
+  updateOnePercentage,
   updateCaseFields,
   updatePassportInfo,
   updateIdCardInfo,

@@ -276,10 +276,10 @@ export function SelectBox(props: SelectBoxProps) {
       }))
     : wa(props.options);
   const prefillValue = options.find(option => option.value === props.value);
-  const [value, setValue] = useState(prefillValue?.value || undefined);
+  const [value, setValue] = useState(prefillValue?.value);
 
   useEffect(() => {
-    setValue(prefillValue?.value || undefined);
+    setValue(prefillValue?.value);
   }, [props.value]);
 
   const onValueChange = (value: string) => {

@@ -1,17 +1,25 @@
 import { Button } from "antd";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { getFormFields } from "../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useFormTranslation } from "../../hooks/commonHooks";
+import { ControlType } from "../../model/formFlowModels";
 import { updateFormFieldsMap } from "../../reducers/caseSlice";
+import { updateOnePercentage } from "../../reducers/formSlice";
+import { updateApplicationCaseFunc } from "../../utils/functionUtils";
+import {
+  getKeyCount,
+  includeForLastField,
+  includeForPercentageCalc,
+} from "../../utils/percentageUtils";
 import { QText } from "../common/Fonts";
 import { Loading } from "../common/Loading";
+import CaseStatusLayout from "../pages/casestatus/CaseStatusLayout";
 import "./FormContent.css";
 import { FormField } from "./FormField";
-import { updateApplicationCaseFunc } from "../../utils/functionUtils";
-import CaseStatusLayout from "../pages/casestatus/CaseStatusLayout";
 
 interface FormContentProps {
+  sectionId: string;
   referenceId: string;
   isLawyer?: boolean;
 }
@@ -19,30 +27,85 @@ interface FormContentProps {
 export function FormContent(props: FormContentProps) {
   const { wt, t } = useFormTranslation();
   const dispatch = useAppDispatch();
-  const accessToken = useAppSelector((state) => state.auth.accessToken);
-  const applicationCase = useAppSelector((state) => state.form.applicationCase);
-  const currentStep = useAppSelector((state) => state.case.currentStep);
-  const formFieldsMap = useAppSelector((state) => state.case.formFieldsMap);
+  const accessToken = useAppSelector(state => state.auth.accessToken);
+  const applicationCase = useAppSelector(state => state.form.applicationCase);
+  const currentStep = useAppSelector(state => state.case.currentStep);
+  const formFieldsMap = useAppSelector(state => state.case.formFieldsMap);
+  const percentage = useAppSelector(state => state.form.percentage);
   const formFields =
     formFieldsMap && props.referenceId
       ? formFieldsMap[props.referenceId]
       : null;
 
+  const keySet = useRef({});
+  const totalFields = useRef(0);
+  const fulfilledCount = useRef(0);
+
   useEffect(() => {
     if (!props.referenceId) return;
     getFormFields(props.referenceId)
-      .then((formFieldsRes) => {
+      .then(formFieldsRes => {
         dispatch(
           updateFormFieldsMap({
             referenceId: props.referenceId,
             formFields: formFieldsRes,
-          })
+          }),
         );
+        if (!formFieldsRes.fields) return;
+        const totalKeys = getKeyCount(formFieldsRes.fields);
+        console.log("Total keys: ", totalKeys);
       })
-      .catch((error) => {
+      .catch(error => {
         console.error(error);
       });
-  }, [props.referenceId, dispatch]);
+  }, [props.referenceId]);
+
+  const countFulfilledFields = (
+    control: ControlType,
+    fieldKey: string,
+    fieldValue: any,
+    lastField: boolean,
+    fieldIndex?: number,
+  ) => {
+    if (lastField && totalFields.current == 0)
+      return "Second render of last field";
+
+    const fieldKeyWithIndex =
+      fieldIndex !== undefined ? `${fieldKey}_${fieldIndex}` : fieldKey;
+    if (
+      fieldKeyWithIndex &&
+      includeForPercentageCalc(control) &&
+      !keySet.current[fieldKeyWithIndex]
+    ) {
+      totalFields.current++;
+      if (fieldValue) fulfilledCount.current++;
+      keySet.current[fieldKeyWithIndex] = true;
+    }
+
+    if (includeForLastField(control) && lastField && totalFields.current > 0) {
+      const percentageOfFulfilledFields = Math.round(
+        (fulfilledCount.current / totalFields.current) * 100,
+      );
+      const currentPercentage = percentage[props.sectionId][props.referenceId];
+
+      if (currentPercentage !== percentageOfFulfilledFields) {
+        dispatch(
+          updateOnePercentage({
+            sectionId: props.sectionId,
+            referenceId: props.referenceId,
+            value: percentageOfFulfilledFields,
+          }),
+        );
+        console.log("* Total fields: ", totalFields.current);
+        console.log("* Fulfilled fields: ", fulfilledCount.current);
+      }
+      totalFields.current = 0;
+      fulfilledCount.current = 0;
+      keySet.current = {};
+    }
+
+    return totalFields.current + "_" + fulfilledCount.current;
+  };
 
   if (!formFields || !currentStep) {
     return (
@@ -81,6 +144,8 @@ export function FormContent(props: FormContentProps) {
               visibility={field.visibility}
               hideHeader={field.hideHeader}
               fieldIndex={field.fieldIndex}
+              countFulfilledFields={countFulfilledFields}
+              lastField={index === formFields.fields.length - 1}
             />
           </div>
         ))}
@@ -90,7 +155,7 @@ export function FormContent(props: FormContentProps) {
         <Button
           className="default-button"
           onClick={() =>
-            updateApplicationCaseFunc(applicationCase, accessToken)
+            updateApplicationCaseFunc(applicationCase, percentage, accessToken)
           }
         >
           {t("Save")}
@@ -100,9 +165,7 @@ export function FormContent(props: FormContentProps) {
     </div>
   );
 
-  const LawyerForm = (
-    <CaseStatusLayout />
-  );
+  const LawyerForm = <CaseStatusLayout />;
 
   return <>{props.isLawyer ? LawyerForm : CustomerForm}</>;
 }

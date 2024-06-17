@@ -97,7 +97,7 @@
       "steps": [
         {
           "label": "text_AsylumClaim",
-          "id": "asylum_claim",
+          "id": "asylum_information",
           "type": "level2",
           "referenceId": "i589_fields_asylum_claim"
         }

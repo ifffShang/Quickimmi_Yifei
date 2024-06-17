@@ -68,4 +68,5 @@ export type ControlType =
   | "component_list_reports"
   | "component_mailing_same_as_residential"
   | "component_entry_records"
-  | "component_add_item";
+  | "component_add_item"
+  | "percentage"; // used only for percentage calculation

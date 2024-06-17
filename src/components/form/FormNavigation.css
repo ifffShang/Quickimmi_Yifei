@@ -1,6 +1,6 @@
 .form-navigation {
   flex: 0 0 250px;
-  align-self: flex-start;
+  overflow-y: auto;
 }
 
 .form-navigation-return {
@@ -50,4 +50,10 @@
 .standalone.form-navigation-l2.active {
   color: var(--primary-color);
   border-right: none;
+}
+
+.nav-l1-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
