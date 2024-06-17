@@ -1,3 +1,3 @@
 export function CaseDocumentRightPanel() {
-    return <>Coming Soon...</>;
+  return <>Coming Soon...</>;
 }

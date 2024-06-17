@@ -82,7 +82,7 @@ export const RouterConfig = [
   },
   {
     path: PATH.CaseStatus,
-    element: <CaseStatusLayout menuItemSelected={"caseOverview"}/>,
+    element: <CaseStatusLayout menuItemSelected={"caseOverview"} />,
     needLogin: true,
   },
   {
@@ -92,7 +92,7 @@ export const RouterConfig = [
   },
   {
     path: PATH.CaseDocuments,
-    element: <CaseStatusLayout menuItemSelected={"caseDocuments"}/>,
+    element: <CaseStatusLayout menuItemSelected={"caseDocuments"} />,
     needLogin: true,
   },
   {
