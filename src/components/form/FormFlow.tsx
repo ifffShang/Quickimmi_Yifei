@@ -11,12 +11,8 @@ import { useTranslation } from "react-i18next";
 import { useScreenSize } from "../../utils/screenSizeUtil";
 import { Loading } from "../common/Loading";
 
-interface FormFlowProps {
-  isLawyer?: boolean;
-  lawyerNewCase?: boolean;
-}
 
-export function FormFlow({ isLawyer, lawyerNewCase = false }: FormFlowProps) {
+export function FormFlow() {
   const navigate = useNavigate();
   const { id: caseId } = useParams<{ id: string }>(); // Get caseId from URL params
   const { t } = useTranslation();
@@ -48,17 +44,12 @@ export function FormFlow({ isLawyer, lawyerNewCase = false }: FormFlowProps) {
       )}
       <div className="form-flow-content">
         {!isSmallScreen && <FormNavigation />}
-        {lawyerNewCase ? (
-          <LawyerPreForm />
-        ) : form && indexLevel1 !== -1 && indexLevel2 !== -1 ? (
-          <div>
-            <FormHeader />
-            <FormContent
-              referenceId={
-                form.steps[indexLevel1].steps[indexLevel2].referenceId ?? ""
-              }
-            />
-          </div>
+        {form && indexLevel1 !== -1 && indexLevel2 !== -1 ? (
+          <FormContent
+            referenceId={
+              form.steps[indexLevel1].steps[indexLevel2].referenceId ?? ""
+            }
+          />
         ) : (
           <div>
             <Loading />

@@ -40,10 +40,10 @@ export function Dashboard() {
 
     try {
       let cases;
-      if (role === "lawyer") {
+      if (isLawyer) {
         cases = await getCasesByLawyerApi(userId!, accessToken);
         console.log(`Number of cases assigned to the lawyer: ${cases.length}`);
-        console.log("useId", userId);
+        console.log("lawyerId", userId);
         cases.forEach(c => console.log(`Case ID: ${c.id}`));
       } else {
         cases = await getCasesApi(userId!, accessToken);

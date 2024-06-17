@@ -56,7 +56,7 @@ export function CaseDetails() {
       {isLoading ? (
         <CentralizedLoading />
       ) : (
-        <FormFlow isLawyer={role === "lawyer"} />
+        <FormFlow />
       )}
     </>
   );

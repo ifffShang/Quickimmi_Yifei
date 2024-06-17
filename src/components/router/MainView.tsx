@@ -104,7 +104,7 @@ export const RouterConfig = [
   },
   {
     path: PATH.LawyerPreForm,
-    element: <FormFlow isLawyer={true} lawyerNewCase={true} />,
+    element: <LawyerPreForm />,
     needLogin: true,
   },
 

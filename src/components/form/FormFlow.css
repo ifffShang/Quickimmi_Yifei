@@ -41,4 +41,6 @@
   justify-content: center;
   gap: 10px;
   overflow-y: auto;
+  max-width: 1460px;
+  width: 100%;
 }
