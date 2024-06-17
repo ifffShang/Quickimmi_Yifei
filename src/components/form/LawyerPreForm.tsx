@@ -37,7 +37,8 @@ export function LawyerPreForm() {
   const [providedCustomerEmail, setProvidedCustomerEmail] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isSendButtonDisabled, setIsSendButtonDisabled] = useState(true);
-  const [isEmailSendButtonDisabled, setIsEmailSendButtonDisabled] = useState(true);
+  const [isEmailSendButtonDisabled, setIsEmailSendButtonDisabled] =
+    useState(true);
 
   useEffect(() => {
     const isFormValid =

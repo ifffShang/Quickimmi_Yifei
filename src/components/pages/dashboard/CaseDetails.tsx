@@ -51,13 +51,5 @@ export function CaseDetails() {
     return null;
   }
 
-  return (
-    <>
-      {isLoading ? (
-        <CentralizedLoading />
-      ) : (
-        <FormFlow />
-      )}
-    </>
-  );
+  return <>{isLoading ? <CentralizedLoading /> : <FormFlow />}</>;
 }

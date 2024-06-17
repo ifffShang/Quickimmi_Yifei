@@ -11,7 +11,6 @@ import { useTranslation } from "react-i18next";
 import { useScreenSize } from "../../utils/screenSizeUtil";
 import { Loading } from "../common/Loading";
 
-
 export function FormFlow() {
   const navigate = useNavigate();
   const { id: caseId } = useParams<{ id: string }>(); // Get caseId from URL params
