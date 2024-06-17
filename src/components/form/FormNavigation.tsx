@@ -1,4 +1,4 @@
-import { LeftCircleOutlined } from "@ant-design/icons";
+import { CheckCircleFilled, LeftCircleOutlined } from "@ant-design/icons";
 import { Collapse, CollapseProps } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
@@ -45,8 +45,12 @@ export function FormNavigation() {
             <QText level="normal bold">{wt(steps[l1].label)}</QText>
             <QTag>
               {percentage &&
-                percentage[steps[l1].id] &&
-                percentage[steps[l1].id].avg + "%"}
+              percentage[steps[l1].id] &&
+              percentage[steps[l1].id].avg !== 100 ? (
+                <QTag>{percentage[steps[l1].id].avg + "%"}</QTag>
+              ) : (
+                <CheckCircleFilled />
+              )}
             </QTag>
           </div>
         ),
@@ -76,16 +80,24 @@ export function FormNavigation() {
   // Below are the UI for large and medium screens
   const items: CollapseProps["items"] = steps.reduce(
     (result, level1, l1Index) => {
+      const cssL1 = indexLevel1 === l1Index ? " active" : "";
       const item = {
         key: l1Index,
         label: (
-          <div className="nav-l1-label">
-            <QText level="normal bold">{wt(level1.label)}</QText>
-            <QTag>
-              {percentage &&
-                percentage[level1.id] &&
-                percentage[level1.id].avg + "%"}
-            </QTag>
+          <div className={"nav-l1-label" + cssL1}>
+            <QText
+              level="normal bold"
+              color={indexLevel1 === l1Index ? "inherit" : "gray"}
+            >
+              {wt(level1.label)}
+            </QText>
+            {percentage &&
+            percentage[level1.id] &&
+            percentage[level1.id].avg !== 100 ? (
+              <QTag>{percentage[level1.id].avg + "%"}</QTag>
+            ) : (
+              <CheckCircleFilled />
+            )}
           </div>
         ),
         children: (

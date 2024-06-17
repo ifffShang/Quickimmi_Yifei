@@ -20,7 +20,6 @@ export function CaseDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const accessToken = useAppSelector(state => state.auth.accessToken);
-  const role = useAppSelector(state => state.auth.role); // Get user role from state
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
