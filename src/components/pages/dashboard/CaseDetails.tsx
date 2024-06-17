@@ -8,7 +8,7 @@ import {
   updateApplicationCase,
   updatePercentage,
 } from "../../../reducers/formSlice";
-import { FormFlow } from "../../form/FormFlow";
+import { FormContainer } from "../../form/FormContainer";
 import { CentralizedLoading } from "../../common/Loading";
 import {
   buildFormPercentageObject,
@@ -68,5 +68,5 @@ export function CaseDetails() {
     return null;
   }
 
-  return <>{isLoading ? <CentralizedLoading /> : <FormFlow />}</>;
+  return <>{isLoading ? <CentralizedLoading /> : <FormContainer />}</>;
 }

@@ -1,17 +1,16 @@
+import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
 import { ScreenSize } from "../../model/commonModels";
+import { useScreenSize } from "../../utils/screenSizeUtil";
+import { QReturnLink } from "../common/Links";
+import { Loading } from "../common/Loading";
 import { FormContent } from "./FormContent";
-import { LawyerPreForm } from "./LawyerPreForm";
-import "./FormFlow.css";
+import "./FormContainer.css";
 import { FormHeader } from "./FormHeader";
 import { FormNavigation } from "./FormNavigation";
-import { QReturnLink } from "../common/Links";
-import { useTranslation } from "react-i18next";
-import { useScreenSize } from "../../utils/screenSizeUtil";
-import { Loading } from "../common/Loading";
 
-export function FormFlow() {
+export function FormContainer() {
   const navigate = useNavigate();
   const { id: caseId } = useParams<{ id: string }>(); // Get caseId from URL params
   const { t } = useTranslation();

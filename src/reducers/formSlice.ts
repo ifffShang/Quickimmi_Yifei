@@ -105,8 +105,6 @@ export const formSlice = createSlice({
         InitialApplicationCase,
       );
       Object.assign(state.applicationCase, result);
-
-      const percentage = action.payload.progress;
     },
     updatePercentage: (state, action: PayloadAction<Percentage>) => {
       state.percentage = action.payload;
