@@ -4,11 +4,9 @@ import { Alert, Card, Descriptions, Spin, Steps, Button, Tag } from "antd";
 import { CaseSummary } from "../../../model/apiModels";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { DownloadOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import CaseProgressCard from "./CaseProgressCard";
 import CaseStatusCard from "./CaseStatusCard";
 import "./CaseStatusRightPanel.css";
-import { getCaseSummaryApi } from "../../../api/caseAPI";
 
 const { Step } = Steps;
 
@@ -59,7 +57,7 @@ function useFetchCaseSummary() {
         applyWithSpouse: false,
         numberOfChildren: 2,
         numberOfApplyingChildren: 1,
-        currentStep: "FILLING_APPLICATION",
+        currentStep: "REVIEW_AND_SIGN",
         progress: {
           steps: [
             {
