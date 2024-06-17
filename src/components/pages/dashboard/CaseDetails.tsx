@@ -68,13 +68,5 @@ export function CaseDetails() {
     return null;
   }
 
-  return (
-    <>
-      {isLoading ? (
-        <CentralizedLoading />
-      ) : (
-        <FormFlow isLawyer={role === "lawyer"} />
-      )}
-    </>
-  );
+  return <>{isLoading ? <CentralizedLoading /> : <FormFlow />}</>;
 }

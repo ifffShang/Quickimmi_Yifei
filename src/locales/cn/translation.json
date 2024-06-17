@@ -13,6 +13,7 @@
   "ForgotPassword": "忘记密码",
   "SignOut": "退出",
   "ReturnToDashboard": "返回仪表盘",
+  "ReturnTocCaseSummaryPage": "查看案件进展",
   "LandingPage": {
     "BrandText": "AI助力，快速移民，轻松实现美国梦",
     "Lawyer": "律师",
@@ -107,12 +108,16 @@
 
   "ImmigrationType": "移民类型",
   "ImmigrationReason": "移民原因",
+  "ImmigrationSubtype": "移民子类型",
   "Tips": "提示",
 
   "Asylum": "庇护",
+  "NewCase": "新建案件",
+  "CreateNewCaseForCustomer": "为客户新建账户与案件",
   "CaseNumber": "案件编号",
   "DownloadFile": "下载文件",
   "Draft": "草稿",
+  "Send": "邮箱发送",
   "CreatedAt": "创建时间",
   "LatestUpdate": "最新操作时间",
   "ErrorFetchingCaseSummary": "获取案例摘要时出错",
@@ -178,6 +183,7 @@
   "SpousePartnerApplication": "配偶/伴侣申请",
   "Male": "男",
   "Female": "女",
+  "ApplyWithMe": "与我一起申请",
   "MaritalStatus": "婚姻状况",
   "Single": "未婚",
   "Married": "已婚",
@@ -571,5 +577,8 @@
     "也门人",
     "赞比亚人",
     "津巴布韦人"
-  ]
+  ],
+  "CaseStatusMenuOverview": "简介",
+  "CaseStatusMenuDocuments": "相关文件",
+  "CaseStatusMenuApplicationForm": "申请表格"
 }

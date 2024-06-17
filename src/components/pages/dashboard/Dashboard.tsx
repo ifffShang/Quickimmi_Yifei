@@ -22,15 +22,16 @@ export function Dashboard() {
   const [loading, setLoading] = useState(false);
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const userId = useAppSelector(state => state.auth.userId);
-  const lawyerId = useAppSelector(state => state.auth.lawyerId);
+  const isLawyer = useAppSelector(state => state.auth.isLawyer);
   const role = useAppSelector(state => state.auth.role);
   const cases = useAppSelector(state => state.case.cases);
 
   const getCases = async () => {
-    if (!accessToken || (!userId && !lawyerId)) {
+    if (!accessToken || !userId) {
       console.error(
         `Access token ${accessToken} or user id ${userId} is missing`,
       );
+      // TODO: pop up error message
       setLoading(false);
       return;
     }
@@ -39,10 +40,10 @@ export function Dashboard() {
 
     try {
       let cases;
-      if (role === "lawyer") {
-        cases = await getCasesByLawyerApi(lawyerId!, accessToken);
+      if (isLawyer) {
+        cases = await getCasesByLawyerApi(userId!, accessToken);
         console.log(`Number of cases assigned to the lawyer: ${cases.length}`);
-        console.log("LawyerID", lawyerId);
+        console.log("lawyerId", userId);
         cases.forEach(c => console.log(`Case ID: ${c.id}`));
       } else {
         cases = await getCasesApi(userId!, accessToken);
@@ -62,7 +63,7 @@ export function Dashboard() {
 
   useEffect(() => {
     getCases();
-  }, [accessToken, userId, lawyerId]);
+  }, [accessToken, userId]);
 
   // Create new applications for Customers
   const CreateNewApplication = async () => {
@@ -84,14 +85,19 @@ export function Dashboard() {
 
   // Create new cases for Lawyers
   const CreateNewCaseForLawyer = async () => {
-    if (!accessToken || !lawyerId) {
+    if (!isLawyer) {
+      console.error("Only lawyer can create case from this page.");
+      // TODO: pop up error message
+      return;
+    }
+    if (!accessToken || !userId) {
       console.error(
-        `Access token ${accessToken} or lawyer id ${lawyerId} is missing`,
+        `Access token ${accessToken} or lawyer id ${userId} is missing`,
       );
       return;
     }
 
-    navigate('/lawyerNewCase');
+    navigate("/lawyerNewCase");
   };
 
   if (loading) {

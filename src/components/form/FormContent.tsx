@@ -32,6 +32,7 @@ export function FormContent(props: FormContentProps) {
   const currentStep = useAppSelector(state => state.case.currentStep);
   const formFieldsMap = useAppSelector(state => state.case.formFieldsMap);
   const percentage = useAppSelector(state => state.form.percentage);
+
   const formFields =
     formFieldsMap && props.referenceId
       ? formFieldsMap[props.referenceId]

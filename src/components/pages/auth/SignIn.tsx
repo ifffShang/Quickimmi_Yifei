@@ -87,8 +87,8 @@ export function SignIn() {
 
         dispatch(
           updateAuthState({
-            userId: role === "customer" ? userInfo?.id || 0 : undefined,
-            lawyerId: role === "lawyer" ? userInfo?.id || 0 : undefined,
+            userId: userInfo?.id || undefined,
+            isLawyer: role === "lawyer",
             isLoggedIn: true,
             email,
             accessToken: accessToken,
@@ -161,7 +161,9 @@ export function SignIn() {
 
   const actions = (
     <>
-      <Link onClick={() => navigate("/forgotpassword")}>{t("ForgotPassword")}</Link>
+      <Link onClick={() => navigate("/forgotpassword")}>
+        {t("ForgotPassword")}
+      </Link>
       <Button type="primary" onClick={loginUser}>
         {t("Login")}
       </Button>

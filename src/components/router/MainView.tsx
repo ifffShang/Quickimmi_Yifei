@@ -10,6 +10,7 @@ import { FormFlow } from "../form/FormFlow";
 import { LawyerPreForm } from "../form/LawyerPreForm";
 import "./MainView.css";
 import CaseStatusLayout from "../pages/casestatus/CaseStatusLayout";
+import { CaseDocuments } from "../pages/casedocuments/CaseDocuments";
 
 export const PATH = {
   Home: "/",
@@ -24,8 +25,9 @@ export const PATH = {
   Dashboard: "/dashboard",
   CaseStatus: "/casestatus/:id",
   CaseDetails: "/case/:id",
+  CaseDocuments: "/casedocuments/:id",
   Checkout: "/checkout",
-  LawyerPreForm: "/lawyerNewCase", 
+  LawyerPreForm: "/lawyerNewCase",
   Others: "*",
 };
 
@@ -91,15 +93,21 @@ export const RouterConfig = [
     needLogin: true,
   },
   {
+    path: PATH.CaseDocuments,
+    element: <CaseDocuments />,
+    needLogin: true,
+  },
+  {
     path: PATH.Checkout,
     element: <Checkout />,
     needLogin: true,
   },
   {
     path: PATH.LawyerPreForm,
-    element: <FormFlow isLawyer={true} lawyerNewCase={true} />,
+    element: <LawyerPreForm />,
     needLogin: true,
   },
+
   {
     path: PATH.Others,
     element: <Dashboard />,

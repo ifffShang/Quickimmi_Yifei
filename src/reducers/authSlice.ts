@@ -7,7 +7,7 @@ export interface AuthState {
   isLoggedIn?: boolean;
   accessToken?: string;
   email?: string;
-  lawyerId?: number;
+  isLawyer?: boolean;
   userId?: number;
   role?: string;
 }
@@ -18,7 +18,7 @@ const initialState: AuthState = {
   accessToken: "",
   email: "",
   userId: 0,
-  lawyerId: 0,
+  isLawyer: false,
   role: "",
 };
 

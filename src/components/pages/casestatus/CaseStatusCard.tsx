@@ -64,7 +64,9 @@ const CaseStatusCard: React.FC<CaseStatusCardProps> = ({ caseSummary }) => {
         <Descriptions.Item label={t("MasterApplicant")}>
           {applicantName}
         </Descriptions.Item>
-        <Descriptions.Item label={t("MaritalStatus")}>{maritalStatus}</Descriptions.Item>
+        <Descriptions.Item label={t("MaritalStatus")}>
+          {maritalStatus}
+        </Descriptions.Item>
         <Descriptions.Item label={t("SpousePartnerApplication")}>
           {applyWithSpouse ? "Yes" : "No"}
         </Descriptions.Item>

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
 import { ScreenSize } from "../../model/commonModels";
 import { FormContent } from "./FormContent";
@@ -8,25 +8,26 @@ import { FormHeader } from "./FormHeader";
 import { FormNavigation } from "./FormNavigation";
 import { QReturnLink } from "../common/Links";
 import { useTranslation } from "react-i18next";
+import { useScreenSize } from "../../utils/screenSizeUtil";
 import { Loading } from "../common/Loading";
 
-interface FormFlowProps {
-  isLawyer?: boolean;
-  lawyerNewCase?: boolean;
-}
-
-export function FormFlow({ isLawyer, lawyerNewCase = false }: FormFlowProps) {
+export function FormFlow() {
   const navigate = useNavigate();
+  const { id: caseId } = useParams<{ id: string }>(); // Get caseId from URL params
   const { t } = useTranslation();
   const form = useAppSelector(state => state.case.form);
   const indexLevel1 = useAppSelector(state => state.case.indexLevel1);
   const indexLevel2 = useAppSelector(state => state.case.indexLevel2);
-  const screenSize = useAppSelector(state => state.common.screenSize);
+  const screenSize = useScreenSize();
   const isSmallScreen =
     screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall;
 
   if (!form || indexLevel1 === -1 || indexLevel2 === -1) {
-    return <Loading />;
+    return (
+      <div className="form-flow">
+        <Loading />
+      </div>
+    );
   }
 
   const sectionId = form.steps[indexLevel1].id;
@@ -41,23 +42,21 @@ export function FormFlow({ isLawyer, lawyerNewCase = false }: FormFlowProps) {
       {screenSize !== ScreenSize.xsmall && (
         <div className="form-top">
           <QReturnLink
-            onClick={() => navigate("/dashboard")}
-            text={t("ReturnToDashboard")}
+            onClick={() => navigate(`/casestatus/${caseId}`)}
+            text={t("ReturnTocCaseSummaryPage")}
             margin="20px 0 15px 0"
           />
           <FormHeader />
         </div>
       )}
       <div className="form-flow-content">
-        {!isSmallScreen && !isLawyer && <FormNavigation />}
-        {lawyerNewCase ? (
-          <LawyerPreForm />
+        {!isSmallScreen && <FormNavigation />}
+        {form && indexLevel1 !== -1 && indexLevel2 !== -1 ? (
+          <FormContent sectionId={sectionId} referenceId={referenceId} />
         ) : (
-          <FormContent
-            sectionId={sectionId}
-            referenceId={referenceId}
-            isLawyer={isLawyer}
-          />
+          <div>
+            <Loading />
+          </div>
         )}
       </div>
     </div>
