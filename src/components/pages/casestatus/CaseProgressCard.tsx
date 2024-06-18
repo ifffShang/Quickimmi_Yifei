@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, Steps, Button } from "antd";
-import { ExclamationCircleOutlined } from "@ant-design/icons";
+import {
+  CheckCircleOutlined,
+  ExclamationCircleOutlined,
+  MinusCircleOutlined,
+} from "@ant-design/icons";
 import { CaseSummary } from "../../../model/apiModels";
+import { useTranslation } from "react-i18next";
 import "./CaseProgressCard.css";
 
 interface CaseProgressCardProps {
@@ -10,48 +15,83 @@ interface CaseProgressCardProps {
 
 const { Step } = Steps;
 
-function getCurrentStepIndex(currentStep: string) {
-  switch (currentStep) {
-    case "信息完整":
-      return 0;
-    case "审核签署":
-      return 1;
-    case "递交申请":
-      return 2;
-    case "指纹面谈":
-      return 3;
-    case "出具结果":
-      return 4;
-    default:
-      return 0;
-  }
+function getCurrentStepIndex(currentStep: string, steps: { name: string }[]) {
+  return steps.findIndex(step => step.name === currentStep);
 }
 
 const CaseProgressCard: React.FC<CaseProgressCardProps> = ({ caseSummary }) => {
+  const { t } = useTranslation();
+  const [expandedStep, setExpandedStep] = useState<string | null>(null);
+
+  const { currentStep, progress } = caseSummary;
+
+  const currentStepIndex = getCurrentStepIndex(
+    caseSummary.currentStep,
+    caseSummary.progress.steps,
+  );
+
+  const currentStepDetails = progress.steps.find(
+    step => step.name === currentStep,
+  );
+
+  const handleToggleExpand = (stepName: string) => {
+    setExpandedStep(expandedStep === stepName ? null : stepName);
+  };
+
   return (
-    <Card title={`案件进展`}>
-      <Steps current={getCurrentStepIndex(caseSummary.currentStep)}>
-        <Step title="信息完整" />
-        <Step title="审核签署" />
-        <Step title="递交申请" />
-        <Step title="指纹面谈" />
-        <Step title="出具结果" />
+    <Card title={t("CaseProgressTitle")}>
+      <Steps current={currentStepIndex}>
+        {caseSummary.progress.steps.map(step => (
+          <Step key={step.name} title={t(step.name)} />
+        ))}
       </Steps>
       <Card style={{ marginTop: "16px", border: "none", boxShadow: "none" }}>
         <div className="progress-section">
-          <ExclamationCircleOutlined
-            style={{ color: "#FAAD14", fontSize: "20px" }}
-          />
-          <div className="progress-content">
-            <div className="progress-header">律师审核中</div>
-            <div className="progress-body">客户已提交信息，请尽快审核</div>
-            <div className="progress-actions">
-              <Button type="primary">审查</Button>
-            </div>
-          </div>
+          {currentStepDetails?.substeps.map((substep, index) => (
+            <React.Fragment key={substep.name}>
+              <div
+                className="progress-item"
+                onClick={() => handleToggleExpand(substep.name)}
+              >
+                <div className="icon-container">
+                  {substep.status === "COMPLETED" && (
+                    <CheckCircleOutlined
+                      style={{ color: "#52C41A", fontSize: "20px" }}
+                    />
+                  )}
+                  {substep.status === "IN_PROGRESS" && (
+                    <ExclamationCircleOutlined
+                      style={{ color: "#FAAD14", fontSize: "20px" }}
+                    />
+                  )}
+                  {substep.status === "NOT_START" && (
+                    <MinusCircleOutlined
+                      style={{ color: "#d9d9d9", fontSize: "20px" }}
+                    />
+                  )}
+                </div>
+                <span className="progress-title">{t(substep.name)}</span>
+              </div>
+              {expandedStep === substep.name && (
+                <div className="expanded-card-container">
+                  <div className="progress-line extended-line"></div>
+                  <div className="expanded-card">
+                    <Card>
+                      <p>TODO: This is sub step information card</p>
+                      <Button type="default">{t("Review")}</Button>
+                    </Card>
+                  </div>
+                </div>
+              )}
+              {index < currentStepDetails.substeps.length - 1 && (
+                <div className="progress-line"></div>
+              )}
+            </React.Fragment>
+          ))}
         </div>
       </Card>
     </Card>
+    // TODO: this page is not scrollable
   );
 };
 

@@ -107,16 +107,39 @@
   "ImmigrationSubtype": "Immigration Subtype",
   "Tips": "Tips",
 
+  "CaseStatusMenuOverview": "Overview",
+  "CaseStatusMenuDocuments": "Documents",
+  "CaseStatusMenuApplicationForm": "Application Form",
+
   "Asylum": "Asylum",
+  "AFFIRMATIVE": "Affirmative",
+  "DEFENSIVE": "Defensive",
   "NewCase": "New Case",
   "CreateNewCaseForCustomer": "Create a new case and account for customer",
   "CaseNumber": "Case Number",
   "DownloadFile": "DownloadFile",
-  "Draft": "Draft",
   "Send": "Send",
   "CreatedAt": "Created At",
   "LatestUpdate": "Latest Update",
   "ErrorFetchingCaseSummary": "Error fetching case summary",
+  "Draft": "Draft",
+  "Reviewing": "Reviewing",
+  "Submitted": "Submitted",
+
+  "CaseProgressTitle": "Progress",
+  "FILLING_APPLICATION": "Collect Information",
+  "REVIEW_AND_SIGN": "Review and Sign",
+  "SUBMIT_APPLICATION": "Submit",
+  "FINGERPRINT_INTERVIEW": "Fingerprint and Interview",
+  "FINAL_RESULT": "Result",
+  "FILLING_DETAILS": "Filling Details",
+  "LAWYER_REVIEW": "Lawyer Review",
+  "CLIENT_SIGNATURE": "Client Signature",
+  "NOTICE_RECEIPT": "Notice Receipt",
+  "FINGERPRINT_COLLECTION": "Fingerprint Collection",
+  "INTERVIEW": "Interview",
+  "FINAL_REVIEW": "Final Review",
+  "RESULT": "Result",
 
   "PersonalInformation": "Personal",
   "BasicInformation": "Basic",
@@ -577,9 +600,5 @@
     "Yemeni",
     "Zambian",
     "Zimbabwean"
-  ],
-
-  "CaseStatusMenuOverview": "Overview",
-  "CaseStatusMenuDocuments": "Documents",
-  "CaseStatusMenuApplicationForm": "Application Form"
+  ]
 }

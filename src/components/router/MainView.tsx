@@ -9,7 +9,6 @@ import { Checkout } from "../payment/Checkout";
 import { LawyerPreForm } from "../form/LawyerPreForm";
 import "./MainView.css";
 import CaseStatusLayout from "../pages/casestatus/CaseStatusLayout";
-import { CaseDocuments } from "../pages/casedocuments/CaseDocuments";
 
 export const PATH = {
   Home: "/",
@@ -83,7 +82,7 @@ export const RouterConfig = [
   },
   {
     path: PATH.CaseStatus,
-    element: <CaseStatusLayout />,
+    element: <CaseStatusLayout menuItemSelected={"caseOverview"} />,
     needLogin: true,
   },
   {
@@ -93,7 +92,7 @@ export const RouterConfig = [
   },
   {
     path: PATH.CaseDocuments,
-    element: <CaseDocuments />,
+    element: <CaseStatusLayout menuItemSelected={"caseDocuments"} />,
     needLogin: true,
   },
   {

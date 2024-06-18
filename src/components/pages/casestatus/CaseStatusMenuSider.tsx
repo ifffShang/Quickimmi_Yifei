@@ -20,9 +20,9 @@ const CaseStatusMenuSider: React.FC = () => {
     if (key === "1") {
       navigate(`/casestatus/${caseId}`);
     } else if (key === "2") {
-      navigate(`/case/${caseId}`);
-    } else if (key === "3") {
       navigate(`/casedocuments/${caseId}`);
+    } else if (key === "3") {
+      navigate(`/case/${caseId}`);
     } else {
       // Add other navigation logic here if needed
       return;
@@ -41,10 +41,10 @@ const CaseStatusMenuSider: React.FC = () => {
           {t("CaseStatusMenuOverview")}
         </Menu.Item>
         <Menu.Item key="2" icon={<FileSearchOutlined />}>
-          {t("CaseStatusMenuApplicationForm")}
+          {t("CaseStatusMenuDocuments")}
         </Menu.Item>
         <Menu.Item key="3" icon={<FileOutlined />}>
-          {t("CaseStatusMenuDocuments")}
+          {t("CaseStatusMenuApplicationForm")}
         </Menu.Item>
         {/*<Menu.Item key="4" icon={<TeamOutlined />}>*/}
         {/*  {t("TaskList")}*/}

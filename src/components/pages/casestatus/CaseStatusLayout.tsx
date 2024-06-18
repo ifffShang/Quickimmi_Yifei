@@ -1,6 +1,7 @@
 import React from "react";
 import { Layout } from "antd";
 import { CaseStatusRightPanel } from "./CaseStatusRightPanel";
+import { CaseDocumentRightPanel } from "./CaseDocumentRightPanel";
 import CaseStatusMenuSider from "./CaseStatusMenuSider";
 import "./CaseStatusLayout.css";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +10,13 @@ import { useTranslation } from "react-i18next";
 
 const { Content } = Layout;
 
-const CaseStatusLayout: React.FC = () => {
+interface CaseStatusLayoutProps {
+  menuItemSelected?: string;
+}
+
+const CaseStatusLayout: React.FC<CaseStatusLayoutProps> = ({
+  menuItemSelected,
+}) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -27,7 +34,8 @@ const CaseStatusLayout: React.FC = () => {
             className="site-layout-background"
             style={{ padding: 24, minHeight: 360 }}
           >
-            <CaseStatusRightPanel />
+            {menuItemSelected === "caseOverview" && <CaseStatusRightPanel />}
+            {menuItemSelected === "caseDocuments" && <CaseDocumentRightPanel />}
           </div>
         </Content>
       </Layout>

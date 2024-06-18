@@ -4,11 +4,9 @@ import { Alert, Card, Descriptions, Spin, Steps, Button, Tag } from "antd";
 import { CaseSummary } from "../../../model/apiModels";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { DownloadOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import CaseProgressCard from "./CaseProgressCard";
-import CaseStatusCard from "./CaseStatusCard";
+import CaseSummaryCard from "./CaseSummaryCard";
 import "./CaseStatusRightPanel.css";
-import { getCaseSummaryApi } from "../../../api/caseAPI";
 
 const { Step } = Steps;
 
@@ -59,12 +57,12 @@ function useFetchCaseSummary() {
         applyWithSpouse: false,
         numberOfChildren: 2,
         numberOfApplyingChildren: 1,
-        currentStep: "FILLING_APPLICATION",
+        currentStep: "REVIEW_AND_SIGN",
         progress: {
           steps: [
             {
               name: "FILLING_APPLICATION",
-              status: "NOT_START",
+              status: "COMPLETED",
               substeps: [
                 {
                   name: "FILLING_DETAILS",
@@ -79,17 +77,66 @@ function useFetchCaseSummary() {
             },
             {
               name: "REVIEW_AND_SIGN",
-              status: "NOT_START",
+              status: "COMPLETED",
               substeps: [
                 {
+                  name: "FILLING_DETAILS",
+                  status: "COMPLETED",
+                  metadata: null,
+                  startedAt: 1716788746776,
+                  updatedAt: 1716788746776,
+                },
+                {
                   name: "LAWYER_REVIEW",
-                  status: "NOT_START",
+                  status: "COMPLETED",
                   metadata: null,
                   startedAt: 1716788746776,
                   updatedAt: 1716788746776,
                 },
                 {
                   name: "CLIENT_SIGNATURE",
+                  status: "IN_PROGRESS",
+                  metadata: null,
+                  startedAt: 1716788746776,
+                  updatedAt: 1716788746776,
+                },
+                {
+                  name: "SUBMIT_APPLICATION",
+                  status: "NOT_START",
+                  metadata: null,
+                  startedAt: 1716788746776,
+                  updatedAt: 1716788746776,
+                },
+                {
+                  name: "NOTICE_RECEIPT",
+                  status: "NOT_START",
+                  metadata: null,
+                  startedAt: 1716788746776,
+                  updatedAt: 1716788746776,
+                },
+                {
+                  name: "FINGERPRINT_COLLECTION",
+                  status: "NOT_START",
+                  metadata: null,
+                  startedAt: 1716788746776,
+                  updatedAt: 1716788746776,
+                },
+                {
+                  name: "INTERVIEW",
+                  status: "NOT_START",
+                  metadata: null,
+                  startedAt: 1716788746776,
+                  updatedAt: 1716788746776,
+                },
+                {
+                  name: "FINAL_REVIEW",
+                  status: "NOT_START",
+                  metadata: null,
+                  startedAt: 1716788746776,
+                  updatedAt: 1716788746776,
+                },
+                {
+                  name: "RESULT",
                   status: "NOT_START",
                   metadata: null,
                   startedAt: 1716788746776,
@@ -209,7 +256,7 @@ export function CaseStatusRightPanel() {
 
   return (
     <div className="caseStatus">
-      <CaseStatusCard caseSummary={caseSummary} />
+      <CaseSummaryCard caseSummary={caseSummary} />
       <CaseProgressCard caseSummary={caseSummary} />
     </div>
   );
