@@ -76,7 +76,7 @@ export interface ApplicationCase {
   assignedLawyer: number;
   createdAt: number;
   updatedAt: number;
-  progress?: Progress;
+  progress: Progress;
 }
 
 export interface Percentage {
@@ -98,9 +98,11 @@ export interface Step {
   startedAt: number;
   updatedAt: number;
 }
+
 export interface Progress {
   steps: Step[];
 }
+
 export interface CaseSummary {
   id: number;
   applicantName: string;
@@ -116,6 +118,7 @@ export interface CaseSummary {
   createdAt: number;
   updatedAt: number;
 }
+
 export enum CaseType {
   Asylum = "Asylum",
   H1B = "H1b",

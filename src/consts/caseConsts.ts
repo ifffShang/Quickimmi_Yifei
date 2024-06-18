@@ -206,6 +206,7 @@ export const InitialApplicationCase: ApplicationCase = {
   uscisReceiptNumber: "",
   paid: false,
   assignedLawyer: 0,
+  progress: { steps: [] },
   profile: {
     applyForWithholdingYesCheckbox: "",
     applicant: InitialApplicant,

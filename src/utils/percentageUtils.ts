@@ -33,6 +33,7 @@ export function buildFormPercentageObject(form: IForm) {
 
 export function includeForPercentageCalc(control: ControlType) {
   return (
+    control !== "checkbox" &&
     control !== "label" &&
     control !== "divider" &&
     control !== "section" &&

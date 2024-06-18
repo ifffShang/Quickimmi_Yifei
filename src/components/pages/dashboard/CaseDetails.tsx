@@ -14,6 +14,7 @@ import {
   buildFormPercentageObject,
   extractPercentageFromMetadata,
 } from "../../../utils/percentageUtils";
+import { useAutoSaveApplicationCase } from "../../../hooks/cacheHooks";
 
 export function CaseDetails() {
   const dispatch = useAppDispatch();

@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
-import { useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { ScreenSize } from "../../model/commonModels";
 import { useScreenSize } from "../../utils/screenSizeUtil";
 import { QReturnLink } from "../common/Links";
@@ -9,17 +9,22 @@ import { FormContent } from "./FormContent";
 import "./FormContainer.css";
 import { FormHeader } from "./FormHeader";
 import { FormNavigation } from "./FormNavigation";
+import { useAutoSaveApplicationCase } from "../../hooks/cacheHooks";
 
 export function FormContainer() {
   const navigate = useNavigate();
   const { id: caseId } = useParams<{ id: string }>(); // Get caseId from URL params
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+  const accessToken = useAppSelector(state => state.auth.accessToken);
   const form = useAppSelector(state => state.case.form);
   const indexLevel1 = useAppSelector(state => state.case.indexLevel1);
   const indexLevel2 = useAppSelector(state => state.case.indexLevel2);
   const screenSize = useScreenSize();
   const isSmallScreen =
     screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall;
+
+  useAutoSaveApplicationCase(accessToken, dispatch);
 
   if (!form || indexLevel1 === -1 || indexLevel2 === -1) {
     return (

@@ -23,7 +23,9 @@
 }
 
 .form-header-tags {
+  display: flex;
   margin-top: 25px;
+  gap: 10px;
 }
 
 .form-header-tag {

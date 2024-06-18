@@ -17,11 +17,13 @@ import {
   Percentage,
 } from "../model/apiModels";
 import { getUpdateProfileData } from "../utils/utils";
+import { CacheStore } from "../cache/cache";
 
 export interface FormState {
   applicationCase: ApplicationCase;
   documentUrls: any[];
   percentage: Percentage;
+  autoSaveTimes: number;
 }
 
 const initialState: FormState = {
@@ -30,6 +32,7 @@ const initialState: FormState = {
   percentage: {
     overall: { avg: 0 },
   },
+  autoSaveTimes: 0,
 };
 
 function deepAssign(update: any, current: any, init: any) {
@@ -105,9 +108,13 @@ export const formSlice = createSlice({
         InitialApplicationCase,
       );
       Object.assign(state.applicationCase, result);
+
+      CacheStore.setApplicationCase(result);
     },
     updatePercentage: (state, action: PayloadAction<Percentage>) => {
       state.percentage = action.payload;
+
+      CacheStore.setPercentage(state.percentage);
     },
     updateOnePercentage: (
       state,
@@ -138,6 +145,8 @@ export const formSlice = createSlice({
         }
       });
       state.percentage.overall.avg = Math.round(sum / count);
+
+      CacheStore.setPercentage(state.percentage);
     },
     updateCaseFields: (
       state,
@@ -157,6 +166,8 @@ export const formSlice = createSlice({
 
       const profile = _.merge(state.applicationCase.profile, action.payload);
       state.applicationCase.profile = profile;
+
+      CacheStore.setApplicationCase(state.applicationCase);
     },
     updatePassportInfo: (
       state,
@@ -288,9 +299,16 @@ export const formSlice = createSlice({
     clearDocumentUrls: state => {
       state.documentUrls = [];
     },
+    incrementAutoSaveTimes: state => {
+      state.autoSaveTimes++;
+    },
     resetFormState: state => {
       state.applicationCase = InitialApplicationCase;
       state.documentUrls = [];
+      state.percentage = {
+        overall: { avg: 0 },
+      };
+      state.autoSaveTimes = 0;
     },
   },
 });
@@ -307,6 +325,7 @@ export const {
   syncUpMailingAndResidenceAddress,
   replaceDocumentUrls,
   clearDocumentUrls,
+  incrementAutoSaveTimes,
 } = formSlice.actions;
 
 export default formSlice.reducer;

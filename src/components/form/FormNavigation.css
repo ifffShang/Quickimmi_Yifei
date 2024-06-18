@@ -30,7 +30,7 @@
 .form-navigation-l2 {
   padding: 16px 20px 16px 40px;
   border-bottom: 1px solid var(--gray-color-4);
-  color: var(--gray-color-2);
+  color: var(--gray-color-7);
   cursor: pointer;
   border-radius: 0;
 }
@@ -45,11 +45,9 @@
   font-weight: 600;
   padding: 16px 24px 16px 16px;
   border: none;
-  color: var(--font-color-collapse-level1);
 }
 
 .standalone.form-navigation-l2.active {
-  color: var(--primary-color);
   border-right: none;
 }
 

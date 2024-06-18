@@ -1,16 +1,29 @@
-export class Cache {
+import { InitialApplicationCase } from "../consts/caseConsts";
+import { ApplicationCase, Percentage } from "../model/apiModels";
+
+export class CacheStore {
   public static ApplicationCase589Key = "589-application-case";
+  public static ApplicationCase589CacheKey = "589-application-case-cache";
 
-  public static get(key: string): any {
-    return localStorage.get(key);
+  public static setApplicationCase(value: ApplicationCase): void {
+    localStorage.setItem(this.ApplicationCase589Key, JSON.stringify(value));
   }
 
-  public static set(key: string, value: any): void {
-    localStorage.set(key, value);
+  public static getApplicationCase(): ApplicationCase {
+    const strValue = localStorage.getItem(this.ApplicationCase589Key);
+    return strValue ? JSON.parse(strValue) : InitialApplicationCase;
   }
 
-  public static delete(key: string): void {
-    localStorage.delete(key);
+  public static setPercentage(value: Percentage): void {
+    localStorage.setItem(
+      this.ApplicationCase589CacheKey,
+      JSON.stringify(value),
+    );
+  }
+
+  public static getPercentage(): Percentage {
+    const strValue = localStorage.getItem(this.ApplicationCase589CacheKey);
+    return strValue ? JSON.parse(strValue) : { overall: { avg: 0 } };
   }
 
   public static clear(): void {

@@ -5,12 +5,20 @@
   margin-top: 5px;
 }
 
+.text.primary {
+  color: var(--primary-color);
+}
+
 .text.secondary {
   color: var(--gray-color-6);
 }
 
 .text.gray {
   color: var(--gray-color-7);
+}
+
+.text.dark {
+  color: var(--gray-color-1);
 }
 
 .text.xlarge {
@@ -51,10 +59,6 @@
 
 .text.margin-bottom-10 {
   margin-bottom: 10px;
-}
-
-.text.primary {
-  color: var(--primary-color);
 }
 
 .single-line-text {

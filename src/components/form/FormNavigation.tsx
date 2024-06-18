@@ -87,7 +87,7 @@ export function FormNavigation() {
           <div className={"nav-l1-label" + cssL1}>
             <QText
               level="normal bold"
-              color={indexLevel1 === l1Index ? "inherit" : "gray"}
+              color={indexLevel1 === l1Index ? "dark" : "gray"}
             >
               {wt(level1.label)}
             </QText>

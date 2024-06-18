@@ -17,7 +17,7 @@ export interface TextProps {
     | "xsmall"
     | "field-label"
     | "placeholder";
-  color?: "primary" | "secondary" | "gray" | "inherit";
+  color?: "primary" | "secondary" | "gray" | "dark" | "inherit";
   margin?: "margin-bottom-10";
 }
 

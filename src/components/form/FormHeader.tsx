@@ -5,6 +5,7 @@ import { updateApplicationCaseFunc } from "../../utils/functionUtils";
 import { QText } from "../common/Fonts";
 import { EditForm } from "../icons/Form";
 import "./FormHeader.css";
+import { AutoSaveTag } from "./parts/AutoSaveTag";
 
 export function FormHeader() {
   const { t } = useTranslation();
@@ -23,6 +24,7 @@ export function FormHeader() {
               {t("Total progress") + ": " + percentageNumber + "%"}
             </QText>
           </div>
+          <AutoSaveTag />
         </div>
       </div>
       <div className="form-header-save">
