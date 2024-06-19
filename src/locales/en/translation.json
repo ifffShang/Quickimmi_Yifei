@@ -18,6 +18,7 @@
   "PrivacyPolicy": "Privacy Policy",
   "ImmigrationWebsite": "Immigration website",
   "Compare": "Compare",
+  "Delete": "Delete",
   "Login": "Log in",
   "SignUp": "Sign up",
   "ForgotPassword": "Forgot password",
@@ -135,7 +136,11 @@
   "Draft": "Draft",
   "Reviewing": "Reviewing",
   "Submitted": "Submitted",
+  "InputClientEmail": "Input client email",
+  "InviteClientViaEmail": "Sent sign up invite to customer via email",
 
+  "UploadDocument": "Upload Document",
+  
   "CaseProgressTitle": "Progress",
   "FILLING_APPLICATION": "Collect Information",
   "REVIEW_AND_SIGN": "Review and Sign",

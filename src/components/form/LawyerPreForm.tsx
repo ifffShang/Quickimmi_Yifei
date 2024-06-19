@@ -125,13 +125,15 @@ export function LawyerPreForm() {
         </div>
         <div className="form-content-form-preForm">
           <div className="field-section-preForm">
-            <QText level="field-label">{t("Name")}</QText>
-            <Input
-              className="field-input-preForm"
-              placeholder="Enter applicant's name"
-              value={applicantName}
-              onChange={e => setApplicantName(e.target.value)}
-            />
+            <div>
+                <QText level="field-label">{t("Name")}</QText>
+                <Input
+                className="field-input-preForm"
+                placeholder="Enter applicant's name"
+                value={applicantName}
+                onChange={e => setApplicantName(e.target.value)}
+                />
+            </div>
           </div>
           <div className="field-section-preForm immigType">
             <div>
@@ -167,18 +169,20 @@ export function LawyerPreForm() {
             </div>
           </div>
           <div className="field-section-preForm">
-            <QText level="field-label">{t("MaritalStatus")}</QText>
-            <Select
-              className="field-input-preForm"
-              placeholder="Select marital status"
-              value={maritalStatus}
-              onChange={value => setMaritalStatus(value)}
-            >
-              <Option value="Single">{t("Single")}</Option>
-              <Option value="Married">{t("Married")}</Option>
-              <Option value="Divorced">{t("Divorced")}</Option>
-              <Option value="Widowed">{t("Widowed")}</Option>
-            </Select>
+            <div>
+                <QText level="field-label">{t("MaritalStatus")}</QText>
+                <Select
+                className="field-input-preForm"
+                placeholder="Select marital status"
+                value={maritalStatus}
+                onChange={value => setMaritalStatus(value)}
+                >
+                <Option value="Single">{t("Single")}</Option>
+                <Option value="Married">{t("Married")}</Option>
+                <Option value="Divorced">{t("Divorced")}</Option>
+                <Option value="Widowed">{t("Widowed")}</Option>
+                </Select>
+            </div>
             <Checkbox
               checked={applyWithSpouse}
               onChange={e => setApplyWithSpouse(e.target.checked)}
@@ -221,28 +225,30 @@ export function LawyerPreForm() {
       </div>
 
       <Modal
-        title="Input client email"
         visible={isModalVisible}
         onCancel={handleCancel}
         footer={null}
         className="email-modal-preForm"
       >
         <div className="email-modal-content-preForm">
-          <QText level="field-label">{t("InviteCustomerViaEmail")}</QText>
-          <Input
+            <div>
+                <QText level="large">{t("InputClientEmail")}</QText>
+                <QText level="small" color="gray">{t("InviteClientViaEmail")}</QText>
+            </div>
+            <Input
             placeholder="Enter client email"
             value={providedCustomerEmail}
             onChange={e => setProvidedCustomerEmail(e.target.value)}
             className="email-input-preForm"
-          />
-          <Button
+            />
+            <Button
             type="primary"
             onClick={handleFormSubmit}
             className="email-send-button-preForm"
             disabled={isEmailSendButtonDisabled}
-          >
+            >
             {t("Send")}
-          </Button>
+            </Button>
         </div>
       </Modal>
     </div>
