@@ -8,6 +8,7 @@
   "PrivacyPolicy": "隐私政策",
   "ImmigrationWebsite": "移民局网站",
   "Compare": "比较",
+  "Delete": "删除",
   "Login": "登录",
   "SignUp": "注册",
   "ForgotPassword": "忘记密码",
@@ -125,6 +126,10 @@
   "Draft": "草稿",
   "Reviewing": "审核中",
   "Submitted": "已提交",
+  "InputClientEmail": "输入客户邮箱",
+  "InviteClientViaEmail": "通过邮件发送注册邀请给客户",
+
+  "UploadDocument": "上传文件",
 
   "CaseProgressTitle": "案件进展",
   "FILLING_APPLICATION": "信息完善",
