@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import _ from "lodash";
+import _, { update } from "lodash";
 import {
   InitialAddressHistoryBeforeUS,
   InitialApplicationCase,
@@ -15,24 +15,27 @@ import {
   AsylumCaseProfileOptional,
   ParsePassportResponse,
   Percentage,
+  UploadedDocumentWithUrl,
 } from "../model/apiModels";
 import { getUpdateProfileData } from "../utils/utils";
 import { CacheStore } from "../cache/cache";
 
 export interface FormState {
   applicationCase: ApplicationCase;
-  documentUrls: any[];
   percentage: Percentage;
   autoSaveTimes: number;
+  documentUrls: any[];
+  uploadedDocuments: UploadedDocumentWithUrl[];
 }
 
 const initialState: FormState = {
   applicationCase: InitialApplicationCase,
-  documentUrls: [],
   percentage: {
     overall: { avg: 0 },
   },
   autoSaveTimes: 0,
+  documentUrls: [],
+  uploadedDocuments: [],
 };
 
 function deepAssign(update: any, current: any, init: any) {
@@ -299,15 +302,23 @@ export const formSlice = createSlice({
     clearDocumentUrls: state => {
       state.documentUrls = [];
     },
+    updateUploadedDocuments: (
+      state,
+      action: PayloadAction<UploadedDocumentWithUrl[]>,
+    ) => {
+      state.uploadedDocuments = action.payload;
+    },
     incrementAutoSaveTimes: state => {
       state.autoSaveTimes++;
     },
     resetFormState: state => {
       state.applicationCase = InitialApplicationCase;
-      state.documentUrls = [];
       state.percentage = {
         overall: { avg: 0 },
       };
+      state.documentUrls = [];
+      state.uploadedDocuments = [];
+
       state.autoSaveTimes = 0;
     },
   },
@@ -325,6 +336,7 @@ export const {
   syncUpMailingAndResidenceAddress,
   replaceDocumentUrls,
   clearDocumentUrls,
+  updateUploadedDocuments,
   incrementAutoSaveTimes,
 } = formSlice.actions;
 

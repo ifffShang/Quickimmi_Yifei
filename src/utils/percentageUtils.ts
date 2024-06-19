@@ -39,8 +39,7 @@ export function includeForPercentageCalc(control: ControlType) {
     control !== "section" &&
     control !== "removable_section" &&
     control !== "component_mailing_same_as_residential" &&
-    control !== "component_generate_report" &&
-    control !== "component_list_reports" &&
+    control !== "component_list_documents" &&
     control !== "component_add_item"
   );
 }
@@ -50,8 +49,7 @@ export function includeForLastField(control: ControlType) {
     control !== "group" &&
     control !== "section" &&
     control !== "removable_section" &&
-    control !== "component_generate_report" &&
-    control !== "component_list_reports"
+    control !== "component_list_documents"
   );
 }
 

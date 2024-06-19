@@ -10,7 +10,7 @@
   height: 120px;
 }
 
-.form-header-save {
+.form-header-action {
   margin-right: 210px;
 }
 
@@ -34,4 +34,8 @@
   border-radius: 5px;
   padding: 2px 8px;
   width: fit-content;
+}
+
+.form-header-save-btn {
+  margin-right: 10px;
 }

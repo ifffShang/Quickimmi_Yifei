@@ -6,6 +6,7 @@ import { QText } from "../common/Fonts";
 import { EditForm } from "../icons/Form";
 import "./FormHeader.css";
 import { AutoSaveTag } from "./parts/AutoSaveTag";
+import { generateDocumentsApi } from "../../api/caseAPI";
 
 export function FormHeader() {
   const { t } = useTranslation();
@@ -13,6 +14,14 @@ export function FormHeader() {
   const percentage = useAppSelector(state => state.form.percentage);
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const percentageNumber = percentage?.overall?.avg ?? 0;
+
+  const generateDocument = () => {
+    if (!applicationCase || !applicationCase.id || !accessToken) {
+      console.error("Case ID or access token is not available");
+      return;
+    }
+    generateDocumentsApi(accessToken, applicationCase.id);
+  };
 
   return (
     <div className="form-header">
@@ -27,7 +36,7 @@ export function FormHeader() {
           <AutoSaveTag />
         </div>
       </div>
-      <div className="form-header-save">
+      <div className="form-header-action">
         <Button
           type="primary"
           className="form-header-save-btn"
@@ -36,6 +45,9 @@ export function FormHeader() {
           }
         >
           {t("Save")}
+        </Button>
+        <Button type="primary" onClick={generateDocument}>
+          {t("Generate Documents")}
         </Button>
       </div>
       <div className="form-header-icon">

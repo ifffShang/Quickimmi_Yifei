@@ -46,26 +46,11 @@
           "control": "component_passport_uploader"
         },
         {
-          "label": "text_IdNumber",
-          "id": "name",
-          "control": "group",
-          "maxChildPerRow": "3",
-          "fields": [
-            {
-              "label": "text_PassportNumber",
-              "placeholder": "text_PassportNumber",
-              "id": "spouse_passport_number",
-              "key": "family.spouse.passportNumber",
-              "control": "component_textbox_na"
-            },
-            {
-              "label": "text_TravelDocumentNumber",
-              "placeholder": "text_TravelDocumentNumber",
-              "id": "spouse_travel_document_number",
-              "key": "family.spouse.travelDocumentNumber",
-              "control": "component_textbox_na"
-            }
-          ]
+          "label": "text_PassportNumber",
+          "placeholder": "text_PassportNumber",
+          "id": "spouse_passport_number",
+          "key": "family.spouse.passportNumber",
+          "control": "component_textbox_na"
         },
         {
           "label": "text_BirthDate",
@@ -141,27 +126,11 @@
         },
         {
           "label": "text_Nationality",
-          "id": "nationality_spouse",
-          "control": "group",
-          "maxChildPerRow": "3",
-          "fields": [
-            {
-              "label": "text_PresentNationality",
-              "placeholder": "text_PresentNationality",
-              "id": "nationality",
-              "key": "family.spouse.nationality",
-              "control": "select",
-              "options": "NationalityOptions"
-            },
-            {
-              "label": "text_NationalityAtBirth",
-              "placeholder": "text_NationalityAtBirth",
-              "id": "nationality_at_birth",
-              "key": "family.spouse.nationalityAtBirth",
-              "control": "select",
-              "options": "NationalityOptions"
-            }
-          ]
+          "placeholder": "text_PresentNationality",
+          "id": "nationality",
+          "key": "family.spouse.nationality",
+          "control": "select",
+          "options": "NationalityOptions"
         },
         {
           "label": "text_Race",
@@ -169,13 +138,6 @@
           "key": "family.spouse.race",
           "control": "select",
           "options": "RaceOptions"
-        },
-        {
-          "label": "text_Religion",
-          "id": "religion_spouse",
-          "key": "family.spouse.religion",
-          "control": "select",
-          "options": "ReligionOptions"
         },
         {
           "label": "text_Gender",

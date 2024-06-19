@@ -20,8 +20,8 @@ table {
   margin-bottom: 20px;
 }
 
-td,
-th {
+.privacy td,
+.privacy th {
   border: 1px solid var(--gray-color-3);
   padding: 8px;
 }

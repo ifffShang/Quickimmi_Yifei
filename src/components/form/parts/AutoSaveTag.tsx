@@ -15,7 +15,7 @@ export function AutoSaveTag() {
     setDisplayAutoSaveTag(true);
     const timer = setTimeout(() => {
       setDisplayAutoSaveTag(false);
-    }, 5000);
+    }, 1000 * 60);
 
     return () => clearTimeout(timer);
   }, [autoSaveTimes]);

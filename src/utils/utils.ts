@@ -123,8 +123,7 @@ export function hasFormKey(control: ControlType) {
     control !== "section" &&
     control !== "removable_section" &&
     control !== "component_mailing_same_as_residential" &&
-    control !== "component_generate_report" &&
-    control !== "component_list_reports"
+    control !== "component_list_documents"
   );
 }
 
@@ -279,11 +278,14 @@ export async function downloadImage(presignedUrl: string, filename?: string) {
   }
 }
 
-export async function downloadDocument(presignedUrl: string, filename: string) {
+export async function downloadDocument(
+  presignedUrl: string,
+  additionalData?: any,
+) {
   try {
     const response = await fetch(presignedUrl);
     const doc = await response.blob();
-    return { document: doc, filename: filename };
+    return { document: doc, ...additionalData };
   } catch (err) {
     console.error("Error downloading document:", err);
   }

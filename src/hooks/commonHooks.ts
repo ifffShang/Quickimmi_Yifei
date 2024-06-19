@@ -1,7 +1,10 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { getDocumentsApi } from "../api/caseAPI";
-import { clearDocumentUrls, replaceDocumentUrls } from "../reducers/formSlice";
+import {
+  clearDocumentUrls,
+  updateUploadedDocuments,
+} from "../reducers/formSlice";
 import { arrayMapper } from "../utils/mapper";
 import { textParser } from "../utils/parsers";
 import { downloadDocument } from "../utils/utils";
@@ -58,13 +61,13 @@ export function useDocumentsOnLoad(params: GetDocumentsOnLoadParams) {
         const downloadDocumentPromises = documents
           .filter(doc => doc.status === "uploaded")
           .map(doc => {
-            return downloadDocument(doc.presignUrl, doc.name);
+            return downloadDocument(doc.presignUrl, { ...doc });
           });
 
         Promise.all(downloadDocumentPromises)
-          .then(urls => {
+          .then(uploadedDocs => {
             params.setLoading(false);
-            params.dispatch(replaceDocumentUrls(urls));
+            params.dispatch(updateUploadedDocuments(uploadedDocs));
           })
           .catch(error => {
             params.setLoading(false);

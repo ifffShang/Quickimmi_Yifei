@@ -1,3 +1,22 @@
 .document-list a {
   display: block;
 }
+
+.document-list-action {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+.document-list-inner {
+  width: 100%;
+}
+
+.document-list-btn {
+  float: right;
+  margin: 10px;
+}
+
+.document-list-inner th {
+  background: none !important;
+}

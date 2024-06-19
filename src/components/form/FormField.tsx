@@ -30,7 +30,6 @@ import {
 } from "./fields/Controls";
 import { DocumentList } from "./fields/DocumentList";
 import { EntryRecords } from "./fields/EntryRecords";
-import { GenerateDocument } from "./fields/GenerateDocument";
 import { LocationDropdown } from "./fields/LocationDropdown";
 import { PassportUploader } from "./fields/PassportUploader";
 import { SameAddressCheckbox } from "./fields/SameAddressCheckbox";
@@ -363,9 +362,7 @@ export function FormField(props: FormFieldProps) {
           onLocationChange={onLocationChange}
         />
       );
-    case "component_generate_report":
-      return <GenerateDocument />;
-    case "component_list_reports":
+    case "component_list_documents":
       return <DocumentList />;
     case "component_mailing_same_as_residential":
       return <SameAddressCheckbox label={wt(props.label)} />;

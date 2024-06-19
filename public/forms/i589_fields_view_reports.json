@@ -4,14 +4,10 @@
   "type": "fields",
   "fields": [
     {
-      "label": "text_TestPurpose",
-      "id": "generate_report",
-      "control": "component_generate_report"
-    },
-    {
-      "label": "text_Reports",
-      "id": "generate_report",
-      "control": "component_list_reports"
+      "label": "text_ViewDocuments",
+      "hideHeader": "true",
+      "id": "view_documents",
+      "control": "component_list_documents"
     }
   ]
 }

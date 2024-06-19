@@ -104,14 +104,14 @@
       ]
     },
     {
-      "label": "text_ViewReports",
-      "id": "reports",
+      "label": "text_ViewDocuments",
+      "id": "documents",
       "type": "level1",
       "standalone": "true",
       "steps": [
         {
-          "label": "text_ViewReports",
-          "id": "reports",
+          "label": "text_ViewDocuments",
+          "id": "documents",
           "type": "level2",
           "referenceId": "i589_fields_view_reports"
         }

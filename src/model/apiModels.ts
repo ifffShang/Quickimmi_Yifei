@@ -481,3 +481,7 @@ export interface UploadedDocument {
   createdAt: number;
   updatedAt: number;
 }
+
+export interface UploadedDocumentWithUrl extends UploadedDocument {
+  document: any;
+}

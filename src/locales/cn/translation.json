@@ -1,4 +1,14 @@
 {
+  "View": "查看",
+  "Download": "下载",
+  "Send for Signature": "发送签字",
+  "File Name": "文件名",
+  "File Type": "文件类型",
+  "Created At": "创建时间",
+  "Updated At": "更新时间",
+  "Action": "操作",
+  "Generate Documents": "生成文件",
+
   "Home": "首页",
   "AboutUs": "关于我们",
   "AboutQuickimmi": "关于 Quickimmi",
@@ -160,7 +170,7 @@
   "AdditionalInformation": "额外信息",
   "GenerateDocument": "生成文档",
   "GenerateReport": "生成报告",
-  "ViewReports": "查看表单",
+  "ViewDocuments": "查看表单",
 
   "IdNumber": "证件号码",
   "IdInformation": "证件信息",
