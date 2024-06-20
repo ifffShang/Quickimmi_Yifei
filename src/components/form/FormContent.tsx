@@ -157,7 +157,12 @@ export function FormContent(props: FormContentProps) {
         <Button
           className="default-button"
           onClick={() =>
-            updateApplicationCaseFunc(applicationCase, percentage, role, accessToken)
+            updateApplicationCaseFunc(
+              applicationCase,
+              percentage,
+              role,
+              accessToken,
+            )
           }
         >
           {t("Save")}

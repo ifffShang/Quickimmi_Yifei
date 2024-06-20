@@ -70,7 +70,6 @@ export const performApiRequest = async ({
   self,
   role,
 }: ApiRequestModel) => {
-
   const additionalHeaders: any = { Authorization: `Bearer ${accessToken}` };
   const body = data ? JSON.stringify(data) : null;
 

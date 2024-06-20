@@ -50,6 +50,6 @@ export function updateApplicationCaseFunc(
   updateApplicationCaseApi(
     getUpdateApplicationCaseData(applicationCaseForUpdate),
     accessToken,
-    role
+    role,
   );
 }

@@ -82,13 +82,15 @@ export async function createNewCaseByLawyerApi(
       providedCustomerEmail,
     },
     accessToken,
-    role
+    role,
   });
   return <string>res.data;
 }
 
-export async function deleteCaseApi(  caseId: number,
-  accessToken: string, role: Role,
+export async function deleteCaseApi(
+  caseId: number,
+  accessToken: string,
+  role: Role,
 ): Promise<boolean> {
   const res = await performApiRequest({
     endPoint: `api/case/delete?caseId=${caseId}`,
@@ -111,7 +113,7 @@ export async function getCasesApi(
     method: "GET",
     data: null,
     accessToken,
-    role
+    role,
   });
   return <Case[]>res.data;
 }
@@ -127,7 +129,7 @@ export async function getCasesByLawyerApi(
     method: "GET",
     data: null,
     accessToken,
-    role
+    role,
   });
   return <Case[]>res.data;
 }
@@ -144,7 +146,7 @@ export async function getCaseDetailsApi(
     method: "GET",
     data: null,
     accessToken,
-    role
+    role,
   });
   res.data.percentage = res.data.percentage
     ? JSON.parse(res.data.percentage)
@@ -162,7 +164,7 @@ export async function getCaseSummaryApi(
     method: "GET",
     data: null,
     accessToken,
-    role
+    role,
   });
   return res.data as CaseSummary;
 }
@@ -177,7 +179,7 @@ export async function updateApplicationCaseApi(
     method: "POST",
     data,
     accessToken,
-    role
+    role,
   });
   return <boolean>res.data;
 }
@@ -202,7 +204,7 @@ export async function generateDocumentPresignedUrl(
       identify,
     },
     accessToken,
-    role
+    role,
   });
   return <GeneratePresignedUrlResponse>res.data;
 }
@@ -217,7 +219,7 @@ export async function parsePassportApi(
     method: "POST",
     data: null,
     accessToken,
-    role
+    role,
   });
   return <ParsePassportResponse>res.data;
 }
@@ -232,7 +234,7 @@ export async function getDocumentByIdApi(
     method: "GET",
     data: null,
     accessToken,
-    role
+    role,
   });
   return <UploadedDocument>res.data;
 }
@@ -250,7 +252,7 @@ export async function getDocumentsApi(
     method: "GET",
     data: null,
     accessToken,
-    role
+    role,
   });
   return <UploadedDocument[]>res.data;
 }
@@ -265,7 +267,7 @@ export async function generateDocumentsApi(
     method: "GET",
     data: null,
     accessToken,
-    role
+    role,
   });
   return <boolean>res.data;
 }
@@ -274,13 +276,16 @@ export async function generateDocumentsApi(
  * This is for development purposes only
  * @returns
  */
-export async function flushRedisCache(accessToken: string, role: Role): Promise<boolean> {
+export async function flushRedisCache(
+  accessToken: string,
+  role: Role,
+): Promise<boolean> {
   const res = await performApiRequest({
     endPoint: "api/cache/flushAll",
     method: "GET",
     data: null,
     accessToken,
-    role
+    role,
   });
   return <boolean>res.data;
 }

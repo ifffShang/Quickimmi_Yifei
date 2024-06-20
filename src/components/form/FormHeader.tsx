@@ -42,7 +42,12 @@ export function FormHeader() {
           type="primary"
           className="form-header-save-btn"
           onClick={() =>
-            updateApplicationCaseFunc(applicationCase, percentage, role, accessToken)
+            updateApplicationCaseFunc(
+              applicationCase,
+              percentage,
+              role,
+              accessToken,
+            )
           }
         >
           {t("Save")}

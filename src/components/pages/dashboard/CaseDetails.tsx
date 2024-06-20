@@ -33,7 +33,7 @@ export function CaseDetails() {
           const caseDetails = await getCaseDetailsApi(
             parseInt(id),
             accessToken,
-            role
+            role,
           );
           if (!caseDetails) {
             console.error(`Failed to get case details for case id ${id}`);

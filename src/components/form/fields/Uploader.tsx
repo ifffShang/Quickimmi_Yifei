@@ -68,7 +68,7 @@ export function Uploader(props: UploaderProps) {
         props.documentName ? props.documentName + "." + fileExt : file.name,
         props.identity,
         accessToken,
-        role
+        role,
       );
       onSuccess(res, file, null);
       props.onPresignedUrlReceived?.(res, file);

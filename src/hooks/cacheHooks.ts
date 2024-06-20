@@ -57,7 +57,12 @@ export function useAutoSaveApplicationCase(
       const applicateCaseCached = CacheStore.getApplicationCase();
       const percentage = CacheStore.getPercentage();
       console.log("[Auto save] Auto save application case before exit.");
-      updateApplicationCaseFunc(applicateCaseCached, percentage, role, accessToken);
+      updateApplicationCaseFunc(
+        applicateCaseCached,
+        percentage,
+        role,
+        accessToken,
+      );
       clearTimeout(timeId);
     };
   }, []);
