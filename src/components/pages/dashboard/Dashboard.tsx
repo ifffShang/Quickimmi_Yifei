@@ -111,7 +111,12 @@ export function Dashboard() {
     cases && cases.length > 0 ? (
       <div className="dashboard-panel has-application">
         {cases.map(c => (
-          <CaseCard key={c.id} caseId={c.id} onDelete={getCases} />
+          <CaseCard
+            key={c.id}
+            caseId={c.id}
+            updatedAt={c.updatedAt}
+            onDelete={getCases}
+          />
         ))}
       </div>
     ) : (
@@ -132,7 +137,12 @@ export function Dashboard() {
     cases && cases.length > 0 ? (
       <div className="dashboard-panel has-application">
         {cases.map(c => (
-          <CaseCard key={c.id} caseId={c.id} onDelete={getCases} />
+          <CaseCard
+            key={c.id}
+            caseId={c.id}
+            updatedAt={c.updatedAt}
+            onDelete={getCases}
+          />
         ))}
       </div>
     ) : (

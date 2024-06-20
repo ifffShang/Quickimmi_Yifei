@@ -70,7 +70,7 @@
   },
   "ViewDetails": "查看详情",
   "ApplicationType": "选择申请类型",
-  "LastUpdated": "上次更新",
+  "LastUpdatedAt": "上次更新时间",
   "MasterApplicant": "主申请人",
   "SelectCaseType": "选择案件类型",
   "EnterCaseDetails": "输入案件详情",

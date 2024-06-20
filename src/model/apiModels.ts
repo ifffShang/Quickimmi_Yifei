@@ -32,10 +32,10 @@ export interface Case {
   paid: boolean;
   profile: string;
   status: string;
-  submittedAt: string;
+  submittedAt: number;
   taskList: string;
   type: string;
-  updatedAt: string;
+  updatedAt: number;
   uscisReceiptNumber: string;
   userId: number;
 }

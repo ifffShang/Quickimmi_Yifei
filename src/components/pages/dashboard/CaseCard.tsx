@@ -1,16 +1,16 @@
 import { Button } from "antd";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { deleteCaseApi } from "../../../api/caseAPI";
+import { useAppSelector } from "../../../app/hooks";
 import { getCaseId } from "../../../utils/utils";
 import { QText, SingleLine } from "../../common/Fonts";
 import { CaseIcon } from "../../icons/Dashboard";
 import "./CaseCard.css";
-import { deleteCaseApi } from "../../../api/caseAPI";
-import { resetFormState } from "../../../reducers/formSlice";
 
 export interface CaseCardProps {
   caseId: number;
+  updatedAt: number;
   onDelete: () => void;
 }
 
@@ -67,7 +67,10 @@ export function CaseCard(props: CaseCardProps) {
         </div>
         <div className="case-card-details">
           <SingleLine title={t("ApplicationType") + ": "} value="Asylum" />
-          <SingleLine title={t("LastUpdated") + ": "} value={"4/13/2024"} />
+          <SingleLine
+            title={t("LastUpdatedAt") + ": "}
+            value={new Date(props.updatedAt).toLocaleString()}
+          />
           <SingleLine
             title={t("MasterApplicant") + ": "}
             value={userId?.toString() || ""}

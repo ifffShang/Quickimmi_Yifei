@@ -76,7 +76,7 @@ const CaseSummaryCard: React.FC<CaseStatusCardProps> = ({ caseSummary }) => {
         <Descriptions.Item label={t("CreatedAt")}>
           {new Date(createdAt).toLocaleDateString()}
         </Descriptions.Item>
-        <Descriptions.Item label={t("LastUpdated")}>
+        <Descriptions.Item label={t("LastUpdatedAt")}>
           {new Date(updatedAt).toLocaleDateString()}
         </Descriptions.Item>
         <Descriptions.Item label={t("MasterApplicant")}>

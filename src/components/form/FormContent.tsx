@@ -1,5 +1,5 @@
 import { Button } from "antd";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getFormFields } from "../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useFormTranslation } from "../../hooks/commonHooks";
@@ -33,6 +33,7 @@ export function FormContent(props: FormContentProps) {
   const currentStep = useAppSelector(state => state.case.currentStep);
   const formFieldsMap = useAppSelector(state => state.case.formFieldsMap);
   const percentage = useAppSelector(state => state.form.percentage);
+  const [percentageOfSection, setPercentageOfSection] = useState(0);
 
   const formFields =
     formFieldsMap && props.referenceId
@@ -61,6 +62,16 @@ export function FormContent(props: FormContentProps) {
         console.error(error);
       });
   }, [props.referenceId]);
+
+  useEffect(() => {
+    dispatch(
+      updateOnePercentage({
+        sectionId: props.sectionId,
+        referenceId: props.referenceId,
+        value: percentageOfSection,
+      }),
+    );
+  }, [percentageOfSection]);
 
   const countFulfilledFields = (
     control: ControlType,
@@ -91,13 +102,7 @@ export function FormContent(props: FormContentProps) {
       const currentPercentage = percentage[props.sectionId][props.referenceId];
 
       if (currentPercentage !== percentageOfFulfilledFields) {
-        dispatch(
-          updateOnePercentage({
-            sectionId: props.sectionId,
-            referenceId: props.referenceId,
-            value: percentageOfFulfilledFields,
-          }),
-        );
+        setPercentageOfSection(percentageOfFulfilledFields);
         console.log("* Total fields: ", totalFields.current);
         console.log("* Fulfilled fields: ", fulfilledCount.current);
       }
