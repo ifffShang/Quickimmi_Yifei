@@ -6,8 +6,8 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { createUserApi, getUserInfoApi } from "../../../api/authAPI";
-import { useAppDispatch } from "../../../app/hooks";
-import { updateAuthState } from "../../../reducers/authSlice";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { Role, updateAuthState, updateRole } from "../../../reducers/authSlice";
 import { signOutCurrentUser } from "../../../utils/authUtils";
 import { validateEmail, validatePassword } from "../../../utils/validators";
 import { ErrorMessage, QText } from "../../common/Fonts";
@@ -16,11 +16,6 @@ import { AuthComponent } from "./AuthComponent";
 import { UserInfo } from "../../../model/apiModels";
 import awsExports from "../../../aws-exports";
 import { Amplify } from "aws-amplify";
-
-export enum Role {
-  APPLICANT = "APPLICANT",
-  LAWYER = "LAWYER",
-}
 
 export function SignIn() {
   const dispatch = useAppDispatch();
@@ -31,7 +26,8 @@ export function SignIn() {
   const [errorMessage, setErrorMessage] = useState("");
   const [showFormInputErrorMessage, setShowFormInputErrorMessage] =
     useState(false);
-  const [role, setRole] = useState(Role.APPLICANT);
+
+  const role = useAppSelector(state => state.auth.role);
 
   useEffect(() => {
     setShowFormInputErrorMessage(false);
@@ -107,7 +103,6 @@ export function SignIn() {
           updateAuthState({
             prevStep: "signin",
             email,
-            role: role,
           }),
         );
         navigate("/signup");
@@ -133,7 +128,8 @@ export function SignIn() {
         <Switch
           checked={role === Role.LAWYER}
           onChange={checked => {
-            checked ? setRole(Role.LAWYER) : setRole(Role.APPLICANT);
+            const roleValue = checked ? Role.LAWYER : Role.APPLICANT;
+            dispatch(updateRole(roleValue));
           }}
         />
       </div>

@@ -14,6 +14,7 @@ import { Loading } from "../../common/Loading";
 import { NewApplicationIcon } from "../../icons/Dashboard";
 import { CaseCard } from "./CaseCard";
 import "./Dashboard.css";
+import { Role } from "../../../reducers/authSlice";
 
 export function Dashboard() {
   const navigate = useNavigate();
@@ -152,7 +153,7 @@ export function Dashboard() {
         <h2>
           <QText level="large">{t("Dashboard.Dashboard")}</QText>
         </h2>
-        {role === "lawyer" ? (
+        {role === Role.LAWYER ? (
           <Button type="primary" onClick={CreateNewCaseForLawyer}>
             {t("Dashboard.CreateNewApplication")}
           </Button>
@@ -163,7 +164,7 @@ export function Dashboard() {
         )}
       </div>
 
-      {role === "lawyer" ? lawyerContent : customerContent}
+      {role === Role.LAWYER ? lawyerContent : customerContent}
     </div>
   );
 }
