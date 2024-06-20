@@ -17,6 +17,11 @@ import { UserInfo } from "../../../model/apiModels";
 import awsExports from "../../../aws-exports";
 import { Amplify } from "aws-amplify";
 
+export enum Role {
+  APPLICANT = "APPLICANT",
+  LAWYER = "LAWYER",
+}
+
 export function SignIn() {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
@@ -26,7 +31,7 @@ export function SignIn() {
   const [errorMessage, setErrorMessage] = useState("");
   const [showFormInputErrorMessage, setShowFormInputErrorMessage] =
     useState(false);
-  const [role, setRole] = useState("customer");
+  const [role, setRole] = useState(Role.APPLICANT);
 
   useEffect(() => {
     setShowFormInputErrorMessage(false);
@@ -36,7 +41,7 @@ export function SignIn() {
   // Configure Amplify with the user pool based on the role
   useEffect(() => {
     let userPoolConfig;
-    if (role === "lawyer") {
+    if (role === Role.LAWYER) {
       userPoolConfig = awsExports.LAWYER_POOL;
     } else {
       userPoolConfig = awsExports.CUSTOMER_POOL;
@@ -88,7 +93,7 @@ export function SignIn() {
         dispatch(
           updateAuthState({
             userId: userInfo?.id || undefined,
-            isLawyer: role === "lawyer",
+            isLawyer: role === Role.LAWYER,
             isLoggedIn: true,
             email,
             accessToken: accessToken,
@@ -126,15 +131,11 @@ export function SignIn() {
       <div className="auth-toggle">
         <QText>{t("IAmLawyer")}</QText>
         <Switch
-          checked={role === "lawyer"}
-          onChange={() => setRole(role === "customer" ? "lawyer" : "customer")}
+          checked={role === Role.LAWYER}
+          onChange={checked => {
+            checked ? setRole(Role.LAWYER) : setRole(Role.APPLICANT);
+          }}
         />
-        {/* <Checkbox
-        checked={role === "lawyer"}
-        onChange={() => setRole(role === "customer" ? "lawyer" : "customer")}
-        className="auth-checkbox"
-        >
-      </Checkbox> */}
       </div>
 
       <FormInput

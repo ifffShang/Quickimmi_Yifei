@@ -1,4 +1,3 @@
-//export const baseUrl = "https://192.168.0.13:8080";
 export const baseUrl = "https://devapi.quickimmi.ai";
 
 export const fetchFunction = async (
@@ -6,14 +5,14 @@ export const fetchFunction = async (
   method: string,
   data: any,
   additionalHeaders: any,
+  baseUrl: string,
   role: string,
-  baseUrl?: string,
 ) => {
   const url = baseUrl ? `${baseUrl}/${endPoint}` : `/${endPoint}`;
   const headers = {
     Accept: "application/json",
     "Content-Type": "application/json",
-    role: role,
+    Role: role,
     ...additionalHeaders,
   };
 
@@ -34,13 +33,20 @@ export const fetchFunction = async (
         const errorMessage =
           errorData?.errorCode ||
           errorData?.message ||
-          `HTTP Error: ${response.status}`;
+          `HTTP Error: ${response.status} ${response.statusText}`;
         throw new Error(errorMessage);
       } else {
-        throw new Error(`HTTP Error: ${response.status}`);
+        throw new Error(
+          `HTTP Error: ${response.status} ${response.statusText}`,
+        );
       }
     }
-    return response;
+    // Ensure the response is in JSON format before parsing
+    if (response.headers.get("content-type")?.includes("application/json")) {
+      return await response.json();
+    } else {
+      return response.text();
+    }
   } catch (error: any) {
     console.error(`Error fetching data from ${endPoint}:`, error.message);
     throw error; // Re-throwing the error for the caller to handle if needed
@@ -59,7 +65,7 @@ export const performApiRequest = async (
   const body = data ? JSON.stringify(data) : null;
 
   try {
-    const response = await fetchFunction(
+    return await fetchFunction(
       endPoint,
       method,
       body,
@@ -67,24 +73,6 @@ export const performApiRequest = async (
       self ? "" : baseUrl,
       role,
     );
-
-    const responseData = await response.json();
-
-    if (!response.ok) {
-      console.error(`API Request Failed:`, {
-        endPoint,
-        method,
-        status: response.status,
-        statusText: response.statusText,
-        responseData,
-      });
-      throw new Error(
-        responseData.errorCode ||
-          responseData.message ||
-          "Failed to perform API request",
-      );
-    }
-    return responseData;
   } catch (error) {
     console.error(error);
     throw error;

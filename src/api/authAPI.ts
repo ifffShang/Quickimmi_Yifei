@@ -4,7 +4,6 @@ import { performApiRequest } from "./apiConfig";
 export async function createUserApi(
   email: string,
   accessToken: string,
-  // Include a default role of "customer"
   role?: string,
 ): Promise<number> {
   const userId = await performApiRequest(
@@ -26,9 +25,11 @@ export async function createUserApi(
 export async function getUserInfoApi(
   email: string,
   accessToken: string,
-  // Include a default role of "customer"
   role?: string,
 ): Promise<UserInfo> {
+  if (role !== "APPLICANT" && role !== "LAWYER") {
+    throw new Error(`Invalid role ${role}`);
+  }
   const userInfo = await performApiRequest(
     `api/user/getByUsername?username=${email}`,
     "GET",
