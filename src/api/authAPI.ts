@@ -5,7 +5,7 @@ export async function createUserApi(
   email: string,
   accessToken: string,
   // Include a default role of "customer"
-  role: string = "customer",
+  role?: string,
 ): Promise<number> {
   const userId = await performApiRequest(
     "api/user/create",
@@ -18,6 +18,7 @@ export async function createUserApi(
     },
     accessToken,
     false,
+    role,
   );
   return userId || 0;
 }
@@ -26,14 +27,15 @@ export async function getUserInfoApi(
   email: string,
   accessToken: string,
   // Include a default role of "customer"
-  role: string = "customer",
+  role?: string,
 ): Promise<UserInfo> {
   const userInfo = await performApiRequest(
-    `api/user/getByUsername?username=${email}&role${role}`,
+    `api/user/getByUsername?username=${email}`,
     "GET",
     null,
     accessToken,
     false,
+    role,
   );
   return userInfo?.data;
 }

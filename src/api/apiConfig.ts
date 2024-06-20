@@ -6,12 +6,14 @@ export const fetchFunction = async (
   method: string,
   data: any,
   additionalHeaders: any,
+  role: string,
   baseUrl?: string,
 ) => {
   const url = baseUrl ? `${baseUrl}/${endPoint}` : `/${endPoint}`;
   const headers = {
     Accept: "application/json",
     "Content-Type": "application/json",
+    role: role,
     ...additionalHeaders,
   };
 
@@ -51,6 +53,7 @@ export const performApiRequest = async (
   data: any,
   accessToken: string,
   self = false,
+  role = "APPLICANT",
 ) => {
   const additionalHeaders = { Authorization: `Bearer ${accessToken}` };
   const body = data ? JSON.stringify(data) : null;
@@ -62,6 +65,7 @@ export const performApiRequest = async (
       body,
       additionalHeaders,
       self ? "" : baseUrl,
+      role,
     );
 
     const responseData = await response.json();
