@@ -4,9 +4,11 @@ import { CacheStore } from "../cache/cache";
 import { updateApplicationCaseFunc } from "../utils/functionUtils";
 import { ObjectUtils } from "../utils/objectUtils";
 import { incrementAutoSaveTimes } from "../reducers/formSlice";
+import { Role } from "../consts/consts";
 
 export function useAutoSaveApplicationCase(
   accessToken: string | undefined,
+  role: Role,
   dispatch: Dispatch<any>,
 ) {
   if (!accessToken) return;
@@ -37,6 +39,7 @@ export function useAutoSaveApplicationCase(
           updateApplicationCaseFunc(
             applicateCaseCached,
             percentage,
+            role,
             accessToken,
           );
           lastApplicationCaseCached = applicateCaseCached;
@@ -54,7 +57,7 @@ export function useAutoSaveApplicationCase(
       const applicateCaseCached = CacheStore.getApplicationCase();
       const percentage = CacheStore.getPercentage();
       console.log("[Auto save] Auto save application case before exit.");
-      updateApplicationCaseFunc(applicateCaseCached, percentage, accessToken);
+      updateApplicationCaseFunc(applicateCaseCached, percentage, role, accessToken);
       clearTimeout(timeId);
     };
   }, []);

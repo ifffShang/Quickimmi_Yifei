@@ -1,10 +1,12 @@
 import { updateApplicationCaseApi } from "../api/caseAPI";
+import { Role } from "../consts/consts";
 import { ApplicationCase, Percentage } from "../model/apiModels";
 import { getUpdateApplicationCaseData } from "./utils";
 
 export function updateApplicationCaseFunc(
   applicationCase: ApplicationCase,
   percentage: Percentage,
+  role: Role,
   accessToken?: string,
 ) {
   if (!accessToken) {
@@ -48,5 +50,6 @@ export function updateApplicationCaseFunc(
   updateApplicationCaseApi(
     getUpdateApplicationCaseData(applicationCaseForUpdate),
     accessToken,
+    role
   );
 }

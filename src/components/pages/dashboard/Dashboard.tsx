@@ -14,7 +14,7 @@ import { Loading } from "../../common/Loading";
 import { NewApplicationIcon } from "../../icons/Dashboard";
 import { CaseCard } from "./CaseCard";
 import "./Dashboard.css";
-import { Role } from "../../../reducers/authSlice";
+import { Role } from "../../../consts/consts";
 
 export function Dashboard() {
   const navigate = useNavigate();
@@ -42,12 +42,12 @@ export function Dashboard() {
     try {
       let cases;
       if (isLawyer) {
-        cases = await getCasesByLawyerApi(userId!, accessToken);
+        cases = await getCasesByLawyerApi(userId!, accessToken, role);
         console.log(`Number of cases assigned to the lawyer: ${cases.length}`);
         console.log("lawyerId", userId);
         cases.forEach(c => console.log(`Case ID: ${c.id}`));
       } else {
-        cases = await getCasesApi(userId!, accessToken);
+        cases = await getCasesApi(userId!, accessToken, role);
         console.log(
           `Number of cases assigned to the customer: ${cases.length}`,
         );
@@ -79,6 +79,7 @@ export function Dashboard() {
       userId,
       "Asylum create reason",
       "AFFIRMATIVE",
+      role,
     );
     dispatch(updateCurrentCaseId(caseId));
     navigate("/case/" + caseId);

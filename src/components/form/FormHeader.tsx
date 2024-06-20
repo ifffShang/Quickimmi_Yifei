@@ -13,6 +13,7 @@ export function FormHeader() {
   const applicationCase = useAppSelector(state => state.form.applicationCase);
   const percentage = useAppSelector(state => state.form.percentage);
   const accessToken = useAppSelector(state => state.auth.accessToken);
+  const role = useAppSelector(state => state.auth.role);
   const percentageNumber = percentage?.overall?.avg ?? 0;
 
   const generateDocument = () => {
@@ -20,7 +21,7 @@ export function FormHeader() {
       console.error("Case ID or access token is not available");
       return;
     }
-    generateDocumentsApi(accessToken, applicationCase.id);
+    generateDocumentsApi(accessToken, applicationCase.id, role);
   };
 
   return (
@@ -41,7 +42,7 @@ export function FormHeader() {
           type="primary"
           className="form-header-save-btn"
           onClick={() =>
-            updateApplicationCaseFunc(applicationCase, percentage, accessToken)
+            updateApplicationCaseFunc(applicationCase, percentage, role, accessToken)
           }
         >
           {t("Save")}

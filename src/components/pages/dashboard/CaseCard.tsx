@@ -17,9 +17,9 @@ export interface CaseCardProps {
 export function CaseCard(props: CaseCardProps) {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const userId = useAppSelector(state => state.auth.userId);
+  const role = useAppSelector(state => state.auth.role);
 
   const openCaseDetails = async () => {
     if (!accessToken || !props.caseId) {
@@ -38,7 +38,7 @@ export function CaseCard(props: CaseCardProps) {
       );
       return;
     }
-    deleteCaseApi(props.caseId, accessToken)
+    deleteCaseApi(props.caseId, accessToken, role)
       .then(() => {
         props.onDelete();
       })

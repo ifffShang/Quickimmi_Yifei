@@ -55,6 +55,7 @@ export function DocumentList() {
   const dispatch = useAppDispatch();
   const caseId = useAppSelector(state => state.form.applicationCase?.id);
   const accessToken = useAppSelector(state => state.auth.accessToken);
+  const role = useAppSelector(state => state.auth.role);
   const uploadedDocuments = useAppSelector(
     state => state.form.uploadedDocuments,
   );
@@ -98,6 +99,7 @@ export function DocumentList() {
   useDocumentsOnLoad({
     caseId: caseId,
     accessToken: accessToken || "",
+    role: role,
     setLoading: setLoading,
     dispatch: dispatch,
   });

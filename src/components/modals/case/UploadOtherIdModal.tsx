@@ -23,6 +23,7 @@ export function UploadOtherIdModal() {
   const dispatch = useAppDispatch();
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const modalData = useAppSelector(state => state.common.modalData);
+  const role = useAppSelector(state => state.auth.role);
 
   const [loading, setLoading] = useState(false);
   const [confirmDisabled, setConfirmDisabled] = useState(true);
@@ -58,7 +59,7 @@ export function UploadOtherIdModal() {
       if (!accessToken) {
         throw new Error(`Access token ${accessToken} is missing`);
       }
-      const idInfo = await parsePassportApi(documentId, accessToken);
+      const idInfo = await parsePassportApi(documentId, accessToken, role);
       if (!idInfo) {
         console.error(
           `Failed to parse ID card info for document id ${documentId}`,

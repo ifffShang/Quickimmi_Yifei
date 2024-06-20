@@ -16,6 +16,8 @@ export function UploadPassportModal() {
   const { wt } = useFormTranslation();
   const dispatch = useAppDispatch();
   const accessToken = useAppSelector(state => state.auth.accessToken);
+  const role = useAppSelector(state => state.auth.role);
+
   const [confirmDisabled, setConfirmDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
   const presignedUrlResRef = useRef<GeneratePresignedUrlResponse | null>(null);
@@ -48,7 +50,11 @@ export function UploadPassportModal() {
       if (!accessToken) {
         throw new Error(`Access token ${accessToken} is missing`);
       }
-      const passportInfo = await parsePassportApi(documentId, accessToken);
+      const passportInfo = await parsePassportApi(
+        documentId,
+        accessToken,
+        role,
+      );
       if (!passportInfo) {
         throw new Error(
           `Failed to parse passport info for document id ${documentId}`,

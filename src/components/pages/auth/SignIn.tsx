@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { createUserApi, getUserInfoApi } from "../../../api/authAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { Role, updateAuthState, updateRole } from "../../../reducers/authSlice";
+import { updateAuthState, updateRole } from "../../../reducers/authSlice";
 import { signOutCurrentUser } from "../../../utils/authUtils";
 import { validateEmail, validatePassword } from "../../../utils/validators";
 import { ErrorMessage, QText } from "../../common/Fonts";
@@ -16,6 +16,7 @@ import { AuthComponent } from "./AuthComponent";
 import { UserInfo } from "../../../model/apiModels";
 import awsExports from "../../../aws-exports";
 import { Amplify } from "aws-amplify";
+import { Role } from "../../../consts/consts";
 
 export function SignIn() {
   const dispatch = useAppDispatch();

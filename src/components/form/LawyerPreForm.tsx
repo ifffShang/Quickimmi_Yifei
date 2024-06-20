@@ -26,6 +26,7 @@ export function LawyerPreForm() {
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const userId = useAppSelector(state => state.auth.userId);
   const isLawyer = useAppSelector(state => state.auth.isLawyer);
+  const role = useAppSelector(state => state.auth.role);
 
   const [applicantName, setApplicantName] = useState("");
   const [applicationType, setApplicationType] = useState("");
@@ -88,6 +89,7 @@ export function LawyerPreForm() {
         applyWithChildren,
         numberOfChildren,
         providedCustomerEmail,
+        role,
       );
       dispatch(resetForm());
       dispatch(updateCurrentCaseId(caseId));

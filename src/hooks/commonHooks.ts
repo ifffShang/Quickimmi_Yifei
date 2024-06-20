@@ -8,6 +8,7 @@ import {
 import { arrayMapper } from "../utils/mapper";
 import { textParser } from "../utils/parsers";
 import { downloadDocument } from "../utils/utils";
+import { Role } from "../consts/consts";
 
 export function useFormTranslation() {
   const { t, i18n } = useTranslation();
@@ -39,6 +40,7 @@ export function useClickOutsideOfRef(
 export interface GetDocumentsOnLoadParams {
   caseId: number;
   accessToken: string;
+  role: Role;
   setLoading: Dispatch<SetStateAction<boolean>>;
   dispatch: Dispatch<any>;
 }
@@ -51,7 +53,7 @@ export function useDocumentsOnLoad(params: GetDocumentsOnLoadParams) {
     }
     params.setLoading(true);
     params.dispatch(clearDocumentUrls());
-    getDocumentsApi(params.accessToken, params.caseId)
+    getDocumentsApi(params.accessToken, params.caseId, params.role)
       .then(documents => {
         if (!documents) {
           console.error("Failed to get documents");

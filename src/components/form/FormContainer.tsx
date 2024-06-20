@@ -16,6 +16,7 @@ export function FormContainer() {
   const { id: caseId } = useParams<{ id: string }>(); // Get caseId from URL params
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const role = useAppSelector(state => state.auth.role);
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const form = useAppSelector(state => state.case.form);
   const indexLevel1 = useAppSelector(state => state.case.indexLevel1);
@@ -24,7 +25,7 @@ export function FormContainer() {
   const isSmallScreen =
     screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall;
 
-  useAutoSaveApplicationCase(accessToken, dispatch);
+  useAutoSaveApplicationCase(accessToken, role, dispatch);
 
   if (!form || indexLevel1 === -1 || indexLevel2 === -1) {
     return (

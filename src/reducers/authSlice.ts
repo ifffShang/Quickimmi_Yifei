@@ -1,10 +1,16 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { Role } from "../consts/consts";
 
 export type Step = "signup" | "signin" | "forgotpassword" | "none";
 
-export enum Role {
-  APPLICANT = "APPLICANT",
-  LAWYER = "LAWYER",
+export interface AuthStateOptional {
+  prevStep?: Step;
+  isLoggedIn?: boolean;
+  accessToken?: string;
+  email?: string;
+  userId?: number;
+  isLawyer?: boolean;
+  role?: Role;
 }
 
 export interface AuthState {
@@ -13,8 +19,8 @@ export interface AuthState {
   accessToken?: string;
   email?: string;
   userId?: number;
-  isLawyer?: boolean;
-  role?: Role;
+  isLawyer: boolean;
+  role: Role;
 }
 
 const initialState: AuthState = {
@@ -31,7 +37,7 @@ export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    updateAuthState: (state, action: PayloadAction<AuthState>) => {
+    updateAuthState: (state, action: PayloadAction<AuthStateOptional>) => {
       Object.assign(state, action.payload);
     },
     updateRole(state, action: PayloadAction<Role>) {

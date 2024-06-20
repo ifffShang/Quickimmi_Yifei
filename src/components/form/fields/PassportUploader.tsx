@@ -20,6 +20,8 @@ export function PassportUploader(props: PassportUploaderProps) {
   const dispatch = useAppDispatch();
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const showModal = useAppSelector(state => state.common.showModal);
+  const role = useAppSelector(state => state.auth.role);
+
   const [loading, setLoading] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [passportOrIdImageUrl, setPassportOrIdImageUrl] = useState<string>("");
@@ -41,7 +43,7 @@ export function PassportUploader(props: PassportUploaderProps) {
   useEffect(() => {
     if (!accessToken || !props.documentId) return;
     setLoading(true);
-    getDocumentByIdApi(accessToken, props.documentId)
+    getDocumentByIdApi(accessToken, props.documentId, role)
       .then(document => {
         const presignUrl = document.presignUrl;
         downloadImage(presignUrl).then(doc => {

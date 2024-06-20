@@ -8,19 +8,19 @@ import {
   updateApplicationCase,
   updatePercentage,
 } from "../../../reducers/formSlice";
-import { FormContainer } from "../../form/FormContainer";
-import { CentralizedLoading } from "../../common/Loading";
 import {
   buildFormPercentageObject,
   extractPercentageFromMetadata,
 } from "../../../utils/percentageUtils";
-import { useAutoSaveApplicationCase } from "../../../hooks/cacheHooks";
+import { CentralizedLoading } from "../../common/Loading";
+import { FormContainer } from "../../form/FormContainer";
 
 export function CaseDetails() {
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const navigate = useNavigate();
   const accessToken = useAppSelector(state => state.auth.accessToken);
+  const role = useAppSelector(state => state.auth.role);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -33,6 +33,7 @@ export function CaseDetails() {
           const caseDetails = await getCaseDetailsApi(
             parseInt(id),
             accessToken,
+            role
           );
           if (!caseDetails) {
             console.error(`Failed to get case details for case id ${id}`);

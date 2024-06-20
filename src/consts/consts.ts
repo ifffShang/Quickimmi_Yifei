@@ -7,3 +7,8 @@ export const Regex = {
     MaxLength: 10,
   },
 };
+
+export enum Role {
+  APPLICANT = "APPLICANT",
+  LAWYER = "LAWYER",
+}

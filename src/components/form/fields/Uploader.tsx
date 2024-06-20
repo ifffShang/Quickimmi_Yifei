@@ -32,6 +32,7 @@ export function Uploader(props: UploaderProps) {
   const userId = useAppSelector(state => state.auth.userId);
   const caseId = useAppSelector(state => state.form.applicationCase?.id);
   const accessToken = useAppSelector(state => state.auth.accessToken);
+  const role = useAppSelector(state => state.auth.role);
   const tmpImageUrl = useAppSelector(state => state.common.tmpImageUrl);
 
   const [loading, setLoading] = useState(false);
@@ -67,6 +68,7 @@ export function Uploader(props: UploaderProps) {
         props.documentName ? props.documentName + "." + fileExt : file.name,
         props.identity,
         accessToken,
+        role
       );
       onSuccess(res, file, null);
       props.onPresignedUrlReceived?.(res, file);

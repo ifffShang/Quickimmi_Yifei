@@ -28,6 +28,7 @@ export function FormContent(props: FormContentProps) {
   const { wt, t } = useFormTranslation();
   const dispatch = useAppDispatch();
   const accessToken = useAppSelector(state => state.auth.accessToken);
+  const role = useAppSelector(state => state.auth.role);
   const applicationCase = useAppSelector(state => state.form.applicationCase);
   const currentStep = useAppSelector(state => state.case.currentStep);
   const formFieldsMap = useAppSelector(state => state.case.formFieldsMap);
@@ -156,7 +157,7 @@ export function FormContent(props: FormContentProps) {
         <Button
           className="default-button"
           onClick={() =>
-            updateApplicationCaseFunc(applicationCase, percentage, accessToken)
+            updateApplicationCaseFunc(applicationCase, percentage, role, accessToken)
           }
         >
           {t("Save")}

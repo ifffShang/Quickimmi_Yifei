@@ -1,3 +1,5 @@
+import { Role } from "../consts/consts";
+
 export const baseUrl = "https://devapi.quickimmi.ai";
 
 export const fetchFunction = async (
@@ -6,13 +8,11 @@ export const fetchFunction = async (
   data: any,
   additionalHeaders: any,
   baseUrl: string,
-  role: string,
 ) => {
   const url = baseUrl ? `${baseUrl}/${endPoint}` : `/${endPoint}`;
   const headers = {
     Accept: "application/json",
     "Content-Type": "application/json",
-    Role: role,
     ...additionalHeaders,
   };
 
@@ -53,16 +53,34 @@ export const fetchFunction = async (
   }
 };
 
-export const performApiRequest = async (
-  endPoint: string,
-  method: string,
-  data: any,
-  accessToken: string,
-  self = false,
-  role = "APPLICANT",
-) => {
-  const additionalHeaders = { Authorization: `Bearer ${accessToken}` };
+export interface ApiRequestModel {
+  endPoint: string;
+  method: string;
+  data: any;
+  accessToken: string;
+  self?: boolean; // Self is true if we want to request data from the frontend server itself
+  role?: Role;
+}
+
+export const performApiRequest = async ({
+  endPoint,
+  method,
+  data,
+  accessToken,
+  self,
+  role,
+}: ApiRequestModel) => {
+
+  const additionalHeaders: any = { Authorization: `Bearer ${accessToken}` };
   const body = data ? JSON.stringify(data) : null;
+
+  if (!self && !role) {
+    throw new Error("Role is required for API calls made by the user");
+  }
+
+  if (!self) {
+    additionalHeaders.Role = role;
+  }
 
   try {
     return await fetchFunction(
@@ -71,7 +89,6 @@ export const performApiRequest = async (
       body,
       additionalHeaders,
       self ? "" : baseUrl,
-      role,
     );
   } catch (error) {
     console.error(error);
