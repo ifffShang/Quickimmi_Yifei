@@ -126,13 +126,13 @@ export function LawyerPreForm() {
         <div className="form-content-form-preForm">
           <div className="field-section-preForm">
             <div>
-                <QText level="field-label">{t("Name")}</QText>
-                <Input
+              <QText level="field-label">{t("Name")}</QText>
+              <Input
                 className="field-input-preForm"
                 placeholder="Enter applicant's name"
                 value={applicantName}
                 onChange={e => setApplicantName(e.target.value)}
-                />
+              />
             </div>
           </div>
           <div className="field-section-preForm immigType">
@@ -170,18 +170,18 @@ export function LawyerPreForm() {
           </div>
           <div className="field-section-preForm">
             <div>
-                <QText level="field-label">{t("MaritalStatus")}</QText>
-                <Select
+              <QText level="field-label">{t("MaritalStatus")}</QText>
+              <Select
                 className="field-input-preForm"
                 placeholder="Select marital status"
                 value={maritalStatus}
                 onChange={value => setMaritalStatus(value)}
-                >
+              >
                 <Option value="Single">{t("Single")}</Option>
                 <Option value="Married">{t("Married")}</Option>
                 <Option value="Divorced">{t("Divorced")}</Option>
                 <Option value="Widowed">{t("Widowed")}</Option>
-                </Select>
+              </Select>
             </div>
             <Checkbox
               checked={applyWithSpouse}
@@ -231,24 +231,26 @@ export function LawyerPreForm() {
         className="email-modal-preForm"
       >
         <div className="email-modal-content-preForm">
-            <div>
-                <QText level="large">{t("InputClientEmail")}</QText>
-                <QText level="small" color="gray">{t("InviteClientViaEmail")}</QText>
-            </div>
-            <Input
+          <div>
+            <QText level="large">{t("InputClientEmail")}</QText>
+            <QText level="small" color="gray">
+              {t("InviteClientViaEmail")}
+            </QText>
+          </div>
+          <Input
             placeholder="Enter client email"
             value={providedCustomerEmail}
             onChange={e => setProvidedCustomerEmail(e.target.value)}
             className="email-input-preForm"
-            />
-            <Button
+          />
+          <Button
             type="primary"
             onClick={handleFormSubmit}
             className="email-send-button-preForm"
             disabled={isEmailSendButtonDisabled}
-            >
+          >
             {t("Send")}
-            </Button>
+          </Button>
         </div>
       </Modal>
     </div>
