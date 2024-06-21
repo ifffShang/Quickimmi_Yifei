@@ -1,6 +1,7 @@
 {
   "View": "View",
   "Download": "Download",
+  "Delete": "Delete",
   "Send for Signature": "Send for Signature",
   "File Name": "File Name",
   "File Type": "File Type",
@@ -8,6 +9,11 @@
   "Updated At": "Updated At",
   "Action": "Action",
   "Generate Documents": "Generate Documents",
+  "UploadDocument": "Upload Document",
+  "CaseDocument": "Case Document",  
+  "Category": "Category",
+  "Uploader": "Uploader",
+  "UploadedAt": "Uploaded At",
 
   "Home": "Home",
   "AboutUs": "About us",
@@ -27,8 +33,8 @@
   "ReturnTocCaseSummaryPage": "Return to Case Summary",
   "LandingPage": {
     "BrandText": "Fast-Track Your American Dream with AI",
-    "Lawyer": "Lawyer",
-    "Applicant": "Applicant",
+    "LAWYER": "Lawyer",
+    "APPLICANT": "Applicant",
     "StableCustomers": "Stable source of customers",
     "FastCheckout": "Fast billing cycle, weekly settlement",
     "CheapServiceFee": "Low commission fees",
@@ -138,8 +144,6 @@
   "Submitted": "Submitted",
   "InputClientEmail": "Input client email",
   "InviteClientViaEmail": "Sent sign up invite to customer via email",
-
-  "UploadDocument": "Upload Document",
 
   "CaseProgressTitle": "Progress",
   "FILLING_APPLICATION": "Collect Information",

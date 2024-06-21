@@ -1,13 +1,19 @@
 {
   "View": "查看",
   "Download": "下载",
+  "Delete": "删除",
   "Send for Signature": "发送签字",
-  "File Name": "文件名",
+  "File Name": "文件名称",
   "File Type": "文件类型",
   "Created At": "创建时间",
   "Updated At": "更新时间",
   "Action": "操作",
   "Generate Documents": "生成文件",
+  "UploadDocument": "上传文件",
+  "CaseDocument": "附属文件",  
+  "Category": "文件分类",
+  "Uploader": "上传者",
+  "UploadedAt": "上传时间",
 
   "Home": "首页",
   "AboutUs": "关于我们",
@@ -27,8 +33,8 @@
   "ReturnTocCaseSummaryPage": "查看案件进展",
   "LandingPage": {
     "BrandText": "AI助力，快速移民，轻松实现美国梦",
-    "Lawyer": "律师",
-    "Applicant": "申请人",
+    "LAWYER": "律师",
+    "APPLICANT": "申请人",
     "StableCustomers": "稳定的客户来源",
     "FastCheckout": "快速结账期，每周结算",
     "CheapServiceFee": "低廉的抽成费用",
@@ -138,8 +144,6 @@
   "Submitted": "已提交",
   "InputClientEmail": "输入客户邮箱",
   "InviteClientViaEmail": "通过邮件发送注册邀请给客户",
-
-  "UploadDocument": "上传文件",
 
   "CaseProgressTitle": "案件进展",
   "FILLING_APPLICATION": "信息完善",

@@ -190,6 +190,9 @@ export async function generateDocumentPresignedUrl(
   type: DocumentType,
   documentName: string,
   identify: Identity,
+  operation: string,
+  description: string,
+  createdBy: string,
   accessToken: string,
   role: Role,
 ): Promise<GeneratePresignedUrlResponse> {
@@ -202,6 +205,9 @@ export async function generateDocumentPresignedUrl(
       type,
       documentName,
       identify,
+      operation,
+      description,
+      createdBy,
     },
     accessToken,
     role,
@@ -315,4 +321,31 @@ export async function uploadFileToPresignUrl(
     onError(new Error(`Upload failed due to ${xhr.statusText}`));
   };
   xhr.send(file as Blob);
+}
+
+export async function updateDocumentStatus(
+  role: Role,
+  documentId: number,
+  manualOverride: boolean,
+  documentStatus: string,
+  accessToken: string,
+): Promise<boolean> {
+  const requestDto = {
+    documentId,
+    manualOverride,
+    documentStatus,
+  };
+  const res = await performApiRequest({
+    endPoint: "api/document/update",
+    method: "POST",
+    data: requestDto,
+    accessToken,
+    role,
+  });
+
+  if (!res || !res.data) {
+    throw new Error("Failed to receive a valid response from the server.");
+  }
+
+  return <boolean>res.data;
 }

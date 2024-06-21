@@ -20,6 +20,9 @@ export interface UploaderProps {
   documentType: DocumentType;
   identity: Identity;
   documentName?: string;
+  operation?: string;
+  description?: string;
+  createdBy?: string;
   onImageUrlReceived?: (imageUrl: string) => void;
   onPresignedUrlReceived?: (
     presignedUrlRes: GeneratePresignedUrlResponse,
@@ -67,6 +70,9 @@ export function Uploader(props: UploaderProps) {
         props.documentType,
         props.documentName ? props.documentName + "." + fileExt : file.name,
         props.identity,
+        props.operation || "New",
+        props.description || "",
+        role,
         accessToken,
         role,
       );

@@ -22,7 +22,9 @@ export type DocumentType =
   | "ID_CARD"
   | "I94"
   | "PASSPORT_FULL"
-  | "TRAVEL_ID";
+  | "TRAVEL_ID"
+  | "DELIVERY_PACKAGE_PHOTO"
+  | "I797_RECEIPT";
 
 export type Identity =
   | "Applicant"
@@ -40,7 +42,6 @@ export type Identity =
   | "Child_11"
   | "Child_12"
   | "Child_13";
-
 export interface KeyValues {
   [key: string]: any;
 }
