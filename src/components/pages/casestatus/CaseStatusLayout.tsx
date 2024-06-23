@@ -1,8 +1,7 @@
 import React from "react";
 import { Layout } from "antd";
 import { CaseStatusRightPanel } from "./CaseStatusRightPanel";
-import CaseDocumentRightPanel
- from "./CaseDocumentRightPanel";
+import CaseDocumentRightPanel from "./CaseDocumentRightPanel";
 import CaseStatusMenuSider from "./CaseStatusMenuSider";
 import "./CaseStatusLayout.css";
 import { useNavigate } from "react-router-dom";
@@ -31,10 +30,7 @@ const CaseStatusLayout: React.FC<CaseStatusLayoutProps> = ({
             text={t("ReturnToDashboard")}
             margin="20px 0 15px 0"
           />
-          <div
-            className="site-layout-background"
-            style={{ minHeight: 360 }}
-          >
+          <div className="site-layout-background" style={{ minHeight: 360 }}>
             {menuItemSelected === "caseOverview" && <CaseStatusRightPanel />}
             {menuItemSelected === "caseDocuments" && <CaseDocumentRightPanel />}
           </div>
