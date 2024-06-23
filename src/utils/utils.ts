@@ -497,3 +497,7 @@ export function getCurrentHourandMinutes() {
     minute: "2-digit",
   });
 }
+
+export function isNullOrUndefined(value: any) {
+  return value === null || value === undefined;
+}

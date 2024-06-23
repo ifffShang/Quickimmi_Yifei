@@ -1,11 +1,20 @@
 import type { TableProps } from "antd";
 import { Button, Table } from "antd";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useDocumentsOnLoad } from "../../../hooks/commonHooks";
 import { Loading } from "../../common/Loading";
 import "./DocumentList.css";
 import { useTranslation } from "react-i18next";
+import {
+  generatePresignedUrlByDocumentId,
+  updateDocumentStatus,
+  uploadFileToPresignUrl,
+} from "../../../api/caseAPI";
+import { access } from "fs";
+import { DocumentType } from "../../../model/commonModels";
+
+const IncludedFileTypes = ["asylum_coverletter", "g-28", "i-589"];
 
 interface DataType {
   key: number;
@@ -60,41 +69,112 @@ export function DocumentList() {
     state => state.form.uploadedDocuments,
   );
   const [loading, setLoading] = useState(false);
+  const replaceFileControl = useRef<HTMLInputElement | null>(null);
 
-  const uploadedDocumentsInTable = uploadedDocuments.map(doc => {
-    return {
-      key: doc.id,
-      filename: doc.name,
-      filetype: doc.type,
-      status: doc.status,
-      createdAt: doc.createdAt ? new Date(doc.createdAt).toLocaleString() : "-",
-      updatedAt: doc.updatedAt ? new Date(doc.updatedAt).toLocaleString() : "-",
-      action: (
-        <div className="document-list-action">
-          <a
-            href="#"
-            onClick={e => {
-              e.preventDefault();
-              let fileUrl = "";
-              if (doc.name.indexOf(".pdf") > -1) {
-                fileUrl = URL.createObjectURL(
-                  new Blob([doc.document], { type: "application/pdf" }),
-                );
-              } else {
-                fileUrl = URL.createObjectURL(doc.document);
+  const onReplaceLinkClick = () => {
+    if (replaceFileControl.current) {
+      replaceFileControl.current.click();
+    }
+  };
+
+  const onReplaceFileUpload = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    documentId: number,
+    documentType: DocumentType,
+  ) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+
+      if (!accessToken) {
+        console.error("Access token is missing");
+        return;
+      }
+      generatePresignedUrlByDocumentId(
+        documentId,
+        "Applicant",
+        documentType,
+        file.name,
+        "APPLICANT",
+        accessToken,
+        role,
+      ).then(presignedUrl => {
+        uploadFileToPresignUrl(
+          presignedUrl,
+          file,
+          (percent: number) => {},
+          () => {
+            updateDocumentStatus(
+              role,
+              documentId,
+              true,
+              "uploaded",
+              accessToken,
+            ).then(isSuccessful => {
+              if (isSuccessful) {
+                console.log("File uploaded successfully");
               }
-              window.open(fileUrl, "_blank");
-            }}
-          >
-            {t("View")}
-          </a>
-          <a download={doc.name} href={URL.createObjectURL(doc.document)}>
-            {t("Download")}
-          </a>
-        </div>
-      ),
-    };
-  });
+            });
+          },
+          (error: Error) => {
+            console.error("Error uploading file: ", error);
+          },
+        );
+      });
+    }
+  };
+
+  const uploadedDocumentsInTable = uploadedDocuments
+    .filter(doc => IncludedFileTypes.includes(doc.type))
+    .map(doc => {
+      return {
+        key: doc.id,
+        filename: doc.name,
+        filetype: doc.type,
+        status: doc.status,
+        createdAt: doc.createdAt
+          ? new Date(doc.createdAt).toLocaleString()
+          : "-",
+        updatedAt: doc.updatedAt
+          ? new Date(doc.updatedAt).toLocaleString()
+          : "-",
+        action: (
+          <div className="document-list-action">
+            <a
+              href="#"
+              onClick={e => {
+                e.preventDefault();
+                let fileUrl = "";
+                if (doc.name.indexOf(".pdf") > -1) {
+                  fileUrl = URL.createObjectURL(
+                    new Blob([doc.document], { type: "application/pdf" }),
+                  );
+                } else {
+                  fileUrl = URL.createObjectURL(doc.document);
+                }
+                window.open(fileUrl, "_blank");
+              }}
+            >
+              {t("View")}
+            </a>
+            <a download={doc.name} href={URL.createObjectURL(doc.document)}>
+              {t("Download")}
+            </a>
+            <a href="#" onClick={onReplaceLinkClick}>
+              {t("Replace")}
+            </a>{" "}
+            <input
+              type="file"
+              id="file"
+              ref={replaceFileControl}
+              onChange={e =>
+                onReplaceFileUpload(e, doc.id, doc.type as DocumentType)
+              }
+              style={{ display: "none" }}
+            />
+          </div>
+        ),
+      };
+    });
 
   useDocumentsOnLoad({
     caseId: caseId,

@@ -1,19 +1,22 @@
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useAutoSaveApplicationCase } from "../../hooks/cacheHooks";
 import { ScreenSize } from "../../model/commonModels";
+import { setIndexLevel2 } from "../../reducers/caseSlice";
 import { useScreenSize } from "../../utils/screenSizeUtil";
+import { isNullOrUndefined } from "../../utils/utils";
 import { QReturnLink } from "../common/Links";
 import { Loading } from "../common/Loading";
-import { FormContent } from "./FormContent";
 import "./FormContainer.css";
+import { FormContent } from "./FormContent";
 import { FormHeader } from "./FormHeader";
 import { FormNavigation } from "./FormNavigation";
-import { useAutoSaveApplicationCase } from "../../hooks/cacheHooks";
 
 export function FormContainer() {
   const navigate = useNavigate();
-  const { id: caseId } = useParams<{ id: string }>(); // Get caseId from URL params
+  const { id: caseId, sectionIndex, subsectionIndex } = useParams(); // Get caseId from URL params
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const role = useAppSelector(state => state.auth.role);
@@ -25,7 +28,38 @@ export function FormContainer() {
   const isSmallScreen =
     screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall;
 
+  const [searchParams, setSearchParams] = useSearchParams();
+
   useAutoSaveApplicationCase(accessToken, role, dispatch);
+
+  useEffect(() => {
+    const sectionIndex = searchParams.get("section");
+    const subsectionIndex = searchParams.get("subsection");
+    if (
+      isNullOrUndefined(sectionIndex) ||
+      isNullOrUndefined(subsectionIndex) ||
+      (indexLevel1 === parseInt(sectionIndex!) &&
+        indexLevel2 === parseInt(subsectionIndex!))
+    ) {
+      return;
+    }
+    dispatch(
+      setIndexLevel2({
+        indexLevel1: parseInt(sectionIndex!),
+        indexLevel2: parseInt(subsectionIndex!),
+      }),
+    );
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (indexLevel1 === -1 || indexLevel2 === -1) {
+      return;
+    }
+    setSearchParams({
+      section: indexLevel1.toString(),
+      subsection: indexLevel2.toString(),
+    });
+  }, [indexLevel1, indexLevel2]);
 
   if (!form || indexLevel1 === -1 || indexLevel2 === -1) {
     return (

@@ -8,7 +8,11 @@ import {
   UploadedDocument,
 } from "../model/apiModels";
 import { IForm, IFormFields } from "../model/formFlowModels";
-import { DocumentType, Identity } from "../model/commonModels";
+import {
+  DocumentCreatedBy,
+  DocumentType,
+  Identity,
+} from "../model/commonModels";
 import { performApiRequest } from "./apiConfig";
 import { convertBooleans } from "../utils/utils";
 import { Role } from "../consts/consts";
@@ -213,6 +217,31 @@ export async function generateDocumentPresignedUrl(
     role,
   });
   return <GeneratePresignedUrlResponse>res.data;
+}
+
+export async function generatePresignedUrlByDocumentId(
+  documentId: number,
+  identity: Identity,
+  type: DocumentType,
+  documentName: string,
+  createdBy: DocumentCreatedBy,
+  accessToken: string,
+  role: Role,
+) {
+  const res = await performApiRequest({
+    endPoint: "api/document/generatePresignedUrlByDocumentId/put",
+    method: "POST",
+    data: {
+      documentId,
+      identity,
+      type,
+      documentName,
+      createdBy,
+    },
+    accessToken,
+    role,
+  });
+  return <string>res.data;
 }
 
 export async function parsePassportApi(

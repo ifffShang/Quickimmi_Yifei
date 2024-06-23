@@ -45,3 +45,5 @@ export type Identity =
 export interface KeyValues {
   [key: string]: any;
 }
+
+export type DocumentCreatedBy = "APPLICANT" | "LAWYER" | "SYSTEM";
