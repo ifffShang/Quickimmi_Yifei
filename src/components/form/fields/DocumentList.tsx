@@ -1,18 +1,16 @@
 import type { TableProps } from "antd";
 import { Button, Table } from "antd";
 import { useRef, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { useDocumentsOnLoad } from "../../../hooks/commonHooks";
-import { Loading } from "../../common/Loading";
-import "./DocumentList.css";
 import { useTranslation } from "react-i18next";
 import {
   generatePresignedUrlByDocumentId,
   updateDocumentStatus,
   uploadFileToPresignUrl,
 } from "../../../api/caseAPI";
-import { access } from "fs";
-import { DocumentType } from "../../../model/commonModels";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { useDocumentsOnLoad } from "../../../hooks/commonHooks";
+import { DocumentType, DocumentTypeMap } from "../../../model/commonModels";
+import "./DocumentList.css";
 
 const IncludedFileTypes = ["asylum_coverletter", "g-28", "i-589"];
 
@@ -36,6 +34,7 @@ const Columns: TableProps<DataType>["columns"] = [
     title: "File Type",
     dataIndex: "filetype",
     key: "filetype",
+    responsive: ["lg"],
   },
   {
     title: "Status",
@@ -46,6 +45,7 @@ const Columns: TableProps<DataType>["columns"] = [
     title: "Created At",
     dataIndex: "createdAt",
     key: "createdAt",
+    responsive: ["lg"],
   },
   {
     title: "Updated At",
@@ -69,10 +69,21 @@ export function DocumentList() {
     state => state.form.uploadedDocuments,
   );
   const [loading, setLoading] = useState(false);
+  const [replaceLoading, setReplaceLoading] = useState(false);
   const replaceFileControl = useRef<HTMLInputElement | null>(null);
+
+  useDocumentsOnLoad({
+    caseId: caseId,
+    accessToken: accessToken || "",
+    role: role,
+    setLoading: setLoading,
+    dispatch: dispatch,
+    replaceLoading: replaceLoading,
+  });
 
   const onReplaceLinkClick = () => {
     if (replaceFileControl.current) {
+      setReplaceLoading(true);
       replaceFileControl.current.click();
     }
   };
@@ -107,15 +118,28 @@ export function DocumentList() {
               role,
               documentId,
               true,
-              "uploaded",
+              "UPLOADED",
               accessToken,
             ).then(isSuccessful => {
               if (isSuccessful) {
+                setReplaceLoading(false);
                 console.log("File uploaded successfully");
               }
             });
           },
           (error: Error) => {
+            updateDocumentStatus(
+              role,
+              documentId,
+              true,
+              "FAILED",
+              accessToken,
+            ).then(isSuccessful => {
+              if (isSuccessful) {
+                setReplaceLoading(false);
+                console.log("File error status updated successfully");
+              }
+            });
             console.error("Error uploading file: ", error);
           },
         );
@@ -167,7 +191,7 @@ export function DocumentList() {
               id="file"
               ref={replaceFileControl}
               onChange={e =>
-                onReplaceFileUpload(e, doc.id, doc.type as DocumentType)
+                onReplaceFileUpload(e, doc.id, DocumentTypeMap[doc.type])
               }
               style={{ display: "none" }}
             />
@@ -176,30 +200,19 @@ export function DocumentList() {
       };
     });
 
-  useDocumentsOnLoad({
-    caseId: caseId,
-    accessToken: accessToken || "",
-    role: role,
-    setLoading: setLoading,
-    dispatch: dispatch,
-  });
-
   return (
     <div className="document-list">
-      {loading ? (
-        <Loading />
-      ) : (
-        <div className="document-list-inner">
-          <Button type="primary" className="document-list-btn">
-            {t("Send for Signature")}
-          </Button>
-          <Table
-            bordered={false}
-            columns={Columns?.map(c => ({ ...c, title: t(c.title as string) }))}
-            dataSource={uploadedDocumentsInTable}
-          />
-        </div>
-      )}
+      <div className="document-list-inner">
+        <Button type="primary" className="document-list-btn">
+          {t("Send for Signature")}
+        </Button>
+        <Table
+          loading={loading || replaceLoading}
+          bordered={false}
+          columns={Columns?.map(c => ({ ...c, title: t(c.title as string) }))}
+          dataSource={uploadedDocumentsInTable}
+        />
+      </div>
     </div>
   );
 }

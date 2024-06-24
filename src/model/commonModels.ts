@@ -24,7 +24,29 @@ export type DocumentType =
   | "PASSPORT_FULL"
   | "TRAVEL_ID"
   | "DELIVERY_PACKAGE_PHOTO"
-  | "I797_RECEIPT";
+  | "I797_RECEIPT"
+  | "COT"
+  | "G28"
+  | "ASYLUM_COVER_LETTER"
+  | "EOIR28"
+  | "I589"
+  | "PERSONAL_STATEMENT";
+
+export const DocumentTypeMap: { [key: string]: DocumentType } = {
+  passport_main: "PASSPORT_MAIN",
+  id_card: "ID_CARD",
+  i94: "I94",
+  passport_full: "PASSPORT_FULL",
+  travel_id: "TRAVEL_ID",
+  delivery_package_photo: "DELIVERY_PACKAGE_PHOTO",
+  i797_receipt: "I797_RECEIPT",
+  cot: "COT",
+  "g-28": "G28",
+  "i-589": "I589",
+  personal_statement: "PERSONAL_STATEMENT",
+  asylum_cover_letter: "ASYLUM_COVER_LETTER",
+  "eoir-28": "EOIR28",
+};
 
 export type Identity =
   | "Applicant"
@@ -47,3 +69,5 @@ export interface KeyValues {
 }
 
 export type DocumentCreatedBy = "APPLICANT" | "LAWYER" | "SYSTEM";
+
+export type DocumentStatus = "UPLOADING" | "UPLOADED" | "FAILED";

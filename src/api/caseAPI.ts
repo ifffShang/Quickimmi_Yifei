@@ -10,6 +10,7 @@ import {
 import { IForm, IFormFields } from "../model/formFlowModels";
 import {
   DocumentCreatedBy,
+  DocumentStatus,
   DocumentType,
   Identity,
 } from "../model/commonModels";
@@ -233,7 +234,7 @@ export async function generatePresignedUrlByDocumentId(
     method: "POST",
     data: {
       documentId,
-      identity,
+      identify: identity,
       type,
       documentName,
       createdBy,
@@ -356,7 +357,7 @@ export async function updateDocumentStatus(
   role: Role,
   documentId: number,
   manualOverride: boolean,
-  documentStatus: string,
+  documentStatus: DocumentStatus,
   accessToken: string,
 ): Promise<boolean> {
   const requestDto = {

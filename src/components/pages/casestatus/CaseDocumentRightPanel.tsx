@@ -21,7 +21,11 @@ import {
 } from "../../../api/caseAPI";
 import { useAppSelector } from "../../../app/hooks";
 import { UploadedDocument } from "../../../model/apiModels";
-import { DocumentType, Identity } from "../../../model/commonModels";
+import {
+  DocumentStatus,
+  DocumentType,
+  Identity,
+} from "../../../model/commonModels";
 import { Loading } from "../../common/Loading";
 import { QText } from "../../common/Fonts";
 import "./CaseDocumentRightPanel.css";
@@ -118,7 +122,10 @@ const CaseDocumentRightPanel: React.FC = () => {
     setIsModalVisible(true);
   };
 
-  const updateStatus = async (documentId: number, documentStatus: string) => {
+  const updateStatus = async (
+    documentId: number,
+    documentStatus: DocumentStatus,
+  ) => {
     try {
       if (!accessToken) {
         message.error("Access token is missing");
