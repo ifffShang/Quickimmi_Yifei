@@ -13,10 +13,11 @@ import "./FormContainer.css";
 import { FormContent } from "./FormContent";
 import { FormHeader } from "./FormHeader";
 import { FormNavigation } from "./FormNavigation";
+import { getCorrectedIndexes } from "../../utils/caseUtils";
 
 export function FormContainer() {
   const navigate = useNavigate();
-  const { id: caseId, sectionIndex, subsectionIndex } = useParams(); // Get caseId from URL params
+  const { id: caseId } = useParams(); // Get caseId from URL params
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const role = useAppSelector(state => state.auth.role);
@@ -35,29 +36,41 @@ export function FormContainer() {
   useEffect(() => {
     const sectionIndex = searchParams.get("section");
     const subsectionIndex = searchParams.get("subsection");
-    if (
-      isNullOrUndefined(sectionIndex) ||
-      isNullOrUndefined(subsectionIndex) ||
-      (indexLevel1 === parseInt(sectionIndex!) &&
-        indexLevel2 === parseInt(subsectionIndex!))
-    ) {
+    if (isNullOrUndefined(sectionIndex) || isNullOrUndefined(subsectionIndex)) {
       return;
     }
-    dispatch(
-      setIndexLevel2({
-        indexLevel1: parseInt(sectionIndex!),
-        indexLevel2: parseInt(subsectionIndex!),
-      }),
+
+    const { correctedIndexLevel1, correctedIndexLevel2 } = getCorrectedIndexes(
+      form,
+      parseInt(sectionIndex!),
+      parseInt(subsectionIndex!),
     );
+
+    if (
+      correctedIndexLevel1 !== indexLevel1 ||
+      correctedIndexLevel2 !== indexLevel2
+    ) {
+      dispatch(
+        setIndexLevel2({
+          indexLevel1: indexLevel1,
+          indexLevel2: indexLevel2,
+        }),
+      );
+    }
   }, [searchParams]);
 
   useEffect(() => {
     if (indexLevel1 === -1 || indexLevel2 === -1) {
       return;
     }
+    const { correctedIndexLevel1, correctedIndexLevel2 } = getCorrectedIndexes(
+      form,
+      indexLevel1,
+      indexLevel2,
+    );
     setSearchParams({
-      section: indexLevel1.toString(),
-      subsection: indexLevel2.toString(),
+      section: correctedIndexLevel1.toString(),
+      subsection: correctedIndexLevel2.toString(),
     });
   }, [indexLevel1, indexLevel2]);
 
@@ -70,7 +83,7 @@ export function FormContainer() {
   }
 
   const sectionId = form.steps[indexLevel1].id;
-  const referenceId = form.steps[indexLevel1].steps[indexLevel2].referenceId;
+  const referenceId = form.steps[indexLevel1].steps[indexLevel2]?.referenceId;
 
   if (!sectionId || !referenceId) {
     return <Loading />;
