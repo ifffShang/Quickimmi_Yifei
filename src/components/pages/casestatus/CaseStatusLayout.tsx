@@ -1,8 +1,7 @@
 import React from "react";
 import { Layout } from "antd";
 import { CaseStatusRightPanel } from "./CaseStatusRightPanel";
-import CaseDocumentRightPanel
- from "./CaseDocumentRightPanel";
+import CaseDocumentRightPanel from "./CaseDocumentRightPanel";
 import CaseStatusMenuSider from "./CaseStatusMenuSider";
 import "./CaseStatusLayout.css";
 import { useNavigate } from "react-router-dom";
