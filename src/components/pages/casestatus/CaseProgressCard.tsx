@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Card, Steps, Button } from "antd";
+import React, { useState, useEffect } from "react";
+import { Card, Steps } from "antd";
 import {
   CheckCircleOutlined,
   ExclamationCircleOutlined,
@@ -8,6 +8,8 @@ import {
 import { CaseSummary } from "../../../model/apiModels";
 import { useTranslation } from "react-i18next";
 import "./CaseProgressCard.css";
+import { useAppSelector } from "../../../app/hooks";
+import CaseProgressExpandedCard from "./CaseProgressExpandedCard";
 
 interface CaseProgressCardProps {
   caseSummary: CaseSummary;
@@ -19,10 +21,22 @@ function getCurrentStepIndex(currentStep: string, steps: { name: string }[]) {
   return steps.findIndex(step => step.name === currentStep);
 }
 
+function findFirstInProgressSubstep(
+  steps: { substeps: { name: string; status: string }[] }[],
+) {
+  for (const step of steps) {
+    for (const substep of step.substeps) {
+      if (substep.status === "NOT_START" || substep.status === "IN_PROGRESS") {
+        return substep.name;
+      }
+    }
+  }
+  return null;
+}
+
 const CaseProgressCard: React.FC<CaseProgressCardProps> = ({ caseSummary }) => {
   const { t } = useTranslation();
-  const [expandedStep, setExpandedStep] = useState<string | null>(null);
-
+  const isLawyer = useAppSelector(state => state.auth.isLawyer);
   const { currentStep, progress } = caseSummary;
 
   const currentStepIndex = getCurrentStepIndex(
@@ -34,8 +48,17 @@ const CaseProgressCard: React.FC<CaseProgressCardProps> = ({ caseSummary }) => {
     step => step.name === currentStep,
   );
 
+  const [expandedStep, setExpandedStep] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!expandedStep) {
+      const inProgressStep = findFirstInProgressSubstep(progress.steps);
+      setExpandedStep(inProgressStep);
+    }
+  }, [expandedStep, progress.steps]);
+
   const handleToggleExpand = (stepName: string) => {
-    setExpandedStep(expandedStep === stepName ? null : stepName);
+    setExpandedStep(prevStep => (prevStep === stepName ? null : stepName));
   };
 
   return (
@@ -76,10 +99,14 @@ const CaseProgressCard: React.FC<CaseProgressCardProps> = ({ caseSummary }) => {
                 <div className="expanded-card-container">
                   <div className="progress-line extended-line"></div>
                   <div className="expanded-card">
-                    <Card>
-                      <p>TODO: This is sub step information card</p>
-                      <Button type="default">{t("Review")}</Button>
-                    </Card>
+                    <CaseProgressExpandedCard
+                      isLawyer={isLawyer}
+                      currentStep={currentStep}
+                      substepName={substep.name}
+                      substepMetadata={substep.metadata}
+                      substepStatus={substep.status}
+                      progressSteps={progress.steps}
+                    />
                   </div>
                 </div>
               )}
@@ -91,7 +118,6 @@ const CaseProgressCard: React.FC<CaseProgressCardProps> = ({ caseSummary }) => {
         </div>
       </Card>
     </Card>
-    // TODO: this page is not scrollable
   );
 };
 
