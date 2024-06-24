@@ -84,25 +84,6 @@ export interface Percentage {
   [key: string]: { avg: number; [key: string]: number };
 }
 
-export interface Substep {
-  name: string;
-  status: string;
-  metadata: any;
-  startedAt: number;
-  updatedAt: number;
-}
-export interface Step {
-  name: string;
-  status: string;
-  substeps: Substep[];
-  startedAt: number;
-  updatedAt: number;
-}
-
-export interface Progress {
-  steps: Step[];
-}
-
 export interface CaseSummary {
   id: number;
   applicantName: string;
@@ -116,6 +97,26 @@ export interface CaseSummary {
   progress: Progress;
   desc: string | null;
   createdAt: number;
+  updatedAt: number | null;
+}
+
+export interface Progress {
+  steps: Step[];
+}
+
+export interface Step {
+  name: string;
+  status: string;
+  substeps: Substep[];
+  startedAt: number;
+  updatedAt: number;
+}
+
+export interface Substep {
+  name: string;
+  status: string;
+  metadata: string | null;
+  startedAt: number;
   updatedAt: number;
 }
 

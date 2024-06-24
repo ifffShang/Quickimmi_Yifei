@@ -159,12 +159,12 @@ export async function getCaseDetailsApi(
 }
 
 export async function getCaseSummaryApi(
-  caseId: number,
+  caseId: string,
   accessToken: string,
   role: Role,
 ): Promise<CaseSummary> {
   const res = await performApiRequest({
-    endPoint: `api/case/asylum/get?id=${caseId}`,
+    endPoint: `api/case/asylum/getCaseSummary?id=${caseId}`,
     method: "GET",
     data: null,
     accessToken,
