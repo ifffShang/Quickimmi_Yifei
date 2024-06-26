@@ -30,10 +30,7 @@ const CaseStatusLayout: React.FC<CaseStatusLayoutProps> = ({
             text={t("ReturnToDashboard")}
             margin="20px 0 15px 0"
           />
-          <div
-            className="site-layout-background"
-            style={{ minHeight: 360 }}
-          >
+          <div className="site-layout-background" style={{ minHeight: 360 }}>
             {menuItemSelected === "caseOverview" && <CaseStatusRightPanel />}
             {menuItemSelected === "caseDocuments" && <CaseDocumentRightPanel />}
           </div>

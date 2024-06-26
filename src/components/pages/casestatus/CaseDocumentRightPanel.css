@@ -1,43 +1,48 @@
 .case-document-right-panel {
-    display:flex;
-    flex-direction: column;
-    padding-top: 0;
+  display: flex;
+  flex-direction: column;
+  padding-top: 0;
 
-    border-radius: 12px;
+  border-radius: 12px;
 }
 
 .case-document-file-upload {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
 }
 
 .case-document-section-header {
-    padding-left: 5px;
+  padding-left: 5px;
 }
 .case-document-section-content {
-    margin-top: 15px
+  margin-top: 15px;
 }
 
 .upload-modal-container {
-    margin:auto;
-    padding: 30px;
+  margin: auto;
+  padding: 30px;
 }
 .upload-modal-body {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 40px 0;
+  display: grid;
+  grid-template-areas: 
+    "fileIcon fileInfo";
+  grid-template-columns: 1fr 2fr;
+  padding: 40px 0;
+  align-items: center;
 }
 .upload-modal-body-fileIcon {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    padding-left: 40px;
+  grid-area: fileIcon;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
 }
 .upload-modal-body-fileInfo {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  grid-area: fileInfo;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-left: auto;
 }

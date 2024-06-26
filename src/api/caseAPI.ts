@@ -351,9 +351,9 @@ export async function updateDocumentStatus(
 }
 
 export async function deleteDocumentApi(
-  role: Role, 
+  role: Role,
   documentId: number,
-  accessToken: string
+  accessToken: string,
 ): Promise<boolean> {
   const res = await performApiRequest({
     endPoint: `api/document/delete?documentId=${documentId}`,

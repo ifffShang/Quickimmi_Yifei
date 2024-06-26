@@ -1,5 +1,15 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Card, message, Upload, Alert, Modal, Select, Space, Table, Button } from "antd";
+import {
+  Card,
+  message,
+  Upload,
+  Alert,
+  Modal,
+  Select,
+  Space,
+  Table,
+  Button,
+} from "antd";
 import { useTranslation } from "react-i18next";
 import {
   InboxOutlined,
@@ -50,8 +60,8 @@ const getFileIcon = (fileExt: string) => {
 
 function useFetchDocuments() {
   const { id: caseId } = useParams<{ id?: string }>();
-  const accessToken = useAppSelector((state) => state.auth.accessToken);
-  const userRole = useAppSelector((state) => state.auth.role);
+  const accessToken = useAppSelector(state => state.auth.accessToken);
+  const userRole = useAppSelector(state => state.auth.role);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [documents, setDocuments] = useState<UploadedDocument[]>([]);
@@ -71,7 +81,11 @@ function useFetchDocuments() {
     }
     try {
       setLoading(true);
-      const documents = await getDocumentsApi(accessToken, Number(caseId), userRole);
+      const documents = await getDocumentsApi(
+        accessToken,
+        Number(caseId),
+        userRole,
+      );
       setDocuments(documents);
     } catch (error) {
       message.error("Error fetching documents");
@@ -91,19 +105,20 @@ function useFetchDocuments() {
 const CaseDocumentRightPanel: React.FC = () => {
   const { t } = useTranslation();
   const { id: caseId } = useParams<{ id: string }>();
-  const userId = useAppSelector((state) => state.auth.userId);
-  const accessToken = useAppSelector((state) => state.auth.accessToken);
-  const userRole = useAppSelector((state) => state.auth.role);
+  const userId = useAppSelector(state => state.auth.userId);
+  const accessToken = useAppSelector(state => state.auth.accessToken);
+  const userRole = useAppSelector(state => state.auth.role);
   const { loading, error, documents, fetchDocuments } = useFetchDocuments();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [currentFile, setCurrentFile] = useState<File | null>(null);
-  const [selectedDocumentType, setSelectedDocumentType] = useState<DocumentType>("PASSPORT_MAIN");
+  const [selectedDocumentType, setSelectedDocumentType] =
+    useState<DocumentType>("PASSPORT_MAIN");
   const [fileExt, setFileExt] = useState<string>("");
 
   const handleUpload = async (options: any) => {
     const { file } = options;
     setCurrentFile(file);
-    setFileExt(file.name.split('.').pop().toLowerCase());
+    setFileExt(file.name.split(".").pop().toLowerCase());
     setIsModalVisible(true);
   };
 
@@ -113,7 +128,11 @@ const CaseDocumentRightPanel: React.FC = () => {
       return;
     }
     try {
-      const document = await getDocumentByIdApi(accessToken, documentId, userRole);
+      const document = await getDocumentByIdApi(
+        accessToken,
+        documentId,
+        userRole,
+      );
       if (!document.presignUrl) {
         message.error("Presigned URL is missing");
         return;
@@ -134,7 +153,11 @@ const CaseDocumentRightPanel: React.FC = () => {
     }
     try {
       console.log("delete documentId", documentId);
-      const successDelete = await deleteDocumentApi(userRole, documentId, accessToken);
+      const successDelete = await deleteDocumentApi(
+        userRole,
+        documentId,
+        accessToken,
+      );
       if (successDelete) {
         message.success("Document deleted successfully");
         fetchDocuments();
@@ -153,7 +176,13 @@ const CaseDocumentRightPanel: React.FC = () => {
         message.error("Access token is missing");
         return;
       }
-      await updateDocumentStatus(userRole, documentId, true, documentStatus, accessToken);
+      await updateDocumentStatus(
+        userRole,
+        documentId,
+        true,
+        documentStatus,
+        accessToken,
+      );
     } catch (error) {
       console.error(`Failed to update document status: ${error}`);
     }
@@ -196,7 +225,7 @@ const CaseDocumentRightPanel: React.FC = () => {
           description,
           createdBy,
           accessToken,
-          userRole
+          userRole,
         );
 
         const documentId = presignedUrlResponse.documentId;
@@ -206,17 +235,17 @@ const CaseDocumentRightPanel: React.FC = () => {
         await uploadFileToPresignUrl(
           presignedUrlResponse.presignedUrl,
           currentFile,
-          (percent) => console.log(`Upload Progress: ${percent}%`),
+          percent => console.log(`Upload Progress: ${percent}%`),
           async () => {
             message.success(`${currentFile.name} file uploaded successfully.`);
             await updateStatus(documentId, "UPLOADED");
             fetchDocuments();
           },
-          async (error) => {
+          async error => {
             message.error(`${currentFile.name} file upload failed.`);
             await updateStatus(documentId, "FAILED");
             console.error(error);
-          }
+          },
         );
       } catch (error) {
         message.error("Error generating presigned URL");
@@ -230,7 +259,7 @@ const CaseDocumentRightPanel: React.FC = () => {
     setIsModalVisible(false);
   };
 
-  const dataSource = documents.map((doc) => ({
+  const dataSource = documents.map(doc => ({
     key: doc.id,
     type: doc.type,
     name: doc.name,
@@ -249,7 +278,7 @@ const CaseDocumentRightPanel: React.FC = () => {
       title: t("File Name"),
       dataIndex: "name",
       key: "name",
-      render: (text) => <a>{text}</a>,
+      render: text => <a>{text}</a>,
     },
     {
       title: t("Uploader"),
@@ -265,7 +294,7 @@ const CaseDocumentRightPanel: React.FC = () => {
       title: t("UploadedAt"),
       dataIndex: "uploadedAt",
       key: "uploadedAt",
-      render: (text) => <a>{new Date(text).toLocaleString()}</a>,
+      render: text => <a>{new Date(text).toLocaleString()}</a>,
     },
     {
       title: t("Action"),
@@ -298,9 +327,12 @@ const CaseDocumentRightPanel: React.FC = () => {
             <p className="ant-upload-drag-icon">
               <InboxOutlined style={{ color: "#27AE60" }} />
             </p>
-            <p className="ant-upload-text">Click or drag file to this area to upload</p>
+            <p className="ant-upload-text">
+              Click or drag file to this area to upload
+            </p>
             <p className="ant-upload-hint">
-              Support for a single or bulk upload. Strictly prohibited from uploading company data or other banned files.
+              Support for a single or bulk upload. Strictly prohibited from
+              uploading company data or other banned files.
             </p>
           </Dragger>
         </div>
@@ -323,11 +355,16 @@ const CaseDocumentRightPanel: React.FC = () => {
         onCancel={handleModalCancel}
         width={640}
         className="upload-modal-container"
-        footer= {[
+        footer={[
           <Button key="Back" onClick={handleModalCancel}>
             {t("Return")}
           </Button>,
-          <Button key="Upload" type="primary" loading={loading} onClick={handleModalOk}>
+          <Button
+            key="Upload"
+            type="primary"
+            loading={loading}
+            onClick={handleModalOk}
+          >
             {t("Upload")}
           </Button>,
         ]}
@@ -335,7 +372,9 @@ const CaseDocumentRightPanel: React.FC = () => {
         <div className="upload-modal-body">
           <div className="upload-modal-body-fileIcon">
             {getFileIcon(fileExt)}
-            <QText level="xsmall" color="gray">{currentFile?.name}</QText>
+            <QText level="xsmall" color="gray">
+              {currentFile?.name}
+            </QText>
           </div>
           <div className="upload-modal-body-fileInfo">
             <QText level="normal bold">{t("DocumentType")}</QText>
