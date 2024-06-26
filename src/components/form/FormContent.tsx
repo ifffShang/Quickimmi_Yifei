@@ -64,6 +64,7 @@ export function FormContent(props: FormContentProps) {
   }, [props.referenceId]);
 
   useEffect(() => {
+    if (props.referenceId === "i589_fields_view_reports") return;
     dispatch(
       updateOnePercentage({
         sectionId: props.sectionId,

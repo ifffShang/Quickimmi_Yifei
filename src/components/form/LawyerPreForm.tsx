@@ -42,11 +42,10 @@ export function LawyerPreForm() {
     useState(true);
 
   useEffect(() => {
-    const isFormValid =
-      applicantName &&
-      applicationType &&
-      maritalStatus &&
-      (!applyWithChildren || (applyWithChildren && numberOfChildren));
+    const isFormValid = applicantName && applicationType;
+    // applicationType &&
+    // maritalStatus &&
+    // (!applyWithChildren || (applyWithChildren && numberOfChildren));
     setIsSendButtonDisabled(!isFormValid);
     const isEmailValid =
       providedCustomerEmail && validateEmail(providedCustomerEmail);
@@ -93,7 +92,7 @@ export function LawyerPreForm() {
       );
       dispatch(resetForm());
       dispatch(updateCurrentCaseId(caseId));
-      navigate("/case/" + caseId);
+      navigate("/casestatus/" + caseId);
     } catch (error) {
       console.error("Failed to create new case for lawyer:", error);
     }
@@ -170,49 +169,49 @@ export function LawyerPreForm() {
               </Select>
             </div>
           </div>
-          <div className="field-section-preForm">
-            <div>
-              <QText level="field-label">{t("MaritalStatus")}</QText>
-              <Select
-                className="field-input-preForm"
-                placeholder="Select marital status"
-                value={maritalStatus}
-                onChange={value => setMaritalStatus(value)}
-              >
-                <Option value="Single">{t("Single")}</Option>
-                <Option value="Married">{t("Married")}</Option>
-                <Option value="Divorced">{t("Divorced")}</Option>
-                <Option value="Widowed">{t("Widowed")}</Option>
-              </Select>
-            </div>
-            <Checkbox
-              checked={applyWithSpouse}
-              onChange={e => setApplyWithSpouse(e.target.checked)}
-            >
-              {t("ApplyWithMe")}
-            </Checkbox>
-          </div>
-          <div className="field-section-preForm">
-            <Checkbox
-              checked={applyWithChildren}
-              onChange={e => setApplyWithChildren(e.target.checked)}
-            >
-              {t("ChildApplyingWithMe")}
-            </Checkbox>
-            {applyWithChildren && (
-              <div>
-                <QText level="field-label">{t("NumberOfChildren")}</QText>
-                <Input
-                  className="field-input-preForm"
-                  type="number"
-                  value={numberOfChildren}
-                  onChange={e =>
-                    setNumberOfChildren(Math.max(0, parseInt(e.target.value)))
-                  }
-                />
-              </div>
-            )}
-          </div>
+          {/*<div className="field-section-preForm">*/}
+          {/*  <div>*/}
+          {/*    <QText level="field-label">{t("MaritalStatus")}</QText>*/}
+          {/*    <Select*/}
+          {/*      className="field-input-preForm"*/}
+          {/*      placeholder="Select marital status"*/}
+          {/*      value={maritalStatus}*/}
+          {/*      onChange={value => setMaritalStatus(value)}*/}
+          {/*    >*/}
+          {/*      <Option value="Single">{t("Single")}</Option>*/}
+          {/*      <Option value="Married">{t("Married")}</Option>*/}
+          {/*      <Option value="Divorced">{t("Divorced")}</Option>*/}
+          {/*      <Option value="Widowed">{t("Widowed")}</Option>*/}
+          {/*    </Select>*/}
+          {/*  </div>*/}
+          {/*  <Checkbox*/}
+          {/*    checked={applyWithSpouse}*/}
+          {/*    onChange={e => setApplyWithSpouse(e.target.checked)}*/}
+          {/*  >*/}
+          {/*    {t("ApplyWithMe")}*/}
+          {/*  </Checkbox>*/}
+          {/*</div>*/}
+          {/*<div className="field-section-preForm">*/}
+          {/*  <Checkbox*/}
+          {/*    checked={applyWithChildren}*/}
+          {/*    onChange={e => setApplyWithChildren(e.target.checked)}*/}
+          {/*  >*/}
+          {/*    {t("ChildApplyingWithMe")}*/}
+          {/*  </Checkbox>*/}
+          {/*  {applyWithChildren && (*/}
+          {/*    <div>*/}
+          {/*      <QText level="field-label">{t("NumberOfChildren")}</QText>*/}
+          {/*      <Input*/}
+          {/*        className="field-input-preForm"*/}
+          {/*        type="number"*/}
+          {/*        value={numberOfChildren}*/}
+          {/*        onChange={e =>*/}
+          {/*          setNumberOfChildren(Math.max(0, parseInt(e.target.value)))*/}
+          {/*        }*/}
+          {/*      />*/}
+          {/*    </div>*/}
+          {/*  )}*/}
+          {/*</div>*/}
         </div>
       </div>
 

@@ -8,7 +8,12 @@ import {
   UploadedDocument,
 } from "../model/apiModels";
 import { IForm, IFormFields } from "../model/formFlowModels";
-import { DocumentType, Identity } from "../model/commonModels";
+import {
+  DocumentCreatedBy,
+  DocumentStatus,
+  DocumentType,
+  Identity,
+} from "../model/commonModels";
 import { performApiRequest } from "./apiConfig";
 import { convertBooleans } from "../utils/utils";
 import { Role } from "../consts/consts";
@@ -155,12 +160,12 @@ export async function getCaseDetailsApi(
 }
 
 export async function getCaseSummaryApi(
-  caseId: number,
+  caseId: string,
   accessToken: string,
   role: Role,
 ): Promise<CaseSummary> {
   const res = await performApiRequest({
-    endPoint: `api/case/asylum/get?id=${caseId}`,
+    endPoint: `api/case/asylum/getCaseSummary?id=${caseId}`,
     method: "GET",
     data: null,
     accessToken,
@@ -213,6 +218,31 @@ export async function generateDocumentPresignedUrl(
     role,
   });
   return <GeneratePresignedUrlResponse>res.data;
+}
+
+export async function generatePresignedUrlByDocumentId(
+  documentId: number,
+  identity: Identity,
+  type: DocumentType,
+  documentName: string,
+  createdBy: DocumentCreatedBy,
+  accessToken: string,
+  role: Role,
+) {
+  const res = await performApiRequest({
+    endPoint: "api/document/generatePresignedUrlByDocumentId/put",
+    method: "POST",
+    data: {
+      documentId,
+      identify: identity,
+      type,
+      documentName,
+      createdBy,
+    },
+    accessToken,
+    role,
+  });
+  return <string>res.data;
 }
 
 export async function parsePassportApi(
@@ -327,7 +357,7 @@ export async function updateDocumentStatus(
   role: Role,
   documentId: number,
   manualOverride: boolean,
-  documentStatus: string,
+  documentStatus: DocumentStatus,
   accessToken: string,
 ): Promise<boolean> {
   const requestDto = {
@@ -364,3 +394,4 @@ export async function deleteDocumentApi(
   });
   return <boolean>res.data;
 }
+

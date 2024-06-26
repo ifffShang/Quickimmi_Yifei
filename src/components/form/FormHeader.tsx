@@ -1,12 +1,12 @@
 import { Button } from "antd";
 import { useTranslation } from "react-i18next";
+import { generateDocumentsApi } from "../../api/caseAPI";
 import { useAppSelector } from "../../app/hooks";
 import { updateApplicationCaseFunc } from "../../utils/functionUtils";
 import { QText } from "../common/Fonts";
 import { EditForm } from "../icons/Form";
 import "./FormHeader.css";
 import { AutoSaveTag } from "./parts/AutoSaveTag";
-import { generateDocumentsApi } from "../../api/caseAPI";
 
 export function FormHeader() {
   const { t } = useTranslation();
@@ -52,7 +52,11 @@ export function FormHeader() {
         >
           {t("Save")}
         </Button>
-        <Button type="primary" onClick={generateDocument}>
+        <Button
+          type="primary"
+          onClick={generateDocument}
+          disabled={percentageNumber !== 100}
+        >
           {t("Generate Documents")}
         </Button>
       </div>

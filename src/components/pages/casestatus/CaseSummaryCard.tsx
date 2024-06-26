@@ -1,6 +1,5 @@
 import React from "react";
 import { Card, Descriptions, Tag } from "antd";
-import { DownloadOutlined } from "@ant-design/icons";
 import { CaseSummary } from "../../../model/apiModels";
 import { useTranslation } from "react-i18next";
 import "./CaseStatusCard.css";
@@ -62,9 +61,6 @@ const CaseSummaryCard: React.FC<CaseStatusCardProps> = ({ caseSummary }) => {
       }
       extra={
         <div className="case-card-header">
-          {/*<a href="#">*/}
-          {/*  <DownloadOutlined /> {t("DownloadFile")}*/}
-          {/*</a>*/}
           <Tag color={tagColor} className="draft-tag">
             {tagText}
           </Tag>
@@ -74,10 +70,10 @@ const CaseSummaryCard: React.FC<CaseStatusCardProps> = ({ caseSummary }) => {
     >
       <Descriptions column={3}>
         <Descriptions.Item label={t("CreatedAt")}>
-          {new Date(createdAt).toLocaleDateString()}
+          {createdAt ? new Date(createdAt).toLocaleDateString() : "N/A"}
         </Descriptions.Item>
         <Descriptions.Item label={t("LastUpdatedAt")}>
-          {new Date(updatedAt).toLocaleDateString()}
+          {updatedAt ? new Date(updatedAt).toLocaleDateString() : "N/A"}
         </Descriptions.Item>
         <Descriptions.Item label={t("MasterApplicant")}>
           {applicantName}
@@ -86,7 +82,11 @@ const CaseSummaryCard: React.FC<CaseStatusCardProps> = ({ caseSummary }) => {
           {maritalStatus}
         </Descriptions.Item>
         <Descriptions.Item label={t("SpousePartnerApplication")}>
-          {applyWithSpouse ? t("Yes") : t("No")}
+          {applyWithSpouse !== null
+            ? applyWithSpouse
+              ? t("Yes")
+              : t("No")
+            : "N/A"}
         </Descriptions.Item>
         <Descriptions.Item label={t("NumberOfChildren")}>
           {numberOfChildren}

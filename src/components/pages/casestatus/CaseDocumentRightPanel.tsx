@@ -32,6 +32,7 @@ import {
 import { useAppSelector } from "../../../app/hooks";
 import { UploadedDocument } from "../../../model/apiModels";
 import { DocumentType } from "../../../model/commonModels";
+
 import { Loading } from "../../common/Loading";
 import { QText } from "../../common/Fonts";
 import "./CaseDocumentRightPanel.css";
@@ -122,6 +123,7 @@ const CaseDocumentRightPanel: React.FC = () => {
     setIsModalVisible(true);
   };
 
+
   const handleDownload = async (documentId: number) => {
     if (!accessToken) {
       message.error("Access token is missing");
@@ -170,7 +172,10 @@ const CaseDocumentRightPanel: React.FC = () => {
     }
   };
 
-  const updateStatus = async (documentId: number, documentStatus: string) => {
+  const updateStatus = async (
+    documentId: number,
+    documentStatus: DocumentStatus,
+  ) => {
     try {
       if (!accessToken) {
         message.error("Access token is missing");
@@ -210,6 +215,7 @@ const CaseDocumentRightPanel: React.FC = () => {
   const handleModalOk = async () => {
     if (currentFile && userId && caseId && accessToken) {
       const createdBy = userRole === "APPLICANT" ? "APPLICANT" : "LAWYER";
+
       const description = `This is a ${selectedDocumentType} file, its file type is ${fileExt}`;
 
       const selectedOperation = "NEW";

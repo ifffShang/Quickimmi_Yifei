@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IForm, IFormFields, IFormStep } from "../model/formFlowModels";
 import { Case } from "../model/apiModels";
+import { getCorrectedIndexes } from "../utils/caseUtils";
 
 export interface FormFieldsMap {
   [key: string]: IFormFields;
@@ -63,12 +64,14 @@ export const caseSlice = createSlice({
       state,
       action: PayloadAction<{ indexLevel1: number; indexLevel2: number }>,
     ) => {
-      state.indexLevel1 = action.payload.indexLevel1;
-      state.indexLevel2 = action.payload.indexLevel2;
-      state.currentStep =
-        state.form.steps[action.payload.indexLevel1].steps[
-          action.payload.indexLevel2
-        ];
+      const { correctedIndexLevel1, correctedIndexLevel2 } =
+        getCorrectedIndexes(
+          state.form,
+          action.payload.indexLevel1,
+          action.payload.indexLevel2,
+        );
+      state.indexLevel1 = correctedIndexLevel1;
+      state.indexLevel2 = correctedIndexLevel2;
     },
     updateFormFieldsMap: (
       state,
