@@ -10,6 +10,7 @@
   "Action": "操作",
   "Upload": "上传",
   "Return": "返回",
+  "Search": "筛选",
   "Generate Documents": "生成文件",
   "UploadDocument": "上传文件",
   "CaseDocument": "附属文件",
@@ -146,6 +147,7 @@
   "Submitted": "已提交",
   "InputClientEmail": "输入客户邮箱",
   "InviteClientViaEmail": "通过邮件发送注册邀请给客户",
+  "InputFileNameToSearch": "输入文件名称搜索",
 
   "CaseProgressTitle": "案件进展",
   "FILLING_APPLICATION": "信息完善",
