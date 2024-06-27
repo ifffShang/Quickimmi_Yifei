@@ -29,28 +29,33 @@ const Columns: TableProps<DataType>["columns"] = [
     title: "File Name",
     dataIndex: "filename",
     key: "name",
+    sorter: (a, b) => a.filename.localeCompare(b.filename),
   },
   {
     title: "File Type",
     dataIndex: "filetype",
     key: "filetype",
     responsive: ["lg"],
+    sorter: (a, b) => a.filename.localeCompare(b.filename),
   },
   {
     title: "Status",
     dataIndex: "status",
     key: "status",
+    sorter: (a, b) => a.filename.localeCompare(b.filename),
   },
   {
     title: "Created At",
     dataIndex: "createdAt",
     key: "createdAt",
     responsive: ["lg"],
+    sorter: (a, b) => a.filename.localeCompare(b.filename),
   },
   {
     title: "Updated At",
     dataIndex: "updatedAt",
     key: "updatedAt",
+    sorter: (a, b) => a.filename.localeCompare(b.filename),
   },
   {
     title: "Action",
