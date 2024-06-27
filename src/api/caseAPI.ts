@@ -10,6 +10,7 @@ import {
 import { IForm, IFormFields } from "../model/formFlowModels";
 import {
   DocumentCreatedBy,
+  DocumentOperation,
   DocumentStatus,
   DocumentType,
   Identity,
@@ -195,7 +196,7 @@ export async function generateDocumentPresignedUrl(
   type: DocumentType,
   documentName: string,
   identify: Identity,
-  operation: string,
+  operation: DocumentOperation,
   description: string,
   createdBy: string,
   accessToken: string,
@@ -394,4 +395,3 @@ export async function deleteDocumentApi(
   });
   return <boolean>res.data;
 }
-

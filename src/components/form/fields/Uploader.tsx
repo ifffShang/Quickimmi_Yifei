@@ -3,7 +3,11 @@ import { GetProp, Upload, UploadProps } from "antd";
 import { useState } from "react";
 import { generateDocumentPresignedUrl } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { DocumentType, Identity } from "../../../model/commonModels";
+import {
+  DocumentOperation,
+  DocumentType,
+  Identity,
+} from "../../../model/commonModels";
 import { updateTmpImageUrl } from "../../../reducers/commonSlice";
 import { ErrorMessage } from "../../common/Fonts";
 import "./Uploader.css";
@@ -20,7 +24,7 @@ export interface UploaderProps {
   documentType: DocumentType;
   identity: Identity;
   documentName?: string;
-  operation?: string;
+  operation?: DocumentOperation;
   description?: string;
   createdBy?: string;
   onImageUrlReceived?: (imageUrl: string) => void;
@@ -70,7 +74,7 @@ export function Uploader(props: UploaderProps) {
         props.documentType,
         props.documentName ? props.documentName + "." + fileExt : file.name,
         props.identity,
-        props.operation || "New",
+        props.operation || "NEW",
         props.description || "",
         role,
         accessToken,

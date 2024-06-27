@@ -25,8 +25,7 @@
 }
 .upload-modal-body {
   display: grid;
-  grid-template-areas: 
-    "fileIcon fileInfo";
+  grid-template-areas: "fileIcon fileInfo";
   grid-template-columns: 1fr 2fr;
   padding: 40px 0;
   align-items: center;

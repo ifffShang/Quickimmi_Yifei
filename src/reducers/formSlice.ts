@@ -51,7 +51,7 @@ function deepAssign(update: any, current: any, init: any) {
       } else if (value === true || value === "true") {
         result[key] = "true";
       } else if (value === null || value === undefined) {
-        result[key] = current[key] || init[key];
+        result[key] = current?.[key] || init?.[key] || null;
       } else if (typeof value === "object" && !Array.isArray(value)) {
         result[key] = deepAssign(value, current[key], init[key]);
       } else {
