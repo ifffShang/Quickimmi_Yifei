@@ -9,14 +9,27 @@
 .case-document-file-upload {
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .case-document-section-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   padding-left: 5px;
 }
+.case-document-section-search-input {
+  width: 500px;
+}
+.case-document-section-search-button {
+  border: 1px solid #27ae60;
+  border-radius: 3px;
+  margin-left: 10px;
+  height: 40px;
+  width: 100px;
+}
 .case-document-section-content {
-  margin-top: 15px;
+  margin-top: 20px;
 }
 
 .upload-modal-container {
