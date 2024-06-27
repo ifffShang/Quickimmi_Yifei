@@ -117,7 +117,9 @@ const CaseDocumentRightPanel: React.FC = () => {
     useState<DocumentType>("PASSPORT_MAIN");
   const [fileExt, setFileExt] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [filteredDocuments, setFilteredDocuments] = useState<UploadedDocument[]>([]);
+  const [filteredDocuments, setFilteredDocuments] = useState<
+    UploadedDocument[]
+  >([]);
   const [uploadApprove, setUploadApprove] = useState(true);
   const [showUploadProgress, setShowUploadProgress] = useState(false);
 
@@ -125,11 +127,11 @@ const CaseDocumentRightPanel: React.FC = () => {
     const { file } = fileList;
     setCurrentFile(file);
     setFileExt(file.name.split(".").pop().toLowerCase());
-    if(uploadApprove){
+    if (uploadApprove) {
       setIsModalVisible(true);
     } else {
       setIsModalVisible(false);
-      setShowUploadProgress(false)
+      setShowUploadProgress(false);
     }
   };
 
@@ -208,8 +210,7 @@ const CaseDocumentRightPanel: React.FC = () => {
     } else {
       setUploadApprove(true);
     }
-  }
-
+  };
 
   const uploadProps: UploadProps = {
     customRequest: handleUpload,
@@ -217,17 +218,17 @@ const CaseDocumentRightPanel: React.FC = () => {
     maxCount: 1,
     onChange(info: any) {
       console.log("Upload info", info.fileList);
-      setShowUploadProgress(true)
+      setShowUploadProgress(true);
       const { status } = info.file;
       if (status !== "uploading") {
         console.log(info.file, info.fileList);
       }
       if (status === "done") {
         message.success(`${info.file.name} file uploaded successfully.`);
-        setShowUploadProgress(false)
+        setShowUploadProgress(false);
       } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
-        setShowUploadProgress(false)
+        setShowUploadProgress(false);
       }
     },
     onDrop(info: any) {
@@ -301,12 +302,14 @@ const CaseDocumentRightPanel: React.FC = () => {
   const handleSearch = () => {
     setFilteredDocuments(
       documents.filter(doc =>
-        doc.name.toLowerCase().includes(searchQuery.toLowerCase())
-      )
+        doc.name.toLowerCase().includes(searchQuery.toLowerCase()),
+      ),
     );
   };
 
-  const dataSource = (filteredDocuments.length > 0 ? filteredDocuments : documents).map(doc => ({
+  const dataSource = (
+    filteredDocuments.length > 0 ? filteredDocuments : documents
+  ).map(doc => ({
     key: doc.id,
     type: doc.type,
     name: doc.name,
@@ -346,7 +349,8 @@ const CaseDocumentRightPanel: React.FC = () => {
       title: t("UploadedAt"),
       dataIndex: "uploadedAt",
       key: "uploadedAt",
-      sorter: (a, b) => new Date(a.uploadedAt).getTime() - new Date(b.uploadedAt).getTime(),
+      sorter: (a, b) =>
+        new Date(a.uploadedAt).getTime() - new Date(b.uploadedAt).getTime(),
       render: text => <a>{new Date(text).toLocaleString()}</a>,
       width: "22%",
     },
@@ -403,17 +407,17 @@ const CaseDocumentRightPanel: React.FC = () => {
               className="case-document-section-search-input"
               value={searchQuery}
             />
-            <Button 
+            <Button
               onClick={handleSearch}
               className="case-document-section-search-button"
               size="large"
-              >
-                {t("Search")}
-              </Button>
+            >
+              {t("Search")}
+            </Button>
           </div>
         </div>
         <div className="case-document-section-content">
-          <Table columns={columns} dataSource={dataSource} pagination={false}/>
+          <Table columns={columns} dataSource={dataSource} pagination={false} />
         </div>
       </div>
 
