@@ -182,6 +182,7 @@
   "finalReviewMessage": "移民局正在审核客户的案件，请等待结果",
   "resultMessage": "客户申请已成功获批，案件结束",
   "cannotUpdateThisStepTooltip": "您只能更新当前步骤，其他完成步骤或者还未开始步骤不能更新。",
+  "stepCompletedTooltip": "当前步骤已经完成，不能再更新。",
 
   "PersonalInformation": "个人信息",
   "BasicInformation": "基本信息",

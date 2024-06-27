@@ -182,6 +182,7 @@
   "finalReviewMessage": "Waiting for the immigration court to complete the final review.",
   "resultMessage": "The client's application has been successfully approved, and the case is closed.",
   "cannotUpdateThisStepTooltip": "You can only update the step which is in progress.",
+  "stepCompletedTooltip": "This step is completed and cannot be updated.",
 
   "PersonalInformation": "Personal",
   "BasicInformation": "Basic",
