@@ -5,7 +5,10 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useFormTranslation } from "../../hooks/commonHooks";
 import { ControlType } from "../../model/formFlowModels";
 import { updateFormFieldsMap } from "../../reducers/caseSlice";
-import { updateOnePercentage } from "../../reducers/formSlice";
+import {
+  incrementSaveTimes,
+  updateOnePercentage,
+} from "../../reducers/formSlice";
 import { updateApplicationCaseFunc } from "../../utils/functionUtils";
 import {
   getKeyCount,
@@ -162,14 +165,19 @@ export function FormContent(props: FormContentProps) {
         <Button type="primary">{t("Previous")}</Button>
         <Button
           className="default-button"
-          onClick={() =>
-            updateApplicationCaseFunc(
-              applicationCase,
-              percentage,
-              role,
-              accessToken,
-            )
-          }
+          onClick={() => {
+            try {
+              updateApplicationCaseFunc(
+                applicationCase,
+                percentage,
+                role,
+                accessToken,
+              );
+              dispatch(incrementSaveTimes());
+            } catch (err) {
+              console.error(err);
+            }
+          }}
         >
           {t("Save")}
         </Button>

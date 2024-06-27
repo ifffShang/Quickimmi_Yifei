@@ -3,7 +3,7 @@ import { Dispatch, useEffect } from "react";
 import { CacheStore } from "../cache/cache";
 import { updateApplicationCaseFunc } from "../utils/functionUtils";
 import { ObjectUtils } from "../utils/objectUtils";
-import { incrementAutoSaveTimes } from "../reducers/formSlice";
+import { incrementSaveTimes } from "../reducers/formSlice";
 import { Role } from "../consts/consts";
 
 export function useAutoSaveApplicationCase(
@@ -35,15 +35,25 @@ export function useAutoSaveApplicationCase(
             applicateCaseCached,
             true,
           );
-          console.log("[Auto save] Auto save application case, diff is ", diff);
-          updateApplicationCaseFunc(
-            applicateCaseCached,
-            percentage,
-            role,
-            accessToken,
-          );
-          lastApplicationCaseCached = applicateCaseCached;
-          dispatch(incrementAutoSaveTimes());
+          try {
+            console.log(
+              "[Auto save] Auto save application case, diff is ",
+              diff,
+            );
+            updateApplicationCaseFunc(
+              applicateCaseCached,
+              percentage,
+              role,
+              accessToken,
+            );
+            lastApplicationCaseCached = applicateCaseCached;
+            dispatch(incrementSaveTimes());
+          } catch (error) {
+            console.error(
+              "[Auto save] Error updating application case: ",
+              error,
+            );
+          }
 
           autoSave();
         },

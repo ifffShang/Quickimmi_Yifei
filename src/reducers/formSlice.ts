@@ -23,7 +23,7 @@ import { CacheStore } from "../cache/cache";
 export interface FormState {
   applicationCase: ApplicationCase;
   percentage: Percentage;
-  autoSaveTimes: number;
+  saveTimes: number;
   documentUrls: any[];
   uploadedDocuments: UploadedDocumentWithUrl[];
 }
@@ -33,7 +33,7 @@ const initialState: FormState = {
   percentage: {
     overall: { avg: 0 },
   },
-  autoSaveTimes: 0,
+  saveTimes: 0,
   documentUrls: [],
   uploadedDocuments: [],
 };
@@ -308,8 +308,8 @@ export const formSlice = createSlice({
     ) => {
       state.uploadedDocuments = action.payload;
     },
-    incrementAutoSaveTimes: state => {
-      state.autoSaveTimes++;
+    incrementSaveTimes: state => {
+      state.saveTimes++;
     },
     resetFormState: state => {
       state.applicationCase = InitialApplicationCase;
@@ -319,7 +319,7 @@ export const formSlice = createSlice({
       state.documentUrls = [];
       state.uploadedDocuments = [];
 
-      state.autoSaveTimes = 0;
+      state.saveTimes = 0;
     },
   },
 });
@@ -337,7 +337,7 @@ export const {
   replaceDocumentUrls,
   clearDocumentUrls,
   updateUploadedDocuments,
-  incrementAutoSaveTimes,
+  incrementSaveTimes,
 } = formSlice.actions;
 
 export default formSlice.reducer;

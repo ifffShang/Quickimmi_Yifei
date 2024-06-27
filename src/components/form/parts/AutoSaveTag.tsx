@@ -1,24 +1,19 @@
 import { useTranslation } from "react-i18next";
-import { getCurrentHourandMinutes } from "../../../utils/utils";
+import { getCurrentHoursMinutesSeconds } from "../../../utils/utils";
 import { QText } from "../../common/Fonts";
 import { useAppSelector } from "../../../app/hooks";
 import { useEffect, useState } from "react";
 
 export function AutoSaveTag() {
   const { t } = useTranslation();
-  const autoSaveTimes = useAppSelector(state => state.form.autoSaveTimes);
+  const saveTimes = useAppSelector(state => state.form.saveTimes);
   const [displayAutoSaveTag, setDisplayAutoSaveTag] = useState(false);
-  const [time, setTime] = useState(getCurrentHourandMinutes());
+  const [time, setTime] = useState(getCurrentHoursMinutesSeconds());
 
   useEffect(() => {
-    setTime(getCurrentHourandMinutes());
+    setTime(getCurrentHoursMinutesSeconds());
     setDisplayAutoSaveTag(true);
-    const timer = setTimeout(() => {
-      setDisplayAutoSaveTag(false);
-    }, 1000 * 60);
-
-    return () => clearTimeout(timer);
-  }, [autoSaveTimes]);
+  }, [saveTimes]);
 
   if (!displayAutoSaveTag) {
     return null;
@@ -26,7 +21,7 @@ export function AutoSaveTag() {
 
   return (
     <div className="form-header-tag">
-      <QText level="xsmall">{time + t(" auto save is successiful")}</QText>
+      <QText level="xsmall">{time + " " + t("Form save is successiful")}</QText>
     </div>
   );
 }

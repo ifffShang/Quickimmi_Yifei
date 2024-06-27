@@ -489,12 +489,13 @@ export function convertBooleans(obj: any) {
   return obj;
 }
 
-export function getCurrentHourandMinutes() {
+export function getCurrentHoursMinutesSeconds() {
   const date = new Date();
   return date.toLocaleTimeString("en-EN", {
     hour12: true,
     hour: "2-digit",
     minute: "2-digit",
+    second: "2-digit",
   });
 }
 

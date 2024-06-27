@@ -1,15 +1,17 @@
 import { Button } from "antd";
 import { useTranslation } from "react-i18next";
 import { generateDocumentsApi } from "../../api/caseAPI";
-import { useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { updateApplicationCaseFunc } from "../../utils/functionUtils";
 import { QText } from "../common/Fonts";
 import { EditForm } from "../icons/Form";
 import "./FormHeader.css";
 import { AutoSaveTag } from "./parts/AutoSaveTag";
+import { incrementSaveTimes } from "../../reducers/formSlice";
 
 export function FormHeader() {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
   const applicationCase = useAppSelector(state => state.form.applicationCase);
   const percentage = useAppSelector(state => state.form.percentage);
   const accessToken = useAppSelector(state => state.auth.accessToken);
@@ -41,14 +43,19 @@ export function FormHeader() {
         <Button
           type="primary"
           className="form-header-save-btn"
-          onClick={() =>
-            updateApplicationCaseFunc(
-              applicationCase,
-              percentage,
-              role,
-              accessToken,
-            )
-          }
+          onClick={() => {
+            try {
+              updateApplicationCaseFunc(
+                applicationCase,
+                percentage,
+                role,
+                accessToken,
+              );
+              dispatch(incrementSaveTimes());
+            } catch (err) {
+              console.error(err);
+            }
+          }}
         >
           {t("Save")}
         </Button>
