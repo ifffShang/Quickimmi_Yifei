@@ -379,3 +379,19 @@ export async function updateDocumentStatus(
 
   return <boolean>res.data;
 }
+
+export async function deleteDocumentApi(
+  role: Role,
+  documentId: number,
+  accessToken: string,
+): Promise<boolean> {
+  const res = await performApiRequest({
+    endPoint: `api/document/delete?documentId=${documentId}`,
+    method: "POST",
+    data: { documentId },
+    accessToken,
+    role,
+  });
+  return <boolean>res.data;
+}
+
