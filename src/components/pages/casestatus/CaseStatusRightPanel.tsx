@@ -47,16 +47,16 @@ function useFetchCaseSummary() {
         applyWithSpouse: false,
         numberOfChildren: 2,
         numberOfApplyingChildren: 1,
-        currentStep: "REVIEW_AND_SIGN",
+        currentStep: "FILLING_APPLICATION",
         progress: {
           steps: [
             {
               name: "FILLING_APPLICATION",
-              status: "COMPLETED",
+              status: "IN_PROGRESS",
               substeps: [
                 {
                   name: "FILLING_DETAILS",
-                  status: "COMPLETED",
+                  status: "IN_PROGRESS",
                   metadata: null,
                   startedAt: 1716788746776,
                   updatedAt: 1716788746776,
@@ -67,25 +67,25 @@ function useFetchCaseSummary() {
             },
             {
               name: "REVIEW_AND_SIGN",
-              status: "COMPLETED",
+              status: "IN_PROGRESS",
               substeps: [
                 {
                   name: "FILLING_DETAILS",
-                  status: "COMPLETED",
+                  status: "IN_PROGRESS",
                   metadata: null,
                   startedAt: 1716788746776,
                   updatedAt: 1716788746776,
                 },
                 {
                   name: "LAWYER_REVIEW",
-                  status: "COMPLETED",
+                  status: "NOT_START",
                   metadata: null,
                   startedAt: 1716788746776,
                   updatedAt: 1716788746776,
                 },
                 {
                   name: "CLIENT_SIGNATURE",
-                  status: "IN_PROGRESS",
+                  status: "NOT_START",
                   metadata: null,
                   startedAt: 1716788746776,
                   updatedAt: 1716788746776,

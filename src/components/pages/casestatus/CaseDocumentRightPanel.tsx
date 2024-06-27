@@ -31,7 +31,7 @@ import {
 } from "../../../api/caseAPI";
 import { useAppSelector } from "../../../app/hooks";
 import { UploadedDocument } from "../../../model/apiModels";
-import { DocumentStatus, DocumentType } from "../../../model/commonModels";
+import { DocumentType, DocumentStatus } from "../../../model/commonModels";
 
 import { Loading } from "../../common/Loading";
 import { QText } from "../../common/Fonts";
@@ -39,7 +39,6 @@ import "./CaseDocumentRightPanel.css";
 
 const { Dragger } = Upload;
 const { Option } = Select;
-
 const getFileIcon = (fileExt: string) => {
   switch (fileExt.toLowerCase()) {
     case "png":
