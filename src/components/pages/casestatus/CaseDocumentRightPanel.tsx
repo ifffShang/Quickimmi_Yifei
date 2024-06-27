@@ -31,7 +31,7 @@ import {
 } from "../../../api/caseAPI";
 import { useAppSelector } from "../../../app/hooks";
 import { UploadedDocument } from "../../../model/apiModels";
-import { DocumentType } from "../../../model/commonModels";
+import { DocumentStatus, DocumentType } from "../../../model/commonModels";
 
 import { Loading } from "../../common/Loading";
 import { QText } from "../../common/Fonts";
@@ -122,7 +122,6 @@ const CaseDocumentRightPanel: React.FC = () => {
     setFileExt(file.name.split(".").pop().toLowerCase());
     setIsModalVisible(true);
   };
-
 
   const handleDownload = async (documentId: number) => {
     if (!accessToken) {
