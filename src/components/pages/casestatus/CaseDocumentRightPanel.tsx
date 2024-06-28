@@ -21,7 +21,7 @@ import {
   FileWordTwoTone,
   FileTextTwoTone,
   FileUnknownTwoTone,
-  DeleteTwoTone
+  DeleteTwoTone,
 } from "@ant-design/icons";
 import { useParams } from "react-router-dom";
 import {
@@ -48,16 +48,24 @@ const getFileIcon = (fileExt: string) => {
     case "jpg":
     case "jpeg":
     case "gif":
-      return <FileImageTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60"/>;
+      return (
+        <FileImageTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
+      );
     case "pdf":
-      return <FilePdfTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60"/>;
+      return <FilePdfTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />;
     case "doc":
     case "docx":
-      return <FileWordTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60"/>;
+      return (
+        <FileWordTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
+      );
     case "txt":
-      return <FileTextTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60"/>;
+      return (
+        <FileTextTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
+      );
     default:
-      return <FileUnknownTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60"/>;
+      return (
+        <FileUnknownTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
+      );
   }
 };
 
@@ -118,11 +126,16 @@ const CaseDocumentRightPanel: React.FC = () => {
     useState<DocumentType>("PASSPORT_MAIN");
   const [fileExt, setFileExt] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [filteredDocuments, setFilteredDocuments] = useState<UploadedDocument[]>([]);
+  const [filteredDocuments, setFilteredDocuments] = useState<
+    UploadedDocument[]
+  >([]);
   const [uploadApprove, setUploadApprove] = useState(true);
   const [showUploadProgress, setShowUploadProgress] = useState(false);
   const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
-  const [documentToDelete, setDocumentToDelete] = useState<{ id: number, name: string } | null>(null);
+  const [documentToDelete, setDocumentToDelete] = useState<{
+    id: number;
+    name: string;
+  } | null>(null);
 
   const handleUpload = async (fileList: any) => {
     const { file } = fileList;
@@ -162,7 +175,9 @@ const CaseDocumentRightPanel: React.FC = () => {
 
   const handleDelete = async () => {
     if (!accessToken || documentToDelete === null) {
-      message.error("Access token is missing or no document selected for deletion");
+      message.error(
+        "Access token is missing or no document selected for deletion",
+      );
       return;
     }
     try {
@@ -238,7 +253,7 @@ const CaseDocumentRightPanel: React.FC = () => {
       console.log("Dropped files", info.dataTransfer.files);
       handleFileCount(info.dataTransfer.files);
     },
-    beforeUpload: (file) => {
+    beforeUpload: file => {
       if (uploadProps.fileList && uploadProps.fileList.length >= 1) {
         message.error("Only one file can be uploaded at a time");
         return Upload.LIST_IGNORE;
@@ -371,10 +386,14 @@ const CaseDocumentRightPanel: React.FC = () => {
       render: (_, document) => (
         <Space size="large">
           <a onClick={() => handleDownload(document.key)}>{t("Download")}</a>
-          <a onClick={() => {
-            setDocumentToDelete({ id: document.key, name: document.name });
-            setDeleteConfirmVisible(true);
-          }}>{t("Delete")}</a>
+          <a
+            onClick={() => {
+              setDocumentToDelete({ id: document.key, name: document.name });
+              setDeleteConfirmVisible(true);
+            }}
+          >
+            {t("Delete")}
+          </a>
         </Space>
       ),
     },
@@ -459,7 +478,7 @@ const CaseDocumentRightPanel: React.FC = () => {
         <div className="upload-modal-body">
           <div className="upload-modal-body-fileIcon">
             {getFileIcon(fileExt)}
-            <QText level="xsmall" color="gray" >
+            <QText level="xsmall" color="gray">
               {currentFile?.name}
             </QText>
           </div>
@@ -487,16 +506,14 @@ const CaseDocumentRightPanel: React.FC = () => {
         onCancel={() => setDeleteConfirmVisible(false)}
         className="delete-confirm-modal-container"
         footer={[
-          <Button 
-            key="Cancel" 
-            onClick={() => setDeleteConfirmVisible(false)}>
+          <Button key="Cancel" onClick={() => setDeleteConfirmVisible(false)}>
             {t("Cancel")}
           </Button>,
           <Button
             key="Delete"
             type="primary"
             danger
-            style={{backgroundColor: "#EB5757"}}
+            style={{ backgroundColor: "#EB5757" }}
             onClick={handleDelete}
           >
             {t("Delete")}
@@ -505,11 +522,18 @@ const CaseDocumentRightPanel: React.FC = () => {
       >
         <div className="delete-confirm-modal-body">
           <div className="delete-confirm-modal-body-icon">
-            <DeleteTwoTone style={{ fontSize: 64 }} twoToneColor="#EB5757"/>
+            <DeleteTwoTone style={{ fontSize: 64 }} twoToneColor="#EB5757" />
           </div>
           <div className="delete-confirm-modal-body-message">
-            <QText level="normal bold" color="dark">{t("DeleteConfirmMessage")}</QText>
-            {documentToDelete && (<QText level="small" color="gray"> {documentToDelete.name}</QText>)}
+            <QText level="normal bold" color="dark">
+              {t("DeleteConfirmMessage")}
+            </QText>
+            {documentToDelete && (
+              <QText level="small" color="gray">
+                {" "}
+                {documentToDelete.name}
+              </QText>
+            )}
           </div>
         </div>
       </Modal>

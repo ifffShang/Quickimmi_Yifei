@@ -54,7 +54,7 @@
   padding-top: 30px;
 }
 .upload-modal-body-fileIcon-icon > p {
-    width: 100px;
+  width: 100px;
 }
 .upload-modal-body-fileInfo {
   grid-area: fileInfo;
