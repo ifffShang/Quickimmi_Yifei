@@ -12,18 +12,20 @@ import { incrementSaveTimes } from "../../reducers/formSlice";
 export function FormHeader() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const applicationCase = useAppSelector(state => state.form.applicationCase);
+  const caseId = useAppSelector(state => state.form.caseId);
+  const profile = useAppSelector(state => state.form.applicationCase.profile);
+  const progress = useAppSelector(state => state.form.applicationCase.progress);
   const percentage = useAppSelector(state => state.form.percentage);
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const role = useAppSelector(state => state.auth.role);
   const percentageNumber = percentage?.overall?.avg ?? 0;
 
   const generateDocument = () => {
-    if (!applicationCase || !applicationCase.id || !accessToken) {
+    if (!caseId || !accessToken) {
       console.error("Case ID or access token is not available");
       return;
     }
-    generateDocumentsApi(accessToken, applicationCase.id, role);
+    generateDocumentsApi(accessToken, caseId, role);
   };
 
   return (
@@ -46,7 +48,8 @@ export function FormHeader() {
           onClick={() => {
             try {
               updateApplicationCaseFunc(
-                applicationCase,
+                profile,
+                progress,
                 percentage,
                 role,
                 accessToken,

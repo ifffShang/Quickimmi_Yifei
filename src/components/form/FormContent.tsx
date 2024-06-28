@@ -32,10 +32,13 @@ export function FormContent(props: FormContentProps) {
   const dispatch = useAppDispatch();
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const role = useAppSelector(state => state.auth.role);
-  const applicationCase = useAppSelector(state => state.form.applicationCase);
   const currentStep = useAppSelector(state => state.case.currentStep);
   const formFieldsMap = useAppSelector(state => state.case.formFieldsMap);
+
+  const profile = useAppSelector(state => state.form.applicationCase.profile);
+  const progress = useAppSelector(state => state.form.applicationCase.progress);
   const percentage = useAppSelector(state => state.form.percentage);
+
   const [percentageOfSection, setPercentageOfSection] = useState(0);
 
   const formFields =
@@ -168,7 +171,8 @@ export function FormContent(props: FormContentProps) {
           onClick={() => {
             try {
               updateApplicationCaseFunc(
-                applicationCase,
+                profile,
+                progress,
                 percentage,
                 role,
                 accessToken,

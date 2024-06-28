@@ -1,10 +1,10 @@
 import { updateApplicationCaseApi } from "../api/caseAPI";
 import { Role } from "../consts/consts";
-import { ApplicationCase, Percentage } from "../model/apiModels";
-import { getUpdateApplicationCaseData } from "./utils";
+import { AsylumCaseProfile, Percentage, Progress } from "../model/apiModels";
 
 export function updateApplicationCaseFunc(
-  applicationCase: ApplicationCase,
+  profile: AsylumCaseProfile,
+  progress: Progress,
   percentage: Percentage,
   role: Role,
   accessToken?: string,
@@ -15,41 +15,33 @@ export function updateApplicationCaseFunc(
       return;
     }
 
-    if (!applicationCase.progress) {
-      console.error("Progress is missing");
-      return;
-    }
-
-    const applicationCaseForUpdate = {
-      ...applicationCase,
-      progress: {
-        ...applicationCase.progress,
-        steps: applicationCase.progress.steps.map(step => {
-          if (step.name === "FILLING_APPLICATION") {
-            return {
-              ...step,
-              status: "IN_PROGRESS",
-              substeps: step.substeps.map(substep => {
-                if (substep.name === "FILLING_DETAILS") {
-                  return {
-                    ...substep,
-                    metadata: JSON.stringify({
-                      percentage: percentage,
-                    }),
-                    status: "IN_PROGRESS",
-                  };
-                }
-                return substep;
-              }),
-            };
-          }
-          return step;
-        }),
-      },
+    const progressWithPercentage = {
+      ...progress,
+      steps: progress.steps.map(step => {
+        if (step.name === "FILLING_APPLICATION") {
+          return {
+            ...step,
+            status: "IN_PROGRESS",
+            substeps: step.substeps.map(substep => {
+              if (substep.name === "FILLING_DETAILS") {
+                return {
+                  ...substep,
+                  metadata: JSON.stringify({
+                    percentage: percentage,
+                  }),
+                  status: "IN_PROGRESS",
+                };
+              }
+              return substep;
+            }),
+          };
+        }
+        return step;
+      }),
     };
 
     updateApplicationCaseApi(
-      getUpdateApplicationCaseData(applicationCaseForUpdate),
+      { profile, progress: progressWithPercentage },
       accessToken,
       role,
     );

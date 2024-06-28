@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import _, { update } from "lodash";
+import _ from "lodash";
+import { CacheStore } from "../cache/cache";
 import {
   InitialAddressHistoryBeforeUS,
   InitialApplicationCase,
@@ -12,15 +13,17 @@ import {
 } from "../consts/caseConsts";
 import {
   ApplicationCase,
+  AsylumCaseProfile,
   AsylumCaseProfileOptional,
   ParsePassportResponse,
   Percentage,
+  Progress,
   UploadedDocumentWithUrl,
 } from "../model/apiModels";
 import { getUpdateProfileData } from "../utils/utils";
-import { CacheStore } from "../cache/cache";
 
 export interface FormState {
+  caseId: number;
   applicationCase: ApplicationCase;
   percentage: Percentage;
   saveTimes: number;
@@ -29,6 +32,7 @@ export interface FormState {
 }
 
 const initialState: FormState = {
+  caseId: 0,
   applicationCase: InitialApplicationCase,
   percentage: {
     overall: { avg: 0 },
@@ -113,6 +117,28 @@ export const formSlice = createSlice({
       Object.assign(state.applicationCase, result);
 
       CacheStore.setApplicationCase(result);
+    },
+    updateCaseProfileAndProgress: (
+      state,
+      action: PayloadAction<{
+        caseId: number;
+        profile: AsylumCaseProfile;
+        progress: Progress;
+        percentage: Percentage;
+      }>,
+    ) => {
+      state.caseId = action.payload.caseId;
+      const updatedProfile = deepAssign(
+        action.payload.profile,
+        state.applicationCase.profile,
+        InitialApplicationCase.profile,
+      );
+      Object.assign(state.applicationCase.profile, updatedProfile);
+      Object.assign(state.applicationCase.progress, action.payload.progress);
+      CacheStore.setApplicationCase(state.applicationCase);
+
+      state.percentage = action.payload.percentage;
+      CacheStore.setPercentage(state.percentage);
     },
     updatePercentage: (state, action: PayloadAction<Percentage>) => {
       state.percentage = action.payload;
@@ -312,6 +338,7 @@ export const formSlice = createSlice({
       state.saveTimes++;
     },
     resetFormState: state => {
+      state.caseId = 0;
       state.applicationCase = InitialApplicationCase;
       state.percentage = {
         overall: { avg: 0 },
@@ -327,6 +354,7 @@ export const formSlice = createSlice({
 export const {
   resetFormState,
   updateApplicationCase,
+  updateCaseProfileAndProgress,
   updatePercentage,
   updateOnePercentage,
   updateCaseFields,

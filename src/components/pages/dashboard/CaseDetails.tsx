@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getCaseDetailsApi, getForm } from "../../../api/caseAPI";
+import { getCaseProfileAndProgressApi, getForm } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { updateForm } from "../../../reducers/caseSlice";
 import {
   resetFormState,
-  updateApplicationCase,
+  updateCaseProfileAndProgress,
   updatePercentage,
 } from "../../../reducers/formSlice";
 import {
@@ -30,7 +30,7 @@ export function CaseDetails() {
       dispatch(updateForm(form));
       (async function () {
         try {
-          const caseDetails = await getCaseDetailsApi(
+          const caseDetails = await getCaseProfileAndProgressApi(
             parseInt(id),
             accessToken,
             role,
@@ -40,17 +40,22 @@ export function CaseDetails() {
             return;
           }
 
-          const currentPercentage = extractPercentageFromMetadata(
+          let currentPercentage = extractPercentageFromMetadata(
             caseDetails.progress,
           );
+
           if (!currentPercentage) {
-            const defaultPercentage = buildFormPercentageObject(form);
-            dispatch(updatePercentage(defaultPercentage));
-          } else {
-            dispatch(updatePercentage(currentPercentage));
+            currentPercentage = buildFormPercentageObject(form);
           }
 
-          dispatch(updateApplicationCase(caseDetails));
+          dispatch(
+            updateCaseProfileAndProgress({
+              caseId: parseInt(id),
+              profile: caseDetails.profile,
+              progress: caseDetails.progress,
+              percentage: currentPercentage,
+            }),
+          );
 
           setIsLoading(false);
         } catch (err) {

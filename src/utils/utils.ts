@@ -17,6 +17,7 @@ import {
   ApplicationCase,
   AsylumCaseProfile,
   AsylumCaseProfileOptional,
+  Progress,
   UpdateApplicationCaseData,
 } from "../model/apiModels";
 import { Identity, KeyValues, ScreenSize } from "../model/commonModels";
@@ -265,6 +266,16 @@ export function getUpdateApplicationCaseData(
   return {
     ...applicationCase,
     profile: applicationCase.profile,
+  };
+}
+
+export function updateProfileAndProgress(
+  profile: AsylumCaseProfile,
+  progress: Progress,
+) {
+  return {
+    profile,
+    progress,
   };
 }
 

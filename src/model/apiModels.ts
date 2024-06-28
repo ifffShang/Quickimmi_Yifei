@@ -45,20 +45,21 @@ export interface Case {
 //   DEFENSIVE("DEFENSIVE");
 // }
 export interface UpdateApplicationCaseData {
-  id: number;
-  userId: number;
-  applicantName: string;
-  type: string;
-  currentStep: string;
-  status: string;
-  taskList: Task[];
-  profile: AsylumCaseProfile;
-  submittedAt: number;
-  paid: boolean;
-  uscisReceiptNumber: string;
-  assignedLawyer: number;
-  createdAt: number;
-  updatedAt: number;
+  id?: number;
+  userId?: number;
+  applicantName?: string;
+  type?: string;
+  currentStep?: string;
+  status?: string;
+  taskList?: Task[];
+  profile?: AsylumCaseProfile;
+  submittedAt?: number;
+  paid?: boolean;
+  uscisReceiptNumber?: string;
+  assignedLawyer?: number;
+  createdAt?: number;
+  updatedAt?: number;
+  progress?: Progress;
 }
 
 export interface ApplicationCase {
@@ -140,6 +141,11 @@ export interface Task {
   completedAt: number;
   createdAt: number;
   updatedAt: number;
+}
+
+export interface GetCaseProfileResponse {
+  profile: AsylumCaseProfile;
+  progress: Progress;
 }
 
 export interface AsylumCaseProfile {

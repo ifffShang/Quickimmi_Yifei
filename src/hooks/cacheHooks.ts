@@ -14,39 +14,36 @@ export function useAutoSaveApplicationCase(
   if (!accessToken) return;
   useEffect(() => {
     let timeId: any;
-    let lastApplicationCaseCached = CacheStore.getApplicationCase();
+    let lastCaseProfileCached = CacheStore.getProfile();
     const autoSave = () => {
       timeId = setTimeout(
         () => {
-          const applicateCaseCached = CacheStore.getApplicationCase();
-          const percentage = CacheStore.getPercentage();
+          const caseProfileCached = CacheStore.getProfile();
 
-          // Don't compare updatedAt
-          applicateCaseCached.updatedAt = 0;
-          lastApplicationCaseCached.updatedAt = 0;
-
-          if (_.isEqual(applicateCaseCached, lastApplicationCaseCached)) {
+          if (_.isEqual(caseProfileCached, lastCaseProfileCached)) {
             console.log("[Auto save] No changes in application case");
             autoSave();
             return;
           }
+
+          const percentage = CacheStore.getPercentage();
+          const progress = CacheStore.getProgress();
+
           const diff = ObjectUtils.diffUpdate(
-            lastApplicationCaseCached,
-            applicateCaseCached,
+            lastCaseProfileCached,
+            caseProfileCached,
             true,
           );
           try {
-            console.log(
-              "[Auto save] Auto save application case, diff is ",
-              diff,
-            );
+            console.log("Auto save profile, diff is ", diff);
             updateApplicationCaseFunc(
-              applicateCaseCached,
+              caseProfileCached,
+              progress,
               percentage,
               role,
               accessToken,
             );
-            lastApplicationCaseCached = applicateCaseCached;
+            lastCaseProfileCached = caseProfileCached;
             dispatch(incrementSaveTimes());
           } catch (error) {
             console.error(
@@ -64,11 +61,14 @@ export function useAutoSaveApplicationCase(
     autoSave();
 
     return () => {
-      const applicateCaseCached = CacheStore.getApplicationCase();
+      const caseProfileCached = CacheStore.getProfile();
       const percentage = CacheStore.getPercentage();
+      const progress = CacheStore.getProgress();
       console.log("[Auto save] Auto save application case before exit.");
+
       updateApplicationCaseFunc(
-        applicateCaseCached,
+        caseProfileCached,
+        progress,
         percentage,
         role,
         accessToken,

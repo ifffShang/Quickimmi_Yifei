@@ -1,13 +1,14 @@
+import { Role } from "../consts/consts";
 import {
   ApplicationCase,
   Case,
   CaseSummary,
   GeneratePresignedUrlResponse,
+  GetCaseProfileResponse,
   ParsePassportResponse,
   UpdateApplicationCaseData,
   UploadedDocument,
 } from "../model/apiModels";
-import { IForm, IFormFields } from "../model/formFlowModels";
 import {
   DocumentCreatedBy,
   DocumentOperation,
@@ -15,9 +16,9 @@ import {
   DocumentType,
   Identity,
 } from "../model/commonModels";
-import { performApiRequest } from "./apiConfig";
+import { IForm, IFormFields } from "../model/formFlowModels";
 import { convertBooleans } from "../utils/utils";
-import { Role } from "../consts/consts";
+import { performApiRequest } from "./apiConfig";
 
 export async function getForm(id: string): Promise<IForm> {
   return await performApiRequest({
@@ -158,6 +159,26 @@ export async function getCaseDetailsApi(
     ? JSON.parse(res.data.percentage)
     : null;
   return res.data as ApplicationCase;
+}
+
+export async function getCaseProfileAndProgressApi(
+  caseId: number,
+  accessToken: string,
+  role: Role,
+): Promise<GetCaseProfileResponse> {
+  await flushRedisCache(accessToken, role);
+
+  const res = await performApiRequest({
+    endPoint: `api/case/asylum/getCaseProfile?id=${caseId}`,
+    method: "GET",
+    data: null,
+    accessToken,
+    role,
+  });
+  res.data.percentage = res.data.percentage
+    ? JSON.parse(res.data.percentage)
+    : null;
+  return res.data as GetCaseProfileResponse;
 }
 
 export async function getCaseSummaryApi(
