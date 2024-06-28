@@ -35,6 +35,7 @@ export function FormContent(props: FormContentProps) {
   const currentStep = useAppSelector(state => state.case.currentStep);
   const formFieldsMap = useAppSelector(state => state.case.formFieldsMap);
 
+  const caseId = useAppSelector(state => state.form.caseId);
   const profile = useAppSelector(state => state.form.applicationCase.profile);
   const progress = useAppSelector(state => state.form.applicationCase.progress);
   const percentage = useAppSelector(state => state.form.percentage);
@@ -173,6 +174,7 @@ export function FormContent(props: FormContentProps) {
           onClick={() => {
             try {
               updateApplicationCaseFunc(
+                caseId,
                 profile,
                 progress,
                 percentage,

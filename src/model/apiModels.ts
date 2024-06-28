@@ -45,7 +45,7 @@ export interface Case {
 //   DEFENSIVE("DEFENSIVE");
 // }
 export interface UpdateApplicationCaseData {
-  id?: number;
+  id: number;
   userId?: number;
   applicantName?: string;
   type?: string;

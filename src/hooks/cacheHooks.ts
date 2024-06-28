@@ -7,11 +7,17 @@ import { incrementSaveTimes } from "../reducers/formSlice";
 import { Role } from "../consts/consts";
 
 export function useAutoSaveApplicationCase(
+  caseId: number,
   accessToken: string | undefined,
   role: Role,
   dispatch: Dispatch<any>,
 ) {
   if (!accessToken) return;
+
+  if (caseId === -1) {
+    console.error("[Auto save] Case ID is not valid.");
+    return;
+  }
 
   let lastCaseProfileCached = CacheStore.getProfile();
   let timeId: any;
@@ -41,6 +47,7 @@ export function useAutoSaveApplicationCase(
         try {
           console.log("Auto save profile, diff is ", diff);
           updateApplicationCaseFunc(
+            caseId,
             caseProfileCached,
             progress,
             percentage,
@@ -76,6 +83,7 @@ export function useAutoSaveApplicationCase(
         return;
       }
       updateApplicationCaseFunc(
+        caseId,
         caseProfileCached,
         progress,
         percentage,

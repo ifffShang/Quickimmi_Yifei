@@ -48,6 +48,7 @@ export function FormHeader() {
           onClick={() => {
             try {
               updateApplicationCaseFunc(
+                caseId,
                 profile,
                 progress,
                 percentage,

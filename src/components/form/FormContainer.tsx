@@ -31,7 +31,8 @@ export function FormContainer() {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  useAutoSaveApplicationCase(accessToken, role, dispatch);
+  const caseIdInt = caseId ? parseInt(caseId) : -1;
+  useAutoSaveApplicationCase(caseIdInt, accessToken, role, dispatch);
 
   useEffect(() => {
     const sectionIndex = searchParams.get("section");

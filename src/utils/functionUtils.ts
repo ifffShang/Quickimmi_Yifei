@@ -3,6 +3,7 @@ import { Role } from "../consts/consts";
 import { AsylumCaseProfile, Percentage, Progress } from "../model/apiModels";
 
 export function updateApplicationCaseFunc(
+  caseId: number,
   profile: AsylumCaseProfile,
   progress: Progress,
   percentage: Percentage,
@@ -41,7 +42,7 @@ export function updateApplicationCaseFunc(
     };
 
     updateApplicationCaseApi(
-      { profile, progress: progressWithPercentage },
+      { id: caseId, profile, progress: progressWithPercentage },
       accessToken,
       role,
     );
