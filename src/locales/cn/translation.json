@@ -2,6 +2,8 @@
   "View": "查看",
   "Download": "下载",
   "Delete": "删除",
+  "DeleteConfirmMessage": "你确定要删除以下文件吗？",
+  "DeleteWarningMessage": "这个操作无法撤回",
   "Send for Signature": "发送签字",
   "File Name": "文件名称",
   "File Type": "文件类型",

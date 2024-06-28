@@ -21,6 +21,7 @@ import {
   FileWordTwoTone,
   FileTextTwoTone,
   FileUnknownTwoTone,
+  DeleteTwoTone,
 } from "@ant-design/icons";
 import { useParams } from "react-router-dom";
 import {
@@ -47,16 +48,24 @@ const getFileIcon = (fileExt: string) => {
     case "jpg":
     case "jpeg":
     case "gif":
-      return <FileImageTwoTone style={{ fontSize: 48 }} />;
+      return (
+        <FileImageTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
+      );
     case "pdf":
-      return <FilePdfTwoTone style={{ fontSize: 48 }} />;
+      return <FilePdfTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />;
     case "doc":
     case "docx":
-      return <FileWordTwoTone style={{ fontSize: 48 }} />;
+      return (
+        <FileWordTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
+      );
     case "txt":
-      return <FileTextTwoTone style={{ fontSize: 48 }} />;
+      return (
+        <FileTextTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
+      );
     default:
-      return <FileUnknownTwoTone style={{ fontSize: 48 }} />;
+      return (
+        <FileUnknownTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
+      );
   }
 };
 
@@ -122,6 +131,11 @@ const CaseDocumentRightPanel: React.FC = () => {
   >([]);
   const [uploadApprove, setUploadApprove] = useState(true);
   const [showUploadProgress, setShowUploadProgress] = useState(false);
+  const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
+  const [documentToDelete, setDocumentToDelete] = useState<{
+    id: number;
+    name: string;
+  } | null>(null);
 
   const handleUpload = async (fileList: any) => {
     const { file } = fileList;
@@ -159,16 +173,18 @@ const CaseDocumentRightPanel: React.FC = () => {
     }
   };
 
-  const handleDelete = async (documentId: number) => {
-    if (!accessToken) {
-      message.error("Access token is missing");
+  const handleDelete = async () => {
+    if (!accessToken || documentToDelete === null) {
+      message.error(
+        "Access token is missing or no document selected for deletion",
+      );
       return;
     }
     try {
-      console.log("delete documentId", documentId);
+      console.log("delete documentId", documentToDelete.id);
       const successDelete = await deleteDocumentApi(
         userRole,
-        documentId,
+        documentToDelete.id,
         accessToken,
       );
       if (successDelete) {
@@ -181,6 +197,8 @@ const CaseDocumentRightPanel: React.FC = () => {
       message.error("Error deleting document");
       console.error(`Failed to delete document: ${error}`);
     }
+    setDeleteConfirmVisible(false);
+    setDocumentToDelete(null);
   };
 
   const updateStatus = async (
@@ -237,6 +255,13 @@ const CaseDocumentRightPanel: React.FC = () => {
     onDrop(info: any) {
       console.log("Dropped files", info.dataTransfer.files);
       handleFileCount(info.dataTransfer.files);
+    },
+    beforeUpload: file => {
+      if (uploadProps.fileList && uploadProps.fileList.length >= 1) {
+        message.error("Only one file can be uploaded at a time");
+        return Upload.LIST_IGNORE;
+      }
+      return true;
     },
   };
 
@@ -363,9 +388,16 @@ const CaseDocumentRightPanel: React.FC = () => {
       key: "action",
       width: "18%",
       render: (_, document) => (
-        <Space size="small">
+        <Space size="large">
           <a onClick={() => handleDownload(document.key)}>{t("Download")}</a>
-          <a onClick={() => handleDelete(document.key)}>{t("Delete")}</a>
+          <a
+            onClick={() => {
+              setDocumentToDelete({ id: document.key, name: document.name });
+              setDeleteConfirmVisible(true);
+            }}
+          >
+            {t("Delete")}
+          </a>
         </Space>
       ),
     },
@@ -467,6 +499,45 @@ const CaseDocumentRightPanel: React.FC = () => {
               <Option value="PASSPORT_FULL">Passport Full</Option>
               <Option value="TRAVEL_ID">Travel ID</Option>
             </Select>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Delete confirmation modal */}
+      <Modal
+        visible={deleteConfirmVisible}
+        onOk={handleDelete}
+        onCancel={() => setDeleteConfirmVisible(false)}
+        className="delete-confirm-modal-container"
+        footer={[
+          <Button key="Cancel" onClick={() => setDeleteConfirmVisible(false)}>
+            {t("Cancel")}
+          </Button>,
+          <Button
+            key="Delete"
+            type="primary"
+            danger
+            style={{ backgroundColor: "#EB5757" }}
+            onClick={handleDelete}
+          >
+            {t("Delete")}
+          </Button>,
+        ]}
+      >
+        <div className="delete-confirm-modal-body">
+          <div className="delete-confirm-modal-body-icon">
+            <DeleteTwoTone style={{ fontSize: 64 }} twoToneColor="#EB5757" />
+          </div>
+          <div className="delete-confirm-modal-body-message">
+            <QText level="normal bold" color="dark">
+              {t("DeleteConfirmMessage")}
+            </QText>
+            {documentToDelete && (
+              <QText level="small" color="gray">
+                {" "}
+                {documentToDelete.name}
+              </QText>
+            )}
           </div>
         </div>
       </Modal>
