@@ -9,34 +9,52 @@
 .case-document-file-upload {
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .case-document-section-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   padding-left: 5px;
 }
+.case-document-section-search-input {
+  width: 400px;
+}
+.case-document-section-search-button {
+  border: 1px solid #27ae60;
+  border-radius: 3px;
+  margin-left: 10px;
+  height: 40px;
+  width: 100px;
+}
 .case-document-section-content {
-  margin-top: 15px;
+  margin-top: 20px;
 }
 
 .upload-modal-container {
   margin: auto;
-  padding: 30px;
+  padding: 32px;
 }
 .upload-modal-body {
   display: grid;
   grid-template-areas: "fileIcon fileInfo";
   grid-template-columns: 1fr 2fr;
-  padding: 40px 0;
+  padding: 30px 0;
   align-items: center;
 }
 .upload-modal-body-fileIcon {
   grid-area: fileIcon;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 10px;
   justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  padding-top: 30px;
+}
+.upload-modal-body-fileIcon-icon > p {
+  width: 100px;
 }
 .upload-modal-body-fileInfo {
   grid-area: fileInfo;
@@ -44,4 +62,25 @@
   flex-direction: column;
   gap: 10px;
   margin-left: auto;
+}
+
+.delete-confirm-modal-container {
+  margin: auto;
+  padding: 32px;
+}
+.delete-confirm-modal-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 15px;
+}
+.delete-confirm-modal-body-icon {
+  padding: 15px;
+}
+
+.delete-confirm-modal-body-message {
+  font-size: 16px;
+  text-align: center;
 }

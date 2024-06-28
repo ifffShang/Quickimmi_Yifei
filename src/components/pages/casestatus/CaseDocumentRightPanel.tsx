@@ -9,6 +9,8 @@ import {
   Space,
   Table,
   Button,
+  Input,
+  UploadProps,
 } from "antd";
 import { useTranslation } from "react-i18next";
 import {
@@ -19,6 +21,7 @@ import {
   FileWordTwoTone,
   FileTextTwoTone,
   FileUnknownTwoTone,
+  DeleteTwoTone,
 } from "@ant-design/icons";
 import { useParams } from "react-router-dom";
 import {
@@ -45,16 +48,24 @@ const getFileIcon = (fileExt: string) => {
     case "jpg":
     case "jpeg":
     case "gif":
-      return <FileImageTwoTone style={{ fontSize: 48 }} />;
+      return (
+        <FileImageTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
+      );
     case "pdf":
-      return <FilePdfTwoTone style={{ fontSize: 48 }} />;
+      return <FilePdfTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />;
     case "doc":
     case "docx":
-      return <FileWordTwoTone style={{ fontSize: 48 }} />;
+      return (
+        <FileWordTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
+      );
     case "txt":
-      return <FileTextTwoTone style={{ fontSize: 48 }} />;
+      return (
+        <FileTextTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
+      );
     default:
-      return <FileUnknownTwoTone style={{ fontSize: 48 }} />;
+      return (
+        <FileUnknownTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
+      );
   }
 };
 
@@ -114,12 +125,28 @@ const CaseDocumentRightPanel: React.FC = () => {
   const [selectedDocumentType, setSelectedDocumentType] =
     useState<DocumentType>("PASSPORT_MAIN");
   const [fileExt, setFileExt] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [filteredDocuments, setFilteredDocuments] = useState<
+    UploadedDocument[]
+  >([]);
+  const [uploadApprove, setUploadApprove] = useState(true);
+  const [showUploadProgress, setShowUploadProgress] = useState(false);
+  const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
+  const [documentToDelete, setDocumentToDelete] = useState<{
+    id: number;
+    name: string;
+  } | null>(null);
 
-  const handleUpload = async (options: any) => {
-    const { file } = options;
+  const handleUpload = async (fileList: any) => {
+    const { file } = fileList;
     setCurrentFile(file);
     setFileExt(file.name.split(".").pop().toLowerCase());
-    setIsModalVisible(true);
+    if (uploadApprove) {
+      setIsModalVisible(true);
+    } else {
+      setIsModalVisible(false);
+      setShowUploadProgress(false);
+    }
   };
 
   const handleDownload = async (documentId: number) => {
@@ -146,16 +173,18 @@ const CaseDocumentRightPanel: React.FC = () => {
     }
   };
 
-  const handleDelete = async (documentId: number) => {
-    if (!accessToken) {
-      message.error("Access token is missing");
+  const handleDelete = async () => {
+    if (!accessToken || documentToDelete === null) {
+      message.error(
+        "Access token is missing or no document selected for deletion",
+      );
       return;
     }
     try {
-      console.log("delete documentId", documentId);
+      console.log("delete documentId", documentToDelete.id);
       const successDelete = await deleteDocumentApi(
         userRole,
-        documentId,
+        documentToDelete.id,
         accessToken,
       );
       if (successDelete) {
@@ -168,6 +197,8 @@ const CaseDocumentRightPanel: React.FC = () => {
       message.error("Error deleting document");
       console.error(`Failed to delete document: ${error}`);
     }
+    setDeleteConfirmVisible(false);
+    setDocumentToDelete(null);
   };
 
   const updateStatus = async (
@@ -191,22 +222,46 @@ const CaseDocumentRightPanel: React.FC = () => {
     }
   };
 
-  const uploadProps = {
+  const handleFileCount = (fileList: any) => {
+    if (fileList.length > 1) {
+      message.error("Only one file can be uploaded at a time");
+      setUploadApprove(false);
+      setIsModalVisible(false);
+      setCurrentFile(null);
+    } else {
+      setUploadApprove(true);
+    }
+  };
+
+  const uploadProps: UploadProps = {
     customRequest: handleUpload,
-    multiple: true,
+    multiple: false,
+    maxCount: 1,
     onChange(info: any) {
+      console.log("Upload info", info.fileList);
+      setShowUploadProgress(true);
       const { status } = info.file;
       if (status !== "uploading") {
         console.log(info.file, info.fileList);
       }
       if (status === "done") {
         message.success(`${info.file.name} file uploaded successfully.`);
+        setShowUploadProgress(false);
       } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
+        setShowUploadProgress(false);
       }
     },
-    onDrop(e: any) {
-      console.log("Dropped files", e.dataTransfer.files);
+    onDrop(info: any) {
+      console.log("Dropped files", info.dataTransfer.files);
+      handleFileCount(info.dataTransfer.files);
+    },
+    beforeUpload: file => {
+      if (uploadProps.fileList && uploadProps.fileList.length >= 1) {
+        message.error("Only one file can be uploaded at a time");
+        return Upload.LIST_IGNORE;
+      }
+      return true;
     },
   };
 
@@ -261,9 +316,29 @@ const CaseDocumentRightPanel: React.FC = () => {
 
   const handleModalCancel = () => {
     setIsModalVisible(false);
+    setCurrentFile(null);
+    setShowUploadProgress(false);
   };
 
-  const dataSource = documents.map(doc => ({
+  const handleClearSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    if (query.trim() === "") {
+      setFilteredDocuments(documents);
+    }
+  };
+
+  const handleSearch = () => {
+    setFilteredDocuments(
+      documents.filter(doc =>
+        doc.name.toLowerCase().includes(searchQuery.toLowerCase()),
+      ),
+    );
+  };
+
+  const dataSource = (
+    filteredDocuments.length > 0 ? filteredDocuments : documents
+  ).map(doc => ({
     key: doc.id,
     type: doc.type,
     name: doc.name,
@@ -277,36 +352,52 @@ const CaseDocumentRightPanel: React.FC = () => {
       title: t("Category"),
       dataIndex: "type",
       key: "type",
+      width: "13%",
     },
     {
       title: t("File Name"),
       dataIndex: "name",
       key: "name",
+      sorter: (a, b) => a.name.localeCompare(b.name),
       render: text => <a>{text}</a>,
+      width: "25%",
     },
     {
       title: t("Uploader"),
       dataIndex: "uploader",
       key: "uploader",
+      width: "12%",
     },
     {
       title: t("File Type"),
       dataIndex: "fileType",
       key: "fileType",
+      width: "10%",
     },
     {
       title: t("UploadedAt"),
       dataIndex: "uploadedAt",
       key: "uploadedAt",
+      sorter: (a, b) =>
+        new Date(a.uploadedAt).getTime() - new Date(b.uploadedAt).getTime(),
       render: text => <a>{new Date(text).toLocaleString()}</a>,
+      width: "22%",
     },
     {
       title: t("Action"),
       key: "action",
+      width: "18%",
       render: (_, document) => (
-        <Space size="small">
+        <Space size="large">
           <a onClick={() => handleDownload(document.key)}>{t("Download")}</a>
-          <a onClick={() => handleDelete(document.key)}>{t("Delete")}</a>
+          <a
+            onClick={() => {
+              setDocumentToDelete({ id: document.key, name: document.name });
+              setDeleteConfirmVisible(true);
+            }}
+          >
+            {t("Delete")}
+          </a>
         </Space>
       ),
     },
@@ -327,7 +418,7 @@ const CaseDocumentRightPanel: React.FC = () => {
           <QText level="large">{t("UploadDocument")}</QText>
         </div>
         <div className="case-document-section-content">
-          <Dragger {...uploadProps}>
+          <Dragger {...uploadProps} showUploadList={showUploadProgress}>
             <p className="ant-upload-drag-icon">
               <InboxOutlined style={{ color: "#27AE60" }} />
             </p>
@@ -345,9 +436,24 @@ const CaseDocumentRightPanel: React.FC = () => {
       <div className="case-document-file-list">
         <div className="case-document-section-header">
           <QText level="large">{t("CaseDocument")}</QText>
+          <div className="case-document-section-search">
+            <Input
+              placeholder={t("InputFileNameToSearch")}
+              onChange={handleClearSearch}
+              className="case-document-section-search-input"
+              value={searchQuery}
+            />
+            <Button
+              onClick={handleSearch}
+              className="case-document-section-search-button"
+              size="large"
+            >
+              {t("Search")}
+            </Button>
+          </div>
         </div>
         <div className="case-document-section-content">
-          <Table columns={columns} dataSource={dataSource} />
+          <Table columns={columns} dataSource={dataSource} pagination={false} />
         </div>
       </div>
 
@@ -393,6 +499,45 @@ const CaseDocumentRightPanel: React.FC = () => {
               <Option value="PASSPORT_FULL">Passport Full</Option>
               <Option value="TRAVEL_ID">Travel ID</Option>
             </Select>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Delete confirmation modal */}
+      <Modal
+        visible={deleteConfirmVisible}
+        onOk={handleDelete}
+        onCancel={() => setDeleteConfirmVisible(false)}
+        className="delete-confirm-modal-container"
+        footer={[
+          <Button key="Cancel" onClick={() => setDeleteConfirmVisible(false)}>
+            {t("Cancel")}
+          </Button>,
+          <Button
+            key="Delete"
+            type="primary"
+            danger
+            style={{ backgroundColor: "#EB5757" }}
+            onClick={handleDelete}
+          >
+            {t("Delete")}
+          </Button>,
+        ]}
+      >
+        <div className="delete-confirm-modal-body">
+          <div className="delete-confirm-modal-body-icon">
+            <DeleteTwoTone style={{ fontSize: 64 }} twoToneColor="#EB5757" />
+          </div>
+          <div className="delete-confirm-modal-body-message">
+            <QText level="normal bold" color="dark">
+              {t("DeleteConfirmMessage")}
+            </QText>
+            {documentToDelete && (
+              <QText level="small" color="gray">
+                {" "}
+                {documentToDelete.name}
+              </QText>
+            )}
           </div>
         </div>
       </Modal>
