@@ -67,7 +67,7 @@ const Columns: TableProps<DataType>["columns"] = [
 export function DocumentList() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const caseId = useAppSelector(state => state.form.applicationCase?.id);
+  const caseId = useAppSelector(state => state.form.caseId);
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const role = useAppSelector(state => state.auth.role);
   const uploadedDocuments = useAppSelector(

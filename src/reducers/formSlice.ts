@@ -108,16 +108,14 @@ export const formSlice = createSlice({
   name: "form",
   initialState,
   reducers: {
-    updateApplicationCase: (state, action: PayloadAction<ApplicationCase>) => {
-      const result = deepAssign(
-        action.payload,
-        state.applicationCase,
-        InitialApplicationCase,
-      );
-      Object.assign(state.applicationCase, result);
-
-      CacheStore.setApplicationCase(result);
-    },
+    // updateApplicationCase: (state, action: PayloadAction<ApplicationCase>) => {
+    //   const result = deepAssign(
+    //     action.payload,
+    //     state.applicationCase,
+    //     InitialApplicationCase,
+    //   );
+    //   Object.assign(state.applicationCase, result);
+    // },
     updateCaseProfileAndProgress: (
       state,
       action: PayloadAction<{
@@ -134,8 +132,10 @@ export const formSlice = createSlice({
         InitialApplicationCase.profile,
       );
       Object.assign(state.applicationCase.profile, updatedProfile);
+      CacheStore.setProfile(updatedProfile);
+
       Object.assign(state.applicationCase.progress, action.payload.progress);
-      CacheStore.setApplicationCase(state.applicationCase);
+      CacheStore.setProgress(action.payload.progress);
 
       state.percentage = action.payload.percentage;
       CacheStore.setPercentage(state.percentage);
@@ -196,7 +196,7 @@ export const formSlice = createSlice({
       const profile = _.merge(state.applicationCase.profile, action.payload);
       state.applicationCase.profile = profile;
 
-      CacheStore.setApplicationCase(state.applicationCase);
+      CacheStore.setProfile(state.applicationCase.profile);
     },
     updatePassportInfo: (
       state,
@@ -353,7 +353,6 @@ export const formSlice = createSlice({
 
 export const {
   resetFormState,
-  updateApplicationCase,
   updateCaseProfileAndProgress,
   updatePercentage,
   updateOnePercentage,

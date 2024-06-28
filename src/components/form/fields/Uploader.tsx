@@ -37,7 +37,7 @@ export interface UploaderProps {
 export function Uploader(props: UploaderProps) {
   const dispatch = useAppDispatch();
   const userId = useAppSelector(state => state.auth.userId);
-  const caseId = useAppSelector(state => state.form.applicationCase?.id);
+  const caseId = useAppSelector(state => state.form.caseId);
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const role = useAppSelector(state => state.auth.role);
   const tmpImageUrl = useAppSelector(state => state.common.tmpImageUrl);
@@ -67,6 +67,7 @@ export function Uploader(props: UploaderProps) {
       if (!userId || !caseId || !accessToken) {
         throw new Error("User id, case id or access token is missing");
       }
+      setErrorMessage("");
       const fileExt = file.name.split(".").pop();
       const res = await generateDocumentPresignedUrl(
         userId,

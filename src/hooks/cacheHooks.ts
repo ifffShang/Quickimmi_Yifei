@@ -12,60 +12,69 @@ export function useAutoSaveApplicationCase(
   dispatch: Dispatch<any>,
 ) {
   if (!accessToken) return;
-  useEffect(() => {
-    let timeId: any;
-    let lastCaseProfileCached = CacheStore.getProfile();
-    const autoSave = () => {
-      timeId = setTimeout(
-        () => {
-          const caseProfileCached = CacheStore.getProfile();
 
-          if (_.isEqual(caseProfileCached, lastCaseProfileCached)) {
-            console.log("[Auto save] No changes in application case");
-            autoSave();
-            return;
-          }
+  let lastCaseProfileCached = CacheStore.getProfile();
+  let timeId: any;
 
-          const percentage = CacheStore.getPercentage();
-          const progress = CacheStore.getProgress();
+  const autoSave = () => {
+    timeId = setTimeout(
+      () => {
+        const caseProfileCached = CacheStore.getProfile();
 
-          const diff = ObjectUtils.diffUpdate(
-            lastCaseProfileCached,
-            caseProfileCached,
-            true,
-          );
-          try {
-            console.log("Auto save profile, diff is ", diff);
-            updateApplicationCaseFunc(
-              caseProfileCached,
-              progress,
-              percentage,
-              role,
-              accessToken,
-            );
-            lastCaseProfileCached = caseProfileCached;
-            dispatch(incrementSaveTimes());
-          } catch (error) {
-            console.error(
-              "[Auto save] Error updating application case: ",
-              error,
-            );
-          }
-
+        if (
+          !lastCaseProfileCached ||
+          _.isEqual(caseProfileCached, lastCaseProfileCached)
+        ) {
+          console.log("[Auto save] Initial load or no change in profile.");
           autoSave();
-        },
-        1000 * 60 * 2,
-      );
-    };
+          return;
+        }
 
+        const percentage = CacheStore.getPercentage();
+        const progress = CacheStore.getProgress();
+
+        const diff = ObjectUtils.diffUpdate(
+          lastCaseProfileCached,
+          caseProfileCached,
+          true,
+        );
+        try {
+          console.log("Auto save profile, diff is ", diff);
+          updateApplicationCaseFunc(
+            caseProfileCached,
+            progress,
+            percentage,
+            role,
+            accessToken,
+          );
+          lastCaseProfileCached = caseProfileCached;
+          dispatch(incrementSaveTimes());
+        } catch (error) {
+          console.error("[Auto save] Error updating application case: ", error);
+        }
+
+        autoSave();
+      },
+      1000 * 60 * 2,
+    );
+  };
+
+  useEffect(() => {
     autoSave();
 
     return () => {
       const caseProfileCached = CacheStore.getProfile();
       const percentage = CacheStore.getPercentage();
       const progress = CacheStore.getProgress();
-      console.log("[Auto save] Auto save application case before exit.");
 
+      if (
+        !lastCaseProfileCached ||
+        _.isEqual(caseProfileCached, lastCaseProfileCached)
+      ) {
+        clearTimeout(timeId);
+        CacheStore.clear();
+        return;
+      }
       updateApplicationCaseFunc(
         caseProfileCached,
         progress,
@@ -74,6 +83,7 @@ export function useAutoSaveApplicationCase(
         accessToken,
       );
       clearTimeout(timeId);
+      CacheStore.clear();
     };
   }, []);
 }

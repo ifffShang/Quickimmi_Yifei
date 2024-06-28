@@ -109,9 +109,11 @@ export function FormContent(props: FormContentProps) {
       const currentPercentage = percentage[props.sectionId][props.referenceId];
 
       if (currentPercentage !== percentageOfFulfilledFields) {
-        setPercentageOfSection(percentageOfFulfilledFields);
-        console.log("* Total fields: ", totalFields.current);
-        console.log("* Fulfilled fields: ", fulfilledCount.current);
+        setTimeout(() => {
+          setPercentageOfSection(percentageOfFulfilledFields);
+          console.log("* Total fields: ", totalFields.current);
+          console.log("* Fulfilled fields: ", fulfilledCount.current);
+        }, 100);
       }
       totalFields.current = 0;
       fulfilledCount.current = 0;
