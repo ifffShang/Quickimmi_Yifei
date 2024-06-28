@@ -416,3 +416,17 @@ export async function deleteDocumentApi(
   });
   return <boolean>res.data;
 }
+
+export async function getDocumentTypesApi(
+  accessToken: string,
+  role: Role,
+): Promise<DocumentType[]> {
+  const res = await performApiRequest({
+    endPoint: "api/document/getSupportedDocumentTypes",
+    method: "GET",
+    data: null,
+    accessToken,
+    role,
+  });
+  return <DocumentType[]>res.data;
+}
