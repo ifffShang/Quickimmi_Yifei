@@ -1,9 +1,38 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Card, message, Upload, Alert, Modal, Select, Space, Table, Button, Input, UploadProps } from "antd";
+import {
+  Card,
+  message,
+  Upload,
+  Alert,
+  Modal,
+  Select,
+  Space,
+  Table,
+  Button,
+  Input,
+  UploadProps,
+} from "antd";
 import { useTranslation } from "react-i18next";
-import { InboxOutlined, FileTwoTone, FileImageTwoTone, FilePdfTwoTone, FileWordTwoTone, FileTextTwoTone, FileUnknownTwoTone, DeleteTwoTone } from "@ant-design/icons";
+import {
+  InboxOutlined,
+  FileTwoTone,
+  FileImageTwoTone,
+  FilePdfTwoTone,
+  FileWordTwoTone,
+  FileTextTwoTone,
+  FileUnknownTwoTone,
+  DeleteTwoTone,
+} from "@ant-design/icons";
 import { useParams } from "react-router-dom";
-import { getDocumentsApi, uploadFileToPresignUrl, generateDocumentPresignedUrl, getDocumentByIdApi, updateDocumentStatus, deleteDocumentApi, getDocumentTypesApi } from "../../../api/caseAPI";
+import {
+  getDocumentsApi,
+  uploadFileToPresignUrl,
+  generateDocumentPresignedUrl,
+  getDocumentByIdApi,
+  updateDocumentStatus,
+  deleteDocumentApi,
+  getDocumentTypesApi,
+} from "../../../api/caseAPI";
 import { useAppSelector } from "../../../app/hooks";
 import { UploadedDocument } from "../../../model/apiModels";
 import { DocumentType } from "../../../model/commonModels";
@@ -95,14 +124,20 @@ const CaseDocumentRightPanel: React.FC = () => {
   const { loading, error, documents, fetchDocuments } = useFetchDocuments();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [currentFile, setCurrentFile] = useState<File | null>(null);
-  const [selectedDocumentType, setSelectedDocumentType] = useState<DocumentType>("PASSPORT_MAIN");
+  const [selectedDocumentType, setSelectedDocumentType] =
+    useState<DocumentType>("PASSPORT_MAIN");
   const [fileExt, setFileExt] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [filteredDocuments, setFilteredDocuments] = useState<UploadedDocument[]>([]);
+  const [filteredDocuments, setFilteredDocuments] = useState<
+    UploadedDocument[]
+  >([]);
   const [uploadApprove, setUploadApprove] = useState(true);
   const [showUploadProgress, setShowUploadProgress] = useState(false);
   const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
-  const [documentToDelete, setDocumentToDelete] = useState<{id: number; name: string;} | null>(null);
+  const [documentToDelete, setDocumentToDelete] = useState<{
+    id: number;
+    name: string;
+  } | null>(null);
   const [documentTypes, setDocumentTypes] = useState<DocumentType[]>([]);
 
   const handleUpload = async (fileList: any) => {
@@ -202,7 +237,9 @@ const CaseDocumentRightPanel: React.FC = () => {
     customRequest: handleUpload,
     multiple: false,
     maxCount: 1,
-    beforeUpload: () => {setUploadApprove(true);},
+    beforeUpload: () => {
+      setUploadApprove(true);
+    },
     onChange(info: any) {
       console.log("Upload info", info.fileList);
       setShowUploadProgress(true);
@@ -304,15 +341,15 @@ const CaseDocumentRightPanel: React.FC = () => {
       setDocumentTypes(documentTypeList);
       console.log("document types", documentTypeList);
     } catch (error) {
-      message.error("Error fetching document types"); 
+      message.error("Error fetching document types");
       console.error(error);
     }
-  }
-  
+  };
+
   useEffect(() => {
     fetchDocumentTypes();
   }, [accessToken, userRole]);
-  
+
   const dataSource = (
     filteredDocuments.length > 0 ? filteredDocuments : documents
   ).map(doc => ({
@@ -470,7 +507,7 @@ const CaseDocumentRightPanel: React.FC = () => {
               style={{ width: 300 }}
               onChange={(value: DocumentType) => setSelectedDocumentType(value)}
             >
-              {documentTypes.map((type) => (
+              {documentTypes.map(type => (
                 <Option key={type} value={type}>
                   {type}
                 </Option>

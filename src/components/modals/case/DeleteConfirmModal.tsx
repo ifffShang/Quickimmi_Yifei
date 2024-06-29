@@ -7,10 +7,10 @@ import { QText } from "../../common/Fonts";
 import "./DeleteConfirmModal.css";
 
 interface DeleteConfirmModalProps {
-    visible: boolean;
-    onConfirm: () => void;
-    onCancel: () => void;
-    contentName?: string;
+  visible: boolean;
+  onConfirm: () => void;
+  onCancel: () => void;
+  contentName?: string;
 }
 
 export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
@@ -31,12 +31,7 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
         <Button key="Cancel" onClick={onCancel}>
           {t("Cancel")}
         </Button>,
-        <Button
-          key="Delete"
-          type="primary"
-          danger
-          onClick={onConfirm}
-        >
+        <Button key="Delete" type="primary" danger onClick={onConfirm}>
           {t("Delete")}
         </Button>,
       ]}
