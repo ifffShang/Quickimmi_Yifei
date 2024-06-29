@@ -4,7 +4,12 @@ import { getFormFields } from "../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useFormTranslation } from "../../hooks/commonHooks";
 import { ControlType } from "../../model/formFlowModels";
-import { updateFormFieldsMap } from "../../reducers/caseSlice";
+import {
+  decrementIndexLevel2,
+  incrementIndexLevel1,
+  incrementIndexLevel2,
+  updateFormFieldsMap,
+} from "../../reducers/caseSlice";
 import {
   incrementSaveTimes,
   updateOnePercentage,
@@ -35,12 +40,13 @@ export function FormContent(props: FormContentProps) {
   const currentStep = useAppSelector(state => state.case.currentStep);
   const formFieldsMap = useAppSelector(state => state.case.formFieldsMap);
 
+  const isFirstStep = useAppSelector(state => state.case.isFirstStep);
+  const isLastStep = useAppSelector(state => state.case.isLastStep);
+
   const caseId = useAppSelector(state => state.form.caseId);
   const profile = useAppSelector(state => state.form.applicationCase.profile);
   const progress = useAppSelector(state => state.form.applicationCase.progress);
   const percentage = useAppSelector(state => state.form.percentage);
-
-  const [percentageOfSection, setPercentageOfSection] = useState(0);
 
   const formFields =
     formFieldsMap && props.referenceId
@@ -48,7 +54,8 @@ export function FormContent(props: FormContentProps) {
       : null;
 
   const keySet = useRef({});
-  const totalFields = useRef(0);
+  const totalFieldChecked = useRef(0);
+  const totalFieldsForCalc = useRef(0);
   const fulfilledCount = useRef(0);
 
   useEffect(() => {
@@ -70,17 +77,6 @@ export function FormContent(props: FormContentProps) {
       });
   }, [props.referenceId]);
 
-  useEffect(() => {
-    if (props.referenceId === "i589_fields_view_reports") return;
-    dispatch(
-      updateOnePercentage({
-        sectionId: props.sectionId,
-        referenceId: props.referenceId,
-        value: percentageOfSection,
-      }),
-    );
-  }, [percentageOfSection]);
-
   const countFulfilledFields = (
     control: ControlType,
     fieldKey: string,
@@ -88,40 +84,58 @@ export function FormContent(props: FormContentProps) {
     lastField: boolean,
     fieldIndex?: number,
   ) => {
-    if (lastField && totalFields.current == 0)
+    if (lastField && totalFieldChecked.current === 0)
       return "Second render of last field";
 
     const fieldKeyWithIndex =
       fieldIndex !== undefined ? `${fieldKey}_${fieldIndex}` : fieldKey;
+
+    if (fieldKeyWithIndex && !keySet.current[fieldKeyWithIndex]) {
+      totalFieldChecked.current++;
+    }
     if (
       fieldKeyWithIndex &&
       includeForPercentageCalc(control) &&
       !keySet.current[fieldKeyWithIndex]
     ) {
-      totalFields.current++;
-      if (fieldValue) fulfilledCount.current++;
+      totalFieldsForCalc.current++;
+      if (fieldValue !== null && fieldValue !== undefined && fieldValue !== "")
+        fulfilledCount.current++;
       keySet.current[fieldKeyWithIndex] = true;
     }
 
-    if (includeForLastField(control) && lastField && totalFields.current > 0) {
-      const percentageOfFulfilledFields = Math.round(
-        (fulfilledCount.current / totalFields.current) * 100,
-      );
+    if (includeForLastField(control) && lastField) {
+      let percentageOfFulfilledFields = 0;
+      if (totalFieldsForCalc.current === 0) {
+        percentageOfFulfilledFields = 100;
+      } else {
+        percentageOfFulfilledFields = Math.round(
+          (fulfilledCount.current / totalFieldsForCalc.current) * 100,
+        );
+      }
       const currentPercentage = percentage[props.sectionId][props.referenceId];
 
       if (currentPercentage !== percentageOfFulfilledFields) {
         setTimeout(() => {
-          setPercentageOfSection(percentageOfFulfilledFields);
-          console.log("* Total fields: ", totalFields.current);
+          if (props.referenceId === "i589_fields_view_reports") return;
+          dispatch(
+            updateOnePercentage({
+              sectionId: props.sectionId,
+              referenceId: props.referenceId,
+              value: percentageOfFulfilledFields,
+            }),
+          );
+          console.log("* Total fields: ", totalFieldsForCalc.current);
           console.log("* Fulfilled fields: ", fulfilledCount.current);
         }, 100);
       }
-      totalFields.current = 0;
+      totalFieldChecked.current = 0;
+      totalFieldsForCalc.current = 0;
       fulfilledCount.current = 0;
       keySet.current = {};
     }
 
-    return totalFields.current + "_" + fulfilledCount.current;
+    return totalFieldsForCalc.current + "_" + fulfilledCount.current;
   };
 
   if (!formFields || !currentStep) {
@@ -168,7 +182,15 @@ export function FormContent(props: FormContentProps) {
         ))}
       </div>
       <div className="form-content-controls">
-        <Button type="primary">{t("Previous")}</Button>
+        <Button
+          disabled={isFirstStep}
+          type="primary"
+          onClick={() => {
+            dispatch(decrementIndexLevel2());
+          }}
+        >
+          {t("Previous")}
+        </Button>
         <Button
           className="default-button"
           onClick={() => {
@@ -189,7 +211,15 @@ export function FormContent(props: FormContentProps) {
         >
           {t("Save")}
         </Button>
-        <Button type="primary">{t("Next")}</Button>
+        <Button
+          disabled={isLastStep}
+          type="primary"
+          onClick={() => {
+            dispatch(incrementIndexLevel2());
+          }}
+        >
+          {t("Next")}
+        </Button>
       </div>
     </div>
   );
