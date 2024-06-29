@@ -31,6 +31,7 @@ import {
   getDocumentByIdApi,
   updateDocumentStatus,
   deleteDocumentApi,
+  getDocumentTypesApi,
 } from "../../../api/caseAPI";
 import { useAppSelector } from "../../../app/hooks";
 import { UploadedDocument } from "../../../model/apiModels";
@@ -122,20 +123,15 @@ const CaseDocumentRightPanel: React.FC = () => {
   const { loading, error, documents, fetchDocuments } = useFetchDocuments();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [currentFile, setCurrentFile] = useState<File | null>(null);
-  const [selectedDocumentType, setSelectedDocumentType] =
-    useState<DocumentType>("PASSPORT_MAIN");
+  const [selectedDocumentType, setSelectedDocumentType] = useState<DocumentType>("PASSPORT_MAIN");
   const [fileExt, setFileExt] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [filteredDocuments, setFilteredDocuments] = useState<
-    UploadedDocument[]
-  >([]);
+  const [filteredDocuments, setFilteredDocuments] = useState<UploadedDocument[]>([]);
   const [uploadApprove, setUploadApprove] = useState(true);
   const [showUploadProgress, setShowUploadProgress] = useState(false);
   const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
-  const [documentToDelete, setDocumentToDelete] = useState<{
-    id: number;
-    name: string;
-  } | null>(null);
+  const [documentToDelete, setDocumentToDelete] = useState<{id: number; name: string;} | null>(null);
+  const [documentTypes, setDocumentTypes] = useState<DocumentType[]>([]);
 
   const handleUpload = async (fileList: any) => {
     const { file } = fileList;
@@ -336,6 +332,25 @@ const CaseDocumentRightPanel: React.FC = () => {
     );
   };
 
+  const fetchDocumentTypes = async () => {
+    if (!accessToken) {
+      message.error("Access token is missing");
+      return;
+    }
+    try {
+      const documentTypeList = await getDocumentTypesApi(accessToken, userRole);
+      setDocumentTypes(documentTypeList);
+      console.log("document types", documentTypeList);
+    } catch (error) {
+      message.error("Error fetching document types"); 
+      console.error(error);
+    }
+  }
+  
+  useEffect(() => {
+    fetchDocumentTypes();
+  }, [accessToken, userRole]);
+  
   const dataSource = (
     filteredDocuments.length > 0 ? filteredDocuments : documents
   ).map(doc => ({
@@ -388,7 +403,7 @@ const CaseDocumentRightPanel: React.FC = () => {
       key: "action",
       width: "18%",
       render: (_, document) => (
-        <Space size="large">
+        <Space size="small">
           <a onClick={() => handleDownload(document.key)}>{t("Download")}</a>
           <a
             onClick={() => {
@@ -493,11 +508,11 @@ const CaseDocumentRightPanel: React.FC = () => {
               style={{ width: 300 }}
               onChange={(value: DocumentType) => setSelectedDocumentType(value)}
             >
-              <Option value="PASSPORT_MAIN">Passport Main</Option>
-              <Option value="ID_CARD">ID Card</Option>
-              <Option value="I94">I94</Option>
-              <Option value="PASSPORT_FULL">Passport Full</Option>
-              <Option value="TRAVEL_ID">Travel ID</Option>
+              {documentTypes.map((type) => (
+                <Option key={type} value={type}>
+                  {type}
+                </Option>
+              ))}
             </Select>
           </div>
         </div>
