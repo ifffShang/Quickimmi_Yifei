@@ -57,15 +57,18 @@
               "control": "component_location_dropdown"
             }
           ]
+        },
+        {
+          "label": "",
+          "id": "sibling_information",
+          "control": "divider"
         }
       ]
     },
+
     {
       "label": "",
-      "control": "divider"
-    },
-    {
-      "label": "",
+      "hideHeader": "true",
       "placeholder": "text_AddASibling",
       "id": "sibling_number",
       "key": "count-family.siblings",

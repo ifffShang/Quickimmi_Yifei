@@ -17,6 +17,7 @@ import {
   ApplicationCase,
   AsylumCaseProfile,
   AsylumCaseProfileOptional,
+  Progress,
   UpdateApplicationCaseData,
 } from "../model/apiModels";
 import { Identity, KeyValues, ScreenSize } from "../model/commonModels";
@@ -268,6 +269,16 @@ export function getUpdateApplicationCaseData(
   };
 }
 
+export function updateProfileAndProgress(
+  profile: AsylumCaseProfile,
+  progress: Progress,
+) {
+  return {
+    profile,
+    progress,
+  };
+}
+
 export async function downloadImage(presignedUrl: string, filename?: string) {
   try {
     const response = await fetch(presignedUrl);
@@ -489,11 +500,16 @@ export function convertBooleans(obj: any) {
   return obj;
 }
 
-export function getCurrentHourandMinutes() {
+export function getCurrentHoursMinutesSeconds() {
   const date = new Date();
   return date.toLocaleTimeString("en-EN", {
     hour12: true,
     hour: "2-digit",
     minute: "2-digit",
+    second: "2-digit",
   });
+}
+
+export function isNullOrUndefined(value: any) {
+  return value === null || value === undefined;
 }

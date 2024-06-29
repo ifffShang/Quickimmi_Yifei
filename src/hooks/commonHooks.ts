@@ -43,6 +43,7 @@ export interface GetDocumentsOnLoadParams {
   role: Role;
   setLoading: Dispatch<SetStateAction<boolean>>;
   dispatch: Dispatch<any>;
+  replaceLoading: boolean;
 }
 
 export function useDocumentsOnLoad(params: GetDocumentsOnLoadParams) {
@@ -51,6 +52,15 @@ export function useDocumentsOnLoad(params: GetDocumentsOnLoadParams) {
       console.error("Access token or case id is missing");
       return;
     }
+
+    if (
+      params.replaceLoading === true ||
+      params.replaceLoading === undefined ||
+      params.replaceLoading === null
+    ) {
+      return;
+    }
+
     params.setLoading(true);
     params.dispatch(clearDocumentUrls());
     getDocumentsApi(params.accessToken, params.caseId, params.role)
@@ -80,5 +90,5 @@ export function useDocumentsOnLoad(params: GetDocumentsOnLoadParams) {
         console.error(error);
         params.setLoading(false);
       });
-  }, [params.accessToken, params.caseId]);
+  }, [params.accessToken, params.caseId, params.replaceLoading]);
 }

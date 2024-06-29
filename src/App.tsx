@@ -1,5 +1,5 @@
 import { ConfigProvider } from "antd";
-import { useEffect } from "react";
+import { Profiler, useEffect } from "react";
 import "./App.css";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { ChatbotFloating } from "./components/chatbot/ChatbotFloating";

@@ -1,4 +1,6 @@
 .dashboard {
+  display: flex;
+  flex-direction: column;
   background-color: var(--gray-color-4);
   height: 100%;
   padding: 20px 40px;
@@ -13,6 +15,8 @@
   display: flex;
   gap: 20px;
   flex-flow: wrap;
+  overflow-y: auto;
+  padding-bottom: 40px;
 }
 
 .dashboard-panel.no-application {

@@ -43,7 +43,6 @@ import "./CaseDocumentRightPanel.css";
 
 const { Dragger } = Upload;
 const { Option } = Select;
-
 const getFileIcon = (fileExt: string) => {
   switch (fileExt.toLowerCase()) {
     case "png":
@@ -204,7 +203,10 @@ const CaseDocumentRightPanel: React.FC = () => {
     setDocumentToDelete(null);
   };
 
-  const updateStatus = async (documentId: number, documentStatus: string) => {
+  const updateStatus = async (
+    documentId: number,
+    documentStatus: DocumentStatus,
+  ) => {
     try {
       if (!accessToken) {
         message.error("Access token is missing");
@@ -264,6 +266,7 @@ const CaseDocumentRightPanel: React.FC = () => {
   const handleModalOk = async () => {
     if (currentFile && userId && caseId && accessToken) {
       const createdBy = userRole === "APPLICANT" ? "APPLICANT" : "LAWYER";
+
       const description = `This is a ${selectedDocumentType} file, its file type is ${fileExt}`;
 
       const selectedOperation = "NEW";

@@ -1,17 +1,24 @@
+import { Role } from "../consts/consts";
 import {
   ApplicationCase,
   Case,
   CaseSummary,
   GeneratePresignedUrlResponse,
+  GetCaseProfileResponse,
   ParsePassportResponse,
   UpdateApplicationCaseData,
   UploadedDocument,
 } from "../model/apiModels";
+import {
+  DocumentCreatedBy,
+  DocumentOperation,
+  DocumentStatus,
+  DocumentType,
+  Identity,
+} from "../model/commonModels";
 import { IForm, IFormFields } from "../model/formFlowModels";
-import { DocumentType, Identity } from "../model/commonModels";
-import { performApiRequest } from "./apiConfig";
 import { convertBooleans } from "../utils/utils";
-import { Role } from "../consts/consts";
+import { performApiRequest } from "./apiConfig";
 
 export async function getForm(id: string): Promise<IForm> {
   return await performApiRequest({
@@ -154,13 +161,33 @@ export async function getCaseDetailsApi(
   return res.data as ApplicationCase;
 }
 
-export async function getCaseSummaryApi(
+export async function getCaseProfileAndProgressApi(
   caseId: number,
+  accessToken: string,
+  role: Role,
+): Promise<GetCaseProfileResponse> {
+  await flushRedisCache(accessToken, role);
+
+  const res = await performApiRequest({
+    endPoint: `api/case/asylum/getCaseProfile?id=${caseId}`,
+    method: "GET",
+    data: null,
+    accessToken,
+    role,
+  });
+  res.data.percentage = res.data.percentage
+    ? JSON.parse(res.data.percentage)
+    : null;
+  return res.data as GetCaseProfileResponse;
+}
+
+export async function getCaseSummaryApi(
+  caseId: string,
   accessToken: string,
   role: Role,
 ): Promise<CaseSummary> {
   const res = await performApiRequest({
-    endPoint: `api/case/asylum/get?id=${caseId}`,
+    endPoint: `api/case/asylum/getCaseSummary?id=${caseId}`,
     method: "GET",
     data: null,
     accessToken,
@@ -190,7 +217,7 @@ export async function generateDocumentPresignedUrl(
   type: DocumentType,
   documentName: string,
   identify: Identity,
-  operation: string,
+  operation: DocumentOperation,
   description: string,
   createdBy: string,
   accessToken: string,
@@ -213,6 +240,31 @@ export async function generateDocumentPresignedUrl(
     role,
   });
   return <GeneratePresignedUrlResponse>res.data;
+}
+
+export async function generatePresignedUrlByDocumentId(
+  documentId: number,
+  identity: Identity,
+  type: DocumentType,
+  documentName: string,
+  createdBy: DocumentCreatedBy,
+  accessToken: string,
+  role: Role,
+) {
+  const res = await performApiRequest({
+    endPoint: "api/document/generatePresignedUrlByDocumentId/put",
+    method: "POST",
+    data: {
+      documentId,
+      identify: identity,
+      type,
+      documentName,
+      createdBy,
+    },
+    accessToken,
+    role,
+  });
+  return <string>res.data;
 }
 
 export async function parsePassportApi(
@@ -327,7 +379,7 @@ export async function updateDocumentStatus(
   role: Role,
   documentId: number,
   manualOverride: boolean,
-  documentStatus: string,
+  documentStatus: DocumentStatus,
   accessToken: string,
 ): Promise<boolean> {
   const requestDto = {

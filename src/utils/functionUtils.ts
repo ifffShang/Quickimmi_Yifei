@@ -1,29 +1,24 @@
 import { updateApplicationCaseApi } from "../api/caseAPI";
 import { Role } from "../consts/consts";
-import { ApplicationCase, Percentage } from "../model/apiModels";
-import { getUpdateApplicationCaseData } from "./utils";
+import { AsylumCaseProfile, Percentage, Progress } from "../model/apiModels";
 
 export function updateApplicationCaseFunc(
-  applicationCase: ApplicationCase,
+  caseId: number,
+  profile: AsylumCaseProfile,
+  progress: Progress,
   percentage: Percentage,
   role: Role,
   accessToken?: string,
 ) {
-  if (!accessToken) {
-    console.error("Access token is missing");
-    return;
-  }
+  try {
+    if (!accessToken) {
+      console.error("Access token is missing");
+      return;
+    }
 
-  if (!applicationCase.progress) {
-    console.error("Progress is missing");
-    return;
-  }
-
-  const applicationCaseForUpdate = {
-    ...applicationCase,
-    progress: {
-      ...applicationCase.progress,
-      steps: applicationCase.progress.steps.map(step => {
+    const progressWithPercentage = {
+      ...progress,
+      steps: progress.steps.map(step => {
         if (step.name === "FILLING_APPLICATION") {
           return {
             ...step,
@@ -44,12 +39,15 @@ export function updateApplicationCaseFunc(
         }
         return step;
       }),
-    },
-  };
+    };
 
-  updateApplicationCaseApi(
-    getUpdateApplicationCaseData(applicationCaseForUpdate),
-    accessToken,
-    role,
-  );
+    updateApplicationCaseApi(
+      { id: caseId, profile, progress: progressWithPercentage },
+      accessToken,
+      role,
+    );
+  } catch (error) {
+    console.error("Error updating application case: ", error);
+    throw error;
+  }
 }

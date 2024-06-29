@@ -169,7 +169,9 @@ export function FormNavigation() {
         ghost
         items={items}
       />
-      <StandaloneSteps steps={standaloneSteps} />
+      {percentage?.["overall"]?.avg === 100 && (
+        <StandaloneSteps steps={standaloneSteps} />
+      )}
     </div>
   );
 }
