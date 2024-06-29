@@ -1,41 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  Card,
-  message,
-  Upload,
-  Alert,
-  Modal,
-  Select,
-  Space,
-  Table,
-  Button,
-  Input,
-  UploadProps,
-} from "antd";
+import { Card, message, Upload, Alert, Modal, Select, Space, Table, Button, Input, UploadProps } from "antd";
 import { useTranslation } from "react-i18next";
-import {
-  InboxOutlined,
-  FileTwoTone,
-  FileImageTwoTone,
-  FilePdfTwoTone,
-  FileWordTwoTone,
-  FileTextTwoTone,
-  FileUnknownTwoTone,
-  DeleteTwoTone,
-} from "@ant-design/icons";
+import { InboxOutlined, FileTwoTone, FileImageTwoTone, FilePdfTwoTone, FileWordTwoTone, FileTextTwoTone, FileUnknownTwoTone, DeleteTwoTone } from "@ant-design/icons";
 import { useParams } from "react-router-dom";
-import {
-  getDocumentsApi,
-  uploadFileToPresignUrl,
-  generateDocumentPresignedUrl,
-  getDocumentByIdApi,
-  updateDocumentStatus,
-  deleteDocumentApi,
-  getDocumentTypesApi,
-} from "../../../api/caseAPI";
+import { getDocumentsApi, uploadFileToPresignUrl, generateDocumentPresignedUrl, getDocumentByIdApi, updateDocumentStatus, deleteDocumentApi, getDocumentTypesApi } from "../../../api/caseAPI";
 import { useAppSelector } from "../../../app/hooks";
 import { UploadedDocument } from "../../../model/apiModels";
 import { DocumentType } from "../../../model/commonModels";
+import { DeleteConfirmModal } from "../../modals/case/DeleteConfirmModal";
 import { Loading } from "../../common/Loading";
 import { QText } from "../../common/Fonts";
 import "./CaseDocumentRightPanel.css";
@@ -230,6 +202,7 @@ const CaseDocumentRightPanel: React.FC = () => {
     customRequest: handleUpload,
     multiple: false,
     maxCount: 1,
+    beforeUpload: () => {setUploadApprove(true);},
     onChange(info: any) {
       console.log("Upload info", info.fileList);
       setShowUploadProgress(true);
@@ -248,13 +221,6 @@ const CaseDocumentRightPanel: React.FC = () => {
     onDrop(info: any) {
       console.log("Dropped files", info.dataTransfer.files);
       handleFileCount(info.dataTransfer.files);
-    },
-    beforeUpload: file => {
-      if (uploadProps.fileList && uploadProps.fileList.length >= 1) {
-        message.error("Only one file can be uploaded at a time");
-        return Upload.LIST_IGNORE;
-      }
-      return true;
     },
   };
 
@@ -515,43 +481,12 @@ const CaseDocumentRightPanel: React.FC = () => {
       </Modal>
 
       {/* Delete confirmation modal */}
-      <Modal
+      <DeleteConfirmModal
         visible={deleteConfirmVisible}
-        onOk={handleDelete}
+        onConfirm={handleDelete}
         onCancel={() => setDeleteConfirmVisible(false)}
-        className="delete-confirm-modal-container"
-        footer={[
-          <Button key="Cancel" onClick={() => setDeleteConfirmVisible(false)}>
-            {t("Cancel")}
-          </Button>,
-          <Button
-            key="Delete"
-            type="primary"
-            danger
-            style={{ backgroundColor: "#EB5757" }}
-            onClick={handleDelete}
-          >
-            {t("Delete")}
-          </Button>,
-        ]}
-      >
-        <div className="delete-confirm-modal-body">
-          <div className="delete-confirm-modal-body-icon">
-            <DeleteTwoTone style={{ fontSize: 64 }} twoToneColor="#EB5757" />
-          </div>
-          <div className="delete-confirm-modal-body-message">
-            <QText level="normal bold" color="dark">
-              {t("DeleteConfirmMessage")}
-            </QText>
-            {documentToDelete && (
-              <QText level="small" color="gray">
-                {" "}
-                {documentToDelete.name}
-              </QText>
-            )}
-          </div>
-        </div>
-      </Modal>
+        contentName={documentToDelete?.name}
+      />
     </Card>
   );
 };
