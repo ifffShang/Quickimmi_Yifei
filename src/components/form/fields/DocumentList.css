@@ -5,6 +5,7 @@
 .document-list-action {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 5px;
 }
 

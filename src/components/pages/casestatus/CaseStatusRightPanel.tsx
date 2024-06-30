@@ -1,28 +1,26 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, Card, Descriptions, Spin, Steps, Button, Tag } from "antd";
+import { Alert, Spin } from "antd";
 import { CaseSummary } from "../../../model/apiModels";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import CaseProgressCard from "./CaseProgressCard";
 import CaseSummaryCard from "./CaseSummaryCard";
 import "./CaseStatusRightPanel.css";
-
-const { Step } = Steps;
+import { getCaseSummaryApi } from "../../../api/caseAPI";
 
 function useFetchCaseSummary() {
   const { id } = useParams<{ id?: string }>();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const accessToken = useAppSelector(state => state.auth.accessToken);
-  const state = useAppSelector(state => state);
   const userId = useAppSelector(state => state.auth.userId);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [caseSummary, setCaseSummary] = useState<CaseSummary | null>(null);
+  const role = useAppSelector(state => state.auth.role);
 
   const fetchCaseSummary = useCallback(async () => {
-    console.error("state", state);
     if (!accessToken || !userId) {
       console.error("Access token or user id is missing");
       setError("Access token or user id is missing");
@@ -37,16 +35,8 @@ function useFetchCaseSummary() {
 
     try {
       setLoading(true);
-      // getCaseSummaryApi(id, accessToken)
-      //     .then((data) => {
-      //       setCaseSummary(data);
-      //       setLoading(false);
-      //     })
-      //     .catch((error) => {
-      //       console.error("Failed to fetch case summary:", error);
-      //       setError("Failed to fetch case summary. Please try again later.");
-      //       setLoading(false);
-      //     });
+      const data = await getCaseSummaryApi(id, accessToken, role);
+      setCaseSummary(data);
       // Mock data
       const mockCaseSummary: CaseSummary = {
         id: 55,
@@ -57,16 +47,16 @@ function useFetchCaseSummary() {
         applyWithSpouse: false,
         numberOfChildren: 2,
         numberOfApplyingChildren: 1,
-        currentStep: "REVIEW_AND_SIGN",
+        currentStep: "FILLING_APPLICATION",
         progress: {
           steps: [
             {
               name: "FILLING_APPLICATION",
-              status: "COMPLETED",
+              status: "IN_PROGRESS",
               substeps: [
                 {
                   name: "FILLING_DETAILS",
-                  status: "NOT_START",
+                  status: "IN_PROGRESS",
                   metadata: null,
                   startedAt: 1716788746776,
                   updatedAt: 1716788746776,
@@ -77,25 +67,25 @@ function useFetchCaseSummary() {
             },
             {
               name: "REVIEW_AND_SIGN",
-              status: "COMPLETED",
+              status: "IN_PROGRESS",
               substeps: [
                 {
                   name: "FILLING_DETAILS",
-                  status: "COMPLETED",
+                  status: "IN_PROGRESS",
                   metadata: null,
                   startedAt: 1716788746776,
                   updatedAt: 1716788746776,
                 },
                 {
                   name: "LAWYER_REVIEW",
-                  status: "COMPLETED",
+                  status: "NOT_START",
                   metadata: null,
                   startedAt: 1716788746776,
                   updatedAt: 1716788746776,
                 },
                 {
                   name: "CLIENT_SIGNATURE",
-                  status: "IN_PROGRESS",
+                  status: "NOT_START",
                   metadata: null,
                   startedAt: 1716788746776,
                   updatedAt: 1716788746776,
@@ -219,13 +209,13 @@ function useFetchCaseSummary() {
         updatedAt: 1718259472477,
       };
       setCaseSummary(mockCaseSummary);
-    } catch (err) {
-      console.error(err);
-      setError("Failed to fetch case summary");
-    } finally {
+      setLoading(false);
+    } catch (error) {
+      console.error("Failed to fetch case summary:", error);
+      setError("Failed to fetch case summary. Please try again later.");
       setLoading(false);
     }
-  }, [accessToken, userId, id, dispatch]);
+  }, [accessToken, userId, id, role]);
 
   useEffect(() => {
     fetchCaseSummary();

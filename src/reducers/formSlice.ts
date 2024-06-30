@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import _, { update } from "lodash";
+import _ from "lodash";
+import { CacheStore } from "../cache/cache";
 import {
   InitialAddressHistoryBeforeUS,
   InitialApplicationCase,
@@ -12,28 +13,31 @@ import {
 } from "../consts/caseConsts";
 import {
   ApplicationCase,
+  AsylumCaseProfile,
   AsylumCaseProfileOptional,
   ParsePassportResponse,
   Percentage,
+  Progress,
   UploadedDocumentWithUrl,
 } from "../model/apiModels";
 import { getUpdateProfileData } from "../utils/utils";
-import { CacheStore } from "../cache/cache";
 
 export interface FormState {
+  caseId: number;
   applicationCase: ApplicationCase;
   percentage: Percentage;
-  autoSaveTimes: number;
+  saveTimes: number;
   documentUrls: any[];
   uploadedDocuments: UploadedDocumentWithUrl[];
 }
 
 const initialState: FormState = {
+  caseId: 0,
   applicationCase: InitialApplicationCase,
   percentage: {
     overall: { avg: 0 },
   },
-  autoSaveTimes: 0,
+  saveTimes: 0,
   documentUrls: [],
   uploadedDocuments: [],
 };
@@ -51,7 +55,7 @@ function deepAssign(update: any, current: any, init: any) {
       } else if (value === true || value === "true") {
         result[key] = "true";
       } else if (value === null || value === undefined) {
-        result[key] = current[key] || init[key];
+        result[key] = current?.[key] || init?.[key] || null;
       } else if (typeof value === "object" && !Array.isArray(value)) {
         result[key] = deepAssign(value, current[key], init[key]);
       } else {
@@ -104,15 +108,37 @@ export const formSlice = createSlice({
   name: "form",
   initialState,
   reducers: {
-    updateApplicationCase: (state, action: PayloadAction<ApplicationCase>) => {
-      const result = deepAssign(
-        action.payload,
-        state.applicationCase,
-        InitialApplicationCase,
+    // updateApplicationCase: (state, action: PayloadAction<ApplicationCase>) => {
+    //   const result = deepAssign(
+    //     action.payload,
+    //     state.applicationCase,
+    //     InitialApplicationCase,
+    //   );
+    //   Object.assign(state.applicationCase, result);
+    // },
+    updateCaseProfileAndProgress: (
+      state,
+      action: PayloadAction<{
+        caseId: number;
+        profile: AsylumCaseProfile;
+        progress: Progress;
+        percentage: Percentage;
+      }>,
+    ) => {
+      state.caseId = action.payload.caseId;
+      const updatedProfile = deepAssign(
+        action.payload.profile,
+        state.applicationCase.profile,
+        InitialApplicationCase.profile,
       );
-      Object.assign(state.applicationCase, result);
+      Object.assign(state.applicationCase.profile, updatedProfile);
+      CacheStore.setProfile(updatedProfile);
 
-      CacheStore.setApplicationCase(result);
+      Object.assign(state.applicationCase.progress, action.payload.progress);
+      CacheStore.setProgress(action.payload.progress);
+
+      state.percentage = action.payload.percentage;
+      CacheStore.setPercentage(state.percentage);
     },
     updatePercentage: (state, action: PayloadAction<Percentage>) => {
       state.percentage = action.payload;
@@ -170,7 +196,7 @@ export const formSlice = createSlice({
       const profile = _.merge(state.applicationCase.profile, action.payload);
       state.applicationCase.profile = profile;
 
-      CacheStore.setApplicationCase(state.applicationCase);
+      CacheStore.setProfile(state.applicationCase.profile);
     },
     updatePassportInfo: (
       state,
@@ -308,10 +334,11 @@ export const formSlice = createSlice({
     ) => {
       state.uploadedDocuments = action.payload;
     },
-    incrementAutoSaveTimes: state => {
-      state.autoSaveTimes++;
+    incrementSaveTimes: state => {
+      state.saveTimes++;
     },
     resetFormState: state => {
+      state.caseId = 0;
       state.applicationCase = InitialApplicationCase;
       state.percentage = {
         overall: { avg: 0 },
@@ -319,14 +346,14 @@ export const formSlice = createSlice({
       state.documentUrls = [];
       state.uploadedDocuments = [];
 
-      state.autoSaveTimes = 0;
+      state.saveTimes = 0;
     },
   },
 });
 
 export const {
   resetFormState,
-  updateApplicationCase,
+  updateCaseProfileAndProgress,
   updatePercentage,
   updateOnePercentage,
   updateCaseFields,
@@ -337,7 +364,7 @@ export const {
   replaceDocumentUrls,
   clearDocumentUrls,
   updateUploadedDocuments,
-  incrementAutoSaveTimes,
+  incrementSaveTimes,
 } = formSlice.actions;
 
 export default formSlice.reducer;

@@ -46,19 +46,20 @@ export interface Case {
 // }
 export interface UpdateApplicationCaseData {
   id: number;
-  userId: number;
-  applicantName: string;
-  type: string;
-  currentStep: string;
-  status: string;
-  taskList: Task[];
-  profile: AsylumCaseProfile;
-  submittedAt: number;
-  paid: boolean;
-  uscisReceiptNumber: string;
-  assignedLawyer: number;
-  createdAt: number;
-  updatedAt: number;
+  userId?: number;
+  applicantName?: string;
+  type?: string;
+  currentStep?: string;
+  status?: string;
+  taskList?: Task[];
+  profile?: AsylumCaseProfile;
+  submittedAt?: number;
+  paid?: boolean;
+  uscisReceiptNumber?: string;
+  assignedLawyer?: number;
+  createdAt?: number;
+  updatedAt?: number;
+  progress?: Progress;
 }
 
 export interface ApplicationCase {
@@ -84,25 +85,6 @@ export interface Percentage {
   [key: string]: { avg: number; [key: string]: number };
 }
 
-export interface Substep {
-  name: string;
-  status: string;
-  metadata: any;
-  startedAt: number;
-  updatedAt: number;
-}
-export interface Step {
-  name: string;
-  status: string;
-  substeps: Substep[];
-  startedAt: number;
-  updatedAt: number;
-}
-
-export interface Progress {
-  steps: Step[];
-}
-
 export interface CaseSummary {
   id: number;
   applicantName: string;
@@ -116,6 +98,26 @@ export interface CaseSummary {
   progress: Progress;
   desc: string | null;
   createdAt: number;
+  updatedAt: number | null;
+}
+
+export interface Progress {
+  steps: Step[];
+}
+
+export interface Step {
+  name: string;
+  status: string;
+  substeps: Substep[];
+  startedAt: number;
+  updatedAt: number;
+}
+
+export interface Substep {
+  name: string;
+  status: string;
+  metadata: string | null;
+  startedAt: number;
   updatedAt: number;
 }
 
@@ -139,6 +141,11 @@ export interface Task {
   completedAt: number;
   createdAt: number;
   updatedAt: number;
+}
+
+export interface GetCaseProfileResponse {
+  profile: AsylumCaseProfile;
+  progress: Progress;
 }
 
 export interface AsylumCaseProfile {
