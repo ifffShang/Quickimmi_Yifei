@@ -35,7 +35,7 @@ import {
 } from "../../../api/caseAPI";
 import { useAppSelector } from "../../../app/hooks";
 import { UploadedDocument } from "../../../model/apiModels";
-import { DocumentType } from "../../../model/commonModels";
+import { DocumentType, DocumentStatus } from "../../../model/commonModels";
 import { DeleteConfirmModal } from "../../modals/case/DeleteConfirmModal";
 import { Loading } from "../../common/Loading";
 import { QText } from "../../common/Fonts";
