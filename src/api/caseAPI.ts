@@ -155,9 +155,6 @@ export async function getCaseDetailsApi(
     accessToken,
     role,
   });
-  res.data.percentage = res.data.percentage
-    ? JSON.parse(res.data.percentage)
-    : null;
   return res.data as ApplicationCase;
 }
 
@@ -175,9 +172,6 @@ export async function getCaseProfileAndProgressApi(
     accessToken,
     role,
   });
-  res.data.percentage = res.data.percentage
-    ? JSON.parse(res.data.percentage)
-    : null;
   return res.data as GetCaseProfileResponse;
 }
 

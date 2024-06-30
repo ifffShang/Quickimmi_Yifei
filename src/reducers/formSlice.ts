@@ -154,7 +154,14 @@ export const formSlice = createSlice({
       }>,
     ) => {
       const { sectionId, referenceId, value } = action.payload;
-      state.percentage[sectionId][referenceId] = value;
+      if (!state.percentage[sectionId]) {
+        console.log("Skip percentage update before form is loaded");
+        return;
+      }
+      const updatedPercentage = { ...state.percentage };
+      updatedPercentage[sectionId][referenceId] = value;
+
+      // Calculate section avg percentage
       let sum = 0;
       let count = 0;
       Object.entries(state.percentage[sectionId]).forEach(([key, value]) => {
@@ -163,8 +170,9 @@ export const formSlice = createSlice({
           count++;
         }
       });
-      state.percentage[sectionId]["avg"] = Math.round(sum / count);
+      updatedPercentage[sectionId]["avg"] = Math.round(sum / count);
 
+      // Calculate overall avg percentage
       sum = 0;
       count = 0;
       Object.entries(state.percentage).forEach(([key, value]) => {
@@ -173,7 +181,9 @@ export const formSlice = createSlice({
           count++;
         }
       });
-      state.percentage.overall.avg = Math.round(sum / count);
+      updatedPercentage.overall.avg = Math.round(sum / count);
+
+      state.percentage = updatedPercentage;
 
       CacheStore.setPercentage(state.percentage);
     },

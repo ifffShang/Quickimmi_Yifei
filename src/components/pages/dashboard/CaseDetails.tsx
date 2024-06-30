@@ -6,12 +6,8 @@ import { updateForm } from "../../../reducers/caseSlice";
 import {
   resetFormState,
   updateCaseProfileAndProgress,
-  updatePercentage,
 } from "../../../reducers/formSlice";
-import {
-  buildFormPercentageObject,
-  extractPercentageFromMetadata,
-} from "../../../utils/percentageUtils";
+import { buildPercentageObject } from "../../../utils/percentageUtils";
 import { CentralizedLoading } from "../../common/Loading";
 import { FormContainer } from "../../form/FormContainer";
 
@@ -40,13 +36,10 @@ export function CaseDetails() {
             return;
           }
 
-          let currentPercentage = extractPercentageFromMetadata(
+          const currentPercentage = buildPercentageObject(
+            form,
             caseDetails.progress,
           );
-
-          if (!currentPercentage) {
-            currentPercentage = buildFormPercentageObject(form);
-          }
 
           dispatch(
             updateCaseProfileAndProgress({

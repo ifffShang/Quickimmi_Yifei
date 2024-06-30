@@ -1,4 +1,4 @@
-import { Progress } from "../model/apiModels";
+import { Percentage, Progress } from "../model/apiModels";
 import { ControlType, IForm, IFormField } from "../model/formFlowModels";
 
 export function extractPercentageFromMetadata(progress?: Progress) {
@@ -18,17 +18,34 @@ export function extractPercentageFromMetadata(progress?: Progress) {
   return null;
 }
 
-export function buildFormPercentageObject(form: IForm) {
-  const percentage: any = { overall: { avg: 0 } };
+export function buildPercentageObject(form: IForm, progress?: Progress) {
+  const percentage = extractPercentageFromMetadata(progress);
+  return fillMissingPercentageProperties(percentage, form);
+}
+
+export function fillMissingPercentageProperties(
+  percentage: Percentage,
+  form: IForm,
+): Percentage {
+  let newPercentage: Percentage = percentage;
+  if (!newPercentage) {
+    newPercentage = { overall: { avg: 0 } };
+  }
   form.steps.forEach(step => {
     if (step.standalone) return;
-    percentage[step.id] = { avg: 0 } as any;
+    if (!newPercentage[step.id]) {
+      newPercentage[step.id] = { avg: 0 } as any;
+    } else if (!newPercentage[step.id].avg) {
+      newPercentage[step.id].avg = 0;
+    }
     step.steps.forEach(subStep => {
       if (!subStep.referenceId) return;
-      percentage[step.id][subStep.referenceId] = 0;
+      if (!newPercentage[step.id][subStep.referenceId]) {
+        newPercentage[step.id][subStep.referenceId] = 0;
+      }
     });
   });
-  return percentage;
+  return newPercentage;
 }
 
 export function includeForPercentageCalc(control: ControlType) {

@@ -113,7 +113,8 @@ export function FormContent(props: FormContentProps) {
           (fulfilledCount.current / totalFieldsForCalc.current) * 100,
         );
       }
-      const currentPercentage = percentage[props.sectionId][props.referenceId];
+      const currentPercentage =
+        percentage?.[props.sectionId]?.[props.referenceId] ?? -1;
 
       if (currentPercentage !== percentageOfFulfilledFields) {
         setTimeout(() => {
