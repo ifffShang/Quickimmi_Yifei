@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Button } from "antd";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +7,7 @@ import { useAppSelector } from "../../../app/hooks";
 import { getCaseId } from "../../../utils/utils";
 import { QText, SingleLine } from "../../common/Fonts";
 import { CaseIcon } from "../../icons/Dashboard";
+import { DeleteConfirmModal } from "../../modals/case/DeleteConfirmModal";
 import "./CaseCard.css";
 
 export interface CaseCardProps {
@@ -17,6 +19,7 @@ export interface CaseCardProps {
 export function CaseCard(props: CaseCardProps) {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const userId = useAppSelector(state => state.auth.userId);
   const role = useAppSelector(state => state.auth.role);
@@ -78,13 +81,20 @@ export function CaseCard(props: CaseCardProps) {
         </div>
       </div>
       <div className="case-card-bottom">
-        <Button type="default" onClick={deleteCase}>
+        <Button type="default" onClick={() => setDeleteModalVisible(true)}>
           {t("Delete")}
         </Button>
         <Button type="primary" onClick={openCaseDetails}>
           {t("ViewDetails") + " >"}
         </Button>
       </div>
+
+      <DeleteConfirmModal
+        visible={deleteModalVisible}
+        onConfirm={deleteCase}
+        onCancel={() => setDeleteModalVisible(false)}
+        contentName={getCaseId(props.caseId)}
+      />
     </div>
   );
 }

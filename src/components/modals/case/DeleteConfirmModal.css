@@ -1,0 +1,20 @@
+.delete-confirm-modal-container {
+  margin: auto;
+  padding: 32px;
+}
+.delete-confirm-modal-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 15px;
+}
+.delete-confirm-modal-body-icon {
+  padding: 15px;
+}
+
+.delete-confirm-modal-body-message {
+  font-size: 16px;
+  text-align: center;
+}

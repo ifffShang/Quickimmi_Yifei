@@ -36,7 +36,7 @@ import {
 import { useAppSelector } from "../../../app/hooks";
 import { UploadedDocument } from "../../../model/apiModels";
 import { DocumentType, DocumentStatus } from "../../../model/commonModels";
-
+import { DeleteConfirmModal } from "../../modals/case/DeleteConfirmModal";
 import { Loading } from "../../common/Loading";
 import { QText } from "../../common/Fonts";
 import "./CaseDocumentRightPanel.css";
@@ -123,14 +123,20 @@ const CaseDocumentRightPanel: React.FC = () => {
   const { loading, error, documents, fetchDocuments } = useFetchDocuments();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [currentFile, setCurrentFile] = useState<File | null>(null);
-  const [selectedDocumentType, setSelectedDocumentType] = useState<DocumentType>("PASSPORT_MAIN");
+  const [selectedDocumentType, setSelectedDocumentType] =
+    useState<DocumentType>("PASSPORT_MAIN");
   const [fileExt, setFileExt] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [filteredDocuments, setFilteredDocuments] = useState<UploadedDocument[]>([]);
+  const [filteredDocuments, setFilteredDocuments] = useState<
+    UploadedDocument[]
+  >([]);
   const [uploadApprove, setUploadApprove] = useState(true);
   const [showUploadProgress, setShowUploadProgress] = useState(false);
   const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
-  const [documentToDelete, setDocumentToDelete] = useState<{id: number; name: string;} | null>(null);
+  const [documentToDelete, setDocumentToDelete] = useState<{
+    id: number;
+    name: string;
+  } | null>(null);
   const [documentTypes, setDocumentTypes] = useState<DocumentType[]>([]);
 
   const handleUpload = async (fileList: any) => {
@@ -233,6 +239,9 @@ const CaseDocumentRightPanel: React.FC = () => {
     customRequest: handleUpload,
     multiple: false,
     maxCount: 1,
+    beforeUpload: () => {
+      setUploadApprove(true);
+    },
     onChange(info: any) {
       console.log("Upload info", info.fileList);
       setShowUploadProgress(true);
@@ -251,13 +260,6 @@ const CaseDocumentRightPanel: React.FC = () => {
     onDrop(info: any) {
       console.log("Dropped files", info.dataTransfer.files);
       handleFileCount(info.dataTransfer.files);
-    },
-    beforeUpload: file => {
-      if (uploadProps.fileList && uploadProps.fileList.length >= 1) {
-        message.error("Only one file can be uploaded at a time");
-        return Upload.LIST_IGNORE;
-      }
-      return true;
     },
   };
 
@@ -342,15 +344,15 @@ const CaseDocumentRightPanel: React.FC = () => {
       setDocumentTypes(documentTypeList);
       console.log("document types", documentTypeList);
     } catch (error) {
-      message.error("Error fetching document types"); 
+      message.error("Error fetching document types");
       console.error(error);
     }
-  }
-  
+  };
+
   useEffect(() => {
     fetchDocumentTypes();
   }, [accessToken, userRole]);
-  
+
   const dataSource = (
     filteredDocuments.length > 0 ? filteredDocuments : documents
   ).map(doc => ({
@@ -508,7 +510,7 @@ const CaseDocumentRightPanel: React.FC = () => {
               style={{ width: 300 }}
               onChange={(value: DocumentType) => setSelectedDocumentType(value)}
             >
-              {documentTypes.map((type) => (
+              {documentTypes.map(type => (
                 <Option key={type} value={type}>
                   {type}
                 </Option>
@@ -519,43 +521,12 @@ const CaseDocumentRightPanel: React.FC = () => {
       </Modal>
 
       {/* Delete confirmation modal */}
-      <Modal
+      <DeleteConfirmModal
         visible={deleteConfirmVisible}
-        onOk={handleDelete}
+        onConfirm={handleDelete}
         onCancel={() => setDeleteConfirmVisible(false)}
-        className="delete-confirm-modal-container"
-        footer={[
-          <Button key="Cancel" onClick={() => setDeleteConfirmVisible(false)}>
-            {t("Cancel")}
-          </Button>,
-          <Button
-            key="Delete"
-            type="primary"
-            danger
-            style={{ backgroundColor: "#EB5757" }}
-            onClick={handleDelete}
-          >
-            {t("Delete")}
-          </Button>,
-        ]}
-      >
-        <div className="delete-confirm-modal-body">
-          <div className="delete-confirm-modal-body-icon">
-            <DeleteTwoTone style={{ fontSize: 64 }} twoToneColor="#EB5757" />
-          </div>
-          <div className="delete-confirm-modal-body-message">
-            <QText level="normal bold" color="dark">
-              {t("DeleteConfirmMessage")}
-            </QText>
-            {documentToDelete && (
-              <QText level="small" color="gray">
-                {" "}
-                {documentToDelete.name}
-              </QText>
-            )}
-          </div>
-        </div>
-      </Modal>
+        contentName={documentToDelete?.name}
+      />
     </Card>
   );
 };
