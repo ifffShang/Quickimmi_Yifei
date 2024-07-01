@@ -187,6 +187,7 @@
   "resultMessage": "The client's application has been successfully approved, and the case is closed.",
   "cannotUpdateThisStepTooltip": "You can only update the step which is in progress.",
   "stepCompletedTooltip": "This step is completed and cannot be updated.",
+  "Please provide complete and accurate application information": "Please provide complete and accurate application information",
 
   "PersonalInformation": "Personal",
   "BasicInformation": "Basic",
