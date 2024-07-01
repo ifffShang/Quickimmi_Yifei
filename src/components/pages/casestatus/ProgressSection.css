@@ -1,39 +1,43 @@
 .placeholder-section {
   padding: 16px;
+  background-color: #fafafa;
   border: 1px solid #f0f0f0;
   border-radius: 4px;
-  background-color: #fafafa;
-  margin-top: 16px;
-  text-align: center;
 }
 
-.progress-section {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  position: relative;
+.placeholder-section h2 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.filling-details {
+  margin-top: 16px;
 }
 
 .progress-item {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   cursor: pointer;
 }
 
-.progress-title {
+.progress-item .progress-title {
   margin-left: 8px;
+  flex: 1;
+  display: flex;
+  align-items: center;
 }
 
-.progress-line {
-  width: 2px;
-  height: 20px;
-  background: repeating-linear-gradient(
-    transparent,
-    transparent 2px,
-    #d9d9d9 2px,
-    #d9d9d9 4px
-  );
-  margin-left: 9px;
+.progress-item .go-complete {
+  color: #fa8c16;
+  cursor: pointer;
+}
+
+.custom-percentage-tag {
+  background-color: #f2f2f2 !important;
+  color: #828282 !important;
+  margin-left: 5px;
 }
 
 .expanded-card-container {
@@ -61,4 +65,8 @@
   border: 1px solid #d9d9d9;
   border-radius: 8px;
   width: calc(100% - 28px);
+}
+
+.expand-icon {
+  margin-left: 8px;
 }

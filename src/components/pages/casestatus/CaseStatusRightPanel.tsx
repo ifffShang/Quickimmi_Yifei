@@ -57,7 +57,8 @@ function useFetchCaseSummary() {
                 {
                   name: "FILLING_DETAILS",
                   status: "IN_PROGRESS",
-                  metadata: null,
+                  metadata:
+                    '{"percentage":{"overall":{"avg":0},"personal_information":{"avg":0,"i589_fields_basic_information":0,"i589_fields_contact_information":0,"i589_fields_immigration_information":0},"family_information":{"avg":0,"i589_fields_spouse_information":0,"i589_fields_children_information":0,"i589_fields_parents_information":0,"i589_fields_siblings_information":0},"background_information":{"avg":0,"i589_fields_address_before_usa":0,"i589_fields_address_past_5y":0,"i589_fields_education_information":0,"i589_fields_employment_information":0},"application_information":{"avg":0,"i589_fields_asylum_claim":0}}}',
                   startedAt: 1716788746776,
                   updatedAt: 1716788746776,
                 },
@@ -70,15 +71,8 @@ function useFetchCaseSummary() {
               status: "IN_PROGRESS",
               substeps: [
                 {
-                  name: "FILLING_DETAILS",
-                  status: "IN_PROGRESS",
-                  metadata: null,
-                  startedAt: 1716788746776,
-                  updatedAt: 1716788746776,
-                },
-                {
                   name: "LAWYER_REVIEW",
-                  status: "NOT_START",
+                  status: "IN_PROGRESS",
                   metadata: null,
                   startedAt: 1716788746776,
                   updatedAt: 1716788746776,
@@ -208,7 +202,7 @@ function useFetchCaseSummary() {
         createdAt: 1715912208190,
         updatedAt: 1718259472477,
       };
-      setCaseSummary(mockCaseSummary);
+      // setCaseSummary(mockCaseSummary);
       setLoading(false);
     } catch (error) {
       console.error("Failed to fetch case summary:", error);
