@@ -113,7 +113,7 @@ export const formSlice = createSlice({
     //     action.payload,
     //     state.applicationCase,
     //     InitialApplicationCase,
-    //   ); 
+    //   );
     //   Object.assign(state.applicationCase, result);
     // },
     updateCaseProfileAndProgress: (
