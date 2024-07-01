@@ -10,6 +10,7 @@ import {
 import { buildPercentageObject } from "../../../utils/percentageUtils";
 import { CentralizedLoading } from "../../common/Loading";
 import { FormContainer } from "../../form/FormContainer";
+import useRenderingTrace from "../../../hooks/renderHooks";
 
 export function CaseDetails() {
   const dispatch = useAppDispatch();
@@ -17,12 +18,14 @@ export function CaseDetails() {
   const navigate = useNavigate();
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const role = useAppSelector(state => state.auth.role);
+  const form = useAppSelector(state => state.case.form);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (!id || !accessToken) return;
     setIsLoading(true);
-    getForm("i589_form").then(form => {
+
+    getForm("i589_form", form).then(form => {
       dispatch(updateForm(form));
       (async function () {
         try {
@@ -60,7 +63,14 @@ export function CaseDetails() {
     return () => {
       dispatch(resetFormState());
     };
-  }, []);
+  }, [id, accessToken, role, form]);
+
+  useRenderingTrace("CaseDetails", {
+    id,
+    accessToken,
+    role,
+    isLoading,
+  });
 
   if (!id) {
     navigate("/dashboard");

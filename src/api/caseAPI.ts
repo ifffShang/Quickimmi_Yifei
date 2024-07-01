@@ -1,3 +1,4 @@
+import { CacheStore } from "../cache/cache";
 import { Role } from "../consts/consts";
 import {
   ApplicationCase,
@@ -17,10 +18,13 @@ import {
   Identity,
 } from "../model/commonModels";
 import { IForm, IFormFields } from "../model/formFlowModels";
+import { getProgressWithPercentage } from "../utils/percentageUtils";
 import { convertBooleans } from "../utils/utils";
 import { performApiRequest } from "./apiConfig";
 
-export async function getForm(id: string): Promise<IForm> {
+export async function getForm(id: string, cachedForm?: IForm): Promise<IForm> {
+  if (cachedForm && cachedForm.steps && cachedForm.steps.length > 0)
+    return cachedForm;
   return await performApiRequest({
     endPoint: `forms/${id}.json?${new Date().getTime()}`,
     method: "GET",
@@ -163,6 +167,16 @@ export async function getCaseProfileAndProgressApi(
   accessToken: string,
   role: Role,
 ): Promise<GetCaseProfileResponse> {
+  const cachedProfile = CacheStore.getProfile(caseId);
+  const cachedProgress = CacheStore.getProgress(caseId);
+  const cachedPercentage = CacheStore.getPercentage(caseId);
+  if (cachedProfile && cachedProgress && cachedPercentage) {
+    return {
+      profile: cachedProfile,
+      progress: getProgressWithPercentage(cachedProgress, cachedPercentage),
+    };
+  }
+
   await flushRedisCache(accessToken, role);
 
   const res = await performApiRequest({

@@ -56,7 +56,7 @@ export interface FormFieldProps {
     fieldValue: any,
     lastField: boolean,
     fieldIndex?: number,
-  ) => string;
+  ) => any;
   lastField: boolean;
 }
 
@@ -78,7 +78,7 @@ export function FormField(props: FormFieldProps) {
     props.fieldIndex,
   );
 
-  const fieldCount = props.countFulfilledFields(
+  props.countFulfilledFields(
     props.control,
     props.fieldKey,
     fieldValue,
@@ -86,6 +86,7 @@ export function FormField(props: FormFieldProps) {
     props.fieldIndex,
   );
 
+  /**
   console.log(
     `Field key ${props.fieldKey},
     value: ${JSON.stringify(fieldValue)},
@@ -94,6 +95,7 @@ export function FormField(props: FormFieldProps) {
     totalFields_fulfilled: ${fieldCount}
     `,
   );
+ */
 
   const onOptionChange = (value: string) => {
     if (props.options && Array.isArray(props.options)) {
@@ -490,6 +492,7 @@ export function FormField(props: FormFieldProps) {
                           arrIndex,
                         );
                         dispatchFormValue(dispatch, keyValues, arrIndex);
+                        props.countFulfilledFields("percentage", "", "", true);
                       }}
                     />
                   )}

@@ -113,7 +113,7 @@ export const formSlice = createSlice({
     //     action.payload,
     //     state.applicationCase,
     //     InitialApplicationCase,
-    //   );
+    //   ); 
     //   Object.assign(state.applicationCase, result);
     // },
     updateCaseProfileAndProgress: (
@@ -132,18 +132,18 @@ export const formSlice = createSlice({
         InitialApplicationCase.profile,
       );
       Object.assign(state.applicationCase.profile, updatedProfile);
-      CacheStore.setProfile(updatedProfile);
+      CacheStore.setProfile(updatedProfile, action.payload.caseId);
 
       Object.assign(state.applicationCase.progress, action.payload.progress);
-      CacheStore.setProgress(action.payload.progress);
+      CacheStore.setProgress(action.payload.progress, action.payload.caseId);
 
       state.percentage = action.payload.percentage;
-      CacheStore.setPercentage(state.percentage);
+      CacheStore.setPercentage(state.percentage, action.payload.caseId);
     },
     updatePercentage: (state, action: PayloadAction<Percentage>) => {
       state.percentage = action.payload;
 
-      CacheStore.setPercentage(state.percentage);
+      CacheStore.setPercentage(state.percentage, state.caseId);
     },
     updateOnePercentage: (
       state,
@@ -185,7 +185,7 @@ export const formSlice = createSlice({
 
       state.percentage = updatedPercentage;
 
-      CacheStore.setPercentage(state.percentage);
+      CacheStore.setPercentage(state.percentage, state.caseId);
     },
     updateCaseFields: (
       state,
@@ -206,7 +206,7 @@ export const formSlice = createSlice({
       const profile = _.merge(state.applicationCase.profile, action.payload);
       state.applicationCase.profile = profile;
 
-      CacheStore.setProfile(state.applicationCase.profile);
+      CacheStore.setProfile(state.applicationCase.profile, state.caseId);
     },
     updatePassportInfo: (
       state,

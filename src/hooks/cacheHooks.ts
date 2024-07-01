@@ -2,7 +2,7 @@ import * as _ from "lodash";
 import { Dispatch, useEffect } from "react";
 import { CacheStore } from "../cache/cache";
 import { updateApplicationCaseFunc } from "../utils/functionUtils";
-import { ObjectUtils } from "../utils/objectUtils";
+import { ObjectUtils } from "../utils/diffUtils";
 import { incrementSaveTimes } from "../reducers/formSlice";
 import { Role } from "../consts/consts";
 
@@ -19,13 +19,13 @@ export function useAutoSaveApplicationCase(
     return;
   }
 
-  let lastCaseProfileCached = CacheStore.getProfile();
+  let lastCaseProfileCached = CacheStore.getProfile(caseId);
   let timeId: any;
 
   const autoSave = () => {
     timeId = setTimeout(
       () => {
-        const caseProfileCached = CacheStore.getProfile();
+        const caseProfileCached = CacheStore.getProfile(caseId);
 
         if (
           !lastCaseProfileCached ||
@@ -36,8 +36,8 @@ export function useAutoSaveApplicationCase(
           return;
         }
 
-        const percentage = CacheStore.getPercentage();
-        const progress = CacheStore.getProgress();
+        const percentage = CacheStore.getPercentage(caseId);
+        const progress = CacheStore.getProgress(caseId);
 
         const diff = ObjectUtils.diffUpdate(
           lastCaseProfileCached,
@@ -70,16 +70,15 @@ export function useAutoSaveApplicationCase(
     autoSave();
 
     return () => {
-      const caseProfileCached = CacheStore.getProfile();
-      const percentage = CacheStore.getPercentage();
-      const progress = CacheStore.getProgress();
+      const caseProfileCached = CacheStore.getProfile(caseId);
+      const percentage = CacheStore.getPercentage(caseId);
+      const progress = CacheStore.getProgress(caseId);
 
       if (
         !lastCaseProfileCached ||
         _.isEqual(caseProfileCached, lastCaseProfileCached)
       ) {
         clearTimeout(timeId);
-        CacheStore.clear();
         return;
       }
       updateApplicationCaseFunc(
@@ -91,7 +90,6 @@ export function useAutoSaveApplicationCase(
         accessToken,
       );
       clearTimeout(timeId);
-      CacheStore.clear();
     };
   }, []);
 }

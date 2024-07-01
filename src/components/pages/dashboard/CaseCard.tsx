@@ -9,6 +9,7 @@ import { QText, SingleLine } from "../../common/Fonts";
 import { CaseIcon } from "../../icons/Dashboard";
 import { DeleteConfirmModal } from "../../modals/case/DeleteConfirmModal";
 import "./CaseCard.css";
+import { CacheStore } from "../../../cache/cache";
 
 export interface CaseCardProps {
   caseId: number;
@@ -31,6 +32,7 @@ export function CaseCard(props: CaseCardProps) {
       );
       return;
     }
+    CacheStore.clear();
     navigate("/casestatus/" + props.caseId);
   };
 

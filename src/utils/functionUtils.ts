@@ -1,6 +1,7 @@
 import { updateApplicationCaseApi } from "../api/caseAPI";
 import { Role } from "../consts/consts";
 import { AsylumCaseProfile, Percentage, Progress } from "../model/apiModels";
+import { getProgressWithPercentage } from "./percentageUtils";
 
 export function updateApplicationCaseFunc(
   caseId: number,
@@ -16,30 +17,10 @@ export function updateApplicationCaseFunc(
       return;
     }
 
-    const progressWithPercentage = {
-      ...progress,
-      steps: progress.steps.map(step => {
-        if (step.name === "FILLING_APPLICATION") {
-          return {
-            ...step,
-            status: "IN_PROGRESS",
-            substeps: step.substeps.map(substep => {
-              if (substep.name === "FILLING_DETAILS") {
-                return {
-                  ...substep,
-                  metadata: JSON.stringify({
-                    percentage: percentage,
-                  }),
-                  status: "IN_PROGRESS",
-                };
-              }
-              return substep;
-            }),
-          };
-        }
-        return step;
-      }),
-    };
+    const progressWithPercentage = getProgressWithPercentage(
+      progress,
+      percentage,
+    );
 
     updateApplicationCaseApi(
       { id: caseId, profile, progress: progressWithPercentage },

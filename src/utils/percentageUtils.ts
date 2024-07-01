@@ -86,3 +86,33 @@ export function getKeyCount(fields: IFormField[]) {
     0, // Set the initial value to 0
   );
 }
+
+export function getProgressWithPercentage(
+  progress: Progress,
+  percentage: Percentage,
+) {
+  return {
+    ...progress,
+    steps: progress.steps.map(step => {
+      if (step.name === "FILLING_APPLICATION") {
+        return {
+          ...step,
+          status: "IN_PROGRESS",
+          substeps: step.substeps.map(substep => {
+            if (substep.name === "FILLING_DETAILS") {
+              return {
+                ...substep,
+                metadata: JSON.stringify({
+                  percentage: percentage,
+                }),
+                status: "IN_PROGRESS",
+              };
+            }
+            return substep;
+          }),
+        };
+      }
+      return step;
+    }),
+  };
+}

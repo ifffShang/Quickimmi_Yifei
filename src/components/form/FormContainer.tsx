@@ -14,6 +14,7 @@ import { FormContent } from "./FormContent";
 import { FormHeader } from "./FormHeader";
 import { FormNavigation } from "./FormNavigation";
 import { getCorrectedIndexes } from "../../utils/caseUtils";
+import useRenderingTrace from "../../hooks/renderHooks";
 
 export function FormContainer() {
   const navigate = useNavigate();
@@ -74,6 +75,17 @@ export function FormContainer() {
       subsection: correctedIndexLevel2.toString(),
     });
   }, [indexLevel1, indexLevel2]);
+
+  useRenderingTrace("FormContainer", {
+    form,
+    indexLevel1,
+    indexLevel2,
+    screenSize,
+    searchParams,
+    accessToken,
+    role,
+    caseId,
+  });
 
   if (!form || indexLevel1 === -1 || indexLevel2 === -1) {
     return (
