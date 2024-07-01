@@ -104,9 +104,7 @@ const ProgressSection: React.FC<ProgressSectionProps> = ({
     return (
       <div className="placeholder-section">
         <h2>
-          {t(
-            "Please provide complete and accurate personal information to start your application process:",
-          )}
+          {t("Please provide complete and accurate application information")}:
         </h2>
         {metadata && (
           <div className="filling-details">
