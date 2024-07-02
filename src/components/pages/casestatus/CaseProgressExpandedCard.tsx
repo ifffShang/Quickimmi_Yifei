@@ -1,15 +1,13 @@
 import React from "react";
 import { Card, Button, Tooltip } from "antd";
 import { useTranslation } from "react-i18next";
-import "./CaseProgressExpandedCard.css";
 
 interface ExpandedCardProps {
   isLawyer: boolean;
-  currentStep: string;
   substepName: string;
-  substepMetadata: string | null;
-  substepStatus: string;
-  progressSteps: {
+  substepMetadata: { [key: string]: number } | null;
+  substepStatus?: string | null;
+  progressSteps?: {
     name: string;
     status: string;
     substeps: { name: string; status: string }[];
@@ -18,15 +16,30 @@ interface ExpandedCardProps {
 
 const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
   isLawyer,
-  currentStep,
   substepName,
   substepMetadata,
-  substepStatus,
-  progressSteps,
+  substepStatus = null,
+  progressSteps = null,
 }) => {
   const { t } = useTranslation();
-
-  const getTooltipText = (stepStatus: string, currentStepStatus: string) => {
+  const translationsMap: { [key: string]: string } = {
+    i589_fields_basic_information: "BasicInformation",
+    i589_fields_contact_information: "ContactInformation",
+    i589_fields_immigration_information: "ImmigrationInformation",
+    i589_fields_spouse_information: "SpouseInformation",
+    i589_fields_children_information: "ChildrenInformation",
+    i589_fields_parents_information: "ParentsInformation",
+    i589_fields_siblings_information: "SiblingsInformation",
+    i589_fields_address_before_usa: "AddressInformationI",
+    i589_fields_address_past_5y: "AddressInformationII",
+    i589_fields_education_information: "EducationInformation",
+    i589_fields_employment_information: "EmploymentInformation",
+    i589_fields_asylum_claim: "AsylumClaim",
+  };
+  const getTooltipText = (
+    stepStatus: string | null,
+    currentStepStatus: string,
+  ) => {
     if (stepStatus === "COMPLETED") {
       return t("stepCompletedTooltip");
     } else if (
@@ -39,23 +52,21 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
   };
 
   const isButtonDisabled = () => {
+    if (!progressSteps) return true;
     let inProgressStepFound = false;
     for (const step of progressSteps) {
       for (const substep of step.substeps) {
         if (substep.status === "IN_PROGRESS") {
           inProgressStepFound = true;
-          if (substep.name === substepName) {
-            return false;
-          }
-        } else if (substep.name === substepName) {
-          return true;
-        }
+          if (substep.name === substepName) return false;
+        } else if (substep.name === substepName) return true;
       }
     }
     return !inProgressStepFound;
   };
 
   const renderButton = (textKey: string) => {
+    if (!progressSteps) return null;
     const buttonDisabled = isButtonDisabled();
     const tooltipText = getTooltipText(
       substepStatus,
@@ -77,13 +88,27 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
     );
   };
 
+  const renderSubstepContent = (metadata: { [key: string]: number }) => {
+    const content: JSX.Element[] = [];
+    for (const [key, value] of Object.entries(metadata)) {
+      if (key !== "avg") {
+        const translationKey = translationsMap[key] || key;
+        content.push(
+          <div key={translationKey} className="metadata-item">
+            <span className="metadata-key">{t(translationKey)}</span>
+            <span className="metadata-value">{`${value}%`}</span>
+          </div>,
+        );
+      }
+    }
+    return content;
+  };
+
   const renderContent = () => {
     if (!isLawyer) {
       return (
         <div className="card-content">
           <p>{t("You are not a lawyer")}</p>
-          <p>{`Step: ${currentStep}`}</p>
-          <p>{`Substep: ${substepName}`}</p>
         </div>
       );
     }
@@ -92,8 +117,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
       case "FILLING_DETAILS":
         return (
           <div className="card-content">
-            <p>{t("fillingDetailsMessage")}</p>
-            {renderButton("fillButtonText")}
+            {substepMetadata && renderSubstepContent(substepMetadata)}
           </div>
         );
       case "LAWYER_REVIEW":

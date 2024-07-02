@@ -1,11 +1,4 @@
-.placeholder-section {
-  padding: 16px;
-  background-color: #fafafa;
-  border: 1px solid #f0f0f0;
-  border-radius: 4px;
-}
-
-.placeholder-section h2 {
+.progress-section h2 {
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 8px;
@@ -20,6 +13,7 @@
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
+  width: 100%;
 }
 
 .progress-item .progress-title {
@@ -68,5 +62,63 @@
 }
 
 .expand-icon {
+  margin-left: 20px;
+}
+
+.progress-item-content {
+  display: flex;
+  align-items: center;
+}
+
+.progress-item-actions {
+  display: flex;
+  align-items: center;
+}
+
+.custom-card {
+  background-color: white;
+}
+
+.card-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.custom-button {
+  border: 1px solid #f2994a;
+  background-color: white;
+  color: #f2994a;
   margin-left: 8px;
+  font-size: 14px;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.metadata-item {
+  width: 100%;
+  display: flex;
+  padding: 2px 0;
+  font-size: 14px;
+  align-items: center;
+}
+
+.metadata-key {
+  font-weight: bold;
+  color: #333;
+  text-align: left;
+}
+
+.metadata-value {
+  margin-left: 10px;
+  color: #27ae60;
 }
