@@ -6,11 +6,21 @@ import {
   RadioSelect,
   SelectBox,
 } from "./Controls";
+import { ErrorMessage, QText } from "../../common/Fonts";
+import {
+  Checkbox,
+  DatePicker,
+  Input,
+  InputRef,
+  Radio,
+  Select,
+  Space,
+} from "antd";
 import { Button } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { refineApi } from "../../../api/caseAPI";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { set } from "lodash";
 import { useTranslation } from "react-i18next";
 import "./TextAreaWithAIRefine.css";
@@ -32,9 +42,24 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
   const [textAreaValue, setTextAreaValue] = useState(props.value);
   const [refineAreaValue, setRefineAreaValue] = useState("");
   const [showRefineArea, setShowRefineArea] = useState(false);
+  const inputRef = useRef<InputRef>(null);
 
   const handleRefineAreaChange = (value: string) => {
     setRefineAreaValue(value);
+  };
+
+  const onTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (props.disabled) return;
+    const cursorPosition = e.target.selectionStart;
+    const value = props.onChange(e.target.value);
+    setTextAreaValue(value);
+    if (inputRef.current) {
+      const inputElement = inputRef.current as unknown as HTMLInputElement;
+      setTimeout(() => {
+        inputElement.selectionStart = cursorPosition;
+        inputElement.selectionEnd = cursorPosition;
+      }, 0);
+    }
   };
 
   const replaceWithRefinedText = () => {
@@ -69,14 +94,24 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
 
   return (
     <div>
-      <QTextArea
-        placeholder={props.placeholder}
-        value={textAreaValue}
-        onChange={props.onChange}
-        disabled={props.disabled}
-        fieldKey={props.fieldKey}
-        className={props.className}
-      />
+      <div className="text-box-container">
+        <TextArea
+          rows={4}
+          ref={inputRef}
+          className={
+            "text-box" + (props.className ? ` ${props.className}` : "")
+          }
+          placeholder={props.placeholder}
+          value={textAreaValue}
+          onChange={onTextAreaChange}
+          disabled={props.disabled || false}
+        />
+        {textAreaValue && (
+          <div className="inline-placeholder">
+            <QText level="placeholder">{props.placeholder}</QText>
+          </div>
+        )}
+      </div>
       {showRefineArea ? (
         <div>
           <TextArea

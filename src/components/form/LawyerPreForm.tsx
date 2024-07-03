@@ -252,12 +252,12 @@ export function LawyerPreForm() {
                 className="email-input-preForm"
               />
               <Button
-              type="primary"
-              onClick={handleFormSubmit}
-              className="email-send-button-preForm"
-              disabled={isEmailSendButtonDisabled}
+                type="primary"
+                onClick={handleFormSubmit}
+                className="email-send-button-preForm"
+                disabled={isEmailSendButtonDisabled}
               >
-              {t("Send")}
+                {t("Send")}
               </Button>
             </div>
           </div>
