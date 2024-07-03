@@ -9,5 +9,4 @@ module.exports = {
   semi: true,
   printWidth: 160,
   arrowParens: "avoid",
-  singleAttributePerLine: false,
 };
