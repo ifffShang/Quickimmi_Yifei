@@ -20,6 +20,10 @@
   "Category": "文件分类",
   "Uploader": "上传者",
   "UploadedAt": "上传时间",
+  "RefineWithAI": "使用AI润色",
+  "Use": "使用",
+  "Rewrite": "重写",
+  "Discard": "放弃",
 
   "Home": "首页",
   "AboutUs": "关于我们",
@@ -119,7 +123,7 @@
   "TravelDocument": "旅行证件",
   "DocumentType": "证件类型",
   "SelectDocumentType": "选择证件类型",
-  
+
   "Dashboard": {
     "Dashboard": "仪表盘",
     "ReturnToDashboard": "返回仪表盘",

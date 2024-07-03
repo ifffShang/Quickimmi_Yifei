@@ -438,3 +438,23 @@ export async function getDocumentTypesApi(
   });
   return <DocumentType[]>res.data;
 }
+
+export async function refineApi(
+  accessToken: string,
+  role: Role,
+  type: string,
+  content: string,
+): Promise<string> {
+  const requestDto = {
+    type,
+    content,
+  };
+  const res = await performApiRequest({
+    endPoint: `api/case/asylum/refine`,
+    method: "POST",
+    data: requestDto,
+    accessToken,
+    role,
+  });
+  return <string>res.data;
+}
