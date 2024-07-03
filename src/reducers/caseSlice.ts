@@ -158,6 +158,8 @@ export const caseSlice = createSlice({
         );
       state.indexLevel1 = correctedIndexLevel1;
       state.indexLevel2 = correctedIndexLevel2;
+      state.currentStep =
+        state.form.steps[correctedIndexLevel1].steps[correctedIndexLevel2];
       const { isFirstStep, isLastStep } = checkFirstAndLastStep(
         state.indexLevel1,
         state.indexLevel2,

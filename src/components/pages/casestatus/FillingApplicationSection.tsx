@@ -7,6 +7,8 @@ import {
 } from "@ant-design/icons";
 import { Tag } from "antd";
 import CaseProgressExpandedCard from "./CaseProgressExpandedCard";
+import { useParams, useNavigate } from "react-router-dom";
+
 interface FillingApplicationSectionProps {
   currentStepDetails: any;
   expandedStep: string | null;
@@ -22,6 +24,9 @@ const FillingApplicationSection: React.FC<FillingApplicationSectionProps> = ({
   isLawyer,
   t,
 }) => {
+  const { id } = useParams<{ id?: string }>();
+  const navigate = useNavigate();
+
   const fillingDetailsSubstep = currentStepDetails?.substeps.find(
     (substep: any) => substep.name === "FILLING_DETAILS",
   );
@@ -32,10 +37,26 @@ const FillingApplicationSection: React.FC<FillingApplicationSectionProps> = ({
   }
 
   const metadataFields = [
-    { field: "personal_information", title: "PersonalInformation" },
-    { field: "family_information", title: "FamilyInformation" },
-    { field: "background_information", title: "BackgroundInformation" },
-    { field: "application_information", title: "ApplicationInformation" },
+    {
+      field: "personal_information",
+      title: "PersonalInformation",
+      sectionIndex: 0,
+    },
+    {
+      field: "family_information",
+      title: "FamilyInformation",
+      sectionIndex: 1,
+    },
+    {
+      field: "background_information",
+      title: "BackgroundInformation",
+      sectionIndex: 2,
+    },
+    {
+      field: "application_information",
+      title: "ApplicationInformation",
+      sectionIndex: 3,
+    },
   ];
 
   const renderIconForFillingApplication = (percentage: number) => {
@@ -54,10 +75,15 @@ const FillingApplicationSection: React.FC<FillingApplicationSectionProps> = ({
     </Tag>
   );
 
+  const handleGoCompleteClick = (sectionIndex: number) => {
+    navigate(`/case/${id}?section=${sectionIndex}&subsection=0`);
+  };
+
   const renderProgressItem = (
     title: string,
     percentage: number,
     stepName: string,
+    sectionIndex: number,
   ) => (
     <div className="progress-item" key={stepName}>
       <div className="progress-item-content">
@@ -71,7 +97,12 @@ const FillingApplicationSection: React.FC<FillingApplicationSectionProps> = ({
       </div>
       <div className="progress-item-actions">
         {percentage < 100 && (
-          <span className="go-complete">{t("Go Complete")}</span>
+          <span
+            className="go-complete"
+            onClick={() => handleGoCompleteClick(sectionIndex)}
+          >
+            {t("Go Complete")}
+          </span>
         )}
         <span
           className="expand-icon"
@@ -92,12 +123,13 @@ const FillingApplicationSection: React.FC<FillingApplicationSectionProps> = ({
       <h2>{t("fillingDetailsMessage")}:</h2>
       {metadata && (
         <>
-          {metadataFields.map(({ field, title }, index) => (
+          {metadataFields.map(({ field, title, sectionIndex }, index) => (
             <React.Fragment key={field}>
               {renderProgressItem(
                 title,
                 metadata.percentage[field].avg,
                 field.toUpperCase(),
+                sectionIndex,
               )}
               {expandedStep === field.toUpperCase() && (
                 <div className="expanded-card-container">

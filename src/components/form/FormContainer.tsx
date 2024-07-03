@@ -54,8 +54,8 @@ export function FormContainer() {
     ) {
       dispatch(
         setIndexLevel2({
-          indexLevel1: indexLevel1,
-          indexLevel2: indexLevel2,
+          indexLevel1: correctedIndexLevel1,
+          indexLevel2: correctedIndexLevel2,
         }),
       );
     }

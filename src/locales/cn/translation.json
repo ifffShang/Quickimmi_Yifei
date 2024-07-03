@@ -168,7 +168,7 @@
   "INTERVIEW": "面试",
   "FINAL_REVIEW": "最终审核",
   "RESULT": "结果",
-  "fillingDetailsMessage": "正在填写您创建的案件申请详情，请您完成填写或者通知客户完成填写",
+  "fillingDetailsMessage": "请填写案件申请信息",
   "fillButtonText": "填写",
   "lawyerReviewMessage": "案件信息填写完毕，请尽快审核并生成申请文件。",
   "reviewButtonText": "审核",
@@ -192,6 +192,7 @@
   "cannotUpdateThisStepTooltip": "您只能更新当前步骤，其他完成步骤或者还未开始步骤不能更新。",
   "stepCompletedTooltip": "当前步骤已经完成，不能再更新。",
   "Please provide complete and accurate application information": "请提供完整准确的申请信息",
+  "Go Complete": "去填表",
 
   "PersonalInformation": "个人信息",
   "BasicInformation": "基本信息",

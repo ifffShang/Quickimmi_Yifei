@@ -1,6 +1,6 @@
 import { CheckCircleFilled, LeftCircleOutlined } from "@ant-design/icons";
 import { Collapse, CollapseProps } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useFormTranslation } from "../../hooks/commonHooks";
 import { ScreenSize } from "../../model/commonModels";
@@ -10,8 +10,10 @@ import { Menu, MenuItem } from "../common/Menu";
 import { NavDown, NavUp } from "../icons/ArrowDown";
 import "./FormNavigation.css";
 import { StandaloneSteps } from "./parts/StandaloneSteps";
+import { useEffect, useState } from "react";
 
 export function FormNavigation() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const { wt, t } = useFormTranslation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -162,7 +164,7 @@ export function FormNavigation() {
       </div> */}
       <Collapse
         className="form-navigation-collapse"
-        defaultActiveKey={indexLevel1}
+        defaultActiveKey={parseInt(searchParams.get("section") ?? "0")}
         expandIcon={expandIcon}
         expandIconPosition="end"
         size="large"
