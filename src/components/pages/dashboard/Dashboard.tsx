@@ -41,13 +41,16 @@ export function Dashboard() {
 
     try {
       let cases;
+      let data;
       if (isLawyer) {
-        cases = await getCasesByLawyerApi(userId!, accessToken, role);
+        data = await getCasesByLawyerApi(userId!, accessToken, role);
+        cases = data.cases;
         console.log(`Number of cases assigned to the lawyer: ${cases.length}`);
         console.log("lawyerId", userId);
         cases.forEach(c => console.log(`Case ID: ${c.id}`));
       } else {
-        cases = await getCasesApi(userId!, accessToken, role);
+        data = await getCasesApi(userId!, accessToken, role);
+        cases = data.cases;
         console.log(
           `Number of cases assigned to the customer: ${cases.length}`,
         );

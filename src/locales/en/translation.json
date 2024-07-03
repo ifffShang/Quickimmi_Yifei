@@ -20,6 +20,10 @@
   "Category": "Category",
   "Uploader": "Uploader",
   "UploadedAt": "Uploaded At",
+  "RefineWithAI": "Refine with AI",
+  "Use": "Use",
+  "Rewrite": "Rewrite",
+  "Discard": "Discard",
 
   "Home": "Home",
   "AboutUs": "About us",
