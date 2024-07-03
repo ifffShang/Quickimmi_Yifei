@@ -93,6 +93,7 @@ export function getPercentage(
   fields: IFormField[] | undefined,
   profile: AsylumCaseProfile,
   fieldArrValues?: any,
+  index?: number,
 ) {
   let total = 0,
     fulfilled = 0;
@@ -134,7 +135,7 @@ export function getPercentage(
           let hasTrue = false;
           for (let i = 0; i < visibilityArray.length; i++) {
             const [key, value] = visibilityArray[i].split("=");
-            const caseDetailValue = getCaseDetailValue(profile, key, 0);
+            const caseDetailValue = getCaseDetailValue(profile, key, index);
             if (
               caseDetailValue === value ||
               (!caseDetailValue && (value === "null" || value === "undefined"))
@@ -148,61 +149,35 @@ export function getPercentage(
         }
       }
 
-      const { total: subTotal, fulfilled: subFulfilled } = getPercentage(
-        field.fields,
-        profile,
-        sectionFieldValue,
-      );
-      total += subTotal;
-      fulfilled += subFulfilled;
-
-      console.log(
-        "*** Removable section: ",
-        total,
-        fulfilled,
-        fieldValue,
-        field.control,
-      );
-    } else {
       if (
-        fieldArrValues &&
-        fieldArrValues.arr &&
-        fieldArrValues.arr.length >= 0
+        sectionFieldValue &&
+        sectionFieldValue.arr &&
+        sectionFieldValue.arr.length >= 0
       ) {
-        if (fieldArrValues.arr.length === 0) {
+        if (sectionFieldValue.arr.length === 0) {
           return { total: 0, fulfilled: 0 };
         }
 
-        fieldArrValues.arr.forEach((_item: any, index: number) => {
-          if (excludeForPercentageCalc(field.control)) {
-            return;
-          }
-          if (field.key) {
-            fieldValue = getFieldValue(
-              profile,
-              field.key,
-              field.control,
-              field.options,
-              field.format,
-              index,
-            );
-            if (
-              fieldValue !== null &&
-              fieldValue !== undefined &&
-              fieldValue !== ""
-            ) {
-              fulfilled++;
-            }
-            total++;
-          }
+        sectionFieldValue.arr.forEach((_item: any, index: number) => {
+          const { total: subTotal, fulfilled: subFulfilled } = getPercentage(
+            field.fields,
+            profile,
+            sectionFieldValue,
+            index,
+          );
+          total += subTotal;
+          fulfilled += subFulfilled;
         });
-      } else if (field.key) {
+      }
+    } else {
+      if (field.key) {
         fieldValue = getFieldValue(
           profile,
           field.key,
           field.control,
           field.options,
           field.format,
+          index,
         );
 
         if (
