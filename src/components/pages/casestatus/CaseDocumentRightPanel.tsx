@@ -123,13 +123,10 @@ const CaseDocumentRightPanel: React.FC = () => {
   const { loading, error, documents, fetchDocuments } = useFetchDocuments();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [currentFile, setCurrentFile] = useState<File | null>(null);
-  const [selectedDocumentType, setSelectedDocumentType] =
-    useState<DocumentType>("PASSPORT_MAIN");
+  const [selectedDocumentType, setSelectedDocumentType] = useState<DocumentType>("PASSPORT_MAIN");
   const [fileExt, setFileExt] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [filteredDocuments, setFilteredDocuments] = useState<
-    UploadedDocument[]
-  >([]);
+  const [filteredDocuments, setFilteredDocuments] = useState<UploadedDocument[]>([]);
   const [uploadApprove, setUploadApprove] = useState(true);
   const [showUploadProgress, setShowUploadProgress] = useState(false);
   const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
@@ -342,7 +339,6 @@ const CaseDocumentRightPanel: React.FC = () => {
     try {
       const documentTypeList = await getDocumentTypesApi(accessToken, userRole);
       setDocumentTypes(documentTypeList);
-      console.log("document types", documentTypeList);
     } catch (error) {
       message.error("Error fetching document types");
       console.error(error);
@@ -477,7 +473,7 @@ const CaseDocumentRightPanel: React.FC = () => {
       {/* Pop up modal section */}
       <Modal
         title={t("UploadDocument")}
-        visible={isModalVisible}
+        open={isModalVisible}
         onOk={handleModalOk}
         onCancel={handleModalCancel}
         width={640}

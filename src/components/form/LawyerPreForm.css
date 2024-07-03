@@ -69,24 +69,37 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 50rem;
 }
 
-.email-modal-content-preForm {
+.email-modal-preForm-container {
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   justify-content: space-around;
 
-  width: 30rem;
-  height: 20rem;
+  width: 700px;
+  height: 320px;
+}
+.email-modal-content-preForm {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+.email-modal-inputSection-preForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .email-input-preForm {
-  margin-bottom: 20px;
+  height: 40px;
+  width: 350px;
+  margin-top: 20px;
 }
-
 .email-send-button-preForm {
-  align-self: center;
   width: 100px;
+  margin-bottom: 30px;
+  align-self: self-end;
 }
