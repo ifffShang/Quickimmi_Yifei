@@ -27,7 +27,7 @@ const useRenderingTrace = (componentName: string, propsAndStates: any) => {
 
   useEffect(() => {
     const diff = ObjectUtils.diff(prev.current, propsAndStates, true);
-    console.debug(`[${componentName}] Diff:`, diff);
+    console.log(`[${componentName}] Diff:`, diff);
     prev.current = propsAndStates;
   });
 };

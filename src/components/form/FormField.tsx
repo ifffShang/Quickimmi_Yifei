@@ -50,13 +50,6 @@ export interface FormFieldProps {
   visibility?: string;
   hideHeader?: boolean;
   fieldIndex?: number;
-  countFulfilledFields: (
-    control: ControlType,
-    fieldKey: string,
-    fieldValue: any,
-    lastField: boolean,
-    fieldIndex?: number,
-  ) => any;
   lastField: boolean;
 }
 
@@ -75,14 +68,6 @@ export function FormField(props: FormFieldProps) {
     props.control,
     props.options,
     props.format,
-    props.fieldIndex,
-  );
-
-  props.countFulfilledFields(
-    props.control,
-    props.fieldKey,
-    fieldValue,
-    props.lastField,
     props.fieldIndex,
   );
 
@@ -417,7 +402,6 @@ export function FormField(props: FormFieldProps) {
                   format={field.format}
                   visibility={field.visibility}
                   fieldIndex={props.fieldIndex}
-                  countFulfilledFields={props.countFulfilledFields}
                   lastField={
                     props.lastField &&
                     (props.subFields
@@ -471,9 +455,6 @@ export function FormField(props: FormFieldProps) {
                 props.fieldIndex,
               );
             }
-            if (props.lastField) {
-              props.countFulfilledFields("percentage", "", "", true);
-            }
             return <></>;
           }
         }
@@ -492,7 +473,6 @@ export function FormField(props: FormFieldProps) {
                           arrIndex,
                         );
                         dispatchFormValue(dispatch, keyValues, arrIndex);
-                        props.countFulfilledFields("percentage", "", "", true);
                       }}
                     />
                   )}
@@ -513,7 +493,6 @@ export function FormField(props: FormFieldProps) {
                         format={field.format}
                         visibility={field.visibility}
                         fieldIndex={arrIndex}
-                        countFulfilledFields={props.countFulfilledFields}
                         lastField={
                           props.lastField &&
                           (props.subFields
@@ -547,7 +526,6 @@ export function FormField(props: FormFieldProps) {
                   format={field.format}
                   visibility={field.visibility}
                   fieldIndex={props.fieldIndex}
-                  countFulfilledFields={props.countFulfilledFields}
                   lastField={
                     props.lastField &&
                     (props.subFields
