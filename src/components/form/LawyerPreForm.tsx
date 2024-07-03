@@ -8,6 +8,7 @@ import { resetForm, updateCurrentCaseId } from "../../reducers/caseSlice";
 import { validateEmail } from "../../utils/utils";
 import { QText } from "../common/Fonts";
 import { QReturnLink } from "../common/Links";
+import { PriceLaywer } from "../icons/PriceArea";
 import "./LawyerPreForm.css";
 
 const { Option } = Select;
@@ -226,32 +227,40 @@ export function LawyerPreForm() {
       </div>
 
       <Modal
-        visible={isModalVisible}
+        open={isModalVisible}
         onCancel={handleCancel}
         footer={null}
+        width={750}
         className="email-modal-preForm"
       >
-        <div className="email-modal-content-preForm">
+        <div className="email-modal-preForm-container">
           <div>
             <QText level="large">{t("InputClientEmail")}</QText>
             <QText level="small" color="gray">
               {t("InviteClientViaEmail")}
             </QText>
           </div>
-          <Input
-            placeholder="Enter client email"
-            value={providedCustomerEmail}
-            onChange={e => setProvidedCustomerEmail(e.target.value)}
-            className="email-input-preForm"
-          />
-          <Button
-            type="primary"
-            onClick={handleFormSubmit}
-            className="email-send-button-preForm"
-            disabled={isEmailSendButtonDisabled}
-          >
-            {t("Send")}
-          </Button>
+          <div className="email-modal-content-preForm">
+            <div className="email-modal-logo-preform">
+              <PriceLaywer />
+            </div>
+            <div className="email-modal-inputSection-preForm">
+              <Input
+                placeholder={t("EnterClientEmail")}
+                value={providedCustomerEmail}
+                onChange={e => setProvidedCustomerEmail(e.target.value)}
+                className="email-input-preForm"
+              />
+              <Button
+                type="primary"
+                onClick={handleFormSubmit}
+                className="email-send-button-preForm"
+                disabled={isEmailSendButtonDisabled}
+              >
+                {t("Send")}
+              </Button>
+            </div>
+          </div>
         </div>
       </Modal>
     </div>

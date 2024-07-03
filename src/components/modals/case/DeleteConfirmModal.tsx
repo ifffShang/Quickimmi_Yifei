@@ -23,7 +23,7 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
 
   return (
     <Modal
-      visible={visible}
+      open={visible}
       onOk={onConfirm}
       onCancel={onCancel}
       className="delete-confirm-modal-container"

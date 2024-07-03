@@ -68,4 +68,5 @@ export type ControlType =
   | "component_mailing_same_as_residential"
   | "component_entry_records"
   | "component_add_item"
+  | "component_textarea_ai_refine"
   | "percentage"; // used only for percentage calculation

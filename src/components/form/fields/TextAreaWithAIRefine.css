@@ -1,0 +1,38 @@
+.discard-button {
+  color: red;
+  border: 1px solid grey;
+  background-color: white;
+  margin: 10px 5px;
+  /* padding: 16px; */
+  /* font-size: 14px; */
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.refine-button {
+  color: green;
+  border: 1px solid green;
+  background-color: white;
+  margin: 10px 5px;
+  /* padding: 16px; */
+  /* font-size: 14px; */
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.rewrite-button {
+  color: black;
+  border: 1px solid grey;
+  background-color: white;
+  margin: 10px 5px;
+  /* padding: 16px; */
+  /* font-size: 14px; */
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}

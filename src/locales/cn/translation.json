@@ -13,12 +13,17 @@
   "Upload": "上传",
   "Return": "返回",
   "Search": "筛选",
+  "Cancel": "取消",
   "Generate Documents": "生成文件",
   "UploadDocument": "上传文件",
   "CaseDocument": "附属文件",
   "Category": "文件分类",
   "Uploader": "上传者",
   "UploadedAt": "上传时间",
+  "RefineWithAI": "使用AI润色",
+  "Use": "使用",
+  "Rewrite": "重写",
+  "Discard": "放弃",
 
   "Home": "首页",
   "AboutUs": "关于我们",
@@ -116,7 +121,9 @@
   "Confirm": "确认",
   "IdentificationCard": "身份证",
   "TravelDocument": "旅行证件",
+  "DocumentType": "证件类型",
   "SelectDocumentType": "选择证件类型",
+
   "Dashboard": {
     "Dashboard": "仪表盘",
     "ReturnToDashboard": "返回仪表盘",
@@ -148,6 +155,7 @@
   "Submitted": "已提交",
   "InputClientEmail": "输入客户邮箱",
   "InviteClientViaEmail": "通过邮件发送注册邀请给客户",
+  "EnterClientEmail": "输入客户的邮箱地址",
   "InputFileNameToSearch": "输入文件名称搜索",
 
   "CaseProgressTitle": "案件进展",
@@ -164,7 +172,7 @@
   "INTERVIEW": "面试",
   "FINAL_REVIEW": "最终审核",
   "RESULT": "结果",
-  "fillingDetailsMessage": "正在填写您创建的案件申请详情，请您完成填写或者通知客户完成填写。",
+  "fillingDetailsMessage": "请填写案件申请信息",
   "fillButtonText": "填写",
   "lawyerReviewMessage": "案件信息填写完毕，请尽快审核并生成申请文件。",
   "reviewButtonText": "审核",
@@ -188,6 +196,7 @@
   "cannotUpdateThisStepTooltip": "您只能更新当前步骤，其他完成步骤或者还未开始步骤不能更新。",
   "stepCompletedTooltip": "当前步骤已经完成，不能再更新。",
   "Please provide complete and accurate application information": "请提供完整准确的申请信息",
+  "Go Complete": "去填表",
 
   "PersonalInformation": "个人信息",
   "BasicInformation": "基本信息",

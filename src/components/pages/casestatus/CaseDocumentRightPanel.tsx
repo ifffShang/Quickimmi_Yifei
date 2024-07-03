@@ -342,7 +342,6 @@ const CaseDocumentRightPanel: React.FC = () => {
     try {
       const documentTypeList = await getDocumentTypesApi(accessToken, userRole);
       setDocumentTypes(documentTypeList);
-      console.log("document types", documentTypeList);
     } catch (error) {
       message.error("Error fetching document types");
       console.error(error);
@@ -477,7 +476,7 @@ const CaseDocumentRightPanel: React.FC = () => {
       {/* Pop up modal section */}
       <Modal
         title={t("UploadDocument")}
-        visible={isModalVisible}
+        open={isModalVisible}
         onOk={handleModalOk}
         onCancel={handleModalCancel}
         width={640}

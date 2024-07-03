@@ -13,12 +13,17 @@
   "Upload": "Upload",
   "Return": "Return",
   "Search": "Search",
+  "Cancel": "Cancel",
   "Generate Documents": "Generate Documents",
   "UploadDocument": "Upload Document",
   "CaseDocument": "Case Document",
   "Category": "Category",
   "Uploader": "Uploader",
   "UploadedAt": "Uploaded At",
+  "RefineWithAI": "Refine with AI",
+  "Use": "Use",
+  "Rewrite": "Rewrite",
+  "Discard": "Discard",
 
   "Home": "Home",
   "AboutUs": "About us",
@@ -148,6 +153,7 @@
   "Submitted": "Submitted",
   "InputClientEmail": "Input client email",
   "InviteClientViaEmail": "Sent sign up invite to customer via email",
+  "EnterClientEmail": "Enter client email address",
   "InputFileNameToSearch": "Input file name to search",
 
   "CaseProgressTitle": "Progress",
@@ -164,7 +170,7 @@
   "INTERVIEW": "Interview",
   "FINAL_REVIEW": "Final Review",
   "RESULT": "Result",
-  "fillingDetailsMessage": "Filling in the case details you created. Please complete the filling or notify the client to complete it.",
+  "fillingDetailsMessage": "Please fill in the case details",
   "fillButtonText": "Fill",
   "lawyerReviewMessage": "Case information has been filled in. Please review and generate the application documents as soon as possible.",
   "reviewButtonText": "Review",
@@ -188,6 +194,7 @@
   "cannotUpdateThisStepTooltip": "You can only update the step which is in progress.",
   "stepCompletedTooltip": "This step is completed and cannot be updated.",
   "Please provide complete and accurate application information": "Please provide complete and accurate application information",
+  "Go Complete": "Go Complete",
 
   "PersonalInformation": "Personal",
   "BasicInformation": "Basic",
@@ -217,6 +224,7 @@
 
   "IdentificationCard": "Identification Card",
   "TravelDocument": "Travel Document",
+  "DocumentType": "Document Type",
   "SelectDocumentType": "Select a document type",
 
   "FirstName": "First Name",

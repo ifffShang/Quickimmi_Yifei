@@ -36,6 +36,7 @@ import { SameAddressCheckbox } from "./fields/SameAddressCheckbox";
 import { MultipleTextboxesWithNA } from "./fields/MultipleTextboxesWithNA";
 import { RemovableSectionHeader } from "./parts/RemovableSectionHeader";
 import { TextboxWithNA } from "./fields/TextboxWithNA";
+import { TextAreaWithAIRefine } from "./fields/TextAreaWithAIRefine";
 
 export interface FormFieldProps {
   fieldKey: string;
@@ -252,6 +253,17 @@ export function FormField(props: FormFieldProps) {
           fieldKey={props.fieldKey}
           onChange={onTextChange}
         />
+      );
+    case "component_textarea_ai_refine":
+      return (
+        <div>
+          <TextAreaWithAIRefine
+            placeholder={placeholder}
+            value={fieldValue}
+            fieldKey={props.fieldKey}
+            onChange={onTextChange}
+          />
+        </div>
       );
     case "radio":
       return (
