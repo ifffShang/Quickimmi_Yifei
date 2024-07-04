@@ -35,8 +35,8 @@ function useFetchCaseSummary() {
 
     try {
       setLoading(true);
-      const data = await getCaseSummaryApi(id, accessToken, role);
-      setCaseSummary(data);
+      // const data = await getCaseSummaryApi(id, accessToken, role);
+      // setCaseSummary(data);
       // Mock data
       const mockCaseSummary: CaseSummary = {
         id: 55,
@@ -47,7 +47,7 @@ function useFetchCaseSummary() {
         applyWithSpouse: false,
         numberOfChildren: 2,
         numberOfApplyingChildren: 1,
-        currentStep: "FILLING_APPLICATION",
+        currentStep: "REVIEW_AND_SIGN",
         progress: {
           steps: [
             {
@@ -202,7 +202,7 @@ function useFetchCaseSummary() {
         createdAt: 1715912208190,
         updatedAt: 1718259472477,
       };
-      // setCaseSummary(mockCaseSummary);
+      setCaseSummary(mockCaseSummary);
       setLoading(false);
     } catch (error) {
       console.error("Failed to fetch case summary:", error);

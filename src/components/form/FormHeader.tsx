@@ -20,13 +20,13 @@ export function FormHeader() {
   const role = useAppSelector(state => state.auth.role);
   const percentageNumber = percentage?.overall?.avg ?? 0;
 
-  const generateDocument = () => {
-    if (!caseId || !accessToken) {
-      console.error("Case ID or access token is not available");
-      return;
-    }
-    generateDocumentsApi(accessToken, caseId, role);
-  };
+  // const generateDocument = () => {
+  //   if (!caseId || !accessToken) {
+  //     console.error("Case ID or access token is not available");
+  //     return;
+  //   }
+  //   generateDocumentsApi(accessToken, caseId, role);
+  // };
 
   return (
     <div className="form-header">
@@ -63,13 +63,13 @@ export function FormHeader() {
         >
           {t("Save")}
         </Button>
-        <Button
-          type="primary"
-          onClick={generateDocument}
-          disabled={percentageNumber !== 100}
-        >
-          {t("Generate Documents")}
-        </Button>
+        {/*<Button*/}
+        {/*  type="primary"*/}
+        {/*  onClick={generateDocument}*/}
+        {/*  disabled={percentageNumber !== 100}*/}
+        {/*>*/}
+        {/*  {t("Generate Documents")}*/}
+        {/*</Button>*/}
       </div>
       <div className="form-header-icon">
         <EditForm />

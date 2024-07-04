@@ -1,16 +1,24 @@
+import React, { useEffect, useRef, useState } from "react";
 import type { TableProps } from "antd";
-import { Button, Table } from "antd";
-import { useRef, useState } from "react";
+import { Button, Table, Tooltip } from "antd";
 import { useTranslation } from "react-i18next";
 import {
+  generateDocumentsApi,
   generatePresignedUrlByDocumentId,
   updateDocumentStatus,
   uploadFileToPresignUrl,
+  getDocumentsApi,
 } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { useDocumentsOnLoad } from "../../../hooks/commonHooks";
+import {
+  clearDocumentUrls,
+  updateUploadedDocuments,
+} from "../../../reducers/formSlice";
 import { DocumentType, DocumentTypeMap } from "../../../model/commonModels";
 import "./DocumentList.css";
+import { UploadedDocument } from "../../../model/apiModels";
+import { useDocumentsOnLoad } from "../../../hooks/commonHooks";
+import { downloadDocument } from "../../../utils/utils";
 
 const IncludedFileTypes = ["asylum_coverletter", "g-28", "i-589"];
 
@@ -86,10 +94,71 @@ export function DocumentList() {
     replaceLoading: replaceLoading,
   });
 
+  const fetchDocuments = async () => {
+    if (!accessToken || !caseId || caseId === 0) {
+      console.error("Access token or case id is missing");
+      return;
+    }
+
+    if (
+      replaceLoading ||
+      replaceLoading === undefined ||
+      replaceLoading === null
+    ) {
+      return;
+    }
+
+    setLoading(true);
+    dispatch(clearDocumentUrls());
+    try {
+      const documents = await getDocumentsApi(accessToken, caseId, role);
+      if (!documents) {
+        throw new Error("Failed to get documents");
+      }
+      const downloadPromises = documents
+        .filter(doc => doc.status === "uploaded")
+        .map(doc => downloadDocument(doc.presignUrl, { ...doc }));
+
+      const uploadedDocs = await Promise.all(downloadPromises);
+      dispatch(updateUploadedDocuments(uploadedDocs));
+    } catch (error) {
+      console.error("Error fetching documents:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const onReplaceLinkClick = () => {
     if (replaceFileControl.current) {
       setReplaceLoading(true);
       replaceFileControl.current.click();
+    }
+  };
+
+  const generateDocument = async () => {
+    if (!caseId || !accessToken) {
+      console.error("Case ID or access token is not available");
+      return;
+    }
+    setLoading(true);
+    try {
+      const isSuccessful = await generateDocumentsApi(
+        accessToken,
+        caseId,
+        role,
+      );
+      if (isSuccessful) {
+        setTimeout(async () => {
+          await fetchDocuments();
+          setLoading(false);
+        }, 2000);
+      } else {
+        console.error("Document generation failed");
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error("Error generating documents: ", error);
+      setLoading(false);
     }
   };
 
@@ -205,12 +274,21 @@ export function DocumentList() {
       };
     });
 
+  const documentsExist = uploadedDocumentsInTable.length > 0;
+
   return (
     <div className="document-list">
       <div className="document-list-inner">
-        <Button type="primary" className="document-list-btn">
-          {t("Send for Signature")}
-        </Button>
+        <Tooltip title={documentsExist ? t("Documents already generated") : ""}>
+          <Button
+            type="primary"
+            onClick={generateDocument}
+            className="document-list-btn"
+            disabled={documentsExist}
+          >
+            {t("Generate Documents")}
+          </Button>
+        </Tooltip>
         <Table
           loading={loading || replaceLoading}
           bordered={false}

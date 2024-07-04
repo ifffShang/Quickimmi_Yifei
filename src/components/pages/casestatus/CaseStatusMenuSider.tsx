@@ -22,7 +22,7 @@ const CaseStatusMenuSider: React.FC = () => {
     } else if (key === "2") {
       navigate(`/casedocuments/${caseId}`);
     } else if (key === "3") {
-      navigate(`/case/${caseId}`);
+      navigate(`/case/${caseId}?section=0&subsection=0`);
     } else {
       // Add other navigation logic here if needed
       return;

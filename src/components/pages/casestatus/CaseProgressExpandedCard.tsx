@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Button, Tooltip } from "antd";
 import { useTranslation } from "react-i18next";
+import { useNavigate, useParams } from "react-router-dom";
 
 interface ExpandedCardProps {
   isLawyer: boolean;
@@ -36,6 +37,9 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
     i589_fields_employment_information: "EmploymentInformation",
     i589_fields_asylum_claim: "AsylumClaim",
   };
+  const navigate = useNavigate();
+  const { id } = useParams<{ id?: string }>();
+
   const getTooltipText = (
     stepStatus: string | null,
     currentStepStatus: string,
@@ -65,7 +69,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
     return !inProgressStepFound;
   };
 
-  const renderButton = (textKey: string) => {
+  const renderButton = (textKey: string, onClick?: () => void) => {
     if (!progressSteps) return null;
     const buttonDisabled = isButtonDisabled();
     const tooltipText = getTooltipText(
@@ -76,7 +80,11 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
     );
 
     const button = (
-      <Button className="custom-button" disabled={buttonDisabled}>
+      <Button
+        className="custom-button"
+        disabled={buttonDisabled}
+        onClick={onClick}
+      >
         {t(textKey)}
       </Button>
     );
@@ -112,19 +120,16 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
         </div>
       );
     }
+    const handleGoCompleteClick = () => {
+      navigate(`/case/${id}?section=4&subsection=0`);
+    };
 
     switch (substepName) {
-      case "FILLING_DETAILS":
-        return (
-          <div className="card-content">
-            {substepMetadata && renderSubstepContent(substepMetadata)}
-          </div>
-        );
       case "LAWYER_REVIEW":
         return (
           <div className="card-content">
             <p>{t("lawyerReviewMessage")}</p>
-            {renderButton("reviewButtonText")}
+            {renderButton("reviewButtonText", handleGoCompleteClick)}
           </div>
         );
       case "CLIENT_SIGNATURE":
