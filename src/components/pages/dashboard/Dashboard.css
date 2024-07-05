@@ -56,3 +56,10 @@
 .dashboard-header h2 {
   margin-bottom: 0;
 }
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; /* Add margin top to ensure space above pagination */
+  padding-bottom: 50px; /* Add padding bottom to ensure space below pagination */
+}
