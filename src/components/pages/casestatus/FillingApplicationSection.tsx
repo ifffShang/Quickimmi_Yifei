@@ -64,7 +64,7 @@ const FillingApplicationSection: React.FC<FillingApplicationSectionProps> = ({
       <CheckCircleOutlined style={{ color: "#52C41A", fontSize: "20px" }} />
     ) : (
       <ExclamationCircleOutlined
-        style={{ color: "#FAAD14", fontSize: "20px" }}
+        style={{ color: "#fa8c16", fontSize: "20px" }}
       />
     );
   };

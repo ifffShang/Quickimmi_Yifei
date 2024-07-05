@@ -101,16 +101,18 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
     for (const [key, value] of Object.entries(metadata)) {
       if (key !== "avg") {
         const translationKey = translationsMap[key] || key;
+        const valueColor = value === 100 ? "#27ae60" : "#FF9900";
         content.push(
-          <div key={translationKey} className="metadata-item">
-            <span className="metadata-key">{t(translationKey)}</span>
-            <span className="metadata-value">{`${value}%`}</span>
-          </div>,
+            <div key={translationKey} className="metadata-item">
+              <span className="metadata-key">{t(translationKey)}</span>
+              <span className="metadata-value" style={{ color: valueColor }}>{`${value}%`}</span>
+            </div>,
         );
       }
     }
     return content;
   };
+
 
   const renderContent = () => {
     if (!isLawyer) {
@@ -125,6 +127,12 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
     };
 
     switch (substepName) {
+      case "FILLING_DETAILS":
+        return (
+            <div className="filling-details-card-content">
+              {substepMetadata && renderSubstepContent(substepMetadata)}
+            </div>
+        );
       case "LAWYER_REVIEW":
         return (
           <div className="card-content">
