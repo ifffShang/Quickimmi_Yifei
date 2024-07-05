@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Button } from "antd";
+import { Button, Pagination } from "antd";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   createNewCaseApi,
   getCasesApi,
@@ -15,17 +15,27 @@ import { NewApplicationIcon } from "../../icons/Dashboard";
 import { CaseCard } from "./CaseCard";
 import "./Dashboard.css";
 import { Role } from "../../../consts/consts";
+import { set } from "lodash";
 
 export function Dashboard() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
+  const location = useLocation();
   const [loading, setLoading] = useState(false);
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const userId = useAppSelector(state => state.auth.userId);
   const isLawyer = useAppSelector(state => state.auth.isLawyer);
   const role = useAppSelector(state => state.auth.role);
   const cases = useAppSelector(state => state.case.cases);
+
+  // Extract query parameters from the URL
+  const query = new URLSearchParams(location.search);
+  const initialPage = parseInt(query.get("page") || "1");
+  const [currentPage, setCurrentPage] = useState(initialPage);
+  const [pageSize, setPageSize] = useState(3); // Adjust page size as needed
+  // const [pageSize, setPageSize] = useState(6); // Adjust page size as needed
+  const [totalItems, setTotalItems] = useState(0);
 
   const getCases = async () => {
     if (!accessToken || !userId) {
@@ -43,14 +53,28 @@ export function Dashboard() {
       let cases;
       let data;
       if (isLawyer) {
-        data = await getCasesByLawyerApi(userId!, accessToken, role);
+        data = await getCasesByLawyerApi(
+          userId!,
+          currentPage,
+          pageSize,
+          accessToken,
+          role,
+        );
         cases = data.cases;
+        setTotalItems(data.metadata.totalItems);
         console.log(`Number of cases assigned to the lawyer: ${cases.length}`);
         console.log("lawyerId", userId);
         cases.forEach(c => console.log(`Case ID: ${c.id}`));
       } else {
-        data = await getCasesApi(userId!, accessToken, role);
+        data = await getCasesApi(
+          userId!,
+          currentPage,
+          pageSize,
+          accessToken,
+          role,
+        );
         cases = data.cases;
+        setTotalItems(data.metadata.totalItems);
         console.log(
           `Number of cases assigned to the customer: ${cases.length}`,
         );
@@ -67,7 +91,21 @@ export function Dashboard() {
 
   useEffect(() => {
     getCases();
-  }, [accessToken, userId]);
+  }, [accessToken, userId, currentPage]);
+
+  useEffect(() => {
+    const query = new URLSearchParams(location.search);
+    const page = parseInt(query.get("page") || "1");
+    setCurrentPage(page);
+  }, [location.search]);
+
+  const handlePageChange = (page, pageSize) => {
+    setCurrentPage(page);
+    setPageSize(pageSize);
+    const query = new URLSearchParams(location.search);
+    query.set("page", page.toString());
+    navigate({ search: query.toString() });
+  };
 
   // Create new applications for Customers
   const CreateNewApplication = async () => {
@@ -179,6 +217,15 @@ export function Dashboard() {
       </div>
 
       {role === Role.LAWYER ? lawyerContent : customerContent}
+      <div className="pagination-container">
+        <Pagination
+          current={currentPage}
+          pageSize={pageSize}
+          total={totalItems}
+          showTotal={total => `Total ${total} items`}
+          onChange={handlePageChange}
+        />
+      </div>
     </div>
   );
 }

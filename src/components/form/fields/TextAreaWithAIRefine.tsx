@@ -10,13 +10,17 @@ import { ErrorMessage, QText } from "../../common/Fonts";
 import {
   Checkbox,
   DatePicker,
-  Input,
+  Card,
+  Button,
   InputRef,
   Radio,
   Select,
   Space,
+  Input,
+  Row,
+  Col,
 } from "antd";
-import { Button } from "antd";
+import { EditOutlined } from "@ant-design/icons";
 import TextArea from "antd/es/input/TextArea";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { refineApi } from "../../../api/caseAPI";
@@ -79,6 +83,8 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
       return;
     }
     try {
+      setRefineAreaValue("");
+      setShowRefineArea(true);
       const refinedText = await refineApi(
         accessToken,
         role,
@@ -86,7 +92,6 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
         props.value,
       );
       setRefineAreaValue(refinedText);
-      setShowRefineArea(true);
     } catch (error) {
       console.error("Failed to refine text:", error);
     }
@@ -95,17 +100,6 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
   return (
     <div>
       <div className="text-box-container">
-        <TextArea
-          rows={4}
-          ref={inputRef}
-          className={
-            "text-box" + (props.className ? ` ${props.className}` : "")
-          }
-          placeholder={props.placeholder}
-          value={textAreaValue}
-          onChange={onTextAreaChange}
-          disabled={props.disabled || false}
-        />
         {textAreaValue && (
           <div className="inline-placeholder">
             <QText level="placeholder">{props.placeholder}</QText>
@@ -113,52 +107,100 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
         )}
       </div>
       {showRefineArea ? (
-        <div>
+        <Row>
+          <Col span={12}>
+            <Card title="Original" style={{ width: "100%" }}>
+              <TextArea
+                rows={8}
+                ref={inputRef}
+                className={
+                  "text-box" + (props.className ? ` ${props.className}` : "")
+                }
+                placeholder={props.placeholder}
+                value={textAreaValue}
+                onChange={onTextAreaChange}
+                disabled={props.disabled || false}
+              />
+            </Card>
+          </Col>
+          <Col span={12}>
+            {refineAreaValue ? (
+              <Card
+                title={
+                  <>
+                    Refined
+                    <Button
+                      type="default"
+                      onClick={replaceWithRefinedText}
+                      disabled={props.disabled || false}
+                      className="refine-button"
+                      icon={<EditOutlined />}
+                    >
+                      {t("Use")}
+                    </Button>
+                    <Button
+                      type="default"
+                      onClick={refineText}
+                      disabled={props.disabled || false}
+                      className="rewrite-button"
+                    >
+                      {t("Rewrite")}
+                    </Button>
+                    <Button
+                      type="default"
+                      onClick={discardRefinedText}
+                      disabled={props.disabled || false}
+                      className="discard-button"
+                    >
+                      {t("Discard")}
+                    </Button>
+                  </>
+                }
+                style={{ width: "100%" }}
+              >
+                <TextArea
+                  rows={8}
+                  className={
+                    "text-box" + (props.className ? ` ${props.className}` : "")
+                  }
+                  placeholder={props.placeholder}
+                  value={refineAreaValue}
+                  disabled={props.disabled || false}
+                  onChange={e => handleRefineAreaChange(e.target.value)}
+                />
+              </Card>
+            ) : (
+              <Card>Rewritting...</Card>
+            )}
+          </Col>
+        </Row>
+      ) : (
+        <Card
+          title={
+            <Button
+              type="default"
+              onClick={refineText}
+              disabled={textAreaValue ? false : true}
+              className="refine-button"
+              icon={<EditOutlined />}
+            >
+              {t("RefineWithAI")}
+            </Button>
+          }
+          style={{ width: "100%" }}
+        >
           <TextArea
-            rows={4}
+            rows={8}
+            ref={inputRef}
             className={
               "text-box" + (props.className ? ` ${props.className}` : "")
             }
             placeholder={props.placeholder}
-            value={refineAreaValue}
+            value={textAreaValue}
+            onChange={onTextAreaChange}
             disabled={props.disabled || false}
-            onChange={e => handleRefineAreaChange(e.target.value)}
           />
-          <Button
-            type="default"
-            onClick={replaceWithRefinedText}
-            disabled={props.disabled || false}
-            className="refine-button"
-          >
-            {t("Use")}
-          </Button>
-          <Button
-            type="default"
-            onClick={refineText}
-            disabled={props.disabled || false}
-            className="rewrite-button"
-          >
-            {t("Rewrite")}
-          </Button>
-
-          <Button
-            type="default"
-            onClick={discardRefinedText}
-            disabled={props.disabled || false}
-            className="discard-button"
-          >
-            {t("Discard")}
-          </Button>
-        </div>
-      ) : (
-        <Button
-          type="default"
-          onClick={refineText}
-          disabled={props.disabled || false}
-          className="refine-button"
-        >
-          {t("RefineWithAI")}
-        </Button>
+        </Card>
       )}
     </div>
   );
