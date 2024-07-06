@@ -1,16 +1,13 @@
+import { isArray, isObject } from "lodash";
 import { AsylumCaseProfile, Percentage, Progress } from "../model/apiModels";
 import { ControlType, IForm, IFormField } from "../model/formFlowModels";
 import { getCaseDetailValue, getFieldValue } from "./utils";
 
 export function extractPercentageFromMetadata(progress?: Progress) {
   if (!progress) return null;
-  const fillingApplication = progress.steps.find(
-    step => step.name === "FILLING_APPLICATION",
-  );
+  const fillingApplication = progress.steps.find(step => step.name === "FILLING_APPLICATION");
   if (!fillingApplication) return null;
-  const fillingDetails = fillingApplication.substeps.find(
-    step => step.name === "FILLING_DETAILS",
-  );
+  const fillingDetails = fillingApplication.substeps.find(step => step.name === "FILLING_DETAILS");
   if (!fillingDetails) return null;
 
   if (fillingDetails.metadata) {
@@ -24,10 +21,7 @@ export function buildPercentageObject(form: IForm, progress?: Progress) {
   return fillMissingPercentageProperties(percentage, form);
 }
 
-export function fillMissingPercentageProperties(
-  percentage: Percentage,
-  form: IForm,
-): Percentage {
+export function fillMissingPercentageProperties(percentage: Percentage, form: IForm): Percentage {
   let newPercentage: Percentage = percentage;
   if (!newPercentage) {
     newPercentage = { overall: { avg: 0 } };
@@ -50,11 +44,7 @@ export function fillMissingPercentageProperties(
 }
 
 export function getSubFieldsPercentage(control: ControlType) {
-  return (
-    control === "group" ||
-    control === "section" ||
-    control === "removable_section"
-  );
+  return control === "group" || control === "section" || control === "removable_section";
 }
 
 export function excludeForPercentageCalc(control: ControlType) {
@@ -92,38 +82,29 @@ export function includeForLastField(control: ControlType) {
 export function getPercentage(
   fields: IFormField[] | undefined,
   profile: AsylumCaseProfile,
-  fieldArrValues?: any,
+  arrObj?: any,
   index?: number,
 ) {
   let total = 0,
     fulfilled = 0;
   if (!fields) return { total, fulfilled };
 
-  let fieldValue = "-";
+  let fieldValue: any;
   fields.forEach(field => {
     if (excludeForPercentageCalc(field.control)) {
       return;
     }
     if (getSubFieldsPercentage(field.control)) {
       // For arrays like children, addresses, etc, we need to get the length and then calculate the fields in each array item
-      const sectionFieldValue =
+      const sectionArrObj =
         field.control === "removable_section"
-          ? getFieldValue(
-              profile,
-              field.key,
-              field.control,
-              field.options,
-              field.format,
-            )
-          : fieldArrValues
-            ? fieldArrValues
+          ? getFieldValue(profile, field.key, field.control, field.options, field.format)
+          : arrObj
+            ? arrObj
             : null;
 
       // Check visibility, if it is not visible, return total 0 and fulfilled 0
-      if (
-        field.control === "section" ||
-        field.control === "removable_section"
-      ) {
+      if (field.control === "section" || field.control === "removable_section") {
         if (field.visibility) {
           let visibilityArray;
           //| represents the "or" logic
@@ -136,10 +117,7 @@ export function getPercentage(
           for (let i = 0; i < visibilityArray.length; i++) {
             const [key, value] = visibilityArray[i].split("=");
             const caseDetailValue = getCaseDetailValue(profile, key, index);
-            if (
-              caseDetailValue === value ||
-              (!caseDetailValue && (value === "null" || value === "undefined"))
-            ) {
+            if (caseDetailValue === value || (!caseDetailValue && (value === "null" || value === "undefined"))) {
               hasTrue = true;
             }
           }
@@ -149,56 +127,57 @@ export function getPercentage(
         }
       }
 
-      if (
-        sectionFieldValue &&
-        sectionFieldValue.arr &&
-        sectionFieldValue.arr.length >= 0
-      ) {
-        if (sectionFieldValue.arr.length === 0) {
+      if (sectionArrObj && sectionArrObj.arr && sectionArrObj.arr.length >= 0) {
+        if (sectionArrObj.arr.length === 0) {
           return { total: 0, fulfilled: 0 };
         }
 
-        sectionFieldValue.arr.forEach((_item: any, index: number) => {
+        sectionArrObj.arr.forEach((_item: any, index: number) => {
           const { total: subTotal, fulfilled: subFulfilled } = getPercentage(
             field.fields,
             profile,
-            sectionFieldValue,
+            sectionArrObj,
             index,
           );
           total += subTotal;
           fulfilled += subFulfilled;
         });
+      } else {
+        const { total: subTotal, fulfilled: subFulfilled } = getPercentage(field.fields, profile, sectionArrObj, index);
+        total += subTotal;
+        fulfilled += subFulfilled;
       }
-    } else {
-      if (field.key) {
-        fieldValue = getFieldValue(
-          profile,
-          field.key,
-          field.control,
-          field.options,
-          field.format,
-          index,
-        );
+    } else if (field.key) {
+      fieldValue = getFieldValue(profile, field.key, field.control, field.options, field.format, index);
 
-        if (
-          fieldValue !== null &&
-          fieldValue !== undefined &&
-          fieldValue !== ""
-        ) {
-          fulfilled++;
+      if (isArray(fieldValue)) {
+        // For array of objects like entry records
+        fieldValue.forEach((item: any) => {
+          isObject(item) &&
+            Object.keys(item).forEach(key => {
+              if (item[key] !== null && item[key] !== undefined && item[key] !== "") {
+                fulfilled++;
+              }
+              total++;
+            });
+        });
+      } else {
+        if (fieldValue !== null && fieldValue !== undefined && fieldValue !== "") {
+          // If passportDocumentId is 0, it means it is not filled
+          if (field.key.indexOf("passportDocumentId") === -1 || fieldValue !== 0) {
+            fulfilled++;
+          }
         }
         total++;
       }
     }
-    console.log("*** Field: ", total, fulfilled, fieldValue, field.key);
+    console.log("*** Field: ", total, fulfilled, fieldValue, field.key, field.control);
   });
+
   return { total, fulfilled };
 }
 
-export function getProgressWithPercentage(
-  progress: Progress,
-  percentage: Percentage,
-) {
+export function getProgressWithPercentage(progress: Progress, percentage: Percentage) {
   return {
     ...progress,
     steps: progress.steps.map(step => {

@@ -7,6 +7,7 @@ import {
   InitialChild,
   InitialEducationHistory,
   InitialEmploymentHistory,
+  InitialEntryRecord,
   InitialFamilyMember,
   InitialMember,
   InitialUSAddressHistoryPast5Y,
@@ -67,6 +68,11 @@ function deepAssign(update: any, current: any, init: any) {
 }
 
 export const ArrayFields = [
+  {
+    field: "applicant.entryRecords",
+    overwriteField: "overwriteEntryRecords",
+    default: InitialEntryRecord,
+  },
   {
     field: "family.children",
     overwriteField: "overwriteChildren",
@@ -166,6 +172,10 @@ export const formSlice = createSlice({
       let count = 0;
       Object.entries(state.percentage[sectionId]).forEach(([key, value]) => {
         if (key !== "avg") {
+          if (value === -1) {
+            
+            return;
+          }
           sum += value;
           count++;
         }
@@ -187,18 +197,11 @@ export const formSlice = createSlice({
 
       CacheStore.setPercentage(state.percentage, state.caseId);
     },
-    updateCaseFields: (
-      state,
-      action: PayloadAction<AsylumCaseProfileOptional>,
-    ) => {
+    updateCaseFields: (state, action: PayloadAction<AsylumCaseProfileOptional>) => {
       ArrayFields.forEach(item => {
         const { field, overwriteField } = item;
         if (action.payload[overwriteField]) {
-          _.set(
-            state.applicationCase.profile,
-            field,
-            _.get(action.payload, field) ?? [],
-          );
+          _.set(state.applicationCase.profile, field, _.get(action.payload, field) ?? []);
           delete action.payload[overwriteField];
         }
       });
@@ -208,22 +211,15 @@ export const formSlice = createSlice({
 
       CacheStore.setProfile(state.applicationCase.profile, state.caseId);
     },
-    updatePassportInfo: (
-      state,
-      action: PayloadAction<ParsePassportResponse>,
-    ) => {
-      const fieldKey = action.payload.fieldKey.replace(
-        ".passportDocumentId",
-        "",
-      );
+    updatePassportInfo: (state, action: PayloadAction<ParsePassportResponse>) => {
+      const fieldKey = action.payload.fieldKey.replace(".passportDocumentId", "");
       let payload: any = {
         passportNumber: action.payload.idNumber,
         firstName: action.payload.firstName,
         lastName: action.payload.lastName,
         middleName: action.payload.middleName,
         genderMaleCheckbox: action.payload.gender === "Male" ? "true" : "false",
-        genderFemaleCheckbox:
-          action.payload.gender === "Female" ? "true" : "false",
+        genderFemaleCheckbox: action.payload.gender === "Female" ? "true" : "false",
         nationality: action.payload.nationality,
         birthDate: action.payload.birthDate,
         cityAndCountryOfBirth: action.payload.birthPlace,
@@ -234,53 +230,34 @@ export const formSlice = createSlice({
           expirationDate: action.payload.expireDate,
         };
       }
-      const payloadToUpdate = getUpdateProfileData(
-        fieldKey,
-        payload,
-        action.payload.fieldIndex,
-      );
+      const payloadToUpdate = getUpdateProfileData(fieldKey, payload, action.payload.fieldIndex);
       const profile = _.merge(state.applicationCase.profile, payloadToUpdate);
       Object.assign(state.applicationCase.profile, profile);
     },
     updateIdCardInfo: (state, action: PayloadAction<ParsePassportResponse>) => {
-      const fieldKey = action.payload.fieldKey.replace(
-        ".passportDocumentId",
-        "",
-      );
+      const fieldKey = action.payload.fieldKey.replace(".passportDocumentId", "");
       const payload: any = {
         firstName: action.payload.firstName,
         lastName: action.payload.lastName,
         middleName: action.payload.middleName,
         genderMaleCheckbox: action.payload.gender === "Male" ? "true" : "false",
-        genderFemaleCheckbox:
-          action.payload.gender === "Female" ? "true" : "false",
+        genderFemaleCheckbox: action.payload.gender === "Female" ? "true" : "false",
         nationality: action.payload.nationality,
         birthDate: action.payload.birthDate,
         cityAndCountryOfBirth: action.payload.birthPlace,
       };
-      const payloadToUpdate = getUpdateProfileData(
-        fieldKey,
-        payload,
-        action.payload.fieldIndex,
-      );
+      const payloadToUpdate = getUpdateProfileData(fieldKey, payload, action.payload.fieldIndex);
       const profile = _.merge(state.applicationCase.profile, payloadToUpdate);
       Object.assign(state.applicationCase.profile, profile);
     },
-    updateTravelDocumentInfo: (
-      state,
-      action: PayloadAction<ParsePassportResponse>,
-    ) => {
-      const fieldKey = action.payload.fieldKey.replace(
-        ".passportDocumentId",
-        "",
-      );
+    updateTravelDocumentInfo: (state, action: PayloadAction<ParsePassportResponse>) => {
+      const fieldKey = action.payload.fieldKey.replace(".passportDocumentId", "");
       let payload: any = {
         firstName: action.payload.firstName,
         lastName: action.payload.lastName,
         middleName: action.payload.middleName,
         genderMaleCheckbox: action.payload.gender === "Male" ? "true" : "false",
-        genderFemaleCheckbox:
-          action.payload.gender === "Female" ? "true" : "false",
+        genderFemaleCheckbox: action.payload.gender === "Female" ? "true" : "false",
         nationality: action.payload.nationality,
         birthDate: action.payload.birthDate,
         cityAndCountryOfBirth: action.payload.birthPlace,
@@ -292,27 +269,18 @@ export const formSlice = createSlice({
           expirationDate: action.payload.expireDate,
         };
       }
-      const payloadToUpdate = getUpdateProfileData(
-        fieldKey,
-        payload,
-        action.payload.fieldIndex,
-      );
+      const payloadToUpdate = getUpdateProfileData(fieldKey, payload, action.payload.fieldIndex);
       const profile = _.merge(state.applicationCase.profile, payloadToUpdate);
       Object.assign(state.applicationCase.profile, profile);
     },
-    syncUpMailingAndResidenceAddress: (
-      state,
-      action: PayloadAction<boolean>,
-    ) => {
+    syncUpMailingAndResidenceAddress: (state, action: PayloadAction<boolean>) => {
       if (action.payload) {
         state.applicationCase.profile.applicant.streetNumberAndNameOfMailingAddress =
           state.applicationCase.profile.applicant.streetNumberAndName;
         state.applicationCase.profile.applicant.aptNumberOfMailingAddress =
           state.applicationCase.profile.applicant.aptNumber;
-        state.applicationCase.profile.applicant.cityOfMailingAddress =
-          state.applicationCase.profile.applicant.city;
-        state.applicationCase.profile.applicant.stateOfMailingAddress =
-          state.applicationCase.profile.applicant.state;
+        state.applicationCase.profile.applicant.cityOfMailingAddress = state.applicationCase.profile.applicant.city;
+        state.applicationCase.profile.applicant.stateOfMailingAddress = state.applicationCase.profile.applicant.state;
         state.applicationCase.profile.applicant.zipCodeOfMailingAddress =
           state.applicationCase.profile.applicant.zipCode;
         state.applicationCase.profile.applicant.telePhoneAreaCodeOfMailingAddress =
@@ -320,16 +288,13 @@ export const formSlice = createSlice({
         state.applicationCase.profile.applicant.telePhoneNumberOfMailingAddress =
           state.applicationCase.profile.applicant.telePhoneNumber;
       } else {
-        state.applicationCase.profile.applicant.streetNumberAndNameOfMailingAddress =
-          "";
+        state.applicationCase.profile.applicant.streetNumberAndNameOfMailingAddress = "";
         state.applicationCase.profile.applicant.aptNumberOfMailingAddress = "";
         state.applicationCase.profile.applicant.cityOfMailingAddress = "";
         state.applicationCase.profile.applicant.stateOfMailingAddress = "";
         state.applicationCase.profile.applicant.zipCodeOfMailingAddress = "";
-        state.applicationCase.profile.applicant.telePhoneAreaCodeOfMailingAddress =
-          "";
-        state.applicationCase.profile.applicant.telePhoneNumberOfMailingAddress =
-          "";
+        state.applicationCase.profile.applicant.telePhoneAreaCodeOfMailingAddress = "";
+        state.applicationCase.profile.applicant.telePhoneNumberOfMailingAddress = "";
       }
     },
     replaceDocumentUrls: (state, action: PayloadAction<any[]>) => {
@@ -338,10 +303,7 @@ export const formSlice = createSlice({
     clearDocumentUrls: state => {
       state.documentUrls = [];
     },
-    updateUploadedDocuments: (
-      state,
-      action: PayloadAction<UploadedDocumentWithUrl[]>,
-    ) => {
+    updateUploadedDocuments: (state, action: PayloadAction<UploadedDocumentWithUrl[]>) => {
       state.uploadedDocuments = action.payload;
     },
     incrementSaveTimes: state => {

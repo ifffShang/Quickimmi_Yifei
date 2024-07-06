@@ -1,16 +1,6 @@
-import {
-  City,
-  Country,
-  ICity,
-  ICountry,
-  IState,
-  State,
-} from "country-state-city";
+import { City, Country, ICity, ICountry, IState, State } from "country-state-city";
 import _ from "lodash";
-import {
-  LocationObject,
-  LocationSelectOption,
-} from "../components/form/fields/LocationDropdown";
+import { LocationObject, LocationSelectOption } from "../components/form/fields/LocationDropdown";
 import { PATH } from "../components/router/MainView";
 import { Regex } from "../consts/consts";
 import {
@@ -24,10 +14,7 @@ import { Identity, KeyValues, ScreenSize } from "../model/commonModels";
 import { ControlType, IFormOptions } from "../model/formFlowModels";
 import { ArrayFields, updateCaseFields } from "../reducers/formSlice";
 
-export const handleResize = (
-  dispatch?: React.Dispatch<any>,
-  callback?: any,
-) => {
+export const handleResize = (dispatch?: React.Dispatch<any>, callback?: any) => {
   const width = window.innerWidth;
   if (width < ScreenSize.xsmall) {
     callback && dispatch && dispatch(callback(ScreenSize.xsmall));
@@ -81,11 +68,7 @@ export function decodeId(encodedId: string) {
   return parseInt(encodedId, 36);
 }
 
-export function getCaseDetailValue(
-  caseDetails: AsylumCaseProfile,
-  key: string,
-  fieldIndex?: number,
-) {
+export function getCaseDetailValue(caseDetails: AsylumCaseProfile, key: string, fieldIndex?: number) {
   if (key.indexOf(".") > -1) {
     const keys = key.split(".");
     let result: any = caseDetails;
@@ -135,7 +118,7 @@ export function getFieldValue(
   options?: IFormOptions[] | string,
   format?: string,
   fieldIndex?: number,
-) {
+): any {
   if (control === "group") {
     return;
   }
@@ -165,9 +148,7 @@ export function getFieldValue(
   if (key?.indexOf(",") > -1) {
     const keys = key.split(",");
     if (options && Array.isArray(options)) {
-      const keyValue = keys
-        .map(k => getCaseDetailValue(caseDetails, k, fieldIndex))
-        .join(",");
+      const keyValue = keys.map(k => getCaseDetailValue(caseDetails, k, fieldIndex)).join(",");
       const option = options.find(option => option.keyValue === keyValue);
       return option?.value;
     } else if (format) {
@@ -209,11 +190,7 @@ function createNestedObject(keys: string[], value: any, fieldIndex?: number) {
   }, value);
 }
 
-export function dispatchFormValue(
-  dispatch: React.Dispatch<any>,
-  keyValues: KeyValues,
-  fieldIndex?: number,
-) {
+export function dispatchFormValue(dispatch: React.Dispatch<any>, keyValues: KeyValues, fieldIndex?: number) {
   let caseFieldsToUpdate: any = {};
   for (const [key, value] of Object.entries(keyValues)) {
     let valueUsed = value;
@@ -236,22 +213,14 @@ export function dispatchFormValue(
       }
       caseFieldsToUpdate[key] = valueUsed;
     } else {
-      const caseWithUpdatedField = createNestedObject(
-        keys,
-        valueUsed,
-        fieldIndex,
-      );
+      const caseWithUpdatedField = createNestedObject(keys, valueUsed, fieldIndex);
       caseFieldsToUpdate = _.merge(caseFieldsToUpdate, caseWithUpdatedField);
     }
   }
   dispatch(updateCaseFields(caseFieldsToUpdate));
 }
 
-export function getUpdateProfileData(
-  key: string,
-  profile: AsylumCaseProfileOptional,
-  fieldIndex?: number,
-) {
+export function getUpdateProfileData(key: string, profile: AsylumCaseProfileOptional, fieldIndex?: number) {
   const keys = key.split(".");
   if (keys.length === 1) {
     return { [keys[0]]: profile };
@@ -260,19 +229,14 @@ export function getUpdateProfileData(
   }
 }
 
-export function getUpdateApplicationCaseData(
-  applicationCase: ApplicationCase,
-): UpdateApplicationCaseData {
+export function getUpdateApplicationCaseData(applicationCase: ApplicationCase): UpdateApplicationCaseData {
   return {
     ...applicationCase,
     profile: applicationCase.profile,
   };
 }
 
-export function updateProfileAndProgress(
-  profile: AsylumCaseProfile,
-  progress: Progress,
-) {
+export function updateProfileAndProgress(profile: AsylumCaseProfile, progress: Progress) {
   return {
     profile,
     progress,
@@ -289,10 +253,7 @@ export async function downloadImage(presignedUrl: string, filename?: string) {
   }
 }
 
-export async function downloadDocument(
-  presignedUrl: string,
-  additionalData?: any,
-) {
+export async function downloadDocument(presignedUrl: string, additionalData?: any) {
   try {
     const response = await fetch(presignedUrl);
     const doc = await response.blob();
@@ -302,10 +263,7 @@ export async function downloadDocument(
   }
 }
 
-export function parseCityAndCountryStr(
-  cityAndCountry: string,
-  locationObject?: LocationObject,
-) {
+export function parseCityAndCountryStr(cityAndCountry: string, locationObject?: LocationObject) {
   if (locationObject) {
     return {
       city: locationObject.city ?? "",
@@ -315,8 +273,7 @@ export function parseCityAndCountryStr(
   }
   if (!cityAndCountry) return { city: "", state: "", country: "" };
   const cityAndCountryArr = cityAndCountry.split(", ");
-  if (cityAndCountryArr.length === 1)
-    return { city: "", state: "", country: cityAndCountryArr[0] ?? "" };
+  if (cityAndCountryArr.length === 1) return { city: "", state: "", country: cityAndCountryArr[0] ?? "" };
   if (cityAndCountryArr.length === 2)
     return {
       city: cityAndCountryArr[0] ?? "",
@@ -330,11 +287,7 @@ export function parseCityAndCountryStr(
   };
 }
 
-export function formatCityAndCountryStr(
-  country?: string,
-  state?: string,
-  city?: string,
-) {
+export function formatCityAndCountryStr(country?: string, state?: string, city?: string) {
   if (!city && !state && !country) return "";
   if (!city && !state) return country;
   if (!city) return `${state}, ${country}`;
@@ -350,20 +303,12 @@ export interface LocationInfo {
   cities?: ICity[];
   cityPrefillOption?: LocationSelectOption;
 }
-export function getPrefillLocationOptions(
-  cityAndCountry: string,
-  locationObject?: LocationObject,
-): LocationInfo {
-  const { country, state, city } = parseCityAndCountryStr(
-    cityAndCountry,
-    locationObject,
-  );
+export function getPrefillLocationOptions(cityAndCountry: string, locationObject?: LocationObject): LocationInfo {
+  const { country, state, city } = parseCityAndCountryStr(cityAndCountry, locationObject);
 
   const allCountries = Country.getAllCountries();
   const result = { countries: allCountries };
-  const prefillCountry = allCountries.find(
-    c => c.name.toLocaleLowerCase() === country.toLocaleLowerCase(),
-  );
+  const prefillCountry = allCountries.find(c => c.name.toLocaleLowerCase() === country.toLocaleLowerCase());
 
   if (!prefillCountry) return result;
   const countryPrefillOption = {
@@ -378,17 +323,13 @@ export function getPrefillLocationOptions(
 
   if (!state) return result;
 
-  const prefillState = allStates.find(
-    s => s.name.toLocaleLowerCase() === state.toLocaleLowerCase(),
-  );
+  const prefillState = allStates.find(s => s.name.toLocaleLowerCase() === state.toLocaleLowerCase());
 
   if (!prefillState) {
     // if we can't find the state, we will try to find the city, user might have entered city and country only
     allStates.forEach(s => {
       const cities = City.getCitiesOfState(countryPrefillOption.key, s.isoCode);
-      const prefillCity = cities.find(
-        c => c.name.toLocaleLowerCase() === state.toLocaleLowerCase(),
-      );
+      const prefillCity = cities.find(c => c.name.toLocaleLowerCase() === state.toLocaleLowerCase());
       if (prefillCity) {
         result["statePrefillOption"] = {
           value: s.name,
@@ -414,14 +355,9 @@ export function getPrefillLocationOptions(
   result["statePrefillOption"] = statePrefillOption;
 
   if (!city) return result;
-  const allCities = City.getCitiesOfState(
-    countryPrefillOption.key,
-    statePrefillOption.key,
-  );
+  const allCities = City.getCitiesOfState(countryPrefillOption.key, statePrefillOption.key);
   result["cities"] = allCities;
-  const prefillCity = allCities.find(
-    c => c.name.toLocaleLowerCase() === city.toLocaleLowerCase(),
-  );
+  const prefillCity = allCities.find(c => c.name.toLocaleLowerCase() === city.toLocaleLowerCase());
 
   if (!prefillCity) return result;
   const cityPrefillOption = {
@@ -460,10 +396,7 @@ export function createKeyValuesForAddItem(fieldValue: any) {
   return keyValues;
 }
 
-export function createKeyValuesForRemoveItem(
-  fieldValue: any,
-  arrIndex: number,
-) {
+export function createKeyValuesForRemoveItem(fieldValue: any, arrIndex: number) {
   const newArr = [...fieldValue.arr];
   newArr.splice(arrIndex, 1);
   const keyValues: any = {};
@@ -481,9 +414,7 @@ export function createKeyValuesForRemoveItem(
 export function getArrayFieldInfo(fieldKey: string) {
   const arrayField = ArrayFields.find(f => f.field === fieldKey);
   if (!arrayField) {
-    console.error(
-      `[getArrayFieldInfo] Array field is missing for key: ${fieldKey}`,
-    );
+    console.error(`[getArrayFieldInfo] Array field is missing for key: ${fieldKey}`);
     return ArrayFields[0];
   }
   return arrayField;

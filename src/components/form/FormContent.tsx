@@ -4,16 +4,8 @@ import { getFormFields } from "../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useFormTranslation } from "../../hooks/commonHooks";
 import useRenderingTrace from "../../hooks/renderHooks";
-import {
-  decrementIndexLevel2,
-  incrementIndexLevel2,
-  resetForm,
-  updateFormFieldsMap,
-} from "../../reducers/caseSlice";
-import {
-  incrementSaveTimes,
-  updateOnePercentage,
-} from "../../reducers/formSlice";
+import { decrementIndexLevel2, incrementIndexLevel2, resetForm, updateFormFieldsMap } from "../../reducers/caseSlice";
+import { incrementSaveTimes, updateOnePercentage } from "../../reducers/formSlice";
 import { updateApplicationCaseFunc } from "../../utils/functionUtils";
 import { getPercentage } from "../../utils/percentageUtils";
 import { QText } from "../common/Fonts";
@@ -44,10 +36,7 @@ export function FormContent(props: FormContentProps) {
   const progress = useAppSelector(state => state.form.applicationCase.progress);
   const percentage = useAppSelector(state => state.form.percentage);
 
-  const formFields =
-    formFieldsMap && props.referenceId
-      ? formFieldsMap[props.referenceId]
-      : null;
+  const formFields = formFieldsMap && props.referenceId ? formFieldsMap[props.referenceId] : null;
 
   useEffect(() => {
     if (!props.referenceId) return;
@@ -81,8 +70,7 @@ export function FormContent(props: FormContentProps) {
     } else {
       currentPercentage = Math.round((fulfilled / total) * 100);
     }
-    const lastPrecentage =
-      percentage?.[props.sectionId]?.[props.referenceId] ?? -1;
+    const lastPrecentage = percentage?.[props.sectionId]?.[props.referenceId] ?? -1;
     console;
     if (currentPercentage !== lastPrecentage) {
       dispatch(
@@ -93,7 +81,7 @@ export function FormContent(props: FormContentProps) {
         }),
       );
     }
-  }, [props.referenceId, props.sectionId, profile, formFields]);
+  }, [props.referenceId, props.sectionId, profile, formFields, percentage]);
 
   useRenderingTrace("FormContent", {
     ...props,

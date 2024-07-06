@@ -1,10 +1,4 @@
-import {
-  AddressHistory,
-  ApplicationCase,
-  Child,
-  FamilyMember,
-  Spouse,
-} from "../model/apiModels";
+import { AddressHistory, ApplicationCase, Child, EntryRecord, FamilyMember, Spouse } from "../model/apiModels";
 
 export const InitialApplicant = {
   passportDocumentId: 0,
@@ -250,6 +244,12 @@ export const InitialSpouse: Spouse = {
   previousArrivalDate: "",
   inThisApplicationYesCheckbox: null,
   inThisApplicationNoCheckbox: null,
+};
+
+export const InitialEntryRecord: EntryRecord = {
+  date: "",
+  place: "",
+  status: "",
 };
 
 export const InitialChild: Child = {

@@ -4,11 +4,7 @@ import { Regex } from "../../consts/consts";
 import { useFormTranslation } from "../../hooks/commonHooks";
 import { EntryRecord } from "../../model/apiModels";
 import { KeyValues } from "../../model/commonModels";
-import {
-  ControlType,
-  IFormField,
-  IFormOptions,
-} from "../../model/formFlowModels";
+import { ControlType, IFormField, IFormOptions } from "../../model/formFlowModels";
 import {
   createKeyValuesForAddItem,
   createKeyValuesForRemoveItem,
@@ -20,14 +16,7 @@ import {
 import { QText } from "../common/Fonts";
 import "./FormField.css";
 import { AddItemControl } from "./fields/AddItemControl";
-import {
-  CheckBox,
-  QDatePicker,
-  QTextArea,
-  QTextBox,
-  RadioSelect,
-  SelectBox,
-} from "./fields/Controls";
+import { CheckBox, QDatePicker, QTextArea, QTextBox, RadioSelect, SelectBox } from "./fields/Controls";
 import { DocumentList } from "./fields/DocumentList";
 import { EntryRecords } from "./fields/EntryRecords";
 import { LocationDropdown } from "./fields/LocationDropdown";
@@ -57,9 +46,7 @@ export interface FormFieldProps {
 export function FormField(props: FormFieldProps) {
   const { wt, t } = useFormTranslation();
   const dispatch = useAppDispatch();
-  const caseDetails = useAppSelector(
-    state => state.form.applicationCase?.profile,
-  );
+  const caseDetails = useAppSelector(state => state.form.applicationCase?.profile);
 
   const placeholder = props.placeholder ? wt(props.placeholder) : "";
 
@@ -371,14 +358,25 @@ export function FormField(props: FormFieldProps) {
           value={fieldValue}
           label={wt(props.label)}
           placeholder={placeholder}
-          onChange={(value: EntryRecord[]) => {
-            dispatchFormValue(
-              dispatch,
-              {
-                [props.fieldKey]: value,
-              },
-              props.fieldIndex,
-            );
+          onChange={(value: EntryRecord[], action?: "Add" | "Remove") => {
+            if (action === "Remove") {
+              dispatchFormValue(
+                dispatch,
+                {
+                  [props.fieldKey]: value,
+                  ["overwriteEntryRecords"]: true,
+                },
+                props.fieldIndex,
+              );
+            } else {
+              dispatchFormValue(
+                dispatch,
+                {
+                  [props.fieldKey]: value,
+                },
+                props.fieldIndex,
+              );
+            }
           }}
         />
       );
@@ -454,9 +452,7 @@ export function FormField(props: FormFieldProps) {
           }
           if (!hasTrue) {
             // When textarea is hidden, assign the value to "N/A"
-            const keys = props.subFields.filter(
-              field => field.control === "textarea",
-            );
+            const keys = props.subFields.filter(field => field.control === "textarea");
             for (let i = 0; i < keys.length; i++) {
               const key = keys[i].key;
               dispatchFormValue(
@@ -480,10 +476,7 @@ export function FormField(props: FormFieldProps) {
                       label={wt(props.label)}
                       fieldIndex={arrIndex}
                       onRemove={() => {
-                        const keyValues = createKeyValuesForRemoveItem(
-                          fieldValue,
-                          arrIndex,
-                        );
+                        const keyValues = createKeyValuesForRemoveItem(fieldValue, arrIndex);
                         dispatchFormValue(dispatch, keyValues, arrIndex);
                       }}
                     />

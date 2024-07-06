@@ -166,6 +166,7 @@ export interface AsylumCaseProfileOptional {
   applicationDetails?: ApplicationDetails;
   signature?: YourSignature;
   declaration?: Declaration;
+  overwriteEntryRecords?: boolean;
   overwriteChildren?: boolean;
   overwriteSiblings?: boolean;
   overwriteAddressHistoriesBeforeUS?: boolean;

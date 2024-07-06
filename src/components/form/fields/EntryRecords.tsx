@@ -11,7 +11,7 @@ export interface EntryRecordsProps {
   value?: EntryRecord[];
   placeholder: string;
   label: string;
-  onChange: (value: EntryRecord[]) => void;
+  onChange: (value: EntryRecord[], action?: "Add" | "Remove") => void;
 }
 
 export interface EntryRecordState {
@@ -106,7 +106,16 @@ export function EntryRecords(props: EntryRecordsProps) {
             shape="circle"
             icon={<MinusCircleFilled />}
             onClick={() => {
-              setRecords([...records.filter(r => r.id !== record.id)]);
+              const newRecords = [...records.filter(r => r.id !== record.id)];
+              setRecords(newRecords);
+              props.onChange(
+                newRecords.map(r => ({
+                  date: r.date,
+                  place: r.place,
+                  status: r.status,
+                })),
+                "Remove",
+              );
             }}
           />
         </div>
@@ -116,7 +125,7 @@ export function EntryRecords(props: EntryRecordsProps) {
         shape="circle"
         icon={<PlusCircleFilled />}
         onClick={() => {
-          setRecords([
+          const newRecords = [
             ...records,
             {
               date: "",
@@ -124,7 +133,16 @@ export function EntryRecords(props: EntryRecordsProps) {
               status: "",
               id: records.length === 0 ? 0 : records[records.length - 1].id + 1,
             },
-          ]);
+          ];
+          setRecords(newRecords);
+          props.onChange(
+            newRecords.map(r => ({
+              date: r.date,
+              place: r.place,
+              status: r.status,
+            })),
+            "Add",
+          );
         }}
       >
         {props.placeholder}
