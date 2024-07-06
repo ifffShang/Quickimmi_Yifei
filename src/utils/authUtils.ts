@@ -6,7 +6,7 @@ import { fetchAuthSession } from "aws-amplify/auth";
 import { InMemoryCache } from "../cache/inMemoryCache";
 
 export const signOutCurrentUser = (dispatch: AppDispatch) => {
-  signOut({ global: true }).then(() => {
+  signOut().then(() => {
     console.log("User signed out");
     dispatch(resetAuthState());
     dispatch(closeModal());

@@ -2,7 +2,7 @@ import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Switch } from "antd";
 import Link from "antd/es/typography/Link";
 import { Amplify } from "aws-amplify";
-import { fetchAuthSession, resendSignUpCode, signIn } from "aws-amplify/auth";
+import { fetchAuthSession, resendSignUpCode, signIn, signOut } from "aws-amplify/auth";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -36,32 +36,24 @@ export function SignIn() {
     setErrorMessage("");
   }, [email, password]);
 
-  // Configure Amplify with the user pool based on the role
-  useEffect(() => {
-    let userPoolConfig: any;
-
-    if (role === Role.LAWYER) {
-      userPoolConfig = awsExports.LAWYER_POOL;
-    } else {
-      userPoolConfig = awsExports.CUSTOMER_POOL;
-    }
-
-    Amplify.configure({
-      Auth: {
-        Cognito: {
-          userPoolId: userPoolConfig.USER_POOL_ID,
-          userPoolClientId: userPoolConfig.USER_POOL_APP_CLIENT_ID,
-        },
-      },
-    });
-  }, [role]);
-
   const loginUser = async () => {
     try {
       if (validateEmail(email) !== "" || validatePassword(password) !== "") {
         setShowFormInputErrorMessage(true);
         return;
       }
+
+      localStorage.clear();
+      const userPoolConfig = role === Role.LAWYER ? awsExports.LAWYER_POOL : awsExports.CUSTOMER_POOL;
+      Amplify.configure({
+        Auth: {
+          Cognito: {
+            userPoolId: userPoolConfig.USER_POOL_ID,
+            userPoolClientId: userPoolConfig.USER_POOL_APP_CLIENT_ID,
+          },
+        },
+      });
+
       const { isSignedIn, nextStep } = await signIn({
         username: email,
         password,
