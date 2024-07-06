@@ -1,55 +1,92 @@
-import { useState } from "react";
-import { Button } from "antd";
+import { useState, useEffect } from "react";
+import { Button, Input } from "antd";
+import { EditTwoTone, CloseCircleTwoTone } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { deleteCaseApi } from "../../../api/caseAPI";
+import { deleteCaseApi, updateCaseNameApi, getCaseSummaryApi } from "../../../api/caseAPI";
 import { useAppSelector } from "../../../app/hooks";
 import { getCaseId } from "../../../utils/utils";
 import { QText, SingleLine } from "../../common/Fonts";
 import { CaseIcon } from "../../icons/Dashboard";
 import { DeleteConfirmModal } from "../../modals/case/DeleteConfirmModal";
-import "./CaseCard.css";
 import { CacheStore } from "../../../cache/cache";
+import "./CaseCard.css";
+import { set } from "lodash";
 
 export interface CaseCardProps {
-  caseId: number;
-  updatedAt: number;
+  caseData: {
+    id: number;
+    userId: number;
+    updatedAt: number;
+    applicantName: string;
+    caseName: string | null;
+    overallPercentage: number;
+    type: string;
+    submittedAt: number;
+    currentStep: string;
+  };
   onDelete: () => void;
 }
 
-export function CaseCard(props: CaseCardProps) {
+export function CaseCard({ caseData, onDelete }: CaseCardProps) {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [CaseName, setCaseName] = useState(caseData.caseName || "");
   const accessToken = useAppSelector(state => state.auth.accessToken);
-  const userId = useAppSelector(state => state.auth.userId);
   const role = useAppSelector(state => state.auth.role);
 
+  useEffect(() => {
+    setCaseName(caseData.caseName || "");
+  }, [caseData]);
+
+
   const openCaseDetails = async () => {
-    if (!accessToken || !props.caseId) {
+    if (!accessToken || !caseData.id) {
       console.error(
-        `Access token ${accessToken} or case id ${props.caseId} is missing`,
+        `Access token ${accessToken} or case id ${caseData.id} is missing`,
       );
       return;
     }
     CacheStore.clear();
-    navigate("/casestatus/" + props.caseId);
+    navigate("/casestatus/" + caseData.id);
   };
 
   const deleteCase = async () => {
-    if (!accessToken || !props.caseId) {
+    if (!accessToken || !caseData.id) {
       console.error(
-        `Access token ${accessToken} or case id ${props.caseId} is missing`,
+        `Access token ${accessToken} or case id ${caseData.id} is missing`,
       );
       return;
     }
-    deleteCaseApi(props.caseId, accessToken, role)
+    deleteCaseApi(caseData.id, accessToken, role)
       .then(() => {
-        props.onDelete();
+        onDelete();
       })
       .catch(err => {
         console.error(err);
       });
+  };
+
+  const saveCaseName = async () => {
+    if (!accessToken || !caseData.id) {
+      console.error(
+        `Access token ${accessToken} or case id ${caseData.id} is missing`,
+      );
+      return;
+    }
+    try {
+      const success = await updateCaseNameApi(caseData.id, CaseName, accessToken, role);
+      const summary = await getCaseSummaryApi(caseData.id, accessToken, role);
+      console.log("Summary case name: " + summary.caseName)
+      if (success) {
+        console.log("New Case name " + caseData.caseName);
+        setIsEditing(false);
+      }
+    } catch (err) {
+      console.error("Failed to update case name:", err);
+    }
   };
 
   return (
@@ -57,28 +94,53 @@ export function CaseCard(props: CaseCardProps) {
       <CaseIcon />
       <div className="case-card-content">
         <div className="case-card-title">
-          <QText level="large">{getCaseId(props.caseId)}</QText>
+          {isEditing ? (
+            <>
+              <Input
+                value={CaseName}
+                onChange={e => setCaseName(e.target.value)}
+                className="case-card-title-input"
+                placeholder="Enter new name"
+              />
+              <EditTwoTone
+                style={{ fontSize: 24, marginLeft: 5 }}
+                twoToneColor="#27AE60"
+                onClick={() => saveCaseName()}
+              />
+              <CloseCircleTwoTone
+                style={{ fontSize: 24, marginLeft: 8 }}
+                twoToneColor="#f5222d"
+                onClick={() => setIsEditing(false)}
+              />
+            </>
+          ) : (
+            <>
+              <div className="case-card-caseName">
+                <QText level="large">{CaseName || `Case ${caseData.id}`}</QText>
+              </div>
+              <EditTwoTone
+                style={{ fontSize: 24, marginLeft: 5 }}
+                twoToneColor="#27AE60"
+                onClick={() => setIsEditing(true)}
+              />
+            </>
+          )}
           <div className="case-card-progress">
-            <div
-              className="case-card-progress-inner"
-              style={{ width: "5%" }}
-            ></div>
+            <div className="case-card-progress-inner" style={{ width: `${caseData.overallPercentage}%` }}></div>
             <div className="case-card-progress-text">
-              <QText level="small" color="gray">
-                Completion: 5%
-              </QText>
+              <QText level="small" color="gray">Completion: {caseData.overallPercentage}%</QText>
             </div>
           </div>
         </div>
         <div className="case-card-details">
-          <SingleLine title={t("ApplicationType") + ": "} value="Asylum" />
+          <SingleLine title={t("ApplicationType") + ": "} value={caseData.type} />
           <SingleLine
             title={t("LastUpdatedAt") + ": "}
-            value={new Date(props.updatedAt).toLocaleString()}
+            value={new Date(caseData.updatedAt).toLocaleString()}
           />
           <SingleLine
             title={t("MasterApplicant") + ": "}
-            value={userId?.toString() || ""}
+            value={caseData.applicantName || ""}
           />
         </div>
       </div>
@@ -95,7 +157,7 @@ export function CaseCard(props: CaseCardProps) {
         visible={deleteModalVisible}
         onConfirm={deleteCase}
         onCancel={() => setDeleteModalVisible(false)}
-        contentName={getCaseId(props.caseId)}
+        contentName={getCaseId(caseData.id)}
       />
     </div>
   );

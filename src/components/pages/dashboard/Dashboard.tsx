@@ -154,8 +154,7 @@ export function Dashboard() {
         {cases.map(c => (
           <CaseCard
             key={c.id}
-            caseId={c.id}
-            updatedAt={c.updatedAt}
+            caseData={c}
             onDelete={getCases}
           />
         ))}
@@ -180,8 +179,7 @@ export function Dashboard() {
         {cases.map(c => (
           <CaseCard
             key={c.id}
-            caseId={c.id}
-            updatedAt={c.updatedAt}
+            caseData={c}
             onDelete={getCases}
           />
         ))}

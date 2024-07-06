@@ -15,12 +15,13 @@ import {
 import { useTranslation } from "react-i18next";
 import {
   InboxOutlined,
-  FileTwoTone,
   FileImageTwoTone,
   FilePdfTwoTone,
   FileWordTwoTone,
   FileTextTwoTone,
   FileUnknownTwoTone,
+  VideoCameraTwoTone,
+  AudioTwoTone,
   DeleteTwoTone,
 } from "@ant-design/icons";
 import { useParams } from "react-router-dom";
@@ -40,35 +41,10 @@ import { DeleteConfirmModal } from "../../modals/case/DeleteConfirmModal";
 import { Loading } from "../../common/Loading";
 import { QText } from "../../common/Fonts";
 import "./CaseDocumentRightPanel.css";
+import { set } from "lodash";
 
 const { Dragger } = Upload;
 const { Option } = Select;
-const getFileIcon = (fileExt: string) => {
-  switch (fileExt.toLowerCase()) {
-    case "png":
-    case "jpg":
-    case "jpeg":
-    case "gif":
-      return (
-        <FileImageTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
-      );
-    case "pdf":
-      return <FilePdfTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />;
-    case "doc":
-    case "docx":
-      return (
-        <FileWordTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
-      );
-    case "txt":
-      return (
-        <FileTextTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
-      );
-    default:
-      return (
-        <FileUnknownTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
-      );
-  }
-};
 
 function useFetchDocuments() {
   const { id: caseId } = useParams<{ id?: string }>();
@@ -123,31 +99,24 @@ const CaseDocumentRightPanel: React.FC = () => {
   const { loading, error, documents, fetchDocuments } = useFetchDocuments();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [currentFile, setCurrentFile] = useState<File | null>(null);
-  const [selectedDocumentType, setSelectedDocumentType] =
-    useState<DocumentType>("PASSPORT_MAIN");
-  const [fileExt, setFileExt] = useState<string>("");
+  const [selectedDocumentType, setSelectedDocumentType] = useState<DocumentType>("PASSPORT_MAIN");
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [filteredDocuments, setFilteredDocuments] = useState<
-    UploadedDocument[]
-  >([]);
-  const [uploadApprove, setUploadApprove] = useState(true);
-  const [showUploadProgress, setShowUploadProgress] = useState(false);
+  const [filteredDocuments, setFilteredDocuments] = useState<UploadedDocument[]>([]);
   const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
-  const [documentToDelete, setDocumentToDelete] = useState<{
-    id: number;
-    name: string;
-  } | null>(null);
+  const [documentToDelete, setDocumentToDelete] = useState<{id: number; name: string;} | null>(null);
   const [documentTypes, setDocumentTypes] = useState<DocumentType[]>([]);
 
+  const [fileLength, setFileLength] = useState(0);
+
   const handleUpload = async (fileList: any) => {
-    const { file } = fileList;
-    setCurrentFile(file);
-    setFileExt(file.name.split(".").pop().toLowerCase());
-    if (uploadApprove) {
-      setIsModalVisible(true);
-    } else {
+    if (fileLength > 1) {
       setIsModalVisible(false);
-      setShowUploadProgress(false);
+      setFileLength(0);
+    } else{
+      const { file } = fileList;
+      console.log("Uploading file", file);
+      setCurrentFile(file);
+      setIsModalVisible(true);
     }
   };
 
@@ -224,42 +193,45 @@ const CaseDocumentRightPanel: React.FC = () => {
     }
   };
 
-  const handleFileCount = (fileList: any) => {
+  const checkFileCount = (fileList: any) => {
     if (fileList.length > 1) {
       message.error("Only one file can be uploaded at a time");
-      setUploadApprove(false);
-      setIsModalVisible(false);
       setCurrentFile(null);
-    } else {
-      setUploadApprove(true);
+      setIsModalVisible(false);
+      return false;
     }
+    return true;
+  };
+
+  const checkFileType = (file: any) => {
+    const fileExtension = file.name.split(".").pop().toLowerCase();
+    const fileType = getFileType(fileExtension);
+    console.log("File type in check", fileType);
+    if (fileType === "unsupported") {
+      console.log("Unsupported file type");
+      message.error("Unsupported file type");
+      setCurrentFile(null);
+      return false;
+    }
+    return true;
   };
 
   const uploadProps: UploadProps = {
     customRequest: handleUpload,
     multiple: false,
     maxCount: 1,
-    beforeUpload: () => {
-      setUploadApprove(true);
-    },
-    onChange(info: any) {
-      console.log("Upload info", info.fileList);
-      setShowUploadProgress(true);
-      const { status } = info.file;
-      if (status !== "uploading") {
-        console.log(info.file, info.fileList);
+    beforeUpload: (file) => {
+      if (!checkFileType(file)) {
+        return Upload.LIST_IGNORE;
       }
-      if (status === "done") {
-        message.success(`${info.file.name} file uploaded successfully.`);
-        setShowUploadProgress(false);
-      } else if (status === "error") {
-        message.error(`${info.file.name} file upload failed.`);
-        setShowUploadProgress(false);
-      }
+      return true;
     },
     onDrop(info: any) {
       console.log("Dropped files", info.dataTransfer.files);
-      handleFileCount(info.dataTransfer.files);
+      if (!checkFileCount(info.dataTransfer.files)) {
+        setFileLength(2);
+        return;
+      }
     },
   };
 
@@ -267,7 +239,7 @@ const CaseDocumentRightPanel: React.FC = () => {
     if (currentFile && userId && caseId && accessToken) {
       const createdBy = userRole === "APPLICANT" ? "APPLICANT" : "LAWYER";
 
-      const description = `This is a ${selectedDocumentType} file, its file type is ${fileExt}`;
+      const description = `This is a ${selectedDocumentType} file`;
 
       const selectedOperation = "NEW";
 
@@ -315,7 +287,6 @@ const CaseDocumentRightPanel: React.FC = () => {
   const handleModalCancel = () => {
     setIsModalVisible(false);
     setCurrentFile(null);
-    setShowUploadProgress(false);
   };
 
   const handleClearSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -352,6 +323,83 @@ const CaseDocumentRightPanel: React.FC = () => {
     fetchDocumentTypes();
   }, [accessToken, userRole]);
 
+  const getFileType = (fileExt: string) => {
+    switch (fileExt.toLowerCase()) {
+      case "png":
+      case "jpg":
+      case "jpeg":
+      case "gif":
+        return("image");
+      case "pdf":
+        return("pdf");
+      case "doc":
+      case "docx":
+      case ".pages":
+        return("text");
+      case "txt":
+      case "md":
+        return("text");
+      case "mp4":
+      case "avi":
+      case "mov":
+      case "wmv":
+      case "mkv":
+        return("video");
+      case "mp3":
+      case "wav":
+      case "aac":
+      case "flac":
+      case "ogg":
+        return("audio");
+
+      default:
+        return("unsupported");
+    }
+  };  
+
+  const getFileIcon = (fileName: string) => {
+    if (!fileName) {
+      return (
+        <FileUnknownTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
+      );
+    }
+  
+    const fileExtension = fileName.split(".").pop()?.toLowerCase();
+    if (!fileExtension) {
+      return (
+        <FileUnknownTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
+      );
+    }
+  
+    const fileType = getFileType(fileExtension);
+    switch (fileType) {
+      case "image":
+        return (
+          <FileImageTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
+        );
+      case "text":
+        return (
+          <FileTextTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
+        );
+      case "video":
+        return (
+          <VideoCameraTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
+        );
+      case "audio":
+        return (
+          <AudioTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
+        );
+      case "pdf":
+        return (
+          <FilePdfTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
+        );
+      default:
+        return (
+          <FileUnknownTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
+        );
+    }
+  }
+  
   const dataSource = (
     filteredDocuments.length > 0 ? filteredDocuments : documents
   ).map(doc => ({
@@ -434,7 +482,7 @@ const CaseDocumentRightPanel: React.FC = () => {
           <QText level="large">{t("UploadDocument")}</QText>
         </div>
         <div className="case-document-section-content">
-          <Dragger {...uploadProps} showUploadList={showUploadProgress}>
+          <Dragger {...uploadProps} showUploadList={false}>
             <p className="ant-upload-drag-icon">
               <InboxOutlined style={{ color: "#27AE60" }} />
             </p>
@@ -497,7 +545,7 @@ const CaseDocumentRightPanel: React.FC = () => {
       >
         <div className="upload-modal-body">
           <div className="upload-modal-body-fileIcon">
-            {getFileIcon(fileExt)}
+            {getFileIcon(currentFile?.name || "")}
             <QText level="xsmall" color="gray">
               {currentFile?.name}
             </QText>
