@@ -6,6 +6,12 @@ import { closeModal } from "../../reducers/commonSlice";
 import "./ModalView.css";
 import { UploadOtherIdModal } from "./case/UploadOtherIdModal";
 import { UploadPassportModal } from "./case/UploadPassportModal";
+import { UploadSignedDocumentModal } from "./case/UploadSignedDocumentModal";
+import { RegisterTrackingNumberModal } from "./case/RegisterTrackingNumberModal";
+import { RegisterApplicationReceiptModal } from "./case/RegisterApplicationReceiptModal";
+import {RegisterFingerprintTimeLocationModal} from "./case/RegisterFingerprintTimeLocationModal";
+import {RegisterInterviewTimeLocationModal} from "./case/RegisterInterviewTimeLocationModal";
+import {RegisterApplicationFinalResultReceiptModal} from "./case/RegisterApplicationFinalResultReceiptModal";
 
 function Modal({ children }: { children?: ReactNode }) {
   const dispatch = useAppDispatch();
@@ -38,6 +44,18 @@ export function ModalView() {
     innerModal = <UploadPassportModal />;
   } else if (common.modalType === "uploadotherid") {
     innerModal = <UploadOtherIdModal />;
+  } else if (common.modalType === "uploadSignedDocument") {
+    innerModal = <UploadSignedDocumentModal />;
+  } else if (common.modalType === "registerTrackingNumber") {
+    innerModal = <RegisterTrackingNumberModal />;
+  } else if (common.modalType === "registerApplicationReceipt") {
+    innerModal = <RegisterApplicationReceiptModal />;
+  } else if (common.modalType === "registerFingerprintTimeLocation") {
+    innerModal = <RegisterFingerprintTimeLocationModal />;
+  } else if (common.modalType === "registerInterviewTimeLocation") {
+    innerModal = <RegisterInterviewTimeLocationModal />;
+  } else if (common.modalType === "registerApplicationFinalResultReceipt") {
+    innerModal = <RegisterApplicationFinalResultReceiptModal />;
   }
 
   return <Modal>{innerModal}</Modal>;

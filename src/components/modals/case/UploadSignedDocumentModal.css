@@ -1,0 +1,19 @@
+.upload-signed-document {
+    display: flex;
+    flex-direction: column;
+}
+
+.upload-signed-document .upload-signed-document-uploader {
+    margin: 40px 0 0 0;
+    align-self: center;
+}
+
+.upload-signed-document .upload-signed-document-controls {
+    margin: 40px 0 0 0;
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
