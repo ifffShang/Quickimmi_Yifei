@@ -1,22 +1,24 @@
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Switch } from "antd";
 import Link from "antd/es/typography/Link";
+import { Amplify } from "aws-amplify";
 import { fetchAuthSession, resendSignUpCode, signIn } from "aws-amplify/auth";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { createUserApi, getUserInfoApi } from "../../../api/authAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import awsExports from "../../../aws-exports";
+import { Role } from "../../../consts/consts";
+import { UserInfo } from "../../../model/apiModels";
 import { updateAuthState, updateRole } from "../../../reducers/authSlice";
-import { signOutCurrentUser } from "../../../utils/authUtils";
+import { signOutCurrentUser, startTokenExpirationTimer } from "../../../utils/authUtils";
 import { validateEmail, validatePassword } from "../../../utils/validators";
 import { ErrorMessage, QText } from "../../common/Fonts";
 import { FormInput } from "../../form/fields/Controls";
 import { AuthComponent } from "./AuthComponent";
-import { UserInfo } from "../../../model/apiModels";
-import awsExports from "../../../aws-exports";
-import { Amplify } from "aws-amplify";
-import { Role } from "../../../consts/consts";
+import { cognitoUserPoolsTokenProvider } from "aws-amplify/auth/cognito";
+import { sessionStorage } from "aws-amplify/utils";
 
 export function SignIn() {
   const dispatch = useAppDispatch();
@@ -25,8 +27,7 @@ export function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [showFormInputErrorMessage, setShowFormInputErrorMessage] =
-    useState(false);
+  const [showFormInputErrorMessage, setShowFormInputErrorMessage] = useState(false);
 
   const role = useAppSelector(state => state.auth.role);
 
@@ -37,12 +38,14 @@ export function SignIn() {
 
   // Configure Amplify with the user pool based on the role
   useEffect(() => {
-    let userPoolConfig;
+    let userPoolConfig: any;
+
     if (role === Role.LAWYER) {
       userPoolConfig = awsExports.LAWYER_POOL;
     } else {
       userPoolConfig = awsExports.CUSTOMER_POOL;
     }
+
     Amplify.configure({
       Auth: {
         Cognito: {
@@ -69,6 +72,7 @@ export function SignIn() {
         if (!session || !session.tokens || !session.tokens.accessToken) {
           throw new Error("Failed to fetch session after sign in");
         }
+        console.log("Session after sign in:", session); // Log session to debug
         const accessToken = session.tokens.accessToken.toString();
 
         let userInfo: UserInfo;
@@ -97,6 +101,10 @@ export function SignIn() {
             role: role,
           }),
         );
+
+        startTokenExpirationTimer(dispatch);
+        cognitoUserPoolsTokenProvider.setKeyValueStorage(sessionStorage);
+
         navigate("/dashboard");
       } else if (nextStep?.signInStep === "CONFIRM_SIGN_UP") {
         await resendSignUpCode({ username: email });
@@ -159,9 +167,7 @@ export function SignIn() {
 
   const actions = (
     <>
-      <Link onClick={() => navigate("/forgotpassword")}>
-        {t("ForgotPassword")}
-      </Link>
+      <Link onClick={() => navigate("/forgotpassword")}>{t("ForgotPassword")}</Link>
       <Button type="primary" onClick={loginUser}>
         {t("Login")}
       </Button>
@@ -180,8 +186,7 @@ export function SignIn() {
   const bottomBottom = (
     <>
       <QText color="secondary">
-        By signing up, I agree to the QuickImmi&apos;s Privacy Statement and
-        Terms of Service.
+        By signing up, I agree to the QuickImmi&apos;s Privacy Statement and Terms of Service.
       </QText>
     </>
   );

@@ -4,14 +4,15 @@ import { ReactNode, useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { closeModal } from "../../reducers/commonSlice";
 import "./ModalView.css";
+import { RegisterApplicationFinalResultReceiptModal } from "./case/RegisterApplicationFinalResultReceiptModal";
+import { RegisterApplicationReceiptModal } from "./case/RegisterApplicationReceiptModal";
+import { RegisterFingerprintTimeLocationModal } from "./case/RegisterFingerprintTimeLocationModal";
+import { RegisterInterviewTimeLocationModal } from "./case/RegisterInterviewTimeLocationModal";
+import { RegisterTrackingNumberModal } from "./case/RegisterTrackingNumberModal";
+import { TokenRefreshModal } from "./case/TokenRefreshModal";
 import { UploadOtherIdModal } from "./case/UploadOtherIdModal";
 import { UploadPassportModal } from "./case/UploadPassportModal";
 import { UploadSignedDocumentModal } from "./case/UploadSignedDocumentModal";
-import { RegisterTrackingNumberModal } from "./case/RegisterTrackingNumberModal";
-import { RegisterApplicationReceiptModal } from "./case/RegisterApplicationReceiptModal";
-import {RegisterFingerprintTimeLocationModal} from "./case/RegisterFingerprintTimeLocationModal";
-import {RegisterInterviewTimeLocationModal} from "./case/RegisterInterviewTimeLocationModal";
-import {RegisterApplicationFinalResultReceiptModal} from "./case/RegisterApplicationFinalResultReceiptModal";
 
 function Modal({ children }: { children?: ReactNode }) {
   const dispatch = useAppDispatch();
@@ -56,6 +57,8 @@ export function ModalView() {
     innerModal = <RegisterInterviewTimeLocationModal />;
   } else if (common.modalType === "registerApplicationFinalResultReceipt") {
     innerModal = <RegisterApplicationFinalResultReceiptModal />;
+  } else if (common.modalType === "tokenRefreshPopup") {
+    innerModal = <TokenRefreshModal />;
   }
 
   return <Modal>{innerModal}</Modal>;

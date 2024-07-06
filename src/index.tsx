@@ -1,4 +1,3 @@
-import { Amplify } from "aws-amplify";
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
@@ -6,20 +5,10 @@ import { BrowserRouter } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
 import App from "./App";
 import { persistor, store } from "./app/store";
-import awsExports from "./aws-exports";
 import "./index.css";
 import "./locales/i18n";
 import reportWebVitals from "./reportWebVitals";
 import { pdfjs } from "react-pdf";
-
-Amplify.configure({
-  Auth: {
-    Cognito: {
-      userPoolId: awsExports.CUSTOMER_POOL.USER_POOL_ID,
-      userPoolClientId: awsExports.CUSTOMER_POOL.USER_POOL_APP_CLIENT_ID,
-    },
-  },
-});
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
