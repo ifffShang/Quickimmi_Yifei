@@ -195,7 +195,7 @@ export async function getCaseProfileAndProgressApi(
 }
 
 export async function getCaseSummaryApi(
-  caseId: string,
+  caseId: number,
   accessToken: string,
   role: Role,
 ): Promise<CaseSummary> {
@@ -207,6 +207,22 @@ export async function getCaseSummaryApi(
     role,
   });
   return res.data as CaseSummary;
+}
+
+export async function updateCaseNameApi(
+  caseId: number,
+  caseName: string,
+  accessToken: string,
+  role: Role,
+): Promise<boolean> {
+  const res = await performApiRequest({
+    endPoint: `api/case/asylum/updateCaseName`,
+    method: "POST",
+    data: { caseId, caseName },
+    accessToken,
+    role,
+  });
+  return res.data;
 }
 
 export async function updateApplicationCaseApi(

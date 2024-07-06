@@ -37,6 +37,8 @@ export interface ListCaseMetadata {
 export interface Case {
   applicantName: string;
   assignedLawyer: string;
+  caseName: string;
+  overallPercentage: number;
   createdAt: string;
   currentStep: string;
   id: number;
@@ -100,6 +102,7 @@ export interface CaseSummary {
   id: number;
   applicantName: string;
   caseType: string;
+  caseName: string;
   asylumType: string | null;
   maritalStatus: string;
   applyWithSpouse: boolean;

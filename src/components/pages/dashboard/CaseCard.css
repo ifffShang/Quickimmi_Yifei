@@ -1,5 +1,5 @@
 .case-card-content {
-  padding: 20px 40px;
+  padding: 20px 30px 20px 35px;
 }
 
 .case-card-bottom {
@@ -12,10 +12,22 @@
 .case-card-title {
   display: flex;
   gap: 10px;
+  height: 30px;
 }
 
 .xsmall .case-card-title {
   flex-direction: column;
+}
+
+.case-card-caseName {
+  margin-top: 3px;
+}
+.case-card-title-input {
+  width: 150px;
+}
+.case-card-edit {
+  gap: 5px;
+  margin-top: 3px;
 }
 
 .case-card-progress {

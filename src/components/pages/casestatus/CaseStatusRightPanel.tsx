@@ -35,13 +35,14 @@ function useFetchCaseSummary() {
 
     try {
       setLoading(true);
-      const data = await getCaseSummaryApi(id, accessToken, role);
+      const data = await getCaseSummaryApi(parseInt(id), accessToken, role);
       setCaseSummary(data);
       // Mock data
       const mockCaseSummary: CaseSummary = {
         id: 55,
         applicantName: "Brandon Qi",
         caseType: "Asylum",
+        caseName: "Brandon Qi's Asylum Case",
         asylumType: "AFFIRMATIVE",
         maritalStatus: "Married",
         applyWithSpouse: false,
