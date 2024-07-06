@@ -43,7 +43,6 @@ export function SignIn() {
         return;
       }
 
-      localStorage.clear();
       const userPoolConfig = role === Role.LAWYER ? awsExports.LAWYER_POOL : awsExports.CUSTOMER_POOL;
       Amplify.configure({
         Auth: {
