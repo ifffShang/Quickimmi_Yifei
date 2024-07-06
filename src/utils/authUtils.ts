@@ -6,7 +6,7 @@ import { fetchAuthSession } from "aws-amplify/auth";
 import { InMemoryCache } from "../cache/inMemoryCache";
 
 export const signOutCurrentUser = (dispatch: AppDispatch) => {
-  signOut().then(() => {
+  signOut({ global: true }).then(() => {
     console.log("User signed out");
     dispatch(resetAuthState());
     dispatch(closeModal());
@@ -14,7 +14,7 @@ export const signOutCurrentUser = (dispatch: AppDispatch) => {
 };
 
 export const startTokenExpirationTimer = (dispatch: AppDispatch) => {
-  const ExpirationTime = 5000;
+  const ExpirationTime = 1000 * 60 * 50; // 50 minutes
   const timerId = setTimeout(() => {
     dispatch(openModal({ modalType: "tokenRefreshPopup", modalData: {} }));
   }, ExpirationTime);
