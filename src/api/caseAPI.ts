@@ -9,6 +9,7 @@ import {
   ParsePassportResponse,
   UpdateApplicationCaseData,
   UploadedDocument,
+  ListCase,
 } from "../model/apiModels";
 import {
   DocumentCreatedBy,
@@ -116,33 +117,37 @@ export async function deleteCaseApi(
 // get all cases for a customer
 export async function getCasesApi(
   userId: number,
+  pageNumber: number,
+  pageSize: number,
   accessToken: string,
   role: Role,
-): Promise<Case[]> {
+): Promise<ListCase> {
   const res = await performApiRequest({
-    endPoint: `api/case/list?userId=${userId}`,
+    endPoint: `api/case/list?userId=${userId}&pageNumber=${pageNumber}&pageSize=${pageSize}`,
     method: "GET",
     data: null,
     accessToken,
     role,
   });
-  return <Case[]>res.data;
+  return <ListCase>res.data;
 }
 
 // get all cases for a lawyer
 export async function getCasesByLawyerApi(
   lawyerId: number,
+  pageNumber: number,
+  pageSize: number,
   accessToken: string,
   role: Role,
-): Promise<Case[]> {
+): Promise<ListCase> {
   const res = await performApiRequest({
-    endPoint: `api/case/listByLawyerId?lawyerId=${lawyerId}`,
+    endPoint: `api/case/listByLawyerId?lawyerId=${lawyerId}&pageNumber=${pageNumber}&pageSize=${pageSize}`,
     method: "GET",
     data: null,
     accessToken,
     role,
   });
-  return <Case[]>res.data;
+  return <ListCase>res.data;
 }
 
 export async function getCaseDetailsApi(

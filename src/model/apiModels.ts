@@ -23,6 +23,17 @@ export interface UserInfo {
   asylumtype: string;
 }
 
+export interface ListCase {
+  metadata: ListCaseMetadata;
+  cases: Case[];
+}
+
+export interface ListCaseMetadata {
+  pageNumber: number;
+  pageSize: number;
+  totalItems: number;
+}
+
 export interface Case {
   applicantName: string;
   assignedLawyer: string;

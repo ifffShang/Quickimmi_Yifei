@@ -47,7 +47,7 @@ function useFetchCaseSummary() {
         applyWithSpouse: false,
         numberOfChildren: 2,
         numberOfApplyingChildren: 1,
-        currentStep: "FILLING_APPLICATION",
+        currentStep: "REVIEW_AND_SIGN",
         progress: {
           steps: [
             {
@@ -72,7 +72,7 @@ function useFetchCaseSummary() {
               substeps: [
                 {
                   name: "LAWYER_REVIEW",
-                  status: "IN_PROGRESS",
+                  status: "COMPLETED",
                   metadata: null,
                   startedAt: 1716788746776,
                   updatedAt: 1716788746776,
