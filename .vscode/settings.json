@@ -16,5 +16,6 @@
     "textbox",
     "USCIS"
   ],
-  "workbench.editor.revealIfOpen": true
+  "workbench.editor.revealIfOpen": true,
+  "prettier.printWidth": 120
 }
