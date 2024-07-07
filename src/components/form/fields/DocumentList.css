@@ -4,9 +4,9 @@
 
 .document-list-action {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 10px;
 }
 
 .document-list-inner {

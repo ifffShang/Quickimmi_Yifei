@@ -15,7 +15,6 @@ import { NewApplicationIcon } from "../../icons/Dashboard";
 import { CaseCard } from "./CaseCard";
 import "./Dashboard.css";
 import { Role } from "../../../consts/consts";
-import { set } from "lodash";
 
 export function Dashboard() {
   const navigate = useNavigate();
