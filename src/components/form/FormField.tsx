@@ -47,6 +47,7 @@ export function FormField(props: FormFieldProps) {
   const { wt, t } = useFormTranslation();
   const dispatch = useAppDispatch();
   const caseDetails = useAppSelector(state => state.form.applicationCase?.profile);
+  const asylumType = useAppSelector(state => state.form.asylumType);
 
   const placeholder = props.placeholder ? wt(props.placeholder) : "";
 
@@ -74,10 +75,7 @@ export function FormField(props: FormFieldProps) {
     if (props.options && Array.isArray(props.options)) {
       const option = props.options.find(option => option.value === value);
       if (option && option.keyValue) {
-        if (
-          option.keyValue?.indexOf(",") > -1 &&
-          props.fieldKey?.indexOf(",") > -1
-        ) {
+        if (option.keyValue?.indexOf(",") > -1 && props.fieldKey?.indexOf(",") > -1) {
           const keys = props.fieldKey.split(",");
           const values = option.keyValue.split(",");
           const keyValues = {} as KeyValues;
@@ -225,21 +223,11 @@ export function FormField(props: FormFieldProps) {
       return <QText level="normal bold">{wt(props.label)}</QText>;
     case "text":
       return (
-        <QTextBox
-          placeholder={placeholder}
-          value={fieldValue}
-          fieldKey={props.fieldKey}
-          onChange={onTextChange}
-        />
+        <QTextBox placeholder={placeholder} value={fieldValue} fieldKey={props.fieldKey} onChange={onTextChange} />
       );
     case "textarea":
       return (
-        <QTextArea
-          placeholder={placeholder}
-          value={fieldValue}
-          fieldKey={props.fieldKey}
-          onChange={onTextChange}
-        />
+        <QTextArea placeholder={placeholder} value={fieldValue} fieldKey={props.fieldKey} onChange={onTextChange} />
       );
     case "component_textarea_ai_refine":
       return (
@@ -253,13 +241,7 @@ export function FormField(props: FormFieldProps) {
         </div>
       );
     case "radio":
-      return (
-        <RadioSelect
-          onChange={onOptionChange}
-          options={props.options || ""}
-          value={fieldValue}
-        />
-      );
+      return <RadioSelect onChange={onOptionChange} options={props.options || ""} value={fieldValue} />;
     case "checkbox":
       return (
         <CheckBox
@@ -324,6 +306,17 @@ export function FormField(props: FormFieldProps) {
       );
     }
     case "component_textbox_na":
+      // TODO: This is a temporary solution for A-Number. Need to refactor this and move the control to JSON
+      if (asylumType === "DEFENSIVE" && props.fieldKey === "applicant.anumber") {
+        return (
+          <QTextBox
+            placeholder={t("A-Number is required")}
+            value={fieldValue}
+            fieldKey={props.fieldKey}
+            onChange={onTextChange}
+          />
+        );
+      }
       return (
         <TextboxWithNA
           placeholder={placeholder}
@@ -342,12 +335,7 @@ export function FormField(props: FormFieldProps) {
         />
       );
     case "component_location_dropdown":
-      return (
-        <LocationDropdown
-          prefillStr={fieldValue}
-          onLocationChange={onLocationChange}
-        />
-      );
+      return <LocationDropdown prefillStr={fieldValue} onLocationChange={onLocationChange} />;
     case "component_list_documents":
       return <DocumentList />;
     case "component_mailing_same_as_residential":
@@ -381,25 +369,14 @@ export function FormField(props: FormFieldProps) {
         />
       );
     case "component_add_item":
-      return (
-        <AddItemControl
-          className={props.className}
-          placeholder={placeholder}
-          onClick={() => onAddItemClick()}
-        />
-      );
+      return <AddItemControl className={props.className} placeholder={placeholder} onClick={() => onAddItemClick()} />;
     case "group":
       if (props.subFields && props.subFields.length > 0) {
         const subFieldsCss = "horizontal-" + `${props.maxChildPerRow || 1}`;
         return (
           <div className={subFieldsCss}>
             {props.subFields.map((field, index) => (
-              <div
-                className={
-                  "sub-field" + (field.className ? ` ${field.className}` : "")
-                }
-                key={index}
-              >
+              <div className={"sub-field" + (field.className ? ` ${field.className}` : "")} key={index}>
                 <FormField
                   fieldKey={field.key}
                   control={field.control}
@@ -412,12 +389,7 @@ export function FormField(props: FormFieldProps) {
                   format={field.format}
                   visibility={field.visibility}
                   fieldIndex={props.fieldIndex}
-                  lastField={
-                    props.lastField &&
-                    (props.subFields
-                      ? index === props.subFields.length - 1
-                      : true)
-                  }
+                  lastField={props.lastField && (props.subFields ? index === props.subFields.length - 1 : true)}
                 />
               </div>
             ))}
@@ -438,15 +410,8 @@ export function FormField(props: FormFieldProps) {
           let hasTrue = false;
           for (let i = 0; i < visibilityArray.length; i++) {
             const [key, value] = visibilityArray[i].split("=");
-            const caseDetailValue = getCaseDetailValue(
-              caseDetails,
-              key,
-              props.fieldIndex,
-            );
-            if (
-              caseDetailValue === value ||
-              (!caseDetailValue && (value === "null" || value === "undefined"))
-            ) {
+            const caseDetailValue = getCaseDetailValue(caseDetails, key, props.fieldIndex);
+            if (caseDetailValue === value || (!caseDetailValue && (value === "null" || value === "undefined"))) {
               hasTrue = true;
             }
           }
@@ -483,9 +448,7 @@ export function FormField(props: FormFieldProps) {
                   )}
                   {props?.subFields?.map((field, index) => (
                     <div key={index}>
-                      {field.label && field.hideHeader !== true && (
-                        <QText level="normal bold">{wt(field.label)}</QText>
-                      )}
+                      {field.label && field.hideHeader !== true && <QText level="normal bold">{wt(field.label)}</QText>}
                       <FormField
                         fieldKey={field.key}
                         control={field.control}
@@ -498,12 +461,7 @@ export function FormField(props: FormFieldProps) {
                         format={field.format}
                         visibility={field.visibility}
                         fieldIndex={arrIndex}
-                        lastField={
-                          props.lastField &&
-                          (props.subFields
-                            ? index === props.subFields.length - 1
-                            : true)
-                        }
+                        lastField={props.lastField && (props.subFields ? index === props.subFields.length - 1 : true)}
                       />
                     </div>
                   ))}
@@ -516,9 +474,7 @@ export function FormField(props: FormFieldProps) {
           <div className="section-container">
             {props.subFields.map((field, index) => (
               <div key={index}>
-                {field.label && field.hideHeader !== true && (
-                  <QText level="normal bold">{wt(field.label)}</QText>
-                )}
+                {field.label && field.hideHeader !== true && <QText level="normal bold">{wt(field.label)}</QText>}
                 <FormField
                   fieldKey={field.key}
                   control={field.control}
@@ -531,12 +487,7 @@ export function FormField(props: FormFieldProps) {
                   format={field.format}
                   visibility={field.visibility}
                   fieldIndex={props.fieldIndex}
-                  lastField={
-                    props.lastField &&
-                    (props.subFields
-                      ? index === props.subFields.length - 1
-                      : true)
-                  }
+                  lastField={props.lastField && (props.subFields ? index === props.subFields.length - 1 : true)}
                 />
               </div>
             ))}

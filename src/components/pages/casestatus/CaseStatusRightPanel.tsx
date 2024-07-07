@@ -8,6 +8,7 @@ import CaseProgressCard from "./CaseProgressCard";
 import CaseSummaryCard from "./CaseSummaryCard";
 import "./CaseStatusRightPanel.css";
 import { getCaseSummaryApi } from "../../../api/caseAPI";
+import { updateAsylumType } from "../../../reducers/formSlice";
 
 function useFetchCaseSummary() {
   const { id } = useParams<{ id?: string }>();
@@ -37,6 +38,13 @@ function useFetchCaseSummary() {
       setLoading(true);
       const data = await getCaseSummaryApi(parseInt(id), accessToken, role);
       setCaseSummary(data);
+
+      if (data.asylumType) {
+        dispatch(updateAsylumType(data.asylumType as "AFFIRMATIVE" | "DEFENSIVE"));
+      } else {
+        console.error("Asylum type is empty.");
+      }
+
       // Mock data
       const mockCaseSummary: CaseSummary = {
         id: 55,

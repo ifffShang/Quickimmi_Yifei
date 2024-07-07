@@ -27,12 +27,12 @@ export function FormContainer() {
   const indexLevel1 = useAppSelector(state => state.case.indexLevel1);
   const indexLevel2 = useAppSelector(state => state.case.indexLevel2);
   const screenSize = useScreenSize();
-  const isSmallScreen =
-    screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall;
+  const isSmallScreen = screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall;
 
   const [searchParams, setSearchParams] = useSearchParams();
 
   const caseIdInt = caseId ? parseInt(caseId) : -1;
+
   useAutoSaveApplicationCase(caseIdInt, accessToken, role, dispatch);
 
   useEffect(() => {
@@ -48,10 +48,7 @@ export function FormContainer() {
       parseInt(subsectionIndex!),
     );
 
-    if (
-      correctedIndexLevel1 !== indexLevel1 ||
-      correctedIndexLevel2 !== indexLevel2
-    ) {
+    if (correctedIndexLevel1 !== indexLevel1 || correctedIndexLevel2 !== indexLevel2) {
       dispatch(
         setIndexLevel2({
           indexLevel1: correctedIndexLevel1,
@@ -65,11 +62,7 @@ export function FormContainer() {
     if (indexLevel1 === -1 || indexLevel2 === -1) {
       return;
     }
-    const { correctedIndexLevel1, correctedIndexLevel2 } = getCorrectedIndexes(
-      form,
-      indexLevel1,
-      indexLevel2,
-    );
+    const { correctedIndexLevel1, correctedIndexLevel2 } = getCorrectedIndexes(form, indexLevel1, indexLevel2);
     setSearchParams({
       section: correctedIndexLevel1.toString(),
       subsection: correctedIndexLevel2.toString(),

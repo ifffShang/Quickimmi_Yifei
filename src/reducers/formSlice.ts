@@ -25,6 +25,7 @@ import { getUpdateProfileData } from "../utils/utils";
 
 export interface FormState {
   caseId: number;
+  asylumType: "AFFIRMATIVE" | "DEFENSIVE";
   applicationCase: ApplicationCase;
   percentage: Percentage;
   saveTimes: number;
@@ -41,6 +42,7 @@ const initialState: FormState = {
   saveTimes: 0,
   documentUrls: [],
   uploadedDocuments: [],
+  asylumType: "AFFIRMATIVE",
 };
 
 function deepAssign(update: any, current: any, init: any) {
@@ -173,7 +175,6 @@ export const formSlice = createSlice({
       Object.entries(state.percentage[sectionId]).forEach(([key, value]) => {
         if (key !== "avg") {
           if (value === -1) {
-            
             return;
           }
           sum += value;
@@ -309,6 +310,9 @@ export const formSlice = createSlice({
     incrementSaveTimes: state => {
       state.saveTimes++;
     },
+    updateAsylumType: (state, action: PayloadAction<"AFFIRMATIVE" | "DEFENSIVE">) => {
+      state.asylumType = action.payload;
+    },
     resetFormState: state => {
       state.caseId = 0;
       state.applicationCase = InitialApplicationCase;
@@ -336,6 +340,7 @@ export const {
   replaceDocumentUrls,
   clearDocumentUrls,
   updateUploadedDocuments,
+  updateAsylumType,
   incrementSaveTimes,
 } = formSlice.actions;
 

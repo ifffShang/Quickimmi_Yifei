@@ -192,7 +192,7 @@ export function getProgressWithPercentage(progress: Progress, percentage: Percen
                 metadata: JSON.stringify({
                   percentage: percentage,
                 }),
-                status: "IN_PROGRESS",
+                status: percentage?.overall?.avg === 100 ? "COMPLETED" : "IN_PROGRESS",
               };
             }
             return substep;
