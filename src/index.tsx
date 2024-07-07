@@ -9,6 +9,17 @@ import "./index.css";
 import "./locales/i18n";
 import reportWebVitals from "./reportWebVitals";
 import { pdfjs } from "react-pdf";
+import { Amplify } from "aws-amplify";
+import awsExports from "./aws-exports";
+
+Amplify.configure({
+  Auth: {
+    Cognito: {
+      userPoolId: awsExports.LAWYER_POOL.USER_POOL_ID,
+      userPoolClientId: awsExports.LAWYER_POOL.USER_POOL_APP_CLIENT_ID,
+    },
+  },
+});
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 

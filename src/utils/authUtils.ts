@@ -14,7 +14,7 @@ export const signOutCurrentUser = (dispatch: AppDispatch) => {
 };
 
 export const startTokenExpirationTimer = (dispatch: AppDispatch) => {
-  const ExpirationTime = 1000 * 60 * 50; // 50 minutes
+  const ExpirationTime = 1000 * 60 * 20; // 20 minutes
   const timerId = setTimeout(() => {
     dispatch(openModal({ modalType: "tokenRefreshPopup", modalData: {} }));
   }, ExpirationTime);

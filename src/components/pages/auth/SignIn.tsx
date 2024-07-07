@@ -44,14 +44,21 @@ export function SignIn() {
       }
 
       const userPoolConfig = role === Role.LAWYER ? awsExports.LAWYER_POOL : awsExports.CUSTOMER_POOL;
-      Amplify.configure({
-        Auth: {
-          Cognito: {
-            userPoolId: userPoolConfig.USER_POOL_ID,
-            userPoolClientId: userPoolConfig.USER_POOL_APP_CLIENT_ID,
+
+      // Looks like we have to configure Amplify in index.tsx, otherwise it is causing the issue when refreshing the token
+      // TODO: fix the issue for customer role
+      if (role !== Role.LAWYER) {
+        localStorage.clear();
+        sessionStorage.clear();
+        Amplify.configure({
+          Auth: {
+            Cognito: {
+              userPoolId: userPoolConfig.USER_POOL_ID,
+              userPoolClientId: userPoolConfig.USER_POOL_APP_CLIENT_ID,
+            },
           },
-        },
-      });
+        });
+      }
 
       const { isSignedIn, nextStep } = await signIn({
         username: email,
