@@ -42,6 +42,14 @@ export function getAntTheme() {
         colorLink: linkColor,
         colorLinkHover: secondaryColor,
       },
+      Switch: {
+        colorPrimary: primaryColor,
+        colorPrimaryHover: linkColor,
+      },
+      Select: {
+        colorPrimary: primaryColor,
+        colorPrimaryHover: primaryColor,
+      },
     },
   };
 
