@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     padding: 20px;
-    gap: 20px; /* Add gap between sections */
+    gap: 20px;
 }
 
 .modal-header {
@@ -12,7 +12,7 @@
 .modal-content {
     display: flex;
     flex-direction: row;
-    gap: 20px; /* Add gap between left and right sections */
+    gap: 20px;
 }
 
 .modal-left {
@@ -20,19 +20,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* Center content vertically */
+    justify-content: center;
 }
 
 .modal-right {
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Center form vertically */
+    justify-content: center;
 }
 
 .rocket-icon {
-    width: 212px; /* Adjust as necessary */
-    height: 177px; /* Adjust as necessary */
+    width: 212px;
+    height: 177px;
     margin-bottom: 20px;
 }
 

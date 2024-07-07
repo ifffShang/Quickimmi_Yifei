@@ -35,13 +35,12 @@ import {
   getDocumentTypesApi,
 } from "../../../api/caseAPI";
 import { useAppSelector } from "../../../app/hooks";
-import { UploadedDocument } from "../../../model/apiModels";
+import { UploadedDocumentWithUrl } from "../../../model/apiModels";
 import { DocumentType, DocumentStatus } from "../../../model/commonModels";
 import { DeleteConfirmModal } from "../../modals/case/DeleteConfirmModal";
 import { Loading } from "../../common/Loading";
 import { QText } from "../../common/Fonts";
 import "./CaseDocumentRightPanel.css";
-import { set } from "lodash";
 
 const { Dragger } = Upload;
 const { Option } = Select;
@@ -51,33 +50,35 @@ function useFetchDocuments() {
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const userRole = useAppSelector(state => state.auth.role);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [documents, setDocuments] = useState<UploadedDocument[]>([]);
+  const [documents, setDocuments] = useState<UploadedDocumentWithUrl[]>([]);
+
+  const fetchDocumentFile = async (url: string) => {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to download document from ${url}`);
+    }
+    return response.blob();
+  };
 
   const fetchDocuments = useCallback(async () => {
-    if (!accessToken) {
-      setError("Access token is missing");
+    if (!accessToken || !caseId || !userRole) {
+      message.error("Access token, case ID, or user role is missing");
+      setLoading(false);
       return;
     }
-    if (!caseId) {
-      setError("Invalid case ID");
-      return;
-    }
-    if (!userRole) {
-      setError("User role is missing");
-      return;
-    }
+
     try {
       setLoading(true);
-      const documents = await getDocumentsApi(
-        accessToken,
-        Number(caseId),
-        userRole,
+      const documents = await getDocumentsApi(accessToken, Number(caseId), userRole);
+      const documentsWithFile: UploadedDocumentWithUrl[] = await Promise.all(
+        documents.map(async (doc) => {
+          const documentContent = await fetchDocumentFile(doc.presignUrl);
+          return { ...doc, document: documentContent };
+        })
       );
-      setDocuments(documents);
+      setDocuments(documentsWithFile);
     } catch (error) {
       message.error("Error fetching documents");
-      setError("Failed to fetch documents. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -85,9 +86,9 @@ function useFetchDocuments() {
 
   useEffect(() => {
     fetchDocuments();
-  }, [fetchDocuments]);
+  }, [accessToken]);
 
-  return { loading, error, documents, fetchDocuments };
+  return { loading, documents, fetchDocuments };
 }
 
 const CaseDocumentRightPanel: React.FC = () => {
@@ -96,12 +97,12 @@ const CaseDocumentRightPanel: React.FC = () => {
   const userId = useAppSelector(state => state.auth.userId);
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const userRole = useAppSelector(state => state.auth.role);
-  const { loading, error, documents, fetchDocuments } = useFetchDocuments();
+  const { loading, documents, fetchDocuments } = useFetchDocuments();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [currentFile, setCurrentFile] = useState<File | null>(null);
   const [selectedDocumentType, setSelectedDocumentType] = useState<DocumentType>("PASSPORT_MAIN");
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [filteredDocuments, setFilteredDocuments] = useState<UploadedDocument[]>([]);
+  const [filteredDocuments, setFilteredDocuments] = useState<UploadedDocumentWithUrl[]>([]);
   const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
   const [documentToDelete, setDocumentToDelete] = useState<{id: number; name: string;} | null>(null);
   const [documentTypes, setDocumentTypes] = useState<DocumentType[]>([]);
@@ -117,30 +118,6 @@ const CaseDocumentRightPanel: React.FC = () => {
       console.log("Uploading file", file);
       setCurrentFile(file);
       setIsModalVisible(true);
-    }
-  };
-
-  const handleDownload = async (documentId: number) => {
-    if (!accessToken) {
-      message.error("Access token is missing");
-      return;
-    }
-    try {
-      const document = await getDocumentByIdApi(
-        accessToken,
-        documentId,
-        userRole,
-      );
-      if (!document.presignUrl) {
-        message.error("Presigned URL is missing");
-        return;
-      }
-      window.open(document.presignUrl, "_blank");
-      console.log("download documentId", documentId);
-      console.log("download document url:", document.presignUrl);
-    } catch (error) {
-      message.error("Error downloading document");
-      console.error(error);
     }
   };
 
@@ -210,6 +187,7 @@ const CaseDocumentRightPanel: React.FC = () => {
     if (fileType === "unsupported") {
       console.log("Unsupported file type");
       message.error("Unsupported file type");
+      message.warning("Supported document types: image, pdf, text, video, audio")
       setCurrentFile(null);
       return false;
     }
@@ -289,20 +267,20 @@ const CaseDocumentRightPanel: React.FC = () => {
     setCurrentFile(null);
   };
 
+  const handleSearch = () => {
+    const query = searchQuery.trim().toLowerCase();
+    const filtered = documents.filter(doc =>
+      doc.name.toLowerCase().includes(query)
+    );
+    setFilteredDocuments(filtered.length > 0 ? filtered : []);
+  };
+
   const handleClearSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;
     setSearchQuery(query);
     if (query.trim() === "") {
       setFilteredDocuments(documents);
     }
-  };
-
-  const handleSearch = () => {
-    setFilteredDocuments(
-      documents.filter(doc =>
-        doc.name.toLowerCase().includes(searchQuery.toLowerCase()),
-      ),
-    );
   };
 
   const fetchDocumentTypes = async () => {
@@ -321,7 +299,7 @@ const CaseDocumentRightPanel: React.FC = () => {
 
   useEffect(() => {
     fetchDocumentTypes();
-  }, [accessToken, userRole]);
+  }, [accessToken]);
 
   const getFileType = (fileExt: string) => {
     switch (fileExt.toLowerCase()) {
@@ -399,16 +377,53 @@ const CaseDocumentRightPanel: React.FC = () => {
         );
     }
   }
+
+  const handlePreview = async (documentId: number) => {
+    if (!accessToken) {
+      message.error("Access token is missing");
+      return;
+    }
+    try {
+      const document = await getDocumentByIdApi(
+        accessToken,
+        documentId,
+        userRole,
+      );
+      if (!document.presignUrl) {
+        message.error("Presigned URL is missing");
+        return;
+      }
+      window.open(document.presignUrl, "_blank");
+    } catch (error) {
+      message.error("Error accessing document");
+      console.error(error);
+    }
+  };
+
   
-  const dataSource = (
-    filteredDocuments.length > 0 ? filteredDocuments : documents
-  ).map(doc => ({
+  const tableData = filteredDocuments.length == 0 && searchQuery.trim() === "" ? documents : filteredDocuments
+  const dataSource = (tableData).map(doc => ({
     key: doc.id,
     type: doc.type,
     name: doc.name,
     uploader: userRole,
     fileType: doc.name.split(".").pop()?.toUpperCase(),
     uploadedAt: doc.createdAt,
+    action: (
+      <Space size="small">
+          <a download={doc.name} href={URL.createObjectURL(doc.document)}>
+              {t("Download")}
+          </a>
+          <a
+            onClick={() => {
+              setDocumentToDelete({ id: doc.id, name: doc.name });
+              setDeleteConfirmVisible(true);
+            }}
+          >
+            {t("Delete")}
+          </a>
+      </Space>
+    )
   }));
 
   const columns = [
@@ -423,7 +438,9 @@ const CaseDocumentRightPanel: React.FC = () => {
       dataIndex: "name",
       key: "name",
       sorter: (a, b) => a.name.localeCompare(b.name),
-      render: text => <a>{text}</a>,
+      render: (text, record) => (
+        <a onClick={() => handlePreview(record.key)}>{text}</a>
+      ),
       width: "25%",
     },
     {
@@ -449,29 +466,14 @@ const CaseDocumentRightPanel: React.FC = () => {
     },
     {
       title: t("Action"),
+      dataIndex: "action",
       key: "action",
       width: "18%",
-      render: (_, document) => (
-        <Space size="small">
-          <a onClick={() => handleDownload(document.key)}>{t("Download")}</a>
-          <a
-            onClick={() => {
-              setDocumentToDelete({ id: document.key, name: document.name });
-              setDeleteConfirmVisible(true);
-            }}
-          >
-            {t("Delete")}
-          </a>
-        </Space>
-      ),
     },
   ];
 
   if (loading) {
     return <Loading />;
-  }
-  if (error) {
-    return <Alert message="Error" description={error} type="error" showIcon />;
   }
 
   return (
@@ -482,7 +484,7 @@ const CaseDocumentRightPanel: React.FC = () => {
           <QText level="large">{t("UploadDocument")}</QText>
         </div>
         <div className="case-document-section-content">
-          <Dragger {...uploadProps} showUploadList={false}>
+          <Dragger {...uploadProps} showUploadList={false} >
             <p className="ant-upload-drag-icon">
               <InboxOutlined style={{ color: "#27AE60" }} />
             </p>
@@ -503,8 +505,9 @@ const CaseDocumentRightPanel: React.FC = () => {
           <div className="case-document-section-search">
             <Input
               placeholder={t("InputFileNameToSearch")}
-              onChange={handleClearSearch}
               className="case-document-section-search-input"
+              onChange={handleClearSearch}
+              onPressEnter={handleSearch}
               value={searchQuery}
             />
             <Button
@@ -553,6 +556,7 @@ const CaseDocumentRightPanel: React.FC = () => {
           <div className="upload-modal-body-fileInfo">
             <QText level="normal bold">{t("DocumentType")}</QText>
             <Select
+              showSearch
               defaultValue={selectedDocumentType}
               style={{ width: 300 }}
               onChange={(value: DocumentType) => setSelectedDocumentType(value)}
