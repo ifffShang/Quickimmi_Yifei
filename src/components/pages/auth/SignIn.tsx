@@ -138,6 +138,10 @@ export function SignIn() {
             const roleValue = checked ? Role.LAWYER : Role.APPLICANT;
             dispatch(updateRole(roleValue));
           }}
+          // style={{
+          //   backgroundColor: role === Role.LAWYER ? "#27AE60" : "#BDBDBD"
+          //   // backgroundColor:hover ? "#27AE60" : "#BDBDBD"
+          // }}
         />
       </div>
 
