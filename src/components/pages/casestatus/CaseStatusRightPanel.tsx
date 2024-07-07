@@ -36,14 +36,14 @@ function useFetchCaseSummary() {
 
     try {
       setLoading(true);
-      const data = await getCaseSummaryApi(parseInt(id), accessToken, role);
-      setCaseSummary(data);
-
-      if (data.asylumType) {
-        dispatch(updateAsylumType(data.asylumType as "AFFIRMATIVE" | "DEFENSIVE"));
-      } else {
-        console.error("Asylum type is empty.");
-      }
+      // const data = await getCaseSummaryApi(parseInt(id), accessToken, role);
+      // setCaseSummary(data);
+      //
+      // if (data.asylumType) {
+      //   dispatch(updateAsylumType(data.asylumType as "AFFIRMATIVE" | "DEFENSIVE"));
+      // } else {
+      //   console.error("Asylum type is empty.");
+      // }
 
       // Mock data
       const mockCaseSummary: CaseSummary = {
@@ -88,14 +88,14 @@ function useFetchCaseSummary() {
                 },
                 {
                   name: "CLIENT_SIGNATURE",
-                  status: "NOT_START",
+                  status: "COMPLETED",
                   metadata: null,
                   startedAt: 1716788746776,
                   updatedAt: 1716788746776,
                 },
                 {
                   name: "SUBMIT_APPLICATION",
-                  status: "NOT_START",
+                  status: "IN_PROGRESS",
                   metadata: null,
                   startedAt: 1716788746776,
                   updatedAt: 1716788746776,
@@ -211,7 +211,7 @@ function useFetchCaseSummary() {
         createdAt: 1715912208190,
         updatedAt: 1718259472477,
       };
-      // setCaseSummary(mockCaseSummary);
+      setCaseSummary(mockCaseSummary);
       setLoading(false);
     } catch (error) {
       console.error("Failed to fetch case summary:", error);
