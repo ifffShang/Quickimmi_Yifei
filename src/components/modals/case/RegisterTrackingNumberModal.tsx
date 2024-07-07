@@ -1,35 +1,33 @@
-import {InboxOutlined, LoadingOutlined} from "@ant-design/icons";
-import {Button, Upload, UploadProps} from "antd";
-import React, {useRef, useState} from "react";
-import {uploadFileToPresignUrl} from "../../../api/caseAPI";
-import {useAppDispatch, useAppSelector} from "../../../app/hooks";
-import {useFormTranslation} from "../../../hooks/commonHooks";
-import {GeneratePresignedUrlResponse} from "../../../model/apiModels";
-import {QText} from "../../common/Fonts";
+import { InboxOutlined, LoadingOutlined } from "@ant-design/icons";
+import { Button, Upload, UploadProps } from "antd";
+import React, { useRef, useState } from "react";
+import { uploadFileToPresignUrl } from "../../../api/caseAPI";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { useFormTranslation } from "../../../hooks/commonHooks";
+import { GeneratePresignedUrlResponse } from "../../../model/apiModels";
+import { QText } from "../../common/Fonts";
 import "./RegisterTrackingNumberModal.css";
-import {closeModal} from "../../../reducers/commonSlice";
+import { closeModal } from "../../../reducers/commonSlice";
+import { RocketIcon } from "../../icons/RocketIcon";
 
 export function RegisterTrackingNumberModal() {
-    const {wt} = useFormTranslation();
-    const {Dragger} = Upload;
+    const { wt } = useFormTranslation();
+    const { Dragger } = Upload;
     const dispatch = useAppDispatch();
-    const accessToken = useAppSelector(state => state.auth.accessToken);
-    const role = useAppSelector(state => state.auth.role);
+    const accessToken = useAppSelector((state) => state.auth.accessToken);
+    const role = useAppSelector((state) => state.auth.role);
 
     const [confirmDisabled, setConfirmDisabled] = useState(true);
     const [loading, setLoading] = useState(false);
     const presignedUrlResRef = useRef<GeneratePresignedUrlResponse | null>(null);
-    const modalData = useAppSelector(state => state.common.modalData);
+    const modalData = useAppSelector((state) => state.common.modalData);
     const fileRef = useRef<File | null>(null);
 
     const onPassportImageUrlReceived = (imageUrl: string) => {
         modalData?.updatePassportOrIdImageUrl(imageUrl);
     };
 
-    const onPresignedUrlReceived = (
-        res: GeneratePresignedUrlResponse,
-        file: any,
-    ) => {
+    const onPresignedUrlReceived = (res: GeneratePresignedUrlResponse, file: any) => {
         setConfirmDisabled(false);
         presignedUrlResRef.current = res;
         fileRef.current = file;
@@ -54,11 +52,7 @@ export function RegisterTrackingNumberModal() {
 
     const onConfirmButtonClick = () => {
         try {
-            if (
-                !presignedUrlResRef.current ||
-                !presignedUrlResRef.current.presignedUrl ||
-                !fileRef.current
-            ) {
+            if (!presignedUrlResRef.current || !presignedUrlResRef.current.presignedUrl || !fileRef.current) {
                 throw new Error("Presigned URL or file is missing");
             }
             setConfirmDisabled(true);
@@ -68,60 +62,92 @@ export function RegisterTrackingNumberModal() {
                 fileRef.current,
                 onProgress,
                 onSuccess,
-                onError,
+                onError
             );
         } catch (err) {
             console.error(err);
         }
     };
+
     const handleUpload = async (fileList: any) => {
         console.log("handle upload");
     };
+
     const uploadProps: UploadProps = {
         customRequest: handleUpload,
         multiple: false,
         maxCount: 1,
         onChange(info: any) {
+            // Handle file change event
         },
         onDrop(info: any) {
             console.log("Dropped files", info.dataTransfer.files);
         },
     };
+
     const handleModalCancel = () => {
-        dispatch(closeModal())
+        dispatch(closeModal());
     };
 
     return (
-        <div className="upload-signed-document">
-            <QText level="large">{wt("UploadSignedDocument")}</QText>
-            <div className="upload-signed-document-uploader">
-                <Dragger {...uploadProps}>
-                    <p className="ant-upload-drag-icon">
-                        <InboxOutlined/>
-                    </p>
-                    <p className="ant-upload-text">{wt("Click or drag file to this area to upload")}</p>
-                </Dragger>
+        <div className="register-tracking-number-modal">
+            <div className="modal-header">
+                <QText level="large">{wt("UploadTrackingNumber")}</QText>
+                <p className="model-desc">{wt("UploadTrackingNumberDesc")}</p>
             </div>
-            <div className="upload-signed-document-controls">
-                <Button key="Back" onClick={handleModalCancel}>
-                    {wt("Return")}
-                </Button>
-                <Button
-                    type="primary"
-                    size="large"
-                    onClick={onConfirmButtonClick}
-                    disabled={confirmDisabled}
-                >
-                    {confirmDisabled ? (
-                        loading ? (
-                            <LoadingOutlined/>
-                        ) : (
-                            wt("Confirm")
-                        )
-                    ) : (
-                        wt("Confirm")
-                    )}
-                </Button>
+            <div className="modal-content">
+                <div className="modal-left">
+                    <RocketIcon className="rocket-icon" />
+                </div>
+                <div className="modal-right">
+                    <div className="form-item">
+                        <label className="form-label">{wt("Select carrier")}</label>
+                        <select className="form-select">
+                            <option>{wt("Select carrier")}</option>
+                            <option value="fedex">FedEx</option>
+                            <option value="ups">UPS</option>
+                            <option value="usps">USPS</option>
+                            <option value="dhl">DHL</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div className="form-item">
+                        <label className="form-label">{wt("Tracking Number")}</label>
+                        <input type="text" className="form-input" placeholder={wt("Enter tracking number")} />
+                    </div>
+                    <div className="form-item">
+                        <label className="form-label">{wt("Package Photo (if any)")}</label>
+                        <div className="upload-signed-document-uploader">
+                            <Dragger {...uploadProps}>
+                                <p className="ant-upload-drag-icon">
+                                    <InboxOutlined />
+                                </p>
+                                <p className="ant-upload-text">{wt("Click or drag file to this area to upload")}</p>
+                            </Dragger>
+                        </div>
+                    </div>
+                    <div className="upload-signed-document-controls">
+                        <Button key="Back" onClick={handleModalCancel}>
+                            {wt("Return")}
+                        </Button>
+                        <Button
+                            type="primary"
+                            size="large"
+                            onClick={onConfirmButtonClick}
+                            disabled={confirmDisabled}
+                        >
+                            {confirmDisabled ? (
+                                loading ? (
+                                    <LoadingOutlined />
+                                ) : (
+                                    wt("Confirm")
+                                )
+                            ) : (
+                                wt("Confirm")
+                            )}
+                        </Button>
+                    </div>
+                </div>
             </div>
         </div>
     );

@@ -201,7 +201,11 @@
   "Go Complete": "去填表",
   "UploadSignedDocument": "上传已签署文件",
   "Click or drag file to this area to upload": "点击或拖拽文件到此区域上传",
-
+  "UploadTrackingNumber": "登记递交",
+  "UploadTrackingNumberDesc": "登记邮寄信息以更新申请进度",
+  "Select carrier": "承运公司",
+  "Tracking Number":"快递单号",
+  "Package Photo (if any)": "包裹照片（若有）",
   "PersonalInformation": "个人信息",
   "BasicInformation": "基本信息",
   "ContactInformation": "联系信息",

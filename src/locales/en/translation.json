@@ -199,6 +199,12 @@
   "Go Complete": "Go Complete",
   "UploadSignedDocument": "Upload Signed Document",
   "Click or drag file to this area to upload": "Click or drag file to this area to upload",
+  "UploadTrackingNumber": "Upload Tracking Number",
+  "UploadTrackingNumberDesc": "Upload tracking number to share with the client.",
+  "Select carrier": "Select carrier",
+  "Tracking Number":"Tracking Number",
+  "Package Photo (if any)": "Package Photo (if any)",
+
   "PersonalInformation": "Personal",
   "BasicInformation": "Basic",
   "ContactInformation": "Contact",
