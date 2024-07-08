@@ -1,17 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  Card,
-  message,
-  Upload,
-  Alert,
-  Modal,
-  Select,
-  Space,
-  Table,
-  Button,
-  Input,
-  UploadProps,
-} from "antd";
+import { Card, message, Upload, Modal, Select, Space, Table, Button, Input, UploadProps, Switch } from "antd";
 import { useTranslation } from "react-i18next";
 import {
   InboxOutlined,
@@ -41,16 +29,17 @@ import { DeleteConfirmModal } from "../../modals/case/DeleteConfirmModal";
 import { Loading } from "../../common/Loading";
 import { QText } from "../../common/Fonts";
 import "./CaseDocumentRightPanel.css";
+import { set } from "lodash";
+import { on } from "events";
 
 const { Dragger } = Upload;
 const { Option } = Select;
 
-function useFetchDocuments() {
+function useFetchDocuments(setDocuments: (docs: UploadedDocumentWithUrl[]) => void) {
   const { id: caseId } = useParams<{ id?: string }>();
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const userRole = useAppSelector(state => state.auth.role);
   const [loading, setLoading] = useState(false);
-  const [documents, setDocuments] = useState<UploadedDocumentWithUrl[]>([]);
 
   const fetchDocumentFile = async (url: string) => {
     const response = await fetch(url);
@@ -71,10 +60,10 @@ function useFetchDocuments() {
       setLoading(true);
       const documents = await getDocumentsApi(accessToken, Number(caseId), userRole);
       const documentsWithFile: UploadedDocumentWithUrl[] = await Promise.all(
-        documents.map(async (doc) => {
+        documents.map(async doc => {
           const documentContent = await fetchDocumentFile(doc.presignUrl);
           return { ...doc, document: documentContent };
-        })
+        }),
       );
       setDocuments(documentsWithFile);
     } catch (error) {
@@ -82,13 +71,13 @@ function useFetchDocuments() {
     } finally {
       setLoading(false);
     }
-  }, [accessToken, caseId, userRole]);
+  }, [accessToken, caseId, userRole, setDocuments]);
 
   useEffect(() => {
     fetchDocuments();
   }, [accessToken]);
 
-  return { loading, documents, fetchDocuments };
+  return { loading, fetchDocuments };
 }
 
 const CaseDocumentRightPanel: React.FC = () => {
@@ -97,23 +86,28 @@ const CaseDocumentRightPanel: React.FC = () => {
   const userId = useAppSelector(state => state.auth.userId);
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const userRole = useAppSelector(state => state.auth.role);
-  const { loading, documents, fetchDocuments } = useFetchDocuments();
+  const [documents, setDocuments] = useState<UploadedDocumentWithUrl[]>([]);
+  const [filteredDocuments, setFilteredDocuments] = useState<UploadedDocumentWithUrl[]>([]);
+  const { loading, fetchDocuments } = useFetchDocuments(setDocuments);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [currentFile, setCurrentFile] = useState<File | null>(null);
   const [selectedDocumentType, setSelectedDocumentType] = useState<DocumentType>("PASSPORT_MAIN");
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [filteredDocuments, setFilteredDocuments] = useState<UploadedDocumentWithUrl[]>([]);
   const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
-  const [documentToDelete, setDocumentToDelete] = useState<{id: number; name: string;} | null>(null);
+  const [documentToDelete, setDocumentToDelete] = useState<{ id: number; name: string } | null>(null);
   const [documentTypes, setDocumentTypes] = useState<DocumentType[]>([]);
-
-  const [fileLength, setFileLength] = useState(0);
+  const [onDropFileCount, setOnDropFileCount] = useState(0);
+  
+  useEffect(() => {
+    setFilteredDocuments(documents);
+  }, [documents]);
 
   const handleUpload = async (fileList: any) => {
-    if (fileLength > 1) {
+    if (onDropFileCount > 1) {
+      message.error("Please upload only one file at a time");
       setIsModalVisible(false);
-      setFileLength(0);
-    } else{
+      setOnDropFileCount(0);
+    } else {
       const { file } = fileList;
       console.log("Uploading file", file);
       setCurrentFile(file);
@@ -123,18 +117,12 @@ const CaseDocumentRightPanel: React.FC = () => {
 
   const handleDelete = async () => {
     if (!accessToken || documentToDelete === null) {
-      message.error(
-        "Access token is missing or no document selected for deletion",
-      );
+      message.error("Access token is missing or no document selected for deletion");
       return;
     }
     try {
       console.log("delete documentId", documentToDelete.id);
-      const successDelete = await deleteDocumentApi(
-        userRole,
-        documentToDelete.id,
-        accessToken,
-      );
+      const successDelete = await deleteDocumentApi(userRole, documentToDelete.id, accessToken);
       if (successDelete) {
         message.success("Document deleted successfully");
         fetchDocuments();
@@ -149,35 +137,21 @@ const CaseDocumentRightPanel: React.FC = () => {
     setDocumentToDelete(null);
   };
 
-  const updateStatus = async (
-    documentId: number,
-    documentStatus: DocumentStatus,
-  ) => {
+  const updateStatus = async (documentId: number, documentStatus: DocumentStatus) => {
     try {
       if (!accessToken) {
         message.error("Access token is missing");
         return;
       }
-      await updateDocumentStatus(
-        userRole,
-        documentId,
-        true,
-        documentStatus,
-        accessToken,
-      );
+      await updateDocumentStatus(userRole, documentId, true, documentStatus, accessToken);
     } catch (error) {
       console.error(`Failed to update document status: ${error}`);
     }
   };
 
   const checkFileCount = (fileList: any) => {
-    if (fileList.length > 1) {
-      message.error("Only one file can be uploaded at a time");
-      setCurrentFile(null);
-      setIsModalVisible(false);
-      return false;
-    }
-    return true;
+    const fileCount = fileList.length;
+    setOnDropFileCount(fileCount);
   };
 
   const checkFileType = (file: any) => {
@@ -187,7 +161,7 @@ const CaseDocumentRightPanel: React.FC = () => {
     if (fileType === "unsupported") {
       console.log("Unsupported file type");
       message.error("Unsupported file type");
-      message.warning("Supported document types: image, pdf, text, video, audio")
+      message.warning("Supported document types: image, pdf, text, video, audio");
       setCurrentFile(null);
       return false;
     }
@@ -198,7 +172,7 @@ const CaseDocumentRightPanel: React.FC = () => {
     customRequest: handleUpload,
     multiple: false,
     maxCount: 1,
-    beforeUpload: (file) => {
+    beforeUpload: file => {
       if (!checkFileType(file)) {
         return Upload.LIST_IGNORE;
       }
@@ -206,10 +180,7 @@ const CaseDocumentRightPanel: React.FC = () => {
     },
     onDrop(info: any) {
       console.log("Dropped files", info.dataTransfer.files);
-      if (!checkFileCount(info.dataTransfer.files)) {
-        setFileLength(2);
-        return;
-      }
+      checkFileCount(info.dataTransfer.files);
     },
   };
 
@@ -269,10 +240,8 @@ const CaseDocumentRightPanel: React.FC = () => {
 
   const handleSearch = () => {
     const query = searchQuery.trim().toLowerCase();
-    const filtered = documents.filter(doc =>
-      doc.name.toLowerCase().includes(query)
-    );
-    setFilteredDocuments(filtered.length > 0 ? filtered : []);
+    const filtered = documents.filter(doc => doc.name.toLowerCase().includes(query));
+    setFilteredDocuments(filtered);
   };
 
   const handleClearSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -307,76 +276,62 @@ const CaseDocumentRightPanel: React.FC = () => {
       case "jpg":
       case "jpeg":
       case "gif":
-        return("image");
+        return "image";
       case "pdf":
-        return("pdf");
+        return "pdf";
       case "doc":
       case "docx":
       case ".pages":
-        return("text");
+        return "word";
       case "txt":
       case "md":
-        return("text");
+        return "text";
       case "mp4":
       case "avi":
       case "mov":
       case "wmv":
       case "mkv":
-        return("video");
+        return "video";
       case "mp3":
       case "wav":
       case "aac":
       case "flac":
       case "ogg":
-        return("audio");
+        return "audio";
 
       default:
-        return("unsupported");
+        return "unsupported";
     }
-  };  
+  };
 
   const getFileIcon = (fileName: string) => {
     if (!fileName) {
-      return (
-        <FileUnknownTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
-      );
+      return <FileUnknownTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />;
     }
-  
+
     const fileExtension = fileName.split(".").pop()?.toLowerCase();
     if (!fileExtension) {
-      return (
-        <FileUnknownTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
-      );
+      return <FileUnknownTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />;
     }
-  
+
     const fileType = getFileType(fileExtension);
     switch (fileType) {
       case "image":
-        return (
-          <FileImageTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
-        );
+        return <FileImageTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />;
+      case "word":
+        return <FileWordTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />;
       case "text":
-        return (
-          <FileTextTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
-        );
+        return <FileTextTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />;
       case "video":
-        return (
-          <VideoCameraTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
-        );
+        return <VideoCameraTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />;
       case "audio":
-        return (
-          <AudioTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
-        );
+        return <AudioTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />;
       case "pdf":
-        return (
-          <FilePdfTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
-        );
+        return <FilePdfTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />;
       default:
-        return (
-          <FileUnknownTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />
-        );
+        return <FileUnknownTwoTone style={{ fontSize: 80 }} twoToneColor="#27AE60" />;
     }
-  }
+  };
 
   const handlePreview = async (documentId: number) => {
     if (!accessToken) {
@@ -384,11 +339,7 @@ const CaseDocumentRightPanel: React.FC = () => {
       return;
     }
     try {
-      const document = await getDocumentByIdApi(
-        accessToken,
-        documentId,
-        userRole,
-      );
+      const document = await getDocumentByIdApi(accessToken, documentId, userRole);
       if (!document.presignUrl) {
         message.error("Presigned URL is missing");
         return;
@@ -400,30 +351,30 @@ const CaseDocumentRightPanel: React.FC = () => {
     }
   };
 
-  
-  const tableData = filteredDocuments.length == 0 && searchQuery.trim() === "" ? documents : filteredDocuments
-  const dataSource = (tableData).map(doc => ({
+  const tableData = searchQuery.trim() === "" ? documents : filteredDocuments;
+
+  const dataSource = tableData.map(doc => ({
     key: doc.id,
     type: doc.type,
     name: doc.name,
     uploader: userRole,
     fileType: doc.name.split(".").pop()?.toUpperCase(),
-    uploadedAt: doc.createdAt,
+    updatedAt: doc.createdAt,
     action: (
       <Space size="small">
-          <a download={doc.name} href={URL.createObjectURL(doc.document)}>
-              {t("Download")}
-          </a>
-          <a
-            onClick={() => {
-              setDocumentToDelete({ id: doc.id, name: doc.name });
-              setDeleteConfirmVisible(true);
-            }}
-          >
+        <a download={doc.name} href={URL.createObjectURL(doc.document)}>
+          {t("Download")}
+        </a>
+        <a
+          onClick={() => {
+            setDocumentToDelete({ id: doc.id, name: doc.name });
+            setDeleteConfirmVisible(true);
+          }}
+        >
             {t("Delete")}
-          </a>
+        </a>
       </Space>
-    )
+    ),
   }));
 
   const columns = [
@@ -438,9 +389,7 @@ const CaseDocumentRightPanel: React.FC = () => {
       dataIndex: "name",
       key: "name",
       sorter: (a, b) => a.name.localeCompare(b.name),
-      render: (text, record) => (
-        <a onClick={() => handlePreview(record.key)}>{text}</a>
-      ),
+      render: (text, record) => <a onClick={() => handlePreview(record.key)}>{text}</a>,
       width: "25%",
     },
     {
@@ -456,11 +405,10 @@ const CaseDocumentRightPanel: React.FC = () => {
       width: "10%",
     },
     {
-      title: t("UploadedAt"),
-      dataIndex: "uploadedAt",
-      key: "uploadedAt",
-      sorter: (a, b) =>
-        new Date(a.uploadedAt).getTime() - new Date(b.uploadedAt).getTime(),
+      title: t("Updated At"),
+      dataIndex: "updatedAt",
+      key: "updatedAt",
+      sorter: (a, b) => new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime(),
       render: text => <a>{new Date(text).toLocaleString()}</a>,
       width: "22%",
     },
@@ -478,28 +426,28 @@ const CaseDocumentRightPanel: React.FC = () => {
 
   return (
     <Card className="case-document-right-panel">
+
       {/* Upload document section */}
       <div className="case-document-file-upload">
         <div className="case-document-section-header">
           <QText level="large">{t("UploadDocument")}</QText>
         </div>
         <div className="case-document-section-content">
-          <Dragger {...uploadProps} showUploadList={false} >
+          <Dragger {...uploadProps} showUploadList={false} className="case-document-uploader">
             <p className="ant-upload-drag-icon">
               <InboxOutlined style={{ color: "#27AE60" }} />
             </p>
-            <p className="ant-upload-text">
-              Click or drag file to this area to upload
-            </p>
+            <p className="ant-upload-text">Click or drag file to this area to upload</p>
             <p className="ant-upload-hint">
-              Support for a single or bulk upload. Strictly prohibited from
-              uploading company data or other banned files.
+              Support for a single or bulk upload. Strictly prohibited from uploading company data or other banned
+              files.
             </p>
           </Dragger>
         </div>
       </div>
+
       {/* Document display section */}
-      <div className="case-document-file-list">
+      <div>
         <div className="case-document-section-header">
           <QText level="large">{t("CaseDocument")}</QText>
           <div className="case-document-section-search">
@@ -510,16 +458,12 @@ const CaseDocumentRightPanel: React.FC = () => {
               onPressEnter={handleSearch}
               value={searchQuery}
             />
-            <Button
-              onClick={handleSearch}
-              className="case-document-section-search-button"
-              size="large"
-            >
+            <Button onClick={handleSearch} className="case-document-section-search-button" size="large">
               {t("Search")}
             </Button>
           </div>
         </div>
-        <div className="case-document-section-content">
+        <div className="case-document-section-content case-document-file-table">
           <Table columns={columns} dataSource={dataSource} pagination={false} />
         </div>
       </div>
@@ -536,12 +480,7 @@ const CaseDocumentRightPanel: React.FC = () => {
           <Button key="Back" onClick={handleModalCancel}>
             {t("Return")}
           </Button>,
-          <Button
-            key="Upload"
-            type="primary"
-            loading={loading}
-            onClick={handleModalOk}
-          >
+          <Button key="Upload" type="primary" loading={loading} onClick={handleModalOk}>
             {t("Upload")}
           </Button>,
         ]}
@@ -583,3 +522,4 @@ const CaseDocumentRightPanel: React.FC = () => {
 };
 
 export default CaseDocumentRightPanel;
+

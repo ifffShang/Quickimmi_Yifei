@@ -2,14 +2,21 @@
   display: flex;
   flex-direction: column;
   padding-top: 0;
-
   border-radius: 12px;
+
+  overflow-y: auto;
 }
 
 .case-document-file-upload {
   display: flex;
   flex-direction: column;
   margin-bottom: 40px;
+}
+.ant-upload-drag:hover {
+  border-color: var(--success-color) !important;
+}
+.ant-upload-drag-icon {
+  color: var(--primary-color)
 }
 
 .case-document-section-header {
@@ -18,18 +25,23 @@
   justify-content: space-between;
   padding-left: 5px;
 }
+.case-document-section-content {
+  margin-top: 20px;
+}
+
 .case-document-section-search-input {
   width: 400px;
 }
 .case-document-section-search-button {
-  border: 1px solid #27ae60;
+  border: 1px solid var(--primary-color);
   border-radius: 3px;
   margin-left: 10px;
   height: 40px;
   width: 100px;
 }
-.case-document-section-content {
-  margin-top: 20px;
+.case-document-file-table {
+  max-height: 500px;
+  overflow-y: auto;
 }
 
 .upload-modal-container {
