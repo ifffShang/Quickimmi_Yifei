@@ -49,6 +49,7 @@ export type ControlType =
   | "textarea"
   | "radio"
   | "checkbox"
+  | "checkbox_multioptions"
   | "fileplus" // file upload icon style
   | "file" // file upload link style
   | "dropdown"

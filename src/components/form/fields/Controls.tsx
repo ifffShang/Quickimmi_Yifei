@@ -382,6 +382,69 @@ export function PureCheckBox(props: PureCheckBoxProps) {
   );
 }
 
+/** Checkbox multi-options control ***************************************************/
+
+export interface CheckBoxMultiOptionsProps {
+  label: string;
+  onChange: (keyValueChecked: string) => void;
+  disabled?: boolean;
+  checkedValues?: string[];
+  options?: IFormOptions[] | string;
+}
+
+export function CheckBoxMultiOptions(props: CheckBoxMultiOptionsProps) {
+  const [checkedValues, setCheckedValues] = useState(props.checkedValues || []);
+  const {wt} = useFormTranslation();
+
+  useEffect(() => {
+    setCheckedValues(props.checkedValues || []);
+  }, [props.checkedValues]);
+
+  const handleChange = (selectedValues: string[]) => {
+    if (!props.options || !Array.isArray(props.options) || props.options.length === 0) {
+      console.error("Options are required for checkbox multi-options control");
+      return;
+    }
+    console.log(selectedValues);
+    setCheckedValues(selectedValues);
+    let result: any;
+    props.options.forEach((option, index) => {
+      if (!result) {
+        result = option.keyValue.split(",");
+      }
+      if (selectedValues.includes(option.value)) {
+        option.keyValue.split(",").forEach((keyValue: string, index: number) => {
+          if (keyValue === "true") {
+            result[index] = "true";
+          }
+        });
+      }
+    });
+    props.onChange(result.join(","));
+  };
+
+  if (!props.options || !Array.isArray(props.options) || props.options.length === 0) {
+    return (<>Options are required for checkbox multi-options control</>);
+  }
+
+  return (
+    <Checkbox.Group
+      className="checkbox-multi-options-container"
+      onChange={handleChange}
+      disabled={props.disabled}
+      value={checkedValues}
+    >
+      {props.options.map(option => (
+        <div key={option.value} className="checkbox-multi-option">
+          <Checkbox value={option.value}>
+            <QText level="normal">{wt(option.label)}</QText>
+          </Checkbox>
+        </div>
+      ))}
+    </Checkbox.Group>
+  );  
+}
+
 /** Radio control ***************************************************/
 
 export interface RadioSelectProps {

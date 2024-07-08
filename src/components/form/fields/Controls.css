@@ -84,3 +84,9 @@
 .select-box .ant-select .ant-select-selector {
   border-radius: 4px !important;
 }
+
+.checkbox-multi-options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

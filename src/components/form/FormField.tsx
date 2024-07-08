@@ -16,7 +16,15 @@ import {
 import { QText } from "../common/Fonts";
 import "./FormField.css";
 import { AddItemControl } from "./fields/AddItemControl";
-import { CheckBox, QDatePicker, QTextArea, QTextBox, RadioSelect, SelectBox } from "./fields/Controls";
+import {
+  CheckBox,
+  CheckBoxMultiOptions,
+  QDatePicker,
+  QTextArea,
+  QTextBox,
+  RadioSelect,
+  SelectBox,
+} from "./fields/Controls";
 import { DocumentList } from "./fields/DocumentList";
 import { EntryRecords } from "./fields/EntryRecords";
 import { LocationDropdown } from "./fields/LocationDropdown";
@@ -248,6 +256,15 @@ export function FormField(props: FormFieldProps) {
           label={wt(props.label)}
           onChange={onCheckboxChange}
           checked={fieldValue}
+          options={props.options || ""}
+        />
+      );
+    case "checkbox_multioptions":
+      return (
+        <CheckBoxMultiOptions
+          label={wt(props.label)}
+          onChange={onCheckboxChange}
+          checkedValues={fieldValue as string[]}
           options={props.options || ""}
         />
       );

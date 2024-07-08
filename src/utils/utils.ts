@@ -148,9 +148,22 @@ export function getFieldValue(
   if (key?.indexOf(",") > -1) {
     const keys = key.split(",");
     if (options && Array.isArray(options)) {
-      const keyValue = keys.map(k => getCaseDetailValue(caseDetails, k, fieldIndex)).join(",");
-      const option = options.find(option => option.keyValue === keyValue);
-      return option?.value;
+      const keyValues = keys.map(k => getCaseDetailValue(caseDetails, k, fieldIndex));
+      const tmpOptions = Array(keyValues.length).fill("false");
+      const keyValueList = [] as string[];
+      keyValues.forEach((k, i) => {
+        if (k === "true") {
+          tmpOptions[i] = "true";
+          keyValueList.push(tmpOptions.join(","));
+        }
+        tmpOptions[i] = "false";
+      });
+      const selectedOptions = options.filter(option => keyValueList.indexOf(option.keyValue) > -1);
+      if (selectedOptions.length === 1) {
+        return selectedOptions[0].value;
+      } else if (selectedOptions.length > 1) {
+        return selectedOptions.map(option => option.value);
+      }
     } else if (format) {
       const regex = Regex[format]["FormatRegex"];
       const output = Regex[format]["FormatOutput"];

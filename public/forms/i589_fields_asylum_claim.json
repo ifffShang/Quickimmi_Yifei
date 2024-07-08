@@ -7,7 +7,7 @@
       "label": "text_AsylumBasedOn",
       "id": "asylum_based_on",
       "key": "applicationDetails.asylumBasedOnRaceCheckbox,applicationDetails.asylumBasedOnReligionCheckbox,applicationDetails.asylumBasedOnNationalityCheckbox,applicationDetails.asylumBasedOnPoliticalOptionCheckbox,applicationDetails.asylumBasedOnParticularMembershipCheckbox,applicationDetails.asylumBasedOnTortureConventionCheckbox",
-      "control": "select",
+      "control": "checkbox_multioptions",
       "options": [
         {
           "value": "Race",
