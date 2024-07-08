@@ -29,6 +29,8 @@ import { DeleteConfirmModal } from "../../modals/case/DeleteConfirmModal";
 import { Loading } from "../../common/Loading";
 import { QText } from "../../common/Fonts";
 import "./CaseDocumentRightPanel.css";
+import { set } from "lodash";
+import { on } from "events";
 
 const { Dragger } = Upload;
 const { Option } = Select;
@@ -94,14 +96,17 @@ const CaseDocumentRightPanel: React.FC = () => {
   const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
   const [documentToDelete, setDocumentToDelete] = useState<{ id: number; name: string } | null>(null);
   const [documentTypes, setDocumentTypes] = useState<DocumentType[]>([]);
-
+  const [onDropFileCount, setOnDropFileCount] = useState(0);
+  
   useEffect(() => {
     setFilteredDocuments(documents);
   }, [documents]);
 
   const handleUpload = async (fileList: any) => {
-    if (fileList.length > 1) {
+    if (onDropFileCount > 1) {
+      message.error("Please upload only one file at a time");
       setIsModalVisible(false);
+      setOnDropFileCount(0);
     } else {
       const { file } = fileList;
       console.log("Uploading file", file);
@@ -145,13 +150,8 @@ const CaseDocumentRightPanel: React.FC = () => {
   };
 
   const checkFileCount = (fileList: any) => {
-    if (fileList.length > 1) {
-      message.error("Only one file can be uploaded at a time");
-      setCurrentFile(null);
-      setIsModalVisible(false);
-      return false;
-    }
-    return true;
+    const fileCount = fileList.length;
+    setOnDropFileCount(fileCount);
   };
 
   const checkFileType = (file: any) => {
@@ -180,9 +180,7 @@ const CaseDocumentRightPanel: React.FC = () => {
     },
     onDrop(info: any) {
       console.log("Dropped files", info.dataTransfer.files);
-      if (!checkFileCount(info.dataTransfer.files)) {
-        return;
-      }
+      checkFileCount(info.dataTransfer.files);
     },
   };
 
