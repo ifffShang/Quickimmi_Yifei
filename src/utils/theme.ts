@@ -50,6 +50,10 @@ export function getAntTheme() {
         colorPrimary: primaryColor,
         colorPrimaryHover: primaryColor,
       },
+      Checkbox: {
+        colorPrimary: primaryColor,
+        colorPrimaryHover: primaryColor,
+      },
     },
   };
 

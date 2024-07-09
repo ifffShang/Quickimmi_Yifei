@@ -1,14 +1,15 @@
 import { Route, Routes } from "react-router-dom";
-import { useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useTokenExpirationTimer } from "../../hooks/cacheHooks";
+import { LawyerPreForm } from "../form/LawyerPreForm";
 import { AuthPage } from "../pages/auth/AuthPage";
+import CaseStatusLayout from "../pages/casestatus/CaseStatusLayout";
 import { CaseDetails } from "../pages/dashboard/CaseDetails";
 import { Dashboard } from "../pages/dashboard/Dashboard";
 import { Home } from "../pages/home/Home";
 import { SinglePageView } from "../pages/singlePage/SinglePageView";
 import { Checkout } from "../payment/Checkout";
-import { LawyerPreForm } from "../form/LawyerPreForm";
 import "./MainView.css";
-import CaseStatusLayout from "../pages/casestatus/CaseStatusLayout";
 
 export const PATH = {
   Home: "/",
@@ -115,6 +116,9 @@ export const RouterConfig = [
 
 export function MainView() {
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
+  const dispatch = useAppDispatch();
+
+  useTokenExpirationTimer(dispatch);
 
   return (
     <div className="mainview-container">
@@ -123,13 +127,7 @@ export function MainView() {
           <Route
             key={index}
             path={route.path}
-            element={
-              route.needLogin && !isLoggedIn ? (
-                <AuthPage type="signin" />
-              ) : (
-                route.element
-              )
-            }
+            element={route.needLogin && !isLoggedIn ? <AuthPage type="signin" /> : route.element}
           />
         ))}
       </Routes>

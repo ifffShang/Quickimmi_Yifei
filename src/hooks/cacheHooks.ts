@@ -5,6 +5,9 @@ import { updateApplicationCaseFunc } from "../utils/functionUtils";
 import { ObjectUtils } from "../utils/diffUtils";
 import { incrementSaveTimes } from "../reducers/formSlice";
 import { Role } from "../consts/consts";
+import { startTokenExpirationTimer } from "../utils/authUtils";
+import { InMemoryCache } from "../cache/inMemoryCache";
+import { AppDispatch } from "../app/store";
 
 export function useAutoSaveApplicationCase(
   caseId: number,
@@ -27,10 +30,7 @@ export function useAutoSaveApplicationCase(
       () => {
         const caseProfileCached = CacheStore.getProfile(caseId);
 
-        if (
-          !lastCaseProfileCached ||
-          _.isEqual(caseProfileCached, lastCaseProfileCached)
-        ) {
+        if (!lastCaseProfileCached || _.isEqual(caseProfileCached, lastCaseProfileCached)) {
           console.log("[Auto save] Initial load or no change in profile.");
           autoSave();
           return;
@@ -39,21 +39,10 @@ export function useAutoSaveApplicationCase(
         const percentage = CacheStore.getPercentage(caseId);
         const progress = CacheStore.getProgress(caseId);
 
-        const diff = ObjectUtils.diffUpdate(
-          lastCaseProfileCached,
-          caseProfileCached,
-          true,
-        );
+        const diff = ObjectUtils.diffUpdate(lastCaseProfileCached, caseProfileCached, true);
         try {
           console.log("Auto save profile, diff is ", diff);
-          updateApplicationCaseFunc(
-            caseId,
-            caseProfileCached,
-            progress,
-            percentage,
-            role,
-            accessToken,
-          );
+          updateApplicationCaseFunc(caseId, caseProfileCached, progress, percentage, role, accessToken);
           lastCaseProfileCached = caseProfileCached;
           dispatch(incrementSaveTimes());
         } catch (error) {
@@ -74,22 +63,21 @@ export function useAutoSaveApplicationCase(
       const percentage = CacheStore.getPercentage(caseId);
       const progress = CacheStore.getProgress(caseId);
 
-      if (
-        !lastCaseProfileCached ||
-        _.isEqual(caseProfileCached, lastCaseProfileCached)
-      ) {
+      if (!lastCaseProfileCached || _.isEqual(caseProfileCached, lastCaseProfileCached)) {
         clearTimeout(timeId);
         return;
       }
-      updateApplicationCaseFunc(
-        caseId,
-        caseProfileCached,
-        progress,
-        percentage,
-        role,
-        accessToken,
-      );
+      updateApplicationCaseFunc(caseId, caseProfileCached, progress, percentage, role, accessToken);
       clearTimeout(timeId);
     };
+  }, []);
+}
+
+export function useTokenExpirationTimer(dispatch: AppDispatch) {
+  useEffect(() => {
+    const timerId = InMemoryCache.get("tokenExpirationTimerId");
+    if (!timerId) {
+      startTokenExpirationTimer(dispatch);
+    }
   }, []);
 }
