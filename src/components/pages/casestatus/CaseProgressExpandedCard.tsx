@@ -134,7 +134,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
     };
 
     const handleDownloadSignedDocClick = () => {
-      navigate(`/casedocuments/${id}`);
+      navigate(`/casedocuments/${id}?type=other`);
     };
 
     const handlePopUpModalClick = (modalType: ModalType) => {
