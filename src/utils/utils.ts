@@ -81,7 +81,7 @@ export function getCaseDetailValue(caseDetails: AsylumCaseProfile, key: string, 
           return null;
         }
         const realKeyEntry = keyEntry.replace("[]", "");
-        if (result[realKeyEntry] && Array.isArray(result[realKeyEntry])) {
+        if (result && result[realKeyEntry] && Array.isArray(result[realKeyEntry])) {
           result = result[realKeyEntry][fieldIndex];
         } else {
           result = null;
