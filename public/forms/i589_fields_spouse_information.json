@@ -161,7 +161,7 @@
           "label": "text_AlienRegistrationNumber",
           "placeholder": "text_EnterIfApplicable",
           "id": "alien_registration_number",
-          "key": "family.spouse.anumber",
+          "key": "family.spouse.alienNumber",
           "control": "component_textbox_na"
         },
         {

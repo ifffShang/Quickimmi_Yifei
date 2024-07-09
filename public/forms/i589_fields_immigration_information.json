@@ -7,7 +7,7 @@
       "label": "text_AlienRegistrationNumber",
       "placeholder": "text_EnterIfApplicable",
       "id": "alien_registration_number",
-      "key": "applicant.anumber",
+      "key": "applicant.alienNumber",
       "control": "component_textbox_na"
     },
     {

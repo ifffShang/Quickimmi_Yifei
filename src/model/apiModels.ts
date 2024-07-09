@@ -189,7 +189,7 @@ export interface AsylumCaseProfileOptional {
 
 export interface Applicant {
   passportDocumentId?: number;
-  aNumber?: string;
+  alienNumber?: string;
   ssn?: string;
   uscisOnlineAccountNumber?: string;
   lastName?: string;
@@ -261,7 +261,7 @@ export interface Family {
 export interface Spouse {
   passportDocumentId?: string;
   notMarriedCheckbox?: string;
-  aNumber?: string;
+  alienNumber?: string;
   passportNumber?: string;
   birthDate?: string;
   ssn?: string;
@@ -294,7 +294,7 @@ export interface Spouse {
 
 export interface Child {
   passportDocumentId?: string;
-  aNumber?: string;
+  alienNumber?: string;
   passportNumber?: string;
   martialStatus?: string;
   ssn?: string;

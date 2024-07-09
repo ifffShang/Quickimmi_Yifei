@@ -2,7 +2,7 @@ import { AddressHistory, ApplicationCase, Child, EntryRecord, FamilyMember, Spou
 
 export const InitialApplicant = {
   passportDocumentId: 0,
-  aNumber: "",
+  alienNumber: "",
   ssn: "",
   uscisOnlineAccountNumber: "",
   lastName: "",
@@ -215,7 +215,7 @@ export const InitialApplicationCase: ApplicationCase = {
 export const InitialSpouse: Spouse = {
   passportDocumentId: "",
   notMarriedCheckbox: "",
-  aNumber: "",
+  alienNumber: "",
   passportNumber: "",
   birthDate: "",
   ssn: "",
@@ -254,7 +254,7 @@ export const InitialEntryRecord: EntryRecord = {
 
 export const InitialChild: Child = {
   passportDocumentId: "",
-  aNumber: "",
+  alienNumber: "",
   passportNumber: "",
   martialStatus: "",
   ssn: "",

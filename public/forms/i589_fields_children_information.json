@@ -42,8 +42,8 @@
         {
           "label": "text_AlienRegistrationNumber",
           "placeholder": "text_EnterIfApplicable",
-          "id": "aNumber",
-          "key": "family.children[].aNumber",
+          "id": "alienNumber",
+          "key": "family.children[].alienNumber",
           "control": "component_textbox_na"
         },
         {
