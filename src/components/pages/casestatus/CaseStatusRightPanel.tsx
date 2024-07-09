@@ -9,6 +9,7 @@ import CaseSummaryCard from "./CaseSummaryCard";
 import "./CaseStatusRightPanel.css";
 import { getCaseSummaryApi } from "../../../api/caseAPI";
 import { updateAsylumType } from "../../../reducers/formSlice";
+import {updateCurrentCaseId} from "../../../reducers/caseSlice";
 
 function useFetchCaseSummary() {
   const { id } = useParams<{ id?: string }>();
@@ -36,14 +37,19 @@ function useFetchCaseSummary() {
 
     try {
       setLoading(true);
-      // const data = await getCaseSummaryApi(parseInt(id), accessToken, role);
-      // setCaseSummary(data);
-      //
-      // if (data.asylumType) {
-      //   dispatch(updateAsylumType(data.asylumType as "AFFIRMATIVE" | "DEFENSIVE"));
-      // } else {
-      //   console.error("Asylum type is empty.");
-      // }
+      const data = await getCaseSummaryApi(parseInt(id), accessToken, role);
+      setCaseSummary(data);
+
+      if (data.asylumType) {
+        dispatch(updateAsylumType(data.asylumType as "AFFIRMATIVE" | "DEFENSIVE"));
+      } else {
+        console.error("Asylum type is empty.");
+      }
+      if (data.id) {
+        dispatch(updateCurrentCaseId(data.id.toString()));
+      } else {
+        console.error("Case ID is missing in the case summary.");
+      }
 
       // Mock data
       const mockCaseSummary: CaseSummary = {
@@ -88,49 +94,49 @@ function useFetchCaseSummary() {
                 },
                 {
                   name: "CLIENT_SIGNATURE",
-                  status: "COMPLETED",
+                  status: "IN_PROGRESS",
                   metadata: null,
                   startedAt: 1716788746776,
                   updatedAt: 1716788746776,
                 },
                 {
                   name: "SUBMIT_APPLICATION",
-                  status: "COMPLETED",
+                  status: "NOT_START",
                   metadata: null,
                   startedAt: 1716788746776,
                   updatedAt: 1716788746776,
                 },
                 {
                   name: "NOTICE_RECEIPT",
-                  status: "COMPLETED",
+                  status: "NOT_START",
                   metadata: null,
                   startedAt: 1716788746776,
                   updatedAt: 1716788746776,
                 },
                 {
                   name: "FINGERPRINT_COLLECTION",
-                  status: "COMPLETED",
+                  status: "NOT_START",
                   metadata: null,
                   startedAt: 1716788746776,
                   updatedAt: 1716788746776,
                 },
                 {
                   name: "INTERVIEW",
-                  status: "COMPLETED",
+                  status: "NOT_START",
                   metadata: null,
                   startedAt: 1716788746776,
                   updatedAt: 1716788746776,
                 },
                 {
                   name: "FINAL_REVIEW",
-                  status: "COMPLETED",
+                  status: "NOT_START",
                   metadata: null,
                   startedAt: 1716788746776,
                   updatedAt: 1716788746776,
                 },
                 {
                   name: "RESULT",
-                  status: "IN_PROGRESS",
+                  status: "NOT_START",
                   metadata: null,
                   startedAt: 1716788746776,
                   updatedAt: 1716788746776,

@@ -97,7 +97,7 @@ const CaseDocumentRightPanel: React.FC = () => {
   const [documentToDelete, setDocumentToDelete] = useState<{ id: number; name: string } | null>(null);
   const [documentTypes, setDocumentTypes] = useState<DocumentType[]>([]);
   const [onDropFileCount, setOnDropFileCount] = useState(0);
-  
+
   useEffect(() => {
     setFilteredDocuments(documents);
   }, [documents]);
@@ -208,7 +208,7 @@ const CaseDocumentRightPanel: React.FC = () => {
 
         const documentId = presignedUrlResponse.documentId;
         console.log("new documentId", documentId);
-        await updateStatus(documentId, "UPLOADING");
+        // await updateStatus(documentId, "UPLOADING");
 
         await uploadFileToPresignUrl(
           presignedUrlResponse.presignedUrl,

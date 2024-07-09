@@ -7,6 +7,9 @@ import "./CaseStatusLayout.css";
 import { useNavigate } from "react-router-dom";
 import { QReturnLink } from "../../common/Links";
 import { useTranslation } from "react-i18next";
+import {updateAsylumType} from "../../../reducers/formSlice";
+import {updateCurrentCaseId} from "../../../reducers/caseSlice";
+import {useAppDispatch} from "../../../app/hooks";
 
 const { Content } = Layout;
 
@@ -19,6 +22,12 @@ const CaseStatusLayout: React.FC<CaseStatusLayoutProps> = ({
 }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+
+  const handleReturnClick = () => {
+    dispatch(updateCurrentCaseId(""));
+    navigate(`/dashboard`);
+  };
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
