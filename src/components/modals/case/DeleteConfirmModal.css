@@ -4,17 +4,18 @@
 }
 .delete-confirm-modal-body {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  padding: 15px;
+  flex-direction: row;
+  /* justify-content: center;
+  align-items: center; */
+  padding: 15px 10px;
+  gap: 10px;
 }
-.delete-confirm-modal-body-icon {
-  padding: 15px;
+.delete-confirm-modal-icon {
+  padding-top: 1px;
+}
+.delete-confirm-modal-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.delete-confirm-modal-body-message {
-  font-size: 16px;
-  text-align: center;
-}
