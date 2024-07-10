@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Pagination } from "antd";
+import { Button, Pagination, message } from "antd";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
@@ -32,8 +32,7 @@ export function Dashboard() {
   const query = new URLSearchParams(location.search);
   const initialPage = parseInt(query.get("page") || "1");
   const [currentPage, setCurrentPage] = useState(initialPage);
-  const [pageSize, setPageSize] = useState(3); // Adjust page size as needed
-  // const [pageSize, setPageSize] = useState(6); // Adjust page size as needed
+  const [pageSize, setPageSize] = useState(6); 
   const [totalItems, setTotalItems] = useState(0);
 
   const getCases = async () => {
@@ -41,7 +40,7 @@ export function Dashboard() {
       console.error(
         `Access token ${accessToken} or user id ${userId} is missing`,
       );
-      // TODO: pop up error message
+      message.error("Access token or user id is missing");
       setLoading(false);
       return;
     }
@@ -61,8 +60,9 @@ export function Dashboard() {
         );
         cases = data.cases;
         setTotalItems(data.metadata.totalItems);
-        console.log(`Number of cases assigned to the lawyer: ${cases.length}`);
+        console.log(`Number of cases on this page: ${cases.length}`);
         console.log("lawyerId", userId);
+        console.log("Total case: ", totalItems);
         cases.forEach(c => console.log(`Case ID: ${c.id}`));
       } else {
         data = await getCasesApi(
@@ -81,6 +81,11 @@ export function Dashboard() {
         cases.forEach(c => console.log(`Case ID: ${c.id}`));
       }
       dispatch(updateCases(cases));
+
+      if (cases.length === 0 && currentPage > 1) {
+        setCurrentPage(prevPage => prevPage - 1);
+        navigate({ search: `?page=${currentPage - 1}` });
+      }
     } catch (err) {
       console.error(err);
     } finally {

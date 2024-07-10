@@ -34,11 +34,17 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [CaseName, setCaseName] = useState(caseData.caseName || "");
+  const [TempCaseName, setTempCaseName] = useState(caseData.caseName || "");
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const role = useAppSelector(state => state.auth.role);
 
   useEffect(() => {
-    setCaseName(caseData.caseName || "");
+    if(!caseData.caseName) {
+      setCaseName(caseData.id.toString());
+    } else {
+      setTempCaseName(caseData.caseName);
+      setCaseName(handleCaseNameLength(caseData.caseName));
+    }
   }, [caseData]);
 
 
@@ -77,11 +83,11 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
       return;
     }
     try {
-      const success = await updateCaseNameApi(caseData.id, CaseName, accessToken, role);
+      const success = await updateCaseNameApi(caseData.id, TempCaseName, accessToken, role);
       const summary = await getCaseSummaryApi(caseData.id, accessToken, role);
       console.log("Summary case name: " + summary.caseName)
       if (success) {
-        console.log("New Case name " + caseData.caseName);
+        setCaseName(handleCaseNameLength(TempCaseName));
         setIsEditing(false);
       }
     } catch (err) {
@@ -89,17 +95,24 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
     }
   };
 
+  const handleCaseNameLength = (name: string) => {
+    if (name.length > 23) {
+      return name.slice(0, 20) + "...";
+    }
+    return name;
+  }
+
   return (
     <div className="case-card-container">
       <CaseIcon />
       <div className="case-card-content">
         <div className="case-card-title">
           {isEditing ? (
-            <>
+            <div className="case-card-Name">
               <Input
-                value={CaseName}
-                onChange={e => setCaseName(e.target.value)}
-                className="case-card-title-input"
+                value={TempCaseName}
+                onChange={e => setTempCaseName(e.target.value)}
+                className="case-card-name-input"
                 placeholder="Enter new name"
               />
               <EditTwoTone
@@ -112,9 +125,9 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
                 twoToneColor="#f5222d"
                 onClick={() => setIsEditing(false)}
               />
-            </>
+            </div>
           ) : (
-            <>
+            <div className="case-card-Name">
               <div className="case-card-caseName">
                 <QText level="large">{CaseName || `Case ${caseData.id}`}</QText>
               </div>
@@ -123,7 +136,7 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
                 twoToneColor="#27AE60"
                 onClick={() => setIsEditing(true)}
               />
-            </>
+            </div>
           )}
           <div className="case-card-progress">
             <div className="case-card-progress-inner" style={{ width: `${caseData.overallPercentage}%` }}></div>
@@ -157,7 +170,7 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
         visible={deleteModalVisible}
         onConfirm={deleteCase}
         onCancel={() => setDeleteModalVisible(false)}
-        contentName={getCaseId(caseData.id)}
+        contentName={"Case " + caseData.id.toString()}
       />
     </div>
   );

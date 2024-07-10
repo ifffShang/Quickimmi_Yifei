@@ -1,7 +1,7 @@
 // DeleteConfirmModal.tsx
 import React from "react";
 import { Modal, Button } from "antd";
-import { DeleteTwoTone } from "@ant-design/icons";
+import { ExclamationCircleTwoTone } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { QText } from "../../common/Fonts";
 import "./DeleteConfirmModal.css";
@@ -28,7 +28,7 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
       onCancel={onCancel}
       className="delete-confirm-modal-container"
       footer={[
-        <Button key="Cancel" onClick={onCancel}>
+        <Button key="Cancel" type="default" onClick={onCancel}>
           {t("Cancel")}
         </Button>,
         <Button key="Delete" type="primary" danger onClick={onConfirm}>
@@ -37,19 +37,16 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
       ]}
     >
       <div className="delete-confirm-modal-body">
-        <div className="delete-confirm-modal-body-icon">
-          <DeleteTwoTone style={{ fontSize: 64 }} twoToneColor="#EB5757" />
+        <div className="delete-confirm-modal-icon">
+          <ExclamationCircleTwoTone style={{ fontSize: 24 }} twoToneColor="#EB5757" />
         </div>
-        <div className="delete-confirm-modal-body-message">
+        <div className="delete-confirm-modal-messages">
           <QText level="normal bold" color="dark">
-            {t("DeleteConfirmMessage")}
+            {`${t("DeleteConfirmMessage")} ${contentName}?`}
           </QText>
-          {contentName && (
-            <QText level="normal bold" color="gray">
-              {" "}
-              {contentName}
-            </QText>
-          )}
+          <QText level="small" color="gray">
+            {t("DeleteConfirmSubMessage")}
+          </QText>
         </div>
       </div>
     </Modal>
