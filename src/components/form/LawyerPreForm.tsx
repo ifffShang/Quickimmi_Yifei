@@ -30,6 +30,7 @@ export function LawyerPreForm() {
   const role = useAppSelector(state => state.auth.role);
 
   const [applicantName, setApplicantName] = useState("");
+  const [caseNickName, setCaseNickName] = useState("");
   const [applicationType, setApplicationType] = useState("");
   const [immigrationType, setImmigrationType] = useState("");
   const [maritalStatus, setMaritalStatus] = useState("");
@@ -39,8 +40,7 @@ export function LawyerPreForm() {
   const [providedCustomerEmail, setProvidedCustomerEmail] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isSendButtonDisabled, setIsSendButtonDisabled] = useState(true);
-  const [isEmailSendButtonDisabled, setIsEmailSendButtonDisabled] =
-    useState(true);
+  const [isEmailSendButtonDisabled, setIsEmailSendButtonDisabled] = useState(true);
 
   useEffect(() => {
     const isFormValid = applicantName && applicationType;
@@ -128,13 +128,20 @@ export function LawyerPreForm() {
         <div className="form-content-form-preForm">
           <div className="field-section-preForm">
             <div>
-              <QText level="field-label">{t("Name")}</QText>
+              <QText level="field-label">{t("ApplicantName")}</QText>
               <Input
                 className="field-input-preForm"
                 placeholder="Enter applicant's name"
                 value={applicantName}
                 onChange={e => setApplicantName(e.target.value)}
               />
+              {/* <QText level="field-label">{t("CaseNickName")}</QText> */}
+              {/* <Input
+                className="field-input-preForm"
+                placeholder="Enter case name: optional"
+                value={applicantName}
+                onChange={e => setCaseNickName(e.target.value)}
+              /> */}
             </div>
           </div>
           <div className="field-section-preForm immigType">

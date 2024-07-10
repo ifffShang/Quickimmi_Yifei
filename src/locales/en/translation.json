@@ -143,6 +143,8 @@
   "DEFENSIVE": "Defensive",
   "NewCase": "New Case",
   "CreateNewCaseForCustomer": "Create a new case and account for customer",
+  "ApplicantName": "Applicant Name",
+  "CaseNickName": "Case Nickname",
   "CaseNumber": "Case Number",
   "DownloadFile": "DownloadFile",
   "Send": "Send",

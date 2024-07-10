@@ -145,6 +145,8 @@
   "DEFENSIVE": "防御庇护",
   "NewCase": "新建案件",
   "CreateNewCaseForCustomer": "为客户新建账户与案件",
+  "ApplicantName": "用户姓名",
+  "CaseNickName": "案件昵称",
   "CaseNumber": "案件编号",
   "DownloadFile": "下载文件",
   "Send": "邮箱发送",
