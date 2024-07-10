@@ -74,7 +74,8 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
 
   const renderButton = (textKey: string, onClick?: () => void) => {
     if (!progressSteps) return null;
-    const buttonDisabled = isButtonDisabled();
+    // const buttonDisabled = isButtonDisabled();
+    const buttonDisabled = false;
     const tooltipText = getTooltipText(
       substepStatus,
       progressSteps.find(step =>
@@ -130,11 +131,12 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
     };
 
     const handleDownloadToSignDocClick = () => {
-      navigate(`/case/${id}?section=5&subsection=0`);
+      // navigate(`/case/${id}?section=5&subsection=0`);
+      navigate(`/casedocuments/${id}?type=merged`);
     };
 
     const handleDownloadSignedDocClick = () => {
-      navigate(`/casedocuments/${id}?type=other`);
+      navigate(`/casedocuments/${id}?type=signed`);
     };
 
     const handlePopUpModalClick = (modalType: ModalType) => {

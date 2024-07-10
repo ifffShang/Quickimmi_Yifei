@@ -420,14 +420,14 @@ const CaseDocumentRightPanel: React.FC = () => {
             <Space size="small">
                 <a onClick={() => handleDownload(doc)}>{t("Download")}</a>
                 {/* Hide delete in case any useful document is mistakenly deleted.*/}
-                {/*<a*/}
-                {/*    onClick={() => {*/}
-                {/*      setDocumentToDelete({ id: doc.id, name: doc.name });*/}
-                {/*      setDeleteConfirmVisible(true);*/}
-                {/*    }}*/}
-                {/*>*/}
-                {/*  {t("Delete")}*/}
-                {/*</a>*/}
+                <a
+                    onClick={() => {
+                      setDocumentToDelete({ id: doc.id, name: doc.name });
+                      setDeleteConfirmVisible(true);
+                    }}
+                >
+                  {t("Delete")}
+                </a>
             </Space>
         ),
     }));

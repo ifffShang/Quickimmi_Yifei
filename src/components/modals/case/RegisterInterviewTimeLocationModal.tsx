@@ -9,83 +9,26 @@ import { QText } from "../../common/Fonts";
 import "./RegisterInterviewTimeLocationModal.css";
 import { closeModal } from "../../../reducers/commonSlice";
 import { RocketIcon } from "../../icons/RocketIcon";
+import {useFileUpload} from "./useFileUpload";
 
 export function RegisterInterviewTimeLocationModal() {
-    const { wt } = useFormTranslation();
-    const { Dragger } = Upload;
+    const {loading, confirmDisabled, handleUpload, handleFileChange, onConfirmButtonClick} = useFileUpload();
+
+    const {wt} = useFormTranslation();
+    const {Dragger} = Upload;
     const dispatch = useAppDispatch();
-    const accessToken = useAppSelector((state) => state.auth.accessToken);
-    const role = useAppSelector((state) => state.auth.role);
-
-    const [confirmDisabled, setConfirmDisabled] = useState(true);
-    const [loading, setLoading] = useState(false);
-    const presignedUrlResRef = useRef<GeneratePresignedUrlResponse | null>(null);
-    const modalData = useAppSelector((state) => state.common.modalData);
-    const fileRef = useRef<File | null>(null);
-
-    const onPassportImageUrlReceived = (imageUrl: string) => {
-        modalData?.updatePassportOrIdImageUrl(imageUrl);
-    };
-
-    const onPresignedUrlReceived = (res: GeneratePresignedUrlResponse, file: any) => {
-        setConfirmDisabled(false);
-        presignedUrlResRef.current = res;
-        fileRef.current = file;
-    };
-
-    const onProgress = (percent: number) => {
-        console.log(percent);
-    };
-
-    const onSuccess = () => {
-        if (!presignedUrlResRef.current || !presignedUrlResRef.current.documentId) {
-            console.error("Document ID is missing");
-            return;
-        }
-    };
-
-    const onError = (error: Error) => {
-        setLoading(false);
-        setConfirmDisabled(true);
-        console.error(error);
-    };
-
-    const onConfirmButtonClick = () => {
-        try {
-            if (!presignedUrlResRef.current || !presignedUrlResRef.current.presignedUrl || !fileRef.current) {
-                throw new Error("Presigned URL or file is missing");
-            }
-            setConfirmDisabled(true);
-            setLoading(true);
-            uploadFileToPresignUrl(
-                presignedUrlResRef.current.presignedUrl,
-                fileRef.current,
-                onProgress,
-                onSuccess,
-                onError
-            );
-        } catch (err) {
-            console.error(err);
-        }
-    };
-
-    const handleUpload = async (fileList: any) => {
-        console.log("handle upload");
-    };
 
     const uploadProps: UploadProps = {
-        customRequest: handleUpload,
-        multiple: false,
-        maxCount: 1,
-        onChange(info: any) {
-            // Handle file change event
-        },
-        onDrop(info: any) {
-            console.log("Dropped files", info.dataTransfer.files);
-        },
+        beforeUpload: handleUpload,
+        onChange: handleFileChange,
+        multiple: true
     };
 
     const handleModalCancel = () => {
+        dispatch(closeModal());
+    };
+
+    const onUploadComplete = () => {
         dispatch(closeModal());
     };
 
@@ -100,6 +43,17 @@ export function RegisterInterviewTimeLocationModal() {
                     <RocketIcon className="rocket-icon" />
                 </div>
                 <div className="modal-right">
+                    <div className="form-item">
+                        <label className="form-label">{wt("Upload Interview Receipt")}</label>
+                        <div className="upload-signed-document-uploader">
+                            <Dragger {...uploadProps}>
+                                <p className="ant-upload-drag-icon">
+                                    <InboxOutlined />
+                                </p>
+                                <p className="ant-upload-text">{wt("Click or drag file to this area to upload")}</p>
+                            </Dragger>
+                        </div>
+                    </div>
                     <div className="form-item">
                         <label className="form-label">{wt("Time")}</label>
                         <input type="text" className="form-input" placeholder={wt("Time")} />
@@ -119,7 +73,7 @@ export function RegisterInterviewTimeLocationModal() {
                         <Button
                             type="primary"
                             size="large"
-                            onClick={onConfirmButtonClick}
+                            onClick={() => onConfirmButtonClick("INTERVIEW_RECEIPT", onUploadComplete)}
                             disabled={confirmDisabled}
                         >
                             {confirmDisabled ? (
