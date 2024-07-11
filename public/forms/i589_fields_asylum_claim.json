@@ -43,7 +43,7 @@
     },
     {
       "label": "text_HasExperiencedHarm",
-      "id": "has_experienced_harm",
+      "id": "PartB.A",
       "key": "applicationDetails.haveBeenHarmedYesCheckbox,applicationDetails.haveBeenHarmedNoCheckbox",
       "control": "select",
       "options": [
@@ -62,7 +62,7 @@
     {
       "label": "",
       "hideHeader": "true",
-      "id": "PartD.members",
+      "id": "PartB.A",
       "visibility": "applicationDetails.haveBeenHarmedYesCheckbox=true",
       "control": "section",
       "fields": [
@@ -82,7 +82,7 @@
     },
     {
       "label": "text_FearReturnHome",
-      "id": "fear_return_home",
+      "id": "PartB.B",
       "key": "applicationDetails.fearReturnYesCheckbox,applicationDetails.fearReturnNoCheckbox",
       "control": "select",
       "options": [
@@ -101,7 +101,7 @@
     {
       "label": "",
       "hideHeader": "true",
-      "id": "PartD.members",
+      "id": "PartB.B",
       "visibility": "applicationDetails.fearReturnYesCheckbox=true",
       "control": "section",
       "fields": [
@@ -110,12 +110,18 @@
           "id": "explain_fear_return",
           "key": "applicationDetails.explainFearReturnYes",
           "control": "textarea"
+        },
+        {
+          "label": "text_UploadSupportingDocuments",
+          "id": "explain_fear_return_supporting_documents",
+          "key": "supplementDocument.explainFearReturnYesSupportDocuments",
+          "control": "multi_file_uploader"
         }
       ]
     },
     {
       "label": "text_FamilyMemberCharged",
-      "id": "family_member_charged",
+      "id": "PartB.2",
       "key": "applicationDetails.familyMembersBeenChargedYesCheckbox,applicationDetails.familyMembersBeenChargedNoCheckbox",
       "control": "select",
       "options": [
@@ -134,21 +140,27 @@
     {
       "label": "",
       "hideHeader": "true",
-      "id": "PartD.members",
+      "id": "PartB.2",
       "visibility": "applicationDetails.familyMembersBeenChargedYesCheckbox=true",
       "control": "section",
       "fields": [
         {
           "label": "text_ExplainFamilyMemberCharged",
-          "id": "explain_fear_return",
+          "id": "explain_member_charged",
           "key": "applicationDetails.explainFamilyMembersBeenChargedYes",
           "control": "textarea"
+        },
+        {
+          "label": "text_UploadSupportingDocuments",
+          "id": "explain_member_charged_supporting_documents",
+          "key": "supplementDocument.explainFamilyMembersBeenChargedYesSupportDocuments",
+          "control": "multi_file_uploader"
         }
       ]
     },
     {
       "label": "text_YouOrFamilyBelongToGroup",
-      "id": "you_or_family_belong_to_group",
+      "id": "PartB.3.A",
       "key": "applicationDetails.youOrFamilyBelongAnyOrganizationYesCheckbox,applicationDetails.youOrFamilyBelongAnyOrganizationNoCheckbox",
       "control": "select",
       "options": [
@@ -167,21 +179,27 @@
     {
       "label": "",
       "hideHeader": "true",
-      "id": "PartD.members",
+      "id": "PartB.3.A",
       "visibility": "applicationDetails.youOrFamilyBelongAnyOrganizationYesCheckbox=true",
       "control": "section",
       "fields": [
         {
           "label": "text_ExplainYouOrFamilyBelongToGroup",
-          "id": "explain_you_or_family_belong_to_group",
+          "id": "PartB.3.A",
           "key": "applicationDetails.explainYouOrFamilyBelongAnyOrganizationYes",
           "control": "textarea"
+        },
+        {
+          "label": "text_UploadSupportingDocuments",
+          "id": "PartB.3.A",
+          "key": "supplementDocument.explainYouOrFamilyContinueBelongAnyOrganizationYesSupportDocuments",
+          "control": "multi_file_uploader"
         }
       ]
     },
     {
       "label": "text_YouOrFamilyContinueBelongToGroup",
-      "id": "you_or_family_belong_to_group",
+      "id": "PartB.3.B",
       "key": "applicationDetails.youOrFamilyContinueBelongAnyOrganizationYesCheckbox,applicationDetails.youOrFamilyContinueBelongAnyOrganizationNoCheckbox",
       "control": "select",
       "options": [
@@ -200,21 +218,27 @@
     {
       "label": "",
       "hideHeader": "true",
-      "id": "PartD.members",
+      "id": "PartB.3.B",
       "visibility": "applicationDetails.youOrFamilyContinueBelongAnyOrganizationYesCheckbox=true",
       "control": "section",
       "fields": [
         {
           "label": "text_ExplainYouOrFamilyContinueBelongToGroup",
-          "id": "explain_you_or_family_belong_to_group",
+          "id": "PartB.3.B",
           "key": "applicationDetails.explainYouOrFamilyContinueBelongAnyOrganizationYes",
           "control": "textarea"
+        },
+        {
+          "label": "text_UploadSupportingDocuments",
+          "id": "PartB.3.B",
+          "key": "supplementDocument.explainYouOrFamilyContinueBelongAnyOrganizationYesSupportDocuments",
+          "control": "multi_file_uploader"
         }
       ]
     },
     {
       "label": "text_AfraidOfBeingTorturedWhenReturned",
-      "id": "afraid_of_being_tortured_when_returned",
+      "id": "PartB.4",
       "key": "applicationDetails.afraidOfReturnYesCheckbox,applicationDetails.afraidOfReturnNoCheckbox",
       "control": "select",
       "options": [
@@ -233,21 +257,27 @@
     {
       "label": "",
       "hideHeader": "true",
-      "id": "PartD.members",
+      "id": "PartB.4",
       "visibility": "applicationDetails.afraidOfReturnYesCheckbox=true",
       "control": "section",
       "fields": [
         {
           "label": "text_ExplainAfraidOfBeingTorturedWhenReturned",
-          "id": "explain_afraid_of_being_tortured_when_returned",
+          "id": "PartB.4",
           "key": "applicationDetails.explainAfraidOfReturnYes",
           "control": "textarea"
+        },
+        {
+          "label": "text_UploadSupportingDocuments",
+          "id": "PartB.4",
+          "key": "supplementDocument.explainAfraidOfReturnYesSupportDocuments",
+          "control": "multi_file_uploader"
         }
       ]
     },
     {
       "label": "text_AppliedRefugeeOrAsylumBefore",
-      "id": "PartC.1.",
+      "id": "PartC.1",
       "key": "applicationDetails.appliedBeforeYesCheckbox,applicationDetails.appliedBeforeNoCheckbox",
       "control": "select",
       "options": [
@@ -266,21 +296,27 @@
     {
       "label": "",
       "hideHeader": "true",
-      "id": "PartD.members",
+      "id": "PartC.1",
       "visibility": "applicationDetails.appliedBeforeYesCheckbox=true",
       "control": "section",
       "fields": [
         {
           "label": "text_ExplainAppliedRefugeeOrAsylumBefore",
-          "id": "PartC.1.",
+          "id": "PartC.1",
           "key": "applicationDetails.explainAppliedBeforeYes",
           "control": "textarea"
+        },
+        {
+          "label": "text_UploadSupportingDocuments",
+          "id": "PartC.1",
+          "key": "supplementDocument.explainAppliedBeforeYesSupportDocuments",
+          "control": "multi_file_uploader"
         }
       ]
     },
     {
       "label": "text_TravelOtherCountryBeforeUS",
-      "id": "PartC.2.A.",
+      "id": "PartC.2.A",
       "key": "applicationDetails.stayInOtherCountryYesCheckbox,applicationDetails.stayInOtherCountryNoCheckbox",
       "control": "select",
       "options": [
@@ -298,7 +334,7 @@
     },
     {
       "label": "text_AnyLawfulStatusAnyCountry",
-      "id": "PartC.2.B.",
+      "id": "PartC.2.B",
       "key": "applicationDetails.anyLawfulStatusAnyCountryYesCheckbox,applicationDetails.anyLawfulStatusAnyCountryNoCheckbox",
       "control": "select",
       "options": [
@@ -317,21 +353,27 @@
     {
       "label": "",
       "hideHeader": "true",
-      "id": "PartD.members",
+      "id": "PartC.2.B",
       "visibility": "applicationDetails.anyLawfulStatusAnyCountryYesCheckbox=true",
       "control": "section",
       "fields": [
         {
           "label": "text_ExplainAnyLawfulStatusAnyCountry",
-          "id": "PartC.2.B.",
+          "id": "PartC.2.B",
           "key": "applicationDetails.explainAnyLawfulStatusAnyCountryYesQuestion",
           "control": "textarea"
+        },
+        {
+          "label": "text_UploadSupportingDocuments",
+          "id": "PartC.1",
+          "key": "supplementDocument.explainAnyLawfulStatusAnyCountryYesSupportDocuments",
+          "control": "multi_file_uploader"
         }
       ]
     },
     {
       "label": "text_HaveHarmedOthers",
-      "id": "PartC.3.",
+      "id": "PartC.3",
       "key": "applicationDetails.haveYouHarmOthersYesCheckbox,applicationDetails.haveYouHarmOthersNoCheckbox",
       "control": "select",
       "options": [
@@ -350,21 +392,27 @@
     {
       "label": "",
       "hideHeader": "true",
-      "id": "PartD.members",
+      "id": "PartC.3",
       "visibility": "applicationDetails.haveYouHarmOthersYesCheckbox=true",
       "control": "section",
       "fields": [
         {
           "label": "text_ExplainHaveHarmedOthers",
-          "id": "PartC.3.",
+          "id": "PartC.3",
           "key": "applicationDetails.explainHaveYouHarmOthersYes",
           "control": "textarea"
+        },
+        {
+          "label": "text_UploadSupportingDocuments",
+          "id": "PartC.3",
+          "key": "supplementDocument.explainHaveYouHarmOthersYesSupportDocuments",
+          "control": "multi_file_uploader"
         }
       ]
     },
     {
       "label": "text_ReturnCountryAfterBeingHarmed",
-      "id": "PartC.4.",
+      "id": "PartC.4",
       "key": "applicationDetails.returnCountryYesCheckbox,applicationDetails.returnCountryNoCheckbox",
       "control": "select",
       "options": [
@@ -383,21 +431,27 @@
     {
       "label": "",
       "hideHeader": "true",
-      "id": "PartD.members",
+      "id": "PartC.4",
       "visibility": "applicationDetails.returnCountryYesCheckbox=true",
       "control": "section",
       "fields": [
         {
           "label": "text_ExplainReturnCountryAfterBeingHarmed",
-          "id": "PartC.4.",
+          "id": "PartC.4",
           "key": "applicationDetails.explainReturnCountryYes",
           "control": "textarea"
+        },
+        {
+          "label": "text_UploadSupportingDocuments",
+          "id": "PartC.4",
+          "key": "supplementDocument.explainReturnCountryYesSupportDocuments",
+          "control": "multi_file_uploader"
         }
       ]
     },
     {
       "label": "text_AppliedOneYearAfterYourLastArrival",
-      "id": "PartC.5.",
+      "id": "PartC.5",
       "key": "applicationDetails.moreThanOneYearAfterArrivalYesCheckbox,applicationDetails.moreThanOneYearAfterArrivalNoCheckbox",
       "control": "select",
       "options": [
@@ -416,21 +470,27 @@
     {
       "label": "",
       "hideHeader": "true",
-      "id": "PartD.members",
+      "id": "PartC.5",
       "visibility": "applicationDetails.moreThanOneYearAfterArrivalYesCheckbox=true",
       "control": "section",
       "fields": [
         {
           "label": "text_ExplainAppliedOneYearAfterYourLastArrival",
-          "id": "PartC.5.",
+          "id": "PartC.5",
           "key": "applicationDetails.explainMoreThanOneYearAfterArrivalYes",
           "control": "textarea"
+        },
+        {
+          "label": "text_UploadSupportingDocuments",
+          "id": "PartC.5",
+          "key": "supplementDocument.explainMoreThanOneYearAfterArrivalYesSupportDocuments",
+          "control": "multi_file_uploader"
         }
       ]
     },
     {
       "label": "text_HaveCommittedCrime",
-      "id": "PartC.6.",
+      "id": "PartC.6",
       "key": "applicationDetails.haveCommittedCrimeYesCheckbox,applicationDetails.haveCommittedCrimeNoCheckbox",
       "control": "select",
       "options": [
@@ -449,15 +509,21 @@
     {
       "label": "",
       "hideHeader": "true",
-      "id": "PartD.members",
+      "id": "PartC.6",
       "visibility": "applicationDetails.haveCommittedCrimeYesCheckbox=true",
       "control": "section",
       "fields": [
         {
           "label": "text_ExplainHaveCommittedCrime",
-          "id": "PartC.6.",
+          "id": "PartC.6",
           "key": "applicationDetails.explainHaveCommittedCrimeYes",
           "control": "textarea"
+        },
+        {
+          "label": "text_UploadSupportingDocuments",
+          "id": "PartC.6",
+          "key": "supplementDocument.explainHaveCommittedCrimeYesSupportDocuments",
+          "control": "multi_file_uploader"
         }
       ]
     }

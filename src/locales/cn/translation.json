@@ -24,7 +24,7 @@
   "Use": "使用",
   "Rewrite": "重写",
   "Discard": "放弃",
-  
+
   "Home": "首页",
   "AboutUs": "关于我们",
   "AboutQuickimmi": "关于 Quickimmi",
@@ -208,7 +208,7 @@
   "UploadTrackingNumber": "登记递交",
   "UploadTrackingNumberDesc": "登记邮寄信息以更新申请进度",
   "Select carrier": "承运公司",
-  "Tracking Number":"快递单号",
+  "Tracking Number": "快递单号",
   "Package Photo (if any)": "包裹照片（若有）",
   "RegisterApplicationReceipt": "上传申请收据",
   "RegisterApplicationReceiptDesc": "上传申请收据来更新进度。",
@@ -414,6 +414,7 @@
   "ExplainAppliedOneYearAfterYourLastArrival": "如果是\"是\"，请解释为什么您没有在抵达后的第一年内提交申请。您必须准备好在面试或听证会上解释为什么您没有在抵达后的第一年内提交庇护申请。有关回答此问题的指导，请参阅说明书第1部分：提交说明，第V节\"填写表格\"，第C部分。",
   "HaveCommittedCrime": "您或申请中包括的任何家庭成员是否曾在美国犯下任何罪行和/或被逮捕、被控、被定罪或被判刑（包括移民法违规）？",
   "ExplainHaveCommittedCrime": "如果是\"是\"，请在回答中具体说明每个情况：发生了什么和情况、日期、判刑长度、地点、拘留或监禁的持续时间、拘留或定罪的原因、针对您或您申请中的亲属提出的任何正式指控以及释放的原因。如果有相关文件，请附上这些事件的文件；如果没有文件，请解释为什么没有文件。",
+  "UploadSupportingDocuments": "上传支持文件",
 
   "Signature": "签名",
   "PrintCompleteName": "你的完整姓名",

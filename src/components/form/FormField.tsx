@@ -274,7 +274,7 @@ export function FormField(props: FormFieldProps) {
     case "multi_file_uploader":
       return (
         <MultiFileUploader
-          documentType={"SUPPORTING_DOCUMENT"}
+          documentType={"SUPPORTING_DOCUMENT"} // TODO: add multiple document types when needed
           identity={"Applicant"}
           operation={"NEW"}
           description={props.fieldKey}
