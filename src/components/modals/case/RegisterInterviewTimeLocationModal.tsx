@@ -54,7 +54,8 @@ export function RegisterInterviewTimeLocationModal({ modalData }: RegisterInterv
             note
         });
         const currentStep = "FINGERPRINT_INTERVIEW";
-        const currentSubStep = "INTERVIEW";
+        const currentSubStep = modalData.substepName;
+        console.log("currentSubStep", currentSubStep);
         const success = await updateCaseProgress(
             caseId,
             modalData.progressSteps,

@@ -1,6 +1,7 @@
-import { message } from "antd";
+import {message} from "antd";
 import {updateCaseProgressApi} from "../api/caseAPI";
 import {Role} from "../consts/consts";
+
 interface ProgressSubstep {
     name: string;
     status: string;
@@ -34,11 +35,15 @@ export async function updateCaseProgress(
     const oldProgress = {
         steps: progressSteps,
     };
+    const newProgress = constructProgressData(currentStep, currentSubStep, currentSubStepMetadata, oldProgress);
+    const newCurrentStep = [...newProgress.steps]
+        .reverse()
+        .find((step) => step.status === "IN_PROGRESS");
 
     const progressData = {
         caseId: caseId,
-        currentStep: currentStep,
-        asylumCaseProgress: constructProgressData(currentStep, currentSubStep, currentSubStepMetadata, oldProgress),
+        currentStep: newCurrentStep? newCurrentStep.name : "FILLING_APPLICATION",
+        asylumCaseProgress: newProgress,
     };
 
     try {
