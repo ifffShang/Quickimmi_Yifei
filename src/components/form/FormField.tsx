@@ -242,6 +242,7 @@ export function FormField(props: FormFieldProps) {
       return (
         <div>
           <TextAreaWithAIRefine
+            label={props.label}
             placeholder={placeholder}
             value={fieldValue}
             fieldKey={props.fieldKey}
