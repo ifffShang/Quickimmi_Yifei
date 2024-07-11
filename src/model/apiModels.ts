@@ -96,7 +96,6 @@ export interface ApplicationCase {
   updatedAt: number;
   progress: Progress;
 }
-
 export interface Percentage {
   overall: { avg: number };
   [key: string]: { avg: number; [key: string]: number };

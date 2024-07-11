@@ -12,21 +12,14 @@ import {
   ListCase,
   UpdateProgressRequestDto,
 } from "../model/apiModels";
-import {
-  DocumentCreatedBy,
-  DocumentOperation,
-  DocumentStatus,
-  DocumentType,
-  Identity,
-} from "../model/commonModels";
+import { DocumentCreatedBy, DocumentOperation, DocumentStatus, DocumentType, Identity } from "../model/commonModels";
 import { IForm, IFormFields } from "../model/formFlowModels";
 import { getProgressWithPercentage } from "../utils/percentageUtils";
 import { convertBooleans } from "../utils/utils";
 import { performApiRequest } from "./apiConfig";
 
 export async function getForm(id: string, cachedForm?: IForm): Promise<IForm> {
-  if (cachedForm && cachedForm.steps && cachedForm.steps.length > 0)
-    return cachedForm;
+  if (cachedForm && cachedForm.steps && cachedForm.steps.length > 0) return cachedForm;
   return await performApiRequest({
     endPoint: `forms/${id}.json?${new Date().getTime()}`,
     method: "GET",
@@ -100,11 +93,7 @@ export async function createNewCaseByLawyerApi(
   return <string>res.data;
 }
 
-export async function deleteCaseApi(
-  caseId: number,
-  accessToken: string,
-  role: Role,
-): Promise<boolean> {
+export async function deleteCaseApi(caseId: number, accessToken: string, role: Role): Promise<boolean> {
   const res = await performApiRequest({
     endPoint: `api/case/delete?caseId=${caseId}`,
     method: "GET",
@@ -151,11 +140,7 @@ export async function getCasesByLawyerApi(
   return <ListCase>res.data;
 }
 
-export async function getCaseDetailsApi(
-  caseId: number,
-  accessToken: string,
-  role: Role,
-): Promise<ApplicationCase> {
+export async function getCaseDetailsApi(caseId: number, accessToken: string, role: Role): Promise<ApplicationCase> {
   await flushRedisCache(accessToken, role);
 
   const res = await performApiRequest({
@@ -195,11 +180,7 @@ export async function getCaseProfileAndProgressApi(
   return res.data as GetCaseProfileResponse;
 }
 
-export async function getCaseSummaryApi(
-  caseId: number,
-  accessToken: string,
-  role: Role,
-): Promise<CaseSummary> {
+export async function getCaseSummaryApi(caseId: number, accessToken: string, role: Role): Promise<CaseSummary> {
   const res = await performApiRequest({
     endPoint: `api/case/asylum/getCaseSummary?id=${caseId}`,
     method: "GET",
@@ -242,9 +223,9 @@ export async function updateApplicationCaseApi(
 }
 
 export async function updateCaseProgressApi(
-    data: UpdateProgressRequestDto,
-    accessToken: string,
-    role: Role,
+  data: UpdateProgressRequestDto,
+  accessToken: string,
+  role: Role,
 ): Promise<boolean> {
   const res = await performApiRequest({
     endPoint: "api/case/asylum/updateProgress",
@@ -360,11 +341,7 @@ export async function getDocumentsApi(
   return <UploadedDocument[]>res.data;
 }
 
-export async function generateDocumentsApi(
-  accessToken: string,
-  caseId: number,
-  role: Role,
-): Promise<boolean> {
+export async function generateDocumentsApi(accessToken: string, caseId: number, role: Role): Promise<boolean> {
   const res = await performApiRequest({
     endPoint: `api/case/asylum/generateDocuments?id=${caseId}`,
     method: "GET",
@@ -379,10 +356,7 @@ export async function generateDocumentsApi(
  * This is for development purposes only
  * @returns
  */
-export async function flushRedisCache(
-  accessToken: string,
-  role: Role,
-): Promise<boolean> {
+export async function flushRedisCache(accessToken: string, role: Role): Promise<boolean> {
   const res = await performApiRequest({
     endPoint: "api/cache/flushAll",
     method: "GET",
@@ -447,11 +421,7 @@ export async function updateDocumentStatus(
   return <boolean>res.data;
 }
 
-export async function deleteDocumentApi(
-  role: Role,
-  documentId: number,
-  accessToken: string,
-): Promise<boolean> {
+export async function deleteDocumentApi(role: Role, documentId: number, accessToken: string): Promise<boolean> {
   const res = await performApiRequest({
     endPoint: `api/document/delete?documentId=${documentId}`,
     method: "POST",
@@ -462,10 +432,7 @@ export async function deleteDocumentApi(
   return <boolean>res.data;
 }
 
-export async function getDocumentTypesApi(
-  accessToken: string,
-  role: Role,
-): Promise<DocumentType[]> {
+export async function getDocumentTypesApi(accessToken: string, role: Role): Promise<DocumentType[]> {
   const res = await performApiRequest({
     endPoint: "api/document/getSupportedDocumentTypes",
     method: "GET",
@@ -480,10 +447,12 @@ export async function refineApi(
   accessToken: string,
   role: Role,
   type: string,
+  question: string,
   content: string,
 ): Promise<string> {
   const requestDto = {
     type,
+    question,
     content,
   };
   const res = await performApiRequest({

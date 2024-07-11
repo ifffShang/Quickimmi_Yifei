@@ -29,6 +29,9 @@ export function Navbar() {
   const login = () => {
     navigate("/signin");
   };
+  const goToDashboard = () => {
+    navigate("/dashboard");
+  };
 
   let menuItems = [
     {
@@ -40,6 +43,11 @@ export function Navbar() {
 
   if (isLoggedIn) {
     menuItems = [
+      {
+        key: "dashboard",
+        label: t("Dashboard.Dashboard"),
+        onClick: goToDashboard,
+      },
       {
         key: "signout",
         label: t("SignOut"),
@@ -60,7 +68,7 @@ export function Navbar() {
         <div className="navbar-logo">
           <Link
             className="navbar-logo-link"
-            to={isLoggedIn ? "/dashboard" : "/"}
+            to={"/"}
           >
             <Logo />
           </Link>
