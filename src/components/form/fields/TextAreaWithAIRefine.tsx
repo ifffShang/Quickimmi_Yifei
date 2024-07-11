@@ -1,25 +1,6 @@
-import {
-  CheckBox,
-  QDatePicker,
-  QTextArea,
-  QTextBox,
-  RadioSelect,
-  SelectBox,
-} from "./Controls";
+import { CheckBox, QDatePicker, QTextArea, QTextBox, RadioSelect, SelectBox } from "./Controls";
 import { ErrorMessage, QText } from "../../common/Fonts";
-import {
-  Checkbox,
-  DatePicker,
-  Card,
-  Button,
-  InputRef,
-  Radio,
-  Select,
-  Space,
-  Input,
-  Row,
-  Col,
-} from "antd";
+import { Checkbox, DatePicker, Card, Button, InputRef, Radio, Select, Space, Input, Row, Col } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import TextArea from "antd/es/input/TextArea";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
@@ -30,6 +11,7 @@ import { useTranslation } from "react-i18next";
 import "./TextAreaWithAIRefine.css";
 
 export interface TextAreaWithAIRefineProps {
+  label: string;
   placeholder: string;
   value: string;
   onChange: (value: string) => string;
@@ -47,6 +29,9 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
   const [refineAreaValue, setRefineAreaValue] = useState("");
   const [showRefineArea, setShowRefineArea] = useState(false);
   const inputRef = useRef<InputRef>(null);
+  const fieldkey = props.fieldKey;
+  const classname = props.className;
+  const label = props.label.split("_")[1];
 
   const handleRefineAreaChange = (value: string) => {
     setRefineAreaValue(value);
@@ -75,6 +60,10 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
   const discardRefinedText = () => {
     setShowRefineArea(false);
     setRefineAreaValue("");
+    // console.log("field key is: ", fieldkey);
+    // console.log("class name is: ", classname);
+    // console.log("label is: ", label);
+    // console.log(t(label));
   };
 
   const refineText = async () => {
@@ -85,12 +74,7 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
     try {
       setRefineAreaValue("");
       setShowRefineArea(true);
-      const refinedText = await refineApi(
-        accessToken,
-        role,
-        "statement",
-        props.value,
-      );
+      const refinedText = await refineApi(accessToken, role, "statement", t(label), props.value);
       setRefineAreaValue(refinedText);
     } catch (error) {
       console.error("Failed to refine text:", error);
@@ -113,9 +97,7 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
               <TextArea
                 rows={8}
                 ref={inputRef}
-                className={
-                  "text-box" + (props.className ? ` ${props.className}` : "")
-                }
+                className={"text-box" + (props.className ? ` ${props.className}` : "")}
                 placeholder={props.placeholder}
                 value={textAreaValue}
                 onChange={onTextAreaChange}
@@ -160,9 +142,7 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
               >
                 <TextArea
                   rows={8}
-                  className={
-                    "text-box" + (props.className ? ` ${props.className}` : "")
-                  }
+                  className={"text-box" + (props.className ? ` ${props.className}` : "")}
                   placeholder={props.placeholder}
                   value={refineAreaValue}
                   disabled={props.disabled || false}
@@ -184,6 +164,7 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
               className="refine-button"
               icon={<EditOutlined />}
             >
+              {/* {t({label})} */}
               {t("RefineWithAI")}
             </Button>
           }
@@ -192,9 +173,7 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
           <TextArea
             rows={8}
             ref={inputRef}
-            className={
-              "text-box" + (props.className ? ` ${props.className}` : "")
-            }
+            className={"text-box" + (props.className ? ` ${props.className}` : "")}
             placeholder={props.placeholder}
             value={textAreaValue}
             onChange={onTextAreaChange}
