@@ -24,7 +24,7 @@
   "Use": "Use",
   "Rewrite": "Rewrite",
   "Discard": "Discard",
-
+  
   "Home": "Home",
   "AboutUs": "About us",
   "AboutQuickimmi": "About Quickimmi",
@@ -38,6 +38,8 @@
   "SignUp": "Sign up",
   "ForgotPassword": "Forgot password",
   "SignOut": "Sign out",
+  "LoginAdsTitle": "Streamline Your Immigration Experience",
+  "LoginAdsContent": "QuickImmi optimizes your immigration process with AI-driven solutions. Our platform efficiently and accurately handles complex documents, provides personalized immigration guidance, and ensures clear task management with real-time case tracking. Experience a seamless immigration transformation powered by AI.",
   "ReturnToDashboard": "Return to Dashboard",
   "ReturnTocCaseSummaryPage": "Return to Case Summary",
   "LandingPage": {

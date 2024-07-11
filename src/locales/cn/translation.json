@@ -24,7 +24,7 @@
   "Use": "使用",
   "Rewrite": "重写",
   "Discard": "放弃",
-
+  
   "Home": "首页",
   "AboutUs": "关于我们",
   "AboutQuickimmi": "关于 Quickimmi",
@@ -36,6 +36,8 @@
   "Compare": "比较",
   "Login": "登录",
   "SignUp": "注册",
+  "LoginAdsTitle": "智享移民新体验",
+  "LoginAdsContent": "Quickimmi运用先进的人工智能技术，提供个性化的移民指南，高效且精确地处理繁杂文件，并进行清晰的任务管理和实时案件跟踪。摆脱繁琐流程，专注重要事务。AI驱动的解决方案提高准确性和效率，让移民过程更轻松。选择Quickimmi，体验AI赋能的智能服务。立即开启您的智能移民体验！",
   "ForgotPassword": "忘记密码",
   "SignOut": "退出",
   "ReturnToDashboard": "返回仪表盘",

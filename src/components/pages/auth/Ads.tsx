@@ -1,26 +1,22 @@
 import { ManAndComputer } from "../../icons/ProductFeatures";
 import "./Ads.css";
+import { useTranslation } from "react-i18next";
+
 
 export function Ads() {
+  const { t } = useTranslation();
+
   return (
     <div className="ads">
       <ManAndComputer />
       <div>
-        <h2>寻找适合的移民类型?</h2>
+        <h2>{t("LoginAdsTitle")}</h2>
         <p>
-          试试这样问AI: 请帮我匹配合适的移民类型。
-          当涉及到与AI的互动时，使用清晰而简洁的语言至关重要。以下是有效提问AI问题的步骤:
-          1.
-          清晰明了的语言：与AI互动时，清晰度至关重要。使用具体的关键词，避免在查询中含糊不清。明确表达您想要实现的目标。
-          2.
-          具体问题：为避免获得通用的AI回答，提出具体问题。而不是广泛的查询，缩小您的关注点。例如，不要问“告诉我关于太空的事”，而是可以问“月亮的相位有哪些？”。
-          3.
-          提供上下文：有时，上下文很重要。如果您的问题涉及特定的主题或情况，请提供相关的背景信息。上下文有助于AI系统生成更准确的答案。
-          4.
-          尝试不同的输入：尝试不同版本的查询。尝试重新表述或更改措辞，看看AI的回应。有时候微小的变化可以产生更好的结果。
-          请记住，AI系统依赖于您查询的清晰度，以提供有意义的答案。遵循这些指南，您将增强与AI的互动，并获得更准确和相关的回应。
+        {t("LoginAdsContent")}
         </p>
       </div>
     </div>
   );
 }
+
+
