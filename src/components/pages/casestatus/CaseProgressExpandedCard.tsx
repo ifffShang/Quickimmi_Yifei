@@ -139,11 +139,13 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
       navigate(`/casedocuments/${id}?type=signed`);
     };
 
-    const handlePopUpModalClick = (modalType: ModalType) => {
+    const handlePopUpModalClick = (modalType: ModalType, progressSteps) => {
       dispatch(
           openModal({
             modalType: modalType,
-            modalData: {},
+            modalData: {
+              progressSteps: progressSteps
+            },
           }),
       );
     };
@@ -169,7 +171,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
             <div className="button-group">
               {renderButton("downloadSignatureDocsButtonText", handleDownloadToSignDocClick)}
               {renderButton("uploadSignedDocsButtonText",
-                  () => handlePopUpModalClick("uploadSignedDocument"))}
+                  () => handlePopUpModalClick("uploadSignedDocument", progressSteps))}
             </div>
           </div>
         );
@@ -180,7 +182,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
             <div className="button-group">
               {renderButton("downloadSignedDocsButtonText", handleDownloadSignedDocClick)}
               {renderButton("registerTrackingNumberButtonText",
-                  () => handlePopUpModalClick("registerTrackingNumber"))}
+                  () => handlePopUpModalClick("registerTrackingNumber", progressSteps))}
             </div>
           </div>
         );
@@ -189,7 +191,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
           <div className="card-content">
             <p>{t("noticeReceiptMessage")}</p>
             {renderButton("registerReceiptButtonText",
-                () => handlePopUpModalClick("registerApplicationReceipt"))}
+                () => handlePopUpModalClick("registerApplicationReceipt", progressSteps))}
           </div>
         );
       case "FINGERPRINT_COLLECTION":
@@ -214,7 +216,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
               <>
                 <p>{t("waitingFingerprintCollectionMessage")}</p>
                 {renderButton("registerFingerprintTimeLocationButtonText",
-                    () => handlePopUpModalClick("registerFingerprintTimeLocation"))}
+                    () => handlePopUpModalClick("registerFingerprintTimeLocation", progressSteps))}
               </>
             )}
           </div>
@@ -243,7 +245,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
               <>
                 <p>{t("waitingInterviewMessage")}</p>
                 {renderButton("registerInterviewTimeLocationButtonText",
-                    () => handlePopUpModalClick("registerInterviewTimeLocation"))}
+                    () => handlePopUpModalClick("registerInterviewTimeLocation", progressSteps))}
               </>
             )}
           </div>
@@ -253,7 +255,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
           <div className="card-content">
             <p>{t("finalReviewMessage")}</p>
             {renderButton("registerReceiptButtonText",
-                () => handlePopUpModalClick("registerApplicationFinalResultReceipt"))}
+                () => handlePopUpModalClick("registerApplicationFinalResultReceipt", progressSteps))}
           </div>
         );
       case "RESULT":

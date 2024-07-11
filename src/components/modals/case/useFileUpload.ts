@@ -43,12 +43,12 @@ export const useFileUpload = () => {
         console.error(error);
     };
 
-    const onConfirmButtonClick = async (type: DocumentType, callback?: () => void) => {
+    const onConfirmButtonClick = async (type: DocumentType, uploadFileDescription: string, callback?: (documentIds: number[]) => void) => {
+        const documentIds: number[] = [];
         try {
             setLoading(true);
             for (const file of fileListRef.current) {
                 const createdBy = role === "APPLICANT" ? "APPLICANT" : "LAWYER";
-                const description = "This is an applicant signed file which is ready to be submitted.";
                 const selectedOperation = "NEW";
                 if (!accessToken || !userId || !caseId) {
                     message.error("Access token, userId or caseId is missing");
@@ -61,13 +61,14 @@ export const useFileUpload = () => {
                     file.name,
                     "Applicant",
                     selectedOperation,
-                    description,
+                    uploadFileDescription,
                     createdBy,
                     accessToken,
                     role
                 );
 
                 const documentId = presignedUrlResponse.documentId;
+                documentIds.push(documentId);
                 console.log("new documentId", documentId);
 
                 await uploadFileToPresignUrl(
@@ -81,8 +82,9 @@ export const useFileUpload = () => {
             setLoading(false);
             setConfirmDisabled(false);
             if (callback) {
-                callback();
+                callback(documentIds);
             }
+            return documentIds;
         } catch (err) {
             console.error(err);
             setLoading(false);

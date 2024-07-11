@@ -1,18 +1,28 @@
-import { InboxOutlined, LoadingOutlined } from "@ant-design/icons";
-import { Button, Upload, UploadProps } from "antd";
-import React, { useRef, useState } from "react";
-import { uploadFileToPresignUrl } from "../../../api/caseAPI";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { useFormTranslation } from "../../../hooks/commonHooks";
-import { GeneratePresignedUrlResponse } from "../../../model/apiModels";
-import { QText } from "../../common/Fonts";
+import {InboxOutlined, LoadingOutlined} from "@ant-design/icons";
+import {Button, message, Upload, UploadProps} from "antd";
+import React, {useState} from "react";
+import {useAppDispatch, useAppSelector} from "../../../app/hooks";
+import {useFormTranslation} from "../../../hooks/commonHooks";
+import {QText} from "../../common/Fonts";
 import "./RegisterFingerprintTimeLocationModal.css";
-import { closeModal } from "../../../reducers/commonSlice";
-import { RocketIcon } from "../../icons/RocketIcon";
+import {closeModal} from "../../../reducers/commonSlice";
+import {RocketIcon} from "../../icons/RocketIcon";
 import {useFileUpload} from "./useFileUpload";
+import {KeyValues} from "../../../model/commonModels";
+import {updateCaseProgress} from "../../../utils/progressUtils";
 
-export function RegisterFingerprintTimeLocationModal() {
+interface RegisterFingerprintTimeLocationModalProps {
+    modalData?: KeyValues;
+}
+
+export function RegisterFingerprintTimeLocationModal({modalData}: RegisterFingerprintTimeLocationModalProps) {
     const {loading, confirmDisabled, handleUpload, handleFileChange, onConfirmButtonClick} = useFileUpload();
+    const accessToken = useAppSelector((state) => state.auth.accessToken);
+    const caseId = useAppSelector(state => state.case.currentCaseId);
+    const role = useAppSelector((state) => state.auth.role);
+    const [time, setTime] = useState("");
+    const [location, setLocation] = useState("");
+    const [note, setNote] = useState("");
 
     const {wt} = useFormTranslation();
     const {Dragger} = Upload;
@@ -28,8 +38,35 @@ export function RegisterFingerprintTimeLocationModal() {
         dispatch(closeModal());
     };
 
-    const onUploadComplete = () => {
-        dispatch(closeModal());
+    const onUploadComplete = async (documentIds: number[]) => {
+        if (!accessToken || !caseId || !modalData) {
+            message.error("Access token, Case Progress Data or  CaseId is missing");
+            return false;
+        }
+        if (!time || !location) {
+            message.error("Time or location is missing");
+            return;
+        }
+        const currentSubStepMetadata = JSON.stringify({
+            documentIds,
+            time,
+            location,
+            note
+        });
+        const currentStep = "FINGERPRINT_INTERVIEW";
+        const currentSubStep = "FINGERPRINT_COLLECTION";
+        const success = await updateCaseProgress(
+            caseId,
+            modalData.progressSteps,
+            accessToken,
+            role,
+            currentStep,
+            currentSubStep,
+            currentSubStepMetadata
+        );
+        if (success) {
+            dispatch(closeModal());
+        }
     };
 
     return (
@@ -40,7 +77,7 @@ export function RegisterFingerprintTimeLocationModal() {
             </div>
             <div className="modal-content">
                 <div className="modal-left">
-                    <RocketIcon className="rocket-icon" />
+                    <RocketIcon className="rocket-icon"/>
                 </div>
                 <div className="modal-right">
                     <div className="form-item">
@@ -48,7 +85,7 @@ export function RegisterFingerprintTimeLocationModal() {
                         <div className="upload-signed-document-uploader">
                             <Dragger {...uploadProps}>
                                 <p className="ant-upload-drag-icon">
-                                    <InboxOutlined />
+                                    <InboxOutlined/>
                                 </p>
                                 <p className="ant-upload-text">{wt("Click or drag file to this area to upload")}</p>
                             </Dragger>
@@ -56,15 +93,27 @@ export function RegisterFingerprintTimeLocationModal() {
                     </div>
                     <div className="form-item">
                         <label className="form-label">{wt("Time")}</label>
-                        <input type="text" className="form-input" placeholder={wt("Time")} />
+                        <input type="text"
+                               className="form-input"
+                               placeholder={wt("Time")}
+                               value={time}
+                               onChange={(e) => setTime(e.target.value)}/>
                     </div>
                     <div className="form-item">
                         <label className="form-label">{wt("Location")}</label>
-                        <input type="text" className="form-input" placeholder={wt("Location")} />
+                        <input type="text"
+                               className="form-input"
+                               placeholder={wt("Location")}
+                               value={location}
+                               onChange={(e) => setLocation(e.target.value)}/>
                     </div>
                     <div className="form-item">
                         <label className="form-label">{wt("Note")}</label>
-                        <input type="text" className="form-input" placeholder={wt("Note")} />
+                        <input type="text"
+                               className="form-input"
+                               placeholder={wt("Note")}
+                               value={note}
+                               onChange={(e) => setNote(e.target.value)}/>
                     </div>
                     <div className="upload-signed-document-controls">
                         <Button key="Back" onClick={handleModalCancel}>
@@ -73,12 +122,12 @@ export function RegisterFingerprintTimeLocationModal() {
                         <Button
                             type="primary"
                             size="large"
-                            onClick={() => onConfirmButtonClick("BIOMETRICS_RECEIPT", onUploadComplete)}
+                            onClick={() => onConfirmButtonClick("BIOMETRICS_RECEIPT", "BIOMETRICS RECEIPT", onUploadComplete)}
                             disabled={confirmDisabled}
                         >
                             {confirmDisabled ? (
                                 loading ? (
-                                    <LoadingOutlined />
+                                    <LoadingOutlined/>
                                 ) : (
                                     wt("Confirm")
                                 )

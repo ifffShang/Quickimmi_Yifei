@@ -10,6 +10,7 @@ import {
   UpdateApplicationCaseData,
   UploadedDocument,
   ListCase,
+  UpdateProgressRequestDto,
 } from "../model/apiModels";
 import {
   DocumentCreatedBy,
@@ -232,6 +233,21 @@ export async function updateApplicationCaseApi(
 ): Promise<boolean> {
   const res = await performApiRequest({
     endPoint: `api/case/asylum/update`,
+    method: "POST",
+    data,
+    accessToken,
+    role,
+  });
+  return <boolean>res.data;
+}
+
+export async function updateCaseProgressApi(
+    data: UpdateProgressRequestDto,
+    accessToken: string,
+    role: Role,
+): Promise<boolean> {
+  const res = await performApiRequest({
+    endPoint: "api/case/asylum/updateProgress",
     method: "POST",
     data,
     accessToken,

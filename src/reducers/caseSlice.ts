@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IForm, IFormFields, IFormStep } from "../model/formFlowModels";
-import { Case } from "../model/apiModels";
+import {Case, CaseSummary} from "../model/apiModels";
 import { getCorrectedIndexes } from "../utils/caseUtils";
 
 export interface FormFieldsMap {

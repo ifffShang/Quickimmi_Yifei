@@ -46,17 +46,17 @@ export function ModalView() {
   } else if (common.modalType === "uploadotherid") {
     innerModal = <UploadOtherIdModal />;
   } else if (common.modalType === "uploadSignedDocument") {
-    innerModal = <UploadSignedDocumentModal />;
+    innerModal = <UploadSignedDocumentModal modalData={common.modalData}/>;
   } else if (common.modalType === "registerTrackingNumber") {
-    innerModal = <RegisterTrackingNumberModal />;
+    innerModal = <RegisterTrackingNumberModal modalData={common.modalData}/>;
   } else if (common.modalType === "registerApplicationReceipt") {
-    innerModal = <RegisterApplicationReceiptModal />;
+    innerModal = <RegisterApplicationReceiptModal modalData={common.modalData}/>;
   } else if (common.modalType === "registerFingerprintTimeLocation") {
-    innerModal = <RegisterFingerprintTimeLocationModal />;
+    innerModal = <RegisterFingerprintTimeLocationModal modalData={common.modalData}/>;
   } else if (common.modalType === "registerInterviewTimeLocation") {
-    innerModal = <RegisterInterviewTimeLocationModal />;
+    innerModal = <RegisterInterviewTimeLocationModal modalData={common.modalData}/>;
   } else if (common.modalType === "registerApplicationFinalResultReceipt") {
-    innerModal = <RegisterApplicationFinalResultReceiptModal />;
+    innerModal = <RegisterApplicationFinalResultReceiptModal modalData={common.modalData}/>;
   } else if (common.modalType === "tokenRefreshPopup") {
     innerModal = <TokenRefreshModal />;
   }

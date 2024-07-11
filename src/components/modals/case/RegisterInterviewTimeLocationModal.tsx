@@ -1,5 +1,5 @@
 import { InboxOutlined, LoadingOutlined } from "@ant-design/icons";
-import { Button, Upload, UploadProps } from "antd";
+import {Button, message, Upload, UploadProps} from "antd";
 import React, { useRef, useState } from "react";
 import { uploadFileToPresignUrl } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
@@ -10,9 +10,19 @@ import "./RegisterInterviewTimeLocationModal.css";
 import { closeModal } from "../../../reducers/commonSlice";
 import { RocketIcon } from "../../icons/RocketIcon";
 import {useFileUpload} from "./useFileUpload";
-
-export function RegisterInterviewTimeLocationModal() {
+import {KeyValues} from "../../../model/commonModels";
+import {updateCaseProgress} from "../../../utils/progressUtils";
+interface RegisterInterviewTimeLocationModalProps {
+    modalData?: KeyValues;
+}
+export function RegisterInterviewTimeLocationModal({ modalData }: RegisterInterviewTimeLocationModalProps) {
     const {loading, confirmDisabled, handleUpload, handleFileChange, onConfirmButtonClick} = useFileUpload();
+    const accessToken = useAppSelector((state) => state.auth.accessToken);
+    const caseId = useAppSelector(state => state.case.currentCaseId);
+    const role = useAppSelector((state) => state.auth.role);
+    const [time, setTime] = useState("");
+    const [location, setLocation] = useState("");
+    const [note, setNote] = useState("");
 
     const {wt} = useFormTranslation();
     const {Dragger} = Upload;
@@ -28,8 +38,35 @@ export function RegisterInterviewTimeLocationModal() {
         dispatch(closeModal());
     };
 
-    const onUploadComplete = () => {
-        dispatch(closeModal());
+    const onUploadComplete = async (documentIds: number[]) => {
+        if (!accessToken || !caseId || !modalData) {
+            message.error("Access token, Case Progress Data or  CaseId is missing");
+            return false;
+        }
+        if (!time || !location) {
+            message.error("Time or location is missing");
+            return;
+        }
+        const currentSubStepMetadata = JSON.stringify({
+            documentIds,
+            time,
+            location,
+            note
+        });
+        const currentStep = "FINGERPRINT_INTERVIEW";
+        const currentSubStep = "INTERVIEW";
+        const success = await updateCaseProgress(
+            caseId,
+            modalData.progressSteps,
+            accessToken,
+            role,
+            currentStep,
+            currentSubStep,
+            currentSubStepMetadata
+        );
+        if (success) {
+            dispatch(closeModal());
+        }
     };
 
     return (
@@ -56,16 +93,25 @@ export function RegisterInterviewTimeLocationModal() {
                     </div>
                     <div className="form-item">
                         <label className="form-label">{wt("Time")}</label>
-                        <input type="text" className="form-input" placeholder={wt("Time")} />
-                    </div>
+                        <input type="text"
+                               className="form-input"
+                               placeholder={wt("Time")}
+                               value={time}
+                               onChange={(e) => setTime(e.target.value)}/>                    </div>
                     <div className="form-item">
                         <label className="form-label">{wt("Location")}</label>
-                        <input type="text" className="form-input" placeholder={wt("Location")} />
-                    </div>
+                        <input type="text"
+                               className="form-input"
+                               placeholder={wt("Location")}
+                               value={location}
+                               onChange={(e) => setLocation(e.target.value)}/>                    </div>
                     <div className="form-item">
                         <label className="form-label">{wt("Note")}</label>
-                        <input type="text" className="form-input" placeholder={wt("Note")} />
-                    </div>
+                        <input type="text"
+                               className="form-input"
+                               placeholder={wt("Note")}
+                               value={note}
+                               onChange={(e) => setNote(e.target.value)}/>                    </div>
                     <div className="upload-signed-document-controls">
                         <Button key="Back" onClick={handleModalCancel}>
                             {wt("Return")}
@@ -73,7 +119,7 @@ export function RegisterInterviewTimeLocationModal() {
                         <Button
                             type="primary"
                             size="large"
-                            onClick={() => onConfirmButtonClick("INTERVIEW_RECEIPT", onUploadComplete)}
+                            onClick={() => onConfirmButtonClick("INTERVIEW_RECEIPT","Interview receipt", onUploadComplete)}
                             disabled={confirmDisabled}
                         >
                             {confirmDisabled ? (

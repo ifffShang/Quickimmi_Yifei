@@ -1,5 +1,5 @@
 import { InboxOutlined, LoadingOutlined } from "@ant-design/icons";
-import { Button, Upload, UploadProps } from "antd";
+import {Button, message, Upload, UploadProps} from "antd";
 import React, { useRef, useState } from "react";
 import { uploadFileToPresignUrl } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
@@ -10,10 +10,18 @@ import "./RegisterApplicationReceiptModal.css";
 import { closeModal } from "../../../reducers/commonSlice";
 import { RocketIcon } from "../../icons/RocketIcon";
 import {useFileUpload} from "./useFileUpload";
+import {KeyValues} from "../../../model/commonModels";
+import {updateCaseProgress} from "../../../utils/progressUtils";
 
-export function RegisterApplicationReceiptModal() {
+interface RegisterApplicationReceiptModalProps {
+    modalData?: KeyValues;
+}
+
+export function RegisterApplicationReceiptModal({ modalData }: RegisterApplicationReceiptModalProps) {
     const {loading, confirmDisabled, handleUpload, handleFileChange, onConfirmButtonClick} = useFileUpload();
-
+    const accessToken = useAppSelector((state) => state.auth.accessToken);
+    const caseId = useAppSelector(state => state.case.currentCaseId);
+    const role = useAppSelector((state) => state.auth.role);
     const {wt} = useFormTranslation();
     const {Dragger} = Upload;
     const dispatch = useAppDispatch();
@@ -28,8 +36,28 @@ export function RegisterApplicationReceiptModal() {
         dispatch(closeModal());
     };
 
-    const onUploadComplete = () => {
-        dispatch(closeModal());
+    const onUploadComplete = async (documentIds: number[]) => {
+        if (!accessToken || !caseId || !modalData) {
+            message.error("Access token, Case Progress Data or  CaseId is missing");
+            return false;
+        }
+        const currentSubStepMetadata = JSON.stringify({
+            documentIds
+        });
+        const currentStep = "SUBMIT_APPLICATION";
+        const currentSubStep = "NOTICE_RECEIPT";
+        const success = await updateCaseProgress(
+            caseId,
+            modalData.progressSteps,
+            accessToken,
+            role,
+            currentStep,
+            currentSubStep,
+            currentSubStepMetadata
+        );
+        if (success) {
+            dispatch(closeModal());
+        }
     };
 
     return (
@@ -61,7 +89,7 @@ export function RegisterApplicationReceiptModal() {
                         <Button
                             type="primary"
                             size="large"
-                            onClick={() => onConfirmButtonClick("APPLICATION_RECEIPT", onUploadComplete)}
+                            onClick={() => onConfirmButtonClick("APPLICATION_RECEIPT", "APPLICATION RECEIPT", onUploadComplete)}
                             disabled={confirmDisabled}
                         >
                             {confirmDisabled ? (

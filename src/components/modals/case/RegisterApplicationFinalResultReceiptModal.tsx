@@ -1,16 +1,26 @@
 import {InboxOutlined, LoadingOutlined} from "@ant-design/icons";
-import {Button, Upload, UploadProps} from "antd";
-import React from "react";
-import {useAppDispatch} from "../../../app/hooks";
+import {Button, message, Upload, UploadProps} from "antd";
+import React, {useState} from "react";
+import {useAppDispatch, useAppSelector} from "../../../app/hooks";
 import {useFormTranslation} from "../../../hooks/commonHooks";
 import {QText} from "../../common/Fonts";
 import "./RegisterApplicationFinalResultReceiptModal.css";
 import {closeModal} from "../../../reducers/commonSlice";
 import {RocketIcon} from "../../icons/RocketIcon";
 import {useFileUpload} from "./useFileUpload";
+import {KeyValues} from "../../../model/commonModels";
+import {updateCaseProgress} from "../../../utils/progressUtils";
 
-export function RegisterApplicationFinalResultReceiptModal() {
+interface RegisterApplicationFinalResultReceiptModalProps {
+    modalData?: KeyValues;
+}
+export function RegisterApplicationFinalResultReceiptModal({ modalData }: RegisterApplicationFinalResultReceiptModalProps) {
     const {loading, confirmDisabled, handleUpload, handleFileChange, onConfirmButtonClick} = useFileUpload();
+    const accessToken = useAppSelector((state) => state.auth.accessToken);
+    const caseId = useAppSelector(state => state.case.currentCaseId);
+    const role = useAppSelector((state) => state.auth.role);
+    const [result, setResult] = useState("");
+    const [note, setNote] = useState("");
 
     const {wt} = useFormTranslation();
     const {Dragger} = Upload;
@@ -26,8 +36,33 @@ export function RegisterApplicationFinalResultReceiptModal() {
         dispatch(closeModal());
     };
 
-    const onUploadComplete = () => {
-        dispatch(closeModal());
+    const onUploadComplete = async (documentIds: number[]) => {
+        if (!accessToken || !caseId || !modalData) {
+            message.error("Access token, Case Progress Data or  CaseId is missing");
+            return false;
+        }
+        if (!result) {
+            message.error("Result is missing");
+            return;
+        }
+        const currentSubStepMetadata = JSON.stringify({
+            documentIds,
+            result
+        });
+        const currentStep = "FINAL_RESULT";
+        const currentSubStep = "FINAL_REVIEW";
+        const success = await updateCaseProgress(
+            caseId,
+            modalData.progressSteps,
+            accessToken,
+            role,
+            currentStep,
+            currentSubStep,
+            currentSubStepMetadata
+        );
+        if (success) {
+            dispatch(closeModal());
+        }
     };
 
     return (
@@ -42,14 +77,6 @@ export function RegisterApplicationFinalResultReceiptModal() {
                 </div>
                 <div className="modal-right">
                     <div className="form-item">
-                        <label className="form-label">{wt("Select result")}</label>
-                        <select className="form-select">
-                            <option>{wt("Select result")}</option>
-                            <option value="Approved">FedEx</option>
-                            <option value="Rejected">UPS</option>
-                        </select>
-                    </div>
-                    <div className="form-item">
                         <label className="form-label">{wt("Upload Application Result Notice")}</label>
                         <div className="upload-signed-document-uploader">
                             <Dragger {...uploadProps}>
@@ -60,6 +87,24 @@ export function RegisterApplicationFinalResultReceiptModal() {
                             </Dragger>
                         </div>
                     </div>
+                    <div className="form-item">
+                        <label className="form-label">{wt("Select result")}</label>
+                        <select className="form-select"
+                                value={result}
+                                onChange={(e) => setResult(e.target.value)}>
+                            <option>{wt("Select result")}</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+                    </div>
+                    <div className="form-item">
+                        <label className="form-label">{wt("Note")}</label>
+                        <input type="text"
+                               className="form-input"
+                               placeholder={wt("Note")}
+                               value={note}
+                               onChange={(e) => setNote(e.target.value)}/>
+                    </div>
                     <div className="upload-signed-document-controls">
                         <Button key="Back" onClick={handleModalCancel}>
                             {wt("Return")}
@@ -67,7 +112,7 @@ export function RegisterApplicationFinalResultReceiptModal() {
                         <Button
                             type="primary"
                             size="large"
-                            onClick={() => onConfirmButtonClick("FINAL_RESULT_RECEIPT", onUploadComplete)}
+                            onClick={() => onConfirmButtonClick("FINAL_RESULT_RECEIPT", "FINAL RESULT RECEIPT", onUploadComplete)}
                             disabled={confirmDisabled}
                         >
                             {confirmDisabled ? (
