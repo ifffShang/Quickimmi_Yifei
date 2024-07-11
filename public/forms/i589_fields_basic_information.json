@@ -11,26 +11,18 @@
       "control": "component_passport_uploader"
     },
     {
-      "label": "text_IdNumber",
-      "id": "name",
-      "control": "group",
-      "maxChildPerRow": "3",
-      "fields": [
-        {
-          "label": "text_PassportNumber",
-          "placeholder": "text_PassportNumber",
-          "id": "passport_number",
-          "key": "applicant.passportNumber",
-          "control": "component_textbox_na"
-        },
-        {
-          "label": "text_TravelDocumentNumber",
-          "placeholder": "text_TravelDocumentNumber",
-          "id": "travel_document_number",
-          "key": "applicant.travelDocumentNumber",
-          "control": "component_textbox_na"
-        }
-      ]
+      "label": "text_PassportNumber",
+      "placeholder": "text_PassportNumber",
+      "id": "passport_number",
+      "key": "applicant.passportNumber",
+      "control": "component_textbox_na"
+    },
+    {
+      "label": "text_TravelDocumentNumber",
+        "placeholder": "text_TravelDocumentNumber",
+        "id": "travel_document_number",
+        "key": "applicant.travelDocumentNumber",
+        "control": "component_textbox_na"
     },
     {
       "label": "text_IDExpirationDate",
