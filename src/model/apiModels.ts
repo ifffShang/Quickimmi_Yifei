@@ -74,7 +74,11 @@ export interface UpdateApplicationCaseData {
   updatedAt?: number;
   progress?: Progress;
 }
-
+export interface UpdateProgressRequestDto {
+  caseId: string;
+  currentStep: string;
+  asylumCaseProgress: any;
+}
 export interface ApplicationCase {
   id: number;
   userId: number;

@@ -217,7 +217,7 @@ function useFetchCaseSummary() {
         createdAt: 1715912208190,
         updatedAt: 1718259472477,
       };
-      setCaseSummary(mockCaseSummary);
+      // setCaseSummary(mockCaseSummary);
       setLoading(false);
     } catch (error) {
       console.error("Failed to fetch case summary:", error);

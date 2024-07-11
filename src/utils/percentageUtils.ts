@@ -178,28 +178,73 @@ export function getPercentage(
 }
 
 export function getProgressWithPercentage(progress: Progress, percentage: Percentage) {
-  return {
-    ...progress,
-    steps: progress.steps.map(step => {
-      if (step.name === "FILLING_APPLICATION") {
-        return {
-          ...step,
-          status: "IN_PROGRESS",
-          substeps: step.substeps.map(substep => {
-            if (substep.name === "FILLING_DETAILS") {
-              return {
-                ...substep,
-                metadata: JSON.stringify({
-                  percentage: percentage,
-                }),
-                status: percentage?.overall?.avg === 100 ? "COMPLETED" : "IN_PROGRESS",
-              };
-            }
-            return substep;
-          }),
-        };
-      }
-      return step;
-    }),
-  };
+  const isFillingApplicationCompleted = percentage?.overall?.avg === 100;
+
+  if (!isFillingApplicationCompleted) {
+    return {
+      ...progress,
+      steps: progress.steps.map(step => {
+        if (step.name === "FILLING_APPLICATION") {
+          return {
+            ...step,
+            status: "IN_PROGRESS",
+            substeps: step.substeps.map(substep => {
+              if (substep.name === "FILLING_DETAILS") {
+                return {
+                  ...substep,
+                  metadata: JSON.stringify({
+                    percentage: percentage,
+                  }),
+                  status: "IN_PROGRESS",
+                };
+              }
+              return substep;
+            }),
+          };
+        }
+        return step;
+      }),
+    };
+  } else {
+    return {
+      ...progress,
+      steps: progress.steps.map(step => {
+        if (step.name === "FILLING_APPLICATION") {
+          return {
+            ...step,
+            status: "COMPLETED",
+            substeps: step.substeps.map(substep => {
+              if (substep.name === "FILLING_DETAILS") {
+                return {
+                  ...substep,
+                  metadata: JSON.stringify({
+                    percentage: percentage,
+                  }),
+                  status: "COMPLETED",
+                };
+              }
+              return substep;
+            }),
+          };
+        }
+        if (step.name === "REVIEW_AND_SIGN") {
+          return {
+            ...step,
+            status: "IN_PROGRESS",
+            substeps: step.substeps.map(substep => {
+              if (substep.name === "LAWYER_REVIEW") {
+                return {
+                  ...substep,
+                  status: "IN_PROGRESS",
+                };
+              }
+              return substep;
+            }),
+          };
+        }
+        return step;
+      }),
+    };
+  }
 }
+

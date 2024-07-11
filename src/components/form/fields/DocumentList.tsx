@@ -1,5 +1,5 @@
 import type { TableProps } from "antd";
-import { Button, Table, Tooltip } from "antd";
+import {Button, message, Table, Tooltip} from "antd";
 import React, { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -15,6 +15,7 @@ import { DocumentType, DocumentTypeMap } from "../../../model/commonModels";
 import { clearDocumentUrls, updateUploadedDocuments } from "../../../reducers/formSlice";
 import { downloadDocument } from "../../../utils/utils";
 import "./DocumentList.css";
+import {updateCaseProgress} from "../../../utils/progressUtils";
 
 const IncludedFileTypes = ["asylum_coverletter", "g-28", "i-589"];
 
@@ -74,6 +75,7 @@ export function DocumentList() {
   const caseId = useAppSelector(state => state.form.caseId);
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const role = useAppSelector(state => state.auth.role);
+  const progress = useAppSelector(state => state.form.applicationCase.progress);
   const uploadedDocuments = useAppSelector(state => state.form.uploadedDocuments);
   const [loading, setLoading] = useState(false);
   const [replaceLoading, setReplaceLoading] = useState(false);
@@ -136,6 +138,7 @@ export function DocumentList() {
       if (isSuccessful) {
         setTimeout(async () => {
           await fetchDocuments();
+          await markLawyerReviewAsCompleted();
           setLoading(false);
         }, 2000);
       } else {
@@ -147,7 +150,23 @@ export function DocumentList() {
       setLoading(false);
     }
   };
-
+  const markLawyerReviewAsCompleted = async () => {
+    if (!accessToken || !caseId ) {
+      message.error("Access token or CaseId is missing");
+      return false;
+    }
+    const currentStep = "REVIEW_AND_SIGN";
+    const currentSubStep = "LAWYER_REVIEW";
+    const success = await updateCaseProgress(
+        caseId.toString(),
+        progress.steps,
+        accessToken,
+        role,
+        currentStep,
+        currentSubStep,
+        ""
+    );
+  }
   const onReplaceFileUpload = (
     e: React.ChangeEvent<HTMLInputElement>,
     documentId: number,
@@ -247,7 +266,7 @@ export function DocumentList() {
     <div className="document-list">
       <div className="document-list-inner">
         <Tooltip title={documentsExist ? t("Documents already generated") : ""}>
-          <Button type="primary" onClick={generateDocument} className="document-list-btn" disabled={documentsExist}>
+          <Button type="primary" onClick={generateDocument} className="document-list-btn">
             {t("Generate Documents")}
           </Button>
         </Tooltip>

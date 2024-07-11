@@ -2,8 +2,8 @@
   "View": "View",
   "Download": "Download",
   "Delete": "Delete",
-  "DeleteConfirmMessage": "Are you sure you want to delete this file?",
-  "DeleteWarningMessage": "This action is permanent and cannot be undone.",
+  "DeleteConfirmMessage": "Are you sure you want to delete ",
+  "DeleteConfirmSubMessage": "This action cannot be undone, all data associated with it will be deleted.",
   "Send for Signature": "Send for Signature",
   "File Name": "File Name",
   "File Type": "File Type",
@@ -24,7 +24,7 @@
   "Use": "Use",
   "Rewrite": "Rewrite",
   "Discard": "Discard",
-
+  
   "Home": "Home",
   "AboutUs": "About us",
   "AboutQuickimmi": "About Quickimmi",
@@ -38,6 +38,8 @@
   "SignUp": "Sign up",
   "ForgotPassword": "Forgot password",
   "SignOut": "Sign out",
+  "LoginAdsTitle": "Streamline Your Immigration Experience",
+  "LoginAdsContent": "QuickImmi optimizes your immigration process with AI-driven solutions. Our platform efficiently and accurately handles complex documents, provides personalized immigration guidance, and ensures clear task management with real-time case tracking. Experience a seamless immigration transformation powered by AI.",
   "ReturnToDashboard": "Return to Dashboard",
   "ReturnTocCaseSummaryPage": "Return to Case Summary",
   "LandingPage": {
@@ -143,6 +145,8 @@
   "DEFENSIVE": "Defensive",
   "NewCase": "New Case",
   "CreateNewCaseForCustomer": "Create a new case and account for customer",
+  "ApplicantName": "Applicant Name",
+  "CaseNickName": "Case Nickname",
   "CaseNumber": "Case Number",
   "DownloadFile": "DownloadFile",
   "Send": "Send",
@@ -155,7 +159,7 @@
   "InputClientEmail": "Input client email",
   "InviteClientViaEmail": "Sent sign up invite to customer via email",
   "EnterClientEmail": "Enter client email address",
-  "InputFileNameToSearch": "Input file name to search",
+  "InputFileNameToSearch": "Enter file name to search",
 
   "CaseProgressTitle": "Progress",
   "FILLING_APPLICATION": "Collect Information",
@@ -211,8 +215,10 @@
   "UploadBiometricsCollectionAppointmentInfoDesc": "Update Biometrics Collection Appointment Information",
   "Time": "Time",
   "Note": "Note",
+  "Upload Biometrics Receipt": "Upload Biometrics Receipt",
   "UploadInterviewAppointmentInfo": "Interview Appointment Information",
   "UploadInterviewAppointmentInfoDesc": "Update interview appointment information:",
+  "Upload Interview Receipt": "Upload Interview Receipt",
   "ApplicationResult": "Application Result",
   "UploadApplicationResultDesc": "Upload application result",
   "Select result": "Select result",
@@ -341,7 +347,7 @@
 
   "School": "School",
   "AddASchool": "Add a school",
-  "MostRecentSchool": "List the most recent school that you attended",
+  "MostRecentSchool": "Please provide information about all the education you have, starting with the most recent one.",
   "SchoolName": "Name of School",
   "SchoolType": "Type of School",
   "Location": "Location",
@@ -351,7 +357,7 @@
 
   "Employment": "Employment",
   "AddEmployment": "Add employment",
-  "MostRecentEmployment": "Provide your employment during the past 5 years. List your present employment first.",
+  "MostRecentEmployment": "Please provide your employment during the past 5 years. List your present employment first.",
   "NameAndAddressOfEmployer": "Name and Address of Employer",
   "Occupation": "Your Occupation",
   "StartDate": "Start Date",
@@ -366,7 +372,7 @@
   "Country": "Country",
   "AddressBeforeUS": "List your last address where you lived before coming to the United States. If this is not the country where you fear persecution, also list the last address in the country where you fear persecution.",
 
-  "AlienRegistrationNumber": "Alien Registration Number",
+  "AlienRegistrationNumber": "Alien Registration Number (A-Number)",
   "UscisOnlineAccountNumber": "USCIS Online Account Number",
   "I94Number": "I-94 Number",
   "SSN": "Social Security Number",
@@ -457,6 +463,7 @@
     "White"
   ],
   "ReligionOptions": [
+    "No religion",
     "African Traditional & Diasporic",
     "Agnostic",
     "Atheist",

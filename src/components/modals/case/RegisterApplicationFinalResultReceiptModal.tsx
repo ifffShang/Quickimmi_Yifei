@@ -1,92 +1,68 @@
-import { InboxOutlined, LoadingOutlined } from "@ant-design/icons";
-import { Button, Upload, UploadProps } from "antd";
-import React, { useRef, useState } from "react";
-import { uploadFileToPresignUrl } from "../../../api/caseAPI";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { useFormTranslation } from "../../../hooks/commonHooks";
-import { GeneratePresignedUrlResponse } from "../../../model/apiModels";
-import { QText } from "../../common/Fonts";
+import {InboxOutlined, LoadingOutlined} from "@ant-design/icons";
+import {Button, message, Upload, UploadProps} from "antd";
+import React, {useState} from "react";
+import {useAppDispatch, useAppSelector} from "../../../app/hooks";
+import {useFormTranslation} from "../../../hooks/commonHooks";
+import {QText} from "../../common/Fonts";
 import "./RegisterApplicationFinalResultReceiptModal.css";
-import { closeModal } from "../../../reducers/commonSlice";
-import { RocketIcon } from "../../icons/RocketIcon";
+import {closeModal} from "../../../reducers/commonSlice";
+import {RocketIcon} from "../../icons/RocketIcon";
+import {useFileUpload} from "./useFileUpload";
+import {KeyValues} from "../../../model/commonModels";
+import {updateCaseProgress} from "../../../utils/progressUtils";
 
-export function RegisterApplicationFinalResultReceiptModal() {
-    const { wt } = useFormTranslation();
-    const { Dragger } = Upload;
-    const dispatch = useAppDispatch();
+interface RegisterApplicationFinalResultReceiptModalProps {
+    modalData?: KeyValues;
+}
+export function RegisterApplicationFinalResultReceiptModal({ modalData }: RegisterApplicationFinalResultReceiptModalProps) {
+    const {loading, confirmDisabled, handleUpload, handleFileChange, onConfirmButtonClick} = useFileUpload();
     const accessToken = useAppSelector((state) => state.auth.accessToken);
+    const caseId = useAppSelector(state => state.case.currentCaseId);
     const role = useAppSelector((state) => state.auth.role);
+    const [result, setResult] = useState("");
+    const [note, setNote] = useState("");
 
-    const [confirmDisabled, setConfirmDisabled] = useState(true);
-    const [loading, setLoading] = useState(false);
-    const presignedUrlResRef = useRef<GeneratePresignedUrlResponse | null>(null);
-    const modalData = useAppSelector((state) => state.common.modalData);
-    const fileRef = useRef<File | null>(null);
-
-    const onPassportImageUrlReceived = (imageUrl: string) => {
-        modalData?.updatePassportOrIdImageUrl(imageUrl);
-    };
-
-    const onPresignedUrlReceived = (res: GeneratePresignedUrlResponse, file: any) => {
-        setConfirmDisabled(false);
-        presignedUrlResRef.current = res;
-        fileRef.current = file;
-    };
-
-    const onProgress = (percent: number) => {
-        console.log(percent);
-    };
-
-    const onSuccess = () => {
-        if (!presignedUrlResRef.current || !presignedUrlResRef.current.documentId) {
-            console.error("Document ID is missing");
-            return;
-        }
-    };
-
-    const onError = (error: Error) => {
-        setLoading(false);
-        setConfirmDisabled(true);
-        console.error(error);
-    };
-
-    const onConfirmButtonClick = () => {
-        try {
-            if (!presignedUrlResRef.current || !presignedUrlResRef.current.presignedUrl || !fileRef.current) {
-                throw new Error("Presigned URL or file is missing");
-            }
-            setConfirmDisabled(true);
-            setLoading(true);
-            uploadFileToPresignUrl(
-                presignedUrlResRef.current.presignedUrl,
-                fileRef.current,
-                onProgress,
-                onSuccess,
-                onError
-            );
-        } catch (err) {
-            console.error(err);
-        }
-    };
-
-    const handleUpload = async (fileList: any) => {
-        console.log("handle upload");
-    };
+    const {wt} = useFormTranslation();
+    const {Dragger} = Upload;
+    const dispatch = useAppDispatch();
 
     const uploadProps: UploadProps = {
-        customRequest: handleUpload,
-        multiple: false,
-        maxCount: 1,
-        onChange(info: any) {
-            // Handle file change event
-        },
-        onDrop(info: any) {
-            console.log("Dropped files", info.dataTransfer.files);
-        },
+        beforeUpload: handleUpload,
+        onChange: handleFileChange,
+        multiple: true
     };
 
     const handleModalCancel = () => {
         dispatch(closeModal());
+    };
+
+    const onUploadComplete = async (documentIds: number[]) => {
+        if (!accessToken || !caseId || !modalData) {
+            message.error("Access token, Case Progress Data or  CaseId is missing");
+            return false;
+        }
+        if (!result) {
+            message.error("Result is missing");
+            return;
+        }
+        const currentSubStepMetadata = JSON.stringify({
+            documentIds,
+            result
+        });
+        const currentStep = "FINAL_RESULT";
+        const currentSubStep = "FINAL_REVIEW";
+        const success = await updateCaseProgress(
+            caseId,
+            modalData.progressSteps,
+            accessToken,
+            role,
+            currentStep,
+            currentSubStep,
+            currentSubStepMetadata
+        );
+        if (success) {
+            dispatch(closeModal());
+        }
     };
 
     return (
@@ -97,27 +73,37 @@ export function RegisterApplicationFinalResultReceiptModal() {
             </div>
             <div className="modal-content">
                 <div className="modal-left">
-                    <RocketIcon className="rocket-icon" />
+                    <RocketIcon className="rocket-icon"/>
                 </div>
                 <div className="modal-right">
-                    <div className="form-item">
-                        <label className="form-label">{wt("Select result")}</label>
-                        <select className="form-select">
-                            <option>{wt("Select result")}</option>
-                            <option value="Approved">FedEx</option>
-                            <option value="Rejected">UPS</option>
-                        </select>
-                    </div>
                     <div className="form-item">
                         <label className="form-label">{wt("Upload Application Result Notice")}</label>
                         <div className="upload-signed-document-uploader">
                             <Dragger {...uploadProps}>
                                 <p className="ant-upload-drag-icon">
-                                    <InboxOutlined />
+                                    <InboxOutlined/>
                                 </p>
                                 <p className="ant-upload-text">{wt("Click or drag file to this area to upload")}</p>
                             </Dragger>
                         </div>
+                    </div>
+                    <div className="form-item">
+                        <label className="form-label">{wt("Select result")}</label>
+                        <select className="form-select"
+                                value={result}
+                                onChange={(e) => setResult(e.target.value)}>
+                            <option>{wt("Select result")}</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+                    </div>
+                    <div className="form-item">
+                        <label className="form-label">{wt("Note")}</label>
+                        <input type="text"
+                               className="form-input"
+                               placeholder={wt("Note")}
+                               value={note}
+                               onChange={(e) => setNote(e.target.value)}/>
                     </div>
                     <div className="upload-signed-document-controls">
                         <Button key="Back" onClick={handleModalCancel}>
@@ -126,12 +112,12 @@ export function RegisterApplicationFinalResultReceiptModal() {
                         <Button
                             type="primary"
                             size="large"
-                            onClick={onConfirmButtonClick}
+                            onClick={() => onConfirmButtonClick("FINAL_RESULT_RECEIPT", "FINAL RESULT RECEIPT", onUploadComplete)}
                             disabled={confirmDisabled}
                         >
                             {confirmDisabled ? (
                                 loading ? (
-                                    <LoadingOutlined />
+                                    <LoadingOutlined/>
                                 ) : (
                                     wt("Confirm")
                                 )

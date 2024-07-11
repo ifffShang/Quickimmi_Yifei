@@ -74,7 +74,8 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
 
   const renderButton = (textKey: string, onClick?: () => void) => {
     if (!progressSteps) return null;
-    const buttonDisabled = isButtonDisabled();
+    // const buttonDisabled = isButtonDisabled();
+    const buttonDisabled = false;
     const tooltipText = getTooltipText(
       substepStatus,
       progressSteps.find(step =>
@@ -130,18 +131,22 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
     };
 
     const handleDownloadToSignDocClick = () => {
-      navigate(`/case/${id}?section=5&subsection=0`);
+      // navigate(`/case/${id}?section=5&subsection=0`);
+      navigate(`/casedocuments/${id}?type=merged`);
     };
 
     const handleDownloadSignedDocClick = () => {
-      navigate(`/casedocuments/${id}`);
+      navigate(`/casedocuments/${id}?type=signed`);
     };
 
-    const handlePopUpModalClick = (modalType: ModalType) => {
+    const handlePopUpModalClick = (modalType: ModalType, progressSteps, substepName?: string) => {
       dispatch(
           openModal({
             modalType: modalType,
-            modalData: {},
+            modalData: {
+              progressSteps: progressSteps,
+              substepName: substepName
+            },
           }),
       );
     };
@@ -167,7 +172,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
             <div className="button-group">
               {renderButton("downloadSignatureDocsButtonText", handleDownloadToSignDocClick)}
               {renderButton("uploadSignedDocsButtonText",
-                  () => handlePopUpModalClick("uploadSignedDocument"))}
+                  () => handlePopUpModalClick("uploadSignedDocument", progressSteps, substepName))}
             </div>
           </div>
         );
@@ -178,7 +183,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
             <div className="button-group">
               {renderButton("downloadSignedDocsButtonText", handleDownloadSignedDocClick)}
               {renderButton("registerTrackingNumberButtonText",
-                  () => handlePopUpModalClick("registerTrackingNumber"))}
+                  () => handlePopUpModalClick("registerTrackingNumber", progressSteps, substepName))}
             </div>
           </div>
         );
@@ -187,7 +192,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
           <div className="card-content">
             <p>{t("noticeReceiptMessage")}</p>
             {renderButton("registerReceiptButtonText",
-                () => handlePopUpModalClick("registerApplicationReceipt"))}
+                () => handlePopUpModalClick("registerApplicationReceipt", progressSteps, substepName))}
           </div>
         );
       case "FINGERPRINT_COLLECTION":
@@ -212,7 +217,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
               <>
                 <p>{t("waitingFingerprintCollectionMessage")}</p>
                 {renderButton("registerFingerprintTimeLocationButtonText",
-                    () => handlePopUpModalClick("registerFingerprintTimeLocation"))}
+                    () => handlePopUpModalClick("registerFingerprintTimeLocation", progressSteps, substepName))}
               </>
             )}
           </div>
@@ -241,7 +246,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
               <>
                 <p>{t("waitingInterviewMessage")}</p>
                 {renderButton("registerInterviewTimeLocationButtonText",
-                    () => handlePopUpModalClick("registerInterviewTimeLocation"))}
+                    () => handlePopUpModalClick("registerInterviewTimeLocation", progressSteps, substepName))}
               </>
             )}
           </div>
@@ -251,7 +256,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
           <div className="card-content">
             <p>{t("finalReviewMessage")}</p>
             {renderButton("registerReceiptButtonText",
-                () => handlePopUpModalClick("registerApplicationFinalResultReceipt"))}
+                () => handlePopUpModalClick("registerApplicationFinalResultReceipt", progressSteps, substepName))}
           </div>
         );
       case "RESULT":
