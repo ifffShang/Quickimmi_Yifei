@@ -9,6 +9,7 @@ import { arrayMapper } from "../utils/mapper";
 import { textParser } from "../utils/parsers";
 import { downloadDocument } from "../utils/utils";
 import { Role } from "../consts/consts";
+import { DocumentType } from "../model/commonModels";
 
 export function useFormTranslation() {
   const { t, i18n } = useTranslation();
@@ -18,10 +19,7 @@ export function useFormTranslation() {
   return { t, wt, wa };
 }
 
-export function useClickOutsideOfRef(
-  ref: React.RefObject<HTMLDivElement>,
-  show: Dispatch<SetStateAction<boolean>>,
-) {
+export function useClickOutsideOfRef(ref: React.RefObject<HTMLDivElement>, show: Dispatch<SetStateAction<boolean>>) {
   useEffect(() => {
     function handleClickOutside(event: any) {
       if (ref.current && !ref.current.contains(event.target)) {
@@ -39,11 +37,12 @@ export function useClickOutsideOfRef(
 
 export interface GetDocumentsOnLoadParams {
   caseId: number;
-  accessToken: string;
+  accessToken: string | undefined;
   role: Role;
   setLoading: Dispatch<SetStateAction<boolean>>;
   dispatch: Dispatch<any>;
   replaceLoading: boolean;
+  documentType?: DocumentType;
 }
 
 export function useDocumentsOnLoad(params: GetDocumentsOnLoadParams) {
@@ -53,17 +52,13 @@ export function useDocumentsOnLoad(params: GetDocumentsOnLoadParams) {
       return;
     }
 
-    if (
-      params.replaceLoading === true ||
-      params.replaceLoading === undefined ||
-      params.replaceLoading === null
-    ) {
+    if (params.replaceLoading === true || params.replaceLoading === undefined || params.replaceLoading === null) {
       return;
     }
 
     params.setLoading(true);
     params.dispatch(clearDocumentUrls());
-    getDocumentsApi(params.accessToken, params.caseId, params.role)
+    getDocumentsApi(params.accessToken, params.caseId, params.role, params.documentType)
       .then(documents => {
         if (!documents) {
           console.error("Failed to get documents");
@@ -91,4 +86,51 @@ export function useDocumentsOnLoad(params: GetDocumentsOnLoadParams) {
         params.setLoading(false);
       });
   }, [params.accessToken, params.caseId, params.replaceLoading]);
+}
+
+export interface GetDocumentsOnLoadCallbackParams {
+  caseId: number;
+  accessToken: string | undefined;
+  role: Role;
+  setLoading: Dispatch<SetStateAction<boolean>>;
+  documentType?: DocumentType;
+  onDocumentsReceived: (documents: any) => void;
+}
+
+export function useDocumentsOnLoadCallback(params: GetDocumentsOnLoadCallbackParams) {
+  useEffect(() => {
+    if (!params.accessToken || !params.caseId || params.caseId === 0) {
+      console.error("Access token or case id is missing");
+      return;
+    }
+
+    params.setLoading(true);
+    getDocumentsApi(params.accessToken, params.caseId, params.role, params.documentType)
+      .then(documents => {
+        if (!documents) {
+          console.error("Failed to get documents");
+          params.setLoading(false);
+          return;
+        }
+        const downloadDocumentPromises = documents
+          .filter(doc => doc.status === "uploaded")
+          .map(doc => {
+            return downloadDocument(doc.presignUrl, { ...doc });
+          });
+
+        Promise.all(downloadDocumentPromises)
+          .then(uploadedDocs => {
+            params.setLoading(false);
+            params.onDocumentsReceived(uploadedDocs);
+          })
+          .catch(error => {
+            params.setLoading(false);
+            console.error(error);
+          });
+      })
+      .catch(error => {
+        console.error(error);
+        params.setLoading(false);
+      });
+  }, [params.accessToken, params.caseId]);
 }

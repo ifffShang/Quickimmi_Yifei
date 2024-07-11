@@ -134,6 +134,10 @@ export function getFieldValue(
     return;
   }
 
+  if (key.indexOf("explainHaveBeenHarmedYesSupportDocuments") > -1) {
+    console.log("key", key);
+  }
+
   // count-array pair
   if (key.indexOf("-") > -1) {
     const [countKey, arrKey] = key.split("-");

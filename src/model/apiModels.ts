@@ -170,6 +170,7 @@ export interface AsylumCaseProfile {
   applicationDetails: ApplicationDetails;
   signature: YourSignature;
   declaration: Declaration;
+  supplementDocument: SupplementDocument;
 }
 
 export interface AsylumCaseProfileOptional {
@@ -180,6 +181,7 @@ export interface AsylumCaseProfileOptional {
   applicationDetails?: ApplicationDetails;
   signature?: YourSignature;
   declaration?: Declaration;
+  supplementDocument?: SupplementDocument;
   overwriteEntryRecords?: boolean;
   overwriteChildren?: boolean;
   overwriteSiblings?: boolean;
@@ -471,6 +473,36 @@ export interface Declaration {
   g28FormAttachedYesCheckbox?: boolean | null;
   attorneyStateNarNumber?: string;
   attorneyUscisOnlineAccountNumber?: string;
+}
+
+export interface MasterHearingDetail {
+  noticeOfAppearDate: string;
+  courtAddress: string;
+  courtZipCode: string;
+  courtCity: string;
+  courtState: string;
+  judgeName: string;
+  hearingDate: string;
+  hearingTime: string;
+}
+
+export interface SupplementDocument {
+  personalStatement: string;
+  personalStatementInOriginalLanguage: string;
+  explainHaveBeenHarmedYesSupportDocuments: number[];
+  explainFearReturnYesSupportDocuments: number[];
+  explainFamilyMembersBeenChargedYesSupportDocuments: number[];
+  explainYouOrFamilyContinueBelongAnyOrganizationYesSupportDocuments: number[];
+  explainAfraidOfReturnYesSupportDocuments: number[];
+  explainAppliedBeforeYesSupportDocuments: number[];
+  explainAnyLawfulStatusAnyCountryYesSupportDocuments: number[];
+  explainHaveYouHarmOthersYesSupportDocuments: number[];
+  explainReturnCountryYesSupportDocuments: number[];
+  explainMoreThanOneYearAfterArrivalYesSupportDocuments: number[];
+  explainHaveCommittedCrimeYesSupportDocuments: number[];
+  marriageCertificateDocument: number;
+  i94Document: number;
+  masterHearingDetail: MasterHearingDetail;
 }
 
 export interface GeneratePresignedUrlResponse {

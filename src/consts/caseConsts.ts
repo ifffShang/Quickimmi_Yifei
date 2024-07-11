@@ -1,4 +1,13 @@
-import { AddressHistory, ApplicationCase, Child, EntryRecord, FamilyMember, Spouse } from "../model/apiModels";
+import {
+  AddressHistory,
+  ApplicationCase,
+  Child,
+  EntryRecord,
+  FamilyMember,
+  MasterHearingDetail,
+  Spouse,
+  SupplementDocument,
+} from "../model/apiModels";
 
 export const InitialApplicant = {
   passportDocumentId: 0,
@@ -186,6 +195,36 @@ export const InitialDeclaration = {
   attorneyUscisOnlineAccountNumber: "",
 };
 
+export const InitialMasterHearingDetail: MasterHearingDetail = {
+  noticeOfAppearDate: "",
+  courtAddress: "",
+  courtZipCode: "",
+  courtCity: "",
+  courtState: "",
+  judgeName: "",
+  hearingDate: "",
+  hearingTime: "",
+};
+
+export const InitialSupplementDocument: SupplementDocument = {
+  personalStatement: "",
+  personalStatementInOriginalLanguage: "",
+  explainHaveBeenHarmedYesSupportDocuments: [],
+  explainFearReturnYesSupportDocuments: [],
+  explainFamilyMembersBeenChargedYesSupportDocuments: [],
+  explainYouOrFamilyContinueBelongAnyOrganizationYesSupportDocuments: [],
+  explainAfraidOfReturnYesSupportDocuments: [],
+  explainAppliedBeforeYesSupportDocuments: [],
+  explainAnyLawfulStatusAnyCountryYesSupportDocuments: [],
+  explainHaveYouHarmOthersYesSupportDocuments: [],
+  explainReturnCountryYesSupportDocuments: [],
+  explainMoreThanOneYearAfterArrivalYesSupportDocuments: [],
+  explainHaveCommittedCrimeYesSupportDocuments: [],
+  marriageCertificateDocument: -1,
+  i94Document: -1,
+  masterHearingDetail: InitialMasterHearingDetail,
+};
+
 export const InitialApplicationCase: ApplicationCase = {
   id: 0,
   userId: 0,
@@ -209,6 +248,7 @@ export const InitialApplicationCase: ApplicationCase = {
     applicationDetails: InitialApplicationDetails,
     signature: InitialSignature,
     declaration: InitialDeclaration,
+    supplementDocument: InitialSupplementDocument,
   },
 };
 

@@ -34,6 +34,7 @@ import { MultipleTextboxesWithNA } from "./fields/MultipleTextboxesWithNA";
 import { RemovableSectionHeader } from "./parts/RemovableSectionHeader";
 import { TextboxWithNA } from "./fields/TextboxWithNA";
 import { TextAreaWithAIRefine } from "./fields/TextAreaWithAIRefine";
+import { MultiFileUploader } from "./fields/MultiFileUploader";
 
 export interface FormFieldProps {
   fieldKey: string;
@@ -270,8 +271,26 @@ export function FormField(props: FormFieldProps) {
       );
     case "fileplus":
       return <div>Fileplus not implemented</div>;
-    case "file":
-      return <div>File not implemented</div>;
+    case "multi_file_uploader":
+      return (
+        <MultiFileUploader
+          documentType={"SUPPORTING_DOCUMENT"}
+          identity={"Applicant"}
+          operation={"NEW"}
+          description={props.fieldKey}
+          documentIds={fieldValue}
+          onChange={(documentIds: number[]) => {
+            props.fieldKey &&
+              dispatchFormValue(
+                dispatch,
+                {
+                  [props.fieldKey]: documentIds,
+                },
+                props.fieldIndex,
+              );
+          }}
+        />
+      );
     case "select":
       return (
         <SelectBox

@@ -71,6 +71,12 @@
           "id": "explained_harmed_incident",
           "key": "applicationDetails.explainHaveBeenHarmedYes",
           "control": "component_textarea_ai_refine"
+        },
+        {
+          "label": "text_UploadSupportingDocuments",
+          "id": "explained_harmed_incident_supporting_documents",
+          "key": "supplementDocument.explainHaveBeenHarmedYesSupportDocuments",
+          "control": "multi_file_uploader"
         }
       ]
     },
