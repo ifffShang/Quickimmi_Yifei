@@ -13,9 +13,8 @@
 .delete-confirm-modal-icon {
   padding-top: 1px;
 }
-.delete-confirm-modal-messages {
+.delete-confirm-modal-content {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-

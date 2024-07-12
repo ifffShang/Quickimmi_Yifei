@@ -7,9 +7,10 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import CaseProgressCard from "./CaseProgressCard";
 import CaseSummaryCard from "./CaseSummaryCard";
 import "./CaseStatusRightPanel.css";
+import { Loading } from "../../common/Loading";
 import { getCaseSummaryApi } from "../../../api/caseAPI";
 import { updateAsylumType } from "../../../reducers/formSlice";
-import {updateCurrentCaseId} from "../../../reducers/caseSlice";
+import { updateCurrentCaseId } from "../../../reducers/caseSlice";
 
 function useFetchCaseSummary() {
   const { id } = useParams<{ id?: string }>();
@@ -238,11 +239,7 @@ export function CaseStatusRightPanel() {
   const { t } = useTranslation();
 
   if (loading) {
-    return (
-      <Spin tip="Loading...">
-        <div className="loading-content" />
-      </Spin>
-    );
+    return <Loading />;
   }
 
   if (error) {

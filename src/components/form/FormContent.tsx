@@ -118,9 +118,7 @@ export function FormContent(props: FormContentProps) {
       <div className="form-content-form">
         {formFields.fields.map((field, index) => (
           <div key={index}>
-            {!field.hideHeader && field.label && (
-              <QText level="field-label">{wt(field.label)}</QText>
-            )}
+            {!field.hideHeader && field.label && <QText level="field-label">{wt(field.label)}</QText>}
             <FormField
               fieldKey={field.key}
               control={field.control}
@@ -153,14 +151,7 @@ export function FormContent(props: FormContentProps) {
           className="default-button"
           onClick={() => {
             try {
-              updateApplicationCaseFunc(
-                caseId,
-                profile,
-                progress,
-                percentage,
-                role,
-                accessToken,
-              );
+              updateApplicationCaseFunc(caseId, profile, progress, percentage, role, accessToken);
               dispatch(incrementSaveTimes());
             } catch (err) {
               console.error(err);

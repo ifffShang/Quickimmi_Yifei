@@ -10,10 +10,8 @@ export enum ScreenSize {
 const getScreenSize = (): ScreenSize => {
   const width = window.innerWidth;
   if (width < ScreenSize.xsmall) return ScreenSize.xsmall;
-  if (width >= ScreenSize.xsmall && width < ScreenSize.small)
-    return ScreenSize.small;
-  if (width >= ScreenSize.small && width < ScreenSize.medium)
-    return ScreenSize.medium;
+  if (width >= ScreenSize.xsmall && width < ScreenSize.small) return ScreenSize.small;
+  if (width >= ScreenSize.small && width < ScreenSize.medium) return ScreenSize.medium;
   return ScreenSize.large;
 };
 

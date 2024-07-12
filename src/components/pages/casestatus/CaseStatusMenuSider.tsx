@@ -1,10 +1,6 @@
 import React from "react";
 import { Layout, Menu } from "antd";
-import {
-  DashboardOutlined,
-  FileOutlined,
-  FileSearchOutlined,
-} from "@ant-design/icons";
+import { DashboardOutlined, FileOutlined, FileSearchOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import "./CaseStatusMenuSider.css";
 import { useNavigate, useParams } from "react-router-dom";
@@ -32,11 +28,7 @@ const CaseStatusMenuSider: React.FC = () => {
   return (
     <Sider collapsible>
       <div className="logo" />
-      <Menu
-        defaultSelectedKeys={["1"]}
-        mode="inline"
-        onClick={e => handleMenuClick(e.key)}
-      >
+      <Menu defaultSelectedKeys={["1"]} mode="inline" onClick={e => handleMenuClick(e.key)}>
         <Menu.Item key="1" icon={<DashboardOutlined />}>
           {t("CaseStatusMenuOverview")}
         </Menu.Item>

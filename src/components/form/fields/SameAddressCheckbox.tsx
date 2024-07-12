@@ -68,11 +68,5 @@ export function SameAddressCheckbox(props: SameAddressCheckboxProps) {
       setChecked(false);
     }
   };
-  return (
-    <PureCheckBox
-      label={props.label}
-      onChange={onCheckboxChange}
-      checked={checked}
-    />
-  );
+  return <PureCheckBox label={props.label} onChange={onCheckboxChange} checked={checked} />;
 }

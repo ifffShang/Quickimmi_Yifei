@@ -15,9 +15,7 @@ function getCurrentStepIndex(currentStep: string, steps: { name: string }[]) {
   return steps.findIndex(step => step.name === currentStep);
 }
 
-function findFirstInProgressSubstep(
-  steps: { substeps: { name: string; status: string }[] }[],
-) {
+function findFirstInProgressSubstep(steps: { substeps: { name: string; status: string }[] }[]) {
   for (const step of steps) {
     for (const substep of step.substeps) {
       if (substep.status === "NOT_START" || substep.status === "IN_PROGRESS") {
@@ -32,10 +30,7 @@ const CaseProgressCard: React.FC<CaseProgressCardProps> = ({ caseSummary }) => {
   const { t } = useTranslation();
   const { currentStep, progress } = caseSummary;
 
-  const currentStepIndex = getCurrentStepIndex(
-    caseSummary.currentStep,
-    caseSummary.progress.steps,
-  );
+  const currentStepIndex = getCurrentStepIndex(caseSummary.currentStep, caseSummary.progress.steps);
 
   const [expandedStep, setExpandedStep] = useState<string | null>(null);
 

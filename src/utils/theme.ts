@@ -1,21 +1,13 @@
 import { ThemeConfig } from "antd";
 
 export function getAntTheme() {
-  const primaryColor: string = getComputedStyle(
-    document.documentElement,
-  ).getPropertyValue("--primary-color");
+  const primaryColor: string = getComputedStyle(document.documentElement).getPropertyValue("--primary-color");
 
-  const secondaryColor: string = getComputedStyle(
-    document.documentElement,
-  ).getPropertyValue("--secondary-color");
+  const secondaryColor: string = getComputedStyle(document.documentElement).getPropertyValue("--secondary-color");
 
-  const linkColor: string = getComputedStyle(
-    document.documentElement,
-  ).getPropertyValue("--link-color");
+  const linkColor: string = getComputedStyle(document.documentElement).getPropertyValue("--link-color");
 
-  const fontWeight: string = getComputedStyle(
-    document.documentElement,
-  ).getPropertyValue("--font-weight-bold");
+  const fontWeight: string = getComputedStyle(document.documentElement).getPropertyValue("--font-weight-bold");
 
   const theme: ThemeConfig = {
     token: {
@@ -51,6 +43,10 @@ export function getAntTheme() {
         colorPrimaryHover: primaryColor,
       },
       Checkbox: {
+        colorPrimary: primaryColor,
+        colorPrimaryHover: primaryColor,
+      },
+      Table: {
         colorPrimary: primaryColor,
         colorPrimaryHover: primaryColor,
       },

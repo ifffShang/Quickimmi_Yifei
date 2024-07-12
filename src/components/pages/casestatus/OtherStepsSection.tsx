@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  CheckCircleOutlined,
-  ExclamationCircleOutlined,
-  MinusCircleOutlined,
-} from "@ant-design/icons";
+import { CheckCircleOutlined, ExclamationCircleOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import CaseProgressExpandedCard from "./CaseProgressExpandedCard";
 
 interface OtherStepsSectionProps {
@@ -27,26 +23,13 @@ const OtherStepsSection: React.FC<OtherStepsSectionProps> = ({
     <div className="progress-section">
       {currentStepDetails?.substeps.map((substep, index) => (
         <React.Fragment key={substep.name}>
-          <div
-            className="progress-item"
-            onClick={() => handleToggleExpand(substep.name)}
-          >
+          <div className="progress-item" onClick={() => handleToggleExpand(substep.name)}>
             <div className="icon-container">
-              {substep.status === "COMPLETED" && (
-                <CheckCircleOutlined
-                  style={{ color: "#52C41A", fontSize: "20px" }}
-                />
-              )}
+              {substep.status === "COMPLETED" && <CheckCircleOutlined style={{ color: "#52C41A", fontSize: "20px" }} />}
               {substep.status === "IN_PROGRESS" && (
-                <ExclamationCircleOutlined
-                  style={{ color: "#FAAD14", fontSize: "20px" }}
-                />
+                <ExclamationCircleOutlined style={{ color: "#FAAD14", fontSize: "20px" }} />
               )}
-              {substep.status === "NOT_START" && (
-                <MinusCircleOutlined
-                  style={{ color: "#d9d9d9", fontSize: "20px" }}
-                />
-              )}
+              {substep.status === "NOT_START" && <MinusCircleOutlined style={{ color: "#d9d9d9", fontSize: "20px" }} />}
             </div>
             <span className="progress-title">{t(substep.name)}</span>
           </div>
@@ -57,18 +40,14 @@ const OtherStepsSection: React.FC<OtherStepsSectionProps> = ({
                 <CaseProgressExpandedCard
                   isLawyer={isLawyer}
                   substepName={substep.name}
-                  substepMetadata={
-                    substep.metadata ? JSON.parse(substep.metadata) : null
-                  }
+                  substepMetadata={substep.metadata ? JSON.parse(substep.metadata) : null}
                   substepStatus={substep.status}
                   progressSteps={progress.steps}
                 />
               </div>
             </div>
           )}
-          {index < currentStepDetails.substeps.length - 1 && (
-            <div className="progress-line"></div>
-          )}
+          {index < currentStepDetails.substeps.length - 1 && <div className="progress-line"></div>}
         </React.Fragment>
       ))}
     </div>

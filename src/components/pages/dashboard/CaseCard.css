@@ -1,10 +1,13 @@
-.case-card-content {
-  padding: 20px 30px 20px 35px;
-}
 .case-card-container {
   max-width: 450px;
 }
-
+.case-card-caseIcon > svg {
+  border-bottom: 1px solid var(--gray-color-3);
+  height: auto;
+}
+.case-card-content {
+  padding: 10px 30px 20px 40px;
+}
 .case-card-bottom {
   border-top: 1px solid var(--gray-color-3);
   padding: 20px;
@@ -23,11 +26,11 @@
   flex-direction: column;
 }
 
-.case-card-Name {
+.case-card-name {
   display: flex;
   flex-direction: row;
   gap: 10px;
-  align-items: center; 
+  align-items: center;
 }
 .case-card-caseName {
   width: auto;
@@ -35,14 +38,14 @@
   display: flex;
   align-items: center;
 }
-
 .case-card-name-input {
   /* height: 35px; */
-  width: auto;
+  width: 250px;
 }
-.case-card-edit {
-  gap: 5px;
-  margin-top: 3px;
+.case-card-name-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .case-card-progress {
@@ -74,4 +77,6 @@
   padding-top: 60px;
 }
 
-
+.delete-confirm-modal-container {
+  margin-top: 12px;
+}

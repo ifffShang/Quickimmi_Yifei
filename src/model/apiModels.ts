@@ -48,6 +48,7 @@ export interface Case {
   submittedAt: number;
   taskList: string;
   type: string;
+  asylumType: string;
   updatedAt: number;
   uscisReceiptNumber: string;
   userId: number;

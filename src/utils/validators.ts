@@ -23,10 +23,7 @@ export function validateEmail(email: string): string {
   return "";
 }
 
-export function validatePasswordConfirmation(
-  password: string,
-  confirmPassword: string,
-): string {
+export function validatePasswordConfirmation(password: string, confirmPassword: string): string {
   if (!confirmPassword) return "ErrorMessage.ConfirmPasswordRequired";
   if (password !== confirmPassword) return "ErrorMessage.PasswordsDoNotMatch";
   return "";

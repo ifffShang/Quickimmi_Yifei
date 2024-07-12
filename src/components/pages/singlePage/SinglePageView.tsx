@@ -25,11 +25,7 @@ export function SinglePageView(props: SinglePageViewProps) {
 
   return (
     <div className="single-page-view">
-      <QReturnLink
-        onClick={() => navigate("/")}
-        text={t("SinglePage.ReturnHome")}
-        margin="20px 40px 0"
-      />
+      <QReturnLink onClick={() => navigate("/")} text={t("SinglePage.ReturnHome")} margin="20px 40px 0" />
       <div className="single-page-content">{singlePageComponent}</div>
     </div>
   );
