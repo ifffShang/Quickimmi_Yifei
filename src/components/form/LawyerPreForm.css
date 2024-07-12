@@ -29,7 +29,15 @@
   padding: 0;
 }
 
-.field-section-preForm {
+.field-section-name-preForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px 30px;
+  margin: 0;
+  border-top: 2px solid var(--gray-color-4);
+}
+.field-section-type-preForm {
   display: flex;
   flex-direction: row;
   gap: 50px;

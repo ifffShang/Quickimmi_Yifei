@@ -90,10 +90,14 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
   };
 
   const handleCaseNameLength = (name: string) => {
-    if (name.length > 28) {
-      return name.slice(0, 25) + "...";
+    if (name.length > 25) {
+      return name.slice(0, 22) + "...";
     }
     return name;
+  };
+
+  const capitalizeFirstLetter = (string: string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
   };
 
   return (
@@ -146,7 +150,7 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
           </div>
         </div>
         <div className="case-card-details">
-          <SingleLine title={t("ApplicationType") + ": "} value={caseData.type + " - " + caseData.asylumType} />
+          <SingleLine title={t("ApplicationType") + ": "} value={`${caseData.type} - ${capitalizeFirstLetter(caseData.asylumType)}`} />
           <SingleLine title={t("LastUpdatedAt") + ": "} value={new Date(caseData.updatedAt).toLocaleString()} />
           <SingleLine title={t("MasterApplicant") + ": "} value={caseData.applicantName || ""} />
           <SingleLine title={t("CaseId") + ": "} value={caseData.id.toString() || ""} />
