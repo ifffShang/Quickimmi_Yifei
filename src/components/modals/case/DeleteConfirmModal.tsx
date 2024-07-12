@@ -55,7 +55,7 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
           <div className="delete-confirm-modal-content">
             <QText level="normal bold" color="dark">
               {t("DeleteDocConfirmMessage")} <br />
-              {contentName}?
+              {contentName + "?"}
             </QText>
             <QText level="small" color="gray">
               {t("DeleteDocConfirmSubMessage")}
