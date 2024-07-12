@@ -166,7 +166,7 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
         visible={deleteModalVisible}
         onConfirm={deleteCase}
         onCancel={() => setDeleteModalVisible(false)}
-        contentName={"Case " + caseData.id.toString()}
+        contentName={caseData.id.toString()}
       />
     </div>
   );

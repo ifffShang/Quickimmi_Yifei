@@ -30,7 +30,7 @@ export function LawyerPreForm() {
   const role = useAppSelector(state => state.auth.role);
 
   const [applicantName, setApplicantName] = useState("");
-  const [caseNickName, setCaseNickName] = useState("");
+  const [caseName, setCaseName] = useState("");
   const [applicationType, setApplicationType] = useState("");
   const [immigrationType, setImmigrationType] = useState("");
   const [maritalStatus, setMaritalStatus] = useState("");
@@ -71,6 +71,7 @@ export function LawyerPreForm() {
       const caseId = await createNewCaseByLawyerApi(
         accessToken,
         userId,
+        caseName,
         applicantName,
         applicationType,
         maritalStatus,
@@ -117,16 +118,18 @@ export function LawyerPreForm() {
                 value={applicantName}
                 onChange={e => setApplicantName(e.target.value)}
               />
-              {/* <QText level="field-label">{t("CaseNickName")}</QText> */}
-              {/* <Input
+            </div>
+            <div>
+              <QText level="field-label">{t("CaseName")}</QText>
+              <Input
                 className="field-input-preForm"
                 placeholder="Enter case name: optional"
-                value={applicantName}
-                onChange={e => setCaseNickName(e.target.value)}
-              /> */}
+                value={caseName}
+                onChange={e => setCaseName(e.target.value)}
+              />
             </div>
           </div>
-          <div className="field-section-preForm immigType">
+          <div className="field-section-preForm">
             <div>
               <QText level="field-label">{t("ImmigrationType")}</QText>
               <Select

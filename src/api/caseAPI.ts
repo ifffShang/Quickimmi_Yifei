@@ -67,6 +67,7 @@ export async function createNewCaseApi(
 export async function createNewCaseByLawyerApi(
   accessToken: string,
   lawyerId: number,
+  caseName: string,
   applicantName: string,
   asylumType: string,
   maritalStatus: string,
@@ -80,6 +81,7 @@ export async function createNewCaseByLawyerApi(
     method: "POST",
     data: {
       lawyerId,
+      caseName,
       applicantName,
       asylumType,
       maritalStatus,
