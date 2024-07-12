@@ -35,6 +35,7 @@ import { RemovableSectionHeader } from "./parts/RemovableSectionHeader";
 import { TextboxWithNA } from "./fields/TextboxWithNA";
 import { TextAreaWithAIRefine } from "./fields/TextAreaWithAIRefine";
 import { MultiFileUploader } from "./fields/MultiFileUploader";
+import { PersonalStatement } from "./fields/PersonalStatement";
 
 export interface FormFieldProps {
   fieldKey: string;
@@ -249,6 +250,26 @@ export function FormField(props: FormFieldProps) {
             onChange={onTextChange}
           />
         </div>
+      );
+    case "component_personal_statement":
+      return (
+        <PersonalStatement
+          placeholder={placeholder}
+          value={fieldValue}
+          fieldKey={props.fieldKey}
+          onChange={onTextChange}
+          language={"ENGLISH"}
+        />
+      );
+    case "component_personal_statement_in_original_language":
+      return (
+        <PersonalStatement
+          placeholder={placeholder}
+          value={fieldValue}
+          fieldKey={props.fieldKey}
+          onChange={onTextChange}
+          language={"SIMPLIFIED_CHINESE"}
+        />
       );
     case "radio":
       return <RadioSelect onChange={onOptionChange} options={props.options || ""} value={fieldValue} />;

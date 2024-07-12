@@ -104,6 +104,19 @@
       ]
     },
     {
+      "label": "text_PersonalStatement",
+      "id": "personal_statement",
+      "type": "level1",
+      "steps": [
+        {
+          "label": "text_PersonalStatement",
+          "id": "personal_statement",
+          "type": "level2",
+          "referenceId": "i589_fields_personal_statement"
+        }
+      ]
+    },
+    {
       "label": "text_ViewDocuments",
       "id": "documents",
       "type": "level1",
