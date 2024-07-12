@@ -27,7 +27,7 @@
   "Use": "Use",
   "Rewrite": "Rewrite",
   "Discard": "Discard",
-  
+
   "Home": "Home",
   "AboutUs": "About us",
   "AboutQuickimmi": "About Quickimmi",
@@ -209,7 +209,7 @@
   "UploadTrackingNumber": "Application Tracking Number",
   "UploadTrackingNumberDesc": "Upload tracking number to share with the client.",
   "Select carrier": "Select carrier",
-  "Tracking Number":"Tracking Number",
+  "Tracking Number": "Tracking Number",
   "Package Photo (if any)": "Package Photo (if any)",
   "RegisterApplicationReceipt": "Application Receipt",
   "RegisterApplicationReceiptDesc": "Upload application receipt to update the process.",

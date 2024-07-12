@@ -2,11 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Pagination, message } from "antd";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation } from "react-router-dom";
-import {
-  createNewCaseApi,
-  getCasesApi,
-  getCasesByLawyerApi,
-} from "../../../api/caseAPI";
+import { createNewCaseApi, getCasesApi, getCasesByLawyerApi } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { updateCases, updateCurrentCaseId } from "../../../reducers/caseSlice";
 import { QText } from "../../common/Fonts";
@@ -27,19 +23,15 @@ export function Dashboard() {
   const isLawyer = useAppSelector(state => state.auth.isLawyer);
   const role = useAppSelector(state => state.auth.role);
   const cases = useAppSelector(state => state.case.cases);
-
-  // Extract query parameters from the URL
   const query = new URLSearchParams(location.search);
   const initialPage = parseInt(query.get("page") || "1");
   const [currentPage, setCurrentPage] = useState(initialPage);
-  const [pageSize, setPageSize] = useState(6); 
+  const [pageSize, setPageSize] = useState(6);
   const [totalItems, setTotalItems] = useState(0);
 
   const getCases = async () => {
     if (!accessToken || !userId) {
-      console.error(
-        `Access token ${accessToken} or user id ${userId} is missing`,
-      );
+      console.error(`Access token ${accessToken} or user id ${userId} is missing`);
       message.error("Access token or user id is missing");
       setLoading(false);
       return;
@@ -51,13 +43,7 @@ export function Dashboard() {
       let cases;
       let data;
       if (isLawyer) {
-        data = await getCasesByLawyerApi(
-          userId!,
-          currentPage,
-          pageSize,
-          accessToken,
-          role,
-        );
+        data = await getCasesByLawyerApi(userId!, currentPage, pageSize, accessToken, role);
         cases = data.cases;
         setTotalItems(data.metadata.totalItems);
         console.log(`Number of cases on this page: ${cases.length}`);
@@ -65,18 +51,10 @@ export function Dashboard() {
         console.log("Total case: ", totalItems);
         cases.forEach(c => console.log(`Case ID: ${c.id}`));
       } else {
-        data = await getCasesApi(
-          userId!,
-          currentPage,
-          pageSize,
-          accessToken,
-          role,
-        );
+        data = await getCasesApi(userId!, currentPage, pageSize, accessToken, role);
         cases = data.cases;
         setTotalItems(data.metadata.totalItems);
-        console.log(
-          `Number of cases assigned to the customer: ${cases.length}`,
-        );
+        console.log(`Number of cases assigned to the customer: ${cases.length}`);
         console.log("CustomerID", userId);
         cases.forEach(c => console.log(`Case ID: ${c.id}`));
       }
@@ -94,14 +72,11 @@ export function Dashboard() {
   };
 
   useEffect(() => {
-    getCases();
-  }, [accessToken, userId, currentPage]);
-
-  useEffect(() => {
     const query = new URLSearchParams(location.search);
     const page = parseInt(query.get("page") || "1");
     setCurrentPage(page);
-  }, [location.search]);
+    getCases();
+  }, [accessToken, userId, currentPage, location.search]);
 
   const handlePageChange = (page, pageSize) => {
     setCurrentPage(page);
@@ -114,18 +89,10 @@ export function Dashboard() {
   // Create new applications for Customers
   const CreateNewApplication = async () => {
     if (!accessToken || !userId) {
-      console.error(
-        `Access token ${accessToken} or user id ${userId} is missing`,
-      );
+      console.error(`Access token ${accessToken} or user id ${userId} is missing`);
       return;
     }
-    const caseId = await createNewCaseApi(
-      accessToken,
-      userId,
-      "Asylum create reason",
-      "AFFIRMATIVE",
-      role,
-    );
+    const caseId = await createNewCaseApi(accessToken, userId, "Asylum create reason", "AFFIRMATIVE", role);
     dispatch(updateCurrentCaseId(caseId));
     navigate("/case/" + caseId);
   };
@@ -138,9 +105,7 @@ export function Dashboard() {
       return;
     }
     if (!accessToken || !userId) {
-      console.error(
-        `Access token ${accessToken} or lawyer id ${userId} is missing`,
-      );
+      console.error(`Access token ${accessToken} or lawyer id ${userId} is missing`);
       return;
     }
 
@@ -156,11 +121,7 @@ export function Dashboard() {
     cases && cases.length > 0 ? (
       <div className="dashboard-panel has-application">
         {cases.map(c => (
-          <CaseCard
-            key={c.id}
-            caseData={c}
-            onDelete={getCases}
-          />
+          <CaseCard key={c.id} caseData={c} onDelete={getCases} />
         ))}
       </div>
     ) : (
@@ -181,11 +142,7 @@ export function Dashboard() {
     cases && cases.length > 0 ? (
       <div className="dashboard-panel has-application">
         {cases.map(c => (
-          <CaseCard
-            key={c.id}
-            caseData={c}
-            onDelete={getCases}
-          />
+          <CaseCard key={c.id} caseData={c} onDelete={getCases} />
         ))}
       </div>
     ) : (

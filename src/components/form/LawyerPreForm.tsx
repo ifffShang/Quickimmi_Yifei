@@ -48,17 +48,9 @@ export function LawyerPreForm() {
     // maritalStatus &&
     // (!applyWithChildren || (applyWithChildren && numberOfChildren));
     setIsSendButtonDisabled(!isFormValid);
-    const isEmailValid =
-      providedCustomerEmail && validateEmail(providedCustomerEmail);
+    const isEmailValid = providedCustomerEmail && validateEmail(providedCustomerEmail);
     setIsEmailSendButtonDisabled(!isEmailValid);
-  }, [
-    applicantName,
-    applicationType,
-    maritalStatus,
-    applyWithChildren,
-    numberOfChildren,
-    providedCustomerEmail,
-  ]);
+  }, [applicantName, applicationType, maritalStatus, applyWithChildren, numberOfChildren, providedCustomerEmail]);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -66,16 +58,12 @@ export function LawyerPreForm() {
 
   const handleFormSubmit = async () => {
     if (!isLawyer) {
-      console.error(
-        "Only Lawyer has the permission to create case from this page.",
-      );
+      console.error("Only Lawyer has the permission to create case from this page.");
       // TODO: pop up error message
       return;
     }
     if (!accessToken || !userId) {
-      console.error(
-        `Access token ${accessToken} or lawyer id ${userId} is missing`,
-      );
+      console.error(`Access token ${accessToken} or lawyer id ${userId} is missing`);
       // TODO: pop up error message
       return;
     }
@@ -105,19 +93,13 @@ export function LawyerPreForm() {
   };
 
   const getSubtypeOptions = () => {
-    const selectedType = immigrationData.find(
-      type => type.Type === immigrationType,
-    );
+    const selectedType = immigrationData.find(type => type.Type === immigrationType);
     return selectedType ? selectedType.SubType : [];
   };
 
   return (
     <div className="form-content-preForm">
-      <QReturnLink
-        onClick={() => navigate(`/dashboard`)}
-        text={t("ReturnToDashboard")}
-        margin="20px 0 15px 0"
-      />
+      <QReturnLink onClick={() => navigate(`/dashboard`)} text={t("ReturnToDashboard")} margin="20px 0 15px 0" />
       <div className="form-content-container-preForm">
         <div className="form-content-header-preForm">
           <QText level="large">{t("NewCase")}</QText>
@@ -224,22 +206,12 @@ export function LawyerPreForm() {
       </div>
 
       <div className="form-content-controls-preForm">
-        <Button
-          type="primary"
-          onClick={showModal}
-          disabled={isSendButtonDisabled}
-        >
+        <Button type="primary" onClick={showModal} disabled={isSendButtonDisabled}>
           {t("Send")}
         </Button>
       </div>
 
-      <Modal
-        open={isModalVisible}
-        onCancel={handleCancel}
-        footer={null}
-        width={750}
-        className="email-modal-preForm"
-      >
+      <Modal open={isModalVisible} onCancel={handleCancel} footer={null} width={750} className="email-modal-preForm">
         <div className="email-modal-preForm-container">
           <div>
             <QText level="large">{t("InputClientEmail")}</QText>

@@ -35,10 +35,7 @@ export function UploadPassportModal() {
     modalData?.updatePassportOrIdImageUrl(imageUrl);
   };
 
-  const onPresignedUrlReceived = (
-    res: GeneratePresignedUrlResponse,
-    file: any,
-  ) => {
+  const onPresignedUrlReceived = (res: GeneratePresignedUrlResponse, file: any) => {
     setConfirmDisabled(false);
     presignedUrlResRef.current = res;
     fileRef.current = file;
@@ -50,15 +47,9 @@ export function UploadPassportModal() {
       if (!accessToken) {
         throw new Error(`Access token ${accessToken} is missing`);
       }
-      const passportInfo = await parsePassportApi(
-        documentId,
-        accessToken,
-        role,
-      );
+      const passportInfo = await parsePassportApi(documentId, accessToken, role);
       if (!passportInfo) {
-        throw new Error(
-          `Failed to parse passport info for document id ${documentId}`,
-        );
+        throw new Error(`Failed to parse passport info for document id ${documentId}`);
       }
       dispatch(
         updatePassportInfo({
@@ -93,22 +84,12 @@ export function UploadPassportModal() {
 
   const onConfirmButtonClick = () => {
     try {
-      if (
-        !presignedUrlResRef.current ||
-        !presignedUrlResRef.current.presignedUrl ||
-        !fileRef.current
-      ) {
+      if (!presignedUrlResRef.current || !presignedUrlResRef.current.presignedUrl || !fileRef.current) {
         throw new Error("Presigned URL or file is missing");
       }
       setConfirmDisabled(true);
       setLoading(true);
-      uploadFileToPresignUrl(
-        presignedUrlResRef.current.presignedUrl,
-        fileRef.current,
-        onProgress,
-        onSuccess,
-        onError,
-      );
+      uploadFileToPresignUrl(presignedUrlResRef.current.presignedUrl, fileRef.current, onProgress, onSuccess, onError);
     } catch (err) {
       console.error(err);
     }
@@ -133,25 +114,10 @@ export function UploadPassportModal() {
         {wt("UploadPassportDescription2")}
       </QText>
       <div className="upload-passport-controls">
-        <Button
-          type="primary"
-          size="large"
-          onClick={onConfirmButtonClick}
-          disabled={confirmDisabled}
-        >
-          {confirmDisabled ? (
-            loading ? (
-              <LoadingOutlined />
-            ) : (
-              wt("Confirm")
-            )
-          ) : (
-            wt("Confirm")
-          )}
+        <Button type="primary" size="large" onClick={onConfirmButtonClick} disabled={confirmDisabled}>
+          {confirmDisabled ? loading ? <LoadingOutlined /> : wt("Confirm") : wt("Confirm")}
         </Button>
-        <Checkbox onClick={() => dispatch(changeModalType("uploadotherid"))}>
-          {wt("NoPassport")}
-        </Checkbox>
+        <Checkbox onClick={() => dispatch(changeModalType("uploadotherid"))}>{wt("NoPassport")}</Checkbox>
       </div>
     </div>
   );

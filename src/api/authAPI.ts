@@ -2,11 +2,7 @@ import { Role } from "../consts/consts";
 import { UserInfo } from "../model/apiModels";
 import { performApiRequest } from "./apiConfig";
 
-export async function createUserApi(
-  email: string,
-  accessToken: string,
-  role: Role,
-): Promise<number> {
+export async function createUserApi(email: string, accessToken: string, role: Role): Promise<number> {
   const userId = await performApiRequest({
     endPoint: "api/user/create",
     method: "POST",
@@ -21,11 +17,7 @@ export async function createUserApi(
   return userId || 0;
 }
 
-export async function getUserInfoApi(
-  email: string,
-  accessToken: string,
-  role: Role,
-): Promise<UserInfo> {
+export async function getUserInfoApi(email: string, accessToken: string, role: Role): Promise<UserInfo> {
   if (role !== "APPLICANT" && role !== "LAWYER") {
     throw new Error(`Invalid role ${role}`);
   }

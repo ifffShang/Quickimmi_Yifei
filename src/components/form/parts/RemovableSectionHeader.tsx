@@ -13,12 +13,7 @@ export function RemovableSectionHeader(props: IRemovableSectionHeaderProps) {
   return (
     <div className="removable-section-header">
       <QText level="large">{props.label + " " + (props.fieldIndex + 1)}</QText>
-      <Button
-        type="dashed"
-        danger
-        onClick={() => props.onRemove(props.fieldIndex)}
-        icon={<DeleteOutlined />}
-      ></Button>
+      <Button type="dashed" danger onClick={() => props.onRemove(props.fieldIndex)} icon={<DeleteOutlined />}></Button>
     </div>
   );
 }

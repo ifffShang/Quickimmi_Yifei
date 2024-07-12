@@ -60,11 +60,7 @@ export function Menu({ items, popupPosition, optionAlign }: MenuProps) {
       <div className="menu-display">
         <MenuOutlined />
       </div>
-      {isPopupOpen && (
-        <div className={`menu-popup popup-position-${popupPosition}`}>
-          {options}
-        </div>
-      )}
+      {isPopupOpen && <div className={`menu-popup popup-position-${popupPosition}`}>{options}</div>}
     </div>
   );
 }

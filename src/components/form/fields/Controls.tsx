@@ -1,12 +1,4 @@
-import {
-  Checkbox,
-  DatePicker,
-  Input,
-  InputRef,
-  Radio,
-  Select,
-  Space,
-} from "antd";
+import { Checkbox, DatePicker, Input, InputRef, Radio, Select, Space } from "antd";
 import dayjs from "dayjs";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -57,9 +49,7 @@ export function FormInput(props: FormInputProps) {
         )}
         {props.isRequired && <div className="input-required-mark">*</div>}
       </div>
-      {props.showErrorMessage && errorMessage && (
-        <ErrorMessage>{t(errorMessage)}</ErrorMessage>
-      )}
+      {props.showErrorMessage && errorMessage && <ErrorMessage>{t(errorMessage)}</ErrorMessage>}
     </div>
   );
 }
@@ -326,9 +316,7 @@ export function CheckBox(props: CheckBoxProps) {
   const handleChange = (e: any) => {
     setChecked(e.target.checked);
     if (props.options && Array.isArray(props.options)) {
-      const keyValue = props.options.find(
-        option => option.value === e.target.checked,
-      )?.keyValue;
+      const keyValue = props.options.find(option => option.value === e.target.checked)?.keyValue;
       props.onChange(keyValue || "");
     } else {
       props.onChange(e.target.checked);
@@ -337,11 +325,7 @@ export function CheckBox(props: CheckBoxProps) {
 
   return (
     <div>
-      <Checkbox
-        onChange={handleChange}
-        disabled={props.disabled}
-        checked={checked}
-      >
+      <Checkbox onChange={handleChange} disabled={props.disabled} checked={checked}>
         <QText level="normal bold">{props.label}</QText>
       </Checkbox>
     </div>
@@ -371,11 +355,7 @@ export function PureCheckBox(props: PureCheckBoxProps) {
 
   return (
     <div>
-      <Checkbox
-        onChange={handleChange}
-        disabled={props.disabled}
-        checked={checked}
-      >
+      <Checkbox onChange={handleChange} disabled={props.disabled} checked={checked}>
         <QText level="normal bold">{props.label}</QText>
       </Checkbox>
     </div>
@@ -394,7 +374,7 @@ export interface CheckBoxMultiOptionsProps {
 
 export function CheckBoxMultiOptions(props: CheckBoxMultiOptionsProps) {
   const [checkedValues, setCheckedValues] = useState(props.checkedValues || []);
-  const {wt} = useFormTranslation();
+  const { wt } = useFormTranslation();
 
   useEffect(() => {
     setCheckedValues(props.checkedValues || []);
@@ -424,7 +404,7 @@ export function CheckBoxMultiOptions(props: CheckBoxMultiOptionsProps) {
   };
 
   if (!props.options || !Array.isArray(props.options) || props.options.length === 0) {
-    return (<>Options are required for checkbox multi-options control</>);
+    return <>Options are required for checkbox multi-options control</>;
   }
 
   return (
@@ -442,7 +422,7 @@ export function CheckBoxMultiOptions(props: CheckBoxMultiOptionsProps) {
         </div>
       ))}
     </Checkbox.Group>
-  );  
+  );
 }
 
 /** Radio control ***************************************************/

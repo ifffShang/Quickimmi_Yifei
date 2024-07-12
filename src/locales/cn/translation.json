@@ -27,7 +27,7 @@
   "Use": "使用",
   "Rewrite": "重写",
   "Discard": "放弃",
-  
+
   "Home": "首页",
   "AboutUs": "关于我们",
   "AboutQuickimmi": "关于 Quickimmi",
@@ -211,7 +211,7 @@
   "UploadTrackingNumber": "登记递交",
   "UploadTrackingNumberDesc": "登记邮寄信息以更新申请进度",
   "Select carrier": "承运公司",
-  "Tracking Number":"快递单号",
+  "Tracking Number": "快递单号",
   "Package Photo (if any)": "包裹照片（若有）",
   "RegisterApplicationReceipt": "上传申请收据",
   "RegisterApplicationReceiptDesc": "上传申请收据来更新进度。",

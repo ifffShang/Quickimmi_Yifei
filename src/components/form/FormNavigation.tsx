@@ -46,9 +46,7 @@ export function FormNavigation() {
           <div className="nav-l1-label">
             <QText level="normal bold">{wt(steps[l1].label)}</QText>
             <QTag>
-              {percentage &&
-              percentage[steps[l1].id] &&
-              percentage[steps[l1].id].avg !== 100 ? (
+              {percentage && percentage[steps[l1].id] && percentage[steps[l1].id].avg !== 100 ? (
                 <QTag>{percentage[steps[l1].id].avg + "%"}</QTag>
               ) : (
                 <CheckCircleFilled />
@@ -72,9 +70,7 @@ export function FormNavigation() {
         });
       }
     }
-    return (
-      <Menu items={items} popupPosition="bottom-right" optionAlign="left" />
-    );
+    return <Menu items={items} popupPosition="bottom-right" optionAlign="left" />;
   }
 
   let standaloneSteps = [] as CollapseProps["items"];
@@ -87,15 +83,10 @@ export function FormNavigation() {
         key: l1Index,
         label: (
           <div className={"nav-l1-label" + cssL1}>
-            <QText
-              level="normal bold"
-              color={indexLevel1 === l1Index ? "dark" : "gray"}
-            >
+            <QText level="normal bold" color={indexLevel1 === l1Index ? "dark" : "gray"}>
               {wt(level1.label)}
             </QText>
-            {percentage &&
-            percentage[level1.id] &&
-            percentage[level1.id].avg !== 100 ? (
+            {percentage && percentage[level1.id] && percentage[level1.id].avg !== 100 ? (
               <QTag>{percentage[level1.id].avg + "%"}</QTag>
             ) : (
               <CheckCircleFilled />
@@ -107,9 +98,7 @@ export function FormNavigation() {
             {level1.steps.map((level2, l2Index) => {
               let css = level1.standalone ? "standalone " : "";
               css +=
-                indexLevel2 === l2Index && indexLevel1 === l1Index
-                  ? "form-navigation-l2 active"
-                  : "form-navigation-l2";
+                indexLevel2 === l2Index && indexLevel1 === l1Index ? "form-navigation-l2 active" : "form-navigation-l2";
               return (
                 <div
                   className={css}
@@ -171,9 +160,7 @@ export function FormNavigation() {
         ghost
         items={items}
       />
-      {percentage?.["overall"]?.avg === 100 && (
-        <StandaloneSteps steps={standaloneSteps} />
-      )}
+      {percentage?.["overall"]?.avg === 100 && <StandaloneSteps steps={standaloneSteps} />}
     </div>
   );
 }

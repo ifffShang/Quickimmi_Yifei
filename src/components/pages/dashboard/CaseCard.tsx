@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button, Input } from "antd";
-import { EditTwoTone, CloseCircleTwoTone } from "@ant-design/icons";
+import { EditTwoTone, CloseCircleTwoTone, CheckCircleTwoTone } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { deleteCaseApi, updateCaseNameApi, getCaseSummaryApi } from "../../../api/caseAPI";
@@ -22,6 +22,7 @@ export interface CaseCardProps {
     caseName: string | null;
     overallPercentage: number;
     type: string;
+    asylumType: string;
     submittedAt: number;
     currentStep: string;
   };
@@ -39,7 +40,7 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
   const role = useAppSelector(state => state.auth.role);
 
   useEffect(() => {
-    if(!caseData.caseName) {
+    if (!caseData.caseName) {
       setCaseName(caseData.id.toString());
     } else {
       setTempCaseName(caseData.caseName);
@@ -47,12 +48,9 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
     }
   }, [caseData]);
 
-
   const openCaseDetails = async () => {
     if (!accessToken || !caseData.id) {
-      console.error(
-        `Access token ${accessToken} or case id ${caseData.id} is missing`,
-      );
+      console.error(`Access token ${accessToken} or case id ${caseData.id} is missing`);
       return;
     }
     CacheStore.clear();
@@ -61,9 +59,7 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
 
   const deleteCase = async () => {
     if (!accessToken || !caseData.id) {
-      console.error(
-        `Access token ${accessToken} or case id ${caseData.id} is missing`,
-      );
+      console.error(`Access token ${accessToken} or case id ${caseData.id} is missing`);
       return;
     }
     deleteCaseApi(caseData.id, accessToken, role)
@@ -77,15 +73,13 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
 
   const saveCaseName = async () => {
     if (!accessToken || !caseData.id) {
-      console.error(
-        `Access token ${accessToken} or case id ${caseData.id} is missing`,
-      );
+      console.error(`Access token ${accessToken} or case id ${caseData.id} is missing`);
       return;
     }
     try {
       const success = await updateCaseNameApi(caseData.id, TempCaseName, accessToken, role);
       const summary = await getCaseSummaryApi(caseData.id, accessToken, role);
-      console.log("Summary case name: " + summary.caseName)
+      console.log("Summary case name: " + summary.caseName);
       if (success) {
         setCaseName(handleCaseNameLength(TempCaseName));
         setIsEditing(false);
@@ -96,43 +90,47 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
   };
 
   const handleCaseNameLength = (name: string) => {
-    if (name.length > 23) {
-      return name.slice(0, 20) + "...";
+    if (name.length > 28) {
+      return name.slice(0, 25) + "...";
     }
     return name;
-  }
+  };
 
   return (
     <div className="case-card-container">
-      <CaseIcon />
+      <div className="case-card-caseIcon">
+        <CaseIcon />
+      </div>
       <div className="case-card-content">
         <div className="case-card-title">
           {isEditing ? (
-            <div className="case-card-Name">
+            <div className="case-card-name">
               <Input
                 value={TempCaseName}
                 onChange={e => setTempCaseName(e.target.value)}
                 className="case-card-name-input"
                 placeholder="Enter new name"
               />
-              <EditTwoTone
-                style={{ fontSize: 24, marginLeft: 5 }}
-                twoToneColor="#27AE60"
-                onClick={() => saveCaseName()}
-              />
-              <CloseCircleTwoTone
-                style={{ fontSize: 24, marginLeft: 8 }}
-                twoToneColor="#f5222d"
-                onClick={() => setIsEditing(false)}
-              />
+              <div className="case-card-name-buttons">
+                <CheckCircleTwoTone
+                  style={{ fontSize: 28, marginLeft: 5 }}
+                  twoToneColor="#27AE60"
+                  onClick={() => saveCaseName()}
+                />
+                <CloseCircleTwoTone
+                  style={{ fontSize: 28, marginLeft: 8 }}
+                  twoToneColor="#f5222d"
+                  onClick={() => setIsEditing(false)}
+                />
+              </div>
             </div>
           ) : (
-            <div className="case-card-Name">
+            <div className="case-card-name">
               <div className="case-card-caseName">
                 <QText level="large">{CaseName || `Case ${caseData.id}`}</QText>
               </div>
               <EditTwoTone
-                style={{ fontSize: 24, marginLeft: 5 }}
+                style={{ fontSize: 28, marginLeft: 5 }}
                 twoToneColor="#27AE60"
                 onClick={() => setIsEditing(true)}
               />
@@ -141,20 +139,17 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
           <div className="case-card-progress">
             <div className="case-card-progress-inner" style={{ width: `${caseData.overallPercentage}%` }}></div>
             <div className="case-card-progress-text">
-              <QText level="small" color="gray">Completion: {caseData.overallPercentage}%</QText>
+              <QText level="small" color="gray">
+                Completion: {caseData.overallPercentage}%
+              </QText>
             </div>
           </div>
         </div>
         <div className="case-card-details">
-          <SingleLine title={t("ApplicationType") + ": "} value={caseData.type} />
-          <SingleLine
-            title={t("LastUpdatedAt") + ": "}
-            value={new Date(caseData.updatedAt).toLocaleString()}
-          />
-          <SingleLine
-            title={t("MasterApplicant") + ": "}
-            value={caseData.applicantName || ""}
-          />
+          <SingleLine title={t("ApplicationType") + ": "} value={caseData.type + " - " + caseData.asylumType} />
+          <SingleLine title={t("LastUpdatedAt") + ": "} value={new Date(caseData.updatedAt).toLocaleString()} />
+          <SingleLine title={t("MasterApplicant") + ": "} value={caseData.applicantName || ""} />
+          <SingleLine title={t("CaseId") + ": "} value={caseData.id.toString() || ""} />
         </div>
       </div>
       <div className="case-card-bottom">
@@ -167,6 +162,7 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
       </div>
 
       <DeleteConfirmModal
+        deleteItem="case"
         visible={deleteModalVisible}
         onConfirm={deleteCase}
         onCancel={() => setDeleteModalVisible(false)}

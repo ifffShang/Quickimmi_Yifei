@@ -1,9 +1,5 @@
 import { useTranslation } from "react-i18next";
-import {
-  AiComplete,
-  AiTranslate,
-  ManAndComputer,
-} from "../../icons/ProductFeatures";
+import { AiComplete, AiTranslate, ManAndComputer } from "../../icons/ProductFeatures";
 import "./ProductFeatures.css";
 import { TextBlock } from "./Common";
 import { useAppSelector } from "../../../app/hooks";
@@ -13,9 +9,7 @@ function SupportedImmigrationTypes() {
   const { t } = useTranslation();
   return (
     <div className="supported-immigration">
-      <div className="supported-immigration-title">
-        {t("LandingPage.SupportedImmigrationTypes")}
-      </div>
+      <div className="supported-immigration-title">{t("LandingPage.SupportedImmigrationTypes")}</div>
       <div className="supported-immigration-types">
         <div>ASYLUM</div>
         <div>NIW</div>
@@ -70,11 +64,7 @@ export function ProductFeatures() {
           title={t("LandingPage.AiComplete")}
           titleLevel="h2"
           description={t("LandingPage.AiCompleteDescription")}
-          align={
-            screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall
-              ? "center"
-              : "left"
-          }
+          align={screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall ? "center" : "left"}
         />
         <AiComplete />
       </div>

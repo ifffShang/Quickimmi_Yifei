@@ -13,12 +13,7 @@ interface ProgressSectionProps {
   setExpandedStep: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-const ProgressSection: React.FC<ProgressSectionProps> = ({
-  currentStep,
-  progress,
-  expandedStep,
-  setExpandedStep,
-}) => {
+const ProgressSection: React.FC<ProgressSectionProps> = ({ currentStep, progress, expandedStep, setExpandedStep }) => {
   const { t } = useTranslation();
   const isLawyer = useAppSelector(state => state.auth.isLawyer);
 
@@ -26,9 +21,7 @@ const ProgressSection: React.FC<ProgressSectionProps> = ({
     setExpandedStep(prevStep => (prevStep === stepName ? null : stepName));
   };
 
-  const currentStepDetails = progress.steps.find(
-    step => step.name === currentStep,
-  );
+  const currentStepDetails = progress.steps.find(step => step.name === currentStep);
 
   if (currentStep === "FILLING_APPLICATION") {
     return (

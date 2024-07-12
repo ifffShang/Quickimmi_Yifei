@@ -151,12 +151,7 @@ function PriceRow({ rows }: PriceChartProps) {
         <Row gutter={16} key={uuidv4()}>
           <PriceRowTitle {...row} />
           {row.values?.map(value => (
-            <PriceRowValue
-              key={uuidv4()}
-              value={value}
-              name={row.name}
-              isTitle={row.isTitle || false}
-            />
+            <PriceRowValue key={uuidv4()} value={value} name={row.name} isTitle={row.isTitle || false} />
           ))}
         </Row>
       ))}
@@ -183,15 +178,7 @@ function PriceRowTitle(row: PriceRow) {
   );
 }
 
-function PriceRowValue({
-  name,
-  isTitle,
-  value,
-}: {
-  name: string;
-  isTitle: boolean;
-  value: string;
-}) {
+function PriceRowValue({ name, isTitle, value }: { name: string; isTitle: boolean; value: string }) {
   const span = 7;
   if (isTitle && name === PriceTitle.PriceLevel) {
     return (

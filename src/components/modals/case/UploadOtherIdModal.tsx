@@ -7,10 +7,7 @@ import { useFormTranslation } from "../../../hooks/commonHooks";
 import { GeneratePresignedUrlResponse } from "../../../model/apiModels";
 import { DocumentType } from "../../../model/commonModels";
 import { changeModalType, closeModal } from "../../../reducers/commonSlice";
-import {
-  updateIdCardInfo,
-  updateTravelDocumentInfo,
-} from "../../../reducers/formSlice";
+import { updateIdCardInfo, updateTravelDocumentInfo } from "../../../reducers/formSlice";
 import { QText } from "../../common/Fonts";
 import { QReturnLink } from "../../common/Links";
 import { QDropdown } from "../../form/fields/Controls";
@@ -27,8 +24,7 @@ export function UploadOtherIdModal() {
 
   const [loading, setLoading] = useState(false);
   const [confirmDisabled, setConfirmDisabled] = useState(true);
-  const [dropdownSelectedValue, setDropdownSelectedValue] =
-    useState<DocumentType>();
+  const [dropdownSelectedValue, setDropdownSelectedValue] = useState<DocumentType>();
 
   const presignedUrlResRef = useRef<GeneratePresignedUrlResponse | null>(null);
   const fileRef = useRef<File | null>(null);
@@ -44,10 +40,7 @@ export function UploadOtherIdModal() {
     modalData?.updatePassportOrIdImageUrl(imageUrl);
   };
 
-  const onPresignedUrlReceived = (
-    res: GeneratePresignedUrlResponse,
-    file: any,
-  ) => {
+  const onPresignedUrlReceived = (res: GeneratePresignedUrlResponse, file: any) => {
     setConfirmDisabled(false);
     presignedUrlResRef.current = res;
     fileRef.current = file;
@@ -61,9 +54,7 @@ export function UploadOtherIdModal() {
       }
       const idInfo = await parsePassportApi(documentId, accessToken, role);
       if (!idInfo) {
-        console.error(
-          `Failed to parse ID card info for document id ${documentId}`,
-        );
+        console.error(`Failed to parse ID card info for document id ${documentId}`);
         dispatch(closeModal());
         return;
       }
@@ -104,22 +95,12 @@ export function UploadOtherIdModal() {
 
   const onConfirmButtonClick = () => {
     try {
-      if (
-        !presignedUrlResRef.current ||
-        !presignedUrlResRef.current.presignedUrl ||
-        !fileRef.current
-      ) {
+      if (!presignedUrlResRef.current || !presignedUrlResRef.current.presignedUrl || !fileRef.current) {
         throw new Error("Presigned URL or file is missing");
       }
       setConfirmDisabled(true);
       setLoading(true);
-      uploadFileToPresignUrl(
-        presignedUrlResRef.current.presignedUrl,
-        fileRef.current,
-        onProgress,
-        onSuccess,
-        onError,
-      );
+      uploadFileToPresignUrl(presignedUrlResRef.current.presignedUrl, fileRef.current, onProgress, onSuccess, onError);
     } catch (err) {
       console.error(err);
     }
@@ -138,9 +119,7 @@ export function UploadOtherIdModal() {
           {t("NoPassportSelected")}
         </QText>
         <QDropdown
-          onChange={(value: string) =>
-            setDropdownSelectedValue(value as DocumentType)
-          }
+          onChange={(value: string) => setDropdownSelectedValue(value as DocumentType)}
           placeholder={t("SelectDocumentType")}
           ignoreMaxWidth={true}
           options={[
@@ -160,21 +139,8 @@ export function UploadOtherIdModal() {
             />
           </div>
           <div className="upload-other-id-controls">
-            <Button
-              type="primary"
-              size="large"
-              onClick={onConfirmButtonClick}
-              disabled={confirmDisabled}
-            >
-              {confirmDisabled ? (
-                loading ? (
-                  <LoadingOutlined />
-                ) : (
-                  wt("Confirm")
-                )
-              ) : (
-                wt("Confirm")
-              )}
+            <Button type="primary" size="large" onClick={onConfirmButtonClick} disabled={confirmDisabled}>
+              {confirmDisabled ? loading ? <LoadingOutlined /> : wt("Confirm") : wt("Confirm")}
             </Button>
           </div>
         </>

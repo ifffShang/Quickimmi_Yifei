@@ -247,4 +247,3 @@ export function getProgressWithPercentage(progress: Progress, percentage: Percen
     };
   }
 }
-

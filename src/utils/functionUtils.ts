@@ -18,22 +18,17 @@ export function updateApplicationCaseFunc(
       return;
     }
 
-    const progressWithPercentage = getProgressWithPercentage(
-      progress,
-      percentage,
-    );
+    const progressWithPercentage = getProgressWithPercentage(progress, percentage);
     console.log();
 
-    const currentStep = [...progress.steps]
-        .reverse()
-        .find((step) => step.status === "IN_PROGRESS");
+    const currentStep = [...progress.steps].reverse().find(step => step.status === "IN_PROGRESS");
 
     updateApplicationCaseApi(
       {
         id: caseId,
         profile,
         progress: progressWithPercentage,
-        currentStep: currentStep? currentStep.name : "FILLING_APPLICATION"
+        currentStep: currentStep ? currentStep.name : "FILLING_APPLICATION",
       },
       accessToken,
       role,

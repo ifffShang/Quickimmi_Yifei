@@ -3,10 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getCaseProfileAndProgressApi, getForm } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { updateForm } from "../../../reducers/caseSlice";
-import {
-  resetFormState,
-  updateCaseProfileAndProgress,
-} from "../../../reducers/formSlice";
+import { resetFormState, updateCaseProfileAndProgress } from "../../../reducers/formSlice";
 import { buildPercentageObject } from "../../../utils/percentageUtils";
 import { CentralizedLoading } from "../../common/Loading";
 import { FormContainer } from "../../form/FormContainer";
@@ -29,20 +26,13 @@ export function CaseDetails() {
       dispatch(updateForm(form));
       (async function () {
         try {
-          const caseDetails = await getCaseProfileAndProgressApi(
-            parseInt(id),
-            accessToken,
-            role,
-          );
+          const caseDetails = await getCaseProfileAndProgressApi(parseInt(id), accessToken, role);
           if (!caseDetails) {
             console.error(`Failed to get case details for case id ${id}`);
             return;
           }
 
-          const currentPercentage = buildPercentageObject(
-            form,
-            caseDetails.progress,
-          );
+          const currentPercentage = buildPercentageObject(form, caseDetails.progress);
 
           dispatch(
             updateCaseProfileAndProgress({
