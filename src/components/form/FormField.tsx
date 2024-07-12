@@ -187,6 +187,28 @@ export function FormField(props: FormFieldProps) {
     );
   };
 
+  const onMultiCheckboxChange = (value: string) => {
+    if (!props.fieldKey) return;
+
+    if (props.fieldKey.indexOf(",") > -1 && value.indexOf(",") > -1) {
+      const keys = props.fieldKey.split(",");
+      const values = value.split(",");
+      const keyValueObject = {} as KeyValues;
+      keys.forEach((key, index) => {
+        keyValueObject[key] = values[index];
+      });
+      dispatchFormValue(dispatch, keyValueObject, props.fieldIndex);
+      return;
+    }
+    dispatchFormValue(
+      dispatch,
+      {
+        [props.fieldKey]: value,
+      },
+      props.fieldIndex,
+    );
+  };
+
   const onPureCheckboxChange = (value: boolean) => {
     if (!props.fieldKey) return;
 
@@ -265,8 +287,8 @@ export function FormField(props: FormFieldProps) {
       return (
         <CheckBoxMultiOptions
           label={wt(props.label)}
-          onChange={onCheckboxChange}
-          checkedValues={fieldValue as string[]}
+          onChange={onMultiCheckboxChange}
+          checkedValues={!Array.isArray(fieldValue) ? [fieldValue] : fieldValue}
           options={props.options || ""}
         />
       );

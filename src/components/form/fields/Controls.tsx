@@ -405,12 +405,11 @@ export function CheckBoxMultiOptions(props: CheckBoxMultiOptionsProps) {
       console.error("Options are required for checkbox multi-options control");
       return;
     }
-    console.log(selectedValues);
     setCheckedValues(selectedValues);
     let result: any;
-    props.options.forEach((option, index) => {
+    props.options.forEach(option => {
       if (!result) {
-        result = option.keyValue.split(",");
+        result = Array(option.keyValue.split(",").length).fill("false");
       }
       if (selectedValues.includes(option.value)) {
         option.keyValue.split(",").forEach((keyValue: string, index: number) => {
