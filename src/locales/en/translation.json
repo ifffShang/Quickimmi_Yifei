@@ -243,6 +243,8 @@
   "GenerateDocument": "Generate Report",
   "GenerateReport": "Generate Report",
   "ViewDocuments": "View Documents",
+  "PersonalStatement": "Personal Statement",
+  "PersonalStatementInOriginalLanguage": "Personal Statement in Original Language",
 
   "IdNumber": "ID Number",
   "IdInformation": "ID Information",

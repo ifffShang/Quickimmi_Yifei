@@ -60,10 +60,10 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
   const discardRefinedText = () => {
     setShowRefineArea(false);
     setRefineAreaValue("");
-    // console.log("field key is: ", fieldkey);
-    // console.log("class name is: ", classname);
-    // console.log("label is: ", label);
-    // console.log(t(label));
+    console.log("field key is: ", fieldkey);
+    console.log("class name is: ", classname);
+    console.log("label is: ", label);
+    console.log(t(label));
   };
 
   const refineText = async () => {

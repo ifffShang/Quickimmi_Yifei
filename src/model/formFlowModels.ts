@@ -70,4 +70,6 @@ export type ControlType =
   | "component_entry_records"
   | "component_add_item"
   | "component_textarea_ai_refine"
+  | "component_personal_statement"
+  | "component_personal_statement_in_original_language"
   | "percentage"; // used only for percentage calculation

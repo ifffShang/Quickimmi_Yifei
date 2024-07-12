@@ -245,6 +245,8 @@
   "GenerateDocument": "生成文档",
   "GenerateReport": "生成报告",
   "ViewDocuments": "查看表单",
+  "PersonalStatement": "个人陈述",
+  "PersonalStatementInOriginalLanguage": "个人陈述（原文）",
 
   "IdNumber": "证件号码",
   "IdInformation": "证件信息",
