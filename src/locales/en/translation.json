@@ -4,7 +4,7 @@
   "Delete": "Delete",
   "DeleteCaseConfirmMessage": "Are you sure you want to delete Case:",
   "DeleteCaseConfirmSubMessage": "This action cannot be undone, all data associated with this case will be deleted.",
-  "DeleteDocConfirmMessage": "Are you sure you want to delete document: ",
+  "DeleteDocConfirmMessage": "Are you sure you want to delete this? ",
   "DeleteDocConfirmSubMessage": "This action cannot be undone, the document will be removed permanently.",
   "Send for Signature": "Send for Signature",
   "File Name": "File Name",

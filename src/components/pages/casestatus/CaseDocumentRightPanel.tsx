@@ -80,7 +80,7 @@ const CaseDocumentRightPanel: React.FC = () => {
   const { loading, fetchDocuments } = useFetchDocuments(setDocuments);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [currentFile, setCurrentFile] = useState<File | null>(null);
-  const [selectedDocumentType, setSelectedDocumentType] = useState<DocumentType>("PASSPORT_MAIN");
+  const [selectedDocumentType, setSelectedDocumentType] = useState<DocumentType>("OTHER");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
   const [documentToDelete, setDocumentToDelete] = useState<{ id: number; name: string } | null>(null);
@@ -565,6 +565,7 @@ const CaseDocumentRightPanel: React.FC = () => {
               defaultValue={selectedDocumentType}
               style={{ width: 300 }}
               onChange={(value: DocumentType) => setSelectedDocumentType(value)}
+              disabled={true}
             >
               {documentTypes.map(type => (
                 <Option key={type} value={type}>

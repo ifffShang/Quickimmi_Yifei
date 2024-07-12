@@ -109,7 +109,7 @@ export function LawyerPreForm() {
           </QText>
         </div>
         <div className="form-content-form-preForm">
-          <div className="field-section-preForm">
+          <div className="field-section-name-preForm">
             <div>
               <QText level="field-label">{t("ApplicantName")}</QText>
               <Input
@@ -129,7 +129,7 @@ export function LawyerPreForm() {
               />
             </div>
           </div>
-          <div className="field-section-preForm">
+          <div className="field-section-type-preForm">
             <div>
               <QText level="field-label">{t("ImmigrationType")}</QText>
               <Select
