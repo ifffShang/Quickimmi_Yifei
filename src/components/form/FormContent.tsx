@@ -112,72 +112,67 @@ export function FormContent(props: FormContentProps) {
 
   const CustomerForm = (
     <div className="form-content">
-      <div className="form-content-header">
-        <QText level="large">{wt(currentStep.label || "")}</QText>
+      <div className="form-content-form-container">
+        <div className="form-content-header">
+          <QText level="large">{wt(currentStep.label || "")}</QText>
+        </div>
+        <div className="form-content-form">
+          {formFields.fields.map((field, index) => (
+            <div key={index}>
+              {!field.hideHeader && field.label && <QText level="field-label">{wt(field.label)}</QText>}
+              <FormField
+                fieldKey={field.key}
+                control={field.control}
+                label={field.label}
+                maxChildPerRow={field.maxChildPerRow}
+                subFields={field.fields}
+                options={field.options}
+                placeholder={field.placeholder}
+                format={field.format}
+                className={field.className}
+                visibility={field.visibility}
+                hideHeader={field.hideHeader}
+                fieldIndex={field.fieldIndex}
+                lastField={index === formFields.fields.length - 1}
+              />
+            </div>
+          ))}
+        </div>
       </div>
-      <div className="form-content-form">
-        {formFields.fields.map((field, index) => (
-          <div key={index}>
-            {!field.hideHeader && field.label && (
-              <QText level="field-label">{wt(field.label)}</QText>
-            )}
-            <FormField
-              fieldKey={field.key}
-              control={field.control}
-              label={field.label}
-              maxChildPerRow={field.maxChildPerRow}
-              subFields={field.fields}
-              options={field.options}
-              placeholder={field.placeholder}
-              format={field.format}
-              className={field.className}
-              visibility={field.visibility}
-              hideHeader={field.hideHeader}
-              fieldIndex={field.fieldIndex}
-              lastField={index === formFields.fields.length - 1}
-            />
-          </div>
-        ))}
-      </div>
-      <div className="form-content-controls">
-        <Button
-          disabled={isFirstStep}
-          type="primary"
-          onClick={() => {
-            dispatch(decrementIndexLevel2());
-          }}
-        >
-          {t("Previous")}
-        </Button>
-        <Button
-          className="default-button"
-          onClick={() => {
-            try {
-              updateApplicationCaseFunc(
-                caseId,
-                profile,
-                progress,
-                percentage,
-                role,
-                accessToken,
-              );
-              dispatch(incrementSaveTimes());
-            } catch (err) {
-              console.error(err);
-            }
-          }}
-        >
-          {t("Save")}
-        </Button>
-        <Button
-          disabled={isLastStep}
-          type="primary"
-          onClick={() => {
-            dispatch(incrementIndexLevel2());
-          }}
-        >
-          {t("Next")}
-        </Button>
+      <div className="form-content-controls-container">
+        <div className="form-content-controls">
+          <Button
+            disabled={isFirstStep}
+            type="primary"
+            onClick={() => {
+              dispatch(decrementIndexLevel2());
+            }}
+          >
+            {t("Previous")}
+          </Button>
+          <Button
+            className="default-button"
+            onClick={() => {
+              try {
+                updateApplicationCaseFunc(caseId, profile, progress, percentage, role, accessToken);
+                dispatch(incrementSaveTimes());
+              } catch (err) {
+                console.error(err);
+              }
+            }}
+          >
+            {t("Save")}
+          </Button>
+          <Button
+            disabled={isLastStep}
+            type="primary"
+            onClick={() => {
+              dispatch(incrementIndexLevel2());
+            }}
+          >
+            {t("Next")}
+          </Button>
+        </div>
       </div>
     </div>
   );

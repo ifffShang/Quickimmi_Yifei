@@ -12,6 +12,7 @@ import {
   ListCase,
   UpdateProgressRequestDto,
 } from "../model/apiModels";
+import { DocumentGenerationTaskStatus, GenerateDocumentResponse } from "../model/apiReqResModels";
 import { DocumentCreatedBy, DocumentOperation, DocumentStatus, DocumentType, Identity } from "../model/commonModels";
 import { IForm, IFormFields } from "../model/formFlowModels";
 import { getProgressWithPercentage } from "../utils/percentageUtils";
@@ -350,6 +351,37 @@ export async function generateDocumentsApi(accessToken: string, caseId: number, 
     role,
   });
   return <boolean>res.data;
+}
+
+export async function generateDocumentsByDocumentTypeApi(
+  accessToken: string,
+  caseId: number,
+  documentType: DocumentType,
+  role: Role,
+): Promise<GenerateDocumentResponse[]> {
+  const res = await performApiRequest({
+    endPoint: `api/case/asylum/generateDocumentsByDocumentType?id=${caseId}&documentType=${documentType}`,
+    method: "GET",
+    data: null,
+    accessToken,
+    role,
+  });
+  return <GenerateDocumentResponse[]>res.data;
+}
+
+export async function getDocumentGenerationTaskStatusByTaskIdApi(
+  accessToken: string,
+  taskId: number,
+  role: Role,
+): Promise<DocumentGenerationTaskStatus> {
+  const res = await performApiRequest({
+    endPoint: `api/case/asylum/getDocumentGenerationTaskStatusByTaskId?taskId=${taskId}`,
+    method: "GET",
+    data: null,
+    accessToken,
+    role,
+  });
+  return <DocumentGenerationTaskStatus>res.data;
 }
 
 /**
