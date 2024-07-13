@@ -4,7 +4,7 @@ import { resetAuthState, updateAuthState } from "../reducers/authSlice";
 import { closeModal, openModal } from "../reducers/commonSlice";
 import { fetchAuthSession } from "aws-amplify/auth";
 import { InMemoryCache } from "../cache/inMemoryCache";
-import {message} from "antd";
+import { message } from "antd";
 
 export const signOutCurrentUser = (dispatch: AppDispatch) => {
   signOut().then(() => {
@@ -15,7 +15,7 @@ export const signOutCurrentUser = (dispatch: AppDispatch) => {
 };
 
 export const startTokenExpirationTimer = (dispatch: AppDispatch) => {
-  const ExpirationTime = 1000 * 60 * 20; // 20 minutes
+  const ExpirationTime = 1000 * 60 * 30; // 30 minutes
   const timerId = setTimeout(() => {
     dispatch(openModal({ modalType: "tokenRefreshPopup", modalData: {} }));
   }, ExpirationTime);
