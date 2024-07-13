@@ -150,7 +150,10 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
           </div>
         </div>
         <div className="case-card-details">
-          <SingleLine title={t("ApplicationType") + ": "} value={`${caseData.type} - ${capitalizeFirstLetter(caseData.asylumType)}`} />
+          <SingleLine
+            title={t("ApplicationType") + ": "}
+            value={`${caseData.type} - ${capitalizeFirstLetter(caseData.asylumType)}`}
+          />
           <SingleLine title={t("LastUpdatedAt") + ": "} value={new Date(caseData.updatedAt).toLocaleString()} />
           <SingleLine title={t("MasterApplicant") + ": "} value={caseData.applicantName || ""} />
           <SingleLine title={t("CaseId") + ": "} value={caseData.id.toString() || ""} />

@@ -50,7 +50,6 @@
   border-radius: 3px;
 }
 
-
 @media (max-width: 768px) {
   .immigType {
     flex-direction: column;
