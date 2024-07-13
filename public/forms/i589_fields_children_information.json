@@ -4,9 +4,28 @@
   "type": "fields",
   "fields": [
     {
+      "label": "text_HaveChildren",
+      "id": "have_children",
+      "key": "applicant.haveChildrenCheckbox,applicant.haveNoChildrenCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "no",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
       "label": "text_Child",
       "hideHeader": "true",
       "id": "children_form",
+      "visibility": "applicant.haveChildrenCheckbox=true",
       "key": "applicant.childrenCnt-family.children",
       "control": "removable_section",
       "fields": [
@@ -315,6 +334,7 @@
       "hideHeader": "true",
       "placeholder": "text_AddAChild",
       "id": "add_a_child",
+      "visibility": "applicant.haveChildrenCheckbox=true",
       "key": "applicant.childrenCnt-family.children",
       "control": "component_add_item"
     }

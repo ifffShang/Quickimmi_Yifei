@@ -311,6 +311,7 @@
   "IsSpouseIncludedInApplication": "您的配偶是否包含在此申请中？",
   "SpecifyLocationIfNotInUS": "如果不在美国，请填写位置",
 
+  "HaveChildren": "您是否有子女？",
   "Child": "子女",
   "NumberOfChildren": "子女数量",
   "ChildUploadPassport": "上传子女的护照或其他身份证明",

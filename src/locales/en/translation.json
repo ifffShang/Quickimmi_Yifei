@@ -314,6 +314,7 @@
   "IsSpouseIncludedInApplication": "Is your spouse to be included in this application?",
   "SpecifyLocationIfNotInUS": "Specify location if not in the U.S.",
 
+  "HaveChildren": "Do you have any children?",
   "Child": "Child",
   "NumberOfChildren": "Number of Children",
   "ChildUploadPassport": "Upload child's passport or other identity document",
