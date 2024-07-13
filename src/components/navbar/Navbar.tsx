@@ -18,8 +18,7 @@ export function Navbar() {
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
   const showNavbar = !isAuthPath(location.pathname);
   const screenSize = useAppSelector(state => state.common.screenSize);
-  const isSmallScreen =
-    screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall;
+  const isSmallScreen = screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall;
   const showFormNav = showFormNavigation();
 
   if (!showNavbar) {
@@ -56,20 +55,14 @@ export function Navbar() {
     ];
   }
 
-  const containerCss =
-    isSmallScreen && showFormNav
-      ? "navbar-container form-nav"
-      : "navbar-container";
+  const containerCss = isSmallScreen && showFormNav ? "navbar-container form-nav" : "navbar-container";
 
   return (
     <div className={containerCss}>
       <div className="navbar-group">
         {isSmallScreen && showFormNav && <FormNavigation />}
         <div className="navbar-logo">
-          <Link
-            className="navbar-logo-link"
-            to={"/"}
-          >
+          <Link className="navbar-logo-link" to={"/"}>
             <Logo />
           </Link>
         </div>

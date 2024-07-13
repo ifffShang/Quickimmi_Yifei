@@ -1,5 +1,5 @@
 import type { TableProps } from "antd";
-import {Button, message, Table, Tooltip} from "antd";
+import { Button, message, Table, Tooltip } from "antd";
 import React, { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {

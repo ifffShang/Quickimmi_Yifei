@@ -68,11 +68,7 @@ export function PassportUploader(props: PassportUploaderProps) {
             <LoadingOutlined />
           </div>
         ) : passportOrIdImageUrl ? (
-          <img
-            onClick={() => setPreviewOpen(true)}
-            src={passportOrIdImageUrl}
-            alt="avatar"
-          />
+          <img onClick={() => setPreviewOpen(true)} src={passportOrIdImageUrl} alt="avatar" />
         ) : (
           <div className="passport-uploader-upload" onClick={onButtonClick}>
             <PlusOutlined />

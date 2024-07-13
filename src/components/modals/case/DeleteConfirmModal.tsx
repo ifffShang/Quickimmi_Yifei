@@ -7,6 +7,7 @@ import { QText } from "../../common/Fonts";
 import "./DeleteConfirmModal.css";
 
 interface DeleteConfirmModalProps {
+  deleteItem: string;
   visible: boolean;
   onConfirm: () => void;
   onCancel: () => void;
@@ -14,6 +15,7 @@ interface DeleteConfirmModalProps {
 }
 
 export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
+  deleteItem,
   visible,
   onConfirm,
   onCancel,
@@ -40,14 +42,28 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
         <div className="delete-confirm-modal-icon">
           <ExclamationCircleTwoTone style={{ fontSize: 24 }} twoToneColor="#EB5757" />
         </div>
-        <div className="delete-confirm-modal-messages">
-          <QText level="normal bold" color="dark">
-            {`${t("DeleteConfirmMessage")} ${contentName}?`}
-          </QText>
-          <QText level="small" color="gray">
-            {t("DeleteConfirmSubMessage")}
-          </QText>
-        </div>
+        {deleteItem === "case" ? (
+          <div className="delete-confirm-modal-content">
+            <QText level="normal bold" color="dark">
+              {`${t("DeleteCaseConfirmMessage")} ${contentName}?`}
+            </QText>
+            <QText level="small" color="gray">
+              {t("DeleteCaseConfirmSubMessage")}
+            </QText>
+          </div>
+        ) : (
+          <div className="delete-confirm-modal-content">
+            <QText level="normal bold" color="dark">
+              {t("DeleteDocConfirmMessage")}
+            </QText>
+            <QText level="normal bold" color="dark">
+              {contentName}
+            </QText>
+            <QText level="small" color="gray">
+              {t("DeleteDocConfirmSubMessage")}
+            </QText>
+          </div>
+        )}
       </div>
     </Modal>
   );

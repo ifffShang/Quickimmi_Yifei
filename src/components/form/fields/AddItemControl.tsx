@@ -10,15 +10,8 @@ export interface AddItemControlProps {
 }
 export function AddItemControl(props: AddItemControlProps) {
   return (
-    <div
-      className={"add-item" + (props.className ? " " + props.className : "")}
-    >
-      <Button
-        className="add-item-btn"
-        shape="circle"
-        icon={<PlusCircleFilled />}
-        onClick={e => props.onClick()}
-      >
+    <div className={"add-item" + (props.className ? " " + props.className : "")}>
+      <Button className="add-item-btn" shape="circle" icon={<PlusCircleFilled />} onClick={e => props.onClick()}>
         <QText>{props.placeholder}</QText>
       </Button>
     </div>

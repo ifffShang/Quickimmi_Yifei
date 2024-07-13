@@ -23,25 +23,13 @@ export interface LocationDropdownProps {
 }
 
 export function LocationDropdown(props: LocationDropdownProps) {
-  const {
-    countries,
-    countryPrefillOption,
-    states,
-    statePrefillOption,
-    cities,
-    cityPrefillOption,
-  } = getPrefillLocationOptions(props.prefillStr ?? "", props.prefillData);
+  const { countries, countryPrefillOption, states, statePrefillOption, cities, cityPrefillOption } =
+    getPrefillLocationOptions(props.prefillStr ?? "", props.prefillData);
 
   const { t } = useFormTranslation();
-  const [country, setCountry] = useState<LocationSelectOption | undefined>(
-    countryPrefillOption,
-  );
-  const [state, setState] = useState<LocationSelectOption | undefined>(
-    statePrefillOption,
-  );
-  const [city, setCity] = useState<LocationSelectOption | undefined>(
-    cityPrefillOption,
-  );
+  const [country, setCountry] = useState<LocationSelectOption | undefined>(countryPrefillOption);
+  const [state, setState] = useState<LocationSelectOption | undefined>(statePrefillOption);
+  const [city, setCity] = useState<LocationSelectOption | undefined>(cityPrefillOption);
 
   const [stateData, setStateData] = useState<IState[]>(states ?? []);
   const [cityData, setCityData] = useState<ICity[]>(cities ?? []);
@@ -80,13 +68,10 @@ export function LocationDropdown(props: LocationDropdownProps) {
   };
 
   useEffect(() => {
-    const {
-      countryPrefillOption,
-      states,
-      statePrefillOption,
-      cities,
-      cityPrefillOption,
-    } = getPrefillLocationOptions(props.prefillStr ?? "", props.prefillData);
+    const { countryPrefillOption, states, statePrefillOption, cities, cityPrefillOption } = getPrefillLocationOptions(
+      props.prefillStr ?? "",
+      props.prefillData,
+    );
 
     setStateData(states ?? []);
     setCityData(cities ?? []);
@@ -94,11 +79,7 @@ export function LocationDropdown(props: LocationDropdownProps) {
     setState(statePrefillOption);
     setCity(cityPrefillOption);
 
-    props.onLocationChange(
-      countryPrefillOption?.value,
-      statePrefillOption?.value,
-      cityPrefillOption?.value,
-    );
+    props.onLocationChange(countryPrefillOption?.value, statePrefillOption?.value, cityPrefillOption?.value);
   }, [props.prefillStr, props.prefillData]);
 
   useEffect(() => {
@@ -118,10 +99,7 @@ export function LocationDropdown(props: LocationDropdownProps) {
         notFoundContent="Not found"
       >
         {countries.map(item => (
-          <Select.Option
-            key={item.isoCode}
-            value={item.name}
-          >{`${item.flag} ${item.name}`}</Select.Option>
+          <Select.Option key={item.isoCode} value={item.name}>{`${item.flag} ${item.name}`}</Select.Option>
         ))}
       </Select>
       {stateData.length > 0 && (

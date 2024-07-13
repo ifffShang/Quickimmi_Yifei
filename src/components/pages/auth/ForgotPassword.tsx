@@ -18,8 +18,7 @@ export function ForgotPassword() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [showFormInputErrorMessage, setShowFormInputErrorMessage] =
-    useState(false);
+  const [showFormInputErrorMessage, setShowFormInputErrorMessage] = useState(false);
 
   useEffect(() => {
     setShowFormInputErrorMessage(false);
@@ -84,8 +83,7 @@ export function ForgotPassword() {
   const bottomBottom = (
     <>
       <QText color="secondary">
-        By signing up, I agree to the QuickImmi&apos;s Privacy Statement and
-        Terms of Service.
+        By signing up, I agree to the QuickImmi&apos;s Privacy Statement and Terms of Service.
       </QText>
     </>
   );

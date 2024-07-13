@@ -25,20 +25,13 @@ export const fetchFunction = async (
 
     // Check if the response status is OK
     if (!response.ok) {
-      if (
-        response.headers.get("content-type")?.includes("application/json") &&
-        response.status !== 204
-      ) {
+      if (response.headers.get("content-type")?.includes("application/json") && response.status !== 204) {
         const errorData = await response.json();
         const errorMessage =
-          errorData?.errorCode ||
-          errorData?.message ||
-          `HTTP Error: ${response.status} ${response.statusText}`;
+          errorData?.errorCode || errorData?.message || `HTTP Error: ${response.status} ${response.statusText}`;
         throw new Error(errorMessage);
       } else {
-        throw new Error(
-          `HTTP Error: ${response.status} ${response.statusText}`,
-        );
+        throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
       }
     }
     // Ensure the response is in JSON format before parsing
@@ -62,14 +55,7 @@ export interface ApiRequestModel {
   role?: Role;
 }
 
-export const performApiRequest = async ({
-  endPoint,
-  method,
-  data,
-  accessToken,
-  self,
-  role,
-}: ApiRequestModel) => {
+export const performApiRequest = async ({ endPoint, method, data, accessToken, self, role }: ApiRequestModel) => {
   const additionalHeaders: any = { Authorization: `Bearer ${accessToken}` };
   const body = data ? JSON.stringify(data) : null;
 
@@ -82,13 +68,7 @@ export const performApiRequest = async ({
   }
 
   try {
-    return await fetchFunction(
-      endPoint,
-      method,
-      body,
-      additionalHeaders,
-      self ? "" : baseUrl,
-    );
+    return await fetchFunction(endPoint, method, body, additionalHeaders, self ? "" : baseUrl);
   } catch (error) {
     console.error(error);
     throw error;

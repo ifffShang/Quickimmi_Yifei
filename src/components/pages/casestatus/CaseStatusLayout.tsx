@@ -7,9 +7,9 @@ import "./CaseStatusLayout.css";
 import { useNavigate } from "react-router-dom";
 import { QReturnLink } from "../../common/Links";
 import { useTranslation } from "react-i18next";
-import {updateAsylumType} from "../../../reducers/formSlice";
-import {updateCurrentCaseId} from "../../../reducers/caseSlice";
-import {useAppDispatch} from "../../../app/hooks";
+import { updateAsylumType } from "../../../reducers/formSlice";
+import { updateCurrentCaseId } from "../../../reducers/caseSlice";
+import { useAppDispatch } from "../../../app/hooks";
 
 const { Content } = Layout;
 
@@ -17,9 +17,7 @@ interface CaseStatusLayoutProps {
   menuItemSelected?: string;
 }
 
-const CaseStatusLayout: React.FC<CaseStatusLayoutProps> = ({
-  menuItemSelected,
-}) => {
+const CaseStatusLayout: React.FC<CaseStatusLayoutProps> = ({ menuItemSelected }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
@@ -34,11 +32,7 @@ const CaseStatusLayout: React.FC<CaseStatusLayoutProps> = ({
       <CaseStatusMenuSider />
       <Layout className="site-layout">
         <Content style={{ margin: "0 16px" }}>
-          <QReturnLink
-            onClick={() => navigate(`/dashboard`)}
-            text={t("ReturnToDashboard")}
-            margin="20px 0 15px 0"
-          />
+          <QReturnLink onClick={() => navigate(`/dashboard`)} text={t("ReturnToDashboard")} margin="20px 0 15px 0" />
           <div className="site-layout-background" style={{ minHeight: 360 }}>
             {menuItemSelected === "caseOverview" && <CaseStatusRightPanel />}
             {menuItemSelected === "caseDocuments" && <CaseDocumentRightPanel />}

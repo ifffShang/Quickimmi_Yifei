@@ -1,21 +1,12 @@
 import { LockOutlined, SafetyOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import Link from "antd/es/typography/Link";
-import {
-  confirmResetPassword,
-  confirmSignUp,
-  resendSignUpCode,
-  resetPassword,
-} from "aws-amplify/auth";
+import { confirmResetPassword, confirmSignUp, resendSignUpCode, resetPassword } from "aws-amplify/auth";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import {
-  validateCode,
-  validatePassword,
-  validatePasswordConfirmation,
-} from "../../../utils/validators";
+import { validateCode, validatePassword, validatePasswordConfirmation } from "../../../utils/validators";
 import { FormInput } from "../../form/fields/Controls";
 import { ErrorMessage, QText } from "../../common/Fonts";
 import { AuthComponent } from "./AuthComponent";
@@ -31,8 +22,7 @@ export function ConfirmCode() {
   const [verificationCode, setVerificationCode] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [showFormInputErrorMessage, setShowFormInputErrorMessage] =
-    useState(false);
+  const [showFormInputErrorMessage, setShowFormInputErrorMessage] = useState(false);
 
   useEffect(() => {
     setShowFormInputErrorMessage(false);
@@ -125,9 +115,7 @@ export function ConfirmCode() {
     form = (
       <>
         <div className="confirm-code-description">
-          <QText color="secondary">
-            {t("InputConfirmationCode") + auth.email}
-          </QText>
+          <QText color="secondary">{t("InputConfirmationCode") + auth.email}</QText>
           <Link onClick={resendCode}>Resend code</Link>
         </div>
         <FormInput
@@ -154,9 +142,7 @@ export function ConfirmCode() {
           value={confirmPassword}
           icon={<LockOutlined className="site-form-item-icon" />}
           onChange={setConfirmPassword}
-          validate={() =>
-            validatePasswordConfirmation(newPassword, confirmPassword)
-          }
+          validate={() => validatePasswordConfirmation(newPassword, confirmPassword)}
           showErrorMessage={showFormInputErrorMessage}
           isPassword={true}
           autoComplete="new-password"
@@ -170,9 +156,7 @@ export function ConfirmCode() {
     form = (
       <>
         <div className="confirm-code-description">
-          <QText color="secondary">
-            {t("InputConfirmationCode") + auth.email}
-          </QText>
+          <QText color="secondary">{t("InputConfirmationCode") + auth.email}</QText>
           <Link onClick={resendCode}>Resend code</Link>
         </div>
         <FormInput
@@ -208,8 +192,7 @@ export function ConfirmCode() {
   const bottomBottom = (
     <>
       <QText color="secondary">
-        By signing up, I agree to the QuickImmi&apos;s Privacy Statement and
-        Terms of Service.
+        By signing up, I agree to the QuickImmi&apos;s Privacy Statement and Terms of Service.
       </QText>
     </>
   );

@@ -31,11 +31,7 @@ export class ObjectUtils {
    * @param deep If the comparison must be performed deeper than 1st-level properties.
    * @return A difference summary between the two objects, assuming both object has the same structure.
    */
-  static diffUpdate(
-    oldObj: object,
-    newObj: object,
-    deep = false,
-  ): ObjectUpdate | undefined {
+  static diffUpdate(oldObj: object, newObj: object, deep = false): ObjectUpdate | undefined {
     const updated = {};
     for (const oldProp in oldObj) {
       if (Object.prototype.hasOwnProperty.call(oldObj, oldProp)) {
@@ -43,11 +39,7 @@ export class ObjectUtils {
         const oldPropValue = oldObj[oldProp];
         if (Object.prototype.hasOwnProperty.call(newObj, oldProp)) {
           if (newPropValue !== oldPropValue) {
-            if (
-              deep &&
-              this.isObject(oldPropValue) &&
-              this.isObject(newPropValue)
-            ) {
+            if (deep && this.isObject(oldPropValue) && this.isObject(newPropValue)) {
               const diff = this.diffUpdate(oldPropValue, newPropValue, deep);
               if (diff && Object.keys(diff).length > 0) {
                 updated[oldProp] = diff;
@@ -68,11 +60,7 @@ export class ObjectUtils {
     return updated;
   }
 
-  static diff(
-    oldObj: object,
-    newObj: object,
-    deep = false,
-  ): ObjectDiff | undefined {
+  static diff(oldObj: object, newObj: object, deep = false): ObjectDiff | undefined {
     const added = {} as any;
     const updated = {} as any;
     const removed = {} as any;
@@ -82,11 +70,7 @@ export class ObjectUtils {
         const oldPropValue = oldObj[oldProp];
         if (Object.prototype.hasOwnProperty.call(newObj, oldProp)) {
           if (newPropValue !== oldPropValue) {
-            if (
-              deep &&
-              this.isObject(oldPropValue) &&
-              this.isObject(newPropValue)
-            ) {
+            if (deep && this.isObject(oldPropValue) && this.isObject(newPropValue)) {
               const diff = this.diffUpdate(oldPropValue, newPropValue, deep);
               if (diff && Object.keys(diff).length > 0) {
                 updated[oldProp] = diff;

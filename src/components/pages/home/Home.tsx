@@ -17,25 +17,17 @@ import { SubmitForReview } from "./SubmitForReview";
 
 export function Home() {
   const { t } = useTranslation();
-  const selectedLanguage = useAppSelector(
-    state => state.common.selectedLanguage,
-  );
+  const selectedLanguage = useAppSelector(state => state.common.selectedLanguage);
 
   return (
     <div className="home-container" id="home-container">
       <div className="home-section center">
         {selectedLanguage === "cn" ? (
-          <div
-            className="home-image landing-page-title"
-            aria-label="Fast-Track Your American Dream with AI"
-          >
+          <div className="home-image landing-page-title" aria-label="Fast-Track Your American Dream with AI">
             <FastTrackCn />
           </div>
         ) : (
-          <div
-            className={"home-image landing-page-title"}
-            aria-label="Fast-Track Your American Dream with AI"
-          >
+          <div className={"home-image landing-page-title"} aria-label="Fast-Track Your American Dream with AI">
             <FastTrack />
           </div>
         )}
@@ -45,11 +37,7 @@ export function Home() {
             <div>{t("LandingPage.FastTrackDescription2")}</div>
           </Trans>
         </div> */}
-        <a
-          href="https://forms.gle/7i85vwVHMbsBSe3a8"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a href="https://forms.gle/7i85vwVHMbsBSe3a8" target="_blank" rel="noopener noreferrer">
           <Button type="primary" size="large">
             {t("LandingPage.JoinWaitingList")}
           </Button>

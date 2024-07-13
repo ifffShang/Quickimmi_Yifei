@@ -1,8 +1,5 @@
 import { useTranslation } from "react-i18next";
-import {
-  LawyerReview,
-  ProgressNotification,
-} from "../../icons/SubmitForReview";
+import { LawyerReview, ProgressNotification } from "../../icons/SubmitForReview";
 import { TextBlock } from "./Common";
 import "./SubmitForReview.css";
 
@@ -22,9 +19,7 @@ export function SubmitForReview() {
           <TextBlock
             title={t("LandingPage.SubmitForReviewLawyerReview")}
             titleLevel="h3"
-            description={t(
-              "LandingPage.SubmitForReviewLawyerReviewDescription",
-            )}
+            description={t("LandingPage.SubmitForReviewLawyerReviewDescription")}
             align="center"
             customizedCss="submit-review-subtitle"
           />
@@ -34,9 +29,7 @@ export function SubmitForReview() {
           <TextBlock
             title={t("LandingPage.SubmitForReviewNotification")}
             titleLevel="h3"
-            description={t(
-              "LandingPage.SubmitForReviewNotificationDescription",
-            )}
+            description={t("LandingPage.SubmitForReviewNotificationDescription")}
             align="center"
             customizedCss="submit-review-subtitle"
           />

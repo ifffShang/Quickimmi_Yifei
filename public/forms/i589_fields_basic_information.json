@@ -19,10 +19,10 @@
     },
     {
       "label": "text_TravelDocumentNumber",
-        "placeholder": "text_TravelDocumentNumber",
-        "id": "travel_document_number",
-        "key": "applicant.travelDocumentNumber",
-        "control": "component_textbox_na"
+      "placeholder": "text_TravelDocumentNumber",
+      "id": "travel_document_number",
+      "key": "applicant.travelDocumentNumber",
+      "control": "component_textbox_na"
     },
     {
       "label": "text_IDExpirationDate",

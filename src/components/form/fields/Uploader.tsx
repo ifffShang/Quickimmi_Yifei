@@ -3,11 +3,7 @@ import { GetProp, Upload, UploadProps } from "antd";
 import { useState } from "react";
 import { generateDocumentPresignedUrl } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import {
-  DocumentOperation,
-  DocumentType,
-  Identity,
-} from "../../../model/commonModels";
+import { DocumentOperation, DocumentType, Identity } from "../../../model/commonModels";
 import { updateTmpImageUrl } from "../../../reducers/commonSlice";
 import { ErrorMessage } from "../../common/Fonts";
 import "./Uploader.css";
@@ -28,10 +24,7 @@ export interface UploaderProps {
   description?: string;
   createdBy?: string;
   onImageUrlReceived?: (imageUrl: string) => void;
-  onPresignedUrlReceived?: (
-    presignedUrlRes: GeneratePresignedUrlResponse,
-    file: any,
-  ) => void;
+  onPresignedUrlReceived?: (presignedUrlRes: GeneratePresignedUrlResponse, file: any) => void;
 }
 
 export function Uploader(props: UploaderProps) {
@@ -91,7 +84,7 @@ export function Uploader(props: UploaderProps) {
       console.error(error);
     }
   };
-      
+
   return (
     <div className="uploader-container">
       <Upload

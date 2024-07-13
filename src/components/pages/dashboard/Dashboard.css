@@ -42,9 +42,9 @@
   flex: 0 0 100%;
 }
 
-.dashboard-panel.has-application > div svg {
+/* .dashboard-panel.has-application > div svg {
   border-bottom: 1px solid var(--gray-color-3);
-}
+} */
 
 .dashboard-header {
   display: flex;
@@ -60,6 +60,8 @@
 .pagination-container {
   display: flex;
   justify-content: center;
-  margin-top: 20px; /* Add margin top to ensure space above pagination */
-  padding-bottom: 50px; /* Add padding bottom to ensure space below pagination */
+  margin-top: auto;
+  padding: 20px 0 35px 0;
+  position: relative;
+  bottom: 0;
 }

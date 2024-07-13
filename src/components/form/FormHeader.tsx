@@ -34,9 +34,7 @@ export function FormHeader() {
         <QText level="xlarge">{t("Complete Form")}</QText>
         <div className="form-header-tags">
           <div className="form-header-tag">
-            <QText level="xsmall">
-              {t("Total progress") + ": " + percentageNumber + "%"}
-            </QText>
+            <QText level="xsmall">{t("Total progress") + ": " + percentageNumber + "%"}</QText>
           </div>
           <AutoSaveTag />
         </div>
@@ -47,14 +45,7 @@ export function FormHeader() {
           className="form-header-save-btn"
           onClick={() => {
             try {
-              updateApplicationCaseFunc(
-                caseId,
-                profile,
-                progress,
-                percentage,
-                role,
-                accessToken,
-              );
+              updateApplicationCaseFunc(caseId, profile, progress, percentage, role, accessToken);
               dispatch(incrementSaveTimes());
             } catch (err) {
               console.error(err);

@@ -29,10 +29,18 @@
   padding: 0;
 }
 
-.field-section-preForm {
+.field-section-name-preForm {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
+  padding: 30px 30px;
+  margin: 0;
+  border-top: 2px solid var(--gray-color-4);
+}
+.field-section-type-preForm {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
   padding: 30px 30px;
   margin: 0;
   border-top: 2px solid var(--gray-color-4);
@@ -40,11 +48,6 @@
 .field-input-preForm {
   width: 250px;
   border-radius: 3px;
-}
-.immigType {
-  display: flex;
-  flex-direction: row;
-  gap: 50px;
 }
 
 @media (max-width: 768px) {

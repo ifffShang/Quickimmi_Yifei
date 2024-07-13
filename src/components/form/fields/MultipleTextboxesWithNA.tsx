@@ -28,8 +28,7 @@ export function MultipleTextboxesWithNA(props: MultipleTextboxesWithNAProps) {
   const isNA = props.value === "N/A";
   const [buttonDisabled, setButtonDisabled] = useState(isNA);
   const [textboxList, setTextboxList] = useState<TextBoxList[]>(prefillTexts);
-  const newId =
-    textboxList.length === 0 ? 0 : textboxList[textboxList.length - 1].id + 1;
+  const newId = textboxList.length === 0 ? 0 : textboxList[textboxList.length - 1].id + 1;
 
   useEffect(() => {
     if (isNA) {
@@ -59,9 +58,7 @@ export function MultipleTextboxesWithNA(props: MultipleTextboxesWithNAProps) {
             className="textboxes-na-btn"
             shape="circle"
             icon={<MinusCircleFilled />}
-            onClick={() =>
-              setTextboxList([...textboxList.filter(t => t.id !== textbox.id)])
-            }
+            onClick={() => setTextboxList([...textboxList.filter(t => t.id !== textbox.id)])}
           />
         </div>
       ))}
@@ -69,9 +66,7 @@ export function MultipleTextboxesWithNA(props: MultipleTextboxesWithNAProps) {
         className="textboxes-na-btn"
         shape="circle"
         icon={<PlusCircleFilled />}
-        onClick={() =>
-          setTextboxList([...textboxList, { id: newId, value: "" }])
-        }
+        onClick={() => setTextboxList([...textboxList, { id: newId, value: "" }])}
         disabled={buttonDisabled}
       >
         {props.placeholder}

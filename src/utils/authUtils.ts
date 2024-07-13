@@ -4,6 +4,7 @@ import { resetAuthState, updateAuthState } from "../reducers/authSlice";
 import { closeModal, openModal } from "../reducers/commonSlice";
 import { fetchAuthSession } from "aws-amplify/auth";
 import { InMemoryCache } from "../cache/inMemoryCache";
+import { message } from "antd";
 
 export const signOutCurrentUser = (dispatch: AppDispatch) => {
   signOut().then(() => {
@@ -14,7 +15,7 @@ export const signOutCurrentUser = (dispatch: AppDispatch) => {
 };
 
 export const startTokenExpirationTimer = (dispatch: AppDispatch) => {
-  const ExpirationTime = 1000 * 60 * 20; // 20 minutes
+  const ExpirationTime = 1000 * 60 * 30; // 30 minutes
   const timerId = setTimeout(() => {
     dispatch(openModal({ modalType: "tokenRefreshPopup", modalData: {} }));
   }, ExpirationTime);
@@ -22,8 +23,15 @@ export const startTokenExpirationTimer = (dispatch: AppDispatch) => {
 };
 
 export const refreshToken = async (dispatch: AppDispatch) => {
+  /*
+   * The fetchAuthSession API automatically refreshes the user's session
+   * when the authentication tokens have expired and a valid refreshToken is present.
+   * https://docs.amplify.aws/gen1/javascript/build-a-backend/auth/manage-user-session/#refreshing-sessions
+   */
   const { tokens } = await fetchAuthSession({ forceRefresh: true });
+  console.log("tokens", tokens);
   if (!tokens || !tokens.accessToken) {
+    message.error("Empty tokens in session after refresh");
     throw new Error("Empty tokens in session after refresh");
   }
   const accessToken = tokens.accessToken.toString();

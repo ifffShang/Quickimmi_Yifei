@@ -1,75 +1,75 @@
 .upload-signed-document-modal {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 20px;
 }
 
 .modal-header {
-    text-align: left;
+  text-align: left;
 }
 
 .modal-content {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
 }
 
 .modal-left {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .modal-right {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .rocket-icon {
-    width: 212px;
-    height: 177px;
-    margin-bottom: 20px;
+  width: 212px;
+  height: 177px;
+  margin-bottom: 20px;
 }
 
 .model-desc {
-    margin-top: 8px;
-    margin-bottom: 16px;
-    color: #888;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  color: #888;
 }
 
 .form-item {
-    margin-bottom: 16px;
+  margin-bottom: 16px;
 }
 
 .form-label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #333;
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
 }
 
 .form-select,
 .form-input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #d9d9d9;
-    border-radius: 4px;
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
 }
 
 .upload-signed-document-uploader {
-    margin-top: 8px;
+  margin-top: 8px;
 }
 
 .upload-signed-document-controls {
-    margin: 40px 0 0 0;
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    justify-content: center;
-    align-items: center;
+  margin: 40px 0 0 0;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
 }
