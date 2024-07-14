@@ -1,38 +1,54 @@
-.discard-button {
-  color: red;
-  border: 1px solid grey;
-  background-color: white;
-  margin: 10px 5px;
-  /* padding: 16px; */
-  /* font-size: 14px; */
-  cursor: pointer;
-  transition:
-    background-color 0.3s,
-    color 0.3s;
+.text-area-container {
+  display: flex;
+  flex-direction: row;
 }
 
-.refine-button {
-  color: green;
-  border: 1px solid green;
-  background-color: white;
-  margin: 10px 5px;
-  /* padding: 16px; */
-  /* font-size: 14px; */
-  cursor: pointer;
-  transition:
-    background-color 0.3s,
-    color 0.3s;
+.text-area-before {
+  width: 100%;
+  border: 1px solid var(--gray-color-3);
+  border-radius: 3px;
+  padding: 5px 10px;
 }
 
-.rewrite-button {
-  color: black;
-  border: 1px solid grey;
-  background-color: white;
-  margin: 10px 5px;
-  /* padding: 16px; */
-  /* font-size: 14px; */
-  cursor: pointer;
-  transition:
-    background-color 0.3s,
-    color 0.3s;
+.text-area-after {
+  width: 50%;
+  border: 1px solid var(--gray-color-3);
+  border-radius: 3px;
+  padding: 5px 10px;
 }
+.text-area-refined-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.text-area-button {
+  color: var(--primary-color);
+  background-color: var(--primary-color-light);
+  border-radius: 5px;
+  margin: 5px;
+  cursor: pointer;
+}
+.text-area-button-discard {
+  color: var(--secondary-color);
+  border: 1px solid var(--gray-color-2);
+  border-radius: 5px;
+  margin: 5px;
+  cursor: pointer;
+}
+.text-area-button-discard:hover {
+  color: var(--warning-color);
+  border: 1px solid var(--warning-color);
+}
+
+.text-area-input {
+  padding: 5px !important;
+}
+
+
+
+
+
+
+
+
+

@@ -3,6 +3,7 @@ import "./Loading.css";
 
 export interface LoadingProps {
   text?: string;
+  size?: "small" | "default" | "large";
 }
 
 /**
@@ -13,7 +14,7 @@ export interface LoadingProps {
 export function Loading(props: LoadingProps) {
   return (
     <div className="loading">
-      <Spin />
+      <Spin size={props.size || "default"}/>
       <p>{props.text || ""}</p>
     </div>
   );
