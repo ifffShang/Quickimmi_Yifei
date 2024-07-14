@@ -23,21 +23,27 @@ export interface EntryRecordState {
 
 export function EntryRecords(props: EntryRecordsProps) {
   const { t } = useTranslation();
-  const initialRecords = props.value?.map((record, index) => ({
-    id: index,
-    date: record.date,
-    place: record.place,
-    status: record.status,
-  })) || [{ id: 0, date: "", place: "", status: "" }];
+  const initialRecords =
+    props.value && props.value.length > 0
+      ? props.value.map((record, index) => ({
+          id: index,
+          date: record.date,
+          place: record.place,
+          status: record.status,
+        }))
+      : [{ id: 0, date: "", place: "", status: "" }];
   const [records, setRecords] = useState<EntryRecordState[]>(initialRecords);
 
   useEffect(() => {
-    const initialRecords = props.value?.map((record, index) => ({
-      id: index,
-      date: record.date,
-      place: record.place,
-      status: record.status,
-    })) || [{ id: 0, date: "", place: "", status: "" }];
+    const initialRecords =
+      props.value && props.value.length > 0
+        ? props.value.map((record, index) => ({
+            id: index,
+            date: record.date,
+            place: record.place,
+            status: record.status,
+          }))
+        : [{ id: 0, date: "", place: "", status: "" }];
     setRecords(initialRecords);
   }, [props.value]);
 

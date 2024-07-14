@@ -25,6 +25,12 @@
           "id": "immigration_information",
           "type": "level2",
           "referenceId": "i589_fields_immigration_information"
+        },
+        {
+          "label": "text_I94",
+          "id": "i94_information",
+          "type": "level2",
+          "referenceId": "i589_fields_i94_information"
         }
       ]
     },

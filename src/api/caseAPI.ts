@@ -1,3 +1,4 @@
+import { set } from "lodash";
 import { CacheStore } from "../cache/cache";
 import { Role } from "../consts/consts";
 import {
@@ -18,6 +19,7 @@ import { IForm, IFormFields } from "../model/formFlowModels";
 import { getProgressWithPercentage } from "../utils/percentageUtils";
 import { convertBooleans } from "../utils/utils";
 import { performApiRequest } from "./apiConfig";
+import { retryApi } from "./retry";
 
 export async function getForm(id: string, cachedForm?: IForm): Promise<IForm> {
   if (cachedForm && cachedForm.steps && cachedForm.steps.length > 0) return cachedForm;
@@ -384,6 +386,42 @@ export async function getDocumentGenerationTaskStatusByTaskIdApi(
     role,
   });
   return <DocumentGenerationTaskStatus>res.data;
+}
+
+export async function getDocumentGenerationTaskStatusApi(
+  accessToken: string,
+  taskIds: number[],
+  role: Role,
+): Promise<DocumentGenerationTaskStatus[]> {
+  const res = await performApiRequest({
+    endPoint: `api/case/asylum/getDocumentGenerationTasksStatus?taskid=${taskIds}`,
+    method: "GET",
+    data: null,
+    accessToken,
+    role,
+  });
+  return <DocumentGenerationTaskStatus[]>res.data;
+}
+
+export async function retryGetDocumentGenerationTaskStatusApi(
+  accessToken: string,
+  taskIds: number[],
+  role: Role,
+): Promise<DocumentGenerationTaskStatus[]> {
+  function checkDocumentGenerationTaskStatus(statusList: DocumentGenerationTaskStatus[]): boolean {
+    for (const status of statusList) {
+      if (status.status !== "COMPLETED") {
+        return false;
+      }
+    }
+    return true;
+  }
+  const result = await retryApi(
+    getDocumentGenerationTaskStatusApi(accessToken, taskIds, role),
+    checkDocumentGenerationTaskStatus,
+    1000,
+  );
+  return result;
 }
 
 /**

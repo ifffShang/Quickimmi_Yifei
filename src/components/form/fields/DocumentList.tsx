@@ -3,10 +3,10 @@ import { Button, message, Table, Tooltip } from "antd";
 import React, { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
-  generateDocumentsApi,
   generateDocumentsByDocumentTypeApi,
   generatePresignedUrlByDocumentId,
   getDocumentsApi,
+  retryGetDocumentGenerationTaskStatusApi,
   updateDocumentStatus,
   uploadFileToPresignUrl,
 } from "../../../api/caseAPI";
@@ -14,9 +14,9 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useDocumentsOnLoad } from "../../../hooks/commonHooks";
 import { DocumentType, DocumentTypeMap } from "../../../model/commonModels";
 import { clearDocumentUrls, updateUploadedDocuments } from "../../../reducers/formSlice";
+import { updateCaseProgress } from "../../../utils/progressUtils";
 import { downloadDocument } from "../../../utils/utils";
 import "./DocumentList.css";
-import { updateCaseProgress } from "../../../utils/progressUtils";
 
 const IncludedFileTypes = ["asylum_coverletter", "g-28", "i-589"];
 
@@ -137,11 +137,12 @@ export function DocumentList() {
     try {
       const docGenerationTaskList = await generateDocumentsByDocumentTypeApi(accessToken, caseId, "ALL", role);
       if (docGenerationTaskList) {
-        setTimeout(async () => {
-          await fetchDocuments();
-          await markLawyerReviewAsCompleted();
+        const taskIds = docGenerationTaskList.map(task => task.taskId);
+        retryGetDocumentGenerationTaskStatusApi(accessToken, taskIds, role).then(statusList => {
+          fetchDocuments();
+          markLawyerReviewAsCompleted();
           setLoading(false);
-        }, 2000);
+        });
       } else {
         console.error("Document generation failed");
         setLoading(false);
