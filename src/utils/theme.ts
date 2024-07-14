@@ -50,6 +50,9 @@ export function getAntTheme() {
         colorPrimary: primaryColor,
         colorPrimaryHover: primaryColor,
       },
+      Spin: {
+        colorPrimary: primaryColor,
+      },
     },
   };
 

@@ -251,21 +251,6 @@ export function FormField(props: FormFieldProps) {
     dispatchFormValue(dispatch, keyValues, props.fieldIndex);
   };
 
-  const evaluateVisibility = () => {
-    if (!props.visibility) return true;
-
-    const visibilityArray = props.visibility.indexOf("|") > -1 ? props.visibility.split("|") : [props.visibility];
-
-    for (let i = 0; i < visibilityArray.length; i++) {
-      const [key, value] = visibilityArray[i].split("=");
-      const caseDetailValue = getCaseDetailValue(caseDetails, key, props.fieldIndex);
-      if (caseDetailValue === value || (!caseDetailValue && (value === "null" || value === "undefined"))) {
-        return true;
-      }
-    }
-    return false;
-  };
-
   switch (props.control) {
     case "label":
       return <QText level="normal bold">{wt(props.label)}</QText>;
@@ -493,9 +478,6 @@ export function FormField(props: FormFieldProps) {
         </FormControlContainer>
       );
     case "component_add_item":
-      if (!evaluateVisibility()) {
-        return <></>;
-      }
       return <AddItemControl className={props.className} placeholder={placeholder} onClick={() => onAddItemClick()} />;
     case "group":
       if (props.subFields && props.subFields.length > 0) {
