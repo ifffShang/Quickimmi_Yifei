@@ -73,11 +73,11 @@ export function useAutoSaveApplicationCase(
   }, []);
 }
 
-export function useTokenExpirationTimer(dispatch: AppDispatch) {
+export function useTokenExpirationTimer(dispatch: AppDispatch, isLoggedIn: boolean) {
   useEffect(() => {
     const timerId = InMemoryCache.get("tokenExpirationTimerId");
     if (!timerId) {
-      startTokenExpirationTimer(dispatch);
+      startTokenExpirationTimer(dispatch, isLoggedIn);
     }
   }, []);
 }

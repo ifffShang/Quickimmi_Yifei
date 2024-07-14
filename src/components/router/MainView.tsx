@@ -115,10 +115,10 @@ export const RouterConfig = [
 ];
 
 export function MainView() {
-  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
+  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn) || false;
   const dispatch = useAppDispatch();
 
-  useTokenExpirationTimer(dispatch);
+  useTokenExpirationTimer(dispatch, isLoggedIn);
 
   return (
     <div className="mainview-container">

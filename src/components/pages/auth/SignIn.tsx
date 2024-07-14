@@ -100,7 +100,7 @@ export function SignIn() {
           }),
         );
 
-        startTokenExpirationTimer(dispatch);
+        startTokenExpirationTimer(dispatch, true);
         cognitoUserPoolsTokenProvider.setKeyValueStorage(sessionStorage);
 
         navigate("/dashboard");
@@ -176,8 +176,9 @@ export function SignIn() {
 
   const bottomTop = (
     <>
-      <QText>{"Doesn't have account?"}</QText>
-      <Link onClick={() => navigate("/signup")}>Sign Up</Link>
+      {/*<QText>{t("Doesn't have account?")}</QText>*/}
+      {/*<Link onClick={() => navigate("/signup")}>Sign Up</Link>*/}
+      <QText>{t("Contact contact@quickimmi.ai to sign up")}</QText>
     </>
   );
 

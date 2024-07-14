@@ -9,6 +9,9 @@ export class InMemoryCache {
   public static get(key: InMemoryCacheKeys) {
     return this.cache[key];
   }
+  public static remove(key: InMemoryCacheKeys) {
+    delete this.cache[key];
+  }
   public static clearAll() {
     this.cache = {};
   }

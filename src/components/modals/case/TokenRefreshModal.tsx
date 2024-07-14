@@ -12,8 +12,10 @@ export function TokenRefreshModal() {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const tokenRefreshCountDownSeconds = useAppSelector(state => state.auth.tokenRefreshCountDownSeconds);
+  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn) || false;
 
   useEffect(() => {
+    if (!isLoggedIn) return;
     let intervalId = InMemoryCache.get("tokenRefreshCountDownId");
     if (!intervalId) {
       intervalId = setInterval(() => {
@@ -21,7 +23,11 @@ export function TokenRefreshModal() {
       }, 1000);
       InMemoryCache.set("tokenRefreshCountDownId", intervalId);
     }
-  }, []);
+    return () => {
+      clearInterval(intervalId);
+      InMemoryCache.remove("tokenRefreshCountDownId");
+    };
+  }, [isLoggedIn]);
 
   return (
     <div className="token-refresh-container">
@@ -38,7 +44,7 @@ export function TokenRefreshModal() {
           try {
             await refreshToken(dispatch);
             dispatch(closeModal());
-            startTokenExpirationTimer(dispatch);
+            startTokenExpirationTimer(dispatch, true);
           } catch (error) {
             console.error("Error refreshing token", error);
             dispatch(closeModal());
