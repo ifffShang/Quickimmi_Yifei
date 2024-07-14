@@ -33,6 +33,7 @@
   color: var(--gray-color-7);
   cursor: pointer;
   border-radius: 0;
+  position: relative;
 }
 
 .form-navigation-l2.active {
@@ -65,4 +66,12 @@
 
 .nav-l1-label .qtag {
   width: 30px;
+}
+
+.nav-exclamation-icon {
+  position: absolute;
+  right: 60px;
+  top: 18px;
+  font-size: 20px;
+  color: var(--danger-color);
 }

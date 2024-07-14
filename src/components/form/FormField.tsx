@@ -316,19 +316,17 @@ export function FormField(props: FormFieldProps) {
     case "radio":
       return (
         <FormControlContainer fieldValue={fieldValue}>
-          <RadioSelect onChange={onOptionChange} options={props.options || ""} value={fieldValue} />{" "}
+          <RadioSelect onChange={onOptionChange} options={props.options || ""} value={fieldValue} />
         </FormControlContainer>
       );
     case "checkbox":
       return (
-        <FormControlContainer fieldValue={fieldValue}>
-          <CheckBox
-            label={wt(props.label)}
-            onChange={onCheckboxChange}
-            checked={fieldValue}
-            options={props.options || ""}
-          />{" "}
-        </FormControlContainer>
+        <CheckBox
+          label={wt(props.label)}
+          onChange={onCheckboxChange}
+          checked={fieldValue}
+          options={props.options || ""}
+        />
       );
     case "checkbox_multioptions":
       return (
@@ -338,7 +336,7 @@ export function FormField(props: FormFieldProps) {
             onChange={onMultiCheckboxChange}
             checkedValues={!Array.isArray(fieldValue) ? [fieldValue] : fieldValue}
             options={props.options || ""}
-          />{" "}
+          />
         </FormControlContainer>
       );
     case "multi_file_uploader":

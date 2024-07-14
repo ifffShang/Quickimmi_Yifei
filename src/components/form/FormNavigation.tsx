@@ -1,6 +1,6 @@
 import { CheckCircleFilled, LeftCircleOutlined } from "@ant-design/icons";
 import { Collapse, CollapseProps } from "antd";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useFormTranslation } from "../../hooks/commonHooks";
 import { ScreenSize } from "../../model/commonModels";
@@ -10,10 +10,10 @@ import { Menu, MenuItem } from "../common/Menu";
 import { NavDown, NavUp } from "../icons/ArrowDown";
 import "./FormNavigation.css";
 import { StandaloneSteps } from "./parts/StandaloneSteps";
-import { useEffect, useState } from "react";
+import { ExclamationOutlined } from "@ant-design/icons";
 
 export function FormNavigation() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const { wt, t } = useFormTranslation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -23,6 +23,7 @@ export function FormNavigation() {
   const screenSize = useAppSelector(state => state.common.screenSize);
   // Added default value for steps to ensure it's always defined
   const { steps } = useAppSelector(state => state.case.form || { steps: [] });
+  const highlightMissingFields = useAppSelector(state => state.form.highlightMissingFields);
 
   if (!steps || steps.length === 0) {
     return null;
@@ -113,6 +114,12 @@ export function FormNavigation() {
                   }
                 >
                   <QText>{wt(level2.label)}</QText>
+                  {highlightMissingFields &&
+                    percentage &&
+                    percentage[level1.id] &&
+                    percentage[level1.id][level2.referenceId!] !== 100 && (
+                      <ExclamationOutlined className="nav-exclamation-icon" />
+                    )}
                 </div>
               );
             })}
