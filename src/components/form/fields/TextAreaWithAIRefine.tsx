@@ -80,7 +80,7 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
 
   const { TextArea } = Input;
   const spinStyle: React.CSSProperties = {
-    marginTop:50,
+    marginTop: 50,
     padding: 50,
   };
   const content = <div style={spinStyle} />;
@@ -90,7 +90,9 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
       {showRefineArea ? (
         <div className="text-area-container">
           <div className="text-area-after">
-            <QText level="normal bold" margin="margin-5" color="gray">{t("Original")}</QText>
+            <QText level="normal bold" margin="margin-5" color="gray">
+              {t("Original")}
+            </QText>
             <TextArea
               rows={8}
               ref={inputRef}
@@ -106,7 +108,9 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
             {refineAreaValue ? (
               <div className="text-area-container-refined">
                 <div className="text-area-refined-buttons">
-                  <QText level="normal bold" margin="margin-5" color="gray">{t("Improved")}</QText>
+                  <QText level="normal bold" margin="margin-5" color="gray">
+                    {t("Improved")}
+                  </QText>
                   <Button
                     type="primary"
                     onClick={replaceWithRefinedText}
@@ -145,14 +149,12 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
                 />
               </div>
             ) : (
-              <Spin tip="Rewriting">
-                {content}
-              </Spin>
+              <Spin tip="Rewriting">{content}</Spin>
             )}
           </div>
         </div>
       ) : (
-        <div className="text-area-container">   
+        <div className="text-area-container">
           <div className="text-area-before">
             <Button
               type="primary"

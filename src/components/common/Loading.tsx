@@ -14,7 +14,7 @@ export interface LoadingProps {
 export function Loading(props: LoadingProps) {
   return (
     <div className="loading">
-      <Spin size={props.size || "default"}/>
+      <Spin size={props.size || "default"} />
       <p>{props.text || ""}</p>
     </div>
   );
