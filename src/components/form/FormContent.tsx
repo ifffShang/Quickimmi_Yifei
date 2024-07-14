@@ -5,8 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useFormTranslation } from "../../hooks/commonHooks";
 import useRenderingTrace from "../../hooks/renderHooks";
 import { decrementIndexLevel2, incrementIndexLevel2, resetForm, updateFormFieldsMap } from "../../reducers/caseSlice";
-import { incrementSaveTimes, updateOnePercentage } from "../../reducers/formSlice";
-import { updateApplicationCaseFunc } from "../../utils/functionUtils";
+import { updateHighlightMissingFields, updateOnePercentage } from "../../reducers/formSlice";
 import { getPercentage } from "../../utils/percentageUtils";
 import { QText } from "../common/Fonts";
 import { Loading } from "../common/Loading";
@@ -153,15 +152,10 @@ export function FormContent(props: FormContentProps) {
           <Button
             className="default-button"
             onClick={() => {
-              try {
-                updateApplicationCaseFunc(caseId, profile, progress, percentage, role, accessToken);
-                dispatch(incrementSaveTimes());
-              } catch (err) {
-                console.error(err);
-              }
+              dispatch(updateHighlightMissingFields(true));
             }}
           >
-            {t("Save")}
+            {t("FindIncomplete")}
           </Button>
           <Button
             disabled={isLastStep}

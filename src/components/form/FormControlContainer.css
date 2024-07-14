@@ -1,0 +1,8 @@
+.form-control-container-missing {
+    position: relative;
+    border-left: 3px solid var(--danger-color);
+}
+.form-control-container {
+    position: relative;
+    border: none;
+}

@@ -138,6 +138,7 @@
     "CreateNewApplication": "新建申请"
   },
 
+  "FindIncomplete": "找出未完成字段",
   "CompleteForm": "资料完善",
 
   "ImmigrationType": "移民类型",

@@ -31,6 +31,7 @@ export interface FormState {
   saveTimes: number;
   documentUrls: any[];
   uploadedDocuments: UploadedDocumentWithUrl[];
+  highlightMissingFields: boolean;
 }
 
 const initialState: FormState = {
@@ -43,6 +44,7 @@ const initialState: FormState = {
   documentUrls: [],
   uploadedDocuments: [],
   asylumType: "AFFIRMATIVE",
+  highlightMissingFields: false,
 };
 
 function deepAssign(update: any, current: any, init: any) {
@@ -313,6 +315,9 @@ export const formSlice = createSlice({
     updateAsylumType: (state, action: PayloadAction<"AFFIRMATIVE" | "DEFENSIVE">) => {
       state.asylumType = action.payload;
     },
+    updateHighlightMissingFields: (state, action: PayloadAction<boolean>) => {
+      state.highlightMissingFields = action.payload;
+    },
     resetFormState: state => {
       state.caseId = 0;
       state.applicationCase = InitialApplicationCase;
@@ -321,6 +326,7 @@ export const formSlice = createSlice({
       };
       state.documentUrls = [];
       state.uploadedDocuments = [];
+      state.highlightMissingFields = false;
 
       state.saveTimes = 0;
     },
@@ -341,6 +347,7 @@ export const {
   clearDocumentUrls,
   updateUploadedDocuments,
   updateAsylumType,
+  updateHighlightMissingFields,
   incrementSaveTimes,
 } = formSlice.actions;
 

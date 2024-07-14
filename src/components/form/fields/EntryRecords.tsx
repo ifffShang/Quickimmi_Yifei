@@ -23,23 +23,21 @@ export interface EntryRecordState {
 
 export function EntryRecords(props: EntryRecordsProps) {
   const { t } = useTranslation();
-  const initialRecords =
-    props.value?.map((record, index) => ({
+  const initialRecords = props.value?.map((record, index) => ({
+    id: index,
+    date: record.date,
+    place: record.place,
+    status: record.status,
+  })) || [{ id: 0, date: "", place: "", status: "" }];
+  const [records, setRecords] = useState<EntryRecordState[]>(initialRecords);
+
+  useEffect(() => {
+    const initialRecords = props.value?.map((record, index) => ({
       id: index,
       date: record.date,
       place: record.place,
       status: record.status,
-    })) || [];
-  const [records, setRecords] = useState<EntryRecordState[]>(initialRecords);
-
-  useEffect(() => {
-    const initialRecords =
-      props.value?.map((record, index) => ({
-        id: index,
-        date: record.date,
-        place: record.place,
-        status: record.status,
-      })) || [];
+    })) || [{ id: 0, date: "", place: "", status: "" }];
     setRecords(initialRecords);
   }, [props.value]);
 
@@ -101,23 +99,25 @@ export function EntryRecords(props: EntryRecordsProps) {
               return value;
             }}
           />
-          <Button
-            className="entry-records-btn remove"
-            shape="circle"
-            icon={<MinusCircleFilled />}
-            onClick={() => {
-              const newRecords = [...records.filter(r => r.id !== record.id)];
-              setRecords(newRecords);
-              props.onChange(
-                newRecords.map(r => ({
-                  date: r.date,
-                  place: r.place,
-                  status: r.status,
-                })),
-                "Remove",
-              );
-            }}
-          />
+          {index !== 0 && (
+            <Button
+              className="entry-records-btn remove"
+              shape="circle"
+              icon={<MinusCircleFilled />}
+              onClick={() => {
+                const newRecords = [...records.filter(r => r.id !== record.id)];
+                setRecords(newRecords);
+                props.onChange(
+                  newRecords.map(r => ({
+                    date: r.date,
+                    place: r.place,
+                    status: r.status,
+                  })),
+                  "Remove",
+                );
+              }}
+            />
+          )}
         </div>
       ))}
       <Button

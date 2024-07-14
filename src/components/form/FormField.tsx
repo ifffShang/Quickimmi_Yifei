@@ -36,6 +36,7 @@ import { TextboxWithNA } from "./fields/TextboxWithNA";
 import { TextAreaWithAIRefine } from "./fields/TextAreaWithAIRefine";
 import { MultiFileUploader } from "./fields/MultiFileUploader";
 import { PersonalStatement } from "./fields/PersonalStatement";
+import { FormControlContainer } from "./FormControlContainer";
 
 export interface FormFieldProps {
   fieldKey: string;
@@ -270,15 +271,19 @@ export function FormField(props: FormFieldProps) {
       return <QText level="normal bold">{wt(props.label)}</QText>;
     case "text":
       return (
-        <QTextBox placeholder={placeholder} value={fieldValue} fieldKey={props.fieldKey} onChange={onTextChange} />
+        <FormControlContainer fieldValue={fieldValue}>
+          <QTextBox placeholder={placeholder} value={fieldValue} fieldKey={props.fieldKey} onChange={onTextChange} />
+        </FormControlContainer>
       );
     case "textarea":
       return (
-        <QTextArea placeholder={placeholder} value={fieldValue} fieldKey={props.fieldKey} onChange={onTextChange} />
+        <FormControlContainer fieldValue={fieldValue}>
+          <QTextArea placeholder={placeholder} value={fieldValue} fieldKey={props.fieldKey} onChange={onTextChange} />
+        </FormControlContainer>
       );
     case "component_textarea_ai_refine":
       return (
-        <div>
+        <FormControlContainer fieldValue={fieldValue}>
           <TextAreaWithAIRefine
             label={props.label}
             placeholder={placeholder}
@@ -286,7 +291,7 @@ export function FormField(props: FormFieldProps) {
             fieldKey={props.fieldKey}
             onChange={onTextChange}
           />
-        </div>
+        </FormControlContainer>
       );
     case "component_personal_statement":
       return (
@@ -309,55 +314,65 @@ export function FormField(props: FormFieldProps) {
         />
       );
     case "radio":
-      return <RadioSelect onChange={onOptionChange} options={props.options || ""} value={fieldValue} />;
+      return (
+        <FormControlContainer fieldValue={fieldValue}>
+          <RadioSelect onChange={onOptionChange} options={props.options || ""} value={fieldValue} />{" "}
+        </FormControlContainer>
+      );
     case "checkbox":
       return (
-        <CheckBox
-          label={wt(props.label)}
-          onChange={onCheckboxChange}
-          checked={fieldValue}
-          options={props.options || ""}
-        />
+        <FormControlContainer fieldValue={fieldValue}>
+          <CheckBox
+            label={wt(props.label)}
+            onChange={onCheckboxChange}
+            checked={fieldValue}
+            options={props.options || ""}
+          />{" "}
+        </FormControlContainer>
       );
     case "checkbox_multioptions":
       return (
-        <CheckBoxMultiOptions
-          label={wt(props.label)}
-          onChange={onMultiCheckboxChange}
-          checkedValues={!Array.isArray(fieldValue) ? [fieldValue] : fieldValue}
-          options={props.options || ""}
-        />
+        <FormControlContainer fieldValue={fieldValue}>
+          <CheckBoxMultiOptions
+            label={wt(props.label)}
+            onChange={onMultiCheckboxChange}
+            checkedValues={!Array.isArray(fieldValue) ? [fieldValue] : fieldValue}
+            options={props.options || ""}
+          />{" "}
+        </FormControlContainer>
       );
-    case "fileplus":
-      return <div>Fileplus not implemented</div>;
     case "multi_file_uploader":
       return (
-        <MultiFileUploader
-          documentType={"SUPPORTING_DOCUMENT"} // TODO: add multiple document types when needed
-          identity={"Applicant"}
-          operation={"NEW"}
-          description={props.fieldKey}
-          documentIds={fieldValue}
-          onChange={(documentIds: number[]) => {
-            props.fieldKey &&
-              dispatchFormValue(
-                dispatch,
-                {
-                  [props.fieldKey]: documentIds,
-                },
-                props.fieldIndex,
-              );
-          }}
-        />
+        <FormControlContainer fieldValue={fieldValue}>
+          <MultiFileUploader
+            documentType={"SUPPORTING_DOCUMENT"} // TODO: add multiple document types when needed
+            identity={"Applicant"}
+            operation={"NEW"}
+            description={props.fieldKey}
+            documentIds={fieldValue}
+            onChange={(documentIds: number[]) => {
+              props.fieldKey &&
+                dispatchFormValue(
+                  dispatch,
+                  {
+                    [props.fieldKey]: documentIds,
+                  },
+                  props.fieldIndex,
+                );
+            }}
+          />
+        </FormControlContainer>
       );
     case "select":
       return (
-        <SelectBox
-          placeholder={placeholder}
-          onChange={onOptionChange}
-          options={props.options || ""}
-          value={fieldValue}
-        />
+        <FormControlContainer fieldValue={fieldValue}>
+          <SelectBox
+            placeholder={placeholder}
+            onChange={onOptionChange}
+            options={props.options || ""}
+            value={fieldValue}
+          />
+        </FormControlContainer>
       );
     case "divider":
       return <Divider />;
@@ -365,103 +380,119 @@ export function FormField(props: FormFieldProps) {
       return <div>Tips not implemented</div>;
     case "datepicker":
       return (
-        <QDatePicker
-          placeholder={placeholder}
-          value={fieldValue}
-          fieldKey={props.fieldKey}
-          onChange={(value: string) => {
-            props.fieldKey &&
-              dispatchFormValue(
-                dispatch,
-                {
-                  [props.fieldKey]: value,
-                },
-                props.fieldIndex,
-              );
-          }}
-        />
+        <FormControlContainer fieldValue={fieldValue}>
+          <QDatePicker
+            placeholder={placeholder}
+            value={fieldValue}
+            fieldKey={props.fieldKey}
+            onChange={(value: string) => {
+              props.fieldKey &&
+                dispatchFormValue(
+                  dispatch,
+                  {
+                    [props.fieldKey]: value,
+                  },
+                  props.fieldIndex,
+                );
+            }}
+          />
+        </FormControlContainer>
       );
     case "component_passport_uploader": {
       return (
-        <PassportUploader
-          documentId={fieldValue}
-          fieldKey={props.fieldKey}
-          fieldIndex={props.fieldIndex}
-          onChange={(value: any) => {
-            props.fieldKey &&
-              dispatchFormValue(
-                dispatch,
-                {
-                  [props.fieldKey]: value,
-                },
-                props.fieldIndex,
-              );
-          }}
-        />
+        <FormControlContainer fieldValue={fieldValue}>
+          <PassportUploader
+            documentId={fieldValue}
+            fieldKey={props.fieldKey}
+            fieldIndex={props.fieldIndex}
+            onChange={(value: any) => {
+              props.fieldKey &&
+                dispatchFormValue(
+                  dispatch,
+                  {
+                    [props.fieldKey]: value,
+                  },
+                  props.fieldIndex,
+                );
+            }}
+          />
+        </FormControlContainer>
       );
     }
     case "component_textbox_na":
       // TODO: This is a temporary solution for A-Number. Need to refactor this and move the control to JSON
       if (asylumType === "DEFENSIVE" && props.fieldKey === "applicant.anumber") {
         return (
-          <QTextBox
-            placeholder={t("A-Number is required")}
-            value={fieldValue}
-            fieldKey={props.fieldKey}
-            onChange={onTextChange}
-          />
+          <FormControlContainer fieldValue={fieldValue}>
+            <QTextBox
+              placeholder={t("A-Number is required")}
+              value={fieldValue}
+              fieldKey={props.fieldKey}
+              onChange={onTextChange}
+            />
+          </FormControlContainer>
         );
       }
       return (
-        <TextboxWithNA
-          placeholder={placeholder}
-          value={fieldValue}
-          onChange={onTextChange}
-          notApplicableText={t("NotApplicableText")}
-        />
+        <FormControlContainer fieldValue={fieldValue}>
+          <TextboxWithNA
+            placeholder={placeholder}
+            value={fieldValue}
+            onChange={onTextChange}
+            notApplicableText={t("NotApplicableText")}
+          />
+        </FormControlContainer>
       );
     case "component_multi_textboxes_na":
       return (
-        <MultipleTextboxesWithNA
-          placeholder={placeholder}
-          value={fieldValue}
-          onChange={onTextChange}
-          notApplicableText={t("NotApplicableText")}
-        />
+        <FormControlContainer fieldValue={fieldValue}>
+          <MultipleTextboxesWithNA
+            placeholder={placeholder}
+            value={fieldValue}
+            onChange={onTextChange}
+            notApplicableText={t("NotApplicableText")}
+          />
+        </FormControlContainer>
       );
     case "component_location_dropdown":
-      return <LocationDropdown prefillStr={fieldValue} onLocationChange={onLocationChange} />;
+      return (
+        <FormControlContainer fieldValue={fieldValue}>
+          <LocationDropdown prefillStr={fieldValue} onLocationChange={onLocationChange} />
+        </FormControlContainer>
+      );
     case "component_list_documents":
       return <DocumentList />;
     case "component_mailing_same_as_residential":
       return <SameAddressCheckbox label={wt(props.label)} />;
     case "component_entry_records":
       return (
-        <EntryRecords
-          value={fieldValue}
-          label={wt(props.label)}
-          placeholder={placeholder}
-          onChange={(value: EntryRecord[], action?: "Add" | "Remove") => {
-            if (action === "Remove") {
-              dispatchFormValue(
-                dispatch,
-                {
-                  [props.fieldKey]: value,
-                  ["overwriteEntryRecords"]: true,
-                },
-                props.fieldIndex,
-              );
-            } else {
-              dispatchFormValue(
-                dispatch,
-                {
-                  [props.fieldKey]: value,
-                },
-                props.fieldIndex,
-              );
-            }
-          }}
-        />
+        <FormControlContainer fieldValue={fieldValue}>
+          <EntryRecords
+            value={fieldValue}
+            label={wt(props.label)}
+            placeholder={placeholder}
+            onChange={(value: EntryRecord[], action?: "Add" | "Remove") => {
+              if (action === "Remove") {
+                dispatchFormValue(
+                  dispatch,
+                  {
+                    [props.fieldKey]: value,
+                    ["overwriteEntryRecords"]: true,
+                  },
+                  props.fieldIndex,
+                );
+              } else {
+                dispatchFormValue(
+                  dispatch,
+                  {
+                    [props.fieldKey]: value,
+                  },
+                  props.fieldIndex,
+                );
+              }
+            }}
+          />
+        </FormControlContainer>
       );
     case "component_add_item":
       if (!evaluateVisibility()) {

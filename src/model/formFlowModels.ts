@@ -50,7 +50,6 @@ export type ControlType =
   | "radio"
   | "checkbox"
   | "checkbox_multioptions"
-  | "fileplus" // file upload icon style
   | "multi_file_uploader" // multiple file upload
   | "dropdown"
   | "select"

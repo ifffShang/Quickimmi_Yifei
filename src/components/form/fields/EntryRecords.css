@@ -9,6 +9,4 @@
   gap: 10px;
   margin-bottom: 10px;
   flex-wrap: wrap;
-  border-left: 4px solid var(--primary-color);
-  padding-left: 10px;
 }
