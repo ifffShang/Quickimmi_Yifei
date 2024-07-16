@@ -1,8 +1,7 @@
-import { signOut } from "aws-amplify/auth";
+import { fetchAuthSession, signOut } from "aws-amplify/auth";
 import { AppDispatch } from "../app/store";
 import { resetAuthState, updateAuthState } from "../reducers/authSlice";
 import { closeModal, openModal } from "../reducers/commonSlice";
-import { fetchAuthSession } from "aws-amplify/auth";
 import { InMemoryCache } from "../cache/inMemoryCache";
 import { message } from "antd";
 
@@ -20,6 +19,38 @@ export const signOutCurrentUser = (dispatch: AppDispatch) => {
     dispatch(resetAuthState());
     dispatch(closeModal());
   });
+};
+
+const MAX_RETRIES = 3;
+const RETRY_DELAY = 500; // 0.5 second
+
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+const fetchSessionWithRetry = async (retries: number): Promise<any> => {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      console.log(`Attempt ${attempt} to refresh token...`);
+      const session = await fetchAuthSession({ forceRefresh: true });
+      console.log("Fetched tokens:", session.tokens);
+
+      if (session.tokens && session.tokens.accessToken) {
+        return session.tokens;
+      } else {
+        console.error(`Attempt ${attempt} failed: Tokens are undefined`);
+        if (attempt < retries) {
+          await delay(RETRY_DELAY);
+        } else {
+          throw new Error(`Failed to refresh token after ${retries} attempts`);
+        }
+      }
+    } catch (error) {
+      console.error(`Attempt ${attempt} failed:`, error);
+      if (attempt < retries) {
+        await delay(RETRY_DELAY);
+      } else {
+        throw new Error(`Failed to refresh token after ${retries} attempts`);
+      }
+    }
+  }
 };
 
 export const startTokenExpirationTimer = (dispatch: AppDispatch, isLoggedIn: boolean) => {
@@ -40,7 +71,7 @@ export const refreshToken = async (dispatch: AppDispatch) => {
    * fetchAuthSession API with the forceRefresh flag enabled.
    * https://docs.amplify.aws/gen1/javascript/build-a-backend/auth/manage-user-session/#refreshing-sessions
    */
-  const { tokens } = await fetchAuthSession({ forceRefresh: true });
+  const tokens = await fetchSessionWithRetry(MAX_RETRIES);
   console.log("tokens", tokens);
   if (!tokens || !tokens.accessToken) {
     message.error("Empty tokens in session after refresh");
