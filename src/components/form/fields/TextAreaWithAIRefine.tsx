@@ -52,6 +52,7 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
     setTextAreaValue(refineAreaValue);
     setRefineAreaValue("");
     setShowRefineArea(false);
+    props.onChange(refineAreaValue);
   };
 
   const discardRefinedText = () => {

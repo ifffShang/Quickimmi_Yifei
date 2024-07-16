@@ -65,6 +65,7 @@ export function PersonalStatement(props: PersonalStatementProps) {
     try {
       const ps = await generatePersonalStatementApi(accessToken, role, caseId, props.language);
       setValue(ps);
+      props.onChange(ps);
     } catch (error) {
       console.error("Failed to generate personal statement:", error);
     }

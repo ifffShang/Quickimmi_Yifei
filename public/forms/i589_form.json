@@ -133,6 +133,12 @@
           "id": "documents",
           "type": "level2",
           "referenceId": "i589_fields_view_reports"
+        },
+        {
+          "label": "text_ViewMergedDocuments",
+          "id": "documents",
+          "type": "level2",
+          "referenceId": "i589_fields_view_merged_documents"
         }
       ]
     }

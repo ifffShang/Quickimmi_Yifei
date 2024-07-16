@@ -1,0 +1,13 @@
+{
+  "id": "i589_fields_view_merged_documents",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    {
+      "label": "text_ViewMergedDocuments",
+      "hideHeader": "true",
+      "id": "view_merged_documents",
+      "control": "component_list_merged_documents"
+    }
+  ]
+}
