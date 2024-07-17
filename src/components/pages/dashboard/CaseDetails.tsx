@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getCaseProfileAndProgressApi, getForm } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import useRenderingTrace from "../../../hooks/renderHooks";
 import { updateForm } from "../../../reducers/caseSlice";
 import { resetFormState, updateCaseProfileAndProgress } from "../../../reducers/formSlice";
 import { buildPercentageObject } from "../../../utils/percentageUtils";
 import { CentralizedLoading } from "../../common/Loading";
 import { FormContainer } from "../../form/FormContainer";
-import useRenderingTrace from "../../../hooks/renderHooks";
 
 export function CaseDetails() {
   const dispatch = useAppDispatch();

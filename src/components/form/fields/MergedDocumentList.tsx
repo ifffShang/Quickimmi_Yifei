@@ -13,7 +13,7 @@ import {
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useDocumentsOnLoad } from "../../../hooks/commonHooks";
 import { DocumentType, DocumentTypeMap } from "../../../model/commonModels";
-import { clearDocumentUrls, updateUploadedDocuments } from "../../../reducers/formSlice";
+import { clearDocumentUrls, updateGeneratedDocuments, updateUploadedDocuments } from "../../../reducers/formSlice";
 import { updateCaseProgress } from "../../../utils/progressUtils";
 import { downloadDocument } from "../../../utils/utils";
 import "./DocumentList.css";
@@ -91,6 +91,9 @@ export function MergedDocumentList() {
     role: role,
     setLoading: setLoading,
     dispatch: dispatch,
+    onSuccess: (uploadedDocs: any[]) => {
+      dispatch(updateGeneratedDocuments(uploadedDocs));
+    },
     replaceLoading: replaceLoading,
   });
 

@@ -134,7 +134,9 @@ export const caseSlice = createSlice({
     updateCases: (state, action: PayloadAction<Case[]>) => {
       state.cases = action.payload;
     },
-    resetForm: () => initialState,
+    resetForm: state => {
+      state = initialState;
+    },
   },
 });
 

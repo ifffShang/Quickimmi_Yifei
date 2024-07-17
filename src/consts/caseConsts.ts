@@ -288,7 +288,8 @@ export const InitialSpouse: Spouse = {
 
 export const InitialEntryRecord: EntryRecord = {
   date: "",
-  place: "",
+  city: "",
+  state: "",
   status: "",
 };
 

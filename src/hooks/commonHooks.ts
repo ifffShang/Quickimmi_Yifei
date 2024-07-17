@@ -38,6 +38,7 @@ export interface GetDocumentsOnLoadParams {
   role: Role;
   setLoading: Dispatch<SetStateAction<boolean>>;
   dispatch: Dispatch<any>;
+  onSuccess: (uploadedDocs: any[]) => void;
   replaceLoading: boolean;
   documentType?: DocumentType;
 }
@@ -71,7 +72,7 @@ export function useDocumentsOnLoad(params: GetDocumentsOnLoadParams) {
         Promise.all(downloadDocumentPromises)
           .then(uploadedDocs => {
             params.setLoading(false);
-            params.dispatch(updateUploadedDocuments(uploadedDocs));
+            params.onSuccess(uploadedDocs);
           })
           .catch(error => {
             params.setLoading(false);

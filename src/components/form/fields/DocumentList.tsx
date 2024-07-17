@@ -24,7 +24,6 @@ import { Status } from "../parts/Status";
 interface DataType {
   key: number;
   filename: any;
-  filetype: string;
   status: any;
   createdAt: string;
   updatedAt: string;
@@ -37,13 +36,6 @@ const Columns: TableProps<DataType>["columns"] = [
     dataIndex: "filename",
     key: "name",
     //sorter: (a, b) => a.filename.localeCompare(b.filename),
-  },
-  {
-    title: "File Type",
-    dataIndex: "filetype",
-    key: "filetype",
-    responsive: ["lg"],
-    //sorter: (a, b) => a.filetype.localeCompare(b.filetype),
   },
   {
     title: "Status",
@@ -89,6 +81,9 @@ export function DocumentList() {
     role: role,
     setLoading: setLoading,
     dispatch: dispatch,
+    onSuccess: (uploadedDocs: any[]) => {
+      dispatch(updateGeneratedDocuments(uploadedDocs));
+    },
     replaceLoading: replaceLoading,
   });
 
@@ -142,7 +137,7 @@ export function DocumentList() {
               allFinished = false;
             } else if (!generatedDocuments[i] || !generatedDocuments[i].document) {
               downloadDocument(status.presignedUrl, { ...status }).then(doc => {
-                updateGeneratedDocumentStatus(documentStatusList, dispatch, doc.document);
+                updateGeneratedDocumentStatus(documentStatusList, dispatch, { document: doc.document, index: i });
               });
             }
           }
@@ -247,11 +242,10 @@ export function DocumentList() {
               {doc.name}
             </a>
           ) : (
-            <QText>{doc.name}</QText>
+            <QText level="xsmall">{doc.name}</QText>
           )}
         </div>
       ),
-      filetype: "pdf",
       status: <Status status={doc.status} />,
       createdAt: doc.createdAt ? new Date(doc.createdAt).toLocaleString() : "-",
       updatedAt: doc.updatedAt ? new Date(doc.updatedAt).toLocaleString() : "-",

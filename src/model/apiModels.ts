@@ -252,7 +252,8 @@ export interface Applicant {
 
 export interface EntryRecord {
   date: string;
-  place: string;
+  city: string;
+  state: string;
   status: string;
 }
 

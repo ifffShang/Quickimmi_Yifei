@@ -16,7 +16,8 @@ export interface EntryRecordsProps {
 
 export interface EntryRecordState {
   date: string;
-  place: string;
+  city: string;
+  state: string;
   status: string;
   id: number;
 }
@@ -28,10 +29,11 @@ export function EntryRecords(props: EntryRecordsProps) {
       ? props.value.map((record, index) => ({
           id: index,
           date: record.date,
-          place: record.place,
+          city: record.city,
+          state: record.state,
           status: record.status,
         }))
-      : [{ id: 0, date: "", place: "", status: "" }];
+      : [{ id: 0, date: "", city: "", state: "", status: "" }];
   const [records, setRecords] = useState<EntryRecordState[]>(initialRecords);
 
   useEffect(() => {
@@ -40,10 +42,11 @@ export function EntryRecords(props: EntryRecordsProps) {
         ? props.value.map((record, index) => ({
             id: index,
             date: record.date,
-            place: record.place,
+            city: record.city,
+            state: record.state,
             status: record.status,
           }))
-        : [{ id: 0, date: "", place: "", status: "" }];
+        : [{ id: 0, date: "", city: "", state: "", status: "" }];
     setRecords(initialRecords);
   }, [props.value]);
 
@@ -64,7 +67,8 @@ export function EntryRecords(props: EntryRecordsProps) {
               props.onChange(
                 newRecords.map(r => ({
                   date: r.date,
-                  place: r.place,
+                  city: r.city,
+                  state: r.state,
                   status: r.status,
                 })),
               );
@@ -72,16 +76,35 @@ export function EntryRecords(props: EntryRecordsProps) {
             }}
           />
           <QTextBox
-            value={record.place}
-            placeholder={t("Place")}
+            value={record.city}
+            placeholder={t("City")}
             onChange={(value: string) => {
               const newRecords = [...records];
-              newRecords[index].place = value;
+              newRecords[index].city = value;
               setRecords(newRecords);
               props.onChange(
                 newRecords.map(r => ({
                   date: r.date,
-                  place: r.place,
+                  city: r.city,
+                  state: r.state,
+                  status: r.status,
+                })),
+              );
+              return value;
+            }}
+          />
+          <QTextBox
+            value={record.state}
+            placeholder={t("State")}
+            onChange={(value: string) => {
+              const newRecords = [...records];
+              newRecords[index].state = value;
+              setRecords(newRecords);
+              props.onChange(
+                newRecords.map(r => ({
+                  date: r.date,
+                  city: r.city,
+                  state: r.state,
                   status: r.status,
                 })),
               );
@@ -98,7 +121,8 @@ export function EntryRecords(props: EntryRecordsProps) {
               props.onChange(
                 newRecords.map(r => ({
                   date: r.date,
-                  place: r.place,
+                  city: r.city,
+                  state: r.state,
                   status: r.status,
                 })),
               );
@@ -116,7 +140,8 @@ export function EntryRecords(props: EntryRecordsProps) {
                 props.onChange(
                   newRecords.map(r => ({
                     date: r.date,
-                    place: r.place,
+                    city: r.city,
+                    state: r.state,
                     status: r.status,
                   })),
                   "Remove",
@@ -135,7 +160,8 @@ export function EntryRecords(props: EntryRecordsProps) {
             ...records,
             {
               date: "",
-              place: "",
+              city: "",
+              state: "",
               status: "",
               id: records.length === 0 ? 0 : records[records.length - 1].id + 1,
             },
@@ -144,7 +170,8 @@ export function EntryRecords(props: EntryRecordsProps) {
           props.onChange(
             newRecords.map(r => ({
               date: r.date,
-              place: r.place,
+              city: r.city,
+              state: r.state,
               status: r.status,
             })),
             "Add",

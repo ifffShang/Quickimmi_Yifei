@@ -5,9 +5,9 @@ export interface StatusProps {
   status: string;
 }
 export function Status({ status }: StatusProps) {
-  if (status === "Sucess") {
+  if (status === "Success" || status === "uploaded") {
     return <QText level="xsmall">Success</QText>;
-  } else if (status === "In Progress") {
+  } else if (status === "In Progress" || status === "uploading") {
     return (
       <QText level="xsmall" color="primary">
         In Progress <LoadingOutlined />

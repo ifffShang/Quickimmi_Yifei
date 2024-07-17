@@ -409,7 +409,7 @@ export async function retryGetDocumentGenerationTaskStatusApi(
   role: Role,
   callback: (statusList: DocumentGenerationTaskStatus[]) => boolean,
 ): Promise<DocumentGenerationTaskStatus[]> {
-  const result = await retryApi(() => getDocumentGenerationTaskStatusApi(accessToken, taskIds, role), callback, 3000);
+  const result = await retryApi(() => getDocumentGenerationTaskStatusApi(accessToken, taskIds, role), callback, 5000);
   return result;
 }
 
