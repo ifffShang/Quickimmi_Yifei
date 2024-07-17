@@ -1,4 +1,8 @@
-export async function retryApi<T>(apiFunc: () => Promise<T>, checkResult: (res: T) => boolean, interval: number): Promise<T> {
+export async function retryApi<T>(
+  apiFunc: () => Promise<T>,
+  checkResult: (res: T) => boolean,
+  interval: number,
+): Promise<T> {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       apiFunc()
