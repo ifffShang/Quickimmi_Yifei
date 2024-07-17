@@ -7,12 +7,12 @@ import {
   updateDocumentStatus,
   uploadFileToPresignUrl,
 } from "../../../api/caseAPI";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { useAppSelector } from "../../../app/hooks";
 import { useDocumentsOnLoadCallback } from "../../../hooks/commonHooks";
 import { DocumentOperation, DocumentType, Identity } from "../../../model/commonModels";
 import { ErrorMessage } from "../../common/Fonts";
-import { FileType } from "./Uploader";
 import { Loading } from "../../common/Loading";
+import { FileType } from "./Uploader";
 
 export interface MultiFileUploaderProps {
   documentType: DocumentType;
@@ -52,6 +52,10 @@ export function MultiFileUploader(props: MultiFileUploaderProps) {
     setLoading: setLoading,
     documentType: props.documentType,
     onDocumentsReceived: documents => {
+      // Remove the documentId that is not in documents from the documentIds current
+      documentIds.current = documentIds.current.filter(id => documents.some(doc => doc.id === id));
+      props.onChange(documentIds.current);
+
       const newFileList = documents
         .filter(doc => documentIds.current.indexOf(doc.id) > -1)
         .map(doc => ({
@@ -63,10 +67,6 @@ export function MultiFileUploader(props: MultiFileUploaderProps) {
       setFileList(newFileList);
     },
   });
-
-  const handleChange: UploadProps["onChange"] = info => {
-    setFileList(info.fileList);
-  };
 
   const uploadWithPresignedUrl = async options => {
     const { file, onSuccess, onError, onProgress } = options;
@@ -88,6 +88,9 @@ export function MultiFileUploader(props: MultiFileUploaderProps) {
         accessToken,
         role,
       );
+
+      file.uid = res.documentId.toString();
+      setFileList([...fileList, file]);
 
       try {
         documentIds.current.push(res.documentId);
@@ -135,6 +138,7 @@ export function MultiFileUploader(props: MultiFileUploaderProps) {
       }
       const documentId = parseInt(file.uid);
       documentIds.current = documentIds.current.filter(id => id !== documentId);
+      setFileList(fileList.filter(f => f.uid !== file.uid));
       props.onChange(documentIds.current);
       await deleteDocumentApi(role, documentId, accessToken);
     } catch (error) {
@@ -153,7 +157,6 @@ export function MultiFileUploader(props: MultiFileUploaderProps) {
         listType="picture-card"
         className="uploader"
         customRequest={uploadWithPresignedUrl}
-        onChange={handleChange}
         onPreview={handlePreview}
         onRemove={handleRemove}
         fileList={fileList}

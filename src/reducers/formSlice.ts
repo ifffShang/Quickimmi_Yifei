@@ -215,6 +215,12 @@ export const formSlice = createSlice({
       const profile = _.merge(state.applicationCase.profile, action.payload);
       state.applicationCase.profile = profile;
 
+      if (action.payload.supplementDocument) {
+        Object.keys(action.payload.supplementDocument).forEach(key => {
+          state.applicationCase.profile.supplementDocument[key] = action.payload.supplementDocument![key];
+        });
+      }
+
       CacheStore.setProfile(state.applicationCase.profile, state.caseId);
     },
     updatePassportInfo: (state, action: PayloadAction<ParsePassportResponse>) => {
