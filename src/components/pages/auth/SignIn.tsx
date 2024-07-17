@@ -27,6 +27,7 @@ export function SignIn() {
   const [errorMessage, setErrorMessage] = useState("");
   const [showFormInputErrorMessage, setShowFormInputErrorMessage] = useState(false);
   const [role, setRole] = useState<Role>(Role.APPLICANT);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setShowFormInputErrorMessage(false);
@@ -48,8 +49,10 @@ export function SignIn() {
 
   const loginUser = async () => {
     try {
+      setIsLoading(true); 
       if (validateEmail(email) !== "" || validatePassword(password) !== "") {
         setShowFormInputErrorMessage(true);
+        setIsLoading(false); 
         return;
       }
 
@@ -104,6 +107,7 @@ export function SignIn() {
     } catch (error: any) {
       if (error?.message === "Incorrect username or password.") {
         setErrorMessage(t("ErrorMessage.IncorrectEmailOrPassword"));
+        setIsLoading(false); 
         return;
       }
       if (error?.name === "UserAlreadyAuthenticatedException") {
@@ -112,6 +116,7 @@ export function SignIn() {
       console.error("Error signing in: ", error);
       setErrorMessage(t("ErrorMessage.ErrorSigningIn"));
       signOutCurrentUser(dispatch);
+      setIsLoading(false); 
     }
   };
 
@@ -153,7 +158,7 @@ export function SignIn() {
   const actions = (
     <>
       <Link onClick={() => navigate("/forgotpassword")}>{t("ForgotPassword")}</Link>
-      <Button type="primary" onClick={loginUser}>
+      <Button type="primary" onClick={loginUser} loading={isLoading}>
         {t("Login")}
       </Button>
     </>

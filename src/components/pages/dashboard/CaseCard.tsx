@@ -11,7 +11,6 @@ import { CaseIcon } from "../../icons/Dashboard";
 import { DeleteConfirmModal } from "../../modals/case/DeleteConfirmModal";
 import { CacheStore } from "../../../cache/cache";
 import "./CaseCard.css";
-import { set } from "lodash";
 
 export interface CaseCardProps {
   caseData: {
