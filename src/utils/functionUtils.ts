@@ -1,6 +1,8 @@
 import { updateApplicationCaseApi } from "../api/caseAPI";
 import { Role } from "../consts/consts";
-import { AsylumCaseProfile, Percentage, Progress } from "../model/apiModels";
+import { AsylumCaseProfile, GeneratedDocument, Percentage, Progress } from "../model/apiModels";
+import { DocumentGenerationTaskStatus } from "../model/apiReqResModels";
+import { updateGeneratedDocuments } from "../reducers/formSlice";
 import { getProgressWithPercentage } from "./percentageUtils";
 
 // !!!! This function should only be used by the form save !!!!
@@ -37,4 +39,23 @@ export function updateApplicationCaseFunc(
     console.error("Error updating application case: ", error);
     throw error;
   }
+}
+
+export function updateGeneratedDocumentStatus(
+  taskList: DocumentGenerationTaskStatus[],
+  dispatch: React.Dispatch<any>,
+  document?: any,
+) {
+  const generartedDocumentList = taskList.map(task => {
+    return {
+      id: task.id,
+      name: task.formName,
+      status: task.status,
+      createdAt: task.createdAt,
+      updatedAt: task.updatedAt,
+      presignedUrl: task.presignedUrl,
+      document: document ?? null,
+    } as GeneratedDocument;
+  });
+  dispatch(updateGeneratedDocuments(generartedDocumentList));
 }

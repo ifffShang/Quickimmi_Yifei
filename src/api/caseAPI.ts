@@ -345,7 +345,7 @@ export async function getDocumentsApi(
   });
   return <UploadedDocument[]>res.data;
 }
-
+// @Deprecated
 export async function generateDocumentsApi(accessToken: string, caseId: number, role: Role): Promise<boolean> {
   const res = await performApiRequest({
     endPoint: `api/case/asylum/generateDocuments?id=${caseId}`,
@@ -407,20 +407,9 @@ export async function retryGetDocumentGenerationTaskStatusApi(
   accessToken: string,
   taskIds: number[],
   role: Role,
+  callback: (statusList: DocumentGenerationTaskStatus[]) => boolean,
 ): Promise<DocumentGenerationTaskStatus[]> {
-  function checkDocumentGenerationTaskStatus(statusList: DocumentGenerationTaskStatus[]): boolean {
-    for (const status of statusList) {
-      if (status.status !== "COMPLETED") {
-        return false;
-      }
-    }
-    return true;
-  }
-  const result = await retryApi(
-    getDocumentGenerationTaskStatusApi(accessToken, taskIds, role),
-    checkDocumentGenerationTaskStatus,
-    1000,
-  );
+  const result = await retryApi(() => getDocumentGenerationTaskStatusApi(accessToken, taskIds, role), callback, 3000);
   return result;
 }
 

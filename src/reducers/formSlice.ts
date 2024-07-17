@@ -16,6 +16,7 @@ import {
   ApplicationCase,
   AsylumCaseProfile,
   AsylumCaseProfileOptional,
+  GeneratedDocument,
   ParsePassportResponse,
   Percentage,
   Progress,
@@ -31,6 +32,7 @@ export interface FormState {
   saveTimes: number;
   documentUrls: any[];
   uploadedDocuments: UploadedDocumentWithUrl[];
+  generatedDocuments: GeneratedDocument[];
   highlightMissingFields: boolean;
 }
 
@@ -43,6 +45,7 @@ const initialState: FormState = {
   saveTimes: 0,
   documentUrls: [],
   uploadedDocuments: [],
+  generatedDocuments: [],
   asylumType: "AFFIRMATIVE",
   highlightMissingFields: false,
 };
@@ -309,6 +312,9 @@ export const formSlice = createSlice({
     updateUploadedDocuments: (state, action: PayloadAction<UploadedDocumentWithUrl[]>) => {
       state.uploadedDocuments = action.payload;
     },
+    updateGeneratedDocuments: (state, action: PayloadAction<GeneratedDocument[]>) => {
+      state.generatedDocuments = action.payload;
+    },
     incrementSaveTimes: state => {
       state.saveTimes++;
     },
@@ -326,6 +332,7 @@ export const formSlice = createSlice({
       };
       state.documentUrls = [];
       state.uploadedDocuments = [];
+      state.generatedDocuments = [];
       state.highlightMissingFields = false;
 
       state.saveTimes = 0;
@@ -346,6 +353,7 @@ export const {
   replaceDocumentUrls,
   clearDocumentUrls,
   updateUploadedDocuments,
+  updateGeneratedDocuments,
   updateAsylumType,
   updateHighlightMissingFields,
   incrementSaveTimes,

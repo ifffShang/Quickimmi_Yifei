@@ -21,6 +21,10 @@
   color: var(--gray-color-1);
 }
 
+.text.danger {
+  color: var(--danger-color);
+}
+
 .text.xlarge {
   font-weight: 600;
   font-size: var(--font-size-h2-small);

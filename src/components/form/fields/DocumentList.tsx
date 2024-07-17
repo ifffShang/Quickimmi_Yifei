@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 import {
   generateDocumentsByDocumentTypeApi,
   generatePresignedUrlByDocumentId,
-  getDocumentsApi,
   retryGetDocumentGenerationTaskStatusApi,
   updateDocumentStatus,
   uploadFileToPresignUrl,
@@ -13,18 +12,20 @@ import {
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useDocumentsOnLoad } from "../../../hooks/commonHooks";
 import { DocumentType, DocumentTypeMap } from "../../../model/commonModels";
-import { clearDocumentUrls, updateUploadedDocuments } from "../../../reducers/formSlice";
+import { clearDocumentUrls, updateGeneratedDocuments } from "../../../reducers/formSlice";
+import { updateGeneratedDocumentStatus } from "../../../utils/functionUtils";
 import { updateCaseProgress } from "../../../utils/progressUtils";
 import { downloadDocument } from "../../../utils/utils";
+import { QText } from "../../common/Fonts";
 import "./DocumentList.css";
-
-const IncludedFileTypes = ["asylum_coverletter", "g-28", "i-589"];
+import { DocumentGenerationTaskStatus } from "../../../model/apiReqResModels";
+import { Status } from "../parts/Status";
 
 interface DataType {
   key: number;
   filename: any;
   filetype: string;
-  status: string;
+  status: any;
   createdAt: string;
   updatedAt: string;
   action: any;
@@ -35,33 +36,33 @@ const Columns: TableProps<DataType>["columns"] = [
     title: "File Name",
     dataIndex: "filename",
     key: "name",
-    sorter: (a, b) => a.filename.localeCompare(b.filename),
+    //sorter: (a, b) => a.filename.localeCompare(b.filename),
   },
   {
     title: "File Type",
     dataIndex: "filetype",
     key: "filetype",
     responsive: ["lg"],
-    sorter: (a, b) => a.filename.localeCompare(b.filename),
+    //sorter: (a, b) => a.filetype.localeCompare(b.filetype),
   },
   {
     title: "Status",
     dataIndex: "status",
     key: "status",
-    sorter: (a, b) => a.filename.localeCompare(b.filename),
+    //sorter: (a, b) => a.status.localeCompare(b.status),
   },
   {
     title: "Created At",
     dataIndex: "createdAt",
     key: "createdAt",
     responsive: ["lg"],
-    sorter: (a, b) => a.filename.localeCompare(b.filename),
+    // sorter: (a, b) => a.createdAt.localeCompare(b.createdAt),
   },
   {
     title: "Updated At",
     dataIndex: "updatedAt",
     key: "updatedAt",
-    sorter: (a, b) => a.filename.localeCompare(b.filename),
+    // sorter: (a, b) => a.updatedAt.localeCompare(b.updatedAt),
   },
   {
     title: "Action",
@@ -77,7 +78,7 @@ export function DocumentList() {
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const role = useAppSelector(state => state.auth.role);
   const progress = useAppSelector(state => state.form.applicationCase.progress);
-  const uploadedDocuments = useAppSelector(state => state.form.uploadedDocuments);
+  const generatedDocuments = useAppSelector(state => state.form.generatedDocuments);
   const [loading, setLoading] = useState(false);
   const [replaceLoading, setReplaceLoading] = useState(false);
   const replaceFileControl = useRef<HTMLInputElement | null>(null);
@@ -91,7 +92,7 @@ export function DocumentList() {
     replaceLoading: replaceLoading,
   });
 
-  const fetchDocuments = async () => {
+  const fetchGeneratedDocuments = async (generatedDocumentStatusList: DocumentGenerationTaskStatus[]) => {
     if (!accessToken || !caseId || caseId === 0) {
       console.error("Access token or case id is missing");
       return;
@@ -104,16 +105,9 @@ export function DocumentList() {
     setLoading(true);
     dispatch(clearDocumentUrls());
     try {
-      const documents = await getDocumentsApi(accessToken, caseId, role);
-      if (!documents) {
-        throw new Error("Failed to get documents");
-      }
-      const downloadPromises = documents
-        .filter(doc => doc.status === "uploaded")
-        .map(doc => downloadDocument(doc.presignUrl, { ...doc }));
-
-      const uploadedDocs = await Promise.all(downloadPromises);
-      dispatch(updateUploadedDocuments(uploadedDocs));
+      const downloadPromises = generatedDocumentStatusList.map(doc => downloadDocument(doc.presignedUrl, { ...doc }));
+      const generatedDocs = await Promise.all(downloadPromises);
+      dispatch(updateGeneratedDocuments(generatedDocs));
     } catch (error) {
       console.error("Error fetching documents:", error);
     } finally {
@@ -138,8 +132,23 @@ export function DocumentList() {
       const docGenerationTaskList = await generateDocumentsByDocumentTypeApi(accessToken, caseId, "ALL", role);
       if (docGenerationTaskList) {
         const taskIds = docGenerationTaskList.map(task => task.taskId);
-        retryGetDocumentGenerationTaskStatusApi(accessToken, taskIds, role).then(statusList => {
-          fetchDocuments();
+        retryGetDocumentGenerationTaskStatusApi(accessToken, taskIds, role, documentStatusList => {
+          setLoading(false);
+          updateGeneratedDocumentStatus(documentStatusList, dispatch);
+          let allFinished = true;
+          for (let i = 0; i < documentStatusList.length; i++) {
+            const status = documentStatusList[i];
+            if (status.status !== "Success") {
+              allFinished = false;
+            } else if (!generatedDocuments[i] || !generatedDocuments[i].document) {
+              downloadDocument(status.presignedUrl, { ...status }).then(doc => {
+                updateGeneratedDocumentStatus(documentStatusList, dispatch, doc.document);
+              });
+            }
+          }
+          return allFinished;
+        }).then(documentStatusList => {
+          fetchGeneratedDocuments(documentStatusList);
           markLawyerReviewAsCompleted();
           setLoading(false);
         });
@@ -216,53 +225,59 @@ export function DocumentList() {
     }
   };
 
-  const uploadedDocumentsInTable = uploadedDocuments
-    .filter(doc => IncludedFileTypes.includes(doc.type))
-    .map(doc => {
-      return {
-        key: doc.id,
-        filename: (
-          <a
-            href="#"
-            onClick={e => {
-              e.preventDefault();
-              let fileUrl = "";
-              if (doc.name.indexOf(".pdf") > -1) {
-                fileUrl = URL.createObjectURL(new Blob([doc.document], { type: "application/pdf" }));
-              } else {
-                fileUrl = URL.createObjectURL(doc.document);
-              }
-              window.open(fileUrl, "_blank");
-            }}
-          >
-            {doc.name}
-          </a>
-        ),
-        filetype: doc.type,
-        status: doc.status,
-        createdAt: doc.createdAt ? new Date(doc.createdAt).toLocaleString() : "-",
-        updatedAt: doc.updatedAt ? new Date(doc.updatedAt).toLocaleString() : "-",
-        action: (
-          <div className="document-list-action">
-            {doc.document && (
+  const uploadedDocumentsInTable = generatedDocuments.map(doc => {
+    return {
+      key: doc.id,
+      filename: (
+        <div>
+          {doc.document ? (
+            <a
+              href="#"
+              onClick={e => {
+                e.preventDefault();
+                let fileUrl = "";
+                if (doc.name.indexOf(".pdf") > -1) {
+                  fileUrl = URL.createObjectURL(new Blob([doc.document], { type: "application/pdf" }));
+                } else {
+                  fileUrl = URL.createObjectURL(doc.document);
+                }
+                window.open(fileUrl, "_blank");
+              }}
+            >
+              {doc.name}
+            </a>
+          ) : (
+            <QText>{doc.name}</QText>
+          )}
+        </div>
+      ),
+      filetype: "pdf",
+      status: <Status status={doc.status} />,
+      createdAt: doc.createdAt ? new Date(doc.createdAt).toLocaleString() : "-",
+      updatedAt: doc.updatedAt ? new Date(doc.updatedAt).toLocaleString() : "-",
+      action: (
+        <>
+          {doc.document && (
+            <div className="document-list-action">
               <a download={doc.name} href={URL.createObjectURL(doc.document)}>
                 {t("Download")}
+              </a>{" "}
+              <a href="#" onClick={onReplaceLinkClick}>
+                {t("Replace")}
               </a>
-            )}
-            <a href="#" onClick={onReplaceLinkClick}>
-              {t("Replace")}
-            </a>
-            <input
-              type="file"
-              id="file"
-              ref={replaceFileControl}
-              onChange={e => onReplaceFileUpload(e, doc.id, DocumentTypeMap[doc.type])}
-              style={{ display: "none" }}
-            />
-          </div>
-        ),
-      };
-    });
+              <input
+                type="file"
+                id="file"
+                ref={replaceFileControl}
+                onChange={e => onReplaceFileUpload(e, doc.id, DocumentTypeMap[doc.name])}
+                style={{ display: "none" }}
+              />
+            </div>
+          )}
+        </>
+      ),
+    };
+  });
 
   const documentsExist = uploadedDocumentsInTable.length > 0;
 

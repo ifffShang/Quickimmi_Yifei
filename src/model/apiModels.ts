@@ -543,3 +543,13 @@ export interface UploadedDocument {
 export interface UploadedDocumentWithUrl extends UploadedDocument {
   document: any;
 }
+
+export interface GeneratedDocument {
+  id: number;
+  status: string;
+  name: string;
+  presignedUrl: string;
+  createdAt: number;
+  updatedAt: number;
+  document: any;
+}
