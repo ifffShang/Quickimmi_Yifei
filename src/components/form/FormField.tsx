@@ -37,6 +37,7 @@ import { TextAreaWithAIRefine } from "./fields/TextAreaWithAIRefine";
 import { MultiFileUploader } from "./fields/MultiFileUploader";
 import { PersonalStatement } from "./fields/PersonalStatement";
 import { FormControlContainer } from "./FormControlContainer";
+import { MergedDocumentList } from "./fields/MergedDocumentList";
 
 export interface FormFieldProps {
   fieldKey: string;
@@ -445,6 +446,8 @@ export function FormField(props: FormFieldProps) {
       );
     case "component_list_documents":
       return <DocumentList />;
+    case "component_list_merged_documents":
+      return <MergedDocumentList />;
     case "component_mailing_same_as_residential":
       return <SameAddressCheckbox label={wt(props.label)} />;
     case "component_entry_records":

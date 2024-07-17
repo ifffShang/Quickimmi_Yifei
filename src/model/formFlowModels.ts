@@ -65,6 +65,7 @@ export type ControlType =
   | "component_location_dropdown"
   | "component_telephone_text"
   | "component_list_documents"
+  | "component_list_merged_documents"
   | "component_mailing_same_as_residential"
   | "component_entry_records"
   | "component_add_item"

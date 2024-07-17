@@ -223,7 +223,7 @@ export const formSlice = createSlice({
         passportNumber: action.payload.idNumber,
         firstName: action.payload.firstName,
         lastName: action.payload.lastName,
-        middleName: action.payload.middleName,
+        middleName: action.payload.middleName || "N/A",
         genderMaleCheckbox: action.payload.gender === "Male" ? "true" : "false",
         genderFemaleCheckbox: action.payload.gender === "Female" ? "true" : "false",
         nationality: action.payload.nationality,
@@ -245,7 +245,7 @@ export const formSlice = createSlice({
       const payload: any = {
         firstName: action.payload.firstName,
         lastName: action.payload.lastName,
-        middleName: action.payload.middleName,
+        middleName: action.payload.middleName || "N/A",
         genderMaleCheckbox: action.payload.gender === "Male" ? "true" : "false",
         genderFemaleCheckbox: action.payload.gender === "Female" ? "true" : "false",
         nationality: action.payload.nationality,
@@ -261,7 +261,7 @@ export const formSlice = createSlice({
       let payload: any = {
         firstName: action.payload.firstName,
         lastName: action.payload.lastName,
-        middleName: action.payload.middleName,
+        middleName: action.payload.middleName || "N/A",
         genderMaleCheckbox: action.payload.gender === "Male" ? "true" : "false",
         genderFemaleCheckbox: action.payload.gender === "Female" ? "true" : "false",
         nationality: action.payload.nationality,

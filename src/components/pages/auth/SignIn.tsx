@@ -2,23 +2,21 @@ import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Switch } from "antd";
 import Link from "antd/es/typography/Link";
 import { Amplify } from "aws-amplify";
-import { fetchAuthSession, resendSignUpCode, signIn, signOut } from "aws-amplify/auth";
+import { fetchAuthSession, resendSignUpCode, signIn } from "aws-amplify/auth";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { createUserApi, getUserInfoApi } from "../../../api/authAPI";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { useAppDispatch } from "../../../app/hooks";
 import awsExports from "../../../aws-exports";
 import { Role } from "../../../consts/consts";
 import { UserInfo } from "../../../model/apiModels";
-import { updateAuthState, updateRole } from "../../../reducers/authSlice";
+import { updateAuthState } from "../../../reducers/authSlice";
 import { signOutCurrentUser, startTokenExpirationTimer } from "../../../utils/authUtils";
 import { validateEmail, validatePassword } from "../../../utils/validators";
 import { ErrorMessage, QText } from "../../common/Fonts";
 import { FormInput } from "../../form/fields/Controls";
 import { AuthComponent } from "./AuthComponent";
-import { cognitoUserPoolsTokenProvider } from "aws-amplify/auth/cognito";
-import { sessionStorage } from "aws-amplify/utils";
 
 export function SignIn() {
   const dispatch = useAppDispatch();
@@ -28,36 +26,31 @@ export function SignIn() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [showFormInputErrorMessage, setShowFormInputErrorMessage] = useState(false);
-
-  const role = useAppSelector(state => state.auth.role);
+  const [role, setRole] = useState<Role>(Role.APPLICANT);
 
   useEffect(() => {
     setShowFormInputErrorMessage(false);
     setErrorMessage("");
   }, [email, password]);
 
+  // Configure Amplify when the role changes
+  useEffect(() => {
+    const userPoolConfig = role === Role.LAWYER ? awsExports.LAWYER_POOL : awsExports.CUSTOMER_POOL;
+    Amplify.configure({
+      Auth: {
+        Cognito: {
+          userPoolId: userPoolConfig.USER_POOL_ID,
+          userPoolClientId: userPoolConfig.USER_POOL_APP_CLIENT_ID,
+        },
+      },
+    });
+  }, [role]);
+
   const loginUser = async () => {
     try {
       if (validateEmail(email) !== "" || validatePassword(password) !== "") {
         setShowFormInputErrorMessage(true);
         return;
-      }
-
-      const userPoolConfig = role === Role.LAWYER ? awsExports.LAWYER_POOL : awsExports.CUSTOMER_POOL;
-
-      // Looks like we have to configure Amplify in index.tsx, otherwise it is causing the issue when refreshing the token
-      // TODO: fix the issue for customer role
-      if (role !== Role.LAWYER) {
-        localStorage.clear();
-        sessionStorage.clear();
-        Amplify.configure({
-          Auth: {
-            Cognito: {
-              userPoolId: userPoolConfig.USER_POOL_ID,
-              userPoolClientId: userPoolConfig.USER_POOL_APP_CLIENT_ID,
-            },
-          },
-        });
       }
 
       const { isSignedIn, nextStep } = await signIn({
@@ -70,24 +63,19 @@ export function SignIn() {
         if (!session || !session.tokens || !session.tokens.accessToken) {
           throw new Error("Failed to fetch session after sign in");
         }
-        console.log("Session after sign in:", session); // Log session to debug
         const accessToken = session.tokens.accessToken.toString();
 
         let userInfo: UserInfo;
         try {
           userInfo = await getUserInfoApi(email, accessToken, role);
-          console.log("User Info:", userInfo); // Log userInfo to debug
         } catch (error: any) {
           if (error?.message === "USE_NOT_FOUND") {
             await createUserApi(email, accessToken, role);
             userInfo = await getUserInfoApi(email, accessToken, role);
-            console.log("User Info after creation:", userInfo); // Log userInfo to debug
           } else {
             throw error;
           }
         }
-
-        console.log(`Dispatching auth state for role: ${role}`, userInfo); // Add more logging
 
         dispatch(
           updateAuthState({
@@ -101,7 +89,6 @@ export function SignIn() {
         );
 
         startTokenExpirationTimer(dispatch, true);
-        cognitoUserPoolsTokenProvider.setKeyValueStorage(sessionStorage);
 
         navigate("/dashboard");
       } else if (nextStep?.signInStep === "CONFIRM_SIGN_UP") {
@@ -136,7 +123,7 @@ export function SignIn() {
           checked={role === Role.LAWYER}
           onChange={checked => {
             const roleValue = checked ? Role.LAWYER : Role.APPLICANT;
-            dispatch(updateRole(roleValue));
+            setRole(roleValue);
           }}
         />
       </div>
