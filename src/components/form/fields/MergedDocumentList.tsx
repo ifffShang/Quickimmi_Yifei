@@ -17,6 +17,7 @@ import { clearDocumentUrls, updateUploadedDocuments } from "../../../reducers/fo
 import { updateCaseProgress } from "../../../utils/progressUtils";
 import { downloadDocument } from "../../../utils/utils";
 import "./DocumentList.css";
+import { updateGeneratedDocumentStatus } from "../../../utils/functionUtils";
 
 const IncludedFileTypes = ["asylum_coverletter", "g-28", "i-589"];
 
@@ -81,6 +82,7 @@ export function MergedDocumentList() {
   const [loading, setLoading] = useState(false);
   const [replaceLoading, setReplaceLoading] = useState(false);
   const replaceFileControl = useRef<HTMLInputElement | null>(null);
+  const generatedDocuments = useAppSelector(state => state.form.generatedDocuments);
   const c = 2;
 
   useDocumentsOnLoad({
@@ -139,7 +141,22 @@ export function MergedDocumentList() {
       const docGenerationTaskList = await generateDocumentsByDocumentTypeApi(accessToken, caseId, "ALL", role);
       if (docGenerationTaskList) {
         const taskIds = docGenerationTaskList.map(task => task.taskId);
-        retryGetDocumentGenerationTaskStatusApi(accessToken, taskIds, role).then(statusList => {
+        retryGetDocumentGenerationTaskStatusApi(accessToken, taskIds, role, documentStatusList => {
+          setLoading(false);
+          updateGeneratedDocumentStatus(documentStatusList, dispatch);
+          let allFinished = true;
+          for (let i = 0; i < documentStatusList.length; i++) {
+            const status = documentStatusList[i];
+            if (status.status !== "Success") {
+              allFinished = false;
+            } else if (!generatedDocuments[i] || !generatedDocuments[i].document) {
+              downloadDocument(status.presignedUrl, { ...status }).then(doc => {
+                updateGeneratedDocumentStatus(documentStatusList, dispatch, doc.document);
+              });
+            }
+          }
+          return allFinished;
+        }).then(statusList => {
           fetchDocuments();
           markLawyerReviewAsCompleted();
           setLoading(false);
