@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button, Pagination, message, Input, Select } from "antd";
-import { SwapOutlined, AppstoreTwoTone, UnorderedListOutlined, SearchOutlined} from "@ant-design/icons";
+import { SwapOutlined, AppstoreTwoTone, UnorderedListOutlined, SearchOutlined } from "@ant-design/icons";
 import { createNewCaseApi, getCasesApi, getCasesByLawyerApi } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { updateCases, updateCurrentCaseId } from "../../../reducers/caseSlice";
@@ -30,9 +30,9 @@ export function Dashboard() {
   const [pageSize, setPageSize] = useState(6);
   const [totalItems, setTotalItems] = useState(0);
   const [filteredCases, setFilteredCases] = useState(cases);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [sortOption, setSortOption] = useState<'updatedAt' | 'caseId' | 'caseName'>('updatedAt');
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortOption, setSortOption] = useState<"updatedAt" | "caseId" | "caseName">("updatedAt");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
 
   const { Option } = Select;
 
@@ -77,7 +77,7 @@ export function Dashboard() {
 
   const applySearchAndFilter = (cases, searchQuery, sortOption, sortOrder) => {
     let filteredCases = cases.filter(
-      (c) => c.caseName.toLowerCase().includes(searchQuery.toLowerCase()) || c.id.toString() === searchQuery
+      c => c.caseName.toLowerCase().includes(searchQuery.toLowerCase()) || c.id.toString() === searchQuery,
     );
 
     filteredCases = filteredCases.sort((a, b) => {
@@ -89,7 +89,7 @@ export function Dashboard() {
       } else {
         result = a.caseName.localeCompare(b.caseName);
       }
-      return sortOrder === 'asc' ? -result : result;
+      return sortOrder === "asc" ? -result : result;
     });
 
     return filteredCases;
@@ -123,8 +123,8 @@ export function Dashboard() {
   };
 
   const toggleSortOrder = () => {
-    setSortOrder(prevOrder => (prevOrder === 'asc' ? 'desc' : 'asc'));
-    const filteredCases = applySearchAndFilter(cases, searchQuery, sortOption, sortOrder === 'asc' ? 'desc' : 'asc');
+    setSortOrder(prevOrder => (prevOrder === "asc" ? "desc" : "asc"));
+    const filteredCases = applySearchAndFilter(cases, searchQuery, sortOption, sortOrder === "asc" ? "desc" : "asc");
     setFilteredCases(filteredCases);
   };
 
@@ -171,12 +171,12 @@ export function Dashboard() {
         <QText level="small" color="gray">
           {t("Dashboard.GreetingMessage")}
         </QText>
-        <Button type="primary" onClick={role === Role.LAWYER ? CreateNewCaseForLawyer : CreateNewApplication }>
+        <Button type="primary" onClick={role === Role.LAWYER ? CreateNewCaseForLawyer : CreateNewApplication}>
           {t("Dashboard.CreateNewApplication")}
         </Button>
       </div>
     );
-  
+
   return (
     <div className="dashboard">
       <div className="dashboard-header">
@@ -197,12 +197,14 @@ export function Dashboard() {
       <div className="dashboard-toolbar">
         <Input
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          onChange={e => setSearchQuery(e.target.value)}
           placeholder="Search by case name or case ID"
           prefix={<SearchOutlined />}
           className="dashboard-search-input"
         />
-        <Button onClick={() => handleSearch(searchQuery)} className="dashboard-search-button">{t("Search")}</Button>
+        <Button onClick={() => handleSearch(searchQuery)} className="dashboard-search-button">
+          {t("Search")}
+        </Button>
         {/* <AppstoreTwoTone className="dashboard-view-toggle" twoToneColor="#27AE60"/> */}
         <div className="dashboard-sort">
           <Select value={sortOption} onChange={handleSort} style={{ width: 200 }} variant="borderless">
@@ -210,7 +212,7 @@ export function Dashboard() {
             <Option value="caseId">Sort by Case ID</Option>
             <Option value="caseName">Sort by Case Name</Option>
           </Select>
-          <SwapOutlined onClick={toggleSortOrder} rotate={90} className="dashboard-sort-toggle"/>
+          <SwapOutlined onClick={toggleSortOrder} rotate={90} className="dashboard-sort-toggle" />
         </div>
       </div>
 

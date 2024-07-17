@@ -49,10 +49,10 @@ export function SignIn() {
 
   const loginUser = async () => {
     try {
-      setIsLoading(true); 
+      setIsLoading(true);
       if (validateEmail(email) !== "" || validatePassword(password) !== "") {
         setShowFormInputErrorMessage(true);
-        setIsLoading(false); 
+        setIsLoading(false);
         return;
       }
 
@@ -107,7 +107,7 @@ export function SignIn() {
     } catch (error: any) {
       if (error?.message === "Incorrect username or password.") {
         setErrorMessage(t("ErrorMessage.IncorrectEmailOrPassword"));
-        setIsLoading(false); 
+        setIsLoading(false);
         return;
       }
       if (error?.name === "UserAlreadyAuthenticatedException") {
@@ -116,7 +116,7 @@ export function SignIn() {
       console.error("Error signing in: ", error);
       setErrorMessage(t("ErrorMessage.ErrorSigningIn"));
       signOutCurrentUser(dispatch);
-      setIsLoading(false); 
+      setIsLoading(false);
     }
   };
 
