@@ -5,11 +5,10 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { deleteCaseApi, updateCaseNameApi, getCaseSummaryApi } from "../../../api/caseAPI";
 import { useAppSelector } from "../../../app/hooks";
-import { getCaseId } from "../../../utils/utils";
+import { CacheStore } from "../../../cache/cache";
 import { QText, SingleLine } from "../../common/Fonts";
 import { CaseIcon } from "../../icons/Dashboard";
 import { DeleteConfirmModal } from "../../modals/case/DeleteConfirmModal";
-import { CacheStore } from "../../../cache/cache";
 import "./CaseCard.css";
 
 export interface CaseCardProps {
@@ -37,15 +36,6 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
   const [TempCaseName, setTempCaseName] = useState(caseData.caseName || "");
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const role = useAppSelector(state => state.auth.role);
-
-  useEffect(() => {
-    if (!caseData.caseName) {
-      setCaseName(caseData.id.toString());
-    } else {
-      setTempCaseName(caseData.caseName);
-      setCaseName(handleCaseNameLength(caseData.caseName));
-    }
-  }, [caseData]);
 
   const openCaseDetails = async () => {
     if (!accessToken || !caseData.id) {
@@ -88,6 +78,38 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
     }
   };
 
+  const getCaseStatusAndColor = (caseData) => {
+    let status = "";
+    let color = "black";
+    let backgroundColor = "#ffffff";
+
+    if (caseData.currentStep === "FILLING_APPLICATION" || caseData.currentStep === "REVIEW_AND_SIGN") {
+      status = "DRAFT";
+      color = "#27AE60";
+      backgroundColor = "rgba(39, 174, 96, 0.2)";
+    } else if (caseData.currentStep === "SUBMIT_APPLICATION") {
+      status = "REVIEW";
+      color = "rgba(242,153,74,255)";
+      backgroundColor = "rgba(252,235,219,255)";
+    } else if (caseData.currentStep === "FINGERPRINT_INTERVIEW" || caseData.currentStep === "FINAL_RESULT") {
+      status = "SUBMIT";
+      color = "rgba(47,128,236,255)";
+      backgroundColor = "rgba(213,230,251,255)"
+    }
+    return { status, color, backgroundColor };
+  };
+
+  const { status, color, backgroundColor } = getCaseStatusAndColor(caseData);
+
+  useEffect(() => {
+    if (!caseData.caseName) {
+      setCaseName(caseData.id.toString());
+    } else {
+      setTempCaseName(caseData.caseName);
+      setCaseName(handleCaseNameLength(caseData.caseName));
+    }
+  }, [caseData]);
+
   const handleCaseNameLength = (name: string) => {
     if (name.length > 25) {
       return name.slice(0, 22) + "...";
@@ -102,7 +124,12 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
   return (
     <div className="case-card-container">
       <div className="case-card-caseIcon">
-        <CaseIcon />
+        <p className="case-card-status" style={{ color, backgroundColor }}>
+          {t(status)}
+        </p>
+        <div className="case-card-icon-background">
+          <CaseIcon />
+        </div>
       </div>
       <div className="case-card-content">
         <div className="case-card-title">

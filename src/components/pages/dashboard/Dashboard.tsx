@@ -198,7 +198,7 @@ export function Dashboard() {
         <Input
           value={searchQuery}
           onChange={e => setSearchQuery(e.target.value)}
-          placeholder="Search by case name or case ID"
+          placeholder={t("Dashboard.SearchByCaseNameOrCaseId")}
           prefix={<SearchOutlined />}
           className="dashboard-search-input"
         />
