@@ -1,5 +1,6 @@
+import { DeleteOutlined, DownloadOutlined, EyeOutlined } from "@ant-design/icons";
 import PlusOutlined from "@ant-design/icons/PlusOutlined";
-import { Image, Upload, UploadFile, UploadProps } from "antd";
+import { Button, Image, Upload, UploadFile } from "antd";
 import { useRef, useState } from "react";
 import {
   deleteDocumentApi,
@@ -12,6 +13,7 @@ import { useDocumentsOnLoadCallback } from "../../../hooks/commonHooks";
 import { DocumentOperation, DocumentType, Identity } from "../../../model/commonModels";
 import { ErrorMessage } from "../../common/Fonts";
 import { Loading } from "../../common/Loading";
+import "./MultiFileUploader.css";
 import { FileType } from "./Uploader";
 
 export interface MultiFileUploaderProps {
@@ -63,6 +65,7 @@ export function MultiFileUploader(props: MultiFileUploaderProps) {
           name: doc.name,
           status: "done",
           originFileObj: doc.document,
+          type: doc.document?.type,
         }));
       setFileList(newFileList);
     },
@@ -123,7 +126,16 @@ export function MultiFileUploader(props: MultiFileUploaderProps) {
     }
   };
 
-  const handlePreview = async (file: UploadFile) => {
+  const handleDownload = async (file: UploadFile) => {
+    if (file.name.indexOf("pdf") > -1) {
+      const base64 = await getBase64(file.originFileObj ? file.originFileObj : (file as FileType));
+      const link = document.createElement("a");
+      link.href = base64;
+      link.download = file.name;
+      link.target = "_blank";
+      link.click();
+      return;
+    }
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj as FileType);
     }
@@ -157,9 +169,30 @@ export function MultiFileUploader(props: MultiFileUploaderProps) {
         listType="picture-card"
         className="uploader"
         customRequest={uploadWithPresignedUrl}
-        onPreview={handlePreview}
-        onRemove={handleRemove}
+        onPreview={handleDownload}
         fileList={fileList}
+        itemRender={(originNode, file, _currFileList) => {
+          const isImage = /\.(jpg|jpeg|png|gif)$/i.test(file.name);
+          return (
+            <div className="upload-item-container">
+              {originNode}
+              <div className="upload-item-actions">
+                <Button
+                  type="link"
+                  icon={isImage ? <EyeOutlined /> : <DownloadOutlined />}
+                  onClick={() => handleDownload(file)}
+                  style={{ marginLeft: "auto" }}
+                />
+                <Button
+                  type="link"
+                  icon={<DeleteOutlined />}
+                  onClick={() => handleRemove(file)}
+                  style={{ marginLeft: "auto" }}
+                />
+              </div>
+            </div>
+          );
+        }}
       >
         <button style={{ border: 0, background: "none" }} type="button">
           <PlusOutlined />
