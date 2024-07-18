@@ -109,7 +109,7 @@
           "label": "text_ExplainFearReturnHome",
           "id": "explain_fear_return",
           "key": "applicationDetails.explainFearReturnYes",
-          "control": "textarea"
+          "control": "component_textarea_ai_refine"
         },
         {
           "label": "text_UploadSupportingDocuments",
@@ -148,7 +148,7 @@
           "label": "text_ExplainFamilyMemberCharged",
           "id": "explain_member_charged",
           "key": "applicationDetails.explainFamilyMembersBeenChargedYes",
-          "control": "textarea"
+          "control": "component_textarea_ai_refine"
         },
         {
           "label": "text_UploadSupportingDocuments",
@@ -187,7 +187,7 @@
           "label": "text_ExplainYouOrFamilyBelongToGroup",
           "id": "PartB.3.A",
           "key": "applicationDetails.explainYouOrFamilyBelongAnyOrganizationYes",
-          "control": "textarea"
+          "control": "component_textarea_ai_refine"
         },
         {
           "label": "text_UploadSupportingDocuments",
@@ -226,7 +226,7 @@
           "label": "text_ExplainYouOrFamilyContinueBelongToGroup",
           "id": "PartB.3.B",
           "key": "applicationDetails.explainYouOrFamilyContinueBelongAnyOrganizationYes",
-          "control": "textarea"
+          "control": "component_textarea_ai_refine"
         },
         {
           "label": "text_UploadSupportingDocuments",
@@ -265,7 +265,7 @@
           "label": "text_ExplainAfraidOfBeingTorturedWhenReturned",
           "id": "PartB.4",
           "key": "applicationDetails.explainAfraidOfReturnYes",
-          "control": "textarea"
+          "control": "component_textarea_ai_refine"
         },
         {
           "label": "text_UploadSupportingDocuments",
@@ -304,7 +304,7 @@
           "label": "text_ExplainAppliedRefugeeOrAsylumBefore",
           "id": "PartC.1",
           "key": "applicationDetails.explainAppliedBeforeYes",
-          "control": "textarea"
+          "control": "component_textarea_ai_refine"
         },
         {
           "label": "text_UploadSupportingDocuments",
@@ -361,7 +361,7 @@
           "label": "text_ExplainAnyLawfulStatusAnyCountry",
           "id": "PartC.2.B",
           "key": "applicationDetails.explainAnyLawfulStatusAnyCountryYesQuestion",
-          "control": "textarea"
+          "control": "component_textarea_ai_refine"
         },
         {
           "label": "text_UploadSupportingDocuments",
@@ -400,7 +400,7 @@
           "label": "text_ExplainHaveHarmedOthers",
           "id": "PartC.3",
           "key": "applicationDetails.explainHaveYouHarmOthersYes",
-          "control": "textarea"
+          "control": "component_textarea_ai_refine"
         },
         {
           "label": "text_UploadSupportingDocuments",
@@ -439,7 +439,7 @@
           "label": "text_ExplainReturnCountryAfterBeingHarmed",
           "id": "PartC.4",
           "key": "applicationDetails.explainReturnCountryYes",
-          "control": "textarea"
+          "control": "component_textarea_ai_refine"
         },
         {
           "label": "text_UploadSupportingDocuments",
@@ -478,7 +478,7 @@
           "label": "text_ExplainAppliedOneYearAfterYourLastArrival",
           "id": "PartC.5",
           "key": "applicationDetails.explainMoreThanOneYearAfterArrivalYes",
-          "control": "textarea"
+          "control": "component_textarea_ai_refine"
         },
         {
           "label": "text_UploadSupportingDocuments",
@@ -517,7 +517,7 @@
           "label": "text_ExplainHaveCommittedCrime",
           "id": "PartC.6",
           "key": "applicationDetails.explainHaveCommittedCrimeYes",
-          "control": "textarea"
+          "control": "component_textarea_ai_refine"
         },
         {
           "label": "text_UploadSupportingDocuments",
