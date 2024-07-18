@@ -140,7 +140,8 @@
     "ReturnToDashboard": "返回仪表盘",
     "FirstApplication": "开始您的第一个申请吧",
     "GreetingMessage": "体验快速智能移民通道就是现在",
-    "CreateNewApplication": "新建申请"
+    "CreateNewApplication": "新建申请",
+    "SearchByCaseNameOrCaseId": "通过案件名称或案件编号搜索"
   },
 
   "FindIncomplete": "找出未完成字段",
@@ -150,6 +151,10 @@
   "ImmigrationReason": "移民原因",
   "ImmigrationSubtype": "移民子类型",
   "Tips": "提示",
+
+  "DRAFT": "草稿",
+  "REVIEW": "审核中",
+  "SUBMIT": "递交",
 
   "Asylum": "庇护",
   "AFFIRMATIVE": "主动庇护",

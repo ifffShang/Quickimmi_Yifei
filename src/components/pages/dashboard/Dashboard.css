@@ -4,15 +4,70 @@
   background-color: var(--gray-color-4);
   height: 100%;
   padding: 20px 40px;
+  /* min-width: 1000px; */
 }
 
 .dashboard h2 {
   margin-bottom: 20px;
 }
 
+.dashboard-header {
+  /* max-width: 1390px; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dashboard-header h2 {
+  margin-bottom: 0;
+}
+
+.dashboard-toolbar {
+  /* max-width: 1390px; */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.dashboard-search-input {
+  border-radius: 2px;
+}
+.dashboard-search-button {
+  border: 1px solid var(--primary-color);
+  border-radius: 2px;
+  /* margin-left: 10px; */
+  height: 40px;
+  width: 100px;
+}
+
+.dashboard-view-toggle {
+  font-size: 24px;
+
+  background-color: var(--white-color);
+  border: 1px solid var(--primary-color);
+  border-radius: 3px;
+
+  padding: 7px;
+}
+
+.dashboard-sort {
+  display: flex;
+  align-items: center;
+  background-color: var(--white-color);
+  border: 1px solid var(--gray-color-3);
+}
+.dashboard-sort-toggle {
+  font-size: 20px;
+  padding: 3px 7px;
+  color: var(--primary-color);
+  border-left: 1px solid var(--gray-color-3);
+}
+
 .dashboard-panel {
   border-radius: 10px;
   display: flex;
+  /* justify-content: space-evenly; */
   gap: 20px;
   flex-flow: wrap;
   overflow-y: auto;
@@ -29,12 +84,12 @@
 
 .dashboard-panel.has-application > div {
   background-color: var(--white-color);
-  flex: 0 0 30%;
+  flex: 0 0 35%;
   border-radius: 10px;
 }
 
 .medium .dashboard-panel.has-application > div {
-  flex: 0 0 48%;
+  flex: 0 0 55%;
 }
 
 .small .dashboard-panel.has-application > div,
@@ -45,17 +100,6 @@
 /* .dashboard-panel.has-application > div svg {
   border-bottom: 1px solid var(--gray-color-3);
 } */
-
-.dashboard-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.dashboard-header h2 {
-  margin-bottom: 0;
-}
 
 .pagination-container {
   display: flex;

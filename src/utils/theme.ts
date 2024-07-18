@@ -3,6 +3,8 @@ import { ThemeConfig } from "antd";
 export function getAntTheme() {
   const primaryColor: string = getComputedStyle(document.documentElement).getPropertyValue("--primary-color");
 
+  const primaryColorLight = getComputedStyle(document.documentElement).getPropertyValue("--primary-color-light");
+
   const secondaryColor: string = getComputedStyle(document.documentElement).getPropertyValue("--secondary-color");
 
   const linkColor: string = getComputedStyle(document.documentElement).getPropertyValue("--link-color");
@@ -12,6 +14,7 @@ export function getAntTheme() {
   const theme: ThemeConfig = {
     token: {
       boxShadow: "none",
+      borderRadius: 2,
     },
     components: {
       Button: {
@@ -41,6 +44,7 @@ export function getAntTheme() {
       Select: {
         colorPrimary: primaryColor,
         colorPrimaryHover: primaryColor,
+        optionSelectedBg: primaryColorLight,
       },
       Checkbox: {
         colorPrimary: primaryColor,
