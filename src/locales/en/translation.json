@@ -134,7 +134,8 @@
     "Dashboard": "Dashboard",
     "FirstApplication": "Start Your First Application",
     "GreetingMessage": "Experience the fast and smart immigration service now.",
-    "CreateNewApplication": "New Application"
+    "CreateNewApplication": "New Application",
+    "SearchByCaseNameOrCaseId": "Search by case name or case ID"
   },
 
   "FindIncomplete": "Find Incomplete",
@@ -148,6 +149,10 @@
   "CaseStatusMenuOverview": "Overview",
   "CaseStatusMenuDocuments": "Documents",
   "CaseStatusMenuApplicationForm": "Application Form",
+
+  "DRAFT": "Draft",
+  "REVIEW": "Review",
+  "SUBMIT": "Submit",
 
   "Asylum": "Asylum",
   "AFFIRMATIVE": "Affirmative",
