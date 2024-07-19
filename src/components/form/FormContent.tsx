@@ -12,7 +12,7 @@ import { Loading } from "../common/Loading";
 import CaseStatusLayout from "../pages/casestatus/CaseStatusLayout";
 import "./FormContent.css";
 import { FormField } from "./FormField";
-import {DocumentType} from "../../model/commonModels";
+import { DocumentType } from "../../model/commonModels";
 
 interface FormContentProps {
   sectionId: string;

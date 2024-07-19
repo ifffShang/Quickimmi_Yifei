@@ -75,4 +75,4 @@ export type ControlType =
   | "component_personal_statement"
   | "component_personal_statement_in_original_language"
   | "percentage" // used only for percentage calculation
-  | "multi_file_uploader_new" // WIP!!! DON'T USE!!!;
+  | "multi_file_uploader_new"; // WIP!!! DON'T USE!!!;

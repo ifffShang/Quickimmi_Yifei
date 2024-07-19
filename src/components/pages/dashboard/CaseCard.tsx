@@ -78,7 +78,7 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
     }
   };
 
-  const getCaseStatusAndColor = (caseData) => {
+  const getCaseStatusAndColor = caseData => {
     let status = "";
     let color = "black";
     let backgroundColor = "#ffffff";
@@ -94,7 +94,7 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
     } else if (caseData.currentStep === "FINGERPRINT_INTERVIEW" || caseData.currentStep === "FINAL_RESULT") {
       status = "SUBMIT";
       color = "rgba(47,128,236,255)";
-      backgroundColor = "rgba(213,230,251,255)"
+      backgroundColor = "rgba(213,230,251,255)";
     }
     return { status, color, backgroundColor };
   };

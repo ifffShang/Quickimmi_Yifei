@@ -47,8 +47,11 @@ function useFetchDocuments(setDocuments: (docs: UploadedDocumentWithUrl[]) => vo
 
     try {
       setLoading(true);
+      // Define the statuses to filter out
+      const statusesToFilterOut = ["uploading", "Created", "In Progress", "Skipped", "Failed"];
       const documents: UploadedDocument[] = await getDocumentsApi(accessToken, Number(caseId), userRole);
-      const documentsWithUrl: UploadedDocumentWithUrl[] = documents.map(doc => ({
+      const filteredDocuments = documents.filter(doc => !statusesToFilterOut.includes(doc.status));
+      const documentsWithUrl: UploadedDocumentWithUrl[] = filteredDocuments.map(doc => ({
         ...doc,
         document: new Blob(),
       }));
@@ -397,13 +400,14 @@ const CaseDocumentRightPanel: React.FC = () => {
 
   const handleDownload = async (document: UploadedDocumentWithUrl) => {
     if (!accessToken) {
-      message.error("Access token is missing");
+      message.error("Access token is missing! Please login again.");
       return;
     }
     try {
-      const response = await fetch(document.presignUrl);
+      const docWithPresignedUrl = await getDocumentByIdApi(accessToken, document.id, userRole);
+      const response = await fetch(docWithPresignedUrl.presignUrl);
       if (!response.ok) {
-        throw new Error(`Failed to download document from ${document.presignUrl}`);
+        message.error("Failed to download document.");
       }
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);

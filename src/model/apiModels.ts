@@ -551,6 +551,7 @@ export interface GeneratedDocument {
   name: string;
   presignedUrl: string;
   createdAt: number;
+  createdBy: string;
   updatedAt: number;
   document: any;
 }

@@ -6,26 +6,9 @@ import { InMemoryCache } from "../cache/inMemoryCache";
 import { message } from "antd";
 
 export const signOutCurrentUser = (dispatch: AppDispatch) => {
-  signOut().then(() => {
-    console.log("User signed out");
-
-    // Clear the countdown interval
-    const intervalId = InMemoryCache.get("tokenRefreshCountDownId");
-    if (intervalId) {
-      clearInterval(intervalId);
-      InMemoryCache.remove("tokenRefreshCountDownId");
-    }
-
-    dispatch(resetAuthState());
-    dispatch(closeModal());
-  }).catch((error) => {
-    /*
-     * To handle the "Auth UserPool not configured" exception when calling signOut.
-     * This exception will happen after the token is expired but the user was not sign out correctly.
-     * Ideally this issue should not happen.
-     */
-    if (error.message === "Auth UserPool not configured.") {
-      console.warn("UserPool not configured. Proceeding with sign out.");
+  signOut()
+    .then(() => {
+      console.log("User signed out");
 
       // Clear the countdown interval
       const intervalId = InMemoryCache.get("tokenRefreshCountDownId");
@@ -33,13 +16,32 @@ export const signOutCurrentUser = (dispatch: AppDispatch) => {
         clearInterval(intervalId);
         InMemoryCache.remove("tokenRefreshCountDownId");
       }
+
       dispatch(resetAuthState());
       dispatch(closeModal());
-    } else {
-      // Handle other possible errors
-      console.error("Unexpected sign out error:", error);
-    }
-  })
+    })
+    .catch(error => {
+      /*
+       * To handle the "Auth UserPool not configured" exception when calling signOut.
+       * This exception will happen after the token is expired but the user was not sign out correctly.
+       * Ideally this issue should not happen.
+       */
+      if (error.message === "Auth UserPool not configured.") {
+        console.warn("UserPool not configured. Proceeding with sign out.");
+
+        // Clear the countdown interval
+        const intervalId = InMemoryCache.get("tokenRefreshCountDownId");
+        if (intervalId) {
+          clearInterval(intervalId);
+          InMemoryCache.remove("tokenRefreshCountDownId");
+        }
+        dispatch(resetAuthState());
+        dispatch(closeModal());
+      } else {
+        // Handle other possible errors
+        console.error("Unexpected sign out error:", error);
+      }
+    });
 };
 
 const MAX_RETRIES = 3;

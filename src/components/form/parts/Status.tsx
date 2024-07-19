@@ -7,7 +7,7 @@ export interface StatusProps {
 export function Status({ status }: StatusProps) {
   if (status === "Success" || status === "uploaded") {
     return <QText level="xsmall">Success</QText>;
-  } else if (status === "In Progress" || status === "uploading") {
+  } else if (status === "In Progress" || status === "uploading" || status == "in_progress") {
     return (
       <QText level="xsmall" color="primary">
         In Progress <LoadingOutlined />

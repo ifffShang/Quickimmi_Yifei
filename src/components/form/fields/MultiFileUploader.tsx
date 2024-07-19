@@ -1,10 +1,11 @@
 import { DeleteOutlined, DownloadOutlined, EyeOutlined } from "@ant-design/icons";
 import PlusOutlined from "@ant-design/icons/PlusOutlined";
-import { Button, Image, Upload, UploadFile } from "antd";
+import { Button, Image, message, Upload, UploadFile } from "antd";
 import { useRef, useState } from "react";
 import {
   deleteDocumentApi,
   generateDocumentPresignedUrl,
+  getDocumentByIdApi,
   updateDocumentStatus,
   uploadFileToPresignUrl,
 } from "../../../api/caseAPI";
@@ -127,13 +128,31 @@ export function MultiFileUploader(props: MultiFileUploaderProps) {
   };
 
   const handleDownload = async (file: UploadFile) => {
+    if (!accessToken) {
+      message.error("Access token is missing! Please login again.");
+      return;
+    }
+    try {
+      const docWithPresignedUrl = await getDocumentByIdApi(accessToken, parseInt(file.uid), role);
+      const response = await fetch(docWithPresignedUrl.presignUrl);
+      if (!response.ok) {
+        message.error("Failed to download document.");
+      }
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = window.document.createElement("a"); // Use window.document
+      a.href = url;
+      a.download = file.name;
+      a.click();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      message.error("Error downloading document");
+      console.error(error);
+    }
+  };
+
+  const handlePreview = async (file: UploadFile) => {
     if (file.name.indexOf("pdf") > -1) {
-      const base64 = await getBase64(file.originFileObj ? file.originFileObj : (file as FileType));
-      const link = document.createElement("a");
-      link.href = base64;
-      link.download = file.name;
-      link.target = "_blank";
-      link.click();
       return;
     }
     if (!file.url && !file.preview) {
@@ -142,7 +161,6 @@ export function MultiFileUploader(props: MultiFileUploaderProps) {
     setPreviewImage(file.url || (file.preview as string));
     setPreviewOpen(true);
   };
-
   const handleRemove = async (file: UploadFile) => {
     try {
       if (!userId || !caseId || !accessToken) {
@@ -169,7 +187,7 @@ export function MultiFileUploader(props: MultiFileUploaderProps) {
         listType="picture-card"
         className="uploader"
         customRequest={uploadWithPresignedUrl}
-        onPreview={handleDownload}
+        onPreview={handlePreview}
         fileList={fileList}
         itemRender={(originNode, file, _currFileList) => {
           const isImage = /\.(jpg|jpeg|png|gif)$/i.test(file.name);
@@ -179,7 +197,7 @@ export function MultiFileUploader(props: MultiFileUploaderProps) {
               <div className="upload-item-actions">
                 <Button
                   type="link"
-                  icon={isImage ? <EyeOutlined /> : <DownloadOutlined />}
+                  icon={<DownloadOutlined />}
                   onClick={() => handleDownload(file)}
                   style={{ marginLeft: "auto" }}
                 />

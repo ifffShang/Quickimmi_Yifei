@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { getDocumentsApi } from "../api/caseAPI";
+import { getDocumentByIdApi, getDocumentsApi } from "../api/caseAPI";
 import { clearDocumentUrls, updateUploadedDocuments } from "../reducers/formSlice";
 import { arrayMapper } from "../utils/mapper";
 import { textParser } from "../utils/parsers";
@@ -63,21 +63,8 @@ export function useDocumentsOnLoad(params: GetDocumentsOnLoadParams) {
           params.setLoading(false);
           return;
         }
-        const downloadDocumentPromises = documents
-          .filter(doc => doc.status === "uploaded")
-          .map(doc => {
-            return downloadDocument(doc.presignUrl, { ...doc });
-          });
-
-        Promise.all(downloadDocumentPromises)
-          .then(uploadedDocs => {
-            params.setLoading(false);
-            params.onSuccess(uploadedDocs);
-          })
-          .catch(error => {
-            params.setLoading(false);
-            console.error(error);
-          });
+        params.setLoading(false);
+        params.onSuccess(documents);
       })
       .catch(error => {
         console.error(error);
@@ -110,21 +97,8 @@ export function useDocumentsOnLoadCallback(params: GetDocumentsOnLoadCallbackPar
           params.setLoading(false);
           return;
         }
-        const downloadDocumentPromises = documents
-          .filter(doc => doc.status === "uploaded")
-          .map(doc => {
-            return downloadDocument(doc.presignUrl, { ...doc });
-          });
-
-        Promise.all(downloadDocumentPromises)
-          .then(uploadedDocs => {
-            params.setLoading(false);
-            params.onDocumentsReceived(uploadedDocs);
-          })
-          .catch(error => {
-            params.setLoading(false);
-            console.error(error);
-          });
+        params.setLoading(false);
+        params.onDocumentsReceived(documents);
       })
       .catch(error => {
         console.error(error);

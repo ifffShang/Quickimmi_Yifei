@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import {
   generateDocumentsByDocumentTypeApi,
   generatePresignedUrlByDocumentId,
+  getDocumentByIdApi,
   retryGetDocumentGenerationTaskStatusApi,
   updateDocumentStatus,
   uploadFileToPresignUrl,
@@ -16,10 +17,10 @@ import { clearDocumentUrls, updateGeneratedDocuments } from "../../../reducers/f
 import { updateGeneratedDocumentStatus } from "../../../utils/functionUtils";
 import { updateCaseProgress } from "../../../utils/progressUtils";
 import { downloadDocument } from "../../../utils/utils";
-import { QText } from "../../common/Fonts";
 import "./DocumentList.css";
 import { DocumentGenerationTaskStatus } from "../../../model/apiReqResModels";
 import { Status } from "../parts/Status";
+import { GeneratedDocument } from "../../../model/apiModels";
 
 interface DataType {
   key: number;
@@ -117,6 +118,30 @@ export function DocumentList() {
     }
   };
 
+  const onDownloadClick = async (doc: GeneratedDocument) => {
+    if (!accessToken) {
+      message.error("Access token is missing");
+      return;
+    }
+    try {
+      const docWithPresignedUrl = await getDocumentByIdApi(accessToken, doc.id, role);
+      const response = await fetch(docWithPresignedUrl.presignUrl);
+      if (!response.ok) {
+        message.error("Failed to download document.");
+      }
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = window.document.createElement("a");
+      a.href = url;
+      a.download = docWithPresignedUrl.name;
+      a.click();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      message.error("Error downloading document");
+      console.error(error);
+    }
+  };
+
   const generateDocument = async () => {
     if (!caseId || !accessToken) {
       console.error("Case ID or access token is not available");
@@ -137,7 +162,10 @@ export function DocumentList() {
               allFinished = false;
             } else if (!generatedDocuments[i] || !generatedDocuments[i].document) {
               downloadDocument(status.presignedUrl, { ...status }).then(doc => {
-                updateGeneratedDocumentStatus(documentStatusList, dispatch, { document: doc.document, index: i });
+                updateGeneratedDocumentStatus(documentStatusList, dispatch, {
+                  document: doc.document,
+                  index: i,
+                });
               });
             }
           }
@@ -220,58 +248,58 @@ export function DocumentList() {
     }
   };
 
-  const uploadedDocumentsInTable = generatedDocuments.map(doc => {
-    return {
-      key: doc.id,
-      filename: (
-        <div>
-          {doc.document ? (
+  const uploadedDocumentsInTable = generatedDocuments
+    .filter(doc => doc.createdBy === "system_auto_generated")
+    .map(doc => {
+      return {
+        key: doc.id,
+        filename: (
+          <div>
             <a
               href="#"
-              onClick={e => {
+              onClick={async e => {
                 e.preventDefault();
-                let fileUrl = "";
-                if (doc.name.indexOf(".pdf") > -1) {
-                  fileUrl = URL.createObjectURL(new Blob([doc.document], { type: "application/pdf" }));
-                } else {
-                  fileUrl = URL.createObjectURL(doc.document);
+                if (!accessToken) {
+                  message.error("Access token missing. Please login again.");
+                  return;
                 }
-                window.open(fileUrl, "_blank");
+                try {
+                  const document = await getDocumentByIdApi(accessToken, doc.id, role);
+                  window.open(document.presignUrl, "_blank");
+                } catch (error) {
+                  console.error("Failed to fetch document:", error);
+                  message.error("Failed to fetch document. Please try again.");
+                }
               }}
             >
               {doc.name}
             </a>
-          ) : (
-            <QText level="xsmall">{doc.name}</QText>
-          )}
-        </div>
-      ),
-      status: <Status status={doc.status} />,
-      createdAt: doc.createdAt ? new Date(doc.createdAt).toLocaleString() : "-",
-      updatedAt: doc.updatedAt ? new Date(doc.updatedAt).toLocaleString() : "-",
-      action: (
-        <>
-          {doc.document && (
-            <div className="document-list-action">
-              <a download={doc.name} href={URL.createObjectURL(doc.document)}>
-                {t("Download")}
-              </a>{" "}
-              <a href="#" onClick={onReplaceLinkClick}>
-                {t("Replace")}
-              </a>
-              <input
-                type="file"
-                id="file"
-                ref={replaceFileControl}
-                onChange={e => onReplaceFileUpload(e, doc.id, DocumentTypeMap[doc.name])}
-                style={{ display: "none" }}
-              />
-            </div>
-          )}
-        </>
-      ),
-    };
-  });
+          </div>
+        ),
+        status: <Status status={doc.status} />,
+        createdAt: doc.createdAt ? new Date(doc.createdAt).toLocaleString() : "-",
+        updatedAt: doc.updatedAt ? new Date(doc.updatedAt).toLocaleString() : "-",
+        action: (
+          <>
+            {(doc.status === "Success" || doc.status === "uploaded") && (
+              <div className="document-list-action">
+                <a onClick={() => onDownloadClick(doc)}>{t("Download")}</a>{" "}
+                <a href="#" onClick={onReplaceLinkClick}>
+                  {t("Replace")}
+                </a>
+                <input
+                  type="file"
+                  id="file"
+                  ref={replaceFileControl}
+                  onChange={e => onReplaceFileUpload(e, doc.id, DocumentTypeMap[doc.name])}
+                  style={{ display: "none" }}
+                />
+              </div>
+            )}
+          </>
+        ),
+      };
+    });
 
   const documentsExist = uploadedDocumentsInTable.length > 0;
 
