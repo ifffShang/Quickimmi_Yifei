@@ -110,7 +110,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
       );
     }
     const handleGoCompleteLawyerReviewClick = () => {
-      navigate(`/case/${id}?section=4&subsection=0`);
+      navigate(`/case/${id}?section=5&subsection=0`);
     };
 
     const handleDownloadToSignDocClick = () => {

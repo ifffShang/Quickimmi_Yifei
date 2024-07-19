@@ -16,14 +16,15 @@ export function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
-  const showNavbar = !isAuthPath(location.pathname);
   const screenSize = useAppSelector(state => state.common.screenSize);
   const isSmallScreen = screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall;
   const showFormNav = showFormNavigation();
 
-  if (!showNavbar) {
-    return null;
-  }
+  // const showNavbar = !isAuthPath(location.pathname);
+  // Always show this nav because the language config is in the Nav.
+  // if (!showNavbar) {
+  //   return null;
+  // }
 
   const login = () => {
     navigate("/signin");

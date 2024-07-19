@@ -21,7 +21,7 @@ export type DocumentType =
   | "PASSPORT_MAIN"
   | "ID_CARD"
   | "TRAVEL_ID"
-  | "PASSPORT_FULL"
+  | "PASSPORT_STAMP_PAGES"
   | "DELIVERY_PACKAGE_PHOTO"
   | "G28"
   | "I589"
@@ -70,7 +70,7 @@ export const DocumentTypeMap: { [key: string]: DocumentType } = {
   passport_main: "PASSPORT_MAIN",
   id_card: "ID_CARD",
   i94: "I94",
-  passport_full: "PASSPORT_FULL",
+  passport_stamp_pages: "PASSPORT_STAMP_PAGES",
   travel_id: "TRAVEL_ID",
   delivery_package_photo: "DELIVERY_PACKAGE_PHOTO",
   "g-28": "G28",

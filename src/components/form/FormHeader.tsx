@@ -1,6 +1,5 @@
 import { Button } from "antd";
 import { useTranslation } from "react-i18next";
-import { generateDocumentsApi } from "../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { updateApplicationCaseFunc } from "../../utils/functionUtils";
 import { QText } from "../common/Fonts";
@@ -34,7 +33,7 @@ export function FormHeader() {
         <QText level="xlarge">{t("Complete Form")}</QText>
         <div className="form-header-tags">
           <div className="form-header-tag">
-            <QText level="xsmall">{t("Total progress") + ": " + percentageNumber + "%"}</QText>
+            <QText level="xsmall">{t("Total Progress") + ": " + percentageNumber + "%"}</QText>
           </div>
           <AutoSaveTag />
         </div>

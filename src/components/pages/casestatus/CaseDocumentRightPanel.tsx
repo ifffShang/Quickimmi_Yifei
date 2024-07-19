@@ -449,8 +449,8 @@ const CaseDocumentRightPanel: React.FC = () => {
         return t("ID Card");
       case "TRAVEL_ID":
         return t("Travel ID");
-      case "PASSPORT_FULL":
-        return t("Passport Full");
+      case "PASSPORT_STAMP_PAGES":
+        return t("Passport Stamp Pages");
       case "DELIVERY_PACKAGE_PHOTO":
         return t("Delivery Package Photo");
       case "G28":

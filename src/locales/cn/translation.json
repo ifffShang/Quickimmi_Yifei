@@ -123,6 +123,7 @@
   "InputConfirmationCode": "请输入发送到以下地址的验证码：",
   "UploadPassport": "护照上传",
   "UploadPassportOrOtherID": "上传护照或者其他身份证明",
+  "UploadPassportStampPages": "上传所有护照盖章页",
   "UploadPassportDescription1": "上传您的业务代表的护照正面图片。这些图片将用于身份验证。",
   "UploadPassportDescription2": "确保您的图片包括身份证正面的所有信息，包括任何签名。图片也需要清晰，没有任何扭曲或模糊的部分。",
   "NoPassport": "我没有护照",
@@ -145,7 +146,9 @@
   },
 
   "FindIncomplete": "找出未完成字段",
-  "CompleteForm": "资料完善",
+  "Complete Form": "资料完善",
+  "Total Progress": "全部进度",
+  "Form save is successful": "成功存储",
 
   "ImmigrationType": "移民类型",
   "ImmigrationReason": "移民原因",
@@ -265,6 +268,7 @@
   "IdNumber": "证件号码",
   "IdInformation": "证件信息",
   "PassportNumber": "护照号码",
+  "PassportOrOtherIDNumber": "护照或其他证件号码",
   "TravelDocumentNumber": "旅行证件号码",
 
   "FirstName": "名",
@@ -431,7 +435,7 @@
   "ExplainAppliedOneYearAfterYourLastArrival": "如果是\"是\"，请解释为什么您没有在抵达后的第一年内提交申请。您必须准备好在面试或听证会上解释为什么您没有在抵达后的第一年内提交庇护申请。有关回答此问题的指导，请参阅说明书第1部分：提交说明，第V节\"填写表格\"，第C部分。",
   "HaveCommittedCrime": "您或申请中包括的任何家庭成员是否曾在美国犯下任何罪行和/或被逮捕、被控、被定罪或被判刑（包括移民法违规）？",
   "ExplainHaveCommittedCrime": "如果是\"是\"，请在回答中具体说明每个情况：发生了什么和情况、日期、判刑长度、地点、拘留或监禁的持续时间、拘留或定罪的原因、针对您或您申请中的亲属提出的任何正式指控以及释放的原因。如果有相关文件，请附上这些事件的文件；如果没有文件，请解释为什么没有文件。",
-  "UploadSupportingDocuments": "上传支持文件",
+  "UploadSupportingDocuments": "证据上传",
 
   "Signature": "签名",
   "PrintCompleteName": "你的完整姓名",

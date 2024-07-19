@@ -37,6 +37,13 @@
           "control": "component_passport_uploader"
         },
         {
+          "label": "text_UploadPassportStampPages",
+          "id": "children_passport_stamp_page_documents",
+          "key": "family.children[].passportStampPageDocumentIds",
+          "control": "multi_file_uploader",
+          "documentType": "PASSPORT_STAMP_PAGES"
+        },
+        {
           "label": "text_IdNumber",
           "id": "name",
           "control": "group",

@@ -46,7 +46,14 @@
           "control": "component_passport_uploader"
         },
         {
-          "label": "text_PassportNumber",
+          "label": "text_UploadPassportStampPages",
+          "id": "spouse_passport_stamp_page_documents",
+          "key": "family.spouse.passportStampPageDocumentIds",
+          "control": "multi_file_uploader",
+          "documentType": "PASSPORT_STAMP_PAGES"
+        },
+        {
+          "label": "text_PassportOrOtherIDNumber",
           "placeholder": "text_PassportNumber",
           "id": "spouse_passport_number",
           "key": "family.spouse.passportNumber",

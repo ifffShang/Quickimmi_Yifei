@@ -26,8 +26,8 @@ export function SignIn() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [showFormInputErrorMessage, setShowFormInputErrorMessage] = useState(false);
-  const [role, setRole] = useState<Role>(Role.APPLICANT);
   const [isLoading, setIsLoading] = useState(false);
+  const [role, setRole] = useState<Role>(Role.LAWYER);
 
   useEffect(() => {
     setShowFormInputErrorMessage(false);
@@ -56,62 +56,72 @@ export function SignIn() {
         return;
       }
 
-      const { isSignedIn, nextStep } = await signIn({
-        username: email,
-        password,
-      });
+      const signInUser = async () => {
+        const { isSignedIn, nextStep } = await signIn({
+          username: email,
+          password,
+        });
 
-      if (isSignedIn) {
-        const session = await fetchAuthSession();
-        if (!session || !session.tokens || !session.tokens.accessToken) {
-          throw new Error("Failed to fetch session after sign in");
-        }
-        const accessToken = session.tokens.accessToken.toString();
-
-        let userInfo: UserInfo;
-        try {
-          userInfo = await getUserInfoApi(email, accessToken, role);
-        } catch (error: any) {
-          if (error?.message === "USE_NOT_FOUND") {
-            await createUserApi(email, accessToken, role);
-            userInfo = await getUserInfoApi(email, accessToken, role);
-          } else {
-            throw error;
+        if (isSignedIn) {
+          const session = await fetchAuthSession();
+          if (!session || !session.tokens || !session.tokens.accessToken) {
+            throw new Error("Failed to fetch session after sign in");
           }
+          const accessToken = session.tokens.accessToken.toString();
+
+          let userInfo: UserInfo;
+          try {
+            userInfo = await getUserInfoApi(email, accessToken, role);
+          } catch (error: any) {
+            if (error?.message === "USE_NOT_FOUND") {
+              await createUserApi(email, accessToken, role);
+              userInfo = await getUserInfoApi(email, accessToken, role);
+            } else {
+              throw error;
+            }
+          }
+
+          dispatch(
+            updateAuthState({
+              userId: userInfo?.id || undefined,
+              isLawyer: role === Role.LAWYER,
+              isLoggedIn: true,
+              email,
+              accessToken: accessToken,
+              role: role,
+            }),
+          );
+
+          startTokenExpirationTimer(dispatch, true);
+
+          navigate("/dashboard");
+        } else if (nextStep?.signInStep === "CONFIRM_SIGN_UP") {
+          await resendSignUpCode({ username: email });
+          dispatch(
+            updateAuthState({
+              prevStep: "signin",
+              email,
+            }),
+          );
+          navigate("/signup");
         }
+      };
 
-        dispatch(
-          updateAuthState({
-            userId: userInfo?.id || undefined,
-            isLawyer: role === Role.LAWYER,
-            isLoggedIn: true,
-            email,
-            accessToken: accessToken,
-            role: role,
-          }),
-        );
-
-        startTokenExpirationTimer(dispatch, true);
-
-        navigate("/dashboard");
-      } else if (nextStep?.signInStep === "CONFIRM_SIGN_UP") {
-        await resendSignUpCode({ username: email });
-        dispatch(
-          updateAuthState({
-            prevStep: "signin",
-            email,
-          }),
-        );
-        navigate("/signup");
+      try {
+        await signInUser();
+      } catch (error: any) {
+        if (error?.name === "UserAlreadyAuthenticatedException") {
+          signOutCurrentUser(dispatch);
+          await signInUser();
+        } else {
+          throw error;
+        }
       }
     } catch (error: any) {
       if (error?.message === "Incorrect username or password.") {
         setErrorMessage(t("ErrorMessage.IncorrectEmailOrPassword"));
         setIsLoading(false);
         return;
-      }
-      if (error?.name === "UserAlreadyAuthenticatedException") {
-        signOutCurrentUser(dispatch);
       }
       console.error("Error signing in: ", error);
       setErrorMessage(t("ErrorMessage.ErrorSigningIn"));

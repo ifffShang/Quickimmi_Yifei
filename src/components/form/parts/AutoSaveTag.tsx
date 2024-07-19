@@ -21,7 +21,7 @@ export function AutoSaveTag() {
 
   return (
     <div className="form-header-tag">
-      <QText level="xsmall">{time + " " + t("Form save is successiful")}</QText>
+      <QText level="xsmall">{time + " " + t("Form save is successful")}</QText>
     </div>
   );
 }

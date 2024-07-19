@@ -11,6 +11,13 @@
       "control": "component_passport_uploader"
     },
     {
+      "label": "text_UploadPassportStampPages",
+      "id": "applicant_passport_stamp_page_documents",
+      "key": "applicant.passportStampPageDocumentIds",
+      "control": "multi_file_uploader",
+      "documentType": "PASSPORT_STAMP_PAGES"
+    },
+    {
       "label": "text_PassportNumber",
       "placeholder": "text_PassportNumber",
       "id": "passport_number",

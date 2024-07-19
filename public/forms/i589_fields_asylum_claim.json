@@ -76,7 +76,8 @@
           "label": "text_UploadSupportingDocuments",
           "id": "explained_harmed_incident_supporting_documents",
           "key": "supplementDocument.explainHaveBeenHarmedYesSupportDocuments",
-          "control": "multi_file_uploader"
+          "control": "multi_file_uploader",
+          "documentType": "SUPPORTING_DOCUMENT"
         }
       ]
     },
@@ -115,7 +116,8 @@
           "label": "text_UploadSupportingDocuments",
           "id": "explain_fear_return_supporting_documents",
           "key": "supplementDocument.explainFearReturnYesSupportDocuments",
-          "control": "multi_file_uploader"
+          "control": "multi_file_uploader",
+          "documentType": "SUPPORTING_DOCUMENT"
         }
       ]
     },
@@ -154,7 +156,8 @@
           "label": "text_UploadSupportingDocuments",
           "id": "explain_member_charged_supporting_documents",
           "key": "supplementDocument.explainFamilyMembersBeenChargedYesSupportDocuments",
-          "control": "multi_file_uploader"
+          "control": "multi_file_uploader",
+          "documentType": "SUPPORTING_DOCUMENT"
         }
       ]
     },
@@ -193,7 +196,8 @@
           "label": "text_UploadSupportingDocuments",
           "id": "PartB.3.A",
           "key": "supplementDocument.explainYouOrFamilyContinueBelongAnyOrganizationYesSupportDocuments",
-          "control": "multi_file_uploader"
+          "control": "multi_file_uploader",
+          "documentType": "SUPPORTING_DOCUMENT"
         }
       ]
     },
@@ -232,7 +236,8 @@
           "label": "text_UploadSupportingDocuments",
           "id": "PartB.3.B",
           "key": "supplementDocument.explainYouOrFamilyContinueBelongAnyOrganizationYesSupportDocuments",
-          "control": "multi_file_uploader"
+          "control": "multi_file_uploader",
+          "documentType": "SUPPORTING_DOCUMENT"
         }
       ]
     },
@@ -271,7 +276,8 @@
           "label": "text_UploadSupportingDocuments",
           "id": "PartB.4",
           "key": "supplementDocument.explainAfraidOfReturnYesSupportDocuments",
-          "control": "multi_file_uploader"
+          "control": "multi_file_uploader",
+          "documentType": "SUPPORTING_DOCUMENT"
         }
       ]
     },
@@ -310,7 +316,8 @@
           "label": "text_UploadSupportingDocuments",
           "id": "PartC.1",
           "key": "supplementDocument.explainAppliedBeforeYesSupportDocuments",
-          "control": "multi_file_uploader"
+          "control": "multi_file_uploader",
+          "documentType": "SUPPORTING_DOCUMENT"
         }
       ]
     },
@@ -367,7 +374,8 @@
           "label": "text_UploadSupportingDocuments",
           "id": "PartC.1",
           "key": "supplementDocument.explainAnyLawfulStatusAnyCountryYesSupportDocuments",
-          "control": "multi_file_uploader"
+          "control": "multi_file_uploader",
+          "documentType": "SUPPORTING_DOCUMENT"
         }
       ]
     },
@@ -406,7 +414,8 @@
           "label": "text_UploadSupportingDocuments",
           "id": "PartC.3",
           "key": "supplementDocument.explainHaveYouHarmOthersYesSupportDocuments",
-          "control": "multi_file_uploader"
+          "control": "multi_file_uploader",
+          "documentType": "SUPPORTING_DOCUMENT"
         }
       ]
     },
@@ -445,7 +454,8 @@
           "label": "text_UploadSupportingDocuments",
           "id": "PartC.4",
           "key": "supplementDocument.explainReturnCountryYesSupportDocuments",
-          "control": "multi_file_uploader"
+          "control": "multi_file_uploader",
+          "documentType": "SUPPORTING_DOCUMENT"
         }
       ]
     },
@@ -484,7 +494,8 @@
           "label": "text_UploadSupportingDocuments",
           "id": "PartC.5",
           "key": "supplementDocument.explainMoreThanOneYearAfterArrivalYesSupportDocuments",
-          "control": "multi_file_uploader"
+          "control": "multi_file_uploader",
+          "documentType": "SUPPORTING_DOCUMENT"
         }
       ]
     },
@@ -523,7 +534,8 @@
           "label": "text_UploadSupportingDocuments",
           "id": "PartC.6",
           "key": "supplementDocument.explainHaveCommittedCrimeYesSupportDocuments",
-          "control": "multi_file_uploader"
+          "control": "multi_file_uploader",
+          "documentType": "SUPPORTING_DOCUMENT"
         }
       ]
     }

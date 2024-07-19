@@ -123,6 +123,7 @@
   "InputConfirmationCode": "Please input the verification code sent to: ",
   "UploadPassport": "Upload Passport",
   "UploadPassportOrOtherID": "Upload passport or other identity document",
+  "UploadPassportStampPages": "Upload All Passport Stamp Pages",
   "UploadPassportDescription1": "Upload images of the front side of your business representative's These images will be used for identity verification purposes.",
   "UploadPassportDescription2": "Be sure that your images include all information on the front side of your ID, including any signatures. Images also need to be clear, without any warped or blurred portions.",
   "NoPassport": "I don't have a passport",
@@ -139,7 +140,9 @@
   },
 
   "FindIncomplete": "Find Incomplete",
-  "CompleteForm": "Complete Form",
+  "Complete Form": "Complete Form",
+  "Total Progress": "Total Progress",
+  "Form save is successful": "Form save is successful",
 
   "ImmigrationType": "Immigration Type",
   "ImmigrationReason": "Immigration Reason",
@@ -263,6 +266,7 @@
   "IdNumber": "ID Number",
   "IdInformation": "ID Information",
   "PassportNumber": "Passport Number",
+  "PassportOrOtherIDNumber": "Passport Number / ID Number",
   "TravelDocumentNumber": "Travel Document Number",
 
   "IdentificationCard": "Identification Card",

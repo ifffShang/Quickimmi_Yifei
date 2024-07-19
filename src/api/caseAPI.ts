@@ -526,22 +526,6 @@ export async function refineApi(
   return <string>res.data;
 }
 
-export async function getPersonalStatementApi(
-  accessToken: string,
-  role: Role,
-  caseId: number,
-  language: string,
-): Promise<string> {
-  const res = await performApiRequest({
-    endPoint: `/api/case/asylum/getPersonalStatement?caseId=${caseId}&language=${language}`,
-    method: "GET",
-    data: null,
-    accessToken,
-    role,
-  });
-  return <string>res.data;
-}
-
 export async function generatePersonalStatementApi(
   accessToken: string,
   role: Role,
@@ -573,28 +557,6 @@ export async function translatePersonalStatementToOriginalLanguageApi(
   const res = await performApiRequest({
     endPoint: `/api/case/asylum/translatePersonalStatementToOriginalLanguage`,
     method: "GET",
-    data: requestDto,
-    accessToken,
-    role,
-  });
-  return <string>res.data;
-}
-
-export async function savePersonalStatementApi(
-  accessToken: string,
-  role: Role,
-  caseId: number,
-  content: string,
-  language: string,
-): Promise<string> {
-  const requestDto = {
-    caseId,
-    content,
-    language,
-  };
-  const res = await performApiRequest({
-    endPoint: `/api/case/asylum/savePersonalStatement`,
-    method: "POST",
     data: requestDto,
     accessToken,
     role,

@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Regex } from "../../consts/consts";
 import { useFormTranslation } from "../../hooks/commonHooks";
 import { EntryRecord } from "../../model/apiModels";
-import { KeyValues } from "../../model/commonModels";
+import { DocumentType, KeyValues } from "../../model/commonModels";
 import { ControlType, IFormField, IFormOptions } from "../../model/formFlowModels";
 import {
   createKeyValuesForAddItem,
@@ -38,6 +38,8 @@ import { MultiFileUploader } from "./fields/MultiFileUploader";
 import { PersonalStatement } from "./fields/PersonalStatement";
 import { FormControlContainer } from "./FormControlContainer";
 import { MergedDocumentList } from "./fields/MergedDocumentList";
+import React from "react";
+import { DraggerFileUploader } from "./fields/DraggerFileUploader";
 
 export interface FormFieldProps {
   fieldKey: string;
@@ -53,6 +55,7 @@ export interface FormFieldProps {
   hideHeader?: boolean;
   fieldIndex?: number;
   lastField: boolean;
+  documentType?: DocumentType;
 }
 
 export function FormField(props: FormFieldProps) {
@@ -329,7 +332,7 @@ export function FormField(props: FormFieldProps) {
       return (
         <FormControlContainer fieldValue={fieldValue}>
           <MultiFileUploader
-            documentType={"SUPPORTING_DOCUMENT"} // TODO: add multiple document types when needed
+            documentType={props.documentType || "SUPPORTING_DOCUMENT"}
             identity={"Applicant"}
             operation={"NEW"}
             description={props.fieldKey}
@@ -344,6 +347,18 @@ export function FormField(props: FormFieldProps) {
                   props.fieldIndex,
                 );
             }}
+          />
+        </FormControlContainer>
+      );
+    case "multi_file_uploader_new": // WIP!!!! DON'T USE!!!
+      return (
+        <FormControlContainer fieldValue={fieldValue}>
+          <DraggerFileUploader
+            documentType={props.documentType || "SUPPORTING_DOCUMENT"}
+            identity={"Applicant"}
+            operation={"NEW"}
+            description={props.fieldKey}
+            documentIds={fieldValue}
           />
         </FormControlContainer>
       );
@@ -502,6 +517,7 @@ export function FormField(props: FormFieldProps) {
                   visibility={field.visibility}
                   fieldIndex={props.fieldIndex}
                   lastField={props.lastField && (props.subFields ? index === props.subFields.length - 1 : true)}
+                  documentType={field.documentType}
                 />
               </div>
             ))}
@@ -574,6 +590,7 @@ export function FormField(props: FormFieldProps) {
                         visibility={field.visibility}
                         fieldIndex={arrIndex}
                         lastField={props.lastField && (props.subFields ? index === props.subFields.length - 1 : true)}
+                        documentType={field.documentType}
                       />
                     </div>
                   ))}
@@ -600,6 +617,7 @@ export function FormField(props: FormFieldProps) {
                   visibility={field.visibility}
                   fieldIndex={props.fieldIndex}
                   lastField={props.lastField && (props.subFields ? index === props.subFields.length - 1 : true)}
+                  documentType={field.documentType}
                 />
               </div>
             ))}
