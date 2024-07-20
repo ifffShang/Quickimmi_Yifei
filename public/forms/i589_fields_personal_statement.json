@@ -8,12 +8,6 @@
       "id": "personal_statement",
       "key": "supplementDocument.personalStatement",
       "control": "component_personal_statement"
-    },
-    {
-      "label": "text_PersonalStatementInOriginalLanguage",
-      "id": "personal_statement",
-      "key": "supplementDocument.personalStatementInOriginalLanguage",
-      "control": "component_personal_statement_in_original_language"
     }
   ]
 }

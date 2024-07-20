@@ -1,9 +1,9 @@
 import { QText } from "../../common/Fonts";
 import { Button, InputRef, Input, Spin } from "antd";
-import { CheckOutlined, RetweetOutlined } from "@ant-design/icons";
+import Icon, { CheckOutlined, RetweetOutlined, CloseSquareOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { refineApi } from "../../../api/caseAPI";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import "./TextAreaWithAIRefine.css";
 
@@ -12,22 +12,18 @@ export interface TextAreaWithAIRefineProps {
   placeholder: string;
   value: string;
   onChange: (value: string) => string;
-  disabled?: boolean;
   fieldKey?: string;
-  className?: string;
 }
 
 export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
   const { t } = useTranslation();
-  const dispatch = useAppDispatch();
-  const accessToken = useAppSelector(state => state.auth.accessToken);
   const role = useAppSelector(state => state.auth.role);
+  const accessToken = useAppSelector(state => state.auth.accessToken);
   const [textAreaValue, setTextAreaValue] = useState(props.value);
   const [refineAreaValue, setRefineAreaValue] = useState("");
   const [showRefineArea, setShowRefineArea] = useState(false);
   const inputRef = useRef<InputRef>(null);
   const fieldkey = props.fieldKey;
-  const classname = props.className;
   const label = props.label.split("_")[1];
 
   const handleRefineAreaChange = (value: string) => {
@@ -35,7 +31,6 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
   };
 
   const onTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (props.disabled) return;
     const cursorPosition = e.target.selectionStart;
     const value = props.onChange(e.target.value);
     setTextAreaValue(value);
@@ -59,7 +54,6 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
     setShowRefineArea(false);
     setRefineAreaValue("");
     console.log("field key is: ", fieldkey);
-    console.log("class name is: ", classname);
     console.log("label is: ", label);
     console.log(t(label));
   };
@@ -101,7 +95,7 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
               placeholder={props.placeholder}
               value={textAreaValue}
               onChange={onTextAreaChange}
-              disabled={props.disabled || false}
+              // disabled={props.disabled || false}
               variant="borderless"
             />
           </div>
@@ -115,7 +109,7 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
                   <Button
                     type="primary"
                     onClick={replaceWithRefinedText}
-                    disabled={props.disabled || false}
+                    // disabled={props.disabled || false}
                     className="text-area-button"
                     icon={<CheckOutlined />}
                   >
@@ -124,27 +118,24 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
                   <Button
                     type="primary"
                     onClick={refineText}
-                    disabled={props.disabled || false}
+                    // disabled={props.disabled || false}
                     className="text-area-button"
                     icon={<RetweetOutlined />}
                   >
                     {t("Rewrite")}
                   </Button>
-                  <Button
-                    type="default"
+                  <CloseSquareOutlined
                     onClick={discardRefinedText}
-                    disabled={props.disabled || false}
+                    // disabled={props.disabled || false}
                     className="text-area-button-discard"
-                  >
-                    {t("Discard")}
-                  </Button>
+                  />
                 </div>
                 <TextArea
                   rows={8}
                   className={"text-area-input"}
                   placeholder={props.placeholder}
                   value={refineAreaValue}
-                  disabled={props.disabled || false}
+                  // disabled={props.disabled || false}
                   onChange={e => handleRefineAreaChange(e.target.value)}
                   variant="borderless"
                 />
@@ -173,7 +164,7 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
               placeholder={props.placeholder}
               value={textAreaValue}
               onChange={onTextAreaChange}
-              disabled={props.disabled || false}
+              // disabled={props.disabled || false}
               variant="borderless"
             />
           </div>

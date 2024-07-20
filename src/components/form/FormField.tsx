@@ -286,19 +286,19 @@ export function FormField(props: FormFieldProps) {
           value={fieldValue}
           fieldKey={props.fieldKey}
           onChange={onTextChange}
-          language={"ENGLISH"}
+          originLanguage={"SIMPLIFIED_CHINESE"}
         />
       );
-    case "component_personal_statement_in_original_language":
-      return (
-        <PersonalStatement
-          placeholder={placeholder}
-          value={fieldValue}
-          fieldKey={props.fieldKey}
-          onChange={onTextChange}
-          language={"SIMPLIFIED_CHINESE"}
-        />
-      );
+    // case "component_personal_statement_in_original_language":
+    //   return (
+    //     <PersonalStatement
+    //       placeholder={placeholder}
+    //       value={fieldValue}
+    //       fieldKey={props.fieldKey}
+    //       onChange={onTextChange}
+    //       originLanguage={"SIMPLIFIED_CHINESE"}
+    //     />
+    //   );
     case "radio":
       return (
         <FormControlContainer fieldValue={fieldValue}>
