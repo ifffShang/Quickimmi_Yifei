@@ -556,7 +556,7 @@ export async function translatePersonalStatementToOriginalLanguageApi(
   };
   const res = await performApiRequest({
     endPoint: `/api/case/asylum/translatePersonalStatementToOriginalLanguage`,
-    method: "GET",
+    method: "POST",
     data: requestDto,
     accessToken,
     role,
