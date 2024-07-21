@@ -30,35 +30,33 @@ export function PersonalStatement(props: PersonalStatementProps) {
   const [translatedValue, setTranslatedValue] = useState("");
 
   useEffect(() => {
-    if (props.value === "N/A") {
+    if (props.value === "") {
       setValue("");
     } else {
       try {
         const { englishPS, translatedPS } = parseCombinedPersonalStatements(props.value);
         setValue(englishPS);
         setTranslatedValue(translatedPS);
-        setShowTranslatedArea(true);
+        setShowTranslatedArea(translatedPS !== "");
       } catch (error) {
-        setValue(props.value);
+        setValue("");
         setTranslatedValue("");
-        setShowTranslatedArea(false);
-        setIsOriginalLoading(false);
         setShowTranslatedArea(false);
         message.error("Failed to display the stored personal statement.");
       }
     }
   }, [props.value]);
 
-  const onTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>, isOriginal: boolean) => {
+  const onTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>, isEnglishPs: boolean) => {
     if (props.disabled) return;
     const cursorPosition = e.target.selectionStart;
-    if (isOriginal) {
-      const value = props.onChange(e.target.value);
-      setValue(value);
-      savePersonalStatement(value, translatedValue);
+    const newValue = e.target.value;
+    if (isEnglishPs) {
+      setValue(newValue);
+      savePersonalStatement(newValue, translatedValue);
     } else {
-      setTranslatedValue(e.target.value);
-      savePersonalStatement(value, e.target.value);
+      setTranslatedValue(newValue);
+      savePersonalStatement(value, newValue);
     }
     if (inputRef.current) {
       const inputElement = inputRef.current as unknown as HTMLInputElement;
@@ -74,6 +72,22 @@ export function PersonalStatement(props: PersonalStatementProps) {
     props.onChange(combinedPS);
   };
 
+  const combinePersonalStatements = (englishPS: string, translatedPS: string, originLanguage: string) => {
+    const combinedPS = {
+      personalStatements: [
+        {
+          language: LanguageEnum.ENGLISH,
+          content: englishPS,
+        },
+        {
+          language: originLanguage,
+          content: translatedPS,
+        },
+      ],
+    };
+    return JSON.stringify(combinedPS);
+  };
+
   const generatePersonalStatement = async () => {
     if (!accessToken) {
       console.error("Access token is not available");
@@ -81,7 +95,13 @@ export function PersonalStatement(props: PersonalStatementProps) {
     }
     try {
       setIsOriginalLoading(true);
-      const ps = await generatePersonalStatementApi(accessToken, role, caseId, LanguageEnum.ENGLISH.toUpperCase());
+      const ps = await generatePersonalStatementApi(
+        accessToken, 
+        role, 
+        caseId, 
+        LanguageEnum.ENGLISH.toUpperCase()
+      );
+      
       setValue(ps);
       setIsOriginalLoading(false);
       savePersonalStatement(ps, translatedValue);
@@ -97,8 +117,8 @@ export function PersonalStatement(props: PersonalStatementProps) {
       return;
     }
     try {
-      setIsTranslatedLoading(true);
       setShowTranslatedArea(true);
+      setIsTranslatedLoading(true);
       const translatedPs = await translatePersonalStatementToOriginalLanguageApi(
         accessToken,
         role,
@@ -106,28 +126,14 @@ export function PersonalStatement(props: PersonalStatementProps) {
         value,
         props.originLanguage.toUpperCase(),
       );
+
       setTranslatedValue(translatedPs);
       savePersonalStatement(value, translatedPs);
       setIsTranslatedLoading(false);
     } catch (error) {
-      console.error("Failed to translate personal statement:", error);
+      setIsTranslatedLoading(false);
+      message.error("Failed to translate personal statement. Please try again.");
     }
-  };
-
-  const combinePersonalStatements = (englishPS, translatedPS, originLanguage) => {
-    const combinedPS = {
-      personalStatements: [
-        {
-          language: LanguageEnum.ENGLISH,
-          content: englishPS,
-        },
-        {
-          language: originLanguage,
-          content: translatedPS,
-        },
-      ],
-    };
-    return JSON.stringify(combinedPS);
   };
 
   const parseCombinedPersonalStatements = combinedPSString => {
