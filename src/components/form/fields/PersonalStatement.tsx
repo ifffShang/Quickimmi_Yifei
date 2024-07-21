@@ -140,9 +140,9 @@ export function PersonalStatement(props: PersonalStatementProps) {
     console.log("----------------getting combinedPSString value", combinedPSString);
     const combinedPS = JSON.parse(combinedPSString);
     console.log("----------------parsed json", combinedPS);
-    const englishPS = combinedPS.personalStatements.find(ps => ps.language === LanguageEnum.ENGLISH).content;
+    const englishPS = combinedPS.personalStatements.find(ps => ps.language === LanguageEnum.ENGLISH.toUpperCase()).content;
     console.log("----------------english ps", englishPS);
-    const translatedPS = combinedPS.personalStatements.find(ps => ps.language === props.originLanguage).content;
+    const translatedPS = combinedPS.personalStatements.find(ps => ps.language === props.originLanguage.toUpperCase()).content;
     console.log("----------------translated ps", translatedPS);
     return { englishPS, translatedPS };
   };
