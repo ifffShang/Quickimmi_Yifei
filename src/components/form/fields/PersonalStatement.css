@@ -1,48 +1,51 @@
-.text-area-container {
+.ps-text-area-container {
   height: 1000px;
   display: flex;
   flex-direction: row;
 }
 
-.text-area-before {
+.ps-text-area-before {
   width: 100%;
   border: 1px solid var(--gray-color-3);
   border-radius: 3px;
   padding: 5px 10px;
 }
 
-.text-area-after {
+.ps-text-area-after {
   height: inherit;
   width: 50%;
   border: 1px solid var(--gray-color-3);
   border-radius: 3px;
   padding: 5px 10px;
 }
-.text-area-refined-buttons {
+
+.ps-text-area-refined-buttons {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-.text-area-button {
+
+.ps-text-area-button {
   color: var(--primary-color);
   background-color: var(--primary-color-light);
   border-radius: 5px;
   margin: 5px;
   cursor: pointer;
 }
-.text-area-button-discard {
+
+.ps-text-area-button-discard {
   font-size: 28px;
   color: var(--gray-color-2);
   border-radius: 5px;
   margin-left: auto;
-  /* margin-right: 10px; */
   transition: color 0.3s ease-in-out;
 }
-.text-area-button-discard:hover {
+
+.ps-text-area-button-discard:hover {
   color: red;
 }
 
-.text-area-input {
+.ps-text-area-input {
   height: 950px !important;
   resize: none !important;
   padding: 5px !important;
