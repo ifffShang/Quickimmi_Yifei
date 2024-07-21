@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Regex } from "../../consts/consts";
 import { useFormTranslation } from "../../hooks/commonHooks";
 import { EntryRecord } from "../../model/apiModels";
-import {DocumentType, KeyValues, LanguageEnum} from "../../model/commonModels";
+import { DocumentType, KeyValues, LanguageEnum } from "../../model/commonModels";
 import { ControlType, IFormField, IFormOptions } from "../../model/formFlowModels";
 import {
   createKeyValuesForAddItem,

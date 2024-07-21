@@ -1,6 +1,6 @@
 import { QText } from "../../common/Fonts";
 import { EditOutlined } from "@ant-design/icons";
-import {Button, Input, InputRef, message, Spin} from "antd";
+import { Button, Input, InputRef, message, Spin } from "antd";
 import { useAppSelector } from "../../../app/hooks";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -130,7 +130,7 @@ export function PersonalStatement(props: PersonalStatementProps) {
     return JSON.stringify(combinedPS);
   };
 
-  const parseCombinedPersonalStatements = (combinedPSString) => {
+  const parseCombinedPersonalStatements = combinedPSString => {
     console.log("----------------getting combinedPSString value", combinedPSString);
     const combinedPS = JSON.parse(combinedPSString);
     console.log("----------------parsed json", combinedPS);
