@@ -111,7 +111,7 @@ export function PersonalStatement(props: PersonalStatementProps) {
 
   const combinePersonalStatements = (englishPS, translatedPS, originLanguage) => {
     const combinedPS = {
-      personalStatement: [
+      personalStatements: [
         {
           language: "ENGLISH",
           content: englishPS,
@@ -142,7 +142,7 @@ export function PersonalStatement(props: PersonalStatementProps) {
   const content = <div style={spinStyle} />;
 
   return (
-<div>
+    <div>
       {showTranslatedArea ? (
         <div className="ps-text-area-container">
           <div className="ps-text-area-after">
