@@ -76,11 +76,11 @@ export function PersonalStatement(props: PersonalStatementProps) {
     const combinedPS = {
       personalStatements: [
         {
-          language: LanguageEnum.ENGLISH,
+          language: LanguageEnum.ENGLISH.toUpperCase(),
           content: englishPS,
         },
         {
-          language: originLanguage,
+          language: originLanguage.toUpperCase(),
           content: translatedPS,
         },
       ],
