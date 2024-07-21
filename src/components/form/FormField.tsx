@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Regex } from "../../consts/consts";
 import { useFormTranslation } from "../../hooks/commonHooks";
 import { EntryRecord } from "../../model/apiModels";
-import { DocumentType, KeyValues } from "../../model/commonModels";
+import {DocumentType, KeyValues, LanguageEnum} from "../../model/commonModels";
 import { ControlType, IFormField, IFormOptions } from "../../model/formFlowModels";
 import {
   createKeyValuesForAddItem,
@@ -289,7 +289,7 @@ export function FormField(props: FormFieldProps) {
           value={fieldValue}
           fieldKey={props.fieldKey}
           onChange={onTextChange}
-          originLanguage={"SIMPLIFIED_CHINESE"}
+          originLanguage={LanguageEnum.CHINESE}
         />
       );
     // case "component_personal_statement_in_original_language":

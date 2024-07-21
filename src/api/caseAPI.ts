@@ -533,7 +533,7 @@ export async function generatePersonalStatementApi(
   language: string,
 ): Promise<string> {
   const res = await performApiRequest({
-    endPoint: `/api/case/asylum/generatePersonalStatement?caseId=${caseId}&language=${language}`,
+    endPoint: `api/case/asylum/generatePersonalStatement?caseId=${caseId}&language=${language}`,
     method: "GET",
     data: null,
     accessToken,
@@ -555,7 +555,7 @@ export async function translatePersonalStatementToOriginalLanguageApi(
     language,
   };
   const res = await performApiRequest({
-    endPoint: `/api/case/asylum/translatePersonalStatementToOriginalLanguage`,
+    endPoint: `api/case/asylum/translatePersonalStatementToOriginalLanguage`,
     method: "POST",
     data: requestDto,
     accessToken,

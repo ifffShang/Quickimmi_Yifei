@@ -1,11 +1,12 @@
 import { QText } from "../../common/Fonts";
 import { EditOutlined } from "@ant-design/icons";
-import { Button, InputRef, Input, Spin } from "antd";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import {Button, Input, InputRef, message, Spin} from "antd";
+import { useAppSelector } from "../../../app/hooks";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { generatePersonalStatementApi, translatePersonalStatementToOriginalLanguageApi } from "../../../api/caseAPI";
 import "./PersonalStatement.css";
+import { LanguageEnum } from "../../../model/commonModels";
 
 export interface PersonalStatementProps {
   placeholder: string;
@@ -33,7 +34,7 @@ export function PersonalStatement(props: PersonalStatementProps) {
       setValue("");
     } else {
       try {
-        const { englishPS, translatedPS } = parseCombinedPersonalStatement(props.value);
+        const { englishPS, translatedPS } = parseCombinedPersonalStatements(props.value);
         setValue(englishPS);
         setTranslatedValue(translatedPS);
         setShowTranslatedArea(true);
@@ -41,6 +42,9 @@ export function PersonalStatement(props: PersonalStatementProps) {
         setValue(props.value);
         setTranslatedValue("");
         setShowTranslatedArea(false);
+        setIsOriginalLoading(false);
+        setShowTranslatedArea(false);
+        message.error("Failed to display the stored personal statement.");
       }
     }
   }, [props.value]);
@@ -77,12 +81,13 @@ export function PersonalStatement(props: PersonalStatementProps) {
     }
     try {
       setIsOriginalLoading(true);
-      const ps = await generatePersonalStatementApi(accessToken, role, caseId, "ENGLISH");
+      const ps = await generatePersonalStatementApi(accessToken, role, caseId, LanguageEnum.ENGLISH.toUpperCase());
       setValue(ps);
       setIsOriginalLoading(false);
       savePersonalStatement(ps, translatedValue);
     } catch (error) {
-      console.error("Failed to generate personal statement:", error);
+      setIsOriginalLoading(false);
+      message.error("Failed to generate personal statement. Please try again.");
     }
   };
 
@@ -99,7 +104,7 @@ export function PersonalStatement(props: PersonalStatementProps) {
         role,
         caseId,
         value,
-        props.originLanguage,
+        props.originLanguage.toUpperCase(),
       );
       setTranslatedValue(translatedPs);
       savePersonalStatement(value, translatedPs);
@@ -113,11 +118,11 @@ export function PersonalStatement(props: PersonalStatementProps) {
     const combinedPS = {
       personalStatements: [
         {
-          language: "ENGLISH",
+          language: LanguageEnum.ENGLISH,
           content: englishPS,
         },
         {
-          language: originLanguage.toUpperCase(),
+          language: originLanguage,
           content: translatedPS,
         },
       ],
@@ -125,12 +130,14 @@ export function PersonalStatement(props: PersonalStatementProps) {
     return JSON.stringify(combinedPS);
   };
 
-  const parseCombinedPersonalStatement = combinedPSString => {
+  const parseCombinedPersonalStatements = (combinedPSString) => {
+    console.log("----------------getting combinedPSString value", combinedPSString);
     const combinedPS = JSON.parse(combinedPSString);
-    const englishPS = combinedPS.personalStatement.find(ps => ps.language === "ENGLISH").content;
-    const translatedPS = combinedPS.personalStatement.find(
-      ps => ps.language === props.originLanguage.toUpperCase(),
-    ).content;
+    console.log("----------------parsed json", combinedPS);
+    const englishPS = combinedPS.personalStatements.find(ps => ps.language === LanguageEnum.ENGLISH).content;
+    console.log("----------------english ps", englishPS);
+    const translatedPS = combinedPS.personalStatements.find(ps => ps.language === props.originLanguage).content;
+    console.log("----------------translated ps", translatedPS);
     return { englishPS, translatedPS };
   };
 
