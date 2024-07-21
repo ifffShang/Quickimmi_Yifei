@@ -66,13 +66,8 @@ export function PersonalStatement(props: PersonalStatementProps) {
   };
 
   const savePersonalStatement = (englishPS, translatedPS) => {
-    if (translatedPS) {
-      const combinedPS = combinePersonalStatements(englishPS, translatedPS, props.originLanguage);
-      // setCombinedValue(combinedPS);
-      props.onChange(combinedPS);
-    } else {
-      props.onChange(englishPS);
-    }
+    const combinedPS = combinePersonalStatements(englishPS, translatedPS, props.originLanguage);
+    props.onChange(combinedPS);
   };
 
   const generatePersonalStatement = async () => {
@@ -99,7 +94,13 @@ export function PersonalStatement(props: PersonalStatementProps) {
     try {
       setIsTranslatedLoading(true);
       setShowTranslatedArea(true);
-      const translatedPs = await translatePersonalStatementToOriginalLanguageApi(accessToken, role, caseId, value, props.originLanguage);
+      const translatedPs = await translatePersonalStatementToOriginalLanguageApi(
+        accessToken,
+        role,
+        caseId,
+        value,
+        props.originLanguage,
+      );
       setTranslatedValue(translatedPs);
       savePersonalStatement(value, translatedPs);
       setIsTranslatedLoading(false);
@@ -124,10 +125,12 @@ export function PersonalStatement(props: PersonalStatementProps) {
     return JSON.stringify(combinedPS);
   };
 
-  const parseCombinedPersonalStatement = (combinedPSString) => {
+  const parseCombinedPersonalStatement = combinedPSString => {
     const combinedPS = JSON.parse(combinedPSString);
     const englishPS = combinedPS.personalStatement.find(ps => ps.language === "ENGLISH").content;
-    const translatedPS = combinedPS.personalStatement.find(ps => ps.language === props.originLanguage.toUpperCase()).content;
+    const translatedPS = combinedPS.personalStatement.find(
+      ps => ps.language === props.originLanguage.toUpperCase(),
+    ).content;
     return { englishPS, translatedPS };
   };
 
@@ -139,18 +142,18 @@ export function PersonalStatement(props: PersonalStatementProps) {
   const content = <div style={spinStyle} />;
 
   return (
-    <div>
+<div>
       {showTranslatedArea ? (
-        <div className="text-area-container">
-          <div className="text-area-after">
-            <div className="text-area-refined-buttons">
+        <div className="ps-text-area-container">
+          <div className="ps-text-area-after">
+            <div className="ps-text-area-refined-buttons">
               <QText level="normal bold" margin="margin-5" color="gray">
                 {t("EnglishVersion")}
               </QText>
               <Button
                 type="default"
                 onClick={generatePersonalStatement}
-                className="text-area-button"
+                className="ps-text-area-button"
                 disabled={isOriginalLoading}
                 icon={<EditOutlined />}
               >
@@ -165,24 +168,24 @@ export function PersonalStatement(props: PersonalStatementProps) {
               <TextArea
                 rows={10}
                 ref={inputRef}
-                className="text-area-input"
+                className="ps-text-area-input"
                 placeholder={props.placeholder}
                 value={value}
-                onChange={(e) => onTextAreaChange(e, true)}
+                onChange={e => onTextAreaChange(e, true)}
                 disabled={props.disabled || false}
                 variant="borderless"
               />
             )}
           </div>
-          <div className="text-area-after">
-            <div className="text-area-refined-buttons">
+          <div className="ps-text-area-after">
+            <div className="ps-text-area-refined-buttons">
               <QText level="normal bold" margin="margin-5" color="gray">
                 {t("ChineseVersion")}
               </QText>
               <Button
                 type="default"
                 onClick={translatePersonalStatement}
-                className="text-area-button"
+                className="ps-text-area-button"
                 disabled={isTranslatedLoading}
                 icon={<EditOutlined />}
               >
@@ -197,10 +200,10 @@ export function PersonalStatement(props: PersonalStatementProps) {
               <TextArea
                 rows={10}
                 ref={inputRef}
-                className="text-area-input"
+                className="ps-text-area-input"
                 placeholder={props.placeholder}
                 value={translatedValue}
-                onChange={(e) => onTextAreaChange(e, false)}
+                onChange={e => onTextAreaChange(e, false)}
                 disabled={props.disabled || false}
                 variant="borderless"
               />
@@ -208,17 +211,17 @@ export function PersonalStatement(props: PersonalStatementProps) {
           </div>
         </div>
       ) : (
-        <div className="text-area-container">
-          <div className="text-area-before">
+        <div className="ps-text-area-container">
+          <div className="ps-text-area-before">
             {value ? (
-              <div className="text-area-refined-buttons">
+              <div className="ps-text-area-refined-buttons">
                 <QText level="normal bold" margin="margin-5" color="gray">
                   {t("EnglishVersion")}
                 </QText>
                 <Button
                   type="default"
                   onClick={generatePersonalStatement}
-                  className="text-area-button"
+                  className="ps-text-area-button"
                   disabled={isOriginalLoading}
                   icon={<EditOutlined />}
                 >
@@ -227,7 +230,7 @@ export function PersonalStatement(props: PersonalStatementProps) {
                 <Button
                   type="default"
                   onClick={translatePersonalStatement}
-                  className="text-area-button"
+                  className="ps-text-area-button"
                   disabled={isOriginalLoading}
                   icon={<EditOutlined />}
                 >
@@ -238,7 +241,7 @@ export function PersonalStatement(props: PersonalStatementProps) {
               <Button
                 type="default"
                 onClick={generatePersonalStatement}
-                className="text-area-button"
+                className="ps-text-area-button"
                 disabled={isOriginalLoading}
                 icon={<EditOutlined />}
               >
@@ -253,10 +256,10 @@ export function PersonalStatement(props: PersonalStatementProps) {
               <TextArea
                 rows={10}
                 ref={inputRef}
-                className="text-area-input"
+                className="ps-text-area-input"
                 placeholder={props.placeholder}
                 value={value}
-                onChange={(e) => onTextAreaChange(e, true)}
+                onChange={e => onTextAreaChange(e, true)}
                 disabled={props.disabled || false}
                 variant="borderless"
               />
