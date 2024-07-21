@@ -67,6 +67,7 @@ const Columns: TableProps<DataType>["columns"] = [
 export function DocumentList() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const userId = useAppSelector(state => state.auth.userId);
   const caseId = useAppSelector(state => state.form.caseId);
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const role = useAppSelector(state => state.auth.role);
@@ -154,19 +155,12 @@ export function DocumentList() {
         const taskIds = docGenerationTaskList.map(task => task.taskId);
         retryGetDocumentGenerationTaskStatusApi(accessToken, taskIds, role, documentStatusList => {
           setLoading(false);
-          updateGeneratedDocumentStatus(documentStatusList, dispatch);
+          updateGeneratedDocumentStatus(documentStatusList, userId!, caseId, dispatch);
           let allFinished = true;
           for (let i = 0; i < documentStatusList.length; i++) {
             const status = documentStatusList[i];
             if (status.status !== "Success") {
               allFinished = false;
-            } else if (!generatedDocuments[i] || !generatedDocuments[i].document) {
-              downloadDocument(status.presignedUrl, { ...status }).then(doc => {
-                updateGeneratedDocumentStatus(documentStatusList, dispatch, {
-                  document: doc.document,
-                  index: i,
-                });
-              });
             }
           }
           return allFinished;
@@ -249,7 +243,7 @@ export function DocumentList() {
   };
 
   const uploadedDocumentsInTable = generatedDocuments
-    .filter(doc => doc.createdBy === "system_auto_generated")
+    .filter(doc => doc.generationType === "system_auto_generated")
     .map(doc => {
       return {
         key: doc.id,

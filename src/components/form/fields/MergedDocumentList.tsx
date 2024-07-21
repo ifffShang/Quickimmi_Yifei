@@ -74,6 +74,7 @@ const Columns: TableProps<DataType>["columns"] = [
 export function MergedDocumentList() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const userId = useAppSelector(state => state.auth.userId);
   const caseId = useAppSelector(state => state.form.caseId);
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const role = useAppSelector(state => state.auth.role);
@@ -83,7 +84,6 @@ export function MergedDocumentList() {
   const [replaceLoading, setReplaceLoading] = useState(false);
   const replaceFileControl = useRef<HTMLInputElement | null>(null);
   const generatedDocuments = useAppSelector(state => state.form.generatedDocuments);
-  const c = 2;
 
   useDocumentsOnLoad({
     caseId: caseId,
@@ -146,16 +146,12 @@ export function MergedDocumentList() {
         const taskIds = docGenerationTaskList.map(task => task.taskId);
         retryGetDocumentGenerationTaskStatusApi(accessToken, taskIds, role, documentStatusList => {
           setLoading(false);
-          updateGeneratedDocumentStatus(documentStatusList, dispatch);
+          updateGeneratedDocumentStatus(documentStatusList, userId!, caseId, dispatch);
           let allFinished = true;
           for (let i = 0; i < documentStatusList.length; i++) {
             const status = documentStatusList[i];
             if (status.status !== "Success") {
               allFinished = false;
-            } else if (!generatedDocuments[i] || !generatedDocuments[i].document) {
-              downloadDocument(status.presignedUrl, { ...status }).then(doc => {
-                updateGeneratedDocumentStatus(documentStatusList, dispatch, doc.document);
-              });
             }
           }
           return allFinished;

@@ -43,8 +43,9 @@ export function updateApplicationCaseFunc(
 
 export function updateGeneratedDocumentStatus(
   taskList: DocumentGenerationTaskStatus[],
+  userId: number,
+  caseId: number,
   dispatch: React.Dispatch<any>,
-  args?: { document?: any; index?: number },
 ) {
   const generartedDocumentList = taskList.map((task, index) => {
     return {
@@ -53,8 +54,12 @@ export function updateGeneratedDocumentStatus(
       status: task.status,
       createdAt: task.createdAt,
       updatedAt: task.updatedAt,
-      presignedUrl: task.presignedUrl,
-      document: args?.index === index ? args?.document : null,
+      presignUrl: task.presignedUrl,
+      userId: userId,
+      caseId: caseId,
+      identify: "Applicant",
+      type: "",
+      createdBy: "Applicant",
     } as GeneratedDocument;
   });
   dispatch(updateGeneratedDocuments(generartedDocumentList));
