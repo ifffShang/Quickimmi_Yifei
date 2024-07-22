@@ -137,7 +137,7 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
                   >
                     {t("Use")}
                   </Button>
-                  <Button type="primary" onClick={refineText} className="text-area-button" icon={<RetweetOutlined />}>
+                  <Button type="primary" onClick={refineText} className="text-area-button" icon={<AiIcon />}>
                     {t("Rewrite")}
                   </Button>
                   <CloseSquareOutlined onClick={discardRefinedText} className="text-area-button-discard" />
