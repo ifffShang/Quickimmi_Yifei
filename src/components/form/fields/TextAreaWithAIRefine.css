@@ -39,7 +39,7 @@
   align-items: center;
 }
 .text-area-button-discard {
-  font-size: 18px;
+  font-size: 28px;
   color: var(--gray-color-2);
   border-radius: 5px;
   margin-left: auto;
@@ -47,7 +47,7 @@
   transition: color 0.3s ease-in-out;
 }
 .text-area-button-discard:hover {
-  color: var(--gray-color-1);
+  color: var(--danger-color);
 }
 
 .text-area-input {
