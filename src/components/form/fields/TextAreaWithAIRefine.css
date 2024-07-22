@@ -29,7 +29,7 @@
   cursor: pointer;
 }
 .text-area-button-discard {
-  font-size: 28px;
+  font-size: 18px;
   color: var(--gray-color-2);
   border-radius: 5px;
   margin-left: auto;
@@ -37,7 +37,7 @@
   transition: color 0.3s ease-in-out;
 }
 .text-area-button-discard:hover {
-  color: red;
+  color: var(--gray-color-1);
 }
 
 .text-area-input {
