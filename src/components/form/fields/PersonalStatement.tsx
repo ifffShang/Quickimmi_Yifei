@@ -204,7 +204,7 @@ export function PersonalStatement(props: PersonalStatementProps) {
           <div className="ps-text-area-after">
             <div className="ps-text-area-refined-buttons">
               <QText level="normal bold" margin="margin-5" color="gray">
-                {t("ChineseVersion")}
+                {t("OriginalLanguageVersion")}
               </QText>
               <Button
                 type="primary"

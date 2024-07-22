@@ -307,7 +307,7 @@
   "OtherFluentLanguages": "添加另一种你能流利说的语言",
 
   "UploadSpousePassportOrOtherID": "上传配偶的护照或其他身份证明",
-  "Change document": "替换上传文件",
+  "UploadMarriageCertificate": "上传结婚证书",
   "SpouseIsInUS": "配偶是否在美国?",
   "SpousePartnerApplication": "配偶/伴侣申请",
   "Male": "男",
@@ -408,6 +408,7 @@
   "MailingAddressSameAsResidentialAddress": "邮寄地址与居住地址相同",
 
   "I94": "I-94",
+  "UploadI94Document": "上传I-94文件",
   "WhenLastLeaveCountry": "您上次离开您的国家是什么时候？",
   "EntryRecordsDescription": "列出每次进入美国的记录，从最近的记录开始。对于每次进入，列出日期（mm/dd/yyyy）、地点和您的身份。（如有需要，请附加额外的表格。）",
   "EntryRecords": "入境记录",
@@ -442,6 +443,9 @@
   "HaveCommittedCrime": "您或申请中包括的任何家庭成员是否曾在美国犯下任何罪行和/或被逮捕、被控、被定罪或被判刑（包括移民法违规）？",
   "ExplainHaveCommittedCrime": "如果是\"是\"，请在回答中具体说明每个情况：发生了什么和情况、日期、判刑长度、地点、拘留或监禁的持续时间、拘留或定罪的原因、针对您或您申请中的亲属提出的任何正式指控以及释放的原因。如果有相关文件，请附上这些事件的文件；如果没有文件，请解释为什么没有文件。",
   "UploadSupportingDocuments": "证据上传",
+  "EnglishVersion": "英文版本",
+  "OriginalLanguageVersion": "原文版本",
+  "ReTranslate": "重新翻译",
 
   "Signature": "签名",
   "PrintCompleteName": "你的完整姓名",

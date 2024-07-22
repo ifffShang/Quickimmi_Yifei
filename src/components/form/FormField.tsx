@@ -517,6 +517,7 @@ export function FormField(props: FormFieldProps) {
           />
         </FormControlContainer>
       );
+    
     case "component_add_item":
       return <AddItemControl className={props.className} placeholder={placeholder} onClick={() => onAddItemClick()} />;
     case "group":
