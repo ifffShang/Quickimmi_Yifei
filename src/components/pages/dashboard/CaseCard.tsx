@@ -81,15 +81,19 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
     let color = "black";
     let backgroundColor = "#ffffff";
 
-    if (caseData.currentStep === "FILLING_APPLICATION" || caseData.currentStep === "REVIEW_AND_SIGN") {
+    if (caseData.currentStep === "FILLING_APPLICATION") {
       status = "DRAFT";
       color = "#27AE60";
       backgroundColor = "rgba(39, 174, 96, 0.2)";
-    } else if (caseData.currentStep === "SUBMIT_APPLICATION") {
+    } else if (caseData.currentStep === "REVIEW_AND_SIGN") {
       status = "REVIEW";
       color = "rgba(242,153,74,255)";
       backgroundColor = "rgba(252,235,219,255)";
-    } else if (caseData.currentStep === "FINGERPRINT_INTERVIEW" || caseData.currentStep === "FINAL_RESULT") {
+    } else if (
+      caseData.currentStep === "FINGERPRINT_INTERVIEW" ||
+      caseData.currentStep === "FINAL_RESULT" ||
+      caseData.currentStep === "SUBMIT_APPLICATION"
+    ) {
       status = "SUBMIT";
       color = "rgba(47,128,236,255)";
       backgroundColor = "rgba(213,230,251,255)";
@@ -125,6 +129,9 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
         <p className="case-card-status" style={{ color, backgroundColor }}>
           {t(status)}
         </p>
+        {/* <p className="case-card-id" >
+          <QText level="normal bold" color="gray">{caseData.id}</QText>
+        </p> */}
         <div className="case-card-icon-background">
           <CaseIcon />
         </div>
@@ -167,8 +174,10 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
           <div className="case-card-progress">
             <div className="case-card-progress-inner" style={{ width: `${caseData.overallPercentage}%` }}></div>
             <div className="case-card-progress-text">
-              <QText level="small" color="gray">
-                Completion: {caseData.overallPercentage}%
+              <QText level="normal" color="gray">
+                {caseData.overallPercentage === 100
+                  ? t("LawyerReview")
+                  : `${t("Completion")}: ${caseData.overallPercentage}%`}
               </QText>
             </div>
           </div>
