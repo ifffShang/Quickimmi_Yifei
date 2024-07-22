@@ -110,6 +110,14 @@ export function Dashboard() {
     navigate({ search: query.toString() });
   };
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    if (e.target.value === "") {
+      const filteredCases = applySearchAndFilter(cases, "", sortOption, sortOrder);
+      setFilteredCases(filteredCases);
+    }
+  };
+
   const handleSearch = (query: string) => {
     setSearchQuery(query);
     const filteredCases = applySearchAndFilter(cases, query, sortOption, sortOrder);
@@ -197,7 +205,7 @@ export function Dashboard() {
       <div className="dashboard-toolbar">
         <Input
           value={searchQuery}
-          onChange={e => setSearchQuery(e.target.value)}
+          onChange={handleSearchChange}
           placeholder={t("Dashboard.SearchByCaseNameOrCaseId")}
           prefix={<SearchOutlined />}
           className="dashboard-search-input"

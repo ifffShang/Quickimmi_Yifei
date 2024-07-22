@@ -16,6 +16,16 @@
   border-top-right-radius: 10px;
   background-color: var(--primary-color-trans1);
 }
+.case-card-id {
+  font-size: 14px;
+  position: absolute;
+  text-align: center;
+  width: 50px;
+  margin: 0;
+  padding: 5px 10px;
+  border-top-left-radius: 10px;
+  background-color: var(--gray-color-3);
+}
 
 .case-card-content {
   padding: 10px 30px 20px 40px;
@@ -61,11 +71,13 @@
 }
 
 .case-card-progress {
-  width: 150px;
+  width: 170px;
   position: relative;
   background-color: var(--gray-color-4);
   padding: 5px 10px;
+  border: 1px solid var(--gray-color-3);
   border-radius: 5px;
+  justify-self: center;
 }
 
 .case-card-progress-inner {

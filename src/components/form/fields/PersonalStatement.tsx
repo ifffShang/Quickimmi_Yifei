@@ -1,12 +1,13 @@
 import { QText } from "../../common/Fonts";
-import { EditOutlined } from "@ant-design/icons";
+import type { GetProps } from "antd";
+import Icon, { EditOutlined, TranslationOutlined } from "@ant-design/icons";
 import { Button, Input, InputRef, message, Spin } from "antd";
 import { useAppSelector } from "../../../app/hooks";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { generatePersonalStatementApi, translatePersonalStatementToOriginalLanguageApi } from "../../../api/caseAPI";
-import "./PersonalStatement.css";
 import { LanguageEnum } from "../../../model/commonModels";
+import "./PersonalStatement.css";
 
 export interface PersonalStatementProps {
   placeholder: string;
@@ -30,35 +31,33 @@ export function PersonalStatement(props: PersonalStatementProps) {
   const [translatedValue, setTranslatedValue] = useState("");
 
   useEffect(() => {
-    if (props.value === "N/A") {
+    if (props.value === "") {
       setValue("");
     } else {
       try {
         const { englishPS, translatedPS } = parseCombinedPersonalStatements(props.value);
         setValue(englishPS);
         setTranslatedValue(translatedPS);
-        setShowTranslatedArea(true);
+        setShowTranslatedArea(translatedPS !== "");
       } catch (error) {
-        setValue(props.value);
+        setValue("");
         setTranslatedValue("");
-        setShowTranslatedArea(false);
-        setIsOriginalLoading(false);
         setShowTranslatedArea(false);
         message.error("Failed to display the stored personal statement.");
       }
     }
   }, [props.value]);
 
-  const onTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>, isOriginal: boolean) => {
+  const onTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>, isEnglishPs: boolean) => {
     if (props.disabled) return;
     const cursorPosition = e.target.selectionStart;
-    if (isOriginal) {
-      const value = props.onChange(e.target.value);
-      setValue(value);
-      savePersonalStatement(value, translatedValue);
+    const newValue = e.target.value;
+    if (isEnglishPs) {
+      setValue(newValue);
+      savePersonalStatement(newValue, translatedValue);
     } else {
-      setTranslatedValue(e.target.value);
-      savePersonalStatement(value, e.target.value);
+      setTranslatedValue(newValue);
+      savePersonalStatement(value, newValue);
     }
     if (inputRef.current) {
       const inputElement = inputRef.current as unknown as HTMLInputElement;
@@ -74,6 +73,22 @@ export function PersonalStatement(props: PersonalStatementProps) {
     props.onChange(combinedPS);
   };
 
+  const combinePersonalStatements = (englishPS: string, translatedPS: string, originLanguage: string) => {
+    const combinedPS = {
+      personalStatements: [
+        {
+          language: LanguageEnum.ENGLISH.toUpperCase(),
+          content: englishPS,
+        },
+        {
+          language: originLanguage.toUpperCase(),
+          content: translatedPS,
+        },
+      ],
+    };
+    return JSON.stringify(combinedPS);
+  };
+
   const generatePersonalStatement = async () => {
     if (!accessToken) {
       console.error("Access token is not available");
@@ -82,6 +97,7 @@ export function PersonalStatement(props: PersonalStatementProps) {
     try {
       setIsOriginalLoading(true);
       const ps = await generatePersonalStatementApi(accessToken, role, caseId, LanguageEnum.ENGLISH.toUpperCase());
+
       setValue(ps);
       setIsOriginalLoading(false);
       savePersonalStatement(ps, translatedValue);
@@ -97,8 +113,8 @@ export function PersonalStatement(props: PersonalStatementProps) {
       return;
     }
     try {
-      setIsTranslatedLoading(true);
       setShowTranslatedArea(true);
+      setIsTranslatedLoading(true);
       const translatedPs = await translatePersonalStatementToOriginalLanguageApi(
         accessToken,
         role,
@@ -106,37 +122,27 @@ export function PersonalStatement(props: PersonalStatementProps) {
         value,
         props.originLanguage.toUpperCase(),
       );
+
       setTranslatedValue(translatedPs);
       savePersonalStatement(value, translatedPs);
       setIsTranslatedLoading(false);
     } catch (error) {
-      console.error("Failed to translate personal statement:", error);
+      setIsTranslatedLoading(false);
+      message.error("Failed to translate personal statement. Please try again.");
     }
-  };
-
-  const combinePersonalStatements = (englishPS, translatedPS, originLanguage) => {
-    const combinedPS = {
-      personalStatements: [
-        {
-          language: LanguageEnum.ENGLISH,
-          content: englishPS,
-        },
-        {
-          language: originLanguage,
-          content: translatedPS,
-        },
-      ],
-    };
-    return JSON.stringify(combinedPS);
   };
 
   const parseCombinedPersonalStatements = combinedPSString => {
     console.log("----------------getting combinedPSString value", combinedPSString);
     const combinedPS = JSON.parse(combinedPSString);
     console.log("----------------parsed json", combinedPS);
-    const englishPS = combinedPS.personalStatements.find(ps => ps.language === LanguageEnum.ENGLISH).content;
+    const englishPS = combinedPS.personalStatements.find(
+      ps => ps.language === LanguageEnum.ENGLISH.toUpperCase(),
+    ).content;
     console.log("----------------english ps", englishPS);
-    const translatedPS = combinedPS.personalStatements.find(ps => ps.language === props.originLanguage).content;
+    const translatedPS = combinedPS.personalStatements.find(
+      ps => ps.language === props.originLanguage.toUpperCase(),
+    ).content;
     console.log("----------------translated ps", translatedPS);
     return { englishPS, translatedPS };
   };
@@ -147,6 +153,17 @@ export function PersonalStatement(props: PersonalStatementProps) {
     padding: 50,
   };
   const content = <div style={spinStyle} />;
+  type CustomIconComponentProps = GetProps<typeof Icon>;
+  const AiSvg = () => (
+    <svg width="26" height="26" viewBox="0 0 26 26" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <g transform="scale(1.3)">
+        <path d="M7.4967 4.08141C7.79742 3.17638 9.07758 3.17638 9.3783 4.08141L10.1359 6.36135C10.2316 6.64947 10.4541 6.87784 10.7396 6.98106L13.0462 7.81499C13.9186 8.1304 13.9186 9.36422 13.0462 9.67963L10.7396 10.5136C10.4541 10.6168 10.2316 10.8451 10.1359 11.1333L9.3783 13.4132C9.07758 14.3182 7.79742 14.3182 7.4967 13.4132L6.73913 11.1333C6.6434 10.8451 6.42092 10.6168 6.1354 10.5136L3.82877 9.67963C2.95636 9.36421 2.95636 8.1304 3.82877 7.81499L6.1354 6.98106C6.42092 6.87784 6.6434 6.64947 6.73913 6.36135L7.4967 4.08141Z" />
+        <path d="M13.5095 12.2197C13.6984 11.6871 14.4516 11.6871 14.6405 12.2197L14.9147 12.9928C14.9732 13.1578 15.1008 13.2889 15.264 13.352L16.0754 13.6653C16.5872 13.8629 16.5872 14.5871 16.0754 14.7847L15.264 15.098C15.1008 15.1611 14.9732 15.2922 14.9147 15.4572L14.6405 16.2303C14.4516 16.7629 13.6984 16.7629 13.5095 16.2303L13.2353 15.4572C13.1768 15.2922 13.0492 15.1611 12.886 15.098L12.0746 14.7847C11.5628 14.5871 11.5628 13.8629 12.0746 13.6653L12.886 13.352C13.0492 13.2889 13.1768 13.1578 13.2353 12.9928L13.5095 12.2197Z" />
+      </g>
+    </svg>
+  );
+
+  const AiIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={AiSvg} {...props} />;
 
   return (
     <div>
@@ -158,11 +175,11 @@ export function PersonalStatement(props: PersonalStatementProps) {
                 {t("EnglishVersion")}
               </QText>
               <Button
-                type="default"
+                type="primary"
                 onClick={generatePersonalStatement}
                 className="ps-text-area-button"
                 disabled={isOriginalLoading}
-                icon={<EditOutlined />}
+                icon={<AiIcon />}
               >
                 {t("Rewrite")}
               </Button>
@@ -190,11 +207,11 @@ export function PersonalStatement(props: PersonalStatementProps) {
                 {t("ChineseVersion")}
               </QText>
               <Button
-                type="default"
+                type="primary"
                 onClick={translatePersonalStatement}
                 className="ps-text-area-button"
                 disabled={isTranslatedLoading}
-                icon={<EditOutlined />}
+                icon={<TranslationOutlined />}
               >
                 {t("ReTranslate")}
               </Button>
@@ -226,31 +243,31 @@ export function PersonalStatement(props: PersonalStatementProps) {
                   {t("EnglishVersion")}
                 </QText>
                 <Button
-                  type="default"
+                  type="primary"
                   onClick={generatePersonalStatement}
                   className="ps-text-area-button"
                   disabled={isOriginalLoading}
-                  icon={<EditOutlined />}
+                  icon={<AiIcon />}
                 >
                   {t("Rewrite")}
                 </Button>
                 <Button
-                  type="default"
+                  type="primary"
                   onClick={translatePersonalStatement}
                   className="ps-text-area-button"
                   disabled={isOriginalLoading}
-                  icon={<EditOutlined />}
+                  icon={<TranslationOutlined style={{ fontSize: 20 }} />}
                 >
                   {t("TranslateToOriginalLanguage")}
                 </Button>
               </div>
             ) : (
               <Button
-                type="default"
+                type="primary"
                 onClick={generatePersonalStatement}
                 className="ps-text-area-button"
                 disabled={isOriginalLoading}
-                icon={<EditOutlined />}
+                icon={<AiIcon />}
               >
                 Write your Personal Statement with AI
               </Button>
