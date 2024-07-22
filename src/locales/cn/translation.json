@@ -158,6 +158,10 @@
   "DRAFT": "草稿",
   "REVIEW": "审核中",
   "SUBMIT": "递交",
+  "Completion": "完成度",
+  "LawyerReview": "律师审核中",
+  "TranslateToOriginalLanguage": "翻译成中文",
+
 
   "Asylum": "庇护",
   "AFFIRMATIVE": "主动庇护",
