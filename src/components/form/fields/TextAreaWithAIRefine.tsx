@@ -1,7 +1,7 @@
 import { QText } from "../../common/Fonts";
 import { Button, InputRef, Input, Spin } from "antd";
 import Icon, { CheckOutlined, RetweetOutlined, CloseSquareOutlined } from "@ant-design/icons";
-import type { GetProps } from 'antd';
+import type { GetProps } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { refineApi } from "../../../api/caseAPI";
 import React, { useRef, useState, useEffect } from "react";
@@ -36,7 +36,7 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
     if (value === "") {
       discardRefinedText();
     } else {
-    setRefineAreaValue(value);
+      setRefineAreaValue(value);
     }
   };
 
@@ -96,18 +96,13 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
   const AiSvg = () => (
     <svg width="26" height="26" viewBox="0 0 26 26" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
       <g transform="scale(1.3)">
-        <path d="M7.4967 4.08141C7.79742 3.17638 9.07758 3.17638 9.3783 4.08141L10.1359 6.36135C10.2316 6.64947 10.4541 6.87784 10.7396 6.98106L13.0462 7.81499C13.9186 8.1304 13.9186 9.36422 13.0462 9.67963L10.7396 10.5136C10.4541 10.6168 10.2316 10.8451 10.1359 11.1333L9.3783 13.4132C9.07758 14.3182 7.79742 14.3182 7.4967 13.4132L6.73913 11.1333C6.6434 10.8451 6.42092 10.6168 6.1354 10.5136L3.82877 9.67963C2.95636 9.36421 2.95636 8.1304 3.82877 7.81499L6.1354 6.98106C6.42092 6.87784 6.6434 6.64947 6.73913 6.36135L7.4967 4.08141Z" 
-        />
-        <path d="M13.5095 12.2197C13.6984 11.6871 14.4516 11.6871 14.6405 12.2197L14.9147 12.9928C14.9732 13.1578 15.1008 13.2889 15.264 13.352L16.0754 13.6653C16.5872 13.8629 16.5872 14.5871 16.0754 14.7847L15.264 15.098C15.1008 15.1611 14.9732 15.2922 14.9147 15.4572L14.6405 16.2303C14.4516 16.7629 13.6984 16.7629 13.5095 16.2303L13.2353 15.4572C13.1768 15.2922 13.0492 15.1611 12.886 15.098L12.0746 14.7847C11.5628 14.5871 11.5628 13.8629 12.0746 13.6653L12.886 13.352C13.0492 13.2889 13.1768 13.1578 13.2353 12.9928L13.5095 12.2197Z" 
-        />
+        <path d="M7.4967 4.08141C7.79742 3.17638 9.07758 3.17638 9.3783 4.08141L10.1359 6.36135C10.2316 6.64947 10.4541 6.87784 10.7396 6.98106L13.0462 7.81499C13.9186 8.1304 13.9186 9.36422 13.0462 9.67963L10.7396 10.5136C10.4541 10.6168 10.2316 10.8451 10.1359 11.1333L9.3783 13.4132C9.07758 14.3182 7.79742 14.3182 7.4967 13.4132L6.73913 11.1333C6.6434 10.8451 6.42092 10.6168 6.1354 10.5136L3.82877 9.67963C2.95636 9.36421 2.95636 8.1304 3.82877 7.81499L6.1354 6.98106C6.42092 6.87784 6.6434 6.64947 6.73913 6.36135L7.4967 4.08141Z" />
+        <path d="M13.5095 12.2197C13.6984 11.6871 14.4516 11.6871 14.6405 12.2197L14.9147 12.9928C14.9732 13.1578 15.1008 13.2889 15.264 13.352L16.0754 13.6653C16.5872 13.8629 16.5872 14.5871 16.0754 14.7847L15.264 15.098C15.1008 15.1611 14.9732 15.2922 14.9147 15.4572L14.6405 16.2303C14.4516 16.7629 13.6984 16.7629 13.5095 16.2303L13.2353 15.4572C13.1768 15.2922 13.0492 15.1611 12.886 15.098L12.0746 14.7847C11.5628 14.5871 11.5628 13.8629 12.0746 13.6653L12.886 13.352C13.0492 13.2889 13.1768 13.1578 13.2353 12.9928L13.5095 12.2197Z" />
       </g>
     </svg>
   );
 
-  const AiIcon = (props: Partial<CustomIconComponentProps>) => (
-    <Icon component={AiSvg} {...props} />
-  );
-
+  const AiIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={AiSvg} {...props} />;
 
   return (
     <div>
@@ -142,18 +137,10 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
                   >
                     {t("Use")}
                   </Button>
-                  <Button
-                    type="primary"
-                    onClick={refineText}
-                    className="text-area-button"
-                    icon={<RetweetOutlined />}
-                  >
+                  <Button type="primary" onClick={refineText} className="text-area-button" icon={<RetweetOutlined />}>
                     {t("Rewrite")}
                   </Button>
-                  <CloseSquareOutlined
-                    onClick={discardRefinedText}
-                    className="text-area-button-discard"
-                  />
+                  <CloseSquareOutlined onClick={discardRefinedText} className="text-area-button-discard" />
                 </div>
                 <TextArea
                   rows={8}
