@@ -3,6 +3,7 @@ import { Button } from "antd";
 import { useEffect, useState } from "react";
 import { EntryRecord } from "../../../model/apiModels";
 import { QDatePicker, QTextBox } from "./Controls";
+import { TextboxWithNA } from "./TextboxWithNA";
 import "./EntryRecords.css";
 import { useTranslation } from "react-i18next";
 import { QText } from "../../common/Fonts";
@@ -111,21 +112,20 @@ export function EntryRecords(props: EntryRecordsProps) {
               return value;
             }}
           />
-          <QTextBox
-            value={record.status}
+          <TextboxWithNA
             placeholder={t("Status")}
+            value={record.status}
+            notApplicableText={t("N/A")}
             onChange={(value: string) => {
               const newRecords = [...records];
               newRecords[index].status = value;
               setRecords(newRecords);
-              props.onChange(
-                newRecords.map(r => ({
-                  date: r.date,
-                  city: r.city,
-                  state: r.state,
-                  status: r.status,
-                })),
-              );
+              props.onChange(newRecords.map(r => ({
+                date: r.date,
+                city: r.city,
+                state: r.state,
+                status: r.status,
+              })));
               return value;
             }}
           />
