@@ -89,11 +89,17 @@ const CaseDocumentRightPanel: React.FC = () => {
   const [documentToDelete, setDocumentToDelete] = useState<{ id: number; name: string } | null>(null);
   const [documentTypes, setDocumentTypes] = useState<DocumentType[]>([]);
   const [onDropFileCount, setOnDropFileCount] = useState(0);
-  // Update the search query state and URL when the search input changes
+
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
+    if (e.target.value.trim() === "") {
+      const queryParams = new URLSearchParams(location.search);
+      queryParams.delete("search");
+      navigate({ search: queryParams.toString() });
+      setFilteredDocuments(documents);
+    }
   };
-  // Apply the search filter and update the URL
+
   const handleSearch = () => {
     const queryParams = new URLSearchParams(location.search);
     if (searchQuery) {
@@ -103,7 +109,6 @@ const CaseDocumentRightPanel: React.FC = () => {
     }
     navigate(`?${queryParams.toString()}`);
 
-    // Filter documents based on the search query
     if (searchQuery.trim() === "") {
       setFilteredDocuments(documents);
     } else {
@@ -266,17 +271,6 @@ const CaseDocumentRightPanel: React.FC = () => {
   const handleModalCancel = () => {
     setIsModalVisible(false);
     setCurrentFile(null);
-  };
-
-  const handleClearSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const query = e.target.value;
-    setSearchQuery(query);
-    if (query.trim() === "") {
-      const queryParams = new URLSearchParams(location.search);
-      queryParams.delete("search");
-      navigate({ search: queryParams.toString() });
-      setFilteredDocuments(documents);
-    }
   };
 
   const fetchDocumentTypes = async () => {
