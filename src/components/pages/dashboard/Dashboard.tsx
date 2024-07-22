@@ -116,7 +116,7 @@ export function Dashboard() {
       const filteredCases = applySearchAndFilter(cases, "", sortOption, sortOrder);
       setFilteredCases(filteredCases);
     }
-  }
+  };
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);

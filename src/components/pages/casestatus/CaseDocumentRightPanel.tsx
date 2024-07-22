@@ -92,14 +92,14 @@ const CaseDocumentRightPanel: React.FC = () => {
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
-    if(e.target.value.trim() === "") {
+    if (e.target.value.trim() === "") {
       const queryParams = new URLSearchParams(location.search);
       queryParams.delete("search");
       navigate({ search: queryParams.toString() });
       setFilteredDocuments(documents);
     }
   };
-  
+
   const handleSearch = () => {
     const queryParams = new URLSearchParams(location.search);
     if (searchQuery) {
