@@ -1,5 +1,5 @@
 import { QText } from "../../common/Fonts";
-import { EditOutlined } from "@ant-design/icons";
+import { EditOutlined, TranslationOutlined } from "@ant-design/icons";
 import { Button, Input, InputRef, message, Spin } from "antd";
 import { useAppSelector } from "../../../app/hooks";
 import React, { useEffect, useRef, useState } from "react";
@@ -95,13 +95,8 @@ export function PersonalStatement(props: PersonalStatementProps) {
     }
     try {
       setIsOriginalLoading(true);
-      const ps = await generatePersonalStatementApi(
-        accessToken, 
-        role, 
-        caseId, 
-        LanguageEnum.ENGLISH.toUpperCase()
-      );
-      
+      const ps = await generatePersonalStatementApi(accessToken, role, caseId, LanguageEnum.ENGLISH.toUpperCase());
+
       setValue(ps);
       setIsOriginalLoading(false);
       savePersonalStatement(ps, translatedValue);
@@ -140,9 +135,13 @@ export function PersonalStatement(props: PersonalStatementProps) {
     console.log("----------------getting combinedPSString value", combinedPSString);
     const combinedPS = JSON.parse(combinedPSString);
     console.log("----------------parsed json", combinedPS);
-    const englishPS = combinedPS.personalStatements.find(ps => ps.language === LanguageEnum.ENGLISH.toUpperCase()).content;
+    const englishPS = combinedPS.personalStatements.find(
+      ps => ps.language === LanguageEnum.ENGLISH.toUpperCase(),
+    ).content;
     console.log("----------------english ps", englishPS);
-    const translatedPS = combinedPS.personalStatements.find(ps => ps.language === props.originLanguage.toUpperCase()).content;
+    const translatedPS = combinedPS.personalStatements.find(
+      ps => ps.language === props.originLanguage.toUpperCase(),
+    ).content;
     console.log("----------------translated ps", translatedPS);
     return { englishPS, translatedPS };
   };
@@ -245,7 +244,7 @@ export function PersonalStatement(props: PersonalStatementProps) {
                   onClick={translatePersonalStatement}
                   className="ps-text-area-button"
                   disabled={isOriginalLoading}
-                  icon={<EditOutlined />}
+                  icon={<TranslationOutlined />}
                 >
                   {t("TranslateToOriginalLanguage")}
                 </Button>
