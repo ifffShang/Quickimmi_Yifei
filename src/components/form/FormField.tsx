@@ -330,7 +330,7 @@ export function FormField(props: FormFieldProps) {
       );
     case "multi_file_uploader":
       return (
-        <FormControlContainer fieldValue={fieldValue}>
+        <FormControlContainer fieldValue={fieldValue} fieldKey={props.fieldKey}>
           <MultiFileUploader
             documentType={props.documentType || "SUPPORTING_DOCUMENT"}
             identity={"Applicant"}

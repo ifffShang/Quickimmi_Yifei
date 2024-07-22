@@ -19,7 +19,11 @@ export function Status({ status }: StatusProps) {
         Failed
       </QText>
     );
+  } else if (status === "Skipped") {
+    return <QText level="xsmall" color="gray">Skipped</QText>;
+  } else if (status === "Timeout") {
+    return <QText level="xsmall" color="gray">Timeout</QText>;
   } else {
-    return <div>Unknown</div>;
+    return <QText level="xsmall">Unknown</QText>;
   }
 }

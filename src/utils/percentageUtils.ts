@@ -151,7 +151,7 @@ export function getPercentage(
       fieldValue = getFieldValue(profile, field.key, field.control, field.options, field.format, index);
 
       if (isArray(fieldValue)) {
-        // For array of objects like entry records
+        // For array of objects like entry records, we need to calculate the fields in each array item
         fieldValue.forEach((item: any) => {
           isObject(item) &&
             Object.keys(item).forEach(key => {
@@ -161,6 +161,12 @@ export function getPercentage(
               total++;
             });
         });
+
+        // For passportStampPageDocumentIds, if it is empty, it means it is not filled
+        // TODO: need a better way to handle the required fields
+        if (field.key.indexOf("passportStampPageDocumentIds") > -1 && fieldValue.length === 0) {
+          total++;
+        }
       } else {
         if (fieldValue !== null && fieldValue !== undefined && fieldValue !== "") {
           // If passportDocumentId is 0, it means it is not filled

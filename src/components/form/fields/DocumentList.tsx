@@ -6,21 +6,20 @@ import {
   generateDocumentsByDocumentTypeApi,
   generatePresignedUrlByDocumentId,
   getDocumentByIdApi,
-  retryGetDocumentGenerationTaskStatusApi,
+  retryGetDocumentsApi,
   updateDocumentStatus,
   uploadFileToPresignUrl,
 } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useDocumentsOnLoad } from "../../../hooks/commonHooks";
+import { GeneratedDocument } from "../../../model/apiModels";
+import { DocumentGenerationTaskStatus } from "../../../model/apiReqResModels";
 import { DocumentType, DocumentTypeMap } from "../../../model/commonModels";
 import { clearDocumentUrls, updateGeneratedDocuments } from "../../../reducers/formSlice";
-import { updateGeneratedDocumentStatus } from "../../../utils/functionUtils";
 import { updateCaseProgress } from "../../../utils/progressUtils";
 import { downloadDocument } from "../../../utils/utils";
-import "./DocumentList.css";
-import { DocumentGenerationTaskStatus } from "../../../model/apiReqResModels";
 import { Status } from "../parts/Status";
-import { GeneratedDocument } from "../../../model/apiModels";
+import "./DocumentList.css";
 
 interface DataType {
   key: number;
@@ -150,34 +149,33 @@ export function DocumentList() {
     }
     setLoading(true);
     try {
-      const docGenerationTaskList = await generateDocumentsByDocumentTypeApi(accessToken, caseId, "ALL", role);
-      if (docGenerationTaskList) {
-        const taskIds = docGenerationTaskList.map(task => task.taskId);
-        retryGetDocumentGenerationTaskStatusApi(accessToken, taskIds, role, documentStatusList => {
-          setLoading(false);
-          updateGeneratedDocumentStatus(documentStatusList, userId!, caseId, dispatch);
-          let allFinished = true;
-          for (let i = 0; i < documentStatusList.length; i++) {
-            const status = documentStatusList[i];
-            if (status.status !== "Success") {
-              allFinished = false;
-            }
-          }
-          return allFinished;
-        }).then(documentStatusList => {
-          fetchGeneratedDocuments(documentStatusList);
-          markLawyerReviewAsCompleted();
-          setLoading(false);
-        });
-      } else {
-        console.error("Document generation failed");
+      await generateDocumentsByDocumentTypeApi(accessToken, caseId, "ALL", role);
+
+      await retryGetDocumentsApi(accessToken, caseId, role, (documents, timeout) => {
+        if (timeout) {
+          console.error("Document generation timeout.");
+        }
         setLoading(false);
-      }
+        const documentsToUpdate = [...documents];
+        let allFinished = true;
+        for (let i = 0; i < documentsToUpdate.length; i++) {
+          const status = documentsToUpdate[i];
+          if (status.status !== "Success") {
+            allFinished = false;
+          }
+        }
+        dispatch(updateGeneratedDocuments(documentsToUpdate));
+        return allFinished;
+      });
+
+      markLawyerReviewAsCompleted();
+      setLoading(false);
     } catch (error) {
       console.error("Error generating documents: ", error);
       setLoading(false);
     }
   };
+
   const markLawyerReviewAsCompleted = async () => {
     if (!accessToken || !caseId) {
       message.error("Access token or CaseId is missing");
@@ -219,7 +217,7 @@ export function DocumentList() {
         uploadFileToPresignUrl(
           presignedUrl,
           file,
-          (percent: number) => {},
+          (_percent: number) => {},
           () => {
             updateDocumentStatus(role, documentId, true, "UPLOADED", accessToken).then(isSuccessful => {
               if (isSuccessful) {
@@ -249,25 +247,30 @@ export function DocumentList() {
         key: doc.id,
         filename: (
           <div>
-            <a
-              href="#"
-              onClick={async e => {
-                e.preventDefault();
-                if (!accessToken) {
-                  message.error("Access token missing. Please login again.");
-                  return;
-                }
-                try {
-                  const document = await getDocumentByIdApi(accessToken, doc.id, role);
-                  window.open(document.presignUrl, "_blank");
-                } catch (error) {
-                  console.error("Failed to fetch document:", error);
-                  message.error("Failed to fetch document. Please try again.");
-                }
-              }}
-            >
-              {doc.name}
-            </a>
+            {doc.status === "Success" ? (
+              <a
+                href="#"
+                onClick={async e => {
+                  e.preventDefault();
+                  if (!accessToken) {
+                    message.error("Access token missing. Please login again.");
+                    return;
+                  }
+                  try {
+                    const document = await getDocumentByIdApi(accessToken, doc.id, role);
+                    const downloadedDocument = await downloadDocument(document.presignUrl, { ...document });
+                    window.open(downloadedDocument.presignUrl, "_blank");
+                  } catch (error) {
+                    console.error("Failed to fetch document:", error);
+                    message.error("Failed to fetch document. Please try again.");
+                  }
+                }}
+              >
+                {doc.name}
+              </a>
+            ) : (
+              doc.name
+            )}
           </div>
         ),
         status: <Status status={doc.status} />,

@@ -1,6 +1,6 @@
 import { updateApplicationCaseApi } from "../api/caseAPI";
 import { Role } from "../consts/consts";
-import { AsylumCaseProfile, GeneratedDocument, Percentage, Progress } from "../model/apiModels";
+import { AsylumCaseProfile, GeneratedDocument, Percentage, Progress, UploadedDocument } from "../model/apiModels";
 import { DocumentGenerationTaskStatus } from "../model/apiReqResModels";
 import { updateGeneratedDocuments } from "../reducers/formSlice";
 import { getProgressWithPercentage } from "./percentageUtils";
@@ -39,28 +39,4 @@ export function updateApplicationCaseFunc(
     console.error("Error updating application case: ", error);
     throw error;
   }
-}
-
-export function updateGeneratedDocumentStatus(
-  taskList: DocumentGenerationTaskStatus[],
-  userId: number,
-  caseId: number,
-  dispatch: React.Dispatch<any>,
-) {
-  const generartedDocumentList = taskList.map((task, index) => {
-    return {
-      id: task.id,
-      name: task.formName,
-      status: task.status,
-      createdAt: task.createdAt,
-      updatedAt: task.updatedAt,
-      presignUrl: task.presignedUrl,
-      userId: userId,
-      caseId: caseId,
-      identify: "Applicant",
-      type: "",
-      createdBy: "Applicant",
-    } as GeneratedDocument;
-  });
-  dispatch(updateGeneratedDocuments(generartedDocumentList));
 }

@@ -1,12 +1,11 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { getDocumentByIdApi, getDocumentsApi } from "../api/caseAPI";
-import { clearDocumentUrls, updateUploadedDocuments } from "../reducers/formSlice";
+import { getDocumentsApi } from "../api/caseAPI";
+import { Role } from "../consts/consts";
+import { GetDocumentsAdditionalParams } from "../model/apiReqResModels";
+import { clearDocumentUrls } from "../reducers/formSlice";
 import { arrayMapper } from "../utils/mapper";
 import { textParser } from "../utils/parsers";
-import { downloadDocument } from "../utils/utils";
-import { Role } from "../consts/consts";
-import { DocumentType } from "../model/commonModels";
 
 export function useFormTranslation() {
   const { t, i18n } = useTranslation();
@@ -40,7 +39,7 @@ export interface GetDocumentsOnLoadParams {
   dispatch: Dispatch<any>;
   onSuccess: (uploadedDocs: any[]) => void;
   replaceLoading: boolean;
-  documentType?: DocumentType;
+  additionalParams?: GetDocumentsAdditionalParams;
 }
 
 export function useDocumentsOnLoad(params: GetDocumentsOnLoadParams) {
@@ -56,7 +55,7 @@ export function useDocumentsOnLoad(params: GetDocumentsOnLoadParams) {
 
     params.setLoading(true);
     params.dispatch(clearDocumentUrls());
-    getDocumentsApi(params.accessToken, params.caseId, params.role, params.documentType)
+    getDocumentsApi(params.accessToken, params.caseId, params.role, params.additionalParams)
       .then(documents => {
         if (!documents) {
           console.error("Failed to get documents");
@@ -78,8 +77,8 @@ export interface GetDocumentsOnLoadCallbackParams {
   accessToken: string | undefined;
   role: Role;
   setLoading: Dispatch<SetStateAction<boolean>>;
-  documentType?: DocumentType;
   onDocumentsReceived: (documents: any) => void;
+  additionalParams?: GetDocumentsAdditionalParams;
 }
 
 export function useDocumentsOnLoadCallback(params: GetDocumentsOnLoadCallbackParams) {
@@ -90,7 +89,7 @@ export function useDocumentsOnLoadCallback(params: GetDocumentsOnLoadCallbackPar
     }
 
     params.setLoading(true);
-    getDocumentsApi(params.accessToken, params.caseId, params.role, params.documentType)
+    getDocumentsApi(params.accessToken, params.caseId, params.role, params.additionalParams)
       .then(documents => {
         if (!documents) {
           console.error("Failed to get documents");

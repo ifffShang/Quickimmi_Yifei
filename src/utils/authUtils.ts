@@ -4,6 +4,7 @@ import { resetAuthState, updateAuthState } from "../reducers/authSlice";
 import { closeModal, openModal } from "../reducers/commonSlice";
 import { InMemoryCache } from "../cache/inMemoryCache";
 import { message } from "antd";
+import { resetFormState } from "../reducers/formSlice";
 
 export const signOutCurrentUser = (dispatch: AppDispatch) => {
   signOut()
@@ -17,6 +18,7 @@ export const signOutCurrentUser = (dispatch: AppDispatch) => {
         InMemoryCache.remove("tokenRefreshCountDownId");
       }
 
+      dispatch(resetFormState());
       dispatch(resetAuthState());
       dispatch(closeModal());
     })
