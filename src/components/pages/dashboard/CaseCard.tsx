@@ -67,8 +67,6 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
     }
     try {
       const success = await updateCaseNameApi(caseData.id, TempCaseName, accessToken, role);
-      const summary = await getCaseSummaryApi(caseData.id, accessToken, role);
-      console.log("Summary case name: " + summary.caseName);
       if (success) {
         setCaseName(handleCaseNameLength(TempCaseName));
         setIsEditing(false);
