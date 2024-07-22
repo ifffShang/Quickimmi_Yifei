@@ -156,6 +156,9 @@
   "DRAFT": "Draft",
   "REVIEW": "Review",
   "SUBMIT": "Submit",
+  "Completion": "Completion",
+  "LawyerReview": "Under Lawyer Review",
+  "TranslateToOriginalLanguage": "Translate to Original Language",
 
   "Asylum": "Asylum",
   "AFFIRMATIVE": "Affirmative",
