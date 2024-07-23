@@ -115,7 +115,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
 
     const handleDownloadToSignDocClick = () => {
       // navigate(`/case/${id}?section=5&subsection=0`);
-      navigate(`/casedocuments/${id}?type=merged`);
+      navigate(`/case/${id}?section=5&subsection=1`);
     };
 
     const handleDownloadSignedDocClick = () => {
