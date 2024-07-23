@@ -235,6 +235,7 @@ export const formSlice = createSlice({
         nationality: action.payload.nationality,
         birthDate: action.payload.birthDate,
         cityAndCountryOfBirth: action.payload.birthPlace,
+        passportIssueCountry: action.payload.countryCode,
       };
       if (fieldKey.indexOf("applicant") > -1) {
         payload = {

@@ -529,6 +529,7 @@ export interface ParsePassportResponse {
   nationality: string;
   gender: string;
   expireDate: string;
+  countryCode: string;
 }
 
 export interface UploadedDocument {
