@@ -17,12 +17,14 @@ import {
   AsylumCaseProfile,
   AsylumCaseProfileOptional,
   GeneratedDocument,
+  MarriageCertificate,
   ParsePassportResponse,
   Percentage,
   Progress,
   UploadedDocumentWithUrl,
 } from "../model/apiModels";
 import { getUpdateProfileData } from "../utils/utils";
+import { ParseMarriageCertificateResponse } from "../model/apiReqResModels";
 
 export interface FormState {
   caseId: number;
@@ -285,6 +287,9 @@ export const formSlice = createSlice({
       const profile = _.merge(state.applicationCase.profile, payloadToUpdate);
       Object.assign(state.applicationCase.profile, profile);
     },
+    updateMarriageLicenseInfo: (state, action: PayloadAction<ParseMarriageCertificateResponse>) => {
+      state.applicationCase.profile.supplementDocument.marriageCertificate = action.payload as MarriageCertificate;
+    },
     syncUpMailingAndResidenceAddress: (state, action: PayloadAction<boolean>) => {
       if (action.payload) {
         state.applicationCase.profile.applicant.streetNumberAndNameOfMailingAddress =
@@ -355,6 +360,7 @@ export const {
   updatePassportInfo,
   updateIdCardInfo,
   updateTravelDocumentInfo,
+  updateMarriageLicenseInfo,
   syncUpMailingAndResidenceAddress,
   replaceDocumentUrls,
   clearDocumentUrls,

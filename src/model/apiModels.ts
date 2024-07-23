@@ -510,6 +510,7 @@ export interface SupplementDocument {
   marriageCertificateDocument: number;
   i94Document: number;
   masterHearingDetail: MasterHearingDetail;
+  marriageCertificate: MarriageCertificate | null;
 }
 
 export interface GeneratePresignedUrlResponse {
@@ -529,6 +530,25 @@ export interface ParsePassportResponse {
   nationality: string;
   gender: string;
   expireDate: string;
+}
+
+export interface MarriageCertificate {
+  licenseHolder: string;
+  registrationDate: string;
+  licenseNumber: string;
+
+  holderName: string;
+  gender: string;
+  nationality: string;
+  birthDate: string;
+  idNumber: string;
+
+  spouseName: string;
+  spouseGender: string;
+  spouseNationality: string;
+  spouseBirthDate: string;
+  spouseIdNumber: string;
+  seal: string;
 }
 
 export interface UploadedDocument {

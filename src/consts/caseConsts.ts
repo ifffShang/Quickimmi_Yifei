@@ -223,6 +223,7 @@ export const InitialSupplementDocument: SupplementDocument = {
   marriageCertificateDocument: -1,
   i94Document: -1,
   masterHearingDetail: InitialMasterHearingDetail,
+  marriageCertificate: null,
 };
 
 export const InitialApplicationCase: ApplicationCase = {

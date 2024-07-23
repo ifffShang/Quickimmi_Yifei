@@ -5,10 +5,11 @@ import { useState } from "react";
 import {
   deleteDocumentApi,
   generateDocumentPresignedUrl,
+  parseMarriageCertificateApi,
   updateDocumentStatus,
   uploadFileToPresignUrl,
 } from "../../../api/caseAPI";
-import { useAppSelector } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useLoadSingleDocument } from "../../../hooks/commonHooks";
 import { UploadedDocument } from "../../../model/apiModels";
 import { DocumentOperation, DocumentType, Identity } from "../../../model/commonModels";
@@ -17,6 +18,7 @@ import { ErrorMessage } from "../../common/Fonts";
 import { Loading } from "../../common/Loading";
 import "./SingleFileUploaderV2.css";
 import { FileType } from "./Uploader";
+import { updateMarriageLicenseInfo } from "../../../reducers/formSlice";
 
 export interface SingleFileUploaderV2Props {
   documentType: DocumentType;
@@ -36,6 +38,7 @@ const getBase64 = (file: FileType): Promise<string> =>
   });
 
 export function SingleFileUploaderV2(props: SingleFileUploaderV2Props) {
+  const dispatch = useAppDispatch();
   const userId = useAppSelector(state => state.auth.userId);
   const email = useAppSelector(state => state.auth.email);
   const caseId = useAppSelector(state => state.form.caseId);
@@ -98,6 +101,11 @@ export function SingleFileUploaderV2(props: SingleFileUploaderV2Props) {
         () => {
           updateDocumentStatus(role, res.documentId, true, "UPLOADED", accessToken);
           onSuccess(res, file, null);
+          if (props.documentType === ("MARRIAGE_CERTIFICATE_ORIGINAL" as DocumentType)) {
+            parseMarriageCertificateApi(res.documentId, accessToken, role).then(parsedRes => {
+              dispatch(updateMarriageLicenseInfo(parsedRes));
+            });
+          }
         },
         () => {
           updateDocumentStatus(role, res.documentId, false, "FAILED", accessToken);

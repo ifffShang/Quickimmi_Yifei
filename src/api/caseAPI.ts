@@ -17,6 +17,7 @@ import {
   DocumentGenerationTaskStatus,
   GenerateDocumentResponse,
   GetDocumentsAdditionalParams,
+  ParseMarriageCertificateResponse,
 } from "../model/apiReqResModels";
 import { DocumentCreatedBy, DocumentOperation, DocumentStatus, DocumentType, Identity } from "../model/commonModels";
 import { IForm, IFormFields } from "../model/formFlowModels";
@@ -320,6 +321,21 @@ export async function parsePassportApi(
     role,
   });
   return <ParsePassportResponse>res.data;
+}
+
+export async function parseMarriageCertificateApi(
+  documentId: number,
+  accessToken: string,
+  role: Role,
+): Promise<ParseMarriageCertificateResponse> {
+  const res = await performApiRequest({
+    endPoint: `api/document/parse/marriageCertificate?documentId=${documentId}`,
+    method: "POST",
+    data: null,
+    accessToken,
+    role,
+  });
+  return <ParseMarriageCertificateResponse>res.data;
 }
 
 export async function getDocumentByIdApi(
