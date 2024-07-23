@@ -10,14 +10,14 @@ import { QLink } from "../../common/Links";
 import "./PassportUploader.css";
 import { useFormTranslation } from "../../../hooks/commonHooks";
 
-export interface PassportUploaderProps {
+export interface SingleFileUploader {
   documentId: number;
   fieldKey: string;
   onChange: (value: any) => void;
   fieldIndex?: number;
 }
 
-export function PassportUploader(props: PassportUploaderProps) {
+export function SingleFileUploader(props: SingleFileUploader) {
   const { wt } = useFormTranslation();
   const dispatch = useAppDispatch();
   const accessToken = useAppSelector(state => state.auth.accessToken);
@@ -26,21 +26,7 @@ export function PassportUploader(props: PassportUploaderProps) {
 
   const [loading, setLoading] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
-  const [passportOrIdImageUrl, setPassportOrIdImageUrl] = useState<string>("");
-
-  const onButtonClick = () => {
-    dispatch(
-      openModal({
-        modalType: "uploadpassport",
-        modalData: {
-          fieldKey: props.fieldKey,
-          fieldIndex: props.fieldIndex,
-          updatePassportOrIdImageUrl: setPassportOrIdImageUrl,
-          onChange: props.onChange,
-        },
-      }),
-    );
-  };
+  const [documentUrl, setDocumentUrl] = useState<string>("");
 
   useEffect(() => {
     if (!accessToken || !props.documentId) return;
@@ -53,7 +39,7 @@ export function PassportUploader(props: PassportUploaderProps) {
             throw new Error("Failed to download image");
           }
           setLoading(false);
-          setPassportOrIdImageUrl(doc.url);
+          setDocumentUrl(doc.url);
         });
       })
       .catch(error => {
@@ -65,14 +51,14 @@ export function PassportUploader(props: PassportUploaderProps) {
   return (
     <div className="passport-uploader">
       <div className="passport-uploader-inner">
-        {showModal || loading ? (
+        {loading ? (
           <div className="passport-uploader-upload">
             <LoadingOutlined />
           </div>
-        ) : passportOrIdImageUrl ? (
-          <img onClick={() => setPreviewOpen(true)} src={passportOrIdImageUrl} alt="avatar" />
+        ) : documentUrl ? (
+          <img onClick={() => setPreviewOpen(true)} src={documentUrl} alt="avatar" />
         ) : (
-          <div className="passport-uploader-upload" onClick={onButtonClick}>
+          <div className="passport-uploader-upload">
             <PlusOutlined />
             <QText level="xsmall">Upload</QText>
           </div>
@@ -85,11 +71,10 @@ export function PassportUploader(props: PassportUploaderProps) {
               onVisibleChange: visible => setPreviewOpen(visible),
               afterOpenChange: visible => !visible && setPreviewOpen(false),
             }}
-            src={passportOrIdImageUrl}
+            src={documentUrl}
           />
         )}
       </div>
-      <QLink onClick={onButtonClick}>{wt("Change document")}</QLink>
     </div>
   );
 }

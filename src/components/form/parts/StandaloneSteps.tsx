@@ -11,7 +11,7 @@ export function StandaloneSteps(props: StandaloneStepsProps) {
     <div className="standalone-steps">
       {props.steps?.map((step, index) => (
         <div className="standalone-step" key={index}>
-          {step.children} <RightOutlined />
+          {step.children}
         </div>
       ))}
     </div>

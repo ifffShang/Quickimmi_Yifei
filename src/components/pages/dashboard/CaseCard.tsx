@@ -125,16 +125,16 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
 
   return (
     <div className="case-card-container">
-      <div className="case-card-caseIcon">
+      <div className="case-card-case-header">
         <p className="case-card-status" style={{ color, backgroundColor }}>
           {t(status)}
         </p>
         {/* <p className="case-card-id" >
           <QText level="normal bold" color="gray">{caseData.id}</QText>
         </p> */}
-        <div className="case-card-icon-background">
-          <CaseIcon />
-        </div>
+        {/*<div className="case-card-icon-background">*/}
+        {/*  <CaseIcon />*/}
+        {/*</div>*/}
       </div>
       <div className="case-card-content">
         <div className="case-card-title">
@@ -165,7 +165,7 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
                 <QText level="large">{CaseName || `Case ${caseData.id}`}</QText>
               </div>
               <EditTwoTone
-                style={{ fontSize: 28, marginLeft: 5 }}
+                style={{ fontSize: 17, marginTop: 3, marginRight: 20 }}
                 twoToneColor="#27AE60"
                 onClick={() => setIsEditing(true)}
               />

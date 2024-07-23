@@ -120,12 +120,14 @@ export function EntryRecords(props: EntryRecordsProps) {
               const newRecords = [...records];
               newRecords[index].status = value;
               setRecords(newRecords);
-              props.onChange(newRecords.map(r => ({
-                date: r.date,
-                city: r.city,
-                state: r.state,
-                status: r.status,
-              })));
+              props.onChange(
+                newRecords.map(r => ({
+                  date: r.date,
+                  city: r.city,
+                  state: r.state,
+                  status: r.status,
+                })),
+              );
               return value;
             }}
           />

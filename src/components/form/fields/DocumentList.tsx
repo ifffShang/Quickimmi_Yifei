@@ -168,7 +168,7 @@ export function DocumentList() {
         return allFinished;
       });
 
-      markLawyerReviewAsCompleted();
+      await markLawyerReviewAsCompleted();
       setLoading(false);
     } catch (error) {
       console.error("Error generating documents: ", error);
