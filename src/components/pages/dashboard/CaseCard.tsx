@@ -120,7 +120,10 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
   };
 
   const capitalizeFirstLetter = (string: string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    if (string) {
+      return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    }
+    return "";
   };
 
   return (
