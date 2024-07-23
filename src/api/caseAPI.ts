@@ -397,6 +397,21 @@ export async function generateDocumentsByDocumentTypeApi(
   return <GenerateDocumentResponse[]>res.data;
 }
 
+export async function defaultMergeApi(
+  accessToken: string,
+  caseId: number,
+  role: Role,
+): Promise<GenerateDocumentResponse[]> {
+  const res = await performApiRequest({
+    endPoint: `api/case/asylum/defaultMerge?id=${caseId}`,
+    method: "POST",
+    data: null,
+    accessToken,
+    role,
+  });
+  return <GenerateDocumentResponse[]>res.data;
+}
+
 // @Deprecated
 export async function getDocumentGenerationTaskStatusByTaskIdApi(
   accessToken: string,

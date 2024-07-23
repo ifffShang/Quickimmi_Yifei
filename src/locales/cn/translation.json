@@ -17,6 +17,7 @@
   "Search": "筛选",
   "Cancel": "取消",
   "Generate Documents": "生成文件",
+  "Generate Merged Documents": "生成最终文件",
   "UploadDocument": "上传文件",
   "CaseDocument": "附属文件",
   "CaseId": "案件编号",
@@ -264,7 +265,8 @@
   "AdditionalInformation": "额外信息",
   "GenerateDocument": "生成文档",
   "GenerateReport": "生成报告",
-  "ViewDocuments": "查看表单",
+  "ViewDocuments": "查看文件",
+  "ViewMergedDocuments": "查看最终文件",
   "PersonalStatement": "个人陈述",
   "PersonalStatementInOriginalLanguage": "个人陈述（原文）",
 

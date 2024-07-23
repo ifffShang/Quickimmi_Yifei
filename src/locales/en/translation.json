@@ -17,6 +17,7 @@
   "Search": "Search",
   "Cancel": "Cancel",
   "Generate Documents": "Generate Documents",
+  "Generate Merged Documents": "Generate Merged Documents",
   "UploadDocument": "Upload Document",
   "CaseDocument": "Case Document",
   "CaseId": "Case ID",
@@ -263,6 +264,7 @@
   "GenerateDocument": "Generate Report",
   "GenerateReport": "Generate Report",
   "ViewDocuments": "View Documents",
+  "ViewMergedDocuments": "View Merged Documents",
   "PersonalStatement": "Personal Statement",
   "PersonalStatementInOriginalLanguage": "Personal Statement in Original Language",
 
