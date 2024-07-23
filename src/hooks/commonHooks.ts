@@ -1,11 +1,12 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { getDocumentsApi } from "../api/caseAPI";
+import { getDocumentByIdApi, getDocumentsApi } from "../api/caseAPI";
 import { Role } from "../consts/consts";
 import { GetDocumentsAdditionalParams } from "../model/apiReqResModels";
 import { clearDocumentUrls } from "../reducers/formSlice";
 import { arrayMapper } from "../utils/mapper";
 import { textParser } from "../utils/parsers";
+import { UploadedDocument } from "../model/apiModels";
 
 export function useFormTranslation() {
   const { t, i18n } = useTranslation();
@@ -104,4 +105,30 @@ export function useDocumentsOnLoadCallback(params: GetDocumentsOnLoadCallbackPar
         params.setLoading(false);
       });
   }, [params.accessToken, params.caseId]);
+}
+
+export interface UseSingleDocParams {
+  accessToken: string | undefined;
+  role: Role;
+  documentId: number;
+  setLoading: Dispatch<SetStateAction<boolean>>;
+  onDocumentsReceived: (documents: UploadedDocument) => void;
+}
+
+export function useLoadSingleDocument(params: UseSingleDocParams) {
+  useEffect(() => {
+    if (!params.accessToken || !params.documentId || params.documentId === -1) {
+      return;
+    }
+    params.setLoading(true);
+    getDocumentByIdApi(params.accessToken, params.documentId, params.role)
+      .then(doc => {
+        params.setLoading(false);
+        params.onDocumentsReceived(doc);
+      })
+      .catch(error => {
+        console.error(error);
+        params.setLoading(false);
+      });
+  }, [params.accessToken, params.documentId]);
 }

@@ -20,9 +20,17 @@ export function Status({ status }: StatusProps) {
       </QText>
     );
   } else if (status === "Skipped") {
-    return <QText level="xsmall" color="gray">Skipped</QText>;
+    return (
+      <QText level="xsmall" color="gray">
+        Skipped
+      </QText>
+    );
   } else if (status === "Timeout") {
-    return <QText level="xsmall" color="gray">Timeout</QText>;
+    return (
+      <QText level="xsmall" color="gray">
+        Timeout
+      </QText>
+    );
   } else {
     return <QText level="xsmall">Unknown</QText>;
   }

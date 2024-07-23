@@ -52,7 +52,8 @@ export type ControlType =
   | "radio"
   | "checkbox"
   | "checkbox_multioptions"
-  | "multi_file_uploader" // multiple file upload
+  | "multi_file_uploader"
+  | "single_file_uploader"
   | "dropdown"
   | "select"
   | "divider"

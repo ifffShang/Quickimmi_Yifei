@@ -96,6 +96,13 @@
           ]
         },
         {
+          "label": "text_MarriageLicense",
+          "id": "marriage_license",
+          "key": "supplementDocument.marriageCertificateDocument",
+          "control": "single_file_uploader",
+          "documentType": "MARRIAGE_CERTIFICATE_ORIGINAL"
+        },
+        {
           "label": "text_NamesUsedBeforeLabel",
           "placeholder": "text_NamesUsedBefore",
           "id": "other_names_spouse",

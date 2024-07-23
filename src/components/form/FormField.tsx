@@ -14,6 +14,7 @@ import {
   getFieldValue,
 } from "../../utils/utils";
 import { QText } from "../common/Fonts";
+import { FormControlContainer } from "./FormControlContainer";
 import "./FormField.css";
 import { AddItemControl } from "./fields/AddItemControl";
 import {
@@ -26,20 +27,19 @@ import {
   SelectBox,
 } from "./fields/Controls";
 import { DocumentList } from "./fields/DocumentList";
+import { DraggerFileUploader } from "./fields/DraggerFileUploader";
 import { EntryRecords } from "./fields/EntryRecords";
 import { LocationDropdown } from "./fields/LocationDropdown";
-import { PassportUploader } from "./fields/PassportUploader";
-import { SameAddressCheckbox } from "./fields/SameAddressCheckbox";
-import { MultipleTextboxesWithNA } from "./fields/MultipleTextboxesWithNA";
-import { RemovableSectionHeader } from "./parts/RemovableSectionHeader";
-import { TextboxWithNA } from "./fields/TextboxWithNA";
-import { TextAreaWithAIRefine } from "./fields/TextAreaWithAIRefine";
-import { MultiFileUploader } from "./fields/MultiFileUploader";
-import { PersonalStatement } from "./fields/PersonalStatement";
-import { FormControlContainer } from "./FormControlContainer";
 import { MergedDocumentList } from "./fields/MergedDocumentList";
-import React from "react";
-import { DraggerFileUploader } from "./fields/DraggerFileUploader";
+import { MultiFileUploader } from "./fields/MultiFileUploader";
+import { MultipleTextboxesWithNA } from "./fields/MultipleTextboxesWithNA";
+import { PassportUploader } from "./fields/PassportUploader";
+import { PersonalStatement } from "./fields/PersonalStatement";
+import { SameAddressCheckbox } from "./fields/SameAddressCheckbox";
+import { SingleFileUploaderV2 } from "./fields/SingleFileUploaderV2";
+import { TextAreaWithAIRefine } from "./fields/TextAreaWithAIRefine";
+import { TextboxWithNA } from "./fields/TextboxWithNA";
+import { RemovableSectionHeader } from "./parts/RemovableSectionHeader";
 
 export interface FormFieldProps {
   fieldKey: string;
@@ -325,6 +325,28 @@ export function FormField(props: FormFieldProps) {
             onChange={onMultiCheckboxChange}
             checkedValues={!Array.isArray(fieldValue) ? [fieldValue] : fieldValue}
             options={props.options || ""}
+          />
+        </FormControlContainer>
+      );
+    case "single_file_uploader":
+      return (
+        <FormControlContainer fieldValue={fieldValue}>
+          <SingleFileUploaderV2
+            documentType={props.documentType || "SUPPORTING_DOCUMENT"}
+            identity={"Applicant"}
+            operation={"NEW"}
+            description={props.fieldKey}
+            documentId={fieldValue}
+            onChange={(documentId: number) => {
+              props.fieldKey &&
+                dispatchFormValue(
+                  dispatch,
+                  {
+                    [props.fieldKey]: documentId,
+                  },
+                  props.fieldIndex,
+                );
+            }}
           />
         </FormControlContainer>
       );
