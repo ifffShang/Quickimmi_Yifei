@@ -3,7 +3,7 @@
   position: relative;
 }
 
-.case-card-caseIcon > svg {
+.case-card-case-header > svg {
   border-bottom: 1px solid var(--gray-color-3);
   height: auto;
 }
@@ -11,9 +11,10 @@
   position: absolute;
   text-align: center;
   width: 50px;
-  margin: 0 0 0 380px;
-  padding: 5px 10px;
+  margin: 0 0 0 390px;
+  padding: 3px 5px;
   border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
   background-color: var(--primary-color-trans1);
 }
 .case-card-id {
@@ -28,11 +29,11 @@
 }
 
 .case-card-content {
-  padding: 10px 30px 20px 40px;
+  padding: 25px 25px 25px 30px;
 }
 .case-card-bottom {
   border-top: 1px solid var(--gray-color-3);
-  padding: 20px;
+  padding: 13px;
   display: flex;
   justify-content: flex-end;
 }
@@ -74,7 +75,7 @@
   width: 170px;
   position: relative;
   background-color: var(--gray-color-4);
-  padding: 5px 10px;
+  padding: 2px 4px;
   border: 1px solid var(--gray-color-3);
   border-radius: 5px;
   justify-self: center;
@@ -97,8 +98,8 @@
 .case-card-details {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding-top: 60px;
+  gap: 7px;
+  padding-top: 55px;
 }
 
 .delete-confirm-modal-container {

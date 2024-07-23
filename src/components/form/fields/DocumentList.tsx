@@ -150,7 +150,7 @@ export function DocumentList() {
     setLoading(true);
     try {
       await generateDocumentsByDocumentTypeApi(accessToken, caseId, "ALL", role);
-
+      await markLawyerReviewAsCompleted();
       await retryGetDocumentsApi(accessToken, caseId, role, (documents, timeout) => {
         if (timeout) {
           console.error("Document generation timeout.");
@@ -168,7 +168,6 @@ export function DocumentList() {
         return allFinished;
       });
 
-      markLawyerReviewAsCompleted();
       setLoading(false);
     } catch (error) {
       console.error("Error generating documents: ", error);
