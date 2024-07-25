@@ -161,27 +161,35 @@
       ]
     },
     {
-      "label": "text_NativeLanguage",
-      "placeholder": "text_NativeLanguage",
-      "id": "native_language",
-      "key": "applicant.nativeLanguage",
-      "control": "text"
-    },
-    {
-      "label": "text_FluentInEnglish",
-      "id": "fluent_in_english",
-      "key": "applicant.fluentEnglishYesCheckbox,applicant.fluentEnglishNoCheckbox",
-      "control": "radio",
-      "options": [
+      "label": "text_Language",
+      "id": "language",
+      "control": "group",
+      "maxChildPerRow": "2",
+      "fields": [
         {
-          "value": "true",
-          "label": "text_Yes",
-          "keyValue": "true,false"
+          "label": "text_NativeLanguage",
+          "placeholder": "text_NativeLanguage",
+          "id": "native_language",
+          "key": "applicant.nativeLanguage",
+          "control": "text"
         },
         {
-          "value": "false",
-          "label": "text_No",
-          "keyValue": "false,true"
+          "label": "text_FluentInEnglish",
+          "id": "fluent_in_english",
+          "key": "applicant.fluentEnglishYesCheckbox,applicant.fluentEnglishNoCheckbox",
+          "control": "checkbox",
+          "options": [
+            {
+              "value": "true",
+              "label": "text_Yes",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "false",
+              "label": "text_No",
+              "keyValue": "false,true"
+            }
+          ]
         }
       ]
     },
