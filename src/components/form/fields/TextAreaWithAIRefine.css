@@ -39,15 +39,15 @@
   align-items: center;
 }
 .text-area-button-discard {
-  font-size: 28px;
-  color: var(--gray-color-2);
+  font-size: 20px;
+  color: var(--gray-color-7);
   border-radius: 5px;
   margin-left: auto;
   margin-right: 10px;
   transition: color 0.3s ease-in-out;
 }
 .text-area-button-discard:hover {
-  color: var(--danger-color);
+  color: var(--gray-color-2);
 }
 
 .text-area-input {
