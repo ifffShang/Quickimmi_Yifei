@@ -310,7 +310,7 @@
   "OtherFluentLanguages": "Add another language you speak fluently",
 
   "UploadSpousePassportOrOtherID": "Upload spouse's passport or other identity document",
-  "Change document": "Change document",
+  "UploadMarriageCertificate": "Upload Marriage Certificate",
   "SpouseIsInUS": "Is this person in the U.S.?",
   "SpousePartnerApplication": "Spouse/Partner Application",
   "Male": "Male",
@@ -411,7 +411,9 @@
   "MailingAddressSameAsResidentialAddress": "Mailing Address is the same as Residential Address",
 
   "I94": "I-94",
+  "UploadI94Document": "Upload I-94 Document",
   "WhenLastLeaveCountry": "When did you last leave your country?",
+  "DateStatusExpires": "When does the status of your last entry expire?",
   "EntryRecordsDescription": "List each entry into the U.S. beginning with your most recent entry. List date (mm/dd/yyyy), place, and your status for each entry. (Attach additional sheets as needed.)",
   "EntryRecords": "Entry Records",
   "Date": "Date",
@@ -445,6 +447,9 @@
   "HaveCommittedCrime": " Have you or any member of your family included in the application ever committed any crime and/or been arrested, charged, convicted, or sentenced for any crimes in the United States (including for an immigration law violation)?",
   "ExplainHaveCommittedCrime": "If \"Yes,\" for each instance, specify in your response: what occurred and the circumstances, dates, length of sentence received, location, the duration of the detention or imprisonment, reason(s) for the detention or conviction, any formal charges that were lodged against you or your relatives included in your application, and the reason(s) for release. Attach documents referring to these incidents, if they are available, or an explanation of why documents are not available.",
   "UploadSupportingDocuments": "Upload Supporting Documents",
+  "EnglishVersion": "English Version",
+  "OriginalLanguageVersion": "Original Language Version",
+  "ReTranslate": "Re-translate",
 
   "Signature": "Signature",
   "PrintCompleteName": "Print your complete name",

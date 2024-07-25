@@ -1,6 +1,6 @@
 import { QText } from "../../common/Fonts";
 import { Button, InputRef, Input, Spin } from "antd";
-import Icon, { CheckOutlined, RetweetOutlined, CloseSquareOutlined } from "@ant-design/icons";
+import Icon, { CheckOutlined, RetweetOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import type { GetProps } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { refineApi } from "../../../api/caseAPI";
@@ -140,7 +140,7 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
                   <Button type="primary" onClick={refineText} className="text-area-button" icon={<AiIcon />}>
                     {t("Rewrite")}
                   </Button>
-                  <CloseSquareOutlined onClick={discardRefinedText} className="text-area-button-discard" />
+                  <CloseCircleOutlined onClick={discardRefinedText} className="text-area-button-discard" />
                 </div>
                 <TextArea
                   rows={8}

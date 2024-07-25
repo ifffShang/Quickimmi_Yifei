@@ -11,10 +11,24 @@
       "control": "component_textbox_na"
     },
     {
+      "label": "text_UploadI94Document",
+      "id": "i94_document",
+      "key": "applicant.i94DocumentIds",
+      "control": "multi_file_uploader",
+      "documentType": "I94"
+    },
+    {
       "label": "text_WhenLastLeaveCountry",
       "placeholder": "text_MM/DD/YYYY",
       "id": "when_last_leave_country",
       "key": "applicant.whenLastLeaveCountry",
+      "control": "datepicker"
+    },
+    {
+      "label": "text_DateStatusExpires",
+      "placeholder": "text_MM/DD/YYYY",
+      "id": "when_date_status_expires",
+      "key": "applicant.statusExpireDate",
       "control": "datepicker"
     },
     {

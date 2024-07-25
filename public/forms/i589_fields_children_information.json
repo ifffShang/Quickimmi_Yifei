@@ -195,15 +195,7 @@
           "label": "text_Race",
           "id": "race_Children",
           "key": "family.children[].race",
-          "control": "select",
-          "options": "RaceOptions"
-        },
-        {
-          "label": "text_Religion",
-          "id": "religion_Children",
-          "key": "family.children[].religion",
-          "control": "select",
-          "options": "ReligionOptions"
+          "control": "component_textbox_na"
         },
         {
           "label": "text_CityAndCountryOfBirth",
@@ -288,7 +280,7 @@
               "placeholder": "text_MM/DD/YYYY",
               "id": "children_status_expire_date",
               "key": "family.children[].statusExpireDate",
-              "control": "datepicker"
+              "control": "component_textbox_na"
             },
             {
               "label": "text_IsChildImmigrationCourt",
