@@ -410,6 +410,7 @@
   "I94": "I-94",
   "UploadI94Document": "上传I-94文件",
   "WhenLastLeaveCountry": "您上次离开您的国家是什么时候？",
+  "DateStatusExpires": "您最后一次入境的身份何时到期？",
   "EntryRecordsDescription": "列出每次进入美国的记录，从最近的记录开始。对于每次进入，列出日期（mm/dd/yyyy）、地点和您的身份。（如有需要，请附加额外的表格。）",
   "EntryRecords": "入境记录",
   "Date": "日期",

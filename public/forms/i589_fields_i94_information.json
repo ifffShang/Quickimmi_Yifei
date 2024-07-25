@@ -25,6 +25,13 @@
       "control": "datepicker"
     },
     {
+      "label": "text_DateStatusExpires",
+      "placeholder": "text_MM/DD/YYYY",
+      "id": "when_date_status_expires",
+      "key": "applicant.statusExpireDate",
+      "control": "datepicker"
+    },
+    {
       "label": "text_EntryRecordsDescription",
       "placeholder": "text_EntryRecords",
       "id": "entry_records",

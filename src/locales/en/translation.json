@@ -413,6 +413,7 @@
   "I94": "I-94",
   "UploadI94Document": "Upload I-94 Document",
   "WhenLastLeaveCountry": "When did you last leave your country?",
+  "DateStatusExpires": "When does the status of your last entry expire?",
   "EntryRecordsDescription": "List each entry into the U.S. beginning with your most recent entry. List date (mm/dd/yyyy), place, and your status for each entry. (Attach additional sheets as needed.)",
   "EntryRecords": "Entry Records",
   "Date": "Date",
