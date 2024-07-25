@@ -53,13 +53,6 @@
           "documentType": "PASSPORT_STAMP_PAGES"
         },
         {
-          "label": "text_UploadMarriageCertificate",
-          "id": "marriage_certificate",
-          "key": "family.spouse.marriageCertificateDocumentIds",
-          "control": "multi_file_uploader",
-          "documentType": "MARRIAGE_CERTIFICATE"
-        },
-        {
           "label": "text_PassportOrOtherIDNumber",
           "placeholder": "text_PassportNumber",
           "id": "spouse_passport_number",
