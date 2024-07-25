@@ -8,8 +8,7 @@ import "./UploadSignedDocumentModal.css";
 import { closeModal } from "../../../reducers/commonSlice";
 import { RocketIcon } from "../../icons/RocketIcon";
 import { useFileUpload } from "./useFileUpload";
-import { updateCaseProgressApi } from "../../../api/caseAPI";
-import { constructProgressData, updateCaseProgress } from "../../../utils/progressUtils";
+import { updateCaseProgress } from "../../../utils/progressUtils";
 import { KeyValues } from "../../../model/commonModels";
 
 interface UploadSignedDocumentModalProps {
@@ -42,7 +41,9 @@ export function UploadSignedDocumentModal({ modalData }: UploadSignedDocumentMod
     }
     const currentStep = "REVIEW_AND_SIGN";
     const currentSubStep = "CLIENT_SIGNATURE";
-    const currentSubStepMetadata = "";
+    const currentSubStepMetadata = JSON.stringify({
+      documentIds,
+    });
     const success = await updateCaseProgress(
       caseId,
       modalData.progressSteps,
