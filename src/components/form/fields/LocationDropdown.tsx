@@ -93,7 +93,6 @@ export function LocationDropdown(props: LocationDropdownProps) {
         placeholder={props.placeholder?.country || t("Select a country")}
         labelInValue
         showSearch
-        allowClear
         onChange={onCountryChange}
         value={country}
         notFoundContent="Not found"
@@ -108,7 +107,6 @@ export function LocationDropdown(props: LocationDropdownProps) {
           placeholder={props.placeholder?.state || t("Select a state")}
           labelInValue
           showSearch
-          allowClear
           onChange={onStateChange}
           value={state}
           notFoundContent="Not found"
@@ -126,7 +124,6 @@ export function LocationDropdown(props: LocationDropdownProps) {
           placeholder={props.placeholder?.city || t("Select a city")}
           labelInValue
           showSearch
-          allowClear
           onChange={onCityChange}
           value={city}
           notFoundContent="Not found"

@@ -1,4 +1,3 @@
-import { RightOutlined } from "@ant-design/icons";
 import { CollapseProps } from "antd/es/collapse";
 import "./StandaloneSteps.css";
 

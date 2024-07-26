@@ -67,11 +67,11 @@ const Columns: TableProps<DataType>["columns"] = [
 export function MergedDocumentList() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const userId = useAppSelector(state => state.auth.userId);
   const caseId = useAppSelector(state => state.form.caseId);
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const role = useAppSelector(state => state.auth.role);
   const progress = useAppSelector(state => state.form.applicationCase.progress);
+  const percentage = useAppSelector(state => state.form.percentage);
   const generatedDocuments = useAppSelector(state => state.form.generatedDocuments);
   const [loading, setLoading] = useState(false);
   const [replaceLoading, setReplaceLoading] = useState(false);
@@ -300,12 +300,23 @@ export function MergedDocumentList() {
     });
 
   const documentsExist = uploadedDocumentsInTable.length > 0;
+  const tooltipText =
+    percentage?.["overall"]?.avg !== 100
+      ? t("The button will only be available when the form is 100% complete.")
+      : documentsExist
+        ? t("Documents already generated")
+        : "";
 
   return (
     <div className="document-list">
       <div className="document-list-inner">
-        <Tooltip title={documentsExist ? t("Documents already generated") : ""}>
-          <Button type="primary" onClick={generateDocument} className="document-list-btn">
+        <Tooltip title={tooltipText}>
+          <Button
+            type="primary"
+            onClick={generateDocument}
+            className="document-list-btn"
+            disabled={percentage?.["overall"]?.avg !== 100}
+          >
             {t("Generate Merged Documents")}
           </Button>
         </Tooltip>

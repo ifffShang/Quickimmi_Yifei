@@ -253,7 +253,6 @@ export interface SelectBoxProps {
   placeholder?: string;
   value?: any;
   disabled?: boolean;
-  allowClear?: boolean;
 }
 
 export function SelectBox(props: SelectBoxProps) {
@@ -283,7 +282,6 @@ export function SelectBox(props: SelectBoxProps) {
         onChange={onValueChange}
         options={options}
         disabled={props.disabled || false}
-        allowClear={props.allowClear || true}
         placeholder={props.placeholder || "Select an option"}
         value={value}
       />
@@ -431,7 +429,6 @@ export interface RadioSelectProps {
   onChange: (value: string) => void;
   value?: any;
   disabled?: boolean;
-  allowClear?: boolean;
 }
 
 export function RadioSelect(props: RadioSelectProps) {
