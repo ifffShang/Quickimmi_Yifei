@@ -20,6 +20,16 @@ body {
   flex: 1;
 }
 
+.ant-steps-item-icon {
+  margin-left: 35px !important
+}
+.ant-steps-item-content {
+  margin-top: 0 !important;
+}
+.ant-steps-item-title {
+  line-height: 24px !important;
+}
+
 .progress-header {
   font-size: 16px;
   font-weight: bold;
