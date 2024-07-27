@@ -99,6 +99,27 @@
   white-space: nowrap;
 }
 
+.info-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.info-group h4 {
+  font-weight: bold;
+  margin: 0; 
+}
+.info-group h4 span {
+  font-weight: normal;
+  color: var(--gray-color-1);
+}
+.info-doc {
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  gap: 8px;
+}
+
+
 .button-group {
   display: flex;
   flex-direction: column;

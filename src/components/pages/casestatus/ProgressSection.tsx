@@ -17,6 +17,7 @@ const ProgressSection: React.FC<ProgressSectionProps> = ({ currentStep, progress
   const { t } = useTranslation();
   const isLawyer = useAppSelector(state => state.auth.isLawyer);
 
+
   const handleToggleExpand = (stepName: string) => {
     setExpandedStep(prevStep => (prevStep === stepName ? null : stepName));
   };
