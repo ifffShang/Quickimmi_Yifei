@@ -217,7 +217,7 @@ export function PersonalStatement(props: PersonalStatementProps) {
               </Button>
             </div>
             {isTranslatedLoading ? (
-              <Spin tip="Rewriting" style={{ height: 600 }}>
+              <Spin tip="Translating" style={{ height: 600 }}>
                 {content}
               </Spin>
             ) : (
@@ -273,7 +273,7 @@ export function PersonalStatement(props: PersonalStatementProps) {
               </Button>
             )}
             {isOriginalLoading ? (
-              <Spin tip="Rewriting" style={{ height: 600 }}>
+              <Spin tip="AI Writing" style={{ height: 600 }}>
                 {content}
               </Spin>
             ) : (
