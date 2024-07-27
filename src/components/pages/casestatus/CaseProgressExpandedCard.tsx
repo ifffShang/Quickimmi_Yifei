@@ -276,8 +276,8 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
                 </div>
                 <div className="button-group">
                   {renderButton("downloadSignatureDocsButtonText", handleDocumentDownload)}
-                  {renderButton("updateSignedDocsButtonText", () =>
-                    handlePopUpModalClick("uploadSignedDocument", progressSteps, substepName),
+                  {renderButton("updateReceiptButtonText", () =>
+                    handlePopUpModalClick("registerApplicationReceipt", progressSteps, substepName),
                   )}
                 </div>
               </>

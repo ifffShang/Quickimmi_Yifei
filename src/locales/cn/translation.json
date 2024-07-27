@@ -215,6 +215,7 @@
   "noticeReceiptMessage": "等待移民局发送收据。",
   "noticeReceiptPostMessage": "移民局收据已上传，等待指纹采集通知。",
   "registerReceiptButtonText": "登记收据",
+  "updateReceiptButtonText": "更新收据",
   "waitingFingerprintCollectionMessage": "正在等待移民法庭通知生物特征采集时间",
   "waitingFingerprintCollectionPostMessage": "指纹采集时间地点已登记",
   "registerFingerprintTimeLocationButtonText": "登记指纹收录时间地点",

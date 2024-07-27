@@ -213,6 +213,7 @@
   "noticeReceiptMessage": "Waiting for the immigration office to send the receipt.",
   "noticeReceiptPostMessage": "The immigration office receipt has been uploaded",
   "registerReceiptButtonText": "Register receipt",
+  "updateReceiptButtonText": "Update receipt",
   "waitingFingerprintCollectionMessage": "Waiting for the immigration court to notify the biometric collection time.",
   "waitingFingerprintCollectionPostMessage": "The biometric collection time has been registered.",
   "registerFingerprintTimeLocationButtonText": "Register fingerprint collection time and location",
