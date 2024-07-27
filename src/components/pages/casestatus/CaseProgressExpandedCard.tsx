@@ -1,14 +1,18 @@
-import React from "react";
-import { Card, Button, Tooltip } from "antd";
+import React, { useState, useEffect } from "react";
+import { Card, Button, Tooltip, Spin, message } from "antd";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
+import { getFileIcon, getFileType } from "../../../utils/fileIconUtils";
 import { ModalType, openModal } from "../../../reducers/commonSlice";
-import { useAppDispatch } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { QText } from "../../common/Fonts";
+import { getDocumentByIdApi } from "../../../api/caseAPI";
+import { UploadedDocument } from "../../../model/apiModels";
 
 interface ExpandedCardProps {
   isLawyer: boolean;
   substepName: string;
-  substepMetadata: { [key: string]: number } | null;
+  substepMetadata: { [key: string]: any } | null;
   substepStatus?: string | null;
   progressSteps?: {
     name: string;
@@ -26,6 +30,29 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { id } = useParams<{ id?: string }>();
+
+  const accessToken = useAppSelector(state => state.auth.accessToken);
+  const userRole = useAppSelector(state => state.auth.role);
+  const [subStepDocument, setSubStepDocument] = useState<UploadedDocument | null>(null);
+
+  useEffect(() => {
+    const fetchDocument = async () => {
+      if (!accessToken || !userRole) return;
+      if (substepMetadata?.documentIds) {
+        try {
+          const document = await getDocumentByIdApi(accessToken, substepMetadata.documentIds, userRole);
+          setSubStepDocument(document);
+        } catch (error) {
+          console.error("Failed to fetch document:", error);
+        }
+      }
+    };
+
+    fetchDocument();
+  }, [substepMetadata?.documentId, accessToken, userRole]);
+
   const translationsMap: { [key: string]: string } = {
     i589_fields_basic_information: "BasicInformation",
     i589_fields_contact_information: "ContactInformation",
@@ -40,8 +67,6 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
     i589_fields_employment_information: "EmploymentInformation",
     i589_fields_asylum_claim: "AsylumClaim",
   };
-  const navigate = useNavigate();
-  const { id } = useParams<{ id?: string }>();
 
   const getTooltipText = (stepStatus: string | null, currentStepStatus: string) => {
     if (stepStatus === "COMPLETED") {
@@ -68,7 +93,6 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
 
   const renderButton = (textKey: string, onClick?: () => void) => {
     if (!progressSteps) return null;
-    // const buttonDisabled = isButtonDisabled();
     const buttonDisabled = false;
     const tooltipText = getTooltipText(
       substepStatus,
@@ -102,19 +126,19 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
   };
 
   const renderContent = () => {
-    if (!isLawyer) {
+    if (!isLawyer || !accessToken || !userRole) {
       return (
         <div className="card-content">
           <p>{t("You are not a lawyer")}</p>
         </div>
       );
     }
+
     const handleGoCompleteLawyerReviewClick = () => {
       navigate(`/case/${id}?section=5&subsection=0`);
     };
 
     const handleDownloadToSignDocClick = () => {
-      // navigate(`/case/${id}?section=5&subsection=0`);
       navigate(`/case/${id}?section=5&subsection=1`);
     };
 
@@ -122,6 +146,20 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
       navigate(`/casedocuments/${id}?type=signed`);
     };
 
+    const handleDocumentDownload = async () => {
+      if (subStepDocument) {
+        const response = await fetch(subStepDocument.presignUrl);
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = window.document.createElement("a");
+        a.href = url;
+        a.download = subStepDocument.name;
+        a.click();
+        window.URL.revokeObjectURL(url);
+      } else {
+        message.error("Document not found");
+      }
+    };
     const handlePopUpModalClick = (modalType: ModalType, progressSteps, substepName?: string) => {
       dispatch(
         openModal({
@@ -149,33 +187,109 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
       case "CLIENT_SIGNATURE":
         return (
           <div className="card-content">
-            <p>{t("clientSignatureMessage")}</p>
-            <div className="button-group">
-              {renderButton("downloadSignatureDocsButtonText", handleDownloadToSignDocClick)}
-              {renderButton("uploadSignedDocsButtonText", () =>
-                handlePopUpModalClick("uploadSignedDocument", progressSteps, substepName),
-              )}
-            </div>
+            {substepMetadata ? (
+              <>
+                <div className="info-group">
+                  <h4>{t("clientSignaturePostMessage")}</h4>
+                  <h4>Document:</h4>
+                  <div className="info-doc">
+                    {getFileIcon(subStepDocument?.name || "", 30)}
+                    <a onClick={handleDocumentDownload}>
+                      {subStepDocument ? subStepDocument.name : "Retrieving document..."}
+                    </a>
+                  </div>
+                </div>
+                <div className="button-group">
+                  {renderButton("downloadSignatureDocsButtonText", handleDownloadToSignDocClick)}
+                  {renderButton("updateSignedDocsButtonText", () =>
+                    handlePopUpModalClick("uploadSignedDocument", progressSteps, substepName),
+                  )}
+                </div>
+              </>
+            ) : (
+              <>
+                <p>{t("clientSignatureMessage")}</p>
+                <div className="button-group">
+                  {renderButton("downloadSignatureDocsButtonText", handleDownloadToSignDocClick)}
+                  {renderButton("uploadSignedDocsButtonText", () =>
+                    handlePopUpModalClick("uploadSignedDocument", progressSteps, substepName),
+                  )}
+                </div>
+              </>
+            )}
           </div>
         );
       case "SUBMIT_APPLICATION":
         return (
           <div className="card-content">
-            <p>{t("submitApplicationMessage")}</p>
-            <div className="button-group">
-              {renderButton("downloadSignedDocsButtonText", handleDownloadSignedDocClick)}
-              {renderButton("registerTrackingNumberButtonText", () =>
-                handlePopUpModalClick("registerTrackingNumber", progressSteps, substepName),
-              )}
-            </div>
+            {substepMetadata ? (
+              <>
+                <div className="info-group">
+                  <h4>{t("submitApplicationPostMessage")}</h4>
+                  <h4>
+                    Carrier: <span>{substepMetadata.carrier || "No carrier found"}</span>
+                  </h4>
+                  <h4>
+                    Tracking Number: <span>{substepMetadata.trackingNumber || "No tracking number found"}</span>
+                  </h4>
+                  <h4>Document:</h4>
+                  <div className="info-doc">
+                    {getFileIcon(subStepDocument?.name || "", 30)}
+                    <a onClick={handleDocumentDownload}>
+                      {subStepDocument ? subStepDocument.name : "Retrieving document..."}
+                    </a>
+                  </div>
+                </div>
+                <div className="button-group">
+                  {renderButton("downloadSignedDocsButtonText", handleDownloadSignedDocClick)}
+                  {renderButton("changeTrackingInfoButtonText", () =>
+                    handlePopUpModalClick("registerTrackingNumber", progressSteps, substepName),
+                  )}
+                </div>
+              </>
+            ) : (
+              <>
+                <p>{t("submitApplicationMessage")}</p>
+                <div className="button-group">
+                  {renderButton("registerTrackingNumberButtonText", () =>
+                    handlePopUpModalClick("registerTrackingNumber", progressSteps, substepName),
+                  )}
+                </div>
+              </>
+            )}
           </div>
         );
       case "NOTICE_RECEIPT":
         return (
           <div className="card-content">
-            <p>{t("noticeReceiptMessage")}</p>
-            {renderButton("registerReceiptButtonText", () =>
-              handlePopUpModalClick("registerApplicationReceipt", progressSteps, substepName),
+            {substepMetadata ? (
+              <>
+                <div className="info-group">
+                  <h4>{t("noticeReceiptPostMessage")}</h4>
+                  <h4>Document:</h4>
+                  <div className="info-doc">
+                    {getFileIcon(subStepDocument?.name || "", 30)}
+                    <a onClick={handleDocumentDownload}>
+                      {subStepDocument ? subStepDocument.name : "Retrieving document..."}
+                    </a>
+                  </div>
+                </div>
+                <div className="button-group">
+                  {renderButton("downloadSignatureDocsButtonText", handleDocumentDownload)}
+                  {renderButton("updateReceiptButtonText", () =>
+                    handlePopUpModalClick("registerApplicationReceipt", progressSteps, substepName),
+                  )}
+                </div>
+              </>
+            ) : (
+              <>
+                <h4>{t("noticeReceiptMessage")}</h4>
+                <div className="button-group">
+                  {renderButton("registerReceiptButtonText", () =>
+                    handlePopUpModalClick("registerApplicationReceipt", progressSteps, substepName),
+                  )}
+                </div>
+              </>
             )}
           </div>
         );
@@ -184,21 +298,35 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
           <div className="card-content">
             {substepMetadata ? (
               <>
-                <p>
-                  {t("fingerprintCollectionMessage", {
-                    time: "14:00 02/12/2024",
-                    location: "room 201, 4F, 4114, Sepulveda Blvd.CulverCity,CA",
-                    note: "Please bring your passport.",
-                  })}
-                </p>
+                <div className="info-group">
+                  <h4>{t("waitingFingerprintCollectionPostMessage")}</h4>
+                  <h4>
+                    Time: <span>{substepMetadata.time}</span>
+                  </h4>
+                  <h4>
+                    Location: <span>{substepMetadata.location}</span>
+                  </h4>
+                  <h4>
+                    Note: <span>{substepMetadata.note}</span>
+                  </h4>
+                  <h4>Document:</h4>
+                  <div className="info-doc">
+                    {getFileIcon(subStepDocument?.name || "", 30)}
+                    <a onClick={handleDocumentDownload}>
+                      {subStepDocument ? subStepDocument.name : "Retrieving document..."}
+                    </a>
+                  </div>
+                </div>
                 <div className="button-group">
                   {renderButton("viewReceiptButtonText")}
-                  {renderButton("changeTimeLocationButtonText")}
+                  {renderButton("changeTimeLocationButtonText", () =>
+                    handlePopUpModalClick("registerFingerprintTimeLocation", progressSteps, substepName),
+                  )}
                 </div>
               </>
             ) : (
               <>
-                <p>{t("waitingFingerprintCollectionMessage")}</p>
+                <h4>{t("waitingFingerprintCollectionMessage")}</h4>
                 {renderButton("registerFingerprintTimeLocationButtonText", () =>
                   handlePopUpModalClick("registerFingerprintTimeLocation", progressSteps, substepName),
                 )}
@@ -206,23 +334,40 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
             )}
           </div>
         );
-      case "INTERVIEW":
-      case "MASTER_CALENDAR_HEARING":
+
+      // case "INTERVIEW":
+
+      // case "MASTER_CALENDAR_HEARING":
+
       case "INDIVIDUAL_HEARING":
         return (
           <div className="card-content">
             {substepMetadata ? (
               <>
-                <p>
-                  {t("interviewMessage", {
-                    time: "14:00 02/12/2024",
-                    location: "room 201, 4F, 4114, Sepulveda Blvd.CulverCity,CA",
-                    note: "Please bring your passport.",
-                  })}
-                </p>
+                <div className="info-group">
+                  <h4>{t("waitingInterviewPostMessage")}</h4>
+                  <h4>
+                    Time: <span>{substepMetadata.time}</span>
+                  </h4>
+                  <h4>
+                    Location: <span>{substepMetadata.location}</span>
+                  </h4>
+                  <h4>
+                    Note: <span>{substepMetadata.note}</span>
+                  </h4>
+                  <h4>Document:</h4>
+                  <div className="info-doc">
+                    {getFileIcon(subStepDocument?.name || "", 30)}
+                    <a onClick={handleDocumentDownload}>
+                      {subStepDocument ? subStepDocument.name : "Retrieving document..."}
+                    </a>
+                  </div>
+                </div>
                 <div className="button-group">
                   {renderButton("viewReceiptButtonText")}
-                  {renderButton("changeTimeLocationButtonText")}
+                  {renderButton("changeTimeLocationButtonText", () =>
+                    handlePopUpModalClick("registerInterviewTimeLocation", progressSteps, substepName),
+                  )}
                 </div>
               </>
             ) : (
@@ -238,9 +383,32 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
       case "FINAL_REVIEW":
         return (
           <div className="card-content">
-            <p>{t("finalReviewMessage")}</p>
-            {renderButton("registerReceiptButtonText", () =>
-              handlePopUpModalClick("registerApplicationFinalResultReceipt", progressSteps, substepName),
+            {substepMetadata ? (
+              <>
+                <div className="info-group">
+                  <h4>{t("finalReviewPostMessage")}</h4>
+                  <h4>Document:</h4>
+                  <div className="info-doc">
+                    {getFileIcon(subStepDocument?.name || "", 30)}
+                    <a onClick={handleDocumentDownload}>
+                      {subStepDocument ? subStepDocument.name : "Retrieving document..."}
+                    </a>
+                  </div>
+                </div>
+                <div className="button-group">
+                  {renderButton("viewReceiptButtonText")}
+                  {renderButton("registerReceiptButtonText", () =>
+                    handlePopUpModalClick("registerApplicationFinalResultReceipt", progressSteps, substepName),
+                  )}
+                </div>
+              </>
+            ) : (
+              <>
+                <p>{t("finalReviewMessage")}</p>
+                {renderButton("registerReceiptButtonText", () =>
+                  handlePopUpModalClick("registerApplicationFinalResultReceipt", progressSteps, substepName),
+                )}
+              </>
             )}
           </div>
         );
