@@ -150,6 +150,35 @@ export async function getCasesByLawyerApi(
   return <ListCase>res.data;
 }
 
+export async function queryCaseApi(
+  lawyerId: number,
+  query: string,
+  currentStep: string,
+  sortedBy: string,
+  pageNumber: number,
+  pageSize: number,
+  accessToken: string,
+  role: Role,
+): Promise<ListCase> {
+  const requestBody = {
+    lawyerId,
+    query,
+    currentStep,
+    sortedBy,
+    pageNumber,
+    pageSize,
+  };
+  const res = await performApiRequest({
+    endPoint: `api/case/query`,
+    method: "GET",
+    data: requestBody,
+    accessToken,
+    role,
+  });
+
+  return <ListCase>res.data;
+}
+
 export async function getCaseDetailsApi(caseId: number, accessToken: string, role: Role): Promise<ApplicationCase> {
   await flushRedisCache(accessToken, role);
 

@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button, Pagination, message, Input, Select } from "antd";
 import { SwapOutlined, AppstoreTwoTone, UnorderedListOutlined, SearchOutlined } from "@ant-design/icons";
-import { createNewCaseApi, getCasesApi, getCasesByLawyerApi } from "../../../api/caseAPI";
+import { createNewCaseApi, getCasesApi, getCasesByLawyerApi, queryCaseApi } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { updateCases, updateCurrentCaseId } from "../../../reducers/caseSlice";
 import { QText } from "../../common/Fonts";
@@ -31,7 +31,7 @@ export function Dashboard() {
   const [totalItems, setTotalItems] = useState(0);
   const [filteredCases, setFilteredCases] = useState(cases);
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortOption, setSortOption] = useState<"updatedAt" | "caseId" | "caseName">("updatedAt");
+  const [sortOption, setSortOption] = useState<"updatedAt" | "id" | "caseName">("updatedAt");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
 
   const { Option } = Select;
@@ -51,6 +51,7 @@ export function Dashboard() {
       let data;
       if (isLawyer) {
         data = await getCasesByLawyerApi(userId!, page, pageSize, accessToken, role);
+
         cases = data.cases;
         setTotalItems(data.metadata.totalItems);
       } else {
@@ -121,10 +122,11 @@ export function Dashboard() {
   const handleSearch = (query: string) => {
     setSearchQuery(query);
     const filteredCases = applySearchAndFilter(cases, query, sortOption, sortOrder);
+    // const filteredCases = queryCaseApi(userId!, query, 1, pageSize, accessToken, role);
     setFilteredCases(filteredCases);
   };
 
-  const handleSort = (sortBy: "updatedAt" | "caseId" | "caseName") => {
+  const handleSort = (sortBy: "updatedAt" | "id" | "caseName") => {
     setSortOption(sortBy);
     const filteredCases = applySearchAndFilter(cases, searchQuery, sortBy, sortOrder);
     setFilteredCases(filteredCases);

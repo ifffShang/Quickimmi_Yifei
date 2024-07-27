@@ -25,7 +25,7 @@ import { useAppSelector } from "../../../app/hooks";
 import { UploadedDocument, UploadedDocumentWithUrl } from "../../../model/apiModels";
 import { DocumentStatus, DocumentType } from "../../../model/commonModels";
 import { DeleteConfirmModal } from "../../modals/case/DeleteConfirmModal";
-import { getFileIcon, getFileType } from "../../../utils/fileIconUtils";  
+import { getFileIcon, getFileType } from "../../../utils/fileIconUtils";
 import { Loading } from "../../common/Loading";
 import { QText } from "../../common/Fonts";
 import "./CaseDocumentRightPanel.css";
@@ -312,7 +312,6 @@ const CaseDocumentRightPanel: React.FC = () => {
     setFilteredDocuments(filtered);
   }, [location.search, documents]);
 
-
   const handlePreview = async (documentId: number) => {
     if (!accessToken) {
       message.error("Access token is missing");
@@ -344,7 +343,7 @@ const CaseDocumentRightPanel: React.FC = () => {
       }
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
-      const a = window.document.createElement("a"); 
+      const a = window.document.createElement("a");
       a.href = url;
       a.download = document.name;
       a.click();

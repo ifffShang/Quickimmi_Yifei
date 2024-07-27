@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Card, Steps } from "antd";
 import Icon from "@ant-design/icons";
-import type { GetProps } from 'antd';
+import type { GetProps } from "antd";
 import { CaseSummary } from "../../../model/apiModels";
 import { useTranslation } from "react-i18next";
 import { CollectInfoIcon, ReviewIcon, SubmitIcon, FingerPrintIcon, ResultIcon } from "../../icons/CaseProgressCard";
@@ -32,7 +32,7 @@ function findFirstInProgressSubstep(steps: { substeps: { name: string; status: s
 const CaseProgressCard: React.FC<CaseProgressCardProps> = ({ caseSummary }) => {
   const { t } = useTranslation();
   const { progress } = caseSummary;
-  
+
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [currentStep, setCurrentStep] = useState(caseSummary.currentStep);
   const [expandedStep, setExpandedStep] = useState<string | null>(null);
@@ -61,7 +61,7 @@ const CaseProgressCard: React.FC<CaseProgressCardProps> = ({ caseSummary }) => {
     <ReviewIcon key="review" color={"#27AE60"} />,
     <SubmitIcon key="submit" color={"#27AE60"} />,
     <FingerPrintIcon key="fingerprint" color={"#27AE60"} />,
-    <ResultIcon key="result" color={"#27AE60"} />
+    <ResultIcon key="result" color={"#27AE60"} />,
   ];
 
   // const getIconColor = (step: { name: string }) => {
@@ -73,11 +73,7 @@ const CaseProgressCard: React.FC<CaseProgressCardProps> = ({ caseSummary }) => {
     <Card title={t("CaseProgressTitle")}>
       <Steps current={currentStepIndex} onChange={onStepChange}>
         {progress.steps.map((step, index) => (
-          <Step 
-            key={step.name} 
-            title={t(step.name)} 
-            icon={icons[index]}
-          />
+          <Step key={step.name} title={t(step.name)} icon={icons[index]} />
         ))}
       </Steps>
       <Card style={{ border: "none", boxShadow: "none" }}>
