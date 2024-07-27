@@ -180,7 +180,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
       case "LAWYER_REVIEW":
         return (
           <div className="card-content">
-            <p>{t("lawyerReviewMessage")}</p>
+            <QText level="normal">{t("lawyerReviewMessage")}</QText>
             {renderButton("reviewButtonText", handleGoCompleteLawyerReviewClick)}
           </div>
         );
@@ -190,7 +190,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
             {substepMetadata ? (
               <>
                 <div className="info-group">
-                  <h4>{t("clientSignaturePostMessage")}</h4>
+                  <QText level="normal">{t("clientSignaturePostMessage")}</QText>
                   <h4>Document:</h4>
                   <div className="info-doc">
                     {getFileIcon(subStepDocument?.name || "", 30)}
@@ -208,7 +208,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
               </>
             ) : (
               <>
-                <p>{t("clientSignatureMessage")}</p>
+                <QText level="normal">{t("clientSignatureMessage")}</QText>
                 <div className="button-group">
                   {renderButton("downloadSignatureDocsButtonText", handleDownloadToSignDocClick)}
                   {renderButton("uploadSignedDocsButtonText", () =>
@@ -225,13 +225,15 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
             {substepMetadata ? (
               <>
                 <div className="info-group">
-                  <h4>{t("submitApplicationPostMessage")}</h4>
-                  <h4>
-                    Carrier: <span>{substepMetadata.carrier || "No carrier found"}</span>
-                  </h4>
-                  <h4>
-                    Tracking Number: <span>{substepMetadata.trackingNumber || "No tracking number found"}</span>
-                  </h4>
+                  <QText level="normal">{t("submitApplicationPostMessage")}</QText>
+                  <div className="info-subinfo">
+                    <h4>
+                      Carrier: <span>{substepMetadata.carrier || "No carrier found"}</span>
+                    </h4>
+                    <h4>
+                      Tracking Number: <span>{substepMetadata.trackingNumber || "No tracking number found"}</span>
+                    </h4>
+                  </div>
                   <h4>Document:</h4>
                   <div className="info-doc">
                     {getFileIcon(subStepDocument?.name || "", 30)}
@@ -249,7 +251,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
               </>
             ) : (
               <>
-                <p>{t("submitApplicationMessage")}</p>
+                <QText level="normal">{t("submitApplicationMessage")}</QText>
                 <div className="button-group">
                   {renderButton("registerTrackingNumberButtonText", () =>
                     handlePopUpModalClick("registerTrackingNumber", progressSteps, substepName),
@@ -265,7 +267,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
             {substepMetadata ? (
               <>
                 <div className="info-group">
-                  <h4>{t("noticeReceiptPostMessage")}</h4>
+                  <QText level="normal">{t("noticeReceiptPostMessage")}</QText>
                   <h4>Document:</h4>
                   <div className="info-doc">
                     {getFileIcon(subStepDocument?.name || "", 30)}
@@ -283,7 +285,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
               </>
             ) : (
               <>
-                <h4>{t("noticeReceiptMessage")}</h4>
+                <QText level="normal">{t("noticeReceiptMessage")}</QText>
                 <div className="button-group">
                   {renderButton("registerReceiptButtonText", () =>
                     handlePopUpModalClick("registerApplicationReceipt", progressSteps, substepName),
@@ -299,13 +301,15 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
             {substepMetadata ? (
               <>
                 <div className="info-group">
-                  <h4>{t("waitingFingerprintCollectionPostMessage")}</h4>
-                  <h4>
-                    Time: <span>{substepMetadata.time}</span>
-                  </h4>
-                  <h4>
-                    Location: <span>{substepMetadata.location}</span>
-                  </h4>
+                  <QText level="normal">{t("waitingFingerprintCollectionPostMessage")}</QText>
+                  <div className="info-subinfo">
+                    <h4>
+                      Time: <span>{substepMetadata.time}</span>
+                    </h4>
+                    <h4>
+                      Location: <span>{substepMetadata.location}</span>
+                    </h4>
+                  </div>
                   <h4>
                     Note: <span>{substepMetadata.note}</span>
                   </h4>
@@ -326,7 +330,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
               </>
             ) : (
               <>
-                <h4>{t("waitingFingerprintCollectionMessage")}</h4>
+                <QText level="normal">{t("waitingFingerprintCollectionMessage")}</QText>
                 {renderButton("registerFingerprintTimeLocationButtonText", () =>
                   handlePopUpModalClick("registerFingerprintTimeLocation", progressSteps, substepName),
                 )}
@@ -337,7 +341,49 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
 
       // case "INTERVIEW":
 
-      // case "MASTER_CALENDAR_HEARING":
+      case "MASTER_CALENDAR_HEARING":
+        return (
+          <div className="card-content">
+            {substepMetadata ? (
+              <>
+                <div className="info-group">
+                  <QText level="normal">{t("waitingInterviewPostMessage")}</QText>
+                  <div className="info-subinfo">
+                    <h4>
+                      Time: <span>{substepMetadata.time}</span>
+                    </h4>
+                    <h4>
+                      Location: <span>{substepMetadata.location}</span>
+                    </h4>
+                  </div>
+                  <h4>
+                    Note: <span>{substepMetadata.note}</span>
+                  </h4>
+                  <h4>Document:</h4>
+                  <div className="info-doc">
+                    {getFileIcon(subStepDocument?.name || "", 30)}
+                    <a onClick={handleDocumentDownload}>
+                      {subStepDocument ? subStepDocument.name : "Retrieving document..."}
+                    </a>
+                  </div>
+                </div>
+                <div className="button-group">
+                  {renderButton("viewReceiptButtonText")}
+                  {renderButton("changeTimeLocationButtonText", () =>
+                    handlePopUpModalClick("registerInterviewTimeLocation", progressSteps, substepName),
+                  )}
+                </div>
+              </>
+            ) : (
+              <>
+                <QText level="normal">{t("waitingInterviewMessage")}</QText>
+                {renderButton("registerInterviewTimeLocationButtonText", () =>
+                  handlePopUpModalClick("registerInterviewTimeLocation", progressSteps, substepName),
+                )}
+              </>
+            )}
+          </div>
+        );
 
       case "INDIVIDUAL_HEARING":
         return (
@@ -345,16 +391,18 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
             {substepMetadata ? (
               <>
                 <div className="info-group">
-                  <h4>{t("waitingInterviewPostMessage")}</h4>
-                  <h4>
-                    Time: <span>{substepMetadata.time}</span>
-                  </h4>
-                  <h4>
-                    Location: <span>{substepMetadata.location}</span>
-                  </h4>
-                  <h4>
-                    Note: <span>{substepMetadata.note}</span>
-                  </h4>
+                  <QText level="normal">{t("waitingInterviewPostMessage")}</QText>
+                  <div className="info-subinfo">
+                    <h4>
+                      Time: <span>{substepMetadata.time}</span>
+                    </h4>
+                    <h4>
+                      Location: <span>{substepMetadata.location}</span>
+                    </h4>
+                    <h4>
+                      Note: <span>{substepMetadata.note}</span>
+                    </h4>
+                  </div>
                   <h4>Document:</h4>
                   <div className="info-doc">
                     {getFileIcon(subStepDocument?.name || "", 30)}
@@ -386,7 +434,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
             {substepMetadata ? (
               <>
                 <div className="info-group">
-                  <h4>{t("finalReviewPostMessage")}</h4>
+                  <QText level="normal">{t("finalReviewPostMessage")}</QText>
                   <h4>Document:</h4>
                   <div className="info-doc">
                     {getFileIcon(subStepDocument?.name || "", 30)}
@@ -404,7 +452,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
               </>
             ) : (
               <>
-                <p>{t("finalReviewMessage")}</p>
+                <QText level="normal">{t("finalReviewMessage")}</QText>
                 {renderButton("registerReceiptButtonText", () =>
                   handlePopUpModalClick("registerApplicationFinalResultReceipt", progressSteps, substepName),
                 )}
@@ -415,7 +463,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
       case "RESULT":
         return (
           <div className="card-content">
-            <p>{t("resultMessage")}</p>
+            <QText level="normal">{t("resultMessage")}</QText>
           </div>
         );
       default:

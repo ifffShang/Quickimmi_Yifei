@@ -112,6 +112,11 @@
   font-weight: normal;
   color: var(--gray-color-1);
 }
+.info-subinfo {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
 .info-doc {
   display: flex;
   /* flex-direction: column; */

@@ -71,7 +71,7 @@ const CaseProgressCard: React.FC<CaseProgressCardProps> = ({ caseSummary }) => {
 
   return (
     <Card title={t("CaseProgressTitle")}>
-      <Steps current={currentStepIndex} onChange={onStepChange}>
+      <Steps current={currentStepIndex} onChange={onStepChange} labelPlacement="vertical">
         {progress.steps.map((step, index) => (
           <Step key={step.name} title={t(step.name)} icon={icons[index]} />
         ))}
