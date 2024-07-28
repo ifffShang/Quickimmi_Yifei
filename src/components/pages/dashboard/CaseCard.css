@@ -1,17 +1,15 @@
 .case-card-container {
+  display: block;
   max-width: 450px;
   position: relative;
 }
 
-.case-card-case-header > svg {
-  border-bottom: 1px solid var(--gray-color-3);
-  height: auto;
-}
 .case-card-status {
-  position: absolute;
+  /* position: absolute; */
   text-align: center;
   width: 50px;
-  margin: 0 0 0 390px;
+  margin: 0;
+  margin-left: auto;
   padding: 3px 5px;
   border-top-right-radius: 10px;
   border-bottom-left-radius: 10px;
@@ -29,7 +27,8 @@
 }
 
 .case-card-content {
-  padding: 25px 25px 25px 30px;
+  padding: 0 25px 25px 30px;
+  margin-top: -5px
 }
 .case-card-bottom {
   border-top: 1px solid var(--gray-color-3);
@@ -99,7 +98,7 @@
   display: flex;
   flex-direction: column;
   gap: 7px;
-  padding-top: 55px;
+  padding-top: 60px;
 }
 
 .delete-confirm-modal-container {

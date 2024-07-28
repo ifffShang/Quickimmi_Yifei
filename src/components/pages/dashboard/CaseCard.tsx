@@ -79,6 +79,8 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
   const getCaseStatusAndColor = caseData => {
     let status = "";
     let color = "black";
+    let width = "50px"
+    // let marginLeft = "390px"
     let backgroundColor = "#ffffff";
 
     if (caseData.currentStep === "FILLING_APPLICATION") {
@@ -89,6 +91,7 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
       status = "REVIEW";
       color = "rgba(242,153,74,255)";
       backgroundColor = "rgba(252,235,219,255)";
+      width = "75px"
     } else if (
       caseData.currentStep === "FINGERPRINT_INTERVIEW" ||
       caseData.currentStep === "FINAL_RESULT" ||
@@ -97,11 +100,12 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
       status = "SUBMIT";
       color = "rgba(47,128,236,255)";
       backgroundColor = "rgba(213,230,251,255)";
+      width = "75px"
     }
-    return { status, color, backgroundColor };
+    return { status, color, backgroundColor, width };
   };
 
-  const { status, color, backgroundColor } = getCaseStatusAndColor(caseData);
+  const { status, color, backgroundColor, width} = getCaseStatusAndColor(caseData);
 
   useEffect(() => {
     if (!caseData.caseName) {
@@ -128,8 +132,7 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
 
   return (
     <div className="case-card-container">
-      <div className="case-card-case-header">
-        <p className="case-card-status" style={{ color, backgroundColor }}>
+        <p className="case-card-status" style={{ color, backgroundColor, width }}>
           {t(status)}
         </p>
         {/* <p className="case-card-id" >
@@ -138,7 +141,6 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
         {/*<div className="case-card-icon-background">*/}
         {/*  <CaseIcon />*/}
         {/*</div>*/}
-      </div>
       <div className="case-card-content">
         <div className="case-card-title">
           {isEditing ? (
@@ -151,12 +153,12 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
               />
               <div className="case-card-name-buttons">
                 <CheckCircleTwoTone
-                  style={{ fontSize: 28, marginLeft: 5 }}
+                  style={{ fontSize: 18, marginLeft: 5 }}
                   twoToneColor="#27AE60"
                   onClick={() => saveCaseName()}
                 />
                 <CloseCircleTwoTone
-                  style={{ fontSize: 28, marginLeft: 8 }}
+                  style={{ fontSize: 18, marginLeft: 8 }}
                   twoToneColor="#f5222d"
                   onClick={() => setIsEditing(false)}
                 />
@@ -168,7 +170,7 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
                 <QText level="large">{CaseName || `Case ${caseData.id}`}</QText>
               </div>
               <EditTwoTone
-                style={{ fontSize: 17, marginTop: 3, marginRight: 20 }}
+                style={{ fontSize: 18, marginTop: 3, marginRight: 20 }}
                 twoToneColor="#27AE60"
                 onClick={() => setIsEditing(true)}
               />
