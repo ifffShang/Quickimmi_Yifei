@@ -79,7 +79,7 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
   const getCaseStatusAndColor = caseData => {
     let status = "";
     let color = "black";
-    let width = "50px"
+    let width = "50px";
     // let marginLeft = "390px"
     let backgroundColor = "#ffffff";
 
@@ -91,7 +91,7 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
       status = "REVIEW";
       color = "rgba(242,153,74,255)";
       backgroundColor = "rgba(252,235,219,255)";
-      width = "75px"
+      width = "75px";
     } else if (
       caseData.currentStep === "FINGERPRINT_INTERVIEW" ||
       caseData.currentStep === "FINAL_RESULT" ||
@@ -100,12 +100,12 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
       status = "SUBMIT";
       color = "rgba(47,128,236,255)";
       backgroundColor = "rgba(213,230,251,255)";
-      width = "75px"
+      width = "75px";
     }
     return { status, color, backgroundColor, width };
   };
 
-  const { status, color, backgroundColor, width} = getCaseStatusAndColor(caseData);
+  const { status, color, backgroundColor, width } = getCaseStatusAndColor(caseData);
 
   useEffect(() => {
     if (!caseData.caseName) {
@@ -132,15 +132,15 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
 
   return (
     <div className="case-card-container">
-        <p className="case-card-status" style={{ color, backgroundColor, width }}>
-          {t(status)}
-        </p>
-        {/* <p className="case-card-id" >
+      <p className="case-card-status" style={{ color, backgroundColor, width }}>
+        {t(status)}
+      </p>
+      {/* <p className="case-card-id" >
           <QText level="normal bold" color="gray">{caseData.id}</QText>
         </p> */}
-        {/*<div className="case-card-icon-background">*/}
-        {/*  <CaseIcon />*/}
-        {/*</div>*/}
+      {/*<div className="case-card-icon-background">*/}
+      {/*  <CaseIcon />*/}
+      {/*</div>*/}
       <div className="case-card-content">
         <div className="case-card-title">
           {isEditing ? (
