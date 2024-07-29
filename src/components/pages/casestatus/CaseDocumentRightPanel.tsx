@@ -568,7 +568,15 @@ const CaseDocumentRightPanel: React.FC = () => {
           </div>
         </div>
         <div className="case-document-file-table">
-          <Table columns={columns} dataSource={dataSource} pagination={false} />
+          <Table
+            columns={columns}
+            dataSource={dataSource}
+            pagination={{
+              position: ["bottomCenter"],
+              hideOnSinglePage: true,
+              pageSize: 8,
+            }}
+          />
         </div>
       </div>
 
@@ -611,6 +619,7 @@ const CaseDocumentRightPanel: React.FC = () => {
                 </Option>
               ))}
             </Select>
+            <QText level="normal">{t("All uploaded documents are set to default 'Other' type")}</QText>
           </div>
         </div>
       </Modal>

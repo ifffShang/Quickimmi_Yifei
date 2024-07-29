@@ -67,7 +67,6 @@
 .dashboard-panel {
   border-radius: 10px;
   display: flex;
-  /* justify-content: space-evenly; */
   gap: 20px;
   flex-flow: wrap;
   overflow-y: auto;
@@ -85,7 +84,7 @@
 .dashboard-panel.has-application > div {
   background-color: var(--white-color);
   flex: 0 0 35%;
-  border-radius: 10px;
+  border-radius: 12px;
 }
 
 .medium .dashboard-panel.has-application > div {

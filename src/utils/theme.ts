@@ -14,9 +14,12 @@ export function getAntTheme() {
   const theme: ThemeConfig = {
     token: {
       boxShadow: "none",
-      borderRadius: 2,
+      borderRadiusLG: 12,
     },
     components: {
+      Menu: {
+        itemSelectedColor: primaryColor,
+      },
       Button: {
         colorPrimary: primaryColor,
         lineWidth: 0,
@@ -45,6 +48,8 @@ export function getAntTheme() {
         colorPrimary: primaryColor,
         colorPrimaryHover: primaryColor,
         optionSelectedBg: primaryColorLight,
+        borderRadius: 2,
+        borderRadiusLG: 2,
       },
       Checkbox: {
         colorPrimary: primaryColor,
@@ -56,6 +61,10 @@ export function getAntTheme() {
       },
       Spin: {
         colorPrimary: primaryColor,
+      },
+      Pagination: {
+        colorPrimary: primaryColor,
+        colorPrimaryHover: primaryColor,
       },
     },
   };

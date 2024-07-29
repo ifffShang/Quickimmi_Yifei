@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Descriptions, Tag } from "antd";
 import { CaseSummary } from "../../../model/apiModels";
+import { getCaseStatusAndColor } from "../../../utils/caseStatusUtils";
 import { useTranslation } from "react-i18next";
 import "./CaseStatusCard.css";
 
@@ -24,20 +25,7 @@ const CaseSummaryCard: React.FC<CaseStatusCardProps> = ({ caseSummary }) => {
     currentStep,
   } = caseSummary;
 
-  let tagColor = "orange";
-  let tagText = t("Draft");
-
-  if (currentStep === "REVIEW_AND_SIGN") {
-    tagColor = "blue";
-    tagText = t("Reviewing");
-  } else if (
-    currentStep === "SUBMIT_APPLICATION" ||
-    currentStep === "FINGERPRINT_INTERVIEW" ||
-    currentStep === "FINAL_RESULT"
-  ) {
-    tagColor = "green";
-    tagText = t("Submitted");
-  }
+  const { status, color, backgroundColor, width } = getCaseStatusAndColor(currentStep);
 
   return (
     <Card
@@ -47,19 +35,12 @@ const CaseSummaryCard: React.FC<CaseStatusCardProps> = ({ caseSummary }) => {
             <span style={{ fontWeight: "bold", fontSize: "16px" }}>{t("CaseNumber") + ": #"}</span>
             {id}
           </div>
-          <div>
-            <Tag color="#F2F2F2" style={{ marginTop: "10px", color: "#828282" }}>
-              {asylumType ? `${t(caseType)} - ${t(asylumType)}` : t(caseType)}
-            </Tag>
-          </div>
         </div>
       }
       extra={
-        <div className="case-card-header">
-          <Tag color={tagColor} className="draft-tag">
-            {tagText}
-          </Tag>
-        </div>
+        <p className="overview-status" style={{ color, backgroundColor, width }}>
+          {t(status)}
+        </p>
       }
       className="case-card"
     >

@@ -9,6 +9,7 @@ import { CacheStore } from "../../../cache/cache";
 import { QText, SingleLine } from "../../common/Fonts";
 import { CaseIcon } from "../../icons/Dashboard";
 import { DeleteConfirmModal } from "../../modals/case/DeleteConfirmModal";
+import { getCaseStatusAndColor } from "../../../utils/caseStatusUtils";
 import "./CaseCard.css";
 
 export interface CaseCardProps {
@@ -76,32 +77,7 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
     }
   };
 
-  const getCaseStatusAndColor = caseData => {
-    let status = "";
-    let color = "black";
-    let backgroundColor = "#ffffff";
-
-    if (caseData.currentStep === "FILLING_APPLICATION") {
-      status = "DRAFT";
-      color = "#27AE60";
-      backgroundColor = "rgba(39, 174, 96, 0.2)";
-    } else if (caseData.currentStep === "REVIEW_AND_SIGN") {
-      status = "REVIEW";
-      color = "rgba(242,153,74,255)";
-      backgroundColor = "rgba(252,235,219,255)";
-    } else if (
-      caseData.currentStep === "FINGERPRINT_INTERVIEW" ||
-      caseData.currentStep === "FINAL_RESULT" ||
-      caseData.currentStep === "SUBMIT_APPLICATION"
-    ) {
-      status = "SUBMIT";
-      color = "rgba(47,128,236,255)";
-      backgroundColor = "rgba(213,230,251,255)";
-    }
-    return { status, color, backgroundColor };
-  };
-
-  const { status, color, backgroundColor } = getCaseStatusAndColor(caseData);
+  const { status, color, backgroundColor, width } = getCaseStatusAndColor(caseData.currentStep);
 
   useEffect(() => {
     if (!caseData.caseName) {
@@ -128,17 +104,15 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
 
   return (
     <div className="case-card-container">
-      <div className="case-card-case-header">
-        <p className="case-card-status" style={{ color, backgroundColor }}>
-          {t(status)}
-        </p>
-        {/* <p className="case-card-id" >
+      <p className="case-card-status" style={{ color, backgroundColor, width }}>
+        {t(status)}
+      </p>
+      {/* <p className="case-card-id" >
           <QText level="normal bold" color="gray">{caseData.id}</QText>
         </p> */}
-        {/*<div className="case-card-icon-background">*/}
-        {/*  <CaseIcon />*/}
-        {/*</div>*/}
-      </div>
+      {/*<div className="case-card-icon-background">*/}
+      {/*  <CaseIcon />*/}
+      {/*</div>*/}
       <div className="case-card-content">
         <div className="case-card-title">
           {isEditing ? (
@@ -151,12 +125,12 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
               />
               <div className="case-card-name-buttons">
                 <CheckCircleTwoTone
-                  style={{ fontSize: 28, marginLeft: 5 }}
+                  style={{ fontSize: 18, marginLeft: 5 }}
                   twoToneColor="#27AE60"
                   onClick={() => saveCaseName()}
                 />
                 <CloseCircleTwoTone
-                  style={{ fontSize: 28, marginLeft: 8 }}
+                  style={{ fontSize: 18, marginLeft: 8 }}
                   twoToneColor="#f5222d"
                   onClick={() => setIsEditing(false)}
                 />
@@ -168,7 +142,7 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
                 <QText level="large">{CaseName || `Case ${caseData.id}`}</QText>
               </div>
               <EditTwoTone
-                style={{ fontSize: 17, marginTop: 3, marginRight: 20 }}
+                style={{ fontSize: 18, marginTop: 3, marginRight: 20 }}
                 twoToneColor="#27AE60"
                 onClick={() => setIsEditing(true)}
               />
