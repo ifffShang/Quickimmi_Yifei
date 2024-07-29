@@ -219,7 +219,9 @@ export const formSlice = createSlice({
 
       if (action.payload.supplementDocument) {
         Object.keys(action.payload.supplementDocument).forEach(key => {
-          state.applicationCase.profile.supplementDocument[key] = action.payload.supplementDocument![key];
+          if (key.indexOf("SupportDocuments") > -1) {
+            state.applicationCase.profile.supplementDocument[key] = action.payload.supplementDocument![key];
+          }
         });
       }
 
