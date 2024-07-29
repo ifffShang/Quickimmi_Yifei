@@ -338,19 +338,7 @@ export const formSlice = createSlice({
     updateHighlightMissingFields: (state, action: PayloadAction<boolean>) => {
       state.highlightMissingFields = action.payload;
     },
-    resetFormState: state => {
-      state.caseId = 0;
-      state.applicationCase = InitialApplicationCase;
-      state.percentage = {
-        overall: { avg: 0 },
-      };
-      state.documentUrls = [];
-      state.uploadedDocuments = [];
-      state.generatedDocuments = [];
-      state.highlightMissingFields = false;
-
-      state.saveTimes = 0;
-    },
+    resetFormState: state => initialState,
   },
 });
 

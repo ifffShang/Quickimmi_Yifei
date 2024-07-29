@@ -417,6 +417,11 @@
   "MailingAddressSameAsResidentialAddress": "邮寄地址与居住地址相同",
 
   "I94": "I-94",
+  "NoticeOfAppearance": "出庭通知",
+  "HearingCourtAddress": "听证法院地址",
+  "JudgeName": "法官姓名",
+  "HearingTime": "出庭时间",
+  "HearingTimeFormat": "HH:MM AM/PM",
   "UploadI94Document": "上传I-94文件",
   "WhenLastLeaveCountry": "您上次离开您的国家是什么时候？",
   "DateStatusExpires": "您最后一次入境的身份何时到期？",

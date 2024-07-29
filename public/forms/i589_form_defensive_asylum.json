@@ -1,0 +1,146 @@
+{
+  "id": "i589_form_defensive_asylum",
+  "version": "2024-04-01",
+  "type": "form",
+  "steps": [
+    {
+      "label": "text_PersonalInformation",
+      "id": "personal_information",
+      "type": "level1",
+      "steps": [
+        {
+          "label": "text_BasicInformation",
+          "id": "basic_information",
+          "type": "level2",
+          "referenceId": "i589_fields_basic_information"
+        },
+        {
+          "label": "text_ContactInformation",
+          "id": "contact_information",
+          "type": "level2",
+          "referenceId": "i589_fields_contact_information"
+        },
+        {
+          "label": "text_ImmigrationInformation",
+          "id": "immigration_information",
+          "type": "level2",
+          "referenceId": "i589_fields_immigration_information"
+        },
+        {
+          "label": "text_NoticeOfAppearance",
+          "id": "notice_of_appearance_information",
+          "type": "level2",
+          "referenceId": "i589_fields_notice_of_appearance_information"
+        }
+      ]
+    },
+    {
+      "label": "text_FamilyInformation",
+      "id": "family_information",
+      "type": "level1",
+      "steps": [
+        {
+          "label": "text_SpouseInformation",
+          "id": "spouse_information",
+          "type": "level2",
+          "referenceId": "i589_fields_spouse_information"
+        },
+        {
+          "label": "text_ChildrenInformation",
+          "id": "children_information",
+          "type": "level2",
+          "referenceId": "i589_fields_children_information"
+        },
+        {
+          "label": "text_ParentsInformation",
+          "id": "parents_information",
+          "type": "level2",
+          "referenceId": "i589_fields_parents_information"
+        },
+        {
+          "label": "text_SiblingsInformation",
+          "id": "siblings_information",
+          "type": "level2",
+          "referenceId": "i589_fields_siblings_information"
+        }
+      ]
+    },
+    {
+      "label": "text_BackgroundInformation",
+      "id": "background_information",
+      "type": "level1",
+      "steps": [
+        {
+          "label": "text_AddressInformationI",
+          "id": "address_information",
+          "type": "level2",
+          "referenceId": "i589_fields_address_before_usa"
+        },
+        {
+          "label": "text_AddressInformationII",
+          "id": "address_information",
+          "type": "level2",
+          "referenceId": "i589_fields_address_past_5y"
+        },
+        {
+          "label": "text_EducationInformation",
+          "id": "education_information",
+          "type": "level2",
+          "referenceId": "i589_fields_education_information"
+        },
+        {
+          "label": "text_EmploymentInformation",
+          "id": "employment_information",
+          "type": "level2",
+          "referenceId": "i589_fields_employment_information"
+        }
+      ]
+    },
+    {
+      "label": "text_ApplicationInformation",
+      "id": "application_information",
+      "type": "level1",
+      "steps": [
+        {
+          "label": "text_AsylumClaim",
+          "id": "asylum_information",
+          "type": "level2",
+          "referenceId": "i589_fields_asylum_claim"
+        }
+      ]
+    },
+    {
+      "label": "text_PersonalStatement",
+      "id": "personal_statement",
+      "type": "level1",
+      "steps": [
+        {
+          "label": "text_PersonalStatement",
+          "id": "personal_statement",
+          "type": "level2",
+          "referenceId": "i589_fields_personal_statement"
+        }
+      ]
+    },
+    {
+      "label": "text_ViewDocuments",
+      "id": "documents",
+      "type": "level1",
+      "standalone": "true",
+      "steps": [
+        {
+          "label": "text_ViewDocuments",
+          "id": "documents",
+          "type": "level2",
+          "referenceId": "i589_fields_view_reports"
+        },
+        {
+          "label": "text_ViewMergedDocuments",
+          "id": "documents",
+          "type": "level2",
+          "referenceId": "i589_fields_view_merged_documents"
+        }
+      ]
+    }
+  ]
+}

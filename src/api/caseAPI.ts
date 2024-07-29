@@ -27,7 +27,6 @@ import { performApiRequest } from "./apiConfig";
 import { retryApi } from "./retry";
 
 export async function getForm(id: string, cachedForm?: IForm): Promise<IForm> {
-  if (cachedForm && cachedForm.steps && cachedForm.steps.length > 0) return cachedForm;
   return await performApiRequest({
     endPoint: `forms/${id}.json?${new Date().getTime()}`,
     method: "GET",

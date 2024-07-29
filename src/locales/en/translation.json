@@ -420,6 +420,11 @@
   "MailingAddressSameAsResidentialAddress": "Mailing Address is the same as Residential Address",
 
   "I94": "I-94",
+  "NoticeOfAppearance": "Notice Of Appearance",
+  "HearingCourtAddress": "Hearing Court Address",
+  "JudgeName": "Judge Name",
+  "HearingTime": "Hearing Time",
+  "HearingTimeFormat": "HH:MM AM/PM",
   "UploadI94Document": "Upload I-94 Document",
   "WhenLastLeaveCountry": "When did you last leave your country?",
   "DateStatusExpires": "When does the status of your last entry expire?",

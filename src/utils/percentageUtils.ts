@@ -85,6 +85,10 @@ export function getPercentage(
   arrObj?: any,
   index?: number,
 ) {
+  console.log("--------------------------fields", fields);
+  console.log("--------------------------profile", profile);
+  console.log("--------------------------arrObj", arrObj);
+  console.log("--------------------------index", index);
   let total = 0,
     fulfilled = 0;
   if (!fields) return { total, fulfilled };

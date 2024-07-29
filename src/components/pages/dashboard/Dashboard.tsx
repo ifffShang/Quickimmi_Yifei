@@ -12,6 +12,7 @@ import { NewApplicationIcon } from "../../icons/Dashboard";
 import { CaseCard } from "./CaseCard";
 import "./Dashboard.css";
 import { Role } from "../../../consts/consts";
+import { resetFormState } from "../../../reducers/formSlice";
 
 export function Dashboard() {
   const navigate = useNavigate();
@@ -97,6 +98,7 @@ export function Dashboard() {
   };
 
   useEffect(() => {
+    dispatch(resetFormState());
     const query = new URLSearchParams(location.search);
     const page = parseInt(query.get("page") || "1");
     setCurrentPage(page);

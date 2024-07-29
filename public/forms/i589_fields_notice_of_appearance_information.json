@@ -1,0 +1,76 @@
+{
+  "id": "i589_fields_notice_of_appearance_information",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    {
+      "label": "text_AlienRegistrationNumber",
+      "id": "alien_registration_number",
+      "key": "applicant.alienNumber",
+      "control": "text"
+    },
+    {
+      "label": "text_HearingCourtAddress",
+      "id": "hearing_court_address",
+      "control": "group",
+      "maxChildPerRow": "3",
+      "fields": [
+        {
+          "label": "text_Street",
+          "placeholder": "text_Street",
+          "id": "hearing_court_address_street",
+          "key": "supplementDocument.masterHearingDetail.courtAddress",
+          "control": "text"
+        },
+        {
+          "label": "text_City",
+          "placeholder": "text_City",
+          "id": "hearing_court_address_city",
+          "key": "supplementDocument.masterHearingDetail.courtCity",
+          "control": "text"
+        },
+        {
+          "label": "text_State",
+          "placeholder": "text_State",
+          "id": "hearing_court_address_state",
+          "key": "supplementDocument.masterHearingDetail.courtState",
+          "control": "text"
+        },
+        {
+          "label": "text_ZipCode",
+          "placeholder": "text_ZipCode",
+          "id": "hearing_court_address_zip_code",
+          "key": "supplementDocument.masterHearingDetail.courtZipCode",
+          "control": "text"
+        }
+      ]
+    },
+    {
+      "label": "text_JudgeName",
+      "id": "notice_of_appearance_judgeName",
+      "key": "supplementDocument.masterHearingDetail.judgeName",
+      "control": "text"
+    },
+    {
+      "label": "text_HearingTime",
+      "id": "residential_address_in_us",
+      "control": "group",
+      "fields": [
+        {
+          "label": "text_Date",
+          "placeholder": "text_MM/DD/YYYY",
+          "id": "notice_of_appearance_date",
+          "key": "supplementDocument.masterHearingDetail.hearingDate",
+          "control": "text"
+        },
+        {
+          "label": "text_Time",
+          "placeholder": "text_HearingTimeFormat",
+          "id": "notice_of_appearance_time",
+          "key": "supplementDocument.masterHearingDetail.hearingTime",
+          "control": "text"
+        }
+      ]
+    }
+  ]
+}

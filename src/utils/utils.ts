@@ -74,6 +74,7 @@ export function getCaseDetailValue(caseDetails: AsylumCaseProfile, key: string, 
     let result: any = caseDetails;
     for (const keyEntry of keys) {
       if (keyEntry.indexOf("[]") > -1) {
+        // handle array
         if (keyEntry.indexOf("[]") === -1 || typeof fieldIndex !== "number") {
           console.error(
             `[getCaseDetailValue] Field index is missing for array field. Key: ${keyEntry} fieldIndex: ${fieldIndex}`,
@@ -120,6 +121,7 @@ export function getFieldValue(
   format?: string,
   fieldIndex?: number,
 ): any {
+  // Sanity Check
   if (control === "group") {
     return;
   }
@@ -135,24 +137,40 @@ export function getFieldValue(
     return;
   }
 
-  if (key.indexOf("explainHaveBeenHarmedYesSupportDocuments") > -1) {
-    console.log("key", key);
-  }
-
-  // count-array pair
+  /*
+   * count-array pair
+   * Example:
+   * 1, applicant.childrenCnt-family.children
+   * 2, count-background.usAddressHistoriesPast5Years
+   */
   if (key.indexOf("-") > -1) {
+    // Example: countKey: applicant.childrenCnt, arrKey: family.children
     const [countKey, arrKey] = key.split("-");
+    // Example: Children[fieldIndex]
     const arr = getCaseDetailValue(caseDetails, arrKey, fieldIndex);
+
     if (countKey !== "count") {
       const count = getCaseDetailValue(caseDetails, countKey, fieldIndex);
       return { countKey, count, arrKey, arr };
-    }
+    } // else Example: count-background.usAddressHistoriesPast5Years
     return { arrKey, arr };
   }
 
+  /*
+   * Example:
+   * applicant.immigrationCourtProceedingACheckbox,applicant.immigrationCourtProceedingBCheckbox,applicant.immigrationCourtProceedingCCheckbox
+   */
   if (key?.indexOf(",") > -1) {
+    /*
+     * Example keys:
+     * applicant.immigrationCourtProceedingACheckbox
+     * applicant.immigrationCourtProceedingBCheckbox
+     * applicant.immigrationCourtProceedingCCheckbox
+     */
     const keys = key.split(",");
+
     if (options && Array.isArray(options)) {
+      // Handle radio, checkbox, dropdown with multiple value
       const keyValues = keys.map(k => getCaseDetailValue(caseDetails, k, fieldIndex));
       const tmpOptions = Array(keyValues.length).fill("false");
       const keyValueList = [] as string[];
@@ -170,6 +188,7 @@ export function getFieldValue(
         return selectedOptions.map(option => option.value);
       }
     } else if (format) {
+      // Only handle phone number
       const regex = Regex[format]["FormatRegex"];
       const output = Regex[format]["FormatOutput"];
       const filterRegex = Regex[format]["FilterRegex"];
@@ -187,6 +206,7 @@ export function getFieldValue(
     }
   }
 
+  // Other cases
   return getCaseDetailValue(caseDetails, key, fieldIndex);
 }
 
@@ -321,6 +341,7 @@ export interface LocationInfo {
   cities?: ICity[];
   cityPrefillOption?: LocationSelectOption;
 }
+
 export function getPrefillLocationOptions(cityAndCountry: string, locationObject?: LocationObject): LocationInfo {
   const { country, state, city } = parseCityAndCountryStr(cityAndCountry, locationObject);
 
