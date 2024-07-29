@@ -568,14 +568,14 @@ const CaseDocumentRightPanel: React.FC = () => {
           </div>
         </div>
         <div className="case-document-file-table">
-          <Table 
-            columns={columns} 
-            dataSource={dataSource} 
-            pagination={{ 
-              position: ['bottomCenter'], 
-              hideOnSinglePage:true,
-              pageSize:8 
-            }} 
+          <Table
+            columns={columns}
+            dataSource={dataSource}
+            pagination={{
+              position: ["bottomCenter"],
+              hideOnSinglePage: true,
+              pageSize: 8,
+            }}
           />
         </div>
       </div>

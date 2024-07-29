@@ -65,7 +65,7 @@ export function getAntTheme() {
       Pagination: {
         colorPrimary: primaryColor,
         colorPrimaryHover: primaryColor,
-      }
+      },
     },
   };
 
