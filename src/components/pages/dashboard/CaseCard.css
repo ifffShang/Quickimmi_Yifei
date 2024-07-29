@@ -5,14 +5,12 @@
 }
 
 .case-card-status {
-  /* position: absolute; */
   text-align: center;
-  width: 50px;
   margin: 0;
   margin-left: auto;
   padding: 3px 5px;
-  border-top-right-radius: 10px;
-  border-bottom-left-radius: 10px;
+  border-top-right-radius: 12px;
+  border-bottom-left-radius: 12px;
   background-color: var(--primary-color-trans1);
 }
 .case-card-id {

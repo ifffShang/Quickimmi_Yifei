@@ -9,6 +9,7 @@ import { CacheStore } from "../../../cache/cache";
 import { QText, SingleLine } from "../../common/Fonts";
 import { CaseIcon } from "../../icons/Dashboard";
 import { DeleteConfirmModal } from "../../modals/case/DeleteConfirmModal";
+import { getCaseStatusAndColor } from "../../../utils/caseStatusUtils";
 import "./CaseCard.css";
 
 export interface CaseCardProps {
@@ -76,36 +77,7 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
     }
   };
 
-  const getCaseStatusAndColor = caseData => {
-    let status = "";
-    let color = "black";
-    let width = "50px";
-    // let marginLeft = "390px"
-    let backgroundColor = "#ffffff";
-
-    if (caseData.currentStep === "FILLING_APPLICATION") {
-      status = "DRAFT";
-      color = "#27AE60";
-      backgroundColor = "rgba(39, 174, 96, 0.2)";
-    } else if (caseData.currentStep === "REVIEW_AND_SIGN") {
-      status = "REVIEW";
-      color = "rgba(242,153,74,255)";
-      backgroundColor = "rgba(252,235,219,255)";
-      width = "75px";
-    } else if (
-      caseData.currentStep === "FINGERPRINT_INTERVIEW" ||
-      caseData.currentStep === "FINAL_RESULT" ||
-      caseData.currentStep === "SUBMIT_APPLICATION"
-    ) {
-      status = "SUBMIT";
-      color = "rgba(47,128,236,255)";
-      backgroundColor = "rgba(213,230,251,255)";
-      width = "75px";
-    }
-    return { status, color, backgroundColor, width };
-  };
-
-  const { status, color, backgroundColor, width } = getCaseStatusAndColor(caseData);
+  const { status, color, backgroundColor, width } = getCaseStatusAndColor(caseData.currentStep);
 
   useEffect(() => {
     if (!caseData.caseName) {
