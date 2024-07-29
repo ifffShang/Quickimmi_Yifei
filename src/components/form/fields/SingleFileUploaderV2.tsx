@@ -10,15 +10,16 @@ import {
   uploadFileToPresignUrl,
 } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { useLoadSingleDocument } from "../../../hooks/commonHooks";
+import { useFormTranslation, useLoadSingleDocument } from "../../../hooks/commonHooks";
 import { UploadedDocument } from "../../../model/apiModels";
 import { DocumentOperation, DocumentType, Identity } from "../../../model/commonModels";
 import { handleFileDownloadHasPresigedUrl } from "../../../utils/functionUtils";
-import { ErrorMessage } from "../../common/Fonts";
+import { ErrorMessage, QText } from "../../common/Fonts";
 import { Loading } from "../../common/Loading";
 import "./SingleFileUploaderV2.css";
 import { FileType } from "./Uploader";
 import { updateMarriageLicenseInfo } from "../../../reducers/formSlice";
+import { LoadingOutlined } from "@ant-design/icons";
 
 export interface SingleFileUploaderV2Props {
   documentType: DocumentType;
@@ -38,6 +39,7 @@ const getBase64 = (file: FileType): Promise<string> =>
   });
 
 export function SingleFileUploaderV2(props: SingleFileUploaderV2Props) {
+  const { t } = useFormTranslation();
   const dispatch = useAppDispatch();
   const userId = useAppSelector(state => state.auth.userId);
   const email = useAppSelector(state => state.auth.email);
@@ -50,6 +52,7 @@ export function SingleFileUploaderV2(props: SingleFileUploaderV2Props) {
   const [loading, setLoading] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
+  const [parseLoading, setParseLoading] = useState(false);
 
   useLoadSingleDocument({
     accessToken: accessToken,
@@ -101,9 +104,12 @@ export function SingleFileUploaderV2(props: SingleFileUploaderV2Props) {
         () => {
           updateDocumentStatus(role, res.documentId, true, "UPLOADED", accessToken);
           onSuccess(res, file, null);
+
           if (props.documentType === ("MARRIAGE_CERTIFICATE_ORIGINAL" as DocumentType)) {
+            setParseLoading(true);
             parseMarriageCertificateApi(res.documentId, accessToken, role).then(parsedRes => {
               dispatch(updateMarriageLicenseInfo(parsedRes));
+              setParseLoading(false);
             });
           }
         },
@@ -197,6 +203,11 @@ export function SingleFileUploaderV2(props: SingleFileUploaderV2Props) {
           }}
           src={previewImage}
         />
+      )}
+      {parseLoading && (
+        <QText color="primary" level="xsmall">
+          <LoadingOutlined /> {t("Parsing marriage license photo...")}
+        </QText>
       )}
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </div>
