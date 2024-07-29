@@ -413,18 +413,6 @@ export async function retryGetDocumentsApi(
   return result;
 }
 
-// @Deprecated
-export async function generateDocumentsApi(accessToken: string, caseId: number, role: Role): Promise<boolean> {
-  const res = await performApiRequest({
-    endPoint: `api/case/asylum/generateDocuments?id=${caseId}`,
-    method: "GET",
-    data: null,
-    accessToken,
-    role,
-  });
-  return <boolean>res.data;
-}
-
 export async function generateDocumentsByDocumentTypeApi(
   accessToken: string,
   caseId: number,
