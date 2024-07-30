@@ -115,9 +115,7 @@ export function SingleFileUploaderV2(props: SingleFileUploaderV2Props) {
               .catch(error => {
                 setParseLoading(false);
                 console.error(error);
-                setErrorMessage(
-                  "Failed to parse the marriage license photo, please try again or manually enter the marriage license info.",
-                );
+                setErrorMessage(t("MarriageLicenseParseError"));
               });
           }
         },

@@ -322,8 +322,19 @@
   "OtherFluentLanguagesLabel": "Other Fluent Languages",
   "OtherFluentLanguages": "Add another language you speak fluently",
 
+  "Change document": "Change uploaded document",
+
   "UploadSpousePassportOrOtherID": "Upload spouse's passport or other identity document",
-  "UploadMarriageCertificate": "Upload Marriage Certificate",
+  "UploadMarriageCertificate": "Upload your marriage license",
+  "MarriageCertificateInformation": "Marriage License Information",
+  "MarriageDateAndPlace": "Date and Place of Marriage",
+  "MarriageLicenseHolderInformation": "Marriage License Holder Information",
+  "MarriageLicenseSpouseInformation": "Marriage License Spouse Information",
+  "LicenseHolderName": "License Holder Name",
+  "LicenseSpouseName": "Spouse Name",
+  "MarriageLicenseParseError": "Failed to parse the marriage license photo, please try again or manually enter the marriage license info.",
+  "Parsing marriage license photo...": "Parsing marriage license photo...",
+
   "SpouseIsInUS": "Is this person in the U.S.?",
   "SpousePartnerApplication": "Spouse/Partner Application",
   "Male": "Male",

@@ -319,8 +319,19 @@
   "OtherFluentLanguagesLabel": "其他流利语言",
   "OtherFluentLanguages": "添加另一种你能流利说的语言",
 
+  "Change document": "更改上传文件",
+
   "UploadSpousePassportOrOtherID": "上传配偶的护照或其他身份证明",
   "UploadMarriageCertificate": "上传结婚证书",
+  "MarriageCertificateInformation": "结婚证书信息",
+  "MarriageDateAndPlace": "结婚日期和地点",
+  "MarriageLicenseHolderInformation": "结婚证持有人信息",
+  "MarriageLicenseSpouseInformation": "结婚证配偶信息",
+  "LicenseHolderName": "持证人姓名",
+  "LicenseSpouseName": "配偶姓名",
+  "MarriageLicenseParseError": "解析结婚证照片失败，请重试或手动输入结婚证信息。",
+  "Parsing marriage license photo...": "正在解析结婚证照片...",
+
   "SpouseIsInUS": "配偶是否在美国?",
   "SpousePartnerApplication": "配偶/伴侣申请",
   "Male": "男",
