@@ -27,6 +27,10 @@
   "RefineWithAI": "使用AI润色",
   "Use": "使用",
   "Rewrite": "重写",
+  "Write your Personal Statement with AI": "人工智能自动填写",
+  "Please complete the previous sections before using this feature": "此功能需要先完成填写前面的信息",
+  "Translate the PS on the left panel into Original Language.": "将左边内容翻译成申请人主用语",
+  "AI will generate the Personal Statement based on the information provided in the previous sections.": "人工智能会根据之前填写的内容自动生成个人陈述。",
   "Discard": "放弃",
 
   "Home": "首页",
