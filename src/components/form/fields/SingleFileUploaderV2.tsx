@@ -107,10 +107,18 @@ export function SingleFileUploaderV2(props: SingleFileUploaderV2Props) {
 
           if (props.documentType === ("MARRIAGE_CERTIFICATE_ORIGINAL" as DocumentType)) {
             setParseLoading(true);
-            parseMarriageCertificateApi(res.documentId, accessToken, role).then(parsedRes => {
-              dispatch(updateMarriageLicenseInfo(parsedRes));
-              setParseLoading(false);
-            });
+            parseMarriageCertificateApi(res.documentId, accessToken, role)
+              .then(parsedRes => {
+                dispatch(updateMarriageLicenseInfo(parsedRes));
+                setParseLoading(false);
+              })
+              .catch(error => {
+                setParseLoading(false);
+                console.error(error);
+                setErrorMessage(
+                  "Failed to parse the marriage license photo, please try again or manually enter the marriage license info.",
+                );
+              });
           }
         },
         () => {
