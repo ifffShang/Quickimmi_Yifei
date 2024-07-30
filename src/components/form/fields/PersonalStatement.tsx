@@ -1,7 +1,7 @@
 import { QText } from "../../common/Fonts";
 import type { GetProps } from "antd";
-import Icon, { EditOutlined, TranslationOutlined } from "@ant-design/icons";
-import { Button, Input, InputRef, message, Spin } from "antd";
+import { Button, Input, InputRef, message, Spin, Tooltip } from "antd";
+import Icon, { TranslationOutlined } from "@ant-design/icons";
 import { useAppSelector } from "../../../app/hooks";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -23,12 +23,35 @@ export function PersonalStatement(props: PersonalStatementProps) {
   const inputRef = useRef<InputRef>(null);
   const role = useAppSelector(state => state.auth.role);
   const caseId = useAppSelector(state => state.form.caseId);
+  const progress = useAppSelector(state => state.form.applicationCase.progress);
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const [isOriginalLoading, setIsOriginalLoading] = useState(false);
   const [isTranslatedLoading, setIsTranslatedLoading] = useState(false);
   const [showTranslatedArea, setShowTranslatedArea] = useState(false);
   const [value, setValue] = useState("");
   const [translatedValue, setTranslatedValue] = useState("");
+
+  // Check if all sections before personal statement are 100% complete
+  const isPreviousSectionComplete = () => {
+    const fillingApplicationStep = progress?.steps
+      .find(step => step.name === "FILLING_APPLICATION")
+      ?.substeps?.find(substep => substep.name === "FILLING_DETAILS");
+
+    if (fillingApplicationStep && fillingApplicationStep.metadata) {
+      const metadata = JSON.parse(fillingApplicationStep.metadata);
+      const percentages = metadata.percentage;
+      for (const key in percentages) {
+        if (key !== "personal_statement") {
+          if (percentages[key]?.avg !== 100) {
+            return false;
+          }
+        }
+      }
+      return true;
+    }
+    return false;
+  };
+  const isAllPreviousSectionComplete = isPreviousSectionComplete();
 
   useEffect(() => {
     if (props.value === "") {
@@ -46,7 +69,7 @@ export function PersonalStatement(props: PersonalStatementProps) {
         message.error("Failed to display the stored personal statement.");
       }
     }
-  }, [props.value]);
+  }, [props.value, progress]);
 
   const onTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>, isEnglishPs: boolean) => {
     if (props.disabled) return;
@@ -133,17 +156,13 @@ export function PersonalStatement(props: PersonalStatementProps) {
   };
 
   const parseCombinedPersonalStatements = combinedPSString => {
-    console.log("----------------getting combinedPSString value", combinedPSString);
     const combinedPS = JSON.parse(combinedPSString);
-    console.log("----------------parsed json", combinedPS);
     const englishPS = combinedPS.personalStatements.find(
       ps => ps.language === LanguageEnum.ENGLISH.toUpperCase(),
     ).content;
-    console.log("----------------english ps", englishPS);
     const translatedPS = combinedPS.personalStatements.find(
       ps => ps.language === props.originLanguage.toUpperCase(),
     ).content;
-    console.log("----------------translated ps", translatedPS);
     return { englishPS, translatedPS };
   };
 
@@ -174,15 +193,25 @@ export function PersonalStatement(props: PersonalStatementProps) {
               <QText level="normal bold" margin="margin-5" color="gray">
                 {t("EnglishVersion")}
               </QText>
-              <Button
-                type="primary"
-                onClick={generatePersonalStatement}
-                className="ps-text-area-button"
-                disabled={isOriginalLoading}
-                icon={<AiIcon />}
+              <Tooltip
+                title={
+                  !isAllPreviousSectionComplete
+                    ? t("Please complete the previous sections before using this feature")
+                    : t(
+                        "AI will generate the Personal Statement based on the information provided in the previous sections.",
+                      )
+                }
               >
-                {t("Rewrite")}
-              </Button>
+                <Button
+                  type="primary"
+                  onClick={generatePersonalStatement}
+                  className="ps-text-area-button"
+                  disabled={!isAllPreviousSectionComplete || isOriginalLoading}
+                  icon={<AiIcon />}
+                >
+                  {t("Rewrite")}
+                </Button>
+              </Tooltip>
             </div>
             {isOriginalLoading ? (
               <Spin tip="Rewriting" style={{ height: 600 }}>
@@ -206,15 +235,17 @@ export function PersonalStatement(props: PersonalStatementProps) {
               <QText level="normal bold" margin="margin-5" color="gray">
                 {t("OriginalLanguageVersion")}
               </QText>
-              <Button
-                type="primary"
-                onClick={translatePersonalStatement}
-                className="ps-text-area-button"
-                disabled={isTranslatedLoading}
-                icon={<TranslationOutlined />}
-              >
-                {t("ReTranslate")}
-              </Button>
+              <Tooltip title={t("Translate the PS on the left panel into Original Language.")}>
+                <Button
+                  type="primary"
+                  onClick={translatePersonalStatement}
+                  className="ps-text-area-button"
+                  disabled={isTranslatedLoading}
+                  icon={<TranslationOutlined />}
+                >
+                  {t("ReTranslate")}
+                </Button>
+              </Tooltip>
             </div>
             {isTranslatedLoading ? (
               <Spin tip="Translating" style={{ height: 600 }}>
@@ -226,7 +257,7 @@ export function PersonalStatement(props: PersonalStatementProps) {
                 ref={inputRef}
                 className="ps-text-area-input"
                 placeholder={props.placeholder}
-                value={translatedValue}
+                value={translatedValue.replace(/\\n/g, "\n")}
                 onChange={e => onTextAreaChange(e, false)}
                 disabled={props.disabled || false}
                 variant="borderless"
@@ -242,35 +273,57 @@ export function PersonalStatement(props: PersonalStatementProps) {
                 <QText level="normal bold" margin="margin-5" color="gray">
                   {t("EnglishVersion")}
                 </QText>
+                <Tooltip
+                  title={
+                    !isAllPreviousSectionComplete
+                      ? t("Please complete the previous sections before using this feature")
+                      : t(
+                          "AI will generate the Personal Statement based on the information provided in the previous sections.",
+                        )
+                  }
+                >
+                  <Button
+                    type="primary"
+                    onClick={generatePersonalStatement}
+                    className="ps-text-area-button"
+                    disabled={!isAllPreviousSectionComplete || isOriginalLoading}
+                    icon={<AiIcon />}
+                  >
+                    {t("Rewrite")}
+                  </Button>
+                </Tooltip>
+                <Tooltip title={t("Translate the PS on the left panel into Original Language.")}>
+                  <Button
+                    type="primary"
+                    onClick={translatePersonalStatement}
+                    className="ps-text-area-button"
+                    disabled={isOriginalLoading}
+                    icon={<TranslationOutlined style={{ fontSize: 20 }} />}
+                  >
+                    {t("TranslateToOriginalLanguage")}
+                  </Button>
+                </Tooltip>
+              </div>
+            ) : (
+              <Tooltip
+                title={
+                  !isAllPreviousSectionComplete
+                    ? t("Please complete the previous sections before using this feature")
+                    : t(
+                        "AI will generate the Personal Statement based on the information provided in the previous sections.",
+                      )
+                }
+              >
                 <Button
                   type="primary"
                   onClick={generatePersonalStatement}
                   className="ps-text-area-button"
-                  disabled={isOriginalLoading}
+                  disabled={!isAllPreviousSectionComplete || isOriginalLoading}
                   icon={<AiIcon />}
                 >
-                  {t("Rewrite")}
+                  {t("Write your Personal Statement with AI")}
                 </Button>
-                <Button
-                  type="primary"
-                  onClick={translatePersonalStatement}
-                  className="ps-text-area-button"
-                  disabled={isOriginalLoading}
-                  icon={<TranslationOutlined style={{ fontSize: 20 }} />}
-                >
-                  {t("TranslateToOriginalLanguage")}
-                </Button>
-              </div>
-            ) : (
-              <Button
-                type="primary"
-                onClick={generatePersonalStatement}
-                className="ps-text-area-button"
-                disabled={isOriginalLoading}
-                icon={<AiIcon />}
-              >
-                Write your Personal Statement with AI
-              </Button>
+              </Tooltip>
             )}
             {isOriginalLoading ? (
               <Spin tip="AI Writing" style={{ height: 600 }}>

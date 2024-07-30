@@ -22,7 +22,6 @@ export const updateApplicationCaseFunc = async (
     }
 
     const progressWithPercentage = getProgressWithPercentage(progress, percentage);
-    console.log();
 
     const currentStep = [...progress.steps].reverse().find(step => step.status === "IN_PROGRESS");
 
