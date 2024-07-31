@@ -170,10 +170,12 @@ export function getFieldValue(
     const keys = key.split(",");
 
     if (options && Array.isArray(options)) {
-      // Handle radio, checkbox, dropdown with multiple value
+      // Handle radio, checkbox, dropdown with multiple value, for example, keyValues = ["true","false","true"]
       const keyValues = keys.map(k => getCaseDetailValue(caseDetails, k, fieldIndex));
       const tmpOptions = Array(keyValues.length).fill("false");
       const keyValueList = [] as string[];
+      // Generate all possible combinations of key values to match with options, each options only has one true value
+      // Example: ["true","false","true"] => ["true","false","false"], ["false","false","true"]
       keyValues.forEach((k, i) => {
         if (k === "true") {
           tmpOptions[i] = "true";
@@ -181,11 +183,14 @@ export function getFieldValue(
         }
         tmpOptions[i] = "false";
       });
+      // Find the selected options
       const selectedOptions = options.filter(option => keyValueList.indexOf(option.keyValue) > -1);
       if (selectedOptions.length === 1) {
         return selectedOptions[0].value;
       } else if (selectedOptions.length > 1) {
         return selectedOptions.map(option => option.value);
+      } else {
+        return;
       }
     } else if (format) {
       // Only handle phone number
@@ -482,4 +487,23 @@ export function getCurrentHoursMinutesSeconds() {
 
 export function isNullOrUndefined(value: any) {
   return value === null || value === undefined;
+}
+
+export function isSectionVisible(visibility: string, caseDetails: AsylumCaseProfile, fieldIndex?: number) {
+  let visibilityArray: string[];
+  //| represents the "or" logic
+  if (visibility.indexOf("|") > -1) {
+    visibilityArray = visibility.split("|");
+  } else {
+    visibilityArray = [visibility];
+  }
+  let isVisible = false;
+  for (let i = 0; i < visibilityArray.length; i++) {
+    const [key, value] = visibilityArray[i].split("=");
+    const caseDetailValue = getCaseDetailValue(caseDetails, key, fieldIndex);
+    if (caseDetailValue === value || (!caseDetailValue && (value === "null" || value === "undefined"))) {
+      isVisible = true;
+    }
+  }
+  return isVisible;
 }
