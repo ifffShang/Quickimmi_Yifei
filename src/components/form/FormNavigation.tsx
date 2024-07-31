@@ -10,7 +10,7 @@ import { Menu, MenuItem } from "../common/Menu";
 import { NavDown, NavUp } from "../icons/ArrowDown";
 import "./FormNavigation.css";
 import { StandaloneSteps } from "./parts/StandaloneSteps";
-import { ExclamationOutlined } from "@ant-design/icons";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 export function FormNavigation() {
   const [searchParams] = useSearchParams();
@@ -118,7 +118,7 @@ export function FormNavigation() {
                     percentage &&
                     percentage[level1.id] &&
                     percentage[level1.id][level2.referenceId!] !== 100 && (
-                      <ExclamationOutlined className="nav-exclamation-icon" />
+                      <ExclamationCircleOutlined className="nav-exclamation-icon" />
                     )}
                 </div>
               );

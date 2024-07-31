@@ -64,11 +64,6 @@ const CaseProgressCard: React.FC<CaseProgressCardProps> = ({ caseSummary }) => {
     <ResultIcon key="result" color={"#27AE60"} />,
   ];
 
-  // const getIconColor = (step: { name: string }) => {
-  //   // Determine the color based on some condition, e.g., status of the step
-  //   return  === "COMPLETED" ? "#4CAF50" : "#F2994A";
-  // };
-
   return (
     <Card title={t("CaseProgressTitle")}>
       <Steps current={currentStepIndex} onChange={onStepChange} labelPlacement="vertical">
