@@ -66,6 +66,10 @@ export function getAntTheme() {
         colorPrimary: primaryColor,
         colorPrimaryHover: primaryColor,
       },
+      Upload: {
+        colorPrimary: primaryColor,
+        colorPrimaryHover: primaryColorLight,
+      },
     },
   };
 

@@ -1,6 +1,6 @@
 .form-control-container-missing {
   position: relative;
-  border-left: 3px solid var(--danger-color);
+  border-left: 3px solid var(--warning-color);
 }
 .form-control-container {
   position: relative;
