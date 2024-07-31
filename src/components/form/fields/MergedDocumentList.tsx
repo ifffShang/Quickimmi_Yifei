@@ -148,6 +148,18 @@ export function MergedDocumentList() {
       console.error("Case ID or access token is not available");
       return;
     }
+
+    const IndividualDocuments = generatedDocuments.filter(doc => doc.generationType === "system_auto_generated");
+
+    const SuccessfulIndividualDocuments = IndividualDocuments.filter(
+      doc => doc.status === "Success" || doc.status === "Skipped" || doc.status === "uploaded",
+    );
+
+    if (IndividualDocuments.length !== SuccessfulIndividualDocuments.length) {
+      message.error("Please complete all individual documents before generating merged documents");
+      return;
+    }
+
     setLoading(true);
     try {
       await defaultMergeApi(accessToken, caseId, role);

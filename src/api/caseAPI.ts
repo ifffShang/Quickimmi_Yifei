@@ -27,7 +27,6 @@ import { performApiRequest } from "./apiConfig";
 import { retryApi } from "./retry";
 
 export async function getForm(id: string, cachedForm?: IForm): Promise<IForm> {
-  if (cachedForm && cachedForm.steps && cachedForm.steps.length > 0) return cachedForm;
   return await performApiRequest({
     endPoint: `forms/${id}.json?${new Date().getTime()}`,
     method: "GET",
@@ -412,18 +411,6 @@ export async function retryGetDocumentsApi(
 ): Promise<UploadedDocument[]> {
   const result = await retryApi(() => getDocumentsApi(accessToken, caseId, role, params), callback, 5000);
   return result;
-}
-
-// @Deprecated
-export async function generateDocumentsApi(accessToken: string, caseId: number, role: Role): Promise<boolean> {
-  const res = await performApiRequest({
-    endPoint: `api/case/asylum/generateDocuments?id=${caseId}`,
-    method: "GET",
-    data: null,
-    accessToken,
-    role,
-  });
-  return <boolean>res.data;
 }
 
 export async function generateDocumentsByDocumentTypeApi(

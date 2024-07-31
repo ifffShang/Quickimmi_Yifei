@@ -38,9 +38,9 @@ function useFetchCaseSummary() {
 
     try {
       setLoading(true);
+
       const data = await getCaseSummaryApi(parseInt(id), accessToken, role);
       setCaseSummary(data);
-
       if (data.asylumType) {
         dispatch(updateAsylumType(data.asylumType as "AFFIRMATIVE" | "DEFENSIVE"));
       } else {
@@ -53,171 +53,171 @@ function useFetchCaseSummary() {
       }
 
       // Mock data
-      const mockCaseSummary: CaseSummary = {
-        id: 55,
-        applicantName: "Brandon Qi",
-        caseType: "Asylum",
-        caseName: "Brandon Qi's Asylum Case",
-        asylumType: "AFFIRMATIVE",
-        maritalStatus: "Married",
-        applyWithSpouse: false,
-        numberOfChildren: 2,
-        numberOfApplyingChildren: 1,
-        currentStep: "REVIEW_AND_SIGN",
-        progress: {
-          steps: [
-            {
-              name: "FILLING_APPLICATION",
-              status: "IN_PROGRESS",
-              substeps: [
-                {
-                  name: "FILLING_DETAILS",
-                  status: "IN_PROGRESS",
-                  metadata:
-                    '{"percentage":{"overall":{"avg":0},"personal_information":{"avg":0,"i589_fields_basic_information":0,"i589_fields_contact_information":0,"i589_fields_immigration_information":0},"family_information":{"avg":0,"i589_fields_spouse_information":0,"i589_fields_children_information":0,"i589_fields_parents_information":0,"i589_fields_siblings_information":0},"background_information":{"avg":0,"i589_fields_address_before_usa":0,"i589_fields_address_past_5y":0,"i589_fields_education_information":0,"i589_fields_employment_information":0},"application_information":{"avg":0,"i589_fields_asylum_claim":0}}}',
-                  startedAt: 1716788746776,
-                  updatedAt: 1716788746776,
-                },
-              ],
-              startedAt: 1716788746776,
-              updatedAt: 1716788746776,
-            },
-            {
-              name: "REVIEW_AND_SIGN",
-              status: "IN_PROGRESS",
-              substeps: [
-                {
-                  name: "LAWYER_REVIEW",
-                  status: "COMPLETED",
-                  metadata: null,
-                  startedAt: 1716788746776,
-                  updatedAt: 1716788746776,
-                },
-                {
-                  name: "CLIENT_SIGNATURE",
-                  status: "IN_PROGRESS",
-                  metadata: null,
-                  startedAt: 1716788746776,
-                  updatedAt: 1716788746776,
-                },
-                {
-                  name: "SUBMIT_APPLICATION",
-                  status: "NOT_START",
-                  metadata: null,
-                  startedAt: 1716788746776,
-                  updatedAt: 1716788746776,
-                },
-                {
-                  name: "NOTICE_RECEIPT",
-                  status: "NOT_START",
-                  metadata: null,
-                  startedAt: 1716788746776,
-                  updatedAt: 1716788746776,
-                },
-                {
-                  name: "FINGERPRINT_COLLECTION",
-                  status: "NOT_START",
-                  metadata: null,
-                  startedAt: 1716788746776,
-                  updatedAt: 1716788746776,
-                },
-                {
-                  name: "INTERVIEW",
-                  status: "NOT_START",
-                  metadata: null,
-                  startedAt: 1716788746776,
-                  updatedAt: 1716788746776,
-                },
-                {
-                  name: "FINAL_REVIEW",
-                  status: "NOT_START",
-                  metadata: null,
-                  startedAt: 1716788746776,
-                  updatedAt: 1716788746776,
-                },
-                {
-                  name: "RESULT",
-                  status: "NOT_START",
-                  metadata: null,
-                  startedAt: 1716788746776,
-                  updatedAt: 1716788746776,
-                },
-              ],
-              startedAt: 1716788746776,
-              updatedAt: 1716788746776,
-            },
-            {
-              name: "SUBMIT_APPLICATION",
-              status: "NOT_START",
-              substeps: [
-                {
-                  name: "SUBMIT_APPLICATION",
-                  status: "NOT_START",
-                  metadata: null,
-                  startedAt: 1716788746776,
-                  updatedAt: 1716788746776,
-                },
-                {
-                  name: "NOTICE_RECEIPT",
-                  status: "NOT_START",
-                  metadata: null,
-                  startedAt: 1716788746776,
-                  updatedAt: 1716788746776,
-                },
-              ],
-              startedAt: 1716788746776,
-              updatedAt: 1716788746776,
-            },
-            {
-              name: "FINGERPRINT_INTERVIEW",
-              status: "NOT_START",
-              substeps: [
-                {
-                  name: "FINGERPRINT_COLLECTION",
-                  status: "NOT_START",
-                  metadata: null,
-                  startedAt: 1716788746776,
-                  updatedAt: 1716788746776,
-                },
-                {
-                  name: "INTERVIEW",
-                  status: "NOT_START",
-                  metadata: null,
-                  startedAt: 1716788746776,
-                  updatedAt: 1716788746776,
-                },
-              ],
-              startedAt: 1716788746776,
-              updatedAt: 1716788746776,
-            },
-            {
-              name: "FINAL_RESULT",
-              status: "NOT_START",
-              substeps: [
-                {
-                  name: "FINAL_REVIEW",
-                  status: "NOT_START",
-                  metadata: null,
-                  startedAt: 1716788746776,
-                  updatedAt: 1716788746776,
-                },
-                {
-                  name: "RESULT",
-                  status: "NOT_START",
-                  metadata: null,
-                  startedAt: 1716788746776,
-                  updatedAt: 1716788746776,
-                },
-              ],
-              startedAt: 1716788746776,
-              updatedAt: 1716788746776,
-            },
-          ],
-        },
-        desc: null,
-        createdAt: 1715912208190,
-        updatedAt: 1718259472477,
-      };
+      // const mockCaseSummary: CaseSummary = {
+      //   id: 55,
+      //   applicantName: "Brandon Qi",
+      //   caseType: "Asylum",
+      //   caseName: "Brandon Qi's Asylum Case",
+      //   asylumType: "AFFIRMATIVE",
+      //   maritalStatus: "Married",
+      //   applyWithSpouse: false,
+      //   numberOfChildren: 2,
+      //   numberOfApplyingChildren: 1,
+      //   currentStep: "REVIEW_AND_SIGN",
+      //   progress: {
+      //     steps: [
+      //       {
+      //         name: "FILLING_APPLICATION",
+      //         status: "IN_PROGRESS",
+      //         substeps: [
+      //           {
+      //             name: "FILLING_DETAILS",
+      //             status: "IN_PROGRESS",
+      //             metadata:
+      //               '{"percentage":{"overall":{"avg":0},"personal_information":{"avg":0,"i589_fields_basic_information":0,"i589_fields_contact_information":0,"i589_fields_immigration_information":0},"family_information":{"avg":0,"i589_fields_spouse_information":0,"i589_fields_children_information":0,"i589_fields_parents_information":0,"i589_fields_siblings_information":0},"background_information":{"avg":0,"i589_fields_address_before_usa":0,"i589_fields_address_past_5y":0,"i589_fields_education_information":0,"i589_fields_employment_information":0},"application_information":{"avg":0,"i589_fields_asylum_claim":0}}}',
+      //             startedAt: 1716788746776,
+      //             updatedAt: 1716788746776,
+      //           },
+      //         ],
+      //         startedAt: 1716788746776,
+      //         updatedAt: 1716788746776,
+      //       },
+      //       {
+      //         name: "REVIEW_AND_SIGN",
+      //         status: "IN_PROGRESS",
+      //         substeps: [
+      //           {
+      //             name: "LAWYER_REVIEW",
+      //             status: "COMPLETED",
+      //             metadata: null,
+      //             startedAt: 1716788746776,
+      //             updatedAt: 1716788746776,
+      //           },
+      //           {
+      //             name: "CLIENT_SIGNATURE",
+      //             status: "IN_PROGRESS",
+      //             metadata: null,
+      //             startedAt: 1716788746776,
+      //             updatedAt: 1716788746776,
+      //           },
+      //           {
+      //             name: "SUBMIT_APPLICATION",
+      //             status: "NOT_START",
+      //             metadata: null,
+      //             startedAt: 1716788746776,
+      //             updatedAt: 1716788746776,
+      //           },
+      //           {
+      //             name: "NOTICE_RECEIPT",
+      //             status: "NOT_START",
+      //             metadata: null,
+      //             startedAt: 1716788746776,
+      //             updatedAt: 1716788746776,
+      //           },
+      //           {
+      //             name: "FINGERPRINT_COLLECTION",
+      //             status: "NOT_START",
+      //             metadata: null,
+      //             startedAt: 1716788746776,
+      //             updatedAt: 1716788746776,
+      //           },
+      //           {
+      //             name: "INTERVIEW",
+      //             status: "NOT_START",
+      //             metadata: null,
+      //             startedAt: 1716788746776,
+      //             updatedAt: 1716788746776,
+      //           },
+      //           {
+      //             name: "FINAL_REVIEW",
+      //             status: "NOT_START",
+      //             metadata: null,
+      //             startedAt: 1716788746776,
+      //             updatedAt: 1716788746776,
+      //           },
+      //           {
+      //             name: "RESULT",
+      //             status: "NOT_START",
+      //             metadata: null,
+      //             startedAt: 1716788746776,
+      //             updatedAt: 1716788746776,
+      //           },
+      //         ],
+      //         startedAt: 1716788746776,
+      //         updatedAt: 1716788746776,
+      //       },
+      //       {
+      //         name: "SUBMIT_APPLICATION",
+      //         status: "NOT_START",
+      //         substeps: [
+      //           {
+      //             name: "SUBMIT_APPLICATION",
+      //             status: "NOT_START",
+      //             metadata: null,
+      //             startedAt: 1716788746776,
+      //             updatedAt: 1716788746776,
+      //           },
+      //           {
+      //             name: "NOTICE_RECEIPT",
+      //             status: "NOT_START",
+      //             metadata: null,
+      //             startedAt: 1716788746776,
+      //             updatedAt: 1716788746776,
+      //           },
+      //         ],
+      //         startedAt: 1716788746776,
+      //         updatedAt: 1716788746776,
+      //       },
+      //       {
+      //         name: "FINGERPRINT_INTERVIEW",
+      //         status: "NOT_START",
+      //         substeps: [
+      //           {
+      //             name: "FINGERPRINT_COLLECTION",
+      //             status: "NOT_START",
+      //             metadata: null,
+      //             startedAt: 1716788746776,
+      //             updatedAt: 1716788746776,
+      //           },
+      //           {
+      //             name: "INTERVIEW",
+      //             status: "NOT_START",
+      //             metadata: null,
+      //             startedAt: 1716788746776,
+      //             updatedAt: 1716788746776,
+      //           },
+      //         ],
+      //         startedAt: 1716788746776,
+      //         updatedAt: 1716788746776,
+      //       },
+      //       {
+      //         name: "FINAL_RESULT",
+      //         status: "NOT_START",
+      //         substeps: [
+      //           {
+      //             name: "FINAL_REVIEW",
+      //             status: "NOT_START",
+      //             metadata: null,
+      //             startedAt: 1716788746776,
+      //             updatedAt: 1716788746776,
+      //           },
+      //           {
+      //             name: "RESULT",
+      //             status: "NOT_START",
+      //             metadata: null,
+      //             startedAt: 1716788746776,
+      //             updatedAt: 1716788746776,
+      //           },
+      //         ],
+      //         startedAt: 1716788746776,
+      //         updatedAt: 1716788746776,
+      //       },
+      //     ],
+      //   },
+      //   desc: null,
+      //   createdAt: 1715912208190,
+      //   updatedAt: 1718259472477,
+      // };
       // setCaseSummary(mockCaseSummary);
       setLoading(false);
     } catch (error) {

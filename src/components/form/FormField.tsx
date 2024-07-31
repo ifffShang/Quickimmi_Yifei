@@ -129,22 +129,27 @@ export function FormField(props: FormFieldProps) {
 
   const onTextChange = (value: string): string => {
     if (props.fieldKey && props.fieldKey.indexOf(",") > -1 && props.format) {
+      // Currently this branch only handle phone number
       const formatRegex = Regex[props.format]["FormatRegex"];
       const formatOutput = Regex[props.format]["FormatOutput"];
       const filterRegex = Regex[props.format]["FilterRegex"];
       const maxLen = Regex[props.format]["MaxLength"];
+      // Remove non digit characters
       let digits = value.replace(filterRegex, "");
+      // Only keep 10 digits of the input
       if (digits.length > maxLen) {
         digits = digits.substring(0, maxLen);
       }
+      // Convert to output format ($1)$2-$3
       const returnValue = digits.replace(formatRegex, formatOutput);
 
       const extractRegex = Regex[props.format]["ExtractRegex"];
       const keys = props.fieldKey.split(",");
+      // Example: (123)456-7890 -> ["(123)456-7890", "123", "456-7890"]
       const matches = returnValue.match(extractRegex);
       if (matches) {
-        const group1 = matches[1];
-        const group2 = matches[2];
+        const group1 = matches[1]; // "123"
+        const group2 = matches[2]; // "456-7890"
         dispatchFormValue(
           dispatch,
           {
@@ -442,7 +447,7 @@ export function FormField(props: FormFieldProps) {
     }
     case "component_textbox_na":
       // TODO: This is a temporary solution for A-Number. Need to refactor this and move the control to JSON
-      if (asylumType === "DEFENSIVE" && props.fieldKey === "applicant.anumber") {
+      if (asylumType === "DEFENSIVE" && props.fieldKey === "applicant.alienNumber") {
         return (
           <FormControlContainer fieldValue={fieldValue}>
             <QTextBox

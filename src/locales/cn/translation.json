@@ -27,6 +27,10 @@
   "RefineWithAI": "使用AI润色",
   "Use": "使用",
   "Rewrite": "重写",
+  "Write your Personal Statement with AI": "人工智能自动填写",
+  "Please complete the previous sections before using this feature": "此功能需要先完成填写前面的信息",
+  "Translate the PS on the left panel into Original Language.": "将左边内容翻译成申请人主用语",
+  "AI will generate the Personal Statement based on the information provided in the previous sections.": "人工智能会根据之前填写的内容自动生成个人陈述。",
   "Discard": "放弃",
 
   "Home": "首页",
@@ -315,8 +319,19 @@
   "OtherFluentLanguagesLabel": "其他流利语言",
   "OtherFluentLanguages": "添加另一种你能流利说的语言",
 
+  "Change document": "更改上传文件",
+
   "UploadSpousePassportOrOtherID": "上传配偶的护照或其他身份证明",
   "UploadMarriageCertificate": "上传结婚证书",
+  "MarriageCertificateInformation": "结婚证书信息",
+  "MarriageDateAndPlace": "结婚日期和地点",
+  "MarriageLicenseHolderInformation": "结婚证持有人信息",
+  "MarriageLicenseSpouseInformation": "结婚证配偶信息",
+  "LicenseHolderName": "持证人姓名",
+  "LicenseSpouseName": "配偶姓名",
+  "MarriageLicenseParseError": "解析结婚证照片失败，请重试或手动输入结婚证信息。",
+  "Parsing marriage license photo...": "正在解析结婚证照片...",
+
   "SpouseIsInUS": "配偶是否在美国?",
   "SpousePartnerApplication": "配偶/伴侣申请",
   "Male": "男",
@@ -417,6 +432,11 @@
   "MailingAddressSameAsResidentialAddress": "邮寄地址与居住地址相同",
 
   "I94": "I-94",
+  "NoticeOfAppearance": "出庭通知",
+  "HearingCourtAddress": "听证法院地址",
+  "JudgeName": "法官姓名",
+  "HearingTime": "出庭时间",
+  "HearingTimeFormat": "HH:MM AM/PM",
   "UploadI94Document": "上传I-94文件",
   "WhenLastLeaveCountry": "您上次离开您的国家是什么时候？",
   "DateStatusExpires": "您最后一次入境的身份何时到期？",

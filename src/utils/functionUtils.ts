@@ -7,14 +7,14 @@ import { updateGeneratedDocuments } from "../reducers/formSlice";
 import { getProgressWithPercentage } from "./percentageUtils";
 
 // !!!! This function should only be used by the form save !!!!
-export function updateApplicationCaseFunc(
+export const updateApplicationCaseFunc = async (
   caseId: number,
   profile: AsylumCaseProfile,
   progress: Progress,
   percentage: Percentage,
   role: Role,
   accessToken?: string,
-) {
+) => {
   try {
     if (!accessToken) {
       console.error("Access token is missing");
@@ -22,7 +22,6 @@ export function updateApplicationCaseFunc(
     }
 
     const progressWithPercentage = getProgressWithPercentage(progress, percentage);
-    console.log();
 
     const currentStep = [...progress.steps].reverse().find(step => step.status === "IN_PROGRESS");
 
@@ -40,7 +39,7 @@ export function updateApplicationCaseFunc(
     console.error("Error updating application case: ", error);
     throw error;
   }
-}
+};
 
 export const handleFileDownload = async (file: UploadFile, accessToken: string, role: Role) => {
   if (!accessToken) {

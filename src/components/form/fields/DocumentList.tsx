@@ -20,6 +20,7 @@ import { updateCaseProgress } from "../../../utils/progressUtils";
 import { downloadDocument } from "../../../utils/utils";
 import { Status } from "../parts/Status";
 import "./DocumentList.css";
+import { updateApplicationCaseFunc } from "../../../utils/functionUtils";
 
 interface DataType {
   key: number;
@@ -69,6 +70,7 @@ export function DocumentList() {
   const caseId = useAppSelector(state => state.form.caseId);
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const role = useAppSelector(state => state.auth.role);
+  const profile = useAppSelector(state => state.form.applicationCase.profile);
   const progress = useAppSelector(state => state.form.applicationCase.progress);
   const percentage = useAppSelector(state => state.form.percentage);
   const generatedDocuments = useAppSelector(state => state.form.generatedDocuments);
@@ -149,6 +151,7 @@ export function DocumentList() {
     }
     setLoading(true);
     try {
+      await updateApplicationCaseFunc(caseId, profile, progress, percentage, role, accessToken);
       await generateDocumentsByDocumentTypeApi(accessToken, caseId, "ALL", role);
       await markLawyerReviewAsCompleted();
       await retryGetDocumentsApi(accessToken, caseId, role, (documents, timeout) => {

@@ -12,6 +12,7 @@ import { NewApplicationIcon } from "../../icons/Dashboard";
 import { CaseCard } from "./CaseCard";
 import "./Dashboard.css";
 import { Role } from "../../../consts/consts";
+import { resetFormState } from "../../../reducers/formSlice";
 
 export function Dashboard() {
   const navigate = useNavigate();
