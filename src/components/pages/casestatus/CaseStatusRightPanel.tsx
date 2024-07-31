@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, Spin } from "antd";
+import { Alert } from "antd";
 import { CaseSummary } from "../../../model/apiModels";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import CaseProgressCard from "./CaseProgressCard";
 import CaseSummaryCard from "./CaseSummaryCard";
@@ -14,42 +14,42 @@ import { updateCurrentCaseId } from "../../../reducers/caseSlice";
 
 function useFetchCaseSummary() {
   const { id } = useParams<{ id?: string }>();
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const userId = useAppSelector(state => state.auth.userId);
+  const role = useAppSelector(state => state.auth.role);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [caseSummary, setCaseSummary] = useState<CaseSummary | null>(null);
-  const role = useAppSelector(state => state.auth.role);
 
   const fetchCaseSummary = useCallback(async () => {
-    if (!accessToken || !userId) {
-      console.error("Access token or user id is missing");
-      setError("Access token or user id is missing");
-      return;
-    }
-
-    if (!id || isNaN(Number(id))) {
-      console.error("Invalid case ID");
-      setError("Invalid case ID");
+    if (!accessToken || !userId || !id || isNaN(Number(id))) {
+      const missingField = !accessToken || !userId ? "Access token or user ID" : "Case ID";
+      console.error(`${missingField} is missing or invalid`);
+      setError(`${missingField} is missing or invalid`);
       return;
     }
 
     try {
       setLoading(true);
-
       const data = await getCaseSummaryApi(parseInt(id), accessToken, role);
-      setCaseSummary(data);
-      if (data.asylumType) {
-        dispatch(updateAsylumType(data.asylumType as "AFFIRMATIVE" | "DEFENSIVE"));
+
+      if (data) {
+        setCaseSummary(data);
+        if (data.asylumType) {
+          dispatch(updateAsylumType(data.asylumType as "AFFIRMATIVE" | "DEFENSIVE"));
+        } else {
+          console.error("Asylum type is empty.");
+        }
+        if (data.id) {
+          dispatch(updateCurrentCaseId(data.id.toString()));
+        } else {
+          console.error("Case ID is missing in the case summary.");
+        }
       } else {
-        console.error("Asylum type is empty.");
-      }
-      if (data.id) {
-        dispatch(updateCurrentCaseId(data.id.toString()));
-      } else {
-        console.error("Case ID is missing in the case summary.");
+        console.error("Failed to fetch case summary data.");
+        setError("Failed to fetch case summary data.");
       }
 
       // Mock data

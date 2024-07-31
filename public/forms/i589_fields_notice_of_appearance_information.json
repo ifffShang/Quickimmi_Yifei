@@ -59,18 +59,25 @@
         {
           "label": "text_Date",
           "placeholder": "text_MM/DD/YYYY",
-          "id": "notice_of_appearance_date",
+          "id": "hearing_date",
           "key": "supplementDocument.masterHearingDetail.hearingDate",
           "control": "text"
         },
         {
           "label": "text_Time",
           "placeholder": "text_HearingTimeFormat",
-          "id": "notice_of_appearance_time",
+          "id": "hearing_time",
           "key": "supplementDocument.masterHearingDetail.hearingTime",
           "control": "text"
         }
       ]
+    },
+    {
+      "label": "text_NoticeOfAppearDate",
+      "placeholder": "text_MM/DD/YYYY",
+      "id": "notice_of_appearance_date",
+      "key": "supplementDocument.masterHearingDetail.noticeOfAppearDate",
+      "control": "text"
     }
   ]
 }

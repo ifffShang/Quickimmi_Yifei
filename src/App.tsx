@@ -12,6 +12,9 @@ import "./styles/Common.css";
 import { getAntTheme } from "./utils/theme";
 import { handleResize } from "./utils/utils";
 import { signOutCurrentUser } from "./utils/authUtils";
+import { Role } from "./consts/consts";
+import awsExports from "./aws-exports";
+import { Amplify } from "aws-amplify";
 
 function App() {
   const dispatch = useAppDispatch();
