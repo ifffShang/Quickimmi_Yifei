@@ -80,7 +80,7 @@ const fetchSessionWithRetry = async (retries: number): Promise<any> => {
 
 export const startTokenExpirationTimer = (dispatch: AppDispatch, isLoggedIn: boolean) => {
   if (isLoggedIn) {
-    const ExpirationTime = 1000 * 10; // 30 minutes
+    const ExpirationTime = 1000 * 60 * 30; // 30 minutes
     const timerId = setTimeout(() => {
       dispatch(openModal({ modalType: "tokenRefreshPopup", modalData: {} }));
     }, ExpirationTime);
