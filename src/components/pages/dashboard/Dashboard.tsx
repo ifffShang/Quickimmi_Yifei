@@ -55,7 +55,7 @@ export function Dashboard() {
       dispatch(updateCases(allCases));
       const filteredCases = applySearchAndFilter(allCases, searchQuery, sortOption, sortOrder);
       setFilteredCases(filteredCases);
-      setTotalItems(allCases.length);
+      setTotalItems(filteredCases.length);
     } catch (err) {
       console.error(err);
     } finally {
@@ -90,6 +90,7 @@ export function Dashboard() {
   useEffect(() => {
     const filteredCases = applySearchAndFilter(allCases, searchQuery, sortOption, sortOrder);
     setFilteredCases(filteredCases);
+    setTotalItems(filteredCases.length);
   }, [allCases, sortOption, sortOrder]);
 
   const handlePageChange = (page, pageSize) => {
@@ -102,6 +103,7 @@ export function Dashboard() {
     if (e.target.value === "") {
       const filteredCases = applySearchAndFilter(allCases, "", sortOption, sortOrder);
       setFilteredCases(filteredCases);
+      setTotalItems(filteredCases.length);
       setCurrentPage(1);
     }
   };
@@ -109,6 +111,7 @@ export function Dashboard() {
   const handleClickSearch = (query: string) => {
     const filteredCases = applySearchAndFilter(allCases, query, sortOption, sortOrder);
     setFilteredCases(filteredCases);
+    setTotalItems(filteredCases.length);
     setCurrentPage(1);
   };
 
@@ -116,12 +119,16 @@ export function Dashboard() {
     setSortOption(sortBy);
     const filteredCases = applySearchAndFilter(allCases, searchQuery, sortBy, sortOrder);
     setFilteredCases(filteredCases);
+    setTotalItems(filteredCases.length);
+    setCurrentPage(1);
   };
 
   const toggleSortOrder = () => {
     setSortOrder(prevOrder => (prevOrder === "asc" ? "desc" : "asc"));
     const filteredCases = applySearchAndFilter(allCases, searchQuery, sortOption, sortOrder === "asc" ? "desc" : "asc");
     setFilteredCases(filteredCases);
+    setTotalItems(filteredCases.length);
+    setCurrentPage(1);
   };
 
   const CreateNewApplication = async () => {
@@ -195,6 +202,7 @@ export function Dashboard() {
         <Input
           value={searchQuery}
           onChange={handleSearchChange}
+          onPressEnter={() => handleClickSearch(searchQuery)}
           placeholder={t("Dashboard.SearchByCaseNameOrCaseId")}
           prefix={<SearchOutlined />}
           className="dashboard-search-input"
