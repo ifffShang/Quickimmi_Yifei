@@ -46,10 +46,10 @@ export function Dashboard() {
     try {
       let allCases;
       if (isLawyer) {
-        const data = await getCasesByLawyerApi(userId!, 1, 1000, accessToken, role); 
+        const data = await getCasesByLawyerApi(userId!, 1, 1000, accessToken, role);
         allCases = data.cases;
       } else {
-        const data = await getCasesApi(userId!, 1, 1000, accessToken, role); 
+        const data = await getCasesApi(userId!, 1, 1000, accessToken, role);
         allCases = data.cases;
       }
       dispatch(updateCases(allCases));
@@ -102,14 +102,14 @@ export function Dashboard() {
     if (e.target.value === "") {
       const filteredCases = applySearchAndFilter(allCases, "", sortOption, sortOrder);
       setFilteredCases(filteredCases);
-      setCurrentPage(1); 
+      setCurrentPage(1);
     }
   };
 
   const handleClickSearch = (query: string) => {
     const filteredCases = applySearchAndFilter(allCases, query, sortOption, sortOrder);
     setFilteredCases(filteredCases);
-    setCurrentPage(1); 
+    setCurrentPage(1);
   };
 
   const handleSort = (sortBy: "updatedAt" | "id" | "caseName") => {

@@ -365,7 +365,7 @@ const CaseDocumentRightPanel: React.FC = () => {
       <Space size="large">
         <a onClick={() => handleDownload(doc)}>{t("Download")}</a>
         {doc.generationType !== "system_auto_generated" && doc.generationType !== "system_merged" && (
-          <a 
+          <a
             onClick={() => {
               setDocumentToDelete({ id: doc.id, name: doc.name });
               setDeleteConfirmVisible(true);

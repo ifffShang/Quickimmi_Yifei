@@ -21,7 +21,6 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
   onCancel,
   contentName,
 }) => {
-
   const { t } = useTranslation();
 
   return (

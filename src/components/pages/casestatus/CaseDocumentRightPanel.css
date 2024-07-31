@@ -74,7 +74,7 @@
 .upload-modal-body-fileInfo > p {
   font-size: var(--font-size-p2);
   font-weight: 600;
-  width: 300px
+  width: 300px;
 }
 
 .document-delete-modal {
