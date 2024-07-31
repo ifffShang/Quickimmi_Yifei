@@ -71,6 +71,15 @@
   gap: 10px;
   margin-left: auto;
 }
+.upload-modal-body-fileInfo > p {
+  font-size: var(--font-size-p2);
+  font-weight: 600;
+  width: 300px
+}
+
+.document-delete-modal {
+  width: 600px !important;
+}
 
 .loading {
   display: flex;

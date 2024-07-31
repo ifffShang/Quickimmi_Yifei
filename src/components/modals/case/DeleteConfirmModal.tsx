@@ -21,6 +21,7 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
   onCancel,
   contentName,
 }) => {
+
   const { t } = useTranslation();
 
   return (
@@ -28,7 +29,7 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
       open={visible}
       onOk={onConfirm}
       onCancel={onCancel}
-      className="delete-confirm-modal-container"
+      className={`delete-confirm-modal-container ${deleteItem}-delete-modal`}
       footer={[
         <Button key="Cancel" type="default" onClick={onCancel}>
           {t("Cancel")}
@@ -38,7 +39,7 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
         </Button>,
       ]}
     >
-      <div className="delete-confirm-modal-body">
+      <div className="delete-confirm-modal-body ">
         <div className="delete-confirm-modal-icon">
           <ExclamationCircleTwoTone style={{ fontSize: 24 }} twoToneColor="#EB5757" />
         </div>

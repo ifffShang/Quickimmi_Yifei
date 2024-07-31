@@ -360,19 +360,20 @@ const CaseDocumentRightPanel: React.FC = () => {
     name: doc.name,
     uploader: userRole,
     fileType: doc.name.split(".").pop()?.toUpperCase(),
-    updatedAt: doc.createdAt,
+    updatedAt: doc.updatedAt,
     action: (
-      <Space size="small">
+      <Space size="large">
         <a onClick={() => handleDownload(doc)}>{t("Download")}</a>
-        {/* Hide delete in case any useful document is mistakenly deleted.*/}
-        <a
-          onClick={() => {
-            setDocumentToDelete({ id: doc.id, name: doc.name });
-            setDeleteConfirmVisible(true);
-          }}
-        >
-          {t("Delete")}
-        </a>
+        {doc.generationType !== "system_auto_generated" && doc.generationType !== "system_merged" && (
+          <a 
+            onClick={() => {
+              setDocumentToDelete({ id: doc.id, name: doc.name });
+              setDeleteConfirmVisible(true);
+            }}
+          >
+            {t("Delete")}
+          </a>
+        )}
       </Space>
     ),
   }));
@@ -619,7 +620,7 @@ const CaseDocumentRightPanel: React.FC = () => {
                 </Option>
               ))}
             </Select>
-            <QText level="normal">{t("All uploaded documents are set to default 'Other' type")}</QText>
+            <p>All document are set to default Other type</p>
           </div>
         </div>
       </Modal>
