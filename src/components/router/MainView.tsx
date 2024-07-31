@@ -10,6 +10,9 @@ import { Home } from "../pages/home/Home";
 import { SinglePageView } from "../pages/singlePage/SinglePageView";
 import { Checkout } from "../payment/Checkout";
 import "./MainView.css";
+import { Role } from "../../consts/consts";
+import awsExports from "../../aws-exports";
+import { Amplify } from "aws-amplify";
 
 export const PATH = {
   Home: "/",

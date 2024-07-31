@@ -27,7 +27,7 @@ const OtherStepsSection: React.FC<OtherStepsSectionProps> = ({
             <div className="icon-container">
               {substep.status === "COMPLETED" && <CheckCircleOutlined style={{ color: "#52C41A", fontSize: "20px" }} />}
               {substep.status === "IN_PROGRESS" && (
-                <ExclamationCircleOutlined style={{ color: "#FAAD14", fontSize: "20px" }} />
+                <ExclamationCircleOutlined style={{ color: "#F2994A", fontSize: "20px" }} />
               )}
               {substep.status === "NOT_START" && <MinusCircleOutlined style={{ color: "#d9d9d9", fontSize: "20px" }} />}
             </div>

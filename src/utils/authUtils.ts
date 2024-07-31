@@ -17,7 +17,10 @@ export const signOutCurrentUser = (dispatch: AppDispatch) => {
         clearInterval(intervalId);
         InMemoryCache.remove("tokenRefreshCountDownId");
       }
+      // Remove role from localStorage
+      localStorage.removeItem("userRole");
 
+      // Reset application state
       dispatch(resetFormState());
       dispatch(resetAuthState());
       dispatch(closeModal());
@@ -37,6 +40,11 @@ export const signOutCurrentUser = (dispatch: AppDispatch) => {
           clearInterval(intervalId);
           InMemoryCache.remove("tokenRefreshCountDownId");
         }
+        // Remove role from localStorage
+        localStorage.removeItem("userRole");
+
+        // Reset application state
+        dispatch(resetFormState());
         dispatch(resetAuthState());
         dispatch(closeModal());
       } else {

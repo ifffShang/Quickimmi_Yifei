@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button, Pagination, message, Input, Select } from "antd";
-import { SwapOutlined, AppstoreTwoTone, UnorderedListOutlined, SearchOutlined } from "@ant-design/icons";
-import { createNewCaseApi, getCasesApi, getCasesByLawyerApi, queryCaseApi } from "../../../api/caseAPI";
+import { SwapOutlined, SearchOutlined } from "@ant-design/icons";
+import { createNewCaseApi, getCasesApi, getCasesByLawyerApi } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { updateCases, updateCurrentCaseId } from "../../../reducers/caseSlice";
 import { QText } from "../../common/Fonts";
@@ -18,26 +18,23 @@ export function Dashboard() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const location = useLocation();
   const [loading, setLoading] = useState(false);
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const userId = useAppSelector(state => state.auth.userId);
   const isLawyer = useAppSelector(state => state.auth.isLawyer);
   const role = useAppSelector(state => state.auth.role);
-  const cases = useAppSelector(state => state.case.cases);
-  const query = new URLSearchParams(location.search);
-  const initialPage = parseInt(query.get("page") || "1");
-  const [currentPage, setCurrentPage] = useState(initialPage);
+  const allCases = useAppSelector(state => state.case.cases);
+  const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(6);
   const [totalItems, setTotalItems] = useState(0);
-  const [filteredCases, setFilteredCases] = useState(cases);
+  const [filteredCases, setFilteredCases] = useState(allCases);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOption, setSortOption] = useState<"updatedAt" | "id" | "caseName">("updatedAt");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
 
   const { Option } = Select;
 
-  const getCases = async (page, pageSize) => {
+  const fetchAllCases = async () => {
     if (!accessToken || !userId) {
       console.error(`Access token ${accessToken} or user id ${userId} is missing`);
       message.error("Access token or user id is missing");
@@ -48,28 +45,18 @@ export function Dashboard() {
     setLoading(true);
 
     try {
-      let cases;
-      let data;
+      let allCases;
       if (isLawyer) {
-        data = await getCasesByLawyerApi(userId!, page, pageSize, accessToken, role);
-
-        cases = data.cases;
-        setTotalItems(data.metadata.totalItems);
+        const data = await getCasesByLawyerApi(userId!, 1, 1000, accessToken, role);
+        allCases = data.cases;
       } else {
-        data = await getCasesApi(userId!, page, pageSize, accessToken, role);
-        cases = data.cases;
-        setTotalItems(data.metadata.totalItems);
+        const data = await getCasesApi(userId!, 1, 1000, accessToken, role);
+        allCases = data.cases;
       }
-      dispatch(updateCases(cases));
-
-      // Apply search and filter to the fetched cases
-      const filteredCases = applySearchAndFilter(cases, searchQuery, sortOption, sortOrder);
+      dispatch(updateCases(allCases));
+      const filteredCases = applySearchAndFilter(allCases, searchQuery, sortOption, sortOrder);
       setFilteredCases(filteredCases);
-
-      if (cases.length === 0 && page > 1) {
-        setCurrentPage(prevPage => prevPage - 1);
-        navigate({ search: `?page=${page - 1}` });
-      }
+      setTotalItems(filteredCases.length);
     } catch (err) {
       console.error(err);
     } finally {
@@ -86,7 +73,7 @@ export function Dashboard() {
       let result;
       if (sortOption === "updatedAt") {
         result = new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
-      } else if (sortOption === "caseId") {
+      } else if (sortOption === "id") {
         result = b.id - a.id;
       } else {
         result = a.caseName.localeCompare(b.caseName);
@@ -98,49 +85,53 @@ export function Dashboard() {
   };
 
   useEffect(() => {
-    dispatch(resetFormState());
-    const query = new URLSearchParams(location.search);
-    const page = parseInt(query.get("page") || "1");
-    setCurrentPage(page);
-    getCases(page, pageSize);
-  }, [accessToken, userId, currentPage, location.search]);
+    fetchAllCases();
+  }, [accessToken, userId]);
+
+  useEffect(() => {
+    const filteredCases = applySearchAndFilter(allCases, searchQuery, sortOption, sortOrder);
+    setFilteredCases(filteredCases);
+    setTotalItems(filteredCases.length);
+  }, [allCases, sortOption, sortOrder]);
 
   const handlePageChange = (page, pageSize) => {
     setCurrentPage(page);
     setPageSize(pageSize);
-    const query = new URLSearchParams(location.search);
-    query.set("page", page.toString());
-    navigate({ search: query.toString() });
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
     if (e.target.value === "") {
-      const filteredCases = applySearchAndFilter(cases, "", sortOption, sortOrder);
+      const filteredCases = applySearchAndFilter(allCases, "", sortOption, sortOrder);
       setFilteredCases(filteredCases);
+      setTotalItems(filteredCases.length);
+      setCurrentPage(1);
     }
   };
 
-  const handleSearch = (query: string) => {
-    setSearchQuery(query);
-    const filteredCases = applySearchAndFilter(cases, query, sortOption, sortOrder);
-    // const filteredCases = queryCaseApi(userId!, query, 1, pageSize, accessToken, role);
+  const handleClickSearch = (query: string) => {
+    const filteredCases = applySearchAndFilter(allCases, query, sortOption, sortOrder);
     setFilteredCases(filteredCases);
+    setTotalItems(filteredCases.length);
+    setCurrentPage(1);
   };
 
   const handleSort = (sortBy: "updatedAt" | "id" | "caseName") => {
     setSortOption(sortBy);
-    const filteredCases = applySearchAndFilter(cases, searchQuery, sortBy, sortOrder);
+    const filteredCases = applySearchAndFilter(allCases, searchQuery, sortBy, sortOrder);
     setFilteredCases(filteredCases);
+    setTotalItems(filteredCases.length);
+    setCurrentPage(1);
   };
 
   const toggleSortOrder = () => {
     setSortOrder(prevOrder => (prevOrder === "asc" ? "desc" : "asc"));
-    const filteredCases = applySearchAndFilter(cases, searchQuery, sortOption, sortOrder === "asc" ? "desc" : "asc");
+    const filteredCases = applySearchAndFilter(allCases, searchQuery, sortOption, sortOrder === "asc" ? "desc" : "asc");
     setFilteredCases(filteredCases);
+    setTotalItems(filteredCases.length);
+    setCurrentPage(1);
   };
 
-  // Create new applications for Customers
   const CreateNewApplication = async () => {
     if (!accessToken || !userId) {
       console.error(`Access token ${accessToken} or user id ${userId} is missing`);
@@ -151,11 +142,9 @@ export function Dashboard() {
     navigate("/case/" + caseId);
   };
 
-  // Create new cases for Lawyers
   const CreateNewCaseForLawyer = async () => {
     if (!isLawyer) {
       console.error("Only lawyer can create case from this page.");
-      // TODO: pop up error message
       return;
     }
     if (!accessToken || !userId) {
@@ -169,11 +158,15 @@ export function Dashboard() {
     return <Loading />;
   }
 
+  const startIndex = (currentPage - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
+  const paginatedCases = filteredCases.slice(startIndex, endIndex);
+
   const innerContent =
-    filteredCases && filteredCases.length > 0 ? (
+    paginatedCases && paginatedCases.length > 0 ? (
       <div className="dashboard-panel has-application">
-        {filteredCases.map(c => (
-          <CaseCard key={c.id} caseData={c} onDelete={() => getCases(currentPage, pageSize)} />
+        {paginatedCases.map(c => (
+          <CaseCard key={c.id} caseData={c} onDelete={() => fetchAllCases()} />
         ))}
       </div>
     ) : (
@@ -210,18 +203,18 @@ export function Dashboard() {
         <Input
           value={searchQuery}
           onChange={handleSearchChange}
+          onPressEnter={() => handleClickSearch(searchQuery)}
           placeholder={t("Dashboard.SearchByCaseNameOrCaseId")}
           prefix={<SearchOutlined />}
           className="dashboard-search-input"
         />
-        <Button onClick={() => handleSearch(searchQuery)} className="dashboard-search-button">
+        <Button onClick={() => handleClickSearch(searchQuery)} className="dashboard-search-button">
           {t("Search")}
         </Button>
-        {/* <AppstoreTwoTone className="dashboard-view-toggle" twoToneColor="#27AE60"/> */}
         <div className="dashboard-sort">
           <Select value={sortOption} onChange={handleSort} style={{ width: 200 }} variant="borderless">
             <Option value="updatedAt">Sort by Last Updated</Option>
-            <Option value="caseId">Sort by Case ID</Option>
+            <Option value="id">Sort by Case ID</Option>
             <Option value="caseName">Sort by Case Name</Option>
           </Select>
           <SwapOutlined onClick={toggleSortOrder} rotate={90} className="dashboard-sort-toggle" />
@@ -237,6 +230,7 @@ export function Dashboard() {
           total={totalItems}
           showTotal={total => `Total ${total} items`}
           onChange={handlePageChange}
+          hideOnSinglePage={true}
         />
       </div>
     </div>

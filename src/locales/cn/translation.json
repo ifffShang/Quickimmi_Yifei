@@ -436,6 +436,7 @@
   "HearingCourtAddress": "听证法院地址",
   "JudgeName": "法官姓名",
   "HearingTime": "出庭时间",
+  "NoticeOfAppearDate": "通知日期",
   "HearingTimeFormat": "HH:MM AM/PM",
   "UploadI94Document": "上传I-94文件",
   "WhenLastLeaveCountry": "您上次离开您的国家是什么时候？",

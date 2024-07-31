@@ -43,7 +43,6 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
       console.error(`Access token ${accessToken} or case id ${caseData.id} is missing`);
       return;
     }
-    CacheStore.clear();
     navigate("/casestatus/" + caseData.id);
   };
 

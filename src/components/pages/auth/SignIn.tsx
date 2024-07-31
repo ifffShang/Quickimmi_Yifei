@@ -139,6 +139,7 @@ export function SignIn() {
           onChange={checked => {
             const roleValue = checked ? Role.LAWYER : Role.APPLICANT;
             setRole(roleValue);
+            localStorage.setItem("userRole", roleValue);
           }}
         />
       </div>

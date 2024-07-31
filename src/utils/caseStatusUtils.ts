@@ -10,8 +10,8 @@ export const getCaseStatusAndColor = currentStep => {
     backgroundColor = "rgba(39, 174, 96, 0.2)";
   } else if (currentStep === "REVIEW_AND_SIGN") {
     status = "REVIEW";
-    color = "rgba(242,153,74,255)";
-    backgroundColor = "rgba(252,235,219,255)";
+    color = "#F2994A";
+    backgroundColor = "rgba(242, 153, 74, 0.2)";
     width = "70px";
   } else if (
     currentStep === "FINGERPRINT_INTERVIEW" ||
@@ -19,8 +19,8 @@ export const getCaseStatusAndColor = currentStep => {
     currentStep === "SUBMIT_APPLICATION"
   ) {
     status = "SUBMIT";
-    color = "rgba(47,128,236,255)";
-    backgroundColor = "rgba(213,230,251,255)";
+    color = "#2F80ED";
+    backgroundColor = "rgba(47, 128, 237, 0.2)";
     width = "65px";
   }
   return { status, color, backgroundColor, width };
