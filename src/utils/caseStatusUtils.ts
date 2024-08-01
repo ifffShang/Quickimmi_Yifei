@@ -36,4 +36,4 @@ export const getProgressColor = status => {
     color = "#27AE60";
   }
   return color;
-}
+};
