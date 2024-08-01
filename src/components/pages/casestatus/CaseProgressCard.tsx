@@ -5,6 +5,7 @@ import type { GetProps } from "antd";
 import { CaseSummary } from "../../../model/apiModels";
 import { useTranslation } from "react-i18next";
 import { CollectInfoIcon, ReviewIcon, SubmitIcon, FingerPrintIcon, ResultIcon } from "../../icons/CaseProgressCard";
+import { getProgressColor } from "../../../utils/caseStatusUtils";
 import "./CaseProgressCard.css";
 import ProgressSection from "./ProgressSection";
 
@@ -51,18 +52,23 @@ const CaseProgressCard: React.FC<CaseProgressCardProps> = ({ caseSummary }) => {
     setCurrentStep(progress.steps[value].name);
   };
 
-  type CustomIconComponentProps = GetProps<typeof Icon>;
-  const CollectIcon = (props: Partial<CustomIconComponentProps> & { color?: string }) => (
-    <Icon component={() => <CollectInfoIcon color={props.color} />} {...props} />
-  );
-
-  const icons = [
-    <CollectIcon key="collect" color={"#27AE60"} />,
-    <ReviewIcon key="review" color={"#27AE60"} />,
-    <SubmitIcon key="submit" color={"#27AE60"} />,
-    <FingerPrintIcon key="fingerprint" color={"#27AE60"} />,
-    <ResultIcon key="result" color={"#27AE60"} />,
-  ];
+  const icons = progress.steps.map((step, index) => {
+    const color = getProgressColor(step.status);
+    switch (index) {
+      case 0:
+        return <CollectInfoIcon key="collect" color={color} />;
+      case 1:
+        return <ReviewIcon key="review" color={color} />;
+      case 2:
+        return <SubmitIcon key="submit" color={color} />;
+      case 3:
+        return <FingerPrintIcon key="fingerprint" color={color} />;
+      case 4:
+        return <ResultIcon key="result" color={color} />;
+      default:
+        return null;
+    }
+  });
 
   return (
     <Card title={t("CaseProgressTitle")}>
