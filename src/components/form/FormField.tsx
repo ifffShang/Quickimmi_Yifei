@@ -10,6 +10,7 @@ import {
   createKeyValuesForRemoveItem,
   dispatchFormValue,
   formatCityAndCountryStr,
+  getCaseDetailValue,
   getFieldValue,
   isSectionVisible,
 } from "../../utils/utils";
@@ -42,6 +43,8 @@ import { TextboxWithNA } from "./fields/TextboxWithNA";
 import { RemovableSectionHeader } from "./parts/RemovableSectionHeader";
 import { ArrayFields } from "../../reducers/formSlice";
 import { useEffect } from "react";
+import { getKeys } from "../../utils/visibilityUtils";
+import { InitialApplicationCase, InitialApplicationDetails } from "../../consts/caseConsts";
 
 export interface FormFieldProps {
   fieldKey: string;
@@ -93,19 +96,15 @@ export function FormField(props: FormFieldProps) {
     if (props.control !== "removable_section" && props.control !== "section") return;
     if (!props.subFields || props.subFields.length === 0 || !props.visibility) return;
 
+    const { textKeys } = getKeys(props.subFields);
+
     if (!isVisible) {
-      // When textarea is hidden, assign the value to "N/A"
-      const keys = props.subFields.filter(field => field.control === "textarea");
-      for (let i = 0; i < keys.length; i++) {
-        const key = keys[i].key;
-        dispatchFormValue(
-          dispatch,
-          {
-            [key]: "N/A",
-          },
-          props.fieldIndex,
-        );
-      }
+      // When text related component is hidden, assign the value to "N/A"
+      dispatchFormValue(
+        dispatch,
+        textKeys.reduce((obj, key) => ({ ...obj, [key]: "N/A" }), {}),
+        props.fieldIndex,
+      );
 
       // For array fields like family.children, assign the value to [] when not visible
       const arrFields = props.subFields.filter(field => field?.key?.indexOf("-") > -1);
@@ -121,8 +120,18 @@ export function FormField(props: FormFieldProps) {
           props.fieldIndex,
         );
       }
+    } else {
+      // When  text related component is shown, assign the value to ""
+      dispatchFormValue(
+        dispatch,
+        textKeys.reduce(
+          (obj, key) => ({ ...obj, [key]: getCaseDetailValue(InitialApplicationCase.profile, key, 0) }),
+          {},
+        ),
+        props.fieldIndex,
+      );
     }
-  }, [isVisible, fieldValue, props.control, props.subFields, props.fieldIndex]);
+  }, [isVisible]);
 
   const onOptionChange = (value: string) => {
     if (props.options && Array.isArray(props.options)) {

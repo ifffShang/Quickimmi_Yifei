@@ -1,15 +1,15 @@
-import React from "react";
 import { Layout } from "antd";
-import { CaseStatusRightPanel } from "./CaseStatusRightPanel";
-import CaseDocumentRightPanel from "./CaseDocumentRightPanel";
-import CaseStatusMenuSider from "./CaseStatusMenuSider";
-import "./CaseStatusLayout.css";
-import { useNavigate } from "react-router-dom";
-import { QReturnLink } from "../../common/Links";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import { updateAsylumType } from "../../../reducers/formSlice";
-import { updateCurrentCaseId } from "../../../reducers/caseSlice";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../../app/hooks";
+import { updateCurrentCaseId } from "../../../reducers/caseSlice";
+import { resetFormState } from "../../../reducers/formSlice";
+import { QReturnLink } from "../../common/Links";
+import CaseDocumentRightPanel from "./CaseDocumentRightPanel";
+import "./CaseStatusLayout.css";
+import CaseStatusMenuSider from "./CaseStatusMenuSider";
+import { CaseStatusRightPanel } from "./CaseStatusRightPanel";
 
 const { Content } = Layout;
 
@@ -24,6 +24,7 @@ const CaseStatusLayout: React.FC<CaseStatusLayoutProps> = ({ menuItemSelected })
 
   const handleReturnClick = () => {
     dispatch(updateCurrentCaseId(""));
+    dispatch(resetFormState());
     navigate(`/dashboard`);
   };
 

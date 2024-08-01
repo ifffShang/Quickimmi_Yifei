@@ -25,6 +25,8 @@ import { getProgressWithPercentage } from "../utils/percentageUtils";
 import { convertBooleans } from "../utils/utils";
 import { performApiRequest } from "./apiConfig";
 import { retryApi } from "./retry";
+import { removePropertiesNotDefinedInModel } from "../utils/caseUtils";
+import { InitialApplicationCase } from "../consts/caseConsts";
 
 export async function getForm(id: string, cachedForm?: IForm): Promise<IForm> {
   return await performApiRequest({
@@ -217,7 +219,7 @@ export async function getCaseProfileAndProgressApi(
   });
   const responseData = res.data as GetCaseProfileResponse;
   const filteredData: GetCaseProfileResponse = {
-    profile: responseData.profile,
+    profile: removePropertiesNotDefinedInModel(InitialApplicationCase.profile, responseData.profile),
     progress: responseData.progress,
   };
   return filteredData;

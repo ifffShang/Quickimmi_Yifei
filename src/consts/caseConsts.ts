@@ -66,28 +66,6 @@ export const InitialApplicant = {
   notMarriedCheckbox: null,
 };
 
-export const InitialFamily = {
-  mother: {
-    part: "",
-    question: "",
-    name: "",
-    cityTownAndBirth: "",
-    location: "",
-    deceasedCheckbox: "",
-  },
-  father: {
-    part: "",
-    question: "",
-    name: "",
-    cityTownAndBirth: "",
-    location: "",
-    deceasedCheckbox: "",
-  },
-  children: [],
-  siblings: [],
-  spouse: {},
-};
-
 export const InitialBackground = {
   addressHistoriesBeforeUS: [],
   usAddressHistoriesPast5Years: [],
@@ -226,31 +204,34 @@ export const InitialSupplementDocument: SupplementDocument = {
   marriageCertificate: null,
 };
 
-export const InitialApplicationCase: ApplicationCase = {
-  id: 0,
-  userId: 0,
-  applicantName: "",
-  taskList: [],
-  type: "",
-  status: "",
-  submittedAt: 0,
-  updatedAt: 0,
-  createdAt: 0,
-  currentStep: "",
-  uscisReceiptNumber: "",
-  paid: false,
-  assignedLawyer: 0,
-  progress: { steps: [] },
-  profile: {
-    applyForWithholdingYesCheckbox: "",
-    applicant: InitialApplicant,
-    family: InitialFamily,
-    background: InitialBackground,
-    applicationDetails: InitialApplicationDetails,
-    signature: InitialSignature,
-    declaration: InitialDeclaration,
-    supplementDocument: InitialSupplementDocument,
-  },
+export const InitialChild: Child = {
+  passportDocumentId: "",
+  alienNumber: "",
+  passportNumber: "",
+  martialStatus: "",
+  ssn: "",
+  lastName: "",
+  firstName: "",
+  middleName: "",
+  birthDate: "",
+  cityAndCountryOfBirth: "",
+  nationality: "",
+  race: "",
+  genderMaleCheckbox: null,
+  genderFemaleCheckbox: null,
+  personInUSYesCheckbox: null,
+  personInUSNoCheckbox: null,
+  specifyLocationIfNotInUS: "",
+  placeLastEntryIntoUS: "",
+  lastEntryUSDate: "",
+  i94Number: "",
+  lastAdmittedStatus: "",
+  currentStatus: "",
+  statusExpireDate: "",
+  immigrationCourtProceedingYesCheckbox: null,
+  immigrationCourtProceedingNoCheckbox: null,
+  inThisApplicationYesCheckbox: null,
+  inThisApplicationNoCheckbox: null,
 };
 
 export const InitialSpouse: Spouse = {
@@ -287,48 +268,67 @@ export const InitialSpouse: Spouse = {
   inThisApplicationNoCheckbox: null,
 };
 
-export const InitialEntryRecord: EntryRecord = {
-  date: "",
-  city: "",
-  state: "",
-  status: "",
-};
-
-export const InitialChild: Child = {
-  passportDocumentId: "",
-  alienNumber: "",
-  passportNumber: "",
-  martialStatus: "",
-  ssn: "",
-  lastName: "",
-  firstName: "",
-  middleName: "",
-  birthDate: "",
-  cityAndCountryOfBirth: "",
-  nationality: "",
-  race: "",
-  genderMaleCheckbox: null,
-  genderFemaleCheckbox: null,
-  personInUSYesCheckbox: null,
-  personInUSNoCheckbox: null,
-  specifyLocationIfNotInUS: "",
-  placeLastEntryIntoUS: "",
-  lastEntryUSDate: "",
-  i94Number: "",
-  lastAdmittedStatus: "",
-  currentStatus: "",
-  statusExpireDate: "",
-  immigrationCourtProceedingYesCheckbox: null,
-  immigrationCourtProceedingNoCheckbox: null,
-  inThisApplicationYesCheckbox: null,
-  inThisApplicationNoCheckbox: null,
-};
-
 export const InitialFamilyMember: FamilyMember = {
   name: "",
   cityTownAndBirth: "",
   location: "",
   deceasedCheckbox: "",
+};
+
+export const InitialFamily = {
+  mother: {
+    part: "",
+    question: "",
+    name: "",
+    cityTownAndBirth: "",
+    location: "",
+    deceasedCheckbox: "",
+  },
+  father: {
+    part: "",
+    question: "",
+    name: "",
+    cityTownAndBirth: "",
+    location: "",
+    deceasedCheckbox: "",
+  },
+  children: [InitialChild],
+  siblings: [InitialFamilyMember],
+  spouse: InitialSpouse,
+};
+
+export const InitialApplicationCase: ApplicationCase = {
+  id: 0,
+  userId: 0,
+  applicantName: "",
+  taskList: [],
+  type: "",
+  status: "",
+  submittedAt: 0,
+  updatedAt: 0,
+  createdAt: 0,
+  currentStep: "",
+  uscisReceiptNumber: "",
+  paid: false,
+  assignedLawyer: 0,
+  progress: { steps: [] },
+  profile: {
+    applyForWithholdingYesCheckbox: "",
+    applicant: InitialApplicant,
+    family: InitialFamily,
+    background: InitialBackground,
+    applicationDetails: InitialApplicationDetails,
+    signature: InitialSignature,
+    declaration: InitialDeclaration,
+    supplementDocument: InitialSupplementDocument,
+  },
+};
+
+export const InitialEntryRecord: EntryRecord = {
+  date: "",
+  city: "",
+  state: "",
+  status: "",
 };
 
 export const InitialAddressHistoryBeforeUS: AddressHistory = {

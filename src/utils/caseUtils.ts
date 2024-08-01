@@ -12,3 +12,12 @@ export function getCorrectedIndexes(form: IForm, indexLevel1: number, indexLevel
   }
   return { correctedIndexLevel1, correctedIndexLevel2 };
 }
+
+export function removePropertiesNotDefinedInModel(model: any, obj: any) {
+  Object.keys(obj).forEach(key => {
+    if (!Object.prototype.hasOwnProperty.call(model, key)) {
+      delete obj[key];
+    }
+  });
+  return obj;
+}

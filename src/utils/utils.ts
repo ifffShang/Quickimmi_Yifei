@@ -173,7 +173,8 @@ export function getFieldValue(
       // Handle radio, checkbox, dropdown with multiple value, for example, keyValues = ["true","false","true"]
       const keyValues = keys.map(k => getCaseDetailValue(caseDetails, k, fieldIndex));
       const tmpOptions = Array(keyValues.length).fill("false");
-      const keyValueList = [] as string[];
+      // Check if keyValues itself is an option
+      const keyValueList = [keyValues.join(",")];
       // Generate all possible combinations of key values to match with options, each options only has one true value
       // Example: ["true","false","true"] => ["true","false","false"], ["false","false","true"]
       keyValues.forEach((k, i) => {
