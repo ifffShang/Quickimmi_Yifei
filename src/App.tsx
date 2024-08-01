@@ -1,8 +1,7 @@
 import { ConfigProvider } from "antd";
-import { Profiler, useEffect } from "react";
+import { useEffect } from "react";
 import "./App.css";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
-import { ChatbotFloating } from "./components/chatbot/ChatbotFloating";
 import { ModalView } from "./components/modals/ModalView";
 import { Navbar } from "./components/navbar/Navbar";
 import { ScreenSize } from "./model/commonModels";

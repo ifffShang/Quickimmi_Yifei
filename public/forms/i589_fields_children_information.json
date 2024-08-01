@@ -331,11 +331,19 @@
     {
       "label": "",
       "hideHeader": "true",
-      "placeholder": "text_AddAChild",
-      "id": "add_a_child",
+      "id": "children_form",
       "visibility": "applicant.haveChildrenCheckbox=true",
-      "key": "applicant.childrenCnt-family.children",
-      "control": "component_add_item"
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "hideHeader": "true",
+          "placeholder": "text_AddAChild",
+          "id": "add_a_child",
+          "key": "applicant.childrenCnt-family.children",
+          "control": "component_add_item"
+        }
+      ]
     }
   ]
 }

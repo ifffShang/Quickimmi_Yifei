@@ -32,7 +32,7 @@ const CaseStatusLayout: React.FC<CaseStatusLayoutProps> = ({ menuItemSelected })
       <CaseStatusMenuSider />
       <Layout className="site-layout">
         <Content style={{ margin: "0 16px" }}>
-          <QReturnLink onClick={() => navigate(`/dashboard`)} text={t("ReturnToDashboard")} margin="20px 0 15px 0" />
+          <QReturnLink onClick={handleReturnClick} text={t("ReturnToDashboard")} margin="20px 0 15px 0" />
           <div className="site-layout-background" style={{ minHeight: 360 }}>
             {menuItemSelected === "caseOverview" && <CaseStatusRightPanel />}
             {menuItemSelected === "caseDocuments" && <CaseDocumentRightPanel />}

@@ -74,6 +74,7 @@ export function getCaseDetailValue(caseDetails: AsylumCaseProfile, key: string, 
     let result: any = caseDetails;
     for (const keyEntry of keys) {
       if (keyEntry.indexOf("[]") > -1) {
+        // handle array
         if (keyEntry.indexOf("[]") === -1 || typeof fieldIndex !== "number") {
           console.error(
             `[getCaseDetailValue] Field index is missing for array field. Key: ${keyEntry} fieldIndex: ${fieldIndex}`,
@@ -120,6 +121,7 @@ export function getFieldValue(
   format?: string,
   fieldIndex?: number,
 ): any {
+  // Sanity Check
   if (control === "group") {
     return;
   }
@@ -135,27 +137,45 @@ export function getFieldValue(
     return;
   }
 
-  if (key.indexOf("explainHaveBeenHarmedYesSupportDocuments") > -1) {
-    console.log("key", key);
-  }
-
-  // count-array pair
+  /*
+   * count-array pair
+   * Example:
+   * 1, applicant.childrenCnt-family.children
+   * 2, count-background.usAddressHistoriesPast5Years
+   */
   if (key.indexOf("-") > -1) {
+    // Example: countKey: applicant.childrenCnt, arrKey: family.children
     const [countKey, arrKey] = key.split("-");
+    // Example: Children[fieldIndex]
     const arr = getCaseDetailValue(caseDetails, arrKey, fieldIndex);
+
     if (countKey !== "count") {
       const count = getCaseDetailValue(caseDetails, countKey, fieldIndex);
       return { countKey, count, arrKey, arr };
-    }
+    } // else Example: count-background.usAddressHistoriesPast5Years
     return { arrKey, arr };
   }
 
+  /*
+   * Example:
+   * applicant.immigrationCourtProceedingACheckbox,applicant.immigrationCourtProceedingBCheckbox,applicant.immigrationCourtProceedingCCheckbox
+   */
   if (key?.indexOf(",") > -1) {
+    /*
+     * Example keys:
+     * applicant.immigrationCourtProceedingACheckbox
+     * applicant.immigrationCourtProceedingBCheckbox
+     * applicant.immigrationCourtProceedingCCheckbox
+     */
     const keys = key.split(",");
+
     if (options && Array.isArray(options)) {
+      // Handle radio, checkbox, dropdown with multiple value, for example, keyValues = ["true","false","true"]
       const keyValues = keys.map(k => getCaseDetailValue(caseDetails, k, fieldIndex));
       const tmpOptions = Array(keyValues.length).fill("false");
       const keyValueList = [] as string[];
+      // Generate all possible combinations of key values to match with options, each options only has one true value
+      // Example: ["true","false","true"] => ["true","false","false"], ["false","false","true"]
       keyValues.forEach((k, i) => {
         if (k === "true") {
           tmpOptions[i] = "true";
@@ -163,13 +183,17 @@ export function getFieldValue(
         }
         tmpOptions[i] = "false";
       });
+      // Find the selected options
       const selectedOptions = options.filter(option => keyValueList.indexOf(option.keyValue) > -1);
       if (selectedOptions.length === 1) {
         return selectedOptions[0].value;
       } else if (selectedOptions.length > 1) {
         return selectedOptions.map(option => option.value);
+      } else {
+        return;
       }
     } else if (format) {
+      // Only handle phone number
       const regex = Regex[format]["FormatRegex"];
       const output = Regex[format]["FormatOutput"];
       const filterRegex = Regex[format]["FilterRegex"];
@@ -187,6 +211,7 @@ export function getFieldValue(
     }
   }
 
+  // Other cases
   return getCaseDetailValue(caseDetails, key, fieldIndex);
 }
 
@@ -321,6 +346,7 @@ export interface LocationInfo {
   cities?: ICity[];
   cityPrefillOption?: LocationSelectOption;
 }
+
 export function getPrefillLocationOptions(cityAndCountry: string, locationObject?: LocationObject): LocationInfo {
   const { country, state, city } = parseCityAndCountryStr(cityAndCountry, locationObject);
 
@@ -461,4 +487,23 @@ export function getCurrentHoursMinutesSeconds() {
 
 export function isNullOrUndefined(value: any) {
   return value === null || value === undefined;
+}
+
+export function isSectionVisible(visibility: string, caseDetails: AsylumCaseProfile, fieldIndex?: number) {
+  let visibilityArray: string[];
+  //| represents the "or" logic
+  if (visibility.indexOf("|") > -1) {
+    visibilityArray = visibility.split("|");
+  } else {
+    visibilityArray = [visibility];
+  }
+  let isVisible = false;
+  for (let i = 0; i < visibilityArray.length; i++) {
+    const [key, value] = visibilityArray[i].split("=");
+    const caseDetailValue = getCaseDetailValue(caseDetails, key, fieldIndex);
+    if (caseDetailValue === value || (!caseDetailValue && (value === "null" || value === "undefined"))) {
+      isVisible = true;
+    }
+  }
+  return isVisible;
 }

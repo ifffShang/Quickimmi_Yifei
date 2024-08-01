@@ -10,8 +10,8 @@ import {
   createKeyValuesForRemoveItem,
   dispatchFormValue,
   formatCityAndCountryStr,
-  getCaseDetailValue,
   getFieldValue,
+  isSectionVisible,
 } from "../../utils/utils";
 import { QText } from "../common/Fonts";
 import { FormControlContainer } from "./FormControlContainer";
@@ -40,6 +40,8 @@ import { SingleFileUploaderV2 } from "./fields/SingleFileUploaderV2";
 import { TextAreaWithAIRefine } from "./fields/TextAreaWithAIRefine";
 import { TextboxWithNA } from "./fields/TextboxWithNA";
 import { RemovableSectionHeader } from "./parts/RemovableSectionHeader";
+import { ArrayFields } from "../../reducers/formSlice";
+import { useEffect } from "react";
 
 export interface FormFieldProps {
   fieldKey: string;
@@ -65,6 +67,7 @@ export function FormField(props: FormFieldProps) {
   const asylumType = useAppSelector(state => state.form.asylumType);
 
   const placeholder = props.placeholder ? wt(props.placeholder) : "";
+  const isVisible = props.visibility && isSectionVisible(props.visibility, caseDetails, props.fieldIndex);
 
   const fieldValue = getFieldValue(
     caseDetails,
@@ -85,6 +88,41 @@ export function FormField(props: FormFieldProps) {
     `,
   );
  */
+
+  useEffect(() => {
+    if (props.control !== "removable_section" && props.control !== "section") return;
+    if (!props.subFields || props.subFields.length === 0 || !props.visibility) return;
+
+    if (!isVisible) {
+      // When textarea is hidden, assign the value to "N/A"
+      const keys = props.subFields.filter(field => field.control === "textarea");
+      for (let i = 0; i < keys.length; i++) {
+        const key = keys[i].key;
+        dispatchFormValue(
+          dispatch,
+          {
+            [key]: "N/A",
+          },
+          props.fieldIndex,
+        );
+      }
+
+      // For array fields like family.children, assign the value to [] when not visible
+      const arrFields = props.subFields.filter(field => field?.key?.indexOf("-") > -1);
+      for (let i = 0; i < arrFields.length; i++) {
+        const key = arrFields[i].key.split("-")[1];
+        const overwriteKey = ArrayFields.filter(field => field.field === key)[0].overwriteField;
+        dispatchFormValue(
+          dispatch,
+          {
+            [key]: [],
+            [overwriteKey]: true,
+          },
+          props.fieldIndex,
+        );
+      }
+    }
+  }, [isVisible, fieldValue, props.control, props.subFields, props.fieldIndex]);
 
   const onOptionChange = (value: string) => {
     if (props.options && Array.isArray(props.options)) {
@@ -129,22 +167,27 @@ export function FormField(props: FormFieldProps) {
 
   const onTextChange = (value: string): string => {
     if (props.fieldKey && props.fieldKey.indexOf(",") > -1 && props.format) {
+      // Currently this branch only handle phone number
       const formatRegex = Regex[props.format]["FormatRegex"];
       const formatOutput = Regex[props.format]["FormatOutput"];
       const filterRegex = Regex[props.format]["FilterRegex"];
       const maxLen = Regex[props.format]["MaxLength"];
+      // Remove non digit characters
       let digits = value.replace(filterRegex, "");
+      // Only keep 10 digits of the input
       if (digits.length > maxLen) {
         digits = digits.substring(0, maxLen);
       }
+      // Convert to output format ($1)$2-$3
       const returnValue = digits.replace(formatRegex, formatOutput);
 
       const extractRegex = Regex[props.format]["ExtractRegex"];
       const keys = props.fieldKey.split(",");
+      // Example: (123)456-7890 -> ["(123)456-7890", "123", "456-7890"]
       const matches = returnValue.match(extractRegex);
       if (matches) {
-        const group1 = matches[1];
-        const group2 = matches[2];
+        const group1 = matches[1]; // "123"
+        const group2 = matches[2]; // "456-7890"
         dispatchFormValue(
           dispatch,
           {
@@ -442,7 +485,7 @@ export function FormField(props: FormFieldProps) {
     }
     case "component_textbox_na":
       // TODO: This is a temporary solution for A-Number. Need to refactor this and move the control to JSON
-      if (asylumType === "DEFENSIVE" && props.fieldKey === "applicant.anumber") {
+      if (asylumType === "DEFENSIVE" && props.fieldKey === "applicant.alienNumber") {
         return (
           <FormControlContainer fieldValue={fieldValue}>
             <QTextBox
@@ -551,34 +594,8 @@ export function FormField(props: FormFieldProps) {
     case "removable_section":
       if (props.subFields && props.subFields.length > 0) {
         if (props.visibility) {
-          let visibilityArray;
-          //| represents the "or" logic
-          if (props.visibility.indexOf("|") > -1) {
-            visibilityArray = props.visibility.split("|");
-          } else {
-            visibilityArray = [props.visibility];
-          }
-          let hasTrue = false;
-          for (let i = 0; i < visibilityArray.length; i++) {
-            const [key, value] = visibilityArray[i].split("=");
-            const caseDetailValue = getCaseDetailValue(caseDetails, key, props.fieldIndex);
-            if (caseDetailValue === value || (!caseDetailValue && (value === "null" || value === "undefined"))) {
-              hasTrue = true;
-            }
-          }
-          if (!hasTrue) {
-            // When textarea is hidden, assign the value to "N/A"
-            const keys = props.subFields.filter(field => field.control === "textarea");
-            for (let i = 0; i < keys.length; i++) {
-              const key = keys[i].key;
-              dispatchFormValue(
-                dispatch,
-                {
-                  [key]: "N/A",
-                },
-                props.fieldIndex,
-              );
-            }
+          const isVisible = isSectionVisible(props.visibility, caseDetails, props.fieldIndex);
+          if (!isVisible) {
             return <></>;
           }
         }

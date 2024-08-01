@@ -5,6 +5,7 @@ import { closeModal, openModal } from "../reducers/commonSlice";
 import { InMemoryCache } from "../cache/inMemoryCache";
 import { message } from "antd";
 import { resetFormState } from "../reducers/formSlice";
+import { CacheStore } from "../cache/cache";
 
 export const signOutCurrentUser = (dispatch: AppDispatch) => {
   signOut()
@@ -17,7 +18,10 @@ export const signOutCurrentUser = (dispatch: AppDispatch) => {
         clearInterval(intervalId);
         InMemoryCache.remove("tokenRefreshCountDownId");
       }
+      // Remove role from localStorage
+      CacheStore.clear();
 
+      // Reset application state
       dispatch(resetFormState());
       dispatch(resetAuthState());
       dispatch(closeModal());
@@ -37,6 +41,11 @@ export const signOutCurrentUser = (dispatch: AppDispatch) => {
           clearInterval(intervalId);
           InMemoryCache.remove("tokenRefreshCountDownId");
         }
+        // Remove role from localStorage
+        localStorage.removeItem("userRole");
+
+        // Reset application state
+        dispatch(resetFormState());
         dispatch(resetAuthState());
         dispatch(closeModal());
       } else {
