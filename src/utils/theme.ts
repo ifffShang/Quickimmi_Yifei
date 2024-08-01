@@ -51,6 +51,9 @@ export function getAntTheme() {
         borderRadius: 2,
         borderRadiusLG: 2,
       },
+      Steps: {
+        colorPrimary: primaryColor,
+      },
       Checkbox: {
         colorPrimary: primaryColor,
         colorPrimaryHover: primaryColor,

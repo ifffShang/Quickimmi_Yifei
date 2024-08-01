@@ -12,7 +12,7 @@ import { NewApplicationIcon } from "../../icons/Dashboard";
 import { CaseCard } from "./CaseCard";
 import "./Dashboard.css";
 import { Role } from "../../../consts/consts";
-import { resetFormState } from "../../../reducers/formSlice";
+import { set } from "lodash";
 
 export function Dashboard() {
   const navigate = useNavigate();
@@ -25,6 +25,7 @@ export function Dashboard() {
   const role = useAppSelector(state => state.auth.role);
   const allCases = useAppSelector(state => state.case.cases);
   const [currentPage, setCurrentPage] = useState(1);
+  const [pageBeforeSearch, setPageBeforeSearch] = useState(1);
   const [pageSize, setPageSize] = useState(6);
   const [totalItems, setTotalItems] = useState(0);
   const [filteredCases, setFilteredCases] = useState(allCases);
@@ -105,7 +106,7 @@ export function Dashboard() {
       const filteredCases = applySearchAndFilter(allCases, "", sortOption, sortOrder);
       setFilteredCases(filteredCases);
       setTotalItems(filteredCases.length);
-      setCurrentPage(1);
+      setCurrentPage(pageBeforeSearch);
     }
   };
 
@@ -113,6 +114,7 @@ export function Dashboard() {
     const filteredCases = applySearchAndFilter(allCases, query, sortOption, sortOrder);
     setFilteredCases(filteredCases);
     setTotalItems(filteredCases.length);
+    setPageBeforeSearch(currentPage);
     setCurrentPage(1);
   };
 

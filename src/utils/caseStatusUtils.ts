@@ -25,3 +25,15 @@ export const getCaseStatusAndColor = currentStep => {
   }
   return { status, color, backgroundColor, width };
 };
+
+export const getProgressColor = status => {
+  let color = "black";
+  if (status === "NOT_START") {
+    color = "#828282";
+  } else if (status === "IN_PROGRESS") {
+    color = "#F2994A";
+  } else if (status === "COMPLETED") {
+    color = "#27AE60";
+  }
+  return color;
+};
