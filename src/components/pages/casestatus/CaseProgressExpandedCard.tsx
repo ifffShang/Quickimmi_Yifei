@@ -93,7 +93,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
 
   const renderButton = (textKey: string, onClick?: () => void) => {
     if (!progressSteps) return null;
-    const buttonDisabled = false;
+    const buttonDisabled = isButtonDisabled();
     const tooltipText = getTooltipText(
       substepStatus,
       progressSteps.find(step => step.substeps.some(s => s.name === substepName))?.status || "",
