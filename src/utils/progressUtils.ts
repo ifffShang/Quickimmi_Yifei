@@ -22,7 +22,7 @@ interface AsylumCaseProgress {
   steps: ProgressStep[];
 }
 
-export async function updateCaseProgress(
+export async function moveCaseProgressToNextStep(
   caseId: string,
   progressSteps: any[],
   accessToken: string,
@@ -31,10 +31,10 @@ export async function updateCaseProgress(
   currentSubStep: string,
   currentSubStepMetadata: string,
 ): Promise<boolean> {
-  const oldProgress = {
+  const currentProgress = {
     steps: progressSteps,
   };
-  const newProgress = constructProgressData(currentStep, currentSubStep, currentSubStepMetadata, oldProgress);
+  const newProgress = constructProgressData(currentStep, currentSubStep, currentSubStepMetadata, currentProgress);
   const newCurrentStep = [...newProgress.steps].reverse().find(step => step.status === "IN_PROGRESS");
   const progressData = {
     caseId: caseId,
@@ -61,9 +61,9 @@ export function constructProgressData(
   currentStep: string,
   currentSubstep: string,
   metadata: string,
-  oldProgress: AsylumCaseProgress,
+  currentProgress: AsylumCaseProgress,
 ): AsylumCaseProgress {
-  const newProgress: AsylumCaseProgress = JSON.parse(JSON.stringify(oldProgress));
+  const newProgress: AsylumCaseProgress = JSON.parse(JSON.stringify(currentProgress));
   const currentTime = Date.now();
 
   for (let i = 0; i < newProgress.steps.length; i++) {

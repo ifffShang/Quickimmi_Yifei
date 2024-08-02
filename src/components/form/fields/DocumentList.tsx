@@ -16,7 +16,7 @@ import { GeneratedDocument } from "../../../model/apiModels";
 import { DocumentGenerationTaskStatus } from "../../../model/apiReqResModels";
 import { DocumentType, DocumentTypeMap } from "../../../model/commonModels";
 import { clearDocumentUrls, updateGeneratedDocuments } from "../../../reducers/formSlice";
-import { updateCaseProgress } from "../../../utils/progressUtils";
+import { moveCaseProgressToNextStep } from "../../../utils/progressUtils";
 import { downloadDocument } from "../../../utils/utils";
 import { Status } from "../parts/Status";
 import "./DocumentList.css";
@@ -153,7 +153,6 @@ export function DocumentList() {
     try {
       await updateApplicationCaseFunc(caseId, profile, progress, percentage, role, accessToken);
       await generateDocumentsByDocumentTypeApi(accessToken, caseId, "ALL", role);
-      await markLawyerReviewAsCompleted();
       await retryGetDocumentsApi(accessToken, caseId, role, (documents, timeout) => {
         if (timeout) {
           console.error("Document generation timeout.");
@@ -178,23 +177,6 @@ export function DocumentList() {
     }
   };
 
-  const markLawyerReviewAsCompleted = async () => {
-    if (!accessToken || !caseId) {
-      message.error("Access token or CaseId is missing");
-      return false;
-    }
-    const currentStep = "REVIEW_AND_SIGN";
-    const currentSubStep = "LAWYER_REVIEW";
-    const success = await updateCaseProgress(
-      caseId.toString(),
-      progress.steps,
-      accessToken,
-      role,
-      currentStep,
-      currentSubStep,
-      "",
-    );
-  };
   const onReplaceFileUpload = (
     e: React.ChangeEvent<HTMLInputElement>,
     documentId: number,

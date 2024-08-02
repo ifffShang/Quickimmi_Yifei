@@ -1,6 +1,6 @@
 import type { TableProps } from "antd";
 import { Button, message, Table, Tooltip } from "antd";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import {
   generateDocumentsByDocumentTypeApi,
@@ -10,14 +10,15 @@ import {
   retryGetDocumentsApi,
   updateDocumentStatus,
   uploadFileToPresignUrl,
+  getDocumentsApi,
 } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useDocumentsOnLoad } from "../../../hooks/commonHooks";
 import { GeneratedDocument } from "../../../model/apiModels";
 import { DocumentGenerationTaskStatus } from "../../../model/apiReqResModels";
-import { DocumentType, DocumentTypeMap } from "../../../model/commonModels";
+import { DocumentType, DocumentTypeMap, Identity } from "../../../model/commonModels";
 import { clearDocumentUrls, updateGeneratedDocuments } from "../../../reducers/formSlice";
-import { updateCaseProgress } from "../../../utils/progressUtils";
+import { moveCaseProgressToNextStep } from "../../../utils/progressUtils";
 import { downloadDocument } from "../../../utils/utils";
 import { Status } from "../parts/Status";
 import "./DocumentList.css";
@@ -75,6 +76,7 @@ export function MergedDocumentList() {
   const generatedDocuments = useAppSelector(state => state.form.generatedDocuments);
   const [loading, setLoading] = useState(false);
   const [replaceLoading, setReplaceLoading] = useState(false);
+  const [readyToCompleteReview, setReadyToCompleteReview] = useState(false);
   const replaceFileControl = useRef<HTMLInputElement | null>(null);
 
   useDocumentsOnLoad({
@@ -89,28 +91,29 @@ export function MergedDocumentList() {
     replaceLoading: replaceLoading,
   });
 
-  const fetchGeneratedDocuments = async (generatedDocumentStatusList: DocumentGenerationTaskStatus[]) => {
-    if (!accessToken || !caseId || caseId === 0) {
-      console.error("Access token or case id is missing");
-      return;
-    }
+  useEffect(() => {
+    const checkDocumentsStatus = async () => {
+      if (!caseId || !accessToken) {
+        console.error("Case ID or access token is not available");
+        return;
+      }
+      setLoading(true);
+      try {
+        const documents = await getDocumentsApi(accessToken, caseId, role, {
+          generationType: "SYSTEM_MERGED",
+        });
+        if (documents.every(doc => doc.status === "Success")) {
+          setReadyToCompleteReview(true);
+        }
+        setLoading(false);
+      } catch (error) {
+        console.error("Error generating documents: ", error);
+        setLoading(false);
+      }
+    };
 
-    if (replaceLoading || replaceLoading === undefined || replaceLoading === null) {
-      return;
-    }
-
-    setLoading(true);
-    dispatch(clearDocumentUrls());
-    try {
-      const downloadPromises = generatedDocumentStatusList.map(doc => downloadDocument(doc.presignedUrl, { ...doc }));
-      const generatedDocs = await Promise.all(downloadPromises);
-      dispatch(updateGeneratedDocuments(generatedDocs));
-    } catch (error) {
-      console.error("Error fetching documents:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+    checkDocumentsStatus();
+  }, [accessToken, caseId, role]);
 
   const onReplaceLinkClick = () => {
     if (replaceFileControl.current) {
@@ -155,33 +158,37 @@ export function MergedDocumentList() {
       doc => doc.status === "Success" || doc.status === "Skipped" || doc.status === "uploaded",
     );
 
-    if (IndividualDocuments.length !== SuccessfulIndividualDocuments.length) {
-      message.error("Please complete all individual documents before generating merged documents");
-      return;
-    }
+    // if (IndividualDocuments.length !== SuccessfulIndividualDocuments.length) {
+    //   message.error("Please complete all individual documents before generating merged documents");
+    //   return;
+    // }
 
     setLoading(true);
     try {
       await defaultMergeApi(accessToken, caseId, role);
 
-      await retryGetDocumentsApi(accessToken, caseId, role, (documents, timeout) => {
-        if (timeout) {
-          console.error("Document generation timeout.");
-        }
-        setLoading(false);
-        const documentsToUpdate = [...documents];
-        let allFinished = true;
-        for (let i = 0; i < documentsToUpdate.length; i++) {
-          const status = documentsToUpdate[i];
-          if (status.status !== "Success") {
-            allFinished = false;
+      await retryGetDocumentsApi(
+        accessToken,
+        caseId,
+        role,
+        (documents, timeout) => {
+          if (timeout) {
+            console.error("Document generation timeout.");
           }
-        }
-        dispatch(updateGeneratedDocuments(documentsToUpdate));
-        return allFinished;
-      });
-
-      markLawyerReviewAsCompleted();
+          setLoading(false);
+          const documentsToUpdate = [...documents];
+          console.log("+++++++++++++++------------------", documentsToUpdate);
+          const allFinished = documentsToUpdate.every(doc => doc.status === "Success");
+          dispatch(updateGeneratedDocuments(documentsToUpdate));
+          if (allFinished) {
+            setReadyToCompleteReview(true);
+          }
+          return allFinished;
+        },
+        {
+          generationType: "SYSTEM_MERGED",
+        },
+      );
       setLoading(false);
     } catch (error) {
       console.error("Error generating documents: ", error);
@@ -196,7 +203,7 @@ export function MergedDocumentList() {
     }
     const currentStep = "REVIEW_AND_SIGN";
     const currentSubStep = "LAWYER_REVIEW";
-    const success = await updateCaseProgress(
+    const success = await moveCaseProgressToNextStep(
       caseId.toString(),
       progress.steps,
       accessToken,
@@ -330,6 +337,14 @@ export function MergedDocumentList() {
             disabled={percentage?.["overall"]?.avg !== 100}
           >
             {t("Generate Merged Documents")}
+          </Button>
+          <Button
+            type="primary"
+            onClick={markLawyerReviewAsCompleted}
+            className="document-list-btn"
+            disabled={percentage?.["overall"]?.avg !== 100 || !readyToCompleteReview}
+          >
+            {t("Complete Review")}
           </Button>
         </Tooltip>
         <Table

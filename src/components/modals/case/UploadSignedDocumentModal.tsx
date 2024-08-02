@@ -8,7 +8,7 @@ import "./UploadSignedDocumentModal.css";
 import { closeModal } from "../../../reducers/commonSlice";
 import { RocketIcon } from "../../icons/RocketIcon";
 import { useFileUpload } from "./useFileUpload";
-import { updateCaseProgress } from "../../../utils/progressUtils";
+import { moveCaseProgressToNextStep } from "../../../utils/progressUtils";
 import { KeyValues } from "../../../model/commonModels";
 
 interface UploadSignedDocumentModalProps {
@@ -44,7 +44,7 @@ export function UploadSignedDocumentModal({ modalData }: UploadSignedDocumentMod
     const currentSubStepMetadata = JSON.stringify({
       documentIds,
     });
-    const success = await updateCaseProgress(
+    const success = await moveCaseProgressToNextStep(
       caseId,
       modalData.progressSteps,
       accessToken,

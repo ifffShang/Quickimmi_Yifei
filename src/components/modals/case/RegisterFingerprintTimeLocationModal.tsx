@@ -9,7 +9,7 @@ import { closeModal } from "../../../reducers/commonSlice";
 import { RocketIcon } from "../../icons/RocketIcon";
 import { useFileUpload } from "./useFileUpload";
 import { KeyValues } from "../../../model/commonModels";
-import { updateCaseProgress } from "../../../utils/progressUtils";
+import { moveCaseProgressToNextStep } from "../../../utils/progressUtils";
 
 interface RegisterFingerprintTimeLocationModalProps {
   modalData?: KeyValues;
@@ -55,7 +55,7 @@ export function RegisterFingerprintTimeLocationModal({ modalData }: RegisterFing
     });
     const currentStep = "FINGERPRINT_INTERVIEW";
     const currentSubStep = "FINGERPRINT_COLLECTION";
-    const success = await updateCaseProgress(
+    const success = await moveCaseProgressToNextStep(
       caseId,
       modalData.progressSteps,
       accessToken,

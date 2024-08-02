@@ -1,9 +1,7 @@
-import { UploadFile, message } from "antd";
+import { message, UploadFile } from "antd";
 import { getDocumentByIdApi, updateApplicationCaseApi } from "../api/caseAPI";
 import { Role } from "../consts/consts";
-import { AsylumCaseProfile, GeneratedDocument, Percentage, Progress, UploadedDocument } from "../model/apiModels";
-import { DocumentGenerationTaskStatus } from "../model/apiReqResModels";
-import { updateGeneratedDocuments } from "../reducers/formSlice";
+import { AsylumCaseProfile, Percentage, Progress } from "../model/apiModels";
 import { getProgressWithPercentage } from "./percentageUtils";
 
 // !!!! This function should only be used by the form save !!!!
@@ -15,6 +13,14 @@ export const updateApplicationCaseFunc = async (
   role: Role,
   accessToken?: string,
 ) => {
+  // Form can only be updated when the case progress is at "Collect Information" or "Review and Sign" step.
+  if (!formAllowedToBeEdit(progress)) {
+    const errorMsg =
+      'Form can only be updated when the case progress is at "Collect Information" or "Review and Sign" step.';
+    message.error(errorMsg);
+    console.log(errorMsg);
+    return;
+  }
   try {
     if (!accessToken) {
       console.error("Access token is missing");
@@ -23,14 +29,17 @@ export const updateApplicationCaseFunc = async (
 
     const progressWithPercentage = getProgressWithPercentage(progress, percentage);
 
-    const currentStep = [...progress.steps].reverse().find(step => step.status === "IN_PROGRESS");
+    let currentStep = "FILLING_APPLICATION";
+    if (percentage?.overall?.avg === 100) {
+      currentStep = "REVIEW_AND_SIGN";
+    }
 
     updateApplicationCaseApi(
       {
         id: caseId,
         profile,
         progress: progressWithPercentage,
-        currentStep: currentStep ? currentStep.name : "FILLING_APPLICATION",
+        currentStep: currentStep,
       },
       accessToken,
       role,
@@ -39,6 +48,14 @@ export const updateApplicationCaseFunc = async (
     console.error("Error updating application case: ", error);
     throw error;
   }
+};
+
+export const formAllowedToBeEdit = (progress: Progress): boolean => {
+  // Define the steps where the form can be edited
+  const editableSteps = ["FILLING_APPLICATION", "REVIEW_AND_SIGN"];
+
+  // Check if the current step is one of the editable steps
+  return progress.steps.some(step => editableSteps.includes(step.name) && step.status === "IN_PROGRESS");
 };
 
 export const handleFileDownload = async (file: UploadFile, accessToken: string, role: Role) => {

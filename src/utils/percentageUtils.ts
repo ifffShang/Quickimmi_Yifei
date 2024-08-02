@@ -191,6 +191,7 @@ export function getProgressWithPercentage(progress: Progress, percentage: Percen
   const isFillingApplicationCompleted = percentage?.overall?.avg === 100;
 
   if (!isFillingApplicationCompleted) {
+    // Form filling is not 100%
     return {
       ...progress,
       steps: progress.steps.map(step => {
@@ -212,10 +213,23 @@ export function getProgressWithPercentage(progress: Progress, percentage: Percen
             }),
           };
         }
+        if (step.name === "REVIEW_AND_SIGN") {
+          return {
+            ...step,
+            status: "NOT_START",
+            substeps: step.substeps.map(substep => {
+              return {
+                ...substep,
+                status: "NOT_START",
+              };
+            }),
+          };
+        }
         return step;
       }),
     };
   } else {
+    // Form filling is already 100%
     return {
       ...progress,
       steps: progress.steps.map(step => {
