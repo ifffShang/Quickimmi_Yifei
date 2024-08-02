@@ -1,10 +1,13 @@
 import { Divider } from "antd";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { DefaultCaseProfile } from "../../consts/caseProfile";
 import { Regex } from "../../consts/consts";
 import { useFormTranslation } from "../../hooks/commonHooks";
 import { EntryRecord } from "../../model/apiModels";
 import { DocumentType, KeyValues, LanguageEnum } from "../../model/commonModels";
 import { ControlType, IFormField, IFormOptions } from "../../model/formFlowModels";
+import { ArrayFields } from "../../reducers/formSlice";
 import {
   createKeyValuesForAddItem,
   createKeyValuesForRemoveItem,
@@ -14,6 +17,7 @@ import {
   getFieldValue,
   isSectionVisible,
 } from "../../utils/utils";
+import { getKeys } from "../../utils/visibilityUtils";
 import { QText } from "../common/Fonts";
 import { FormControlContainer } from "./FormControlContainer";
 import "./FormField.css";
@@ -41,10 +45,6 @@ import { SingleFileUploaderV2 } from "./fields/SingleFileUploaderV2";
 import { TextAreaWithAIRefine } from "./fields/TextAreaWithAIRefine";
 import { TextboxWithNA } from "./fields/TextboxWithNA";
 import { RemovableSectionHeader } from "./parts/RemovableSectionHeader";
-import { ArrayFields } from "../../reducers/formSlice";
-import { useEffect } from "react";
-import { getKeys } from "../../utils/visibilityUtils";
-import { InitialApplicationCase, InitialApplicationDetails } from "../../consts/caseConsts";
 
 export interface FormFieldProps {
   fieldKey: string;
@@ -96,15 +96,17 @@ export function FormField(props: FormFieldProps) {
     if (props.control !== "removable_section" && props.control !== "section") return;
     if (!props.subFields || props.subFields.length === 0 || !props.visibility) return;
 
-    const { textKeys } = getKeys(props.subFields);
+    const { textKeys } = getKeys(props.subFields, props.control);
 
     if (!isVisible) {
       // When text related component is hidden, assign the value to "N/A"
-      dispatchFormValue(
-        dispatch,
-        textKeys.reduce((obj, key) => ({ ...obj, [key]: "N/A" }), {}),
-        props.fieldIndex,
-      );
+      textKeys &&
+        textKeys.length > 0 &&
+        dispatchFormValue(
+          dispatch,
+          textKeys.reduce((obj, key) => ({ ...obj, [key]: "N/A" }), {}),
+          props.fieldIndex,
+        );
 
       // For array fields like family.children, assign the value to [] when not visible
       const arrFields = props.subFields.filter(field => field?.key?.indexOf("-") > -1);
@@ -121,15 +123,14 @@ export function FormField(props: FormFieldProps) {
         );
       }
     } else {
-      // When  text related component is shown, assign the value to ""
-      dispatchFormValue(
-        dispatch,
-        textKeys.reduce(
-          (obj, key) => ({ ...obj, [key]: getCaseDetailValue(InitialApplicationCase.profile, key, 0) }),
-          {},
-        ),
-        props.fieldIndex,
-      );
+      // When text related component is shown, assign the value to ""
+      textKeys &&
+        textKeys.length > 0 &&
+        dispatchFormValue(
+          dispatch,
+          textKeys.reduce((obj, key) => ({ ...obj, [key]: getCaseDetailValue(DefaultCaseProfile, key, 0) }), {}),
+          props.fieldIndex,
+        );
     }
   }, [isVisible]);
 

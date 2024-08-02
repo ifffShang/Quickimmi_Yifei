@@ -1,15 +1,13 @@
 import {
-  AddressHistory,
-  ApplicationCase,
+  AsylumCaseProfile,
   Child,
-  EntryRecord,
   FamilyMember,
   MasterHearingDetail,
   Spouse,
   SupplementDocument,
 } from "../model/apiModels";
 
-export const InitialApplicant = {
+export const DefaultApplicant = {
   passportDocumentId: 0,
   alienNumber: "",
   ssn: "",
@@ -66,14 +64,14 @@ export const InitialApplicant = {
   notMarriedCheckbox: null,
 };
 
-export const InitialBackground = {
+export const DefaultBackground = {
   addressHistoriesBeforeUS: [],
   usAddressHistoriesPast5Years: [],
   educationHistories: [],
   employmentHistories: [],
 };
 
-export const InitialApplicationDetails = {
+export const DefaultApplicationDetails = {
   asylumBasedOnRaceCheckbox: null,
   asylumBasedOnReligionCheckbox: null,
   asylumBasedOnNationalityCheckbox: null,
@@ -144,36 +142,7 @@ export const InitialApplicationDetails = {
   explainHaveCommittedCrimeYesQuestion: "",
 };
 
-export const InitialSignature = {
-  name: "",
-  nameInNativeAlphabet: "",
-  familyMemberAssistYesCheckbox: null,
-  familyMemberAssistNoCheckbox: null,
-  members: [],
-  otherPeopleAssistYesCheckbox: null,
-  otherPeopleAssistNoCheckbox: null,
-  providePeopleCounselYesCheckbox: null,
-  providePeopleCounselNoCheckbox: null,
-  signature: "",
-  date: "",
-};
-
-export const InitialDeclaration = {
-  preparerSignature: "",
-  completeName: "",
-  teleNumberAreacode: "",
-  teleNumber: "",
-  streetNumberAndName: "",
-  aptNumber: "",
-  city: "",
-  state: "",
-  zipCode: "",
-  g28FormAttachedYesCheckbox: null,
-  attorneyStateNarNumber: "",
-  attorneyUscisOnlineAccountNumber: "",
-};
-
-export const InitialMasterHearingDetail: MasterHearingDetail = {
+export const DefaultMasterHearingDetail: MasterHearingDetail = {
   noticeOfAppearDate: "",
   courtAddress: "",
   courtZipCode: "",
@@ -184,7 +153,7 @@ export const InitialMasterHearingDetail: MasterHearingDetail = {
   hearingTime: "",
 };
 
-export const InitialSupplementDocument: SupplementDocument = {
+export const DefaultSupplementDocument: SupplementDocument = {
   personalStatement: "",
   personalStatementInOriginalLanguage: "",
   explainHaveBeenHarmedYesSupportDocuments: [],
@@ -200,11 +169,11 @@ export const InitialSupplementDocument: SupplementDocument = {
   explainHaveCommittedCrimeYesSupportDocuments: [],
   marriageCertificateDocument: -1,
   i94Document: -1,
-  masterHearingDetail: InitialMasterHearingDetail,
+  masterHearingDetail: DefaultMasterHearingDetail,
   marriageCertificate: null,
 };
 
-export const InitialChild: Child = {
+export const DefaultChild: Child = {
   passportDocumentId: "",
   alienNumber: "",
   passportNumber: "",
@@ -234,7 +203,7 @@ export const InitialChild: Child = {
   inThisApplicationNoCheckbox: null,
 };
 
-export const InitialSpouse: Spouse = {
+export const DefaultSpouse: Spouse = {
   passportDocumentId: "",
   notMarriedCheckbox: "",
   alienNumber: "",
@@ -268,14 +237,14 @@ export const InitialSpouse: Spouse = {
   inThisApplicationNoCheckbox: null,
 };
 
-export const InitialFamilyMember: FamilyMember = {
+export const DefaultFamilyMember: FamilyMember = {
   name: "",
   cityTownAndBirth: "",
   location: "",
   deceasedCheckbox: "",
 };
 
-export const InitialFamily = {
+export const DefaultFamily = {
   mother: {
     part: "",
     question: "",
@@ -292,79 +261,47 @@ export const InitialFamily = {
     location: "",
     deceasedCheckbox: "",
   },
-  children: [],
-  siblings: [],
-  spouse: InitialSpouse,
+  children: [DefaultChild],
+  siblings: [DefaultFamilyMember],
+  spouse: DefaultSpouse,
 };
 
-export const InitialApplicationCase: ApplicationCase = {
-  id: 0,
-  userId: 0,
-  applicantName: "",
-  taskList: [],
-  type: "",
-  status: "",
-  submittedAt: 0,
-  updatedAt: 0,
-  createdAt: 0,
-  currentStep: "",
-  uscisReceiptNumber: "",
-  paid: false,
-  assignedLawyer: 0,
-  progress: { steps: [] },
-  profile: {
-    applyForWithholdingYesCheckbox: "",
-    applicant: InitialApplicant,
-    family: InitialFamily,
-    background: InitialBackground,
-    applicationDetails: InitialApplicationDetails,
-    signature: InitialSignature,
-    declaration: InitialDeclaration,
-    supplementDocument: InitialSupplementDocument,
-  },
-};
-
-export const InitialEntryRecord: EntryRecord = {
+export const DefaultSignature = {
+  name: "",
+  nameInNativeAlphabet: "",
+  familyMemberAssistYesCheckbox: null,
+  familyMemberAssistNoCheckbox: null,
+  members: [],
+  otherPeopleAssistYesCheckbox: null,
+  otherPeopleAssistNoCheckbox: null,
+  providePeopleCounselYesCheckbox: null,
+  providePeopleCounselNoCheckbox: null,
+  signature: "",
   date: "",
+};
+
+export const DefaultDeclaration = {
+  preparerSignature: "",
+  completeName: "",
+  teleNumberAreacode: "",
+  teleNumber: "",
+  streetNumberAndName: "",
+  aptNumber: "",
   city: "",
   state: "",
-  status: "",
+  zipCode: "",
+  g28FormAttachedYesCheckbox: null,
+  attorneyStateNarNumber: "",
+  attorneyUscisOnlineAccountNumber: "",
 };
 
-export const InitialAddressHistoryBeforeUS: AddressHistory = {
-  numberAndStreet: "",
-  city: "",
-  province: "",
-  country: "",
-  startDate: "",
-  endDate: "",
-};
-
-export const InitialUSAddressHistoryPast5Y: AddressHistory = {
-  numberAndStreet: "",
-  city: "",
-  province: "",
-  country: "",
-  startDate: "",
-  endDate: "",
-};
-
-export const InitialEducationHistory = {
-  schoolName: "",
-  schoolType: "",
-  location: "",
-  startDate: "",
-  endDate: "",
-};
-
-export const InitialEmploymentHistory = {
-  nameAndAddress: "",
-  occupation: "",
-  startDate: "",
-  endDate: "",
-};
-
-export const InitialMember = {
-  name: "",
-  relationship: "",
+export const DefaultCaseProfile: AsylumCaseProfile = {
+  applyForWithholdingYesCheckbox: "",
+  applicant: DefaultApplicant,
+  family: DefaultFamily,
+  background: DefaultBackground,
+  applicationDetails: DefaultApplicationDetails,
+  signature: DefaultSignature,
+  declaration: DefaultDeclaration,
+  supplementDocument: DefaultSupplementDocument,
 };

@@ -219,7 +219,7 @@ export function getFieldValue(
 function createNestedObject(keys: string[], value: any, fieldIndex?: number) {
   return keys.reduceRight((result, key, i) => {
     if (key.indexOf("[]") > -1) {
-      if (key.indexOf("[]") === -1 || typeof fieldIndex !== "number") {
+      if (typeof fieldIndex !== "number") {
         console.error(
           `[createNestedObject] Field index is missing for array field. Key: ${key} fieldIndex: ${fieldIndex}`,
         );

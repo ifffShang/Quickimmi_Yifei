@@ -1,7 +1,11 @@
-import { IFormField } from "../model/formFlowModels";
+import { ControlType, IFormField } from "../model/formFlowModels";
 
-export function getKeys(fields: IFormField[]) {
+export function getKeys(fields: IFormField[], parentControl: ControlType) {
   const textKeys = [] as string[];
+
+  // Removable section is used to handle array, and we will set array to [] when invisible
+  if (parentControl === "removable_section") return { textKeys };
+
   fields.forEach(field => {
     if (
       field.control === "textarea" ||
@@ -16,7 +20,7 @@ export function getKeys(fields: IFormField[]) {
     }
 
     if (field.control === "group" && field.fields && field.fields.length > 0) {
-      const { textKeys: groupTextKeys } = getKeys(field.fields);
+      const { textKeys: groupTextKeys } = getKeys(field.fields, field.control);
       textKeys.push(...groupTextKeys);
     }
   });

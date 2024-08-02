@@ -39,6 +39,14 @@ export function fillMissingPercentageProperties(percentage: Percentage, form: IF
         newPercentage[step.id][subStep.referenceId] = 0;
       }
     });
+
+    // Remove the substeps that are not in the form, for example, i94 is only in the form for affirmative asylum, we should not have it in defensive asylum case
+    Object.keys(newPercentage[step.id]).forEach(subStepId => {
+      if (subStepId === "avg") return;
+      if (!step.steps.find(subStep => subStep.referenceId === subStepId)) {
+        delete newPercentage[step.id][subStepId];
+      }
+    });
   });
   return newPercentage;
 }

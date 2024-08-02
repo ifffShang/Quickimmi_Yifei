@@ -71,7 +71,6 @@ export function FormContent(props: FormContentProps) {
       currentPercentage = Math.round((fulfilled / total) * 100);
     }
     const lastPrecentage = percentage?.[props.sectionId]?.[props.referenceId] ?? -1;
-    console;
     if (currentPercentage !== lastPrecentage) {
       dispatch(
         updateOnePercentage({
