@@ -293,7 +293,7 @@ export const InitialFamily = {
     deceasedCheckbox: "",
   },
   children: [InitialChild],
-  siblings: [InitialFamilyMember],
+  siblings: [],
   spouse: InitialSpouse,
 };
 
