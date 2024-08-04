@@ -55,7 +55,9 @@ export const formAllowedToBeEdit = (progress: Progress): boolean => {
   const editableSteps = ["FILLING_APPLICATION", "REVIEW_AND_SIGN"];
 
   // Check if the current step is one of the editable steps
-  return progress.steps.some(step => editableSteps.includes(step.name) && step.status === "IN_PROGRESS");
+  return progress.steps.some(
+    step => editableSteps.includes(step.name) && (step.status === "IN_PROGRESS" || step.status === "NOT_START"),
+  );
 };
 
 export const handleFileDownload = async (file: UploadFile, accessToken: string, role: Role) => {

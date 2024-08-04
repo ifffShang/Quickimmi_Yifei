@@ -1,17 +1,15 @@
-import { set } from "lodash";
 import { CacheStore } from "../cache/cache";
 import { Role } from "../consts/consts";
 import {
   ApplicationCase,
-  Case,
   CaseSummary,
   GeneratePresignedUrlResponse,
   GetCaseProfileResponse,
+  ListCase,
   ParsePassportResponse,
   UpdateApplicationCaseData,
-  UploadedDocument,
-  ListCase,
   UpdateProgressRequestDto,
+  UploadedDocument,
 } from "../model/apiModels";
 import {
   DocumentGenerationTaskStatus,
@@ -218,6 +216,10 @@ export async function getCaseProfileAndProgressApi(
     role,
   });
   const responseData = res.data as GetCaseProfileResponse;
+  if (!responseData.profile) {
+    // For the newly created case, profile is null by default. Initiate it here.
+    responseData.profile = InitialApplicationCase.profile;
+  }
   const filteredData: GetCaseProfileResponse = {
     profile: removePropertiesNotDefinedInModel(InitialApplicationCase.profile, responseData.profile),
     progress: responseData.progress,

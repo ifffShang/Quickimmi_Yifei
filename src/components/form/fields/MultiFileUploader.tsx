@@ -1,6 +1,6 @@
 import { DeleteOutlined, DownloadOutlined, EyeOutlined } from "@ant-design/icons";
 import PlusOutlined from "@ant-design/icons/PlusOutlined";
-import { Button, Image, message, Upload, UploadFile } from "antd";
+import { Button, Image, Upload, UploadFile } from "antd";
 import { useRef, useState } from "react";
 import {
   deleteDocumentApi,
