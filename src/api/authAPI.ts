@@ -1,5 +1,5 @@
 import { Role } from "../consts/consts";
-import { UserInfo } from "../model/apiModels";
+import { UserInfo, LawyerInfo } from "../model/apiModels";
 import { performApiRequest } from "./apiConfig";
 
 export async function createUserApi(email: string, accessToken: string, role: Role): Promise<number> {
@@ -18,7 +18,7 @@ export async function createUserApi(email: string, accessToken: string, role: Ro
 }
 
 export async function getUserInfoApi(email: string, accessToken: string, role: Role): Promise<UserInfo> {
-  if (role !== "APPLICANT" && role !== "LAWYER") {
+  if (role !== "APPLICANT") {
     throw new Error(`Invalid role ${role}`);
   }
   const userInfo = await performApiRequest({
@@ -29,4 +29,18 @@ export async function getUserInfoApi(email: string, accessToken: string, role: R
     role,
   });
   return userInfo?.data;
+}
+
+export async function getLawyerInfoApi(email: string, accessToken: string, role: Role): Promise<LawyerInfo> {
+  if (role !== "LAWYER") {
+    throw new Error(`Invalid role ${role}`);
+  }
+  const lawyerInfo = await performApiRequest({
+    endPoint: `api/lawyer/getLawyerByUsername?username=${email}`,
+    method: "GET",
+    data: null,
+    accessToken,
+    role,
+  });
+  return lawyerInfo?.data;
 }
