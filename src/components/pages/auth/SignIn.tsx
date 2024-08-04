@@ -6,11 +6,11 @@ import { fetchAuthSession, resendSignUpCode, signIn } from "aws-amplify/auth";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { createUserApi, getUserInfoApi } from "../../../api/authAPI";
+import { createUserApi, getUserInfoApi, getLawyerInfoApi } from "../../../api/authAPI";
 import { useAppDispatch } from "../../../app/hooks";
 import awsExports from "../../../aws-exports";
 import { Role } from "../../../consts/consts";
-import { UserInfo } from "../../../model/apiModels";
+import { UserInfo, LawyerInfo } from "../../../model/apiModels";
 import { updateAuthState } from "../../../reducers/authSlice";
 import { signOutCurrentUser, startTokenExpirationTimer } from "../../../utils/authUtils";
 import { validateEmail, validatePassword } from "../../../utils/validators";
@@ -69,13 +69,21 @@ export function SignIn() {
           }
           const accessToken = session.tokens.accessToken.toString();
 
-          let userInfo: UserInfo;
+          let userInfo: UserInfo | LawyerInfo;
           try {
-            userInfo = await getUserInfoApi(email, accessToken, role);
+            if (role === Role.LAWYER) {
+              userInfo = await getLawyerInfoApi(email, accessToken, role);
+            } else {
+              userInfo = await getUserInfoApi(email, accessToken, role);
+            }
           } catch (error: any) {
             if (error?.message === "USE_NOT_FOUND") {
               await createUserApi(email, accessToken, role);
-              userInfo = await getUserInfoApi(email, accessToken, role);
+              if (role === Role.LAWYER) {
+                userInfo = await getLawyerInfoApi(email, accessToken, role);
+              } else {
+                userInfo = await getUserInfoApi(email, accessToken, role);
+              }
             } else {
               throw error;
             }

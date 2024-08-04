@@ -25,6 +25,66 @@ export interface UserInfo {
   asylumtype: string;
 }
 
+export interface LawyerInfo {
+  id: number;
+  username: string;
+  cognitoId: string;
+  firstName: string;
+  lastName: string;
+  middleName: string;
+  email: string;
+  phoneNumber: string;
+  specialization: string;
+  lawFirm: string;
+  profile: LawyerProfile;
+  experienceYears: number;
+  createdAt: number;
+  updatedAt: number;
+}
+
+export interface LawyerProfile {
+  basicInfo: LawyerBasicInfo;
+  eligibility: LawyerEligibility;
+}
+export interface LawyerBasicInfo {
+  uscisOnlineAccountNumber: string;
+  lastName: string;
+  firstName: string;
+  middleName: string;
+  streetNumberAndName: string;
+  aptCheckbox: boolean;
+  steCheckbox: boolean;
+  flrCheckbox: boolean;
+  aptSteFlrNumber: string;
+  city: string;
+  stateDropdown: string;
+  zipCode: string;
+  province: string;
+  postalCode: string;
+  country: string;
+  daytimeTelephoneNumber: string;
+  mobileTelephoneNumber: string;
+  emailAddress: string;
+  faxNumber: string;
+  eoirNumber: string;
+}
+
+export interface LawyerEligibility {
+  eligibleAttorneyCheckbox: boolean;
+  licensingAuthority: string;
+  barNumber: string;
+  amNotCheckbox: string;
+  amCheckbox: boolean;
+  nameofLawFirm: string;
+  accreditedRepresentativeCheckbox: boolean;
+  nameofRecognizedOrganization: string;
+  dateofAccreditation: string;
+  associateCheckbox: string;
+  nameofPreviousRepresentative: string;
+  lawGraduateCheckbox: string;
+  nameofLawStudentOrLawGraduate: string;
+}
+
 export interface ListCase {
   metadata: ListCaseMetadata;
   cases: Case[];
