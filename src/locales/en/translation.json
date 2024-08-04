@@ -390,9 +390,9 @@
   "City": "City",
   "State": "State",
   "ZipCode": "Zip Code",
-  "TelephoneNumberOfMailingInUs": "Telephone Number of Mailing Address in US",
+  "TelephoneNumberOfMailingInUs": "Telephone Number of Mailing Address in U.S.",
   "InCareOfName": "Recipient name",
-  "MailingAddressInUs": "Mailing Address in US",
+  "MailingAddressInUs": "Mailing Address in U.S.",
 
   "EnterIfApplicable": "Enter if applicable",
 
