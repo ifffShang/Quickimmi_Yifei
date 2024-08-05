@@ -1,7 +1,6 @@
 import React from "react";
 import { CheckCircleOutlined, ExclamationCircleOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import CaseProgressExpandedCard from "./CaseProgressExpandedCard";
-import { current } from "@reduxjs/toolkit";
 
 interface OtherStepsSectionProps {
   currentStepDetails: any;
