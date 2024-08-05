@@ -458,8 +458,13 @@ const CaseDocumentRightPanel: React.FC = () => {
         <Button type="link" size="small" onClick={() => handleDownload(doc)}>
           {t("Download")}
         </Button>
-        <Tooltip 
-          title={doc.generationType === "system_auto_generated" || doc.generationType === "system_merged" ? t("DisableDocDeleteButtonText") : ""}>
+        <Tooltip
+          title={
+            doc.generationType === "system_auto_generated" || doc.generationType === "system_merged"
+              ? t("DisableDocDeleteButtonText")
+              : ""
+          }
+        >
           <Button
             type="link"
             size="small"
