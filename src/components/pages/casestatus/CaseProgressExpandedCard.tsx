@@ -77,23 +77,36 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
     return "";
   };
 
-  const isButtonDisabled = () => {
+  const isButtonDisabled = (textKey: string) => {
     if (!progressSteps) return true;
-    let inProgressStepFound = false;
-    for (const step of progressSteps) {
-      for (const substep of step.substeps) {
-        if (substep.status === "IN_PROGRESS") {
-          inProgressStepFound = true;
-          if (substep.name === substepName) return false;
-        } else if (substep.name === substepName) return true;
-      }
-    }
-    return !inProgressStepFound;
+
+    const isDownloadButton = [
+      "downloadSignatureDocsButtonText",
+      "downloadSignedDocsButtonText",
+      "downloadSignatureDocsButtonText",
+      "viewReceiptButtonText",
+    ].includes(textKey);
+    
+    if (substepStatus === "IN_PROGRESS") return false;
+    else if (substepStatus === "COMPLETED" && isDownloadButton) return false;
+    else return true;
+    // let inProgressStepFound = false;
+    // for (const step of progressSteps) {
+    //   for (const substep of step.substeps) {
+    //     if (substep.status === "IN_PROGRESS") {
+    //       inProgressStepFound = true;
+    //       if (substep.name === substepName) return false;
+    //     } else if (isDownloadButton && substep.status == "COMPLETED") {
+    //       return false;
+    //     }
+    //   }
+    // }
+    // return !inProgressStepFound;
   };
 
   const renderButton = (textKey: string, onClick?: () => void) => {
     if (!progressSteps) return null;
-    const buttonDisabled = isButtonDisabled();
+    const buttonDisabled = isButtonDisabled(textKey);
     const tooltipText = getTooltipText(
       substepStatus,
       progressSteps.find(step => step.substeps.some(s => s.name === substepName))?.status || "",
