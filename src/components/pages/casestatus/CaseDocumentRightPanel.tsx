@@ -1,16 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Button, Card, Input, message, Modal, Select, Space, Table, Upload, UploadProps } from "antd";
+import { Button, Card, Input, message, Modal, Select, Space, Table, Upload, UploadProps, Tooltip } from "antd";
 import { useTranslation } from "react-i18next";
-import {
-  AudioTwoTone,
-  FileImageTwoTone,
-  FilePdfTwoTone,
-  FileTextTwoTone,
-  FileUnknownTwoTone,
-  FileWordTwoTone,
-  InboxOutlined,
-  VideoCameraTwoTone,
-} from "@ant-design/icons";
+import { InboxOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   deleteDocumentApi,
@@ -354,30 +345,6 @@ const CaseDocumentRightPanel: React.FC = () => {
     }
   };
 
-  const dataSource = filteredDocuments.map(doc => ({
-    key: doc.id,
-    type: doc.type,
-    name: doc.name,
-    uploader: userRole,
-    fileType: doc.name.split(".").pop()?.toUpperCase(),
-    updatedAt: doc.updatedAt,
-    action: (
-      <Space size="large">
-        <a onClick={() => handleDownload(doc)}>{t("Download")}</a>
-        {doc.generationType !== "system_auto_generated" && doc.generationType !== "system_merged" && (
-          <a
-            onClick={() => {
-              setDocumentToDelete({ id: doc.id, name: doc.name });
-              setDeleteConfirmVisible(true);
-            }}
-          >
-            {t("Delete")}
-          </a>
-        )}
-      </Space>
-    ),
-  }));
-
   const convertBackendDocTypeToFrontendType = (type: DocumentType) => {
     switch (type.toUpperCase()) {
       case "PASSPORT_MAIN":
@@ -479,12 +446,42 @@ const CaseDocumentRightPanel: React.FC = () => {
     }
   };
 
+  const dataSource = filteredDocuments.map(doc => ({
+    key: doc.id,
+    type: doc.type,
+    name: doc.name,
+    uploader: userRole,
+    fileType: doc.name.split(".").pop()?.toUpperCase(),
+    updatedAt: doc.updatedAt,
+    action: (
+      <Space size="small">
+        <Button type="link" size="small" onClick={() => handleDownload(doc)}>
+          {t("Download")}
+        </Button>
+        <Tooltip 
+          title={doc.generationType === "system_auto_generated" || doc.generationType === "system_merged" ? t("DisableDocDeleteButtonText") : ""}>
+          <Button
+            type="link"
+            size="small"
+            disabled={doc.generationType === "system_auto_generated" || doc.generationType === "system_merged"}
+            onClick={() => {
+              setDocumentToDelete({ id: doc.id, name: doc.name });
+              setDeleteConfirmVisible(true);
+            }}
+          >
+            {t("Delete")}
+          </Button>
+        </Tooltip>
+      </Space>
+    ),
+  }));
+
   const columns = [
     {
       title: t("Category"),
       dataIndex: "type",
       key: "type",
-      width: "13%",
+      width: "20%",
       render: (type: DocumentType) => convertBackendDocTypeToFrontendType(type),
     },
     {
@@ -499,13 +496,13 @@ const CaseDocumentRightPanel: React.FC = () => {
       title: t("Uploader"),
       dataIndex: "uploader",
       key: "uploader",
-      width: "12%",
+      width: "10%",
     },
     {
       title: t("File Type"),
       dataIndex: "fileType",
       key: "fileType",
-      width: "10%",
+      width: "8%",
     },
     {
       title: t("Updated At"),
@@ -513,13 +510,13 @@ const CaseDocumentRightPanel: React.FC = () => {
       key: "updatedAt",
       sorter: (a, b) => new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime(),
       render: text => <QText level="xsmall">{new Date(text).toLocaleString()}</QText>,
-      width: "22%",
+      width: "18%",
     },
     {
       title: t("Action"),
       dataIndex: "action",
       key: "action",
-      width: "18%",
+      width: "17%",
     },
   ];
 
@@ -574,9 +571,9 @@ const CaseDocumentRightPanel: React.FC = () => {
             dataSource={dataSource}
             pagination={{
               position: ["bottomCenter"],
-              hideOnSinglePage: true,
-              pageSize: 8,
+              pageSize: 5,
             }}
+            scroll={{ y: 400 }}
           />
         </div>
       </div>

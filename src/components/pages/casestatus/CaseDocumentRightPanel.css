@@ -1,5 +1,6 @@
 .ant-card-body {
-  padding: 18px 24px !important;
+  padding: 16px 24px !important;
+  /* overflow-y: auto  !important; */
 }
 
 .case-document-file-upload {
@@ -37,7 +38,6 @@
 .case-document-file-table {
   margin-top: 18px;
   max-height: 500px;
-  overflow-y: auto;
 }
 
 .upload-modal-container {
