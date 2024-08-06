@@ -33,6 +33,10 @@ export function Navbar() {
     navigate("/dashboard");
   };
 
+  const goToProfile = () => {
+    navigate("/profile");
+  };
+
   let menuItems = [
     {
       key: "login",
@@ -47,6 +51,11 @@ export function Navbar() {
         key: "dashboard",
         label: t("Dashboard.Dashboard"),
         onClick: goToDashboard,
+      },
+      {
+        key: "profile",
+        label: t("Profile"),
+        onClick: goToProfile,
       },
       {
         key: "signout",

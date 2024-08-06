@@ -5,6 +5,7 @@ import {
   CaseSummary,
   GeneratePresignedUrlResponse,
   GetCaseProfileResponse,
+  LawyerInfo,
   ListCase,
   ParsePassportResponse,
   UpdateApplicationCaseData,
@@ -628,4 +629,26 @@ export async function translatePersonalStatementToOriginalLanguageApi(
     role,
   });
   return <string>res.data;
+}
+
+export async function getLawyerByCognitoIdApi(accessToken: string, role: Role, cognitoId: string): Promise<LawyerInfo> {
+  const res = await performApiRequest({
+    endPoint: `api/lawyer/getByLawyerCognitoId?cognitoId=${cognitoId}`,
+    method: "GET",
+    data: null,
+    accessToken,
+    role,
+  });
+  return <LawyerInfo>res.data;
+}
+
+export async function getLawyerByUsernameApi(accessToken: string, role: Role, username: string): Promise<LawyerInfo> {
+  const res = await performApiRequest({
+    endPoint: `api/lawyer/getLawyerByUsername?username=${username}`,
+    method: "GET",
+    data: null,
+    accessToken,
+    role,
+  });
+  return <LawyerInfo>res.data;
 }

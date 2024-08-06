@@ -55,6 +55,7 @@
   "LoginAdsContent": "QuickImmi optimizes your immigration process with AI-driven solutions. Our platform efficiently and accurately handles complex documents, provides personalized immigration guidance, and ensures clear task management with real-time case tracking. Experience a seamless immigration transformation powered by AI.",
   "ReturnToDashboard": "Return to Dashboard",
   "ReturnTocCaseSummaryPage": "Return to Case Summary",
+  "Profile": "Profile",
   "LandingPage": {
     "BrandText": "Fast-Track Your American Dream with AI",
     "Lawyer": "Lawyer",
@@ -191,6 +192,8 @@
   "REVIEW_AND_SIGN": "Review and Sign",
   "SUBMIT_APPLICATION": "Submit",
   "FINGERPRINT_INTERVIEW": "Fingerprint and Interview",
+  "MASTER_CALENDAR_HEARING": "Master Calendar Hearing",
+  "INDIVIDUAL_HEARING": "Individual Hearing",
   "FINAL_RESULT": "Result",
   "FILLING_DETAILS": "Filling Details",
   "LAWYER_REVIEW": "Lawyer Review",

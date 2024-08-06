@@ -338,15 +338,15 @@ export function MergedDocumentList() {
           >
             {t("Generate Merged Documents")}
           </Button>
-          <Button
-            type="primary"
-            onClick={markLawyerReviewAsCompleted}
-            className="document-list-btn"
-            disabled={percentage?.["overall"]?.avg !== 100 || !readyToCompleteReview}
-          >
-            {t("Complete Review")}
-          </Button>
         </Tooltip>
+        <Button
+          type="primary"
+          onClick={markLawyerReviewAsCompleted}
+          className="document-list-btn"
+          disabled={percentage?.["overall"]?.avg !== 100 || !readyToCompleteReview}
+        >
+          {t("Complete Review")}
+        </Button>
         <Table
           loading={loading || replaceLoading}
           bordered={false}
