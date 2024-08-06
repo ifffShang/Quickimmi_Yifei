@@ -4,6 +4,8 @@ export function getKeys(fields: IFormField[], parentControl: ControlType) {
   const textKeys = [] as string[];
   const booleanKeys = [] as string[];
   const selectKeys = [] as string[];
+  const documentKeys = [] as string[];
+  const documentListKeys = [] as string[];
 
   // Removable section is used to handle array, and we will set array to [] when invisible
   if (parentControl === "removable_section") return { textKeys };
@@ -24,7 +26,17 @@ export function getKeys(fields: IFormField[], parentControl: ControlType) {
       booleanKeys.push(...keys);
     } else if (field.control === "select") {
       const keys = field.key.indexOf(",") > -1 ? field.key.split(",") : [field.key];
-      selectKeys.push(...keys);
+      if (field.key.indexOf("Checkbox") > -1) {
+        booleanKeys.push(...keys);
+      } else {
+        selectKeys.push(...keys);
+      }
+    } else if (field.control === "component_passport_uploader") {
+      const keys = field.key.indexOf(",") > -1 ? field.key.split(",") : [field.key];
+      documentKeys.push(...keys);
+    } else if (field.control === "multi_file_uploader") {
+      const keys = field.key.indexOf(",") > -1 ? field.key.split(",") : [field.key];
+      documentListKeys.push(...keys);
     }
 
     if (field.control === "group" && field.fields && field.fields.length > 0) {
@@ -32,5 +44,11 @@ export function getKeys(fields: IFormField[], parentControl: ControlType) {
       textKeys.push(...groupTextKeys);
     }
   });
-  return { textKeys: textKeys, booleanKeys: booleanKeys, selectKeys: selectKeys };
+  return {
+    textKeys: textKeys,
+    booleanKeys: booleanKeys,
+    selectKeys: selectKeys,
+    documentKeys: documentKeys,
+    documentListKeys: documentListKeys,
+  };
 }

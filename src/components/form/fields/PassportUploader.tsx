@@ -43,7 +43,7 @@ export function PassportUploader(props: PassportUploaderProps) {
   };
 
   useEffect(() => {
-    if (!accessToken || !props.documentId) return;
+    if (!accessToken || !props.documentId || props.documentId === -1) return;
     setLoading(true);
     getDocumentByIdApi(accessToken, props.documentId, role)
       .then(document => {
