@@ -71,6 +71,16 @@
   width: 100%;
 }
 
+.monthyearpicker-container {
+  position: relative;
+  max-width: 250px;
+  width: 100%;
+}
+
+.monthyearpicker-container .ant-picker {
+  width: 100%;
+}
+
 .select-box {
   max-width: 250px;
   width: 100%;

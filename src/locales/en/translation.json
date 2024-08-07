@@ -302,6 +302,7 @@
   "NamesUsedBefore": "Add any other names used",
 
   "MM/DD/YYYY": "MM/DD/YYYY",
+  "MM/YYYY": "MM/YYYY",
   "IDExpirationDate": "ID Expiration Date",
   "PassportIssueCountryLabel": "ID Issuing Country",
   "PassportIssueCountry": "Passport Issue Country",

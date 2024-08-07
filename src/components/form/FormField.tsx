@@ -26,6 +26,7 @@ import {
   CheckBox,
   CheckBoxMultiOptions,
   QDatePicker,
+  QMonthYearPicker,
   QTextArea,
   QTextBox,
   RadioSelect,
@@ -499,6 +500,26 @@ export function FormField(props: FormFieldProps) {
       return (
         <FormControlContainer fieldValue={fieldValue}>
           <QDatePicker
+            placeholder={placeholder}
+            value={fieldValue}
+            fieldKey={props.fieldKey}
+            onChange={(value: string) => {
+              props.fieldKey &&
+                dispatchFormValue(
+                  dispatch,
+                  {
+                    [props.fieldKey]: value,
+                  },
+                  props.fieldIndex,
+                );
+            }}
+          />
+        </FormControlContainer>
+      );
+    case "monthyearpicker":
+      return (
+        <FormControlContainer fieldValue={fieldValue}>
+          <QMonthYearPicker
             placeholder={placeholder}
             value={fieldValue}
             fieldKey={props.fieldKey}

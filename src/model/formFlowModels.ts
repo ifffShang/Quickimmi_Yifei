@@ -59,6 +59,7 @@ export type ControlType =
   | "divider"
   | "tips"
   | "datepicker"
+  | "monthyearpicker"
   | "group"
   | "section"
   | "removable_section"
