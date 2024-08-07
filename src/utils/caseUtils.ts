@@ -14,6 +14,9 @@ export function getCorrectedIndexes(form: IForm, indexLevel1: number, indexLevel
 }
 
 export function removePropertiesNotDefinedInModel(model: any, obj: any) {
+  if (obj === null || obj === undefined) {
+    return obj;
+  }
   Object.keys(obj).forEach(key => {
     if (!Object.prototype.hasOwnProperty.call(model, key)) {
       delete obj[key];

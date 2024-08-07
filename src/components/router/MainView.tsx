@@ -6,6 +6,7 @@ import { AuthPage } from "../pages/auth/AuthPage";
 import CaseStatusLayout from "../pages/casestatus/CaseStatusLayout";
 import { CaseDetails } from "../pages/dashboard/CaseDetails";
 import { Dashboard } from "../pages/dashboard/Dashboard";
+import { LawyerProfilePage } from "../pages/lawyerProfile/LawyerProfilePage";
 import { Home } from "../pages/home/Home";
 import { SinglePageView } from "../pages/singlePage/SinglePageView";
 import { Checkout } from "../payment/Checkout";
@@ -25,6 +26,7 @@ export const PATH = {
   ConfirmCode: "/confirmcode",
   AuthSuccess: "/authsuccess",
   Dashboard: "/dashboard",
+  Profile: "/profile",
   CaseStatus: "/casestatus/:id",
   CaseDetails: "/case/:id",
   CaseDocuments: "/casedocuments/:id",
@@ -82,6 +84,11 @@ export const RouterConfig = [
   {
     path: PATH.Dashboard,
     element: <Dashboard />,
+    needLogin: true,
+  },
+  {
+    path: PATH.Profile,
+    element: <LawyerProfilePage />,
     needLogin: true,
   },
   {

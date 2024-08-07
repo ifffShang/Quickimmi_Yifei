@@ -361,7 +361,7 @@
       "label": "",
       "hideHeader": "true",
       "id": "PartC.2.B",
-      "visibility": "applicationDetails.anyLawfulStatusAnyCountryYesCheckbox=true",
+      "visibility": "applicationDetails.anyLawfulStatusAnyCountryYesCheckbox=true|applicationDetails.stayInOtherCountryYesCheckbox=true",
       "control": "section",
       "fields": [
         {

@@ -8,6 +8,7 @@ import { updateAsylumType, updateCaseProfileAndProgress } from "../../../reducer
 import { buildPercentageObject } from "../../../utils/percentageUtils";
 import { CentralizedLoading } from "../../common/Loading";
 import { FormContainer } from "../../form/FormContainer";
+import { Alert } from "antd";
 
 export function CaseDetails() {
   const dispatch = useAppDispatch();
@@ -17,9 +18,14 @@ export function CaseDetails() {
   const role = useAppSelector(state => state.auth.role);
   const asylumType = useAppSelector(state => state.form.asylumType);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!id || !accessToken) return;
+    if (!id || !accessToken) {
+      navigate("/dashboard");
+      console.error("id or accessToken is missing.");
+      return;
+    }
     setIsLoading(true);
     (async function () {
       try {
@@ -35,6 +41,7 @@ export function CaseDetails() {
         }
         const form = await getForm(formName);
         dispatch(updateForm(form));
+
         const caseDetails = await getCaseProfileAndProgressApi(parseInt(id), accessToken, role);
         if (!caseDetails) {
           console.error(`Failed to get case details for case id ${id}`);
@@ -53,10 +60,11 @@ export function CaseDetails() {
         setIsLoading(false);
       } catch (err) {
         console.error(err);
+        setError("An error occurred while fetching case details. Please try again later.");
         setIsLoading(false);
       }
     })();
-  }, [id, accessToken, role, asylumType]);
+  }, [id, accessToken, role, dispatch, navigate]);
 
   useRenderingTrace("CaseDetails", {
     id,
@@ -68,6 +76,10 @@ export function CaseDetails() {
   if (!id) {
     navigate("/dashboard");
     return null;
+  }
+
+  if (error) {
+    return <Alert message="Error" description={error} type="error" showIcon />;
   }
 
   return <>{isLoading ? <CentralizedLoading /> : <FormContainer />}</>;

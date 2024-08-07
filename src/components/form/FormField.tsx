@@ -96,7 +96,10 @@ export function FormField(props: FormFieldProps) {
     if (props.control !== "removable_section" && props.control !== "section") return;
     if (!props.subFields || props.subFields.length === 0 || !props.visibility) return;
 
-    const { textKeys } = getKeys(props.subFields, props.control);
+    const { textKeys, booleanKeys, selectKeys, documentKeys, documentListKeys } = getKeys(
+      props.subFields,
+      props.control,
+    );
 
     if (!isVisible) {
       // When text related component is hidden, assign the value to "N/A"
@@ -105,6 +108,38 @@ export function FormField(props: FormFieldProps) {
         dispatchFormValue(
           dispatch,
           textKeys.reduce((obj, key) => ({ ...obj, [key]: "N/A" }), {}),
+          props.fieldIndex,
+        );
+
+      booleanKeys &&
+        booleanKeys.length > 0 &&
+        dispatchFormValue(
+          dispatch,
+          booleanKeys.reduce((obj, key) => ({ ...obj, [key]: "false" }), {}),
+          props.fieldIndex,
+        );
+
+      selectKeys &&
+        selectKeys.length > 0 &&
+        dispatchFormValue(
+          dispatch,
+          selectKeys.reduce((obj, key) => ({ ...obj, [key]: "N/A" }), {}),
+          props.fieldIndex,
+        );
+
+      documentKeys &&
+        documentKeys.length > 0 &&
+        dispatchFormValue(
+          dispatch,
+          documentKeys.reduce((obj, key) => ({ ...obj, [key]: -1 }), {}),
+          props.fieldIndex,
+        );
+
+      documentListKeys &&
+        documentListKeys.length > 0 &&
+        dispatchFormValue(
+          dispatch,
+          documentListKeys.reduce((obj, key) => ({ ...obj, [key]: [] }), {}),
           props.fieldIndex,
         );
 
@@ -129,6 +164,14 @@ export function FormField(props: FormFieldProps) {
         dispatchFormValue(
           dispatch,
           textKeys.reduce((obj, key) => ({ ...obj, [key]: getCaseDetailValue(DefaultCaseProfile, key, 0) }), {}),
+          props.fieldIndex,
+        );
+
+      selectKeys &&
+        selectKeys.length > 0 &&
+        dispatchFormValue(
+          dispatch,
+          selectKeys.reduce((obj, key) => ({ ...obj, [key]: null }), {}),
           props.fieldIndex,
         );
     }

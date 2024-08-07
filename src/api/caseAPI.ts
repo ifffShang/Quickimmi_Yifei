@@ -1,17 +1,16 @@
-import { set } from "lodash";
 import { CacheStore } from "../cache/cache";
 import { Role } from "../consts/consts";
 import {
   ApplicationCase,
-  Case,
   CaseSummary,
   GeneratePresignedUrlResponse,
   GetCaseProfileResponse,
+  LawyerInfo,
+  ListCase,
   ParsePassportResponse,
   UpdateApplicationCaseData,
-  UploadedDocument,
-  ListCase,
   UpdateProgressRequestDto,
+  UploadedDocument,
 } from "../model/apiModels";
 import {
   DocumentGenerationTaskStatus,
@@ -218,6 +217,10 @@ export async function getCaseProfileAndProgressApi(
     role,
   });
   const responseData = res.data as GetCaseProfileResponse;
+  if (!responseData.profile) {
+    // For the newly created case, profile is null by default. Initiate it here.
+    responseData.profile = InitialApplicationCase.profile;
+  }
   const filteredData: GetCaseProfileResponse = {
     profile: removePropertiesNotDefinedInModel(InitialApplicationCase.profile, responseData.profile),
     progress: responseData.progress,
@@ -626,4 +629,26 @@ export async function translatePersonalStatementToOriginalLanguageApi(
     role,
   });
   return <string>res.data;
+}
+
+export async function getLawyerByCognitoIdApi(accessToken: string, role: Role, cognitoId: string): Promise<LawyerInfo> {
+  const res = await performApiRequest({
+    endPoint: `api/lawyer/getByLawyerCognitoId?cognitoId=${cognitoId}`,
+    method: "GET",
+    data: null,
+    accessToken,
+    role,
+  });
+  return <LawyerInfo>res.data;
+}
+
+export async function getLawyerByUsernameApi(accessToken: string, role: Role, username: string): Promise<LawyerInfo> {
+  const res = await performApiRequest({
+    endPoint: `api/lawyer/getLawyerByUsername?username=${username}`,
+    method: "GET",
+    data: null,
+    accessToken,
+    role,
+  });
+  return <LawyerInfo>res.data;
 }

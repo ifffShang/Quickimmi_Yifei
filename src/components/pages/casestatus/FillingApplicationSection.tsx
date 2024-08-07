@@ -57,10 +57,13 @@ const FillingApplicationSection: React.FC<FillingApplicationSectionProps> = ({
           avg: 0,
           i589_fields_asylum_claim: 0,
         },
+        personal_statement: {
+          avg: 0,
+          i589_fields_personal_statement: 0,
+        },
       },
     };
   }
-  console.log("metadata", metadata);
   const metadataFields = [
     {
       field: "personal_information",
@@ -81,6 +84,11 @@ const FillingApplicationSection: React.FC<FillingApplicationSectionProps> = ({
       field: "application_information",
       title: "ApplicationInformation",
       sectionIndex: 3,
+    },
+    {
+      field: "personal_statement",
+      title: "PersonalStatement",
+      sectionIndex: 4,
     },
   ];
 

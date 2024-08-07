@@ -307,6 +307,7 @@ export const formSlice = createSlice({
           state.applicationCase.profile.applicant.telePhoneAreaCode;
         state.applicationCase.profile.applicant.telePhoneNumberOfMailingAddress =
           state.applicationCase.profile.applicant.telePhoneNumber;
+        state.applicationCase.profile.applicant.inCareOf = "N/A";
       } else {
         state.applicationCase.profile.applicant.streetNumberAndNameOfMailingAddress = "";
         state.applicationCase.profile.applicant.aptNumberOfMailingAddress = "";
@@ -315,6 +316,7 @@ export const formSlice = createSlice({
         state.applicationCase.profile.applicant.zipCodeOfMailingAddress = "";
         state.applicationCase.profile.applicant.telePhoneAreaCodeOfMailingAddress = "";
         state.applicationCase.profile.applicant.telePhoneNumberOfMailingAddress = "";
+        state.applicationCase.profile.applicant.inCareOf = "";
       }
     },
     replaceDocumentUrls: (state, action: PayloadAction<any[]>) => {

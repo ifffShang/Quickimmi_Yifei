@@ -24,6 +24,7 @@
   justify-content: center;
   align-items: center;
   height: 100%;
+  margin-top: 0;
 }
 
 /* Styles for viewports up to 1024px wide (e.g., tablets) */

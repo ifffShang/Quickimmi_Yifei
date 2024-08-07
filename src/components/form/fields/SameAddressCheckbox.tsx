@@ -28,12 +28,19 @@ export function SameAddressCheckbox(props: SameAddressCheckboxProps) {
   } = applicationCase.profile.applicant;
 
   const [checked, setChecked] = useState(
-    streetNumberAndName === streetNumberAndNameOfMailingAddress &&
+    !!streetNumberAndName &&
+      streetNumberAndName === streetNumberAndNameOfMailingAddress &&
+      !!aptNumber &&
       aptNumber === aptNumberOfMailingAddress &&
+      !!city &&
       city === cityOfMailingAddress &&
+      !!state &&
       state === stateOfMailingAddress &&
+      !!zipCode &&
       zipCode === zipCodeOfMailingAddress &&
+      !!telePhoneAreaCode &&
       telePhoneAreaCode === telePhoneAreaCodeOfMailingAddress &&
+      !!telePhoneNumber &&
       telePhoneNumber === telePhoneNumberOfMailingAddress,
   );
 
