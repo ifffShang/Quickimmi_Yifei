@@ -1,0 +1,47 @@
+.form-content {
+  display: flex;
+  position: relative;
+  width: 100%;
+  font-size: var(--font-size-p2);
+  max-width: 1200px;
+}
+
+.form-content-form {
+  padding: 40px;
+  padding-bottom: 100px;
+  background-color: var(--white-color);
+  border-radius: 0 0 10px 10px;
+}
+
+.xsmall .form-content-form,
+.small .form-content-form {
+  padding: 20px;
+}
+
+.form-content-form > div {
+  margin-bottom: 40px;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--gray-color-4);
+  height: 100%;
+  padding: 20px 40px;
+  /* min-width: 1000px; */
+}
+
+.dashboard h2 {
+  margin-bottom: 20px;
+}
+
+.dashboard-header {
+  /* max-width: 1390px; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dashboard-header h2 {
+  margin-bottom: 0;
+}

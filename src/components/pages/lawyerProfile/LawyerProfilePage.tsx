@@ -3,7 +3,13 @@ import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button, Pagination, message, Input, Select } from "antd";
 import { SwapOutlined, SearchOutlined } from "@ant-design/icons";
-import { createNewCaseApi, getCasesApi, getCasesByLawyerApi, getLawyerByUsernameApi } from "../../../api/caseAPI";
+import {
+  createNewCaseApi,
+  getCasesApi,
+  getCasesByLawyerApi,
+  getLawyerByUsernameApi,
+  updateLawyerInfoApi,
+} from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { updateCases, updateCurrentCaseId } from "../../../reducers/caseSlice";
 import { QText } from "../../common/Fonts";
@@ -12,11 +18,18 @@ import { NewApplicationIcon } from "../../icons/Dashboard";
 import { CaseCard } from "../dashboard/CaseCard";
 // import "./Dashboard.css";
 import { Role } from "../../../consts/consts";
-import { set } from "lodash";
+import { set, update } from "lodash";
 import { FormControlContainer } from "../../form/FormControlContainer";
 import { QTextBox } from "../../form/fields/Controls";
 import { fireEvent } from "@testing-library/react";
-import { LawyerInfo, LawyerBasicInfo, LawyerEligibility, LawyerProfile } from "../../../model/apiModels";
+import {
+  LawyerInfo,
+  LawyerBasicInfo,
+  LawyerEligibility,
+  LawyerProfile,
+  UpdateLawyerRequest,
+} from "../../../model/apiModels";
+import "./LawyerProfilePage.css";
 
 export function LawyerProfilePage() {
   const navigate = useNavigate();
@@ -121,30 +134,246 @@ export function LawyerProfilePage() {
     return <Loading />;
   }
 
+  const getOnChangeHandler = (keys: string[]) => (value: string) => {
+    setLawyerInfo(prevLawyerInfo => {
+      const newLawyerInfo = { ...prevLawyerInfo };
+
+      keys.forEach(key => {
+        const keyParts = key.split(".");
+        let obj = newLawyerInfo;
+
+        // Traverse to the correct nested object
+        for (let i = 0; i < keyParts.length - 1; i++) {
+          obj = obj[keyParts[i]];
+        }
+
+        // Update the value at the last part of the key
+        if (keyParts[keyParts.length - 1] === "experienceYears") {
+          obj[keyParts[keyParts.length - 1]] = parseInt(value);
+        } else {
+          obj[keyParts[keyParts.length - 1]] = value;
+        }
+      });
+
+      return newLawyerInfo; // Update state
+    });
+
+    console.log(lawyerInfo);
+
+    return value; // Return the value as a string to match the expected type
+  };
+
+  const updateLawyerInfo = async () => {
+    if (!accessToken || !userId) {
+      console.error(`Access token ${accessToken} or user id ${userId} is missing`);
+      message.error("Access token or user id is missing");
+      setLoading(false);
+      return;
+    }
+    // setLoading(true);
+    try {
+      const updateLawyerRequest: UpdateLawyerRequest = {
+        id: lawyerInfo.id,
+        firstName: lawyerInfo.firstName,
+        lastName: lawyerInfo.lastName,
+        middleName: lawyerInfo.middleName,
+        phoneNumber: lawyerInfo.phoneNumber,
+        specialization: lawyerInfo.specialization,
+        lawFirm: lawyerInfo.lawFirm,
+        profile: lawyerInfo.profile,
+        experienceYears: lawyerInfo.experienceYears,
+        status: 0,
+        priority: 0,
+        maxCapicity: 0,
+      };
+      const data = await updateLawyerInfoApi(accessToken, role, updateLawyerRequest);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      // setLoading(false);
+      console.log(lawyerInfo);
+    }
+  };
+
   const innerContent = (
     <div>
-      <FormControlContainer fieldValue={"TestFirst"}>
-        <QTextBox
-          placeholder={t("FirstName")}
-          value={lawyerInfo.firstName}
-          fieldKey={"applicant.firstName"}
-          onChange={(value: string) => {
-            console.log(value);
-            return value;
-          }}
-        />
-      </FormControlContainer>
-      <FormControlContainer fieldValue={"TestLast"}>
-        <QTextBox
-          placeholder={t("LastName")}
-          value={lawyerInfo.lastName}
-          fieldKey={"applicant.lastName"}
-          onChange={(value: string) => {
-            console.log(value);
-            return value;
-          }}
-        />
-      </FormControlContainer>
+      <div className="group">
+        <div className="subTitle">
+          <QText level="normal bold">{t("Name")}</QText>
+        </div>
+        <div className={"horizontal-2"}>
+          <QTextBox
+            placeholder={t("FirstName")}
+            value={lawyerInfo.firstName}
+            fieldKey={"lawyerInfo.firstName"}
+            onChange={getOnChangeHandler(["firstName", "profile.basicInfo.firstName"])}
+          />
+          <QTextBox
+            placeholder={t("MiddleName")}
+            value={lawyerInfo.middleName}
+            fieldKey={"lawyerInfo.middleName"}
+            onChange={getOnChangeHandler(["middleName", "profile.basicInfo.middleName"])}
+          />
+          <QTextBox
+            placeholder={t("LastName")}
+            value={lawyerInfo.lastName}
+            fieldKey={"lawyerInfo.lastName"}
+            onChange={getOnChangeHandler(["lastName", "profile.basicInfo.lastName"])}
+          />
+        </div>
+      </div>
+
+      <div className="group">
+        <div className="subTitle">
+          <QText level="normal bold">{t("Contact")}</QText>
+        </div>
+        <div className={"horizontal-2"}>
+          <QTextBox
+            placeholder={t("Email")}
+            value={lawyerInfo.email}
+            fieldKey={"lawyerInfo.email"}
+            onChange={getOnChangeHandler([])}
+            disabled={true}
+          />
+        </div>
+        <div className={"horizontal-2"}>
+          <QTextBox
+            placeholder={t("phoneNumber")}
+            value={lawyerInfo.phoneNumber}
+            fieldKey={"lawyerInfo.phoneNumber"}
+            onChange={getOnChangeHandler(["phoneNumber", "profile.basicInfo.firstName"])}
+          />
+          <QTextBox
+            placeholder={t("daytimeTelephoneNumber")}
+            value={lawyerInfo.profile.basicInfo.daytimeTelephoneNumber}
+            fieldKey={"lawyerInfo.phoneNumber"}
+            onChange={getOnChangeHandler(["profile.basicInfo.daytimeTelephoneNumber"])}
+          />
+          <QTextBox
+            placeholder={t("mobileTelephoneNumber")}
+            value={lawyerInfo.profile.basicInfo.mobileTelephoneNumber}
+            fieldKey={"lawyerInfo.phoneNumber"}
+            onChange={getOnChangeHandler(["profile.basicInfo.mobileTelephoneNumber"])}
+          />
+          <QTextBox
+            placeholder={t("faxNumber")}
+            value={lawyerInfo.profile.basicInfo.faxNumber}
+            fieldKey={"lawyerInfo.phoneNumber"}
+            onChange={getOnChangeHandler(["profile.basicInfo.faxNumber"])}
+          />
+        </div>
+      </div>
+
+      <div className="group">
+        <div className="subTitle">
+          <QText level="normal bold">{t("Address")}</QText>
+        </div>
+        <div className={"horizontal-2"}>
+          <QTextBox
+            placeholder={t("aptSteFlrNumber")}
+            value={lawyerInfo.profile.basicInfo.aptSteFlrNumber}
+            fieldKey={"lawyerInfo.email"}
+            onChange={getOnChangeHandler(["profile.basicInfo.aptSteFlrNumber"])}
+          />
+          <QTextBox
+            placeholder={t("streetNumberAndName")}
+            value={lawyerInfo.profile.basicInfo.streetNumberAndName}
+            fieldKey={"lawyerInfo.email"}
+            onChange={getOnChangeHandler(["profile.basicInfo.streetNumberAndName"])}
+          />
+          <QTextBox
+            placeholder={t("city")}
+            value={lawyerInfo.profile.basicInfo.city}
+            fieldKey={"lawyerInfo.phoneNumber"}
+            onChange={getOnChangeHandler(["profile.basicInfo.city"])}
+          />
+          <QTextBox
+            placeholder={t("state")}
+            value={lawyerInfo.profile.basicInfo.stateDropdown}
+            fieldKey={"lawyerInfo.phoneNumber"}
+            onChange={getOnChangeHandler(["profile.basicInfo.stateDropdown"])}
+          />
+          <QTextBox
+            placeholder={t("zipCode")}
+            value={lawyerInfo.profile.basicInfo.zipCode}
+            fieldKey={"lawyerInfo.phoneNumber"}
+            onChange={getOnChangeHandler(["profile.basicInfo.zipCode", "profile.basicInfo.postalCode"])}
+          />
+        </div>
+      </div>
+
+      <div className="group">
+        <div className="subTitle">
+          <QText level="normal bold">{t("Account Numbers")}</QText>
+        </div>
+        <div className={"horizontal-2"}>
+          <QTextBox
+            placeholder={t("uscisOnlineAccountNumber")}
+            value={lawyerInfo.profile.basicInfo.uscisOnlineAccountNumber}
+            fieldKey={"lawyerInfo.email"}
+            onChange={getOnChangeHandler(["profile.basicInfo.uscisOnlineAccountNumber"])}
+          />
+          <QTextBox
+            placeholder={t("eoirNumber")}
+            value={lawyerInfo.profile.basicInfo.eoirNumber}
+            fieldKey={"lawyerInfo.email"}
+            onChange={getOnChangeHandler(["profile.basicInfo.eoirNumber"])}
+          />
+        </div>
+      </div>
+
+      <div className="group">
+        <div className="subTitle">
+          <QText level="normal bold">{t("Eligibility")}</QText>
+        </div>
+        <div className={"horizontal-2"}>
+          <QTextBox
+            placeholder={t("lawFirm")}
+            value={lawyerInfo.lawFirm}
+            onChange={getOnChangeHandler(["lawFirm", "profile.basicInfo.nameofLawFirm"])}
+          />
+          <QTextBox
+            placeholder={t("specialization")}
+            value={lawyerInfo.specialization}
+            fieldKey={"lawyerInfo.email"}
+            onChange={getOnChangeHandler(["specialization"])}
+          />
+
+          <QTextBox
+            placeholder={t("experienceYears")}
+            value={lawyerInfo.experienceYears.toString()}
+            fieldKey={"lawyerInfo.email"}
+            onChange={getOnChangeHandler(["experienceYears"])}
+          />
+        </div>
+        <div className={"horizontal-2"}>
+          <QTextBox
+            placeholder={t("barNumber")}
+            value={lawyerInfo.profile.eligibility.barNumber}
+            fieldKey={"lawyerInfo.email"}
+            onChange={getOnChangeHandler(["profile.eligibility.barNumber"])}
+          />
+
+          <QTextBox
+            placeholder={t("licensingAuthority")}
+            value={lawyerInfo.profile.eligibility.licensingAuthority}
+            fieldKey={"lawyerInfo.email"}
+            onChange={getOnChangeHandler(["profile.eligibility.licensingAuthority"])}
+          />
+          <QTextBox
+            placeholder={t("dateofAccreditation")}
+            value={lawyerInfo.profile.eligibility.dateofAccreditation}
+            fieldKey={"lawyerInfo.email"}
+            onChange={getOnChangeHandler(["profile.eligibility.dateofAccreditation"])}
+          />
+          <QTextBox
+            placeholder={t("nameofLawStudentOrLawGraduate")}
+            value={lawyerInfo.profile.eligibility.nameofLawStudentOrLawGraduate}
+            fieldKey={"lawyerInfo.email"}
+            onChange={getOnChangeHandler(["profile.eligibility.nameofLawStudentOrLawGraduate"])}
+          />
+        </div>
+      </div>
     </div>
   );
 
@@ -154,9 +383,20 @@ export function LawyerProfilePage() {
         <h2>
           <QText level="large">{t("Profile")}</QText>
         </h2>
-        <Button type="primary">{t("Save")}</Button>
+        <Button
+          type="primary"
+          onClick={() => {
+            try {
+              updateLawyerInfo();
+            } catch (err) {
+              console.error(err);
+            }
+          }}
+        >
+          {t("Save")}
+        </Button>
       </div>
-      {innerContent}
+      <div className="form-content-form">{innerContent}</div>
     </div>
   );
 }
