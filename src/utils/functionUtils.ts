@@ -51,6 +51,9 @@ export const updateApplicationCaseFunc = async (
 };
 
 export const formAllowedToBeEdit = (progress: Progress): boolean => {
+  if (!progress) {
+    throw new Error("Couldn't fetch case progress");
+  }
   // Define the steps where the form can be edited
   const editableSteps = ["FILLING_APPLICATION", "REVIEW_AND_SIGN"];
 

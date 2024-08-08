@@ -1,23 +1,22 @@
 import type { TableProps } from "antd";
 import { Button, message, Table, Tooltip } from "antd";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
-  generateDocumentsByDocumentTypeApi,
+  canMergeDocumentForCase,
   defaultMergeApi,
   generatePresignedUrlByDocumentId,
   getDocumentByIdApi,
+  getDocumentsApi,
   retryGetDocumentsApi,
   updateDocumentStatus,
   uploadFileToPresignUrl,
-  getDocumentsApi,
 } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useDocumentsOnLoad } from "../../../hooks/commonHooks";
 import { GeneratedDocument } from "../../../model/apiModels";
-import { DocumentGenerationTaskStatus } from "../../../model/apiReqResModels";
-import { DocumentType, DocumentTypeMap, Identity } from "../../../model/commonModels";
-import { clearDocumentUrls, updateGeneratedDocuments } from "../../../reducers/formSlice";
+import { DocumentType, DocumentTypeMap } from "../../../model/commonModels";
+import { updateGeneratedDocuments } from "../../../reducers/formSlice";
 import { moveCaseProgressToNextStep } from "../../../utils/progressUtils";
 import { downloadDocument } from "../../../utils/utils";
 import { Status } from "../parts/Status";
@@ -78,7 +77,24 @@ export function MergedDocumentList() {
   const [replaceLoading, setReplaceLoading] = useState(false);
   const [readyToCompleteReview, setReadyToCompleteReview] = useState(false);
   const replaceFileControl = useRef<HTMLInputElement | null>(null);
-
+  const [canMerge, setCanMerge] = useState(false);
+  const [missingDocs, setMissingDocs] = useState<string[]>([]);
+  useEffect(() => {
+    const checkEligibility = async () => {
+      if (caseId && accessToken) {
+        try {
+          const result = await canMergeDocumentForCase(caseId, accessToken, role);
+          setCanMerge(result.status);
+          if (result.missingFields.length > 0) {
+            setMissingDocs(result.missingFields);
+          }
+        } catch (error) {
+          console.error("Error checking document generation eligibility: ", error);
+        }
+      }
+    };
+    checkEligibility();
+  }, [caseId, accessToken, role]);
   useDocumentsOnLoad({
     caseId: caseId,
     accessToken: accessToken || "",
@@ -111,7 +127,6 @@ export function MergedDocumentList() {
         setLoading(false);
       }
     };
-
     checkDocumentsStatus();
   }, [accessToken, caseId, role]);
 
@@ -151,18 +166,6 @@ export function MergedDocumentList() {
       console.error("Case ID or access token is not available");
       return;
     }
-
-    const IndividualDocuments = generatedDocuments.filter(doc => doc.generationType === "system_auto_generated");
-
-    const SuccessfulIndividualDocuments = IndividualDocuments.filter(
-      doc => doc.status === "Success" || doc.status === "Skipped" || doc.status === "uploaded",
-    );
-
-    // if (IndividualDocuments.length !== SuccessfulIndividualDocuments.length) {
-    //   message.error("Please complete all individual documents before generating merged documents");
-    //   return;
-    // }
-
     setLoading(true);
     try {
       await defaultMergeApi(accessToken, caseId, role);
@@ -177,7 +180,6 @@ export function MergedDocumentList() {
           }
           setLoading(false);
           const documentsToUpdate = [...documents];
-          console.log("+++++++++++++++------------------", documentsToUpdate);
           const allFinished = documentsToUpdate.every(doc => doc.status === "Success");
           dispatch(updateGeneratedDocuments(documentsToUpdate));
           if (allFinished) {
@@ -318,24 +320,18 @@ export function MergedDocumentList() {
       };
     });
 
-  const documentsExist = uploadedDocumentsInTable.length > 0;
-  const tooltipText =
-    percentage?.["overall"]?.avg !== 100
-      ? t("The button will only be available when the form is 100% complete.")
-      : documentsExist
-        ? t("Documents already generated")
-        : "";
-
+  const generateTooltipText = () => {
+    if (canMerge) {
+      return "";
+    } else if (missingDocs.length > 0) {
+      return t("The button will only be available when all the docs in the previous steps are successfully generated.");
+    }
+  };
   return (
     <div className="document-list">
       <div className="document-list-inner">
-        <Tooltip title={tooltipText}>
-          <Button
-            type="primary"
-            onClick={generateDocument}
-            className="document-list-btn"
-            disabled={percentage?.["overall"]?.avg !== 100}
-          >
+        <Tooltip title={generateTooltipText()}>
+          <Button type="primary" onClick={generateDocument} className="document-list-btn" disabled={!canMerge}>
             {t("Generate Merged Documents")}
           </Button>
         </Tooltip>

@@ -42,10 +42,16 @@ export interface LawyerInfo {
   updatedAt: number;
 }
 
+export interface EligibilityCheckResult {
+  status: boolean;
+  missingFields: string[];
+}
+
 export interface LawyerProfile {
   basicInfo: LawyerBasicInfo;
   eligibility: LawyerEligibility;
 }
+
 export interface LawyerBasicInfo {
   uscisOnlineAccountNumber: string;
   lastName: string;
@@ -152,11 +158,13 @@ export interface UpdateApplicationCaseData {
   updatedAt?: number;
   progress?: Progress;
 }
+
 export interface UpdateProgressRequestDto {
   caseId: string;
   currentStep: string;
   asylumCaseProgress: any;
 }
+
 export interface ApplicationCase {
   id: number;
   userId: number;
@@ -174,8 +182,10 @@ export interface ApplicationCase {
   updatedAt: number;
   progress: Progress;
 }
+
 export interface Percentage {
   overall: { avg: number };
+
   [key: string]: { avg: number; [key: string]: number };
 }
 
@@ -226,6 +236,7 @@ export enum AsylumType {
   AFFIRMATIVE = "AFFIRMATIVE",
   DEFENSIVE = "DEFENSIVE",
 }
+
 export interface Task {
   id: number;
   caseId: number;

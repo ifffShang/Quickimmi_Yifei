@@ -3,15 +3,16 @@ import { Role } from "../consts/consts";
 import {
   ApplicationCase,
   CaseSummary,
+  EligibilityCheckResult,
   GeneratePresignedUrlResponse,
   GetCaseProfileResponse,
   LawyerInfo,
   ListCase,
   ParsePassportResponse,
   UpdateApplicationCaseData,
+  UpdateLawyerRequest,
   UpdateProgressRequestDto,
   UploadedDocument,
-  UpdateLawyerRequest,
 } from "../model/apiModels";
 import {
   DocumentGenerationTaskStatus,
@@ -667,4 +668,19 @@ export async function updateLawyerInfoApi(
     role,
   });
   return <boolean>res.data;
+}
+
+export async function canMergeDocumentForCase(
+  caseId: number,
+  accessToken: string,
+  role: Role,
+): Promise<EligibilityCheckResult> {
+  const res = await performApiRequest({
+    endPoint: `api/case/asylum/checkEligibilityForMerge?id=${caseId}`,
+    method: "GET",
+    data: null,
+    accessToken,
+    role,
+  });
+  return <EligibilityCheckResult>res.data;
 }
