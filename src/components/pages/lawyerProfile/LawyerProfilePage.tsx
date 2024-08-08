@@ -225,7 +225,7 @@ export function LawyerProfilePage() {
 
       <div className="group">
         <div className="subTitle">
-          <QText level="normal bold">{t("Contact")}</QText>
+          <QText level="normal bold">{t("ContactInformation")}</QText>
         </div>
         <div className={"horizontal-2"}>
           <QTextBox
@@ -270,31 +270,34 @@ export function LawyerProfilePage() {
         </div>
         <div className={"horizontal-2"}>
           <QTextBox
-            placeholder={t("aptSteFlrNumber")}
-            value={lawyerInfo.profile.basicInfo.aptSteFlrNumber}
-            fieldKey={"lawyerInfo.email"}
-            onChange={getOnChangeHandler(["profile.basicInfo.aptSteFlrNumber"])}
-          />
-          <QTextBox
-            placeholder={t("streetNumberAndName")}
+            placeholder={t("Street")}
             value={lawyerInfo.profile.basicInfo.streetNumberAndName}
             fieldKey={"lawyerInfo.email"}
             onChange={getOnChangeHandler(["profile.basicInfo.streetNumberAndName"])}
           />
           <QTextBox
-            placeholder={t("city")}
+            placeholder={t("ApartmentNumber")}
+            value={lawyerInfo.profile.basicInfo.aptSteFlrNumber}
+            fieldKey={"lawyerInfo.email"}
+            onChange={getOnChangeHandler(["profile.basicInfo.aptSteFlrNumber"])}
+          />
+
+          <QTextBox
+            placeholder={t("City")}
             value={lawyerInfo.profile.basicInfo.city}
             fieldKey={"lawyerInfo.phoneNumber"}
             onChange={getOnChangeHandler(["profile.basicInfo.city"])}
           />
+        </div>
+        <div className={"horizontal-2"}>
           <QTextBox
-            placeholder={t("state")}
+            placeholder={t("State")}
             value={lawyerInfo.profile.basicInfo.stateDropdown}
             fieldKey={"lawyerInfo.phoneNumber"}
             onChange={getOnChangeHandler(["profile.basicInfo.stateDropdown"])}
           />
           <QTextBox
-            placeholder={t("zipCode")}
+            placeholder={t("ZipCode")}
             value={lawyerInfo.profile.basicInfo.zipCode}
             fieldKey={"lawyerInfo.phoneNumber"}
             onChange={getOnChangeHandler(["profile.basicInfo.zipCode", "profile.basicInfo.postalCode"])}
@@ -304,11 +307,11 @@ export function LawyerProfilePage() {
 
       <div className="group">
         <div className="subTitle">
-          <QText level="normal bold">{t("Account Numbers")}</QText>
+          <QText level="normal bold">{t("AccountNumbers")}</QText>
         </div>
         <div className={"horizontal-2"}>
           <QTextBox
-            placeholder={t("uscisOnlineAccountNumber")}
+            placeholder={t("UscisOnlineAccountNumber")}
             value={lawyerInfo.profile.basicInfo.uscisOnlineAccountNumber}
             fieldKey={"lawyerInfo.email"}
             onChange={getOnChangeHandler(["profile.basicInfo.uscisOnlineAccountNumber"])}
@@ -348,7 +351,7 @@ export function LawyerProfilePage() {
         </div>
         <div className={"horizontal-2"}>
           <QTextBox
-            placeholder={t("barNumber")}
+            placeholder={t("AttorneyStateBarNumberPlaceholder")}
             value={lawyerInfo.profile.eligibility.barNumber}
             fieldKey={"lawyerInfo.email"}
             onChange={getOnChangeHandler(["profile.eligibility.barNumber"])}
