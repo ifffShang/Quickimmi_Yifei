@@ -10,6 +10,13 @@
       "control": "text"
     },
     {
+      "label": "text_NoticeOfAppearDate",
+      "placeholder": "text_MM/DD/YYYY",
+      "id": "notice_of_appearance_date",
+      "key": "supplementDocument.masterHearingDetail.noticeOfAppearDate",
+      "control": "datepicker"
+    },
+    {
       "label": "text_HearingCourtAddress",
       "id": "hearing_court_address",
       "control": "group",
@@ -61,7 +68,7 @@
           "placeholder": "text_MM/DD/YYYY",
           "id": "hearing_date",
           "key": "supplementDocument.masterHearingDetail.hearingDate",
-          "control": "text"
+          "control": "datepicker"
         },
         {
           "label": "text_Time",
@@ -71,13 +78,6 @@
           "control": "text"
         }
       ]
-    },
-    {
-      "label": "text_NoticeOfAppearDate",
-      "placeholder": "text_MM/DD/YYYY",
-      "id": "notice_of_appearance_date",
-      "key": "supplementDocument.masterHearingDetail.noticeOfAppearDate",
-      "control": "text"
     }
   ]
 }

@@ -121,8 +121,7 @@
           "label": "text_Race",
           "id": "race_spouse",
           "key": "family.spouse.race",
-          "control": "select",
-          "options": "RaceOptions"
+          "control": "component_textbox_na"
         },
         {
           "label": "text_Gender",
