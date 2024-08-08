@@ -764,6 +764,16 @@
     "赞比亚人",
     "津巴布韦人"
   ],
+  "TypeofSchoolOptions": [
+    "小学",
+    "初级中学",
+    "高中",
+    "社区学院",
+    "技术和职业学校",
+    "本科院校",
+    "研究生院",
+    "专业学校"
+  ],
   "CaseStatusMenuOverview": "简介",
   "CaseStatusMenuDocuments": "相关文件",
   "CaseStatusMenuApplicationForm": "申请表格"

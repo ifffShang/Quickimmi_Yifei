@@ -766,5 +766,15 @@
     "Yemeni",
     "Zambian",
     "Zimbabwean"
+  ],
+  "TypeofSchoolOptions": [
+    "Elementary School",
+    "Junior High Schools",
+    "High Schools",
+    "Community Colleges",
+    "Technical and Vocational Schools",
+    "Undergraduate Schools",
+    "Graduate Schools",
+    "Professional Schools"
   ]
 }

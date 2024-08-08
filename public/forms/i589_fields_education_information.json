@@ -25,14 +25,15 @@
           "label": "text_SchoolType",
           "id": "school_type",
           "key": "background.educationHistories[].schoolType",
-          "control": "text"
+          "control": "select",
+          "options": "TypeofSchoolOptions"
         },
         {
           "label": "text_Location",
           "placeholder": "text_SchoolAddress",
           "id": "location",
           "key": "background.educationHistories[].location",
-          "control": "text"
+          "control": "component_location_dropdown"
         },
         {
           "label": "text_AttendedFrom",
