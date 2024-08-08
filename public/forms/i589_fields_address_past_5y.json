@@ -42,17 +42,17 @@
         },
         {
           "label": "text_StartDate",
-          "placeholder": "text_MM/DD/YYYY",
+          "placeholder": "text_MM/YYYY",
           "id": "background_start_date",
           "key": "background.usAddressHistoriesPast5Years[].startDate",
-          "control": "datepicker"
+          "control": "monthyearpicker"
         },
         {
           "label": "text_EndDate",
-          "placeholder": "text_MM/DD/YYYY",
+          "placeholder": "text_MM/YYYY",
           "id": "background_end_date",
           "key": "background.usAddressHistoriesPast5Years[].endDate",
-          "control": "datepicker"
+          "control": "monthyearpicker"
         }
       ]
     },

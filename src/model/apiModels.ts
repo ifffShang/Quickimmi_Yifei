@@ -85,6 +85,21 @@ export interface LawyerEligibility {
   nameofLawStudentOrLawGraduate: string;
 }
 
+export interface UpdateLawyerRequest {
+  id: number;
+  firstName: string;
+  lastName: string;
+  middleName: string;
+  phoneNumber: string;
+  specialization: string;
+  lawFirm: string;
+  profile: LawyerProfile;
+  experienceYears: number;
+  status: number;
+  priority: number;
+  maxCapicity: number;
+}
+
 export interface ListCase {
   metadata: ListCaseMetadata;
   cases: Case[];

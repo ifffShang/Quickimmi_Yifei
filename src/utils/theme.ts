@@ -38,6 +38,7 @@ export function getAntTheme() {
       },
       Input: {
         colorPrimary: primaryColor,
+        colorPrimaryHover: linkColor,
         borderRadius: 4,
         algorithm: true, // Enable algorithm
       },
@@ -55,6 +56,16 @@ export function getAntTheme() {
         optionSelectedBg: primaryColorLight,
         borderRadius: 2,
         borderRadiusLG: 2,
+      },
+      DatePicker: {
+        colorPrimary: primaryColor,
+        colorPrimaryHover: primaryColor,
+        borderRadius: 2,
+        borderRadiusLG: 2,
+      },
+      Radio: {
+        colorPrimary: primaryColor,
+        colorPrimaryHover: primaryColor,
       },
       Steps: {
         colorPrimary: primaryColor,

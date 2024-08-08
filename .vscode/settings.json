@@ -5,15 +5,21 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "cSpell.words": [
+    "antd",
+    "berfore",
     "Botswanan",
     "Burkinabe",
+    "consts",
     "datepicker",
     "Diasporic",
     "Juche",
+    "monthyearpicker",
+    "multioptions",
     "Quickimmi",
     "Signup",
     "Tenrikyo",
     "textbox",
+    "textboxes",
     "USCIS"
   ],
   "workbench.editor.revealIfOpen": true,

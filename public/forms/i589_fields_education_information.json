@@ -36,17 +36,17 @@
         },
         {
           "label": "text_AttendedFrom",
-          "placeholder": "text_MM/DD/YYYY",
+          "placeholder": "text_MM/YYYY",
           "id": "education_start_date",
           "key": "background.educationHistories[].startDate",
-          "control": "datepicker"
+          "control": "monthyearpicker"
         },
         {
           "label": "text_To",
-          "placeholder": "text_MM/DD/YYYY",
+          "placeholder": "text_MM/YYYY",
           "id": "education_end_date",
           "key": "background.educationHistories[].endDate",
-          "control": "datepicker"
+          "control": "monthyearpicker"
         }
       ]
     },

@@ -303,6 +303,7 @@
   "NamesUsedBefore": "Add any other names used",
 
   "MM/DD/YYYY": "MM/DD/YYYY",
+  "MM/YYYY": "MM/YYYY",
   "IDExpirationDate": "ID Expiration Date",
   "PassportIssueCountryLabel": "ID Issuing Country",
   "PassportIssueCountry": "Passport Issue Country",
@@ -322,7 +323,7 @@
 
   "Language": "Language",
   "NativeLanguage": "Native Language",
-  "FluentInEnglish": "Are you fluent in English?",
+  "FluentInEnglish": "I am fluent in English.",
   "OtherFluentLanguagesLabel": "Other Fluent Languages",
   "OtherFluentLanguages": "Add another language you speak fluently",
 

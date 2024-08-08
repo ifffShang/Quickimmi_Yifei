@@ -300,6 +300,7 @@
   "NamesUsedBefore": "添加一个曾用名",
 
   "MM/DD/YYYY": "MM/DD/YYYY",
+  "MM/YYYY": "MM/YYYY",
   "IDExpirationDate": "证件到期日期",
   "PassportIssueCountryLabel": "证件签发国家",
   "PassportIssueCountry": "证件签发国家",
@@ -319,7 +320,7 @@
 
   "Language": "语言",
   "NativeLanguage": "母语",
-  "FluentInEnglish": "你可以流利地说英语吗？",
+  "FluentInEnglish": "我可以流利地说英语。",
   "OtherFluentLanguagesLabel": "其他流利语言",
   "OtherFluentLanguages": "添加另一种你能流利说的语言",
 

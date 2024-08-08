@@ -245,6 +245,53 @@ export function QDatePicker(props: QDatePickerProps) {
   );
 }
 
+/** Month year date picker control ***************************************************/
+export interface QMonthYearPickerProps {
+  placeholder?: string;
+  value?: string;
+  onChange?: (value: string) => void;
+  disabled?: boolean;
+  fieldKey?: string;
+}
+
+export function QMonthYearPicker(props: QMonthYearPickerProps) {
+  const [value, setValue] = useState(props.value || "");
+
+  useEffect(() => {
+    setValue(props.value || "");
+  }, [props.value]);
+
+  const onMonthYearChange = (date: dayjs.Dayjs, dateString: string | string[]) => {
+    if (props.disabled) return;
+    if (!date) {
+      setValue("");
+      props.onChange && props.onChange("");
+      return;
+    }
+    const finalDateString = Array.isArray(dateString) ? dateString[0] : dateString;
+    setValue(finalDateString);
+    props.onChange && props.onChange(finalDateString);
+  };
+
+  return (
+    <div className="monthyearpicker-container">
+      <DatePicker
+        picker="month"
+        placeholder={props.placeholder}
+        value={value ? dayjs(value, "MM/YYYY") : null}
+        format="MM/YYYY"
+        onChange={onMonthYearChange}
+        disabled={props.disabled || false}
+      />
+      {value && (
+        <div className="inline-placeholder">
+          <QText level="placeholder">{props.placeholder}</QText>
+        </div>
+      )}
+    </div>
+  );
+}
+
 /** Select control ***************************************************/
 
 export interface SelectBoxProps {
