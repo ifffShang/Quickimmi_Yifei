@@ -4,7 +4,9 @@
   background-color: var(--gray-color-4);
   height: 100%;
   padding: 20px 40px;
-  /* min-width: 1000px; */
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 1390px;
 }
 
 .dashboard h2 {
@@ -12,10 +14,10 @@
 }
 
 .dashboard-header {
-  /* max-width: 1390px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
+  max-width: 1390px;
 }
 
 .dashboard-header h2 {
@@ -23,11 +25,11 @@
 }
 
 .dashboard-toolbar {
-  /* max-width: 1390px; */
   display: flex;
   align-items: center;
   gap: 10px;
   margin: 20px 0;
+  max-width: 1390px;
 }
 
 .dashboard-search-input {
@@ -79,6 +81,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.dashboard-panel.has-application {
+  max-width: 1390px;
 }
 
 .dashboard-panel.has-application > div {
