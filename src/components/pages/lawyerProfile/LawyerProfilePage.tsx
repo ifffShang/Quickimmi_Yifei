@@ -396,9 +396,7 @@ export function LawyerProfilePage() {
           {t("Save")}
         </Button>
       </div>
-      <div className="lawyer-profile-content">
-        {innerContent}
-      </div>
+      <div className="lawyer-profile-content">{innerContent}</div>
     </div>
   );
 }
