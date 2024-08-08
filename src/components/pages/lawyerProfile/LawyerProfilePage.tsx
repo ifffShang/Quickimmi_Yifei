@@ -378,8 +378,8 @@ export function LawyerProfilePage() {
   );
 
   return (
-    <div className="dashboard">
-      <div className="dashboard-header">
+    <div className="lawyer-profile-container">
+      <div className="lawyer-profile-header">
         <h2>
           <QText level="large">{t("Profile")}</QText>
         </h2>
@@ -396,7 +396,7 @@ export function LawyerProfilePage() {
           {t("Save")}
         </Button>
       </div>
-      <div className="form-content-form">{innerContent}</div>
+      <div className="lawyer-profile-content">{innerContent}</div>
     </div>
   );
 }

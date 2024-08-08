@@ -8,7 +8,8 @@
 
 .form-content-form-container {
   flex-grow: 1;
-  overflow-y: auto;
+  height: calc(100vh - 250px); /* Adjust according to your layout */
+  overflow: hidden;
 }
 
 .form-content-header {
@@ -27,10 +28,11 @@
 }
 
 .form-content-form {
-  padding: 40px;
-  padding-bottom: 100px;
+  height: calc(100% - 200px); /* Adjust according to your layout */
+  padding: 20px 40px;
   background-color: var(--white-color);
   border-radius: 0 0 10px 10px;
+  overflow-y: auto;
 }
 
 .xsmall .form-content-form,
@@ -46,6 +48,7 @@
   position: absolute;
   bottom: 0;
   width: 100%;
+  height: auto;
 }
 
 .form-content-controls {

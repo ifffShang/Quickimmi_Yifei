@@ -1,6 +1,5 @@
 .ant-card-body {
   padding: 16px 24px !important;
-  /* overflow-y: auto  !important; */
 }
 
 .case-document-file-upload {
@@ -23,6 +22,10 @@
 }
 .case-document-uploader {
   margin-top: 10px;
+}
+
+.case-document-display-section {
+  overflow-y: auto;
 }
 
 .case-document-section-search-input {

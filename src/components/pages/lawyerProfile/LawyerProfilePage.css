@@ -1,12 +1,4 @@
-.form-content {
-  display: flex;
-  position: relative;
-  width: 100%;
-  font-size: var(--font-size-p2);
-  max-width: 1200px;
-}
-
-.form-content-form {
+.lawyer-profile-content {
   padding: 40px;
   padding-bottom: 100px;
   background-color: var(--white-color);
@@ -22,7 +14,7 @@
   margin-bottom: 40px;
 }
 
-.dashboard {
+.lawyer-profile-container {
   display: flex;
   flex-direction: column;
   background-color: var(--gray-color-4);
@@ -31,17 +23,17 @@
   /* min-width: 1000px; */
 }
 
-.dashboard h2 {
+.lawyer-profile-container h2 {
   margin-bottom: 20px;
 }
 
-.dashboard-header {
+.lawyer-profile-header {
   /* max-width: 1390px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.dashboard-header h2 {
+.lawyer-profile-header h2 {
   margin-bottom: 0;
 }
