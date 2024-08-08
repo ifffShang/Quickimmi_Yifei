@@ -554,7 +554,7 @@ const CaseDocumentRightPanel: React.FC = () => {
       </div>
 
       {/* Document display section */}
-      <div>
+      <div className="case-document-display-section">
         <div className="case-document-section-header">
           <QText level="large">{t("CaseDocument")}</QText>
           <div className="case-document-section-search">
@@ -578,7 +578,6 @@ const CaseDocumentRightPanel: React.FC = () => {
               position: ["bottomCenter"],
               pageSize: 5,
             }}
-            scroll={{ y: 400 }}
           />
         </div>
       </div>
