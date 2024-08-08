@@ -10,7 +10,8 @@
   padding: 40px;
   padding-bottom: 100px;
   background-color: var(--white-color);
-  border-radius: 0 0 10px 10px;
+  border-radius: 10px;
+  overflow-y: auto;
 }
 
 .xsmall .form-content-form,
@@ -40,6 +41,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 20px 40px;
 }
 
 .dashboard-header h2 {
