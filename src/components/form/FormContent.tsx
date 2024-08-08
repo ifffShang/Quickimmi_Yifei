@@ -12,7 +12,6 @@ import { Loading } from "../common/Loading";
 import CaseStatusLayout from "../pages/casestatus/CaseStatusLayout";
 import "./FormContent.css";
 import { FormField } from "./FormField";
-import { DocumentType } from "../../model/commonModels";
 
 interface FormContentProps {
   sectionId: string;
@@ -138,35 +137,35 @@ export function FormContent(props: FormContentProps) {
             </div>
           ))}
         </div>
-      </div>
-      <div className="form-content-controls-container">
-        <div className="form-content-controls">
-          <Button
-            disabled={isFirstStep}
-            type="primary"
-            onClick={() => {
-              dispatch(decrementIndexLevel2());
-            }}
-          >
-            {t("Previous")}
-          </Button>
-          <Button
-            className="default-button"
-            onClick={() => {
-              dispatch(updateHighlightMissingFields(true));
-            }}
-          >
-            {t("FindIncomplete")}
-          </Button>
-          <Button
-            disabled={isLastStep}
-            type="primary"
-            onClick={() => {
-              dispatch(incrementIndexLevel2());
-            }}
-          >
-            {t("Next")}
-          </Button>
+        <div className="form-content-controls-container">
+          <div className="form-content-controls">
+            <Button
+              disabled={isFirstStep}
+              type="primary"
+              onClick={() => {
+                dispatch(decrementIndexLevel2());
+              }}
+            >
+              {t("Previous")}
+            </Button>
+            <Button
+              className="default-button"
+              onClick={() => {
+                dispatch(updateHighlightMissingFields(true));
+              }}
+            >
+              {t("FindIncomplete")}
+            </Button>
+            <Button
+              disabled={isLastStep}
+              type="primary"
+              onClick={() => {
+                dispatch(incrementIndexLevel2());
+              }}
+            >
+              {t("Next")}
+            </Button>
+          </div>
         </div>
       </div>
     </div>
