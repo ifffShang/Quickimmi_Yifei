@@ -86,7 +86,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
       "downloadSignatureDocsButtonText",
       "viewReceiptButtonText",
     ].includes(textKey);
-    
+
     if (substepStatus === "IN_PROGRESS") return false;
     else if (substepStatus === "COMPLETED" && isDownloadButton) return false;
     else return true;
