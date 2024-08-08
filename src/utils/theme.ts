@@ -1,9 +1,12 @@
 import { ThemeConfig } from "antd";
+import { link } from "fs";
 
 export function getAntTheme() {
   const primaryColor: string = getComputedStyle(document.documentElement).getPropertyValue("--primary-color");
 
-  const primaryColorLight = getComputedStyle(document.documentElement).getPropertyValue("--primary-color-light");
+  const primaryColorLight: string = getComputedStyle(document.documentElement).getPropertyValue(
+    "--primary-color-light",
+  );
 
   const secondaryColor: string = getComputedStyle(document.documentElement).getPropertyValue("--secondary-color");
 
@@ -30,6 +33,8 @@ export function getAntTheme() {
         fontWeight: fontWeight,
         defaultBorderColor: primaryColor,
         algorithm: true, // Enable algorithm
+        colorLink: linkColor,
+        colorLinkHover: primaryColor,
       },
       Input: {
         colorPrimary: primaryColor,

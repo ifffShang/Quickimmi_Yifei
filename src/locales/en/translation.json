@@ -283,6 +283,7 @@
   "ViewMergedDocuments": "View Merged Documents",
   "PersonalStatement": "Personal Statement",
   "PersonalStatementInOriginalLanguage": "Personal Statement in Original Language",
+  "DisableDocDeleteButtonText": "System generated documents can't be deleted",
 
   "IdNumber": "ID Number",
   "IdInformation": "ID Information",

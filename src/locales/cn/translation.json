@@ -285,6 +285,7 @@
   "ViewMergedDocuments": "查看最终文件",
   "PersonalStatement": "个人陈述",
   "PersonalStatementInOriginalLanguage": "个人陈述（原文）",
+  "DisableDocDeleteButtonText": "系统生成的文件无法删除",
 
   "IdNumber": "证件号码",
   "IdInformation": "证件信息",
