@@ -275,6 +275,7 @@
   "EducationInformation": "Education",
   "EmploymentInformation": "Employment",
   "ApplicationInformation": "Application",
+  "Other": "Other",
   "AsylumClaim": "Asylum",
   "AdditionalInformation": "Additional",
   "GenerateDocument": "Generate Report",
@@ -460,6 +461,9 @@
   "Place": "Place",
   "Status": "Status",
 
+  "PoliticalOption": "Political Opinion",
+  "MembershipInAParticularSocialGroup": "Membership in a Particular Social Group",
+  "TortureConvention": "Torture Convention",
   "AsylumBasedOn": "I am seeking asylum or withholding of removal based on:",
   "HasExperiencedHarm": "Have you, your family, or close friends or colleagues ever experienced harm or mistreatment or threats in the past by anyone?",
   "ExplainedHarmedIncident": "Explain in detail: \n1. What happened; \n2. When the harm or mistreatment or threats occurred; \n3. Who caused the harm or mistreatment or threats; and \n4. Why you believe the harm or mistreatment or threats occurred.",

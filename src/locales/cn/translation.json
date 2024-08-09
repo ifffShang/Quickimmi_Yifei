@@ -277,6 +277,7 @@
   "EducationInformation": "教育信息",
   "EmploymentInformation": "就业信息",
   "ApplicationInformation": "申请信息",
+  "Other": "其他",
   "AsylumClaim": "庇护申请",
   "AdditionalInformation": "额外信息",
   "GenerateDocument": "生成文档",
@@ -457,6 +458,9 @@
   "Place": "地点",
   "Status": "状态",
 
+  "PoliticalOption": "政治观点",
+  "MembershipInAParticularSocialGroup": "特定社会群体成员身份",
+  "TortureConvention": "禁止酷刑公约",
   "AsylumBasedOn": "我根据以下原因寻求庇护或暂缓遣返：",
   "HasExperiencedHarm": "您、您的家人或亲密的朋友或同事是否曾经遭受过任何人的伤害、虐待或威胁？",
   "ExplainedHarmedIncident": "详细说明：\n1. 发生了什么；\n2. 伤害、虐待或威胁发生的时间；\n3. 谁造成了伤害、虐待或威胁；\n4. 为什么您认为发生了伤害、虐待或威胁。",
@@ -764,16 +768,7 @@
     "赞比亚人",
     "津巴布韦人"
   ],
-  "TypeofSchoolOptions": [
-    "小学",
-    "初级中学",
-    "高中",
-    "社区学院",
-    "技术和职业学校",
-    "本科院校",
-    "研究生院",
-    "专业学校"
-  ],
+  "TypeofSchoolOptions": ["小学", "初级中学", "高中", "社区学院", "技术和职业学校", "本科院校", "研究生院", "专业学校"],
   "EntryRecordStatus": [
     "N/A",
     "B1/B2 VISA",

@@ -110,7 +110,7 @@
       ]
     },
     {
-      "label": "text_PersonalStatement",
+      "label": "text_Other",
       "id": "personal_statement",
       "type": "level1",
       "steps": [
