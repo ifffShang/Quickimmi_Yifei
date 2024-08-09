@@ -1,4 +1,4 @@
-import { DeleteOutlined, DownloadOutlined, EyeOutlined } from "@ant-design/icons";
+import { DeleteOutlined, DownloadOutlined, EyeOutlined, LoadingOutlined } from "@ant-design/icons";
 import PlusOutlined from "@ant-design/icons/PlusOutlined";
 import { Button, Image, Upload, UploadFile } from "antd";
 import { useState } from "react";
@@ -13,13 +13,11 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useFormTranslation, useLoadSingleDocument } from "../../../hooks/commonHooks";
 import { UploadedDocument } from "../../../model/apiModels";
 import { DocumentOperation, DocumentType, Identity } from "../../../model/commonModels";
+import { updateMarriageLicenseInfo } from "../../../reducers/formSlice";
 import { handleFileDownloadHasPresigedUrl } from "../../../utils/functionUtils";
 import { ErrorMessage, QText } from "../../common/Fonts";
-import { Loading } from "../../common/Loading";
 import "./SingleFileUploaderV2.css";
 import { FileType } from "./Uploader";
-import { updateMarriageLicenseInfo } from "../../../reducers/formSlice";
-import { LoadingOutlined } from "@ant-design/icons";
 
 export interface SingleFileUploaderV2Props {
   documentType: DocumentType;
@@ -94,6 +92,7 @@ export function SingleFileUploaderV2(props: SingleFileUploaderV2Props) {
       );
 
       file.uid = res.documentId.toString();
+
       props.onChange(res.documentId);
       setFileList([file]);
 
@@ -123,6 +122,7 @@ export function SingleFileUploaderV2(props: SingleFileUploaderV2Props) {
           updateDocumentStatus(role, res.documentId, false, "FAILED", accessToken);
           onError(new Error("Failed to upload the file, please try again."));
         },
+        /\.(jpg|jpeg|png|gif)$/i.test(file.name),
       );
     } catch (error) {
       setErrorMessage("Failed to upload the file, please try again.");
@@ -135,7 +135,8 @@ export function SingleFileUploaderV2(props: SingleFileUploaderV2Props) {
     if (file.name.indexOf("pdf") > -1) {
       return;
     }
-    if (!file.url && !file.preview) {
+    console.log("file---------", file);
+    if (!file.url) {
       file.preview = await getBase64(file.originFileObj as FileType);
     }
     setPreviewImage(file.url || (file.preview as string));
@@ -155,10 +156,6 @@ export function SingleFileUploaderV2(props: SingleFileUploaderV2Props) {
     }
   };
 
-  if (loading) {
-    return <Loading />;
-  }
-
   return (
     <div className="miltifile-uploader-container">
       <Upload
@@ -168,6 +165,7 @@ export function SingleFileUploaderV2(props: SingleFileUploaderV2Props) {
         customRequest={uploadWithPresignedUrl}
         fileList={fileList}
         itemRender={(originNode, file, _currFileList) => {
+          file.status = loading ? "uploading" : "done";
           const isImage = /\.(jpg|jpeg|png|gif)$/i.test(file.name);
           return (
             <div className="upload-item-container">

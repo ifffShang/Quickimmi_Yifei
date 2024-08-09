@@ -388,6 +388,21 @@ export async function getDocumentByIdApi(
   return <UploadedDocument>res.data;
 }
 
+export async function getDocumentByIdApiWithRetry(
+  accessToken: string,
+  documentId: number,
+  role: Role,
+  retryOnError: (error: any) => boolean,
+): Promise<UploadedDocument> {
+  const result = await retryApi({
+    apiFunc: () => getDocumentByIdApi(accessToken, documentId, role),
+    checkResult: () => true,
+    interval: 5000,
+    retryOnError: retryOnError,
+  });
+  return result;
+}
+
 export async function getDocumentsApi(
   accessToken: string,
   caseId: number,
@@ -416,7 +431,11 @@ export async function retryGetDocumentsApi(
   callback: (documents: UploadedDocument[], timeout?: boolean) => boolean,
   params?: GetDocumentsAdditionalParams,
 ): Promise<UploadedDocument[]> {
-  const result = await retryApi(() => getDocumentsApi(accessToken, caseId, role, params), callback, 5000);
+  const result = await retryApi({
+    apiFunc: () => getDocumentsApi(accessToken, caseId, role, params),
+    checkResult: callback,
+    interval: 5000,
+  });
   return result;
 }
 
@@ -503,9 +522,11 @@ export async function uploadFileToPresignUrl(
   onProgress: (percent: number) => void,
   onSuccess: () => void,
   onError: (error: Error) => void,
+  isImage?: boolean,
 ) {
   const xhr = new XMLHttpRequest();
   xhr.open("PUT", presignedUrl, true);
+  isImage && xhr.setRequestHeader("Content-Type", "image/jpeg");
   xhr.upload.onprogress = e => {
     if (e.lengthComputable) {
       onProgress((e.loaded / e.total) * 100);

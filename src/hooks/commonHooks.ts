@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { getDocumentByIdApi, getDocumentsApi } from "../api/caseAPI";
+import { getDocumentByIdApiWithRetry, getDocumentsApi } from "../api/caseAPI";
 import { Role } from "../consts/consts";
 import { GetDocumentsAdditionalParams } from "../model/apiReqResModels";
 import { clearDocumentUrls } from "../reducers/formSlice";
@@ -121,7 +121,15 @@ export function useLoadSingleDocument(params: UseSingleDocParams) {
       return;
     }
     params.setLoading(true);
-    getDocumentByIdApi(params.accessToken, params.documentId, params.role)
+    const retryOnError = (error: any) => {
+      console.log("Retry on error *******************", error);
+      if (error.response && error.response.status === 404) {
+        params.setLoading(false);
+        return false;
+      }
+      return true;
+    };
+    getDocumentByIdApiWithRetry(params.accessToken, params.documentId, params.role, retryOnError)
       .then(doc => {
         params.setLoading(false);
         params.onDocumentsReceived(doc);

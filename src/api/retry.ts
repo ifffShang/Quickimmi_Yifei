@@ -1,21 +1,28 @@
-export async function retryApi<T>(
-  apiFunc: () => Promise<T>,
-  checkResult: (res: T, timeout?: boolean) => boolean,
-  interval: number,
-  timeout: number = 1000 * 60 * 10,
-  startTime: number = Date.now(),
-): Promise<T> {
+export interface retryParams<T> {
+  apiFunc: () => Promise<T>;
+  checkResult: (res: T, timeout?: boolean) => boolean;
+  interval: number;
+  timeout?: number;
+  startTime?: number;
+  retryOnError?: (error: any) => boolean;
+}
+
+export async function retryApi<T>(params: retryParams<T>): Promise<T> {
+  params.startTime = params.startTime || Date.now();
+  params.timeout = params.timeout || 1000 * 60 * 5;
+
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      apiFunc()
+      params
+        .apiFunc()
         .then(res => {
-          if (checkResult(res)) {
+          if (params.checkResult(res)) {
             resolve(res);
-          } else if (Date.now() - startTime > timeout) {
-            checkResult(res, true);
+          } else if (Date.now() - params.startTime! > params.timeout!) {
+            params.checkResult(res, true);
             resolve(res);
           } else {
-            retryApi(apiFunc, checkResult, interval, timeout, startTime)
+            retryApi(params)
               .then(res => {
                 resolve(res);
               })
@@ -25,8 +32,18 @@ export async function retryApi<T>(
           }
         })
         .catch(err => {
+          if (params.retryOnError && !params.retryOnError(err)) {
+            retryApi(params)
+              .then(res => {
+                resolve(res);
+              })
+              .catch(err => {
+                reject(err);
+              });
+            return;
+          }
           reject(err);
         });
-    }, interval);
+    }, params.interval);
   });
 }
