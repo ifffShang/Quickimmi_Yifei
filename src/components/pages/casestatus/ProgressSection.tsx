@@ -19,6 +19,8 @@ const ProgressSection: React.FC<ProgressSectionProps> = ({ currentStep, progress
 
   const handleToggleExpand = (stepName: string) => {
     setExpandedStep(prevStep => (prevStep === stepName ? null : stepName));
+    console.log(`%%%%%%%%%%%Expanded step is ${stepName}`);
+    console.log(`%%%%%%%%%%%Current step is ${currentStep}`);
   };
 
   const currentStepDetails = progress.steps.find(step => step.name === currentStep);

@@ -237,6 +237,7 @@
   "finalReviewPostMessage": "案件审核已完成，结果已出具",
   "resultMessage": "客户申请已成功获批，案件结束",
   "cannotUpdateThisStepTooltip": "您只能更新当前步骤，其他完成步骤或者还未开始步骤不能更新。",
+  "stepNotStartedTooltip": "当前步骤还未开始，不能更新。",
   "stepCompletedTooltip": "当前步骤已经完成，不能再更新。",
   "Please provide complete and accurate application information": "请提供完整准确的申请信息",
   "Go Complete": "去填表",

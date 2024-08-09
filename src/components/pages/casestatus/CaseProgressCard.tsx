@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Card, Steps } from "antd";
-import Icon from "@ant-design/icons";
-import type { GetProps } from "antd";
 import { CaseSummary } from "../../../model/apiModels";
 import { useTranslation } from "react-i18next";
 import { CollectInfoIcon, ReviewIcon, SubmitIcon, FingerPrintIcon, ResultIcon } from "../../icons/CaseProgressCard";
@@ -45,11 +43,13 @@ const CaseProgressCard: React.FC<CaseProgressCardProps> = ({ caseSummary }) => {
     }
     const stepIndex = getCurrentStepIndex(caseSummary.currentStep, progress.steps);
     setCurrentStepIndex(stepIndex);
-  }, [expandedStep, progress.steps, caseSummary.currentStep]);
+  }, [progress.steps, caseSummary.currentStep]);
 
   const onStepChange = (value: number) => {
     setCurrentStepIndex(value);
     setCurrentStep(progress.steps[value].name);
+    console.log(`***********Current value is ${value}`);
+    console.log(`***********Step changed to ${progress.steps[value].name}`);
   };
 
   const icons = progress.steps.map((step, index) => {
