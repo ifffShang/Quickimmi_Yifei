@@ -2,6 +2,7 @@
   padding: 10% 5%;
   box-sizing: border-box;
   height: 100vh;
+  background-color: var(--white-color);
 }
 
 .xsmall .auth-page,
