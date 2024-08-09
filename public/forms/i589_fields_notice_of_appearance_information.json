@@ -10,6 +10,13 @@
       "control": "text"
     },
     {
+      "label": "text_WhenLastLeaveCountry",
+      "placeholder": "text_MM/DD/YYYY",
+      "id": "when_last_leave_country",
+      "key": "applicant.whenLastLeaveCountry",
+      "control": "datepicker"
+    },
+    {
       "label": "text_NoticeOfAppearDate",
       "placeholder": "text_MM/DD/YYYY",
       "id": "notice_of_appearance_date",

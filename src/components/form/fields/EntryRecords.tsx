@@ -1,8 +1,9 @@
-import { MinusCircleFilled, PlusCircleFilled } from "@ant-design/icons";
-import { Button } from "antd";
 import { useEffect, useState } from "react";
+import { Button } from "antd";
+import { MinusCircleFilled, PlusCircleFilled } from "@ant-design/icons";
+import { State, City } from "country-state-city";
 import { EntryRecord } from "../../../model/apiModels";
-import { QDatePicker, QTextBox } from "./Controls";
+import { QDatePicker, SelectBox } from "./Controls";
 import { TextboxWithNA } from "./TextboxWithNA";
 import "./EntryRecords.css";
 import { useTranslation } from "react-i18next";
@@ -51,11 +52,24 @@ export function EntryRecords(props: EntryRecordsProps) {
     setRecords(initialRecords);
   }, [props.value]);
 
+  const usStates = State.getStatesOfCountry("US").map(state => ({
+    keyValue: state.isoCode,
+    label: state.name,
+    value: state.isoCode,
+  }));
+
+  const getCitiesForState = (stateCode: string) => {
+    return City.getCitiesOfState("US", stateCode).map(city => ({
+      keyValue: city.name,
+      label: city.name,
+      value: city.name,
+    }));
+  };
+
+  const statusOptions = t("EntryRecordStatus", { returnObjects: true }) as string[];
+
   return (
     <div className="entry-records">
-      <QText level="xsmall" margin="margin-bottom-10">
-        {props.label}
-      </QText>
       {records.map((record, index) => (
         <div key={record.id} className="entry-record-item">
           <QDatePicker
@@ -76,7 +90,27 @@ export function EntryRecords(props: EntryRecordsProps) {
               return value;
             }}
           />
-          <QTextBox
+          <SelectBox
+            options={usStates}
+            value={record.state}
+            placeholder={t("State")}
+            onChange={(value: string) => {
+              const newRecords = [...records];
+              newRecords[index].state = value;
+              newRecords[index].city = ""; // Reset city when state changes
+              setRecords(newRecords);
+              props.onChange(
+                newRecords.map(r => ({
+                  date: r.date,
+                  city: r.city,
+                  state: r.state,
+                  status: r.status,
+                })),
+              );
+            }}
+          />
+          <SelectBox
+            options={getCitiesForState(record.state)}
             value={record.city}
             placeholder={t("City")}
             onChange={(value: string) => {
@@ -91,31 +125,17 @@ export function EntryRecords(props: EntryRecordsProps) {
                   status: r.status,
                 })),
               );
-              return value;
             }}
+            disabled={!record.state}
           />
-          <QTextBox
-            value={record.state}
-            placeholder={t("State")}
-            onChange={(value: string) => {
-              const newRecords = [...records];
-              newRecords[index].state = value;
-              setRecords(newRecords);
-              props.onChange(
-                newRecords.map(r => ({
-                  date: r.date,
-                  city: r.city,
-                  state: r.state,
-                  status: r.status,
-                })),
-              );
-              return value;
-            }}
-          />
-          <TextboxWithNA
-            placeholder={t("Status")}
+          <SelectBox
+            options={statusOptions.map(status => ({
+              keyValue: status,
+              label: status,
+              value: status,
+            }))}
             value={record.status}
-            notApplicableText={t("N/A")}
+            placeholder={t("Status")}
             onChange={(value: string) => {
               const newRecords = [...records];
               newRecords[index].status = value;
@@ -128,7 +148,6 @@ export function EntryRecords(props: EntryRecordsProps) {
                   status: r.status,
                 })),
               );
-              return value;
             }}
           />
           {index !== 0 && (
