@@ -59,6 +59,7 @@ export type ControlType =
   | "divider"
   | "tips"
   | "datepicker"
+  | "datepickerWithNA"
   | "monthyearpicker"
   | "group"
   | "section"

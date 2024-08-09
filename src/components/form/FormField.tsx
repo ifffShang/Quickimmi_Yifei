@@ -31,6 +31,7 @@ import {
   QTextBox,
   RadioSelect,
   SelectBox,
+  QDatePickerWithNA,
 } from "./fields/Controls";
 import { DocumentList } from "./fields/DocumentList";
 import { DraggerFileUploader } from "./fields/DraggerFileUploader";
@@ -513,6 +514,27 @@ export function FormField(props: FormFieldProps) {
                   props.fieldIndex,
                 );
             }}
+          />
+        </FormControlContainer>
+      );
+    case "datepickerWithNA":
+      return (
+        <FormControlContainer fieldValue={fieldValue}>
+          <QDatePickerWithNA
+            placeholder={placeholder}
+            value={fieldValue}
+            fieldKey={props.fieldKey}
+            onChange={(value: string) => {
+              props.fieldKey &&
+                dispatchFormValue(
+                  dispatch,
+                  {
+                    [props.fieldKey]: value,
+                  },
+                  props.fieldIndex
+                );
+            }} 
+            notApplicableText={t("NotApplicableText")}         
           />
         </FormControlContainer>
       );
