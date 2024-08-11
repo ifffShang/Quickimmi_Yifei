@@ -98,7 +98,7 @@ export const documentTypeMap: Record<string, DocumentType> = {
   cover_letter_for_affirmative_asylum: "COVER_LETTER_FOR_AFFIRMATIVE_ASYLUM",
   i94: "I94",
   "eoir-28": "EOIR28",
-  asylum_pleading: "WRITTEN_PLEADING",
+  asylum_pleading: "ASYLUM_PLEADING",
   supporting_document: "SUPPORTING_DOCUMENT",
   other: "OTHER",
   eoir_coverletter_for_i589_form: "EOIR_COVERLETTER_FOR_I589_FORM",
@@ -154,6 +154,7 @@ export type DocumentType =
   | "I94"
   | "EOIR28"
   | "WRITTEN_PLEADING"
+  | "ASYLUM_PLEADING"
   | "SUPPORTING_DOCUMENT"
   | "OTHER"
   | "EOIR_COVERLETTER_FOR_I589_FORM"
