@@ -29,7 +29,7 @@
           "placeholder": "text_ApartmentNumber",
           "id": "apartment_number",
           "key": "applicant.aptNumber",
-          "control": "text"
+          "control": "component_textbox_na"
         },
         {
           "label": "text_City",
@@ -94,7 +94,7 @@
           "placeholder": "text_ApartmentNumber",
           "id": "apartment_number_mailing_address",
           "key": "applicant.aptNumberOfMailingAddress",
-          "control": "text"
+          "control": "component_textbox_na"
         },
         {
           "label": "text_City",

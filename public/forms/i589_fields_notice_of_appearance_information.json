@@ -4,17 +4,30 @@
   "type": "fields",
   "fields": [
     {
-      "label": "text_AlienRegistrationNumber",
-      "id": "alien_registration_number",
-      "key": "applicant.alienNumber",
-      "control": "text"
-    },
-    {
       "label": "text_WhenLastLeaveCountry",
       "placeholder": "text_MM/DD/YYYY",
       "id": "when_last_leave_country",
       "key": "applicant.whenLastLeaveCountry",
       "control": "datepicker"
+    },
+    {
+      "label": "text_EntryRecordsDescription",
+      "placeholder": "text_EntryRecords",
+      "id": "entry_records",
+      "key": "applicant.entryRecords",
+      "control": "component_entry_records"
+    },
+    {
+      "label": "",
+      "id": "notice_of_appearance_information",
+      "control": "divider"
+    },
+    {
+      "label": "text_AlienRegistrationNumber",
+      "placeholder": "text_AlienRegistrationNumberFormat",
+      "id": "alien_registration_number",
+      "key": "applicant.alienNumber",
+      "control": "text"
     },
     {
       "label": "text_NoticeOfAppearDate",
@@ -69,6 +82,7 @@
       "label": "text_HearingTime",
       "id": "residential_address_in_us",
       "control": "group",
+      "maxChildPerRow": "3",
       "fields": [
         {
           "label": "text_Date",
