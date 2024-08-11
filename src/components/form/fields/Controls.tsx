@@ -95,7 +95,7 @@ export function QTextBox(props: QTextBoxProps) {
         placeholder={props.placeholder}
         value={value}
         onChange={onTextBoxChange}
-        disabled={props.disabled || false}
+        disabled={props.disabled}
       />
       {value && (
         <div className="inline-placeholder">

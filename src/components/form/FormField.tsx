@@ -63,6 +63,7 @@ export function FormField(props: FormFieldProps) {
   const dispatch = useAppDispatch();
   const caseDetails = useAppSelector(state => state.form.applicationCase?.profile);
   const asylumType = useAppSelector(state => state.form.asylumType);
+  const disabledFields = useAppSelector(state => state.form.disabledFields);
 
   const placeholder = props.placeholder ? wt(props.placeholder) : "";
 
@@ -266,7 +267,13 @@ export function FormField(props: FormFieldProps) {
     case "text":
       return (
         <FormControlContainer fieldValue={fieldValue}>
-          <QTextBox placeholder={placeholder} value={fieldValue} fieldKey={props.fieldKey} onChange={onTextChange} />
+          <QTextBox
+            placeholder={placeholder}
+            value={fieldValue}
+            fieldKey={props.fieldKey}
+            onChange={onTextChange}
+            disabled={disabledFields?.[props.fieldKey] === "true" || disabledFields?.[props.fieldKey] === true}
+          />
         </FormControlContainer>
       );
     case "textarea":

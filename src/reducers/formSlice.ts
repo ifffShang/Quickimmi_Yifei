@@ -25,6 +25,7 @@ import {
 } from "../model/apiModels";
 import { getUpdateProfileData } from "../utils/utils";
 import { ParseMarriageCertificateResponse } from "../model/apiReqResModels";
+import { KeyValues } from "../model/commonModels";
 
 export interface FormState {
   caseId: number;
@@ -36,6 +37,7 @@ export interface FormState {
   uploadedDocuments: UploadedDocumentWithUrl[];
   generatedDocuments: GeneratedDocument[];
   highlightMissingFields: boolean;
+  disabledFields: KeyValues;
 }
 
 const initialState: FormState = {
@@ -50,6 +52,7 @@ const initialState: FormState = {
   generatedDocuments: [],
   asylumType: "AFFIRMATIVE",
   highlightMissingFields: false,
+  disabledFields: {},
 };
 
 function deepAssign(update: any, current: any, init: any) {
@@ -294,6 +297,17 @@ export const formSlice = createSlice({
       state.applicationCase.profile.supplementDocument.marriageCertificate = action.payload as MarriageCertificate;
     },
     syncUpMailingAndResidenceAddress: (state, action: PayloadAction<boolean>) => {
+      const mailingAddressKeys = [
+        "applicant.streetNumberAndNameOfMailingAddress",
+        "applicant.aptNumberOfMailingAddress",
+        "applicant.cityOfMailingAddress",
+        "applicant.stateOfMailingAddress",
+        "applicant.zipCodeOfMailingAddress",
+        "applicant.telePhoneAreaCodeOfMailingAddress",
+        "applicant.telePhoneAreaCodeOfMailingAddress,applicant.telePhoneNumberOfMailingAddress",
+        "applicant.inCareOf",
+      ];
+
       if (action.payload) {
         state.applicationCase.profile.applicant.streetNumberAndNameOfMailingAddress =
           state.applicationCase.profile.applicant.streetNumberAndName;
@@ -308,6 +322,13 @@ export const formSlice = createSlice({
         state.applicationCase.profile.applicant.telePhoneNumberOfMailingAddress =
           state.applicationCase.profile.applicant.telePhoneNumber;
         state.applicationCase.profile.applicant.inCareOf = "N/A";
+
+        mailingAddressKeys.forEach(key => {
+          state.disabledFields = {
+            ...state.disabledFields,
+            [key]: "true",
+          };
+        });
       } else {
         state.applicationCase.profile.applicant.streetNumberAndNameOfMailingAddress = "";
         state.applicationCase.profile.applicant.aptNumberOfMailingAddress = "";
@@ -317,6 +338,13 @@ export const formSlice = createSlice({
         state.applicationCase.profile.applicant.telePhoneAreaCodeOfMailingAddress = "";
         state.applicationCase.profile.applicant.telePhoneNumberOfMailingAddress = "";
         state.applicationCase.profile.applicant.inCareOf = "";
+
+        mailingAddressKeys.forEach(key => {
+          state.disabledFields = {
+            ...state.disabledFields,
+            [key]: "false",
+          };
+        });
       }
     },
     replaceDocumentUrls: (state, action: PayloadAction<any[]>) => {
