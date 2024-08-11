@@ -1,23 +1,16 @@
 import { Divider } from "antd";
-import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { DefaultCaseProfile } from "../../consts/caseProfile";
 import { Regex } from "../../consts/consts";
 import { useFormTranslation } from "../../hooks/commonHooks";
 import { EntryRecord } from "../../model/apiModels";
 import { DocumentType, KeyValues, LanguageEnum } from "../../model/commonModels";
 import { ControlType, IFormField, IFormOptions } from "../../model/formFlowModels";
-import { ArrayFields } from "../../reducers/formSlice";
 import {
   createKeyValuesForAddItem,
-  createKeyValuesForRemoveItem,
   dispatchFormValue,
   formatCityAndCountryStr,
-  getCaseDetailValue,
   getFieldValue,
-  isSectionVisible,
 } from "../../utils/utils";
-import { getKeys } from "../../utils/visibilityUtils";
 import { QText } from "../common/Fonts";
 import { FormControlContainer } from "./FormControlContainer";
 import "./FormField.css";
@@ -26,12 +19,12 @@ import {
   CheckBox,
   CheckBoxMultiOptions,
   QDatePicker,
+  QDatePickerWithNA,
   QMonthYearPicker,
   QTextArea,
   QTextBox,
   RadioSelect,
   SelectBox,
-  QDatePickerWithNA,
 } from "./fields/Controls";
 import { DocumentList } from "./fields/DocumentList";
 import { DraggerFileUploader } from "./fields/DraggerFileUploader";
@@ -43,10 +36,10 @@ import { MultipleTextboxesWithNA } from "./fields/MultipleTextboxesWithNA";
 import { PassportUploader } from "./fields/PassportUploader";
 import { PersonalStatement } from "./fields/PersonalStatement";
 import { SameAddressCheckbox } from "./fields/SameAddressCheckbox";
+import { Section } from "./fields/Section";
 import { SingleFileUploaderV2 } from "./fields/SingleFileUploaderV2";
 import { TextAreaWithAIRefine } from "./fields/TextAreaWithAIRefine";
 import { TextboxWithNA } from "./fields/TextboxWithNA";
-import { RemovableSectionHeader } from "./parts/RemovableSectionHeader";
 
 export interface FormFieldProps {
   fieldKey: string;
@@ -72,7 +65,6 @@ export function FormField(props: FormFieldProps) {
   const asylumType = useAppSelector(state => state.form.asylumType);
 
   const placeholder = props.placeholder ? wt(props.placeholder) : "";
-  const isVisible = props.visibility && isSectionVisible(props.visibility, caseDetails, props.fieldIndex);
 
   const fieldValue = getFieldValue(
     caseDetails,
@@ -93,91 +85,6 @@ export function FormField(props: FormFieldProps) {
     `,
   );
  */
-
-  useEffect(() => {
-    if (props.control !== "removable_section" && props.control !== "section") return;
-    if (!props.subFields || props.subFields.length === 0 || !props.visibility) return;
-
-    const { textKeys, booleanKeys, selectKeys, documentKeys, documentListKeys } = getKeys(
-      props.subFields,
-      props.control,
-    );
-
-    if (!isVisible) {
-      // When text related component is hidden, assign the value to "N/A"
-      textKeys &&
-        textKeys.length > 0 &&
-        dispatchFormValue(
-          dispatch,
-          textKeys.reduce((obj, key) => ({ ...obj, [key]: "N/A" }), {}),
-          props.fieldIndex,
-        );
-
-      booleanKeys &&
-        booleanKeys.length > 0 &&
-        dispatchFormValue(
-          dispatch,
-          booleanKeys.reduce((obj, key) => ({ ...obj, [key]: "false" }), {}),
-          props.fieldIndex,
-        );
-
-      selectKeys &&
-        selectKeys.length > 0 &&
-        dispatchFormValue(
-          dispatch,
-          selectKeys.reduce((obj, key) => ({ ...obj, [key]: "N/A" }), {}),
-          props.fieldIndex,
-        );
-
-      documentKeys &&
-        documentKeys.length > 0 &&
-        dispatchFormValue(
-          dispatch,
-          documentKeys.reduce((obj, key) => ({ ...obj, [key]: -1 }), {}),
-          props.fieldIndex,
-        );
-
-      documentListKeys &&
-        documentListKeys.length > 0 &&
-        dispatchFormValue(
-          dispatch,
-          documentListKeys.reduce((obj, key) => ({ ...obj, [key]: [] }), {}),
-          props.fieldIndex,
-        );
-
-      // For array fields like family.children, assign the value to [] when not visible
-      const arrFields = props.subFields.filter(field => field?.key?.indexOf("-") > -1);
-      for (let i = 0; i < arrFields.length; i++) {
-        const key = arrFields[i].key.split("-")[1];
-        const overwriteKey = ArrayFields.filter(field => field.field === key)[0].overwriteField;
-        dispatchFormValue(
-          dispatch,
-          {
-            [key]: [],
-            [overwriteKey]: true,
-          },
-          props.fieldIndex,
-        );
-      }
-    } else {
-      // When text related component is shown, assign the value to ""
-      textKeys &&
-        textKeys.length > 0 &&
-        dispatchFormValue(
-          dispatch,
-          textKeys.reduce((obj, key) => ({ ...obj, [key]: getCaseDetailValue(DefaultCaseProfile, key, 0) }), {}),
-          props.fieldIndex,
-        );
-
-      selectKeys &&
-        selectKeys.length > 0 &&
-        dispatchFormValue(
-          dispatch,
-          selectKeys.reduce((obj, key) => ({ ...obj, [key]: null }), {}),
-          props.fieldIndex,
-        );
-    }
-  }, [isVisible]);
 
   const onOptionChange = (value: string) => {
     if (props.options && Array.isArray(props.options)) {
@@ -531,10 +438,10 @@ export function FormField(props: FormFieldProps) {
                   {
                     [props.fieldKey]: value,
                   },
-                  props.fieldIndex
+                  props.fieldIndex,
                 );
-            }} 
-            notApplicableText={t("NotApplicableText")}         
+            }}
+            notApplicableText={t("NotApplicableText")}
           />
         </FormControlContainer>
       );
@@ -688,78 +595,7 @@ export function FormField(props: FormFieldProps) {
       } else return <div>Group needs sub fields</div>;
     case "section":
     case "removable_section":
-      if (props.subFields && props.subFields.length > 0) {
-        if (props.visibility) {
-          const isVisible = isSectionVisible(props.visibility, caseDetails, props.fieldIndex);
-          if (!isVisible) {
-            return <></>;
-          }
-        }
-        if (fieldValue && Array.isArray(fieldValue.arr)) {
-          return (
-            <>
-              {fieldValue.arr.map((_i, arrIndex) => (
-                <div key={arrIndex} className="section-container">
-                  {props.control === "removable_section" && (
-                    <RemovableSectionHeader
-                      label={wt(props.label)}
-                      fieldIndex={arrIndex}
-                      onRemove={() => {
-                        const keyValues = createKeyValuesForRemoveItem(fieldValue, arrIndex);
-                        dispatchFormValue(dispatch, keyValues, arrIndex);
-                      }}
-                    />
-                  )}
-                  {props?.subFields?.map((field, index) => (
-                    <div key={index}>
-                      {field.label && field.hideHeader !== true && <QText level="normal bold">{wt(field.label)}</QText>}
-                      <FormField
-                        fieldKey={field.key}
-                        control={field.control}
-                        label={field.label}
-                        options={field.options}
-                        placeholder={field.placeholder}
-                        className={field.className}
-                        maxChildPerRow={field.maxChildPerRow}
-                        subFields={field.fields}
-                        format={field.format}
-                        visibility={field.visibility}
-                        fieldIndex={arrIndex}
-                        lastField={props.lastField && (props.subFields ? index === props.subFields.length - 1 : true)}
-                        documentType={field.documentType}
-                      />
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </>
-          );
-        }
-        return (
-          <div className="section-container">
-            {props.subFields.map((field, index) => (
-              <div key={index}>
-                {field.label && field.hideHeader !== true && <QText level="normal bold">{wt(field.label)}</QText>}
-                <FormField
-                  fieldKey={field.key}
-                  control={field.control}
-                  label={field.label}
-                  options={field.options}
-                  placeholder={field.placeholder}
-                  className={field.className}
-                  maxChildPerRow={field.maxChildPerRow}
-                  subFields={field.fields}
-                  format={field.format}
-                  visibility={field.visibility}
-                  fieldIndex={props.fieldIndex}
-                  lastField={props.lastField && (props.subFields ? index === props.subFields.length - 1 : true)}
-                  documentType={field.documentType}
-                />
-              </div>
-            ))}
-          </div>
-        );
-      } else return <div>Section needs sub fields</div>;
+      return <Section {...props} />;
     default:
       return <div>Control not found</div>;
   }

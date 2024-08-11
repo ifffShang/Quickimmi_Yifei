@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { getDocumentByIdApiWithRetry, getDocumentsApi } from "../api/caseAPI";
 import { Role } from "../consts/consts";
@@ -139,4 +139,20 @@ export function useLoadSingleDocument(params: UseSingleDocParams) {
         params.setLoading(false);
       });
   }, [params.accessToken, params.documentId]);
+}
+
+export function useDidUpdateEffect(callback: () => any, dependencies: any[]) {
+  const isMountingRef = useRef(false);
+
+  useEffect(() => {
+    isMountingRef.current = true;
+  }, []);
+
+  useEffect(() => {
+    if (!isMountingRef.current) {
+      return callback();
+    } else {
+      isMountingRef.current = false;
+    }
+  }, dependencies);
 }

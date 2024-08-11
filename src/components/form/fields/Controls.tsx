@@ -510,19 +510,18 @@ export function RadioSelect(props: RadioSelectProps) {
   );
 }
 
-
 /** DatePickerWithNA control ***************************************************/
-export interface QDatePickerWithNAProps extends Omit<QDatePickerProps, 'value' | 'onChange'> {
+export interface QDatePickerWithNAProps extends Omit<QDatePickerProps, "value" | "onChange"> {
   value?: string;
   onChange: (value: string) => void;
   notApplicableText: string;
 }
 
 export function QDatePickerWithNA(props: QDatePickerWithNAProps) {
-  const [isNA, setIsNA] = useState(props.value === 'N/A');
+  const [isNA, setIsNA] = useState(props.value === "N/A");
 
   useEffect(() => {
-    setIsNA(props.value === 'N/A');
+    setIsNA(props.value === "N/A");
   }, [props.value]);
 
   const handleDateChange = (value: string) => {
@@ -534,10 +533,10 @@ export function QDatePickerWithNA(props: QDatePickerWithNAProps) {
   const handleNAChange = (checked: boolean) => {
     if (checked) {
       setIsNA(true);
-      props.onChange('N/A');
+      props.onChange("N/A");
     } else {
       setIsNA(false);
-      props.onChange('');
+      props.onChange("");
     }
   };
 
@@ -546,16 +545,12 @@ export function QDatePickerWithNA(props: QDatePickerWithNAProps) {
       <div className="datepicker-na-picker">
         <QDatePicker
           {...props}
-          value={isNA ? '' : props.value}
+          value={isNA ? "" : props.value}
           onChange={handleDateChange}
           disabled={isNA || props.disabled}
         />
       </div>
-      <PureCheckBox
-        checked={isNA}
-        label={props.notApplicableText}
-        onChange={handleNAChange}
-      />
+      <PureCheckBox checked={isNA} label={props.notApplicableText} onChange={handleNAChange} />
     </div>
   );
 }
