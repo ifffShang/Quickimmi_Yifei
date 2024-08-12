@@ -79,7 +79,7 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
     try {
       setRefineAreaValue("");
       setShowRefineArea(true);
-      const refinedText = await refineApi(accessToken, role, "statement", t(label), props.value);
+      const refinedText = await refineApi(accessToken, role, "statement", label, props.value);
       setRefineAreaValue(refinedText);
     } catch (error) {
       console.error("Failed to refine text:", error);
