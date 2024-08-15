@@ -22,6 +22,7 @@ export function getAntTheme() {
     components: {
       Menu: {
         itemSelectedColor: primaryColor,
+        itemSelectedBg: primaryColorLight,
       },
       Button: {
         colorPrimary: primaryColor,

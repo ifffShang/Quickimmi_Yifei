@@ -24,9 +24,6 @@
   margin-top: 10px;
 }
 
-.case-document-display-section {
-  overflow-y: auto;
-}
 
 .case-document-section-search-input {
   width: 400px;
@@ -38,8 +35,12 @@
   height: 40px;
   width: 100px;
 }
-.case-document-file-table {
+
+.case-document-display-section {
   margin-top: 18px;
+  /* overflow-y: auto; */
+}
+.case-document-file-table {
   max-height: 500px;
 }
 

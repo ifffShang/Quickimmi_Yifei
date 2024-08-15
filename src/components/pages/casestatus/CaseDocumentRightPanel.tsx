@@ -39,10 +39,8 @@ function useFetchDocuments(setDocuments: (docs: UploadedDocumentWithUrl[]) => vo
 
     try {
       setLoading(true);
-      // Define the statuses to filter out
-      const statusesToFilterOut = ["uploading", "Created", "In Progress", "Skipped", "Failed"];
       const documents: UploadedDocument[] = await getDocumentsApi(accessToken, Number(caseId), userRole);
-      const filteredDocuments = documents.filter(doc => !statusesToFilterOut.includes(doc.status));
+      const filteredDocuments = documents.filter(doc => doc.status === "Success");
       const documentsWithUrl: UploadedDocumentWithUrl[] = filteredDocuments.map(doc => ({
         ...doc,
         document: new Blob(),
@@ -554,26 +552,27 @@ const CaseDocumentRightPanel: React.FC = () => {
       </div>
 
       {/* Document display section */}
-      <div className="case-document-display-section">
-        <div className="case-document-section-header">
-          <QText level="large">{t("CaseDocument")}</QText>
-          <div className="case-document-section-search">
-            <Input
-              placeholder={t("InputFileNameToSearch")}
-              className="case-document-section-search-input"
-              onChange={handleSearchChange}
-              onPressEnter={handleSearch}
-              value={searchQuery}
-            />
-            <Button onClick={handleSearch} className="case-document-section-search-button" size="large">
-              {t("Search")}
-            </Button>
-          </div>
+      <div className="case-document-section-header">
+        <QText level="large">{t("CaseDocument")}</QText>
+        <div className="case-document-section-search">
+          <Input
+            placeholder={t("InputFileNameToSearch")}
+            className="case-document-section-search-input"
+            onChange={handleSearchChange}
+            onPressEnter={handleSearch}
+            value={searchQuery}
+          />
+          <Button onClick={handleSearch} className="case-document-section-search-button" size="large">
+            {t("Search")}
+          </Button>
         </div>
+      </div>
+      <div className="case-document-display-section">
         <div className="case-document-file-table">
           <Table
             columns={columns}
             dataSource={dataSource}
+            scroll={{ y: 350 }}
             pagination={{
               position: ["bottomCenter"],
               pageSize: 5,
