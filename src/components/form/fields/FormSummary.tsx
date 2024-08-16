@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 
 export function FormSummary() {
   const { t } = useTranslation();
-  const profile: AsylumCaseProfile | undefined = useAppSelector((state) => state.form.applicationCase.profile);
+  const profile: AsylumCaseProfile | undefined = useAppSelector(state => state.form.applicationCase.profile);
 
   if (!profile) {
     return <div>{t("No profile information available")}</div>;
@@ -21,35 +21,35 @@ export function FormSummary() {
     ));
   };
 
-  const items: CollapseProps['items'] = [
+  const items: CollapseProps["items"] = [
     {
-      key: '1',
-      label: t('ApplicantInformation'),
+      key: "1",
+      label: t("ApplicantInformation"),
       children: renderCards(profile.applicant),
     },
     {
-      key: '2',
-      label: t('FamilyInformation'),
+      key: "2",
+      label: t("FamilyInformation"),
       children: renderCards(profile.family),
     },
     {
-      key: '3',
-      label: t('BackgroundInformation'),
+      key: "3",
+      label: t("BackgroundInformation"),
       children: renderCards(profile.background),
     },
     {
-      key: '4',
-      label: t('ApplicationDetails'),
+      key: "4",
+      label: t("ApplicationDetails"),
       children: renderCards(profile.applicationDetails),
     },
     {
-      key: '5',
-      label: t('Signature'),
+      key: "5",
+      label: t("Signature"),
       children: renderCards(profile.signature),
     },
     {
-      key: '6',
-      label: t('Declaration'),
+      key: "6",
+      label: t("Declaration"),
       children: renderCards(profile.declaration),
     },
   ];

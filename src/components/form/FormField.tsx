@@ -65,7 +65,7 @@ export function FormField(props: FormFieldProps) {
   const caseDetails = useAppSelector(state => state.form.applicationCase?.profile);
   const disabledFields = useAppSelector(state => state.form.disabledFields);
   const asylumType = useAppSelector(state => state.form.asylumType);
-  
+
   const placeholder = props.placeholder ? wt(props.placeholder) : "";
 
   const fieldValue = getFieldValue(

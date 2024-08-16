@@ -4,7 +4,9 @@ import { link } from "fs";
 export function getAntTheme() {
   const primaryColor: string = getComputedStyle(document.documentElement).getPropertyValue("--primary-color");
 
-  const primaryColorLight: string = getComputedStyle(document.documentElement).getPropertyValue("--primary-color-light",);
+  const primaryColorLight: string = getComputedStyle(document.documentElement).getPropertyValue(
+    "--primary-color-light",
+  );
 
   const secondaryColor: string = getComputedStyle(document.documentElement).getPropertyValue("--secondary-color");
 
