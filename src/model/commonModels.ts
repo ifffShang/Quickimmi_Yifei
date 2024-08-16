@@ -256,7 +256,7 @@ export interface KeyValues {
 
 export type DocumentCreatedBy = "APPLICANT" | "LAWYER" | "SYSTEM";
 
-export type DocumentStatus = "UPLOADING" | "UPLOADED" | "FAILED";
+export type DocumentStatus = "UPLOADING" | "UPLOADED" | "FAILED" | "SUCCESS";
 
 export type DocumentOperation = "NEW" | "REPLACE";
 

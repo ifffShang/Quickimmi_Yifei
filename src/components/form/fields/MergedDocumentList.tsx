@@ -13,14 +13,13 @@ import {
   uploadFileToPresignUrl,
 } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { useDocumentsOnLoad } from "../../../hooks/commonHooks";
 import { GeneratedDocument } from "../../../model/apiModels";
-import { DocumentType, DocumentTypeMap } from "../../../model/commonModels";
-import { updateGeneratedDocuments } from "../../../reducers/formSlice";
+import { convertToDocumentType, DocumentType } from "../../../model/commonModels";
 import { moveCaseProgressToNextStep } from "../../../utils/progressUtils";
 import { downloadDocument } from "../../../utils/utils";
 import { Status } from "../parts/Status";
 import "./DocumentList.css";
+import { updateGeneratedDocuments, updateMergedDocuments } from "../../../reducers/formSlice";
 
 interface DataType {
   key: number;
@@ -72,63 +71,54 @@ export function MergedDocumentList() {
   const role = useAppSelector(state => state.auth.role);
   const progress = useAppSelector(state => state.form.applicationCase.progress);
   const percentage = useAppSelector(state => state.form.percentage);
-  const generatedDocuments = useAppSelector(state => state.form.generatedDocuments);
+  const mergedDocuments = useAppSelector(state => state.form.mergedDocuments);
   const [loading, setLoading] = useState(false);
   const [replaceLoading, setReplaceLoading] = useState(false);
-  const [readyToCompleteReview, setReadyToCompleteReview] = useState(false);
   const replaceFileControl = useRef<HTMLInputElement | null>(null);
   const [canMerge, setCanMerge] = useState(false);
   const [missingDocs, setMissingDocs] = useState<string[]>([]);
-  useEffect(() => {
-    const checkEligibility = async () => {
-      if (caseId && accessToken) {
-        try {
-          const result = await canMergeDocumentForCase(caseId, accessToken, role);
-          setCanMerge(result.status);
-          if (result.missingFields.length > 0) {
-            setMissingDocs(result.missingFields);
-          }
-        } catch (error) {
-          console.error("Error checking document generation eligibility: ", error);
-        }
-      }
-    };
-    checkEligibility();
-  }, [caseId, accessToken, role]);
-  useDocumentsOnLoad({
-    caseId: caseId,
-    accessToken: accessToken || "",
-    role: role,
-    setLoading: setLoading,
-    dispatch: dispatch,
-    onSuccess: (uploadedDocs: any[]) => {
-      dispatch(updateGeneratedDocuments(uploadedDocs));
-    },
-    replaceLoading: replaceLoading,
-  });
+  const systemMergedDocumentType = { generationType: "SYSTEM_MERGED" };
+  const [allMergeCompleted, setAllMergeCompleted] = useState(false);
 
   useEffect(() => {
-    const checkDocumentsStatus = async () => {
-      if (!caseId || !accessToken) {
-        console.error("Case ID or access token is not available");
-        return;
-      }
-      setLoading(true);
-      try {
-        const documents = await getDocumentsApi(accessToken, caseId, role, {
-          generationType: "SYSTEM_MERGED",
-        });
-        if (documents.every(doc => doc.status === "Success")) {
-          setReadyToCompleteReview(true);
+    if (!accessToken || !caseId || caseId === 0) {
+      console.error("Access token or case id is missing");
+      return;
+    }
+    if (replaceLoading || replaceLoading === undefined || replaceLoading === null) {
+      return;
+    }
+
+    setLoading(true);
+
+    getDocumentsApi(accessToken, caseId, role, systemMergedDocumentType)
+      .then(documents => {
+        if (!documents) {
+          console.error("Failed to get documents");
+          return;
         }
+        const allFinished = !documents.some(doc => doc.status === "In Progress");
+        setAllMergeCompleted(allFinished);
+        dispatch(updateMergedDocuments(documents));
+      })
+      .catch(error => {
         setLoading(false);
-      } catch (error) {
-        console.error("Error generating documents: ", error);
+        console.error(error);
+      });
+
+    canMergeDocumentForCase(caseId, accessToken, role)
+      .then(result => {
+        setCanMerge(result.status);
+        if (result.missingFields.length > 0) {
+          setMissingDocs(result.missingFields);
+        }
+      })
+      .catch(error => {
         setLoading(false);
-      }
-    };
-    checkDocumentsStatus();
-  }, [accessToken, caseId, role]);
+        console.error(error);
+      });
+    setLoading(false);
+  }, [caseId, accessToken, role]);
 
   const onReplaceLinkClick = () => {
     if (replaceFileControl.current) {
@@ -167,6 +157,7 @@ export function MergedDocumentList() {
       return;
     }
     setLoading(true);
+    setAllMergeCompleted(false);
     try {
       await defaultMergeApi(accessToken, caseId, role);
 
@@ -176,22 +167,18 @@ export function MergedDocumentList() {
         role,
         (documents, timeout) => {
           if (timeout) {
-            console.error("Document generation timeout.");
+            console.error("Merge Document timeout.");
+            return true;
           }
           setLoading(false);
           const documentsToUpdate = [...documents];
           const allFinished = documentsToUpdate.every(doc => doc.status === "Success");
+          setAllMergeCompleted(allFinished);
           dispatch(updateGeneratedDocuments(documentsToUpdate));
-          if (allFinished) {
-            setReadyToCompleteReview(true);
-          }
           return allFinished;
         },
-        {
-          generationType: "SYSTEM_MERGED",
-        },
+        systemMergedDocumentType,
       );
-      setLoading(false);
     } catch (error) {
       console.error("Error generating documents: ", error);
       setLoading(false);
@@ -262,7 +249,7 @@ export function MergedDocumentList() {
     }
   };
 
-  const uploadedDocumentsInTable = generatedDocuments
+  const uploadedDocumentsInTable = mergedDocuments
     .filter(doc => doc.generationType === "system_merged")
     .map(doc => {
       return {
@@ -303,14 +290,23 @@ export function MergedDocumentList() {
             {(doc.status === "Success" || doc.status === "uploaded") && (
               <div className="document-list-action">
                 <a onClick={() => onDownloadClick(doc)}>{t("Download")}</a>{" "}
-                <a href="#" onClick={onReplaceLinkClick}>
+                <a
+                  href="#"
+                  onClick={e => {
+                    e.preventDefault();
+                    const input = document.getElementById(`file-upload-${doc.id}`);
+                    if (input) {
+                      input.click();
+                    }
+                  }}
+                >
                   {t("Replace")}
                 </a>
                 <input
                   type="file"
-                  id="file"
+                  id={`file-upload-${doc.id}`}
                   ref={replaceFileControl}
-                  onChange={e => onReplaceFileUpload(e, doc.id, DocumentTypeMap[doc.name])}
+                  onChange={e => onReplaceFileUpload(e, doc.id, convertToDocumentType(doc.type))}
                   style={{ display: "none" }}
                 />
               </div>
@@ -339,7 +335,7 @@ export function MergedDocumentList() {
           type="primary"
           onClick={markLawyerReviewAsCompleted}
           className="document-list-btn"
-          disabled={percentage?.["overall"]?.avg !== 100 || !readyToCompleteReview}
+          disabled={percentage?.["overall"]?.avg !== 100 || !allMergeCompleted}
         >
           {t("Complete Review")}
         </Button>

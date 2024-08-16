@@ -206,7 +206,7 @@ export function DocumentList() {
           file,
           (_percent: number) => {},
           () => {
-            updateDocumentStatus(role, documentId, true, "UPLOADED", accessToken).then(isSuccessful => {
+            updateDocumentStatus(role, documentId, true, "SUCCESS", accessToken).then(isSuccessful => {
               if (isSuccessful) {
                 setReplaceLoading(false);
                 console.log("File uploaded successfully");
@@ -269,14 +269,23 @@ export function DocumentList() {
               {(doc.status === "Success" || doc.status === "uploaded") && (
                 <>
                   <a onClick={() => onDownloadClick(doc)}>{t("Download")}</a>{" "}
-                  <a href="#" onClick={onReplaceLinkClick}>
+                  <a
+                    href="#"
+                    onClick={e => {
+                      e.preventDefault();
+                      const input = document.getElementById(`file-upload-${doc.id}`);
+                      if (input) {
+                        input.click();
+                      }
+                    }}
+                  >
                     {t("Replace")}
                   </a>
                   <input
                     type="file"
-                    id="file"
+                    id={`file-upload-${doc.id}`}
                     ref={replaceFileControl}
-                    onChange={e => onReplaceFileUpload(e, doc.id, convertToDocumentType(doc.name))}
+                    onChange={e => onReplaceFileUpload(e, doc.id, convertToDocumentType(doc.type))}
                     style={{ display: "none" }}
                   />
                 </>
@@ -297,6 +306,12 @@ export function DocumentList() {
         ? t("Documents already generated")
         : "";
 
+  // Logic to determine if the button should be disabled
+  const isFillingApplicationCompleted =
+    progress.steps.find(step => step.name === "FILLING_APPLICATION")?.status === "COMPLETED";
+  const isReviewAndSignCompleted = progress.steps.find(step => step.name === "REVIEW_AND_SIGN")?.status === "COMPLETED";
+  const isGenerateDocumentButtonDisabled = isFillingApplicationCompleted && isReviewAndSignCompleted;
+
   return (
     <div className="document-list">
       <div className="document-list-inner">
@@ -305,7 +320,7 @@ export function DocumentList() {
             type="primary"
             onClick={generateDocument}
             className="document-list-btn"
-            disabled={percentage?.["overall"]?.avg !== 100 || uploadedDocumentsInTable.length > 0}
+            disabled={isGenerateDocumentButtonDisabled}
           >
             {t("Generate Documents")}
           </Button>
