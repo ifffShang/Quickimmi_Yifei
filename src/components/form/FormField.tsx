@@ -36,10 +36,11 @@ import { MultipleTextboxesWithNA } from "./fields/MultipleTextboxesWithNA";
 import { PassportUploader } from "./fields/PassportUploader";
 import { PersonalStatement } from "./fields/PersonalStatement";
 import { SameAddressCheckbox } from "./fields/SameAddressCheckbox";
-import { Section } from "./fields/Section";
 import { SingleFileUploaderV2 } from "./fields/SingleFileUploaderV2";
 import { TextAreaWithAIRefine } from "./fields/TextAreaWithAIRefine";
 import { TextboxWithNA } from "./fields/TextboxWithNA";
+import { FormSummary } from "./fields/FormSummary";
+import { Section } from "./fields/Section";
 
 export interface FormFieldProps {
   fieldKey: string;
@@ -62,9 +63,9 @@ export function FormField(props: FormFieldProps) {
   const { wt, t } = useFormTranslation();
   const dispatch = useAppDispatch();
   const caseDetails = useAppSelector(state => state.form.applicationCase?.profile);
-  const asylumType = useAppSelector(state => state.form.asylumType);
   const disabledFields = useAppSelector(state => state.form.disabledFields);
-
+  const asylumType = useAppSelector(state => state.form.asylumType);
+  
   const placeholder = props.placeholder ? wt(props.placeholder) : "";
 
   const fieldValue = getFieldValue(
@@ -304,16 +305,6 @@ export function FormField(props: FormFieldProps) {
           originLanguage={LanguageEnum.CHINESE}
         />
       );
-    // case "component_personal_statement_in_original_language":
-    //   return (
-    //     <PersonalStatement
-    //       placeholder={placeholder}
-    //       value={fieldValue}
-    //       fieldKey={props.fieldKey}
-    //       onChange={onTextChange}
-    //       originLanguage={"SIMPLIFIED_CHINESE"}
-    //     />
-    //   );
     case "radio":
       return (
         <FormControlContainer fieldValue={fieldValue}>
@@ -540,6 +531,8 @@ export function FormField(props: FormFieldProps) {
       return <MergedDocumentList />;
     case "component_mailing_same_as_residential":
       return <SameAddressCheckbox label={wt(props.label)} />;
+    case "component_view_application_form":
+      return <FormSummary />;
     case "component_entry_records":
       return (
         <FormControlContainer fieldValue={fieldValue}>

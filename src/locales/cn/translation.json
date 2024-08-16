@@ -189,6 +189,8 @@
   "EnterClientEmail": "输入客户的邮箱地址",
   "InputFileNameToSearch": "输入文件名搜索",
 
+  "ApplicantInformation": "申请人信息",
+  "ApplicationDetails": "案件申请详情",
   "CaseProgressTitle": "案件进展",
   "FILLING_APPLICATION": "信息完善",
   "REVIEW_AND_SIGN": "审查签署",
@@ -287,6 +289,7 @@
   "ViewMergedDocuments": "查看最终文件",
   "PersonalStatement": "个人陈述",
   "PersonalStatementInOriginalLanguage": "个人陈述（原文）",
+  "ViewFormSummary": "查看表单",
   "DisableDocDeleteButtonText": "系统生成的文件无法删除",
 
   "IdNumber": "证件号码",

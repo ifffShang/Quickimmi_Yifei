@@ -254,17 +254,6 @@ export interface GetCaseProfileResponse {
   progress: Progress;
 }
 
-export interface AsylumCaseProfile {
-  applyForWithholdingYesCheckbox: string;
-  applicant: Applicant;
-  family: Family;
-  background: Background;
-  applicationDetails: ApplicationDetails;
-  signature: YourSignature;
-  declaration: Declaration;
-  supplementDocument: SupplementDocument;
-}
-
 export interface AsylumCaseProfileOptional {
   applyForWithholdingYesCheckbox?: string;
   applicant?: Applicant;
@@ -279,6 +268,16 @@ export interface AsylumCaseProfileOptional {
   overwriteSiblings?: boolean;
   overwriteAddressHistoriesBeforeUS?: boolean;
   overwriteUsAddressHistoriesPast5Years?: boolean;
+}
+export interface AsylumCaseProfile {
+  applyForWithholdingYesCheckbox: string;
+  applicant: Applicant;
+  family: Family;
+  background: Background;
+  applicationDetails: ApplicationDetails;
+  signature: YourSignature;
+  declaration: Declaration;
+  supplementDocument: SupplementDocument;
 }
 
 export interface Applicant {

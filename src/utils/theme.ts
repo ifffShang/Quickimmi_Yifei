@@ -4,13 +4,13 @@ import { link } from "fs";
 export function getAntTheme() {
   const primaryColor: string = getComputedStyle(document.documentElement).getPropertyValue("--primary-color");
 
-  const primaryColorLight: string = getComputedStyle(document.documentElement).getPropertyValue(
-    "--primary-color-light",
-  );
+  const primaryColorLight: string = getComputedStyle(document.documentElement).getPropertyValue("--primary-color-light",);
 
   const secondaryColor: string = getComputedStyle(document.documentElement).getPropertyValue("--secondary-color");
 
   const linkColor: string = getComputedStyle(document.documentElement).getPropertyValue("--link-color");
+
+  const whiteColor: string = getComputedStyle(document.documentElement).getPropertyValue("--white-color");
 
   const fontWeight: string = getComputedStyle(document.documentElement).getPropertyValue("--font-weight-bold");
 
@@ -89,6 +89,11 @@ export function getAntTheme() {
       Upload: {
         colorPrimary: primaryColor,
         colorPrimaryHover: primaryColorLight,
+      },
+      Collapse: {
+        borderRadiusLG: 4,
+        headerBg: primaryColor,
+        colorTextHeading: whiteColor,
       },
     },
   };
