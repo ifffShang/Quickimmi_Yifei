@@ -39,9 +39,11 @@ function useFetchDocuments(setDocuments: (docs: UploadedDocumentWithUrl[]) => vo
 
     try {
       setLoading(true);
-      const documentsToInclude = ["passport_main", "passport_stamp_pages"];
+      const documentsStatusToInclude = ["Success", "uploaded"];
       const documents: UploadedDocument[] = await getDocumentsApi(accessToken, Number(caseId), userRole);
-      const filteredDocuments = documents.filter(doc => doc.status === "Success" || documentsToInclude.includes(doc.type));
+      const filteredDocuments = documents.filter(
+        doc => documentsStatusToInclude.includes(doc.status)
+      );
       const documentsWithUrl: UploadedDocumentWithUrl[] = filteredDocuments.map(doc => ({
         ...doc,
         document: new Blob(),
