@@ -7,7 +7,6 @@
       "label": "text_ViewApplicationForm",
       "hideHeader": "true",
       "id": "view_form_summary",
-      "key": "form_summary",
       "control": "component_view_application_form"
     }
   ]

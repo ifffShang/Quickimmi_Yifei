@@ -109,7 +109,8 @@ export function hasFormKey(control: ControlType) {
     control !== "removable_section" &&
     control !== "component_mailing_same_as_residential" &&
     control !== "component_list_documents" &&
-    control !== "component_list_merged_documents"
+    control !== "component_list_merged_documents" &&
+    control !== "component_view_application_form"
   );
 }
 
