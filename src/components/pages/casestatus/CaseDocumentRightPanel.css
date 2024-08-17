@@ -4,6 +4,7 @@
 
 .case-document-right-panel {
   overflow-y: auto;
+  max-height: 420px;
 }
 .case-document-file-upload {
   display: flex;
@@ -29,6 +30,7 @@
 
 .case-document-display-section {
   overflow-y: auto;
+  max-height: 420px;
 }
 
 .case-document-section-search-input {
