@@ -6,7 +6,7 @@
     {
       "label": "text_MaritalStatus",
       "id": "maritalStatus",
-      "key": "applicant.maritalStatusSingleCheckbox,applicant.maritalStatusMarriedCheckbox,applicant.maritalStatusDivorcedCheckbox,applicant.maritalStatusWidowedCheckbox,family.spouse.notMarriedCheckbox",
+      "key": "applicant.maritalStatusSingleCheckbox,applicant.maritalStatusMarriedCheckbox,applicant.maritalStatusDivorcedCheckbox,applicant.maritalStatusWidowedCheckbox,applicant.notMarriedCheckbox",
       "control": "select",
       "options": [
         {
