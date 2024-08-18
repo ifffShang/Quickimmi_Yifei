@@ -41,9 +41,7 @@ function useFetchDocuments(setDocuments: (docs: UploadedDocumentWithUrl[]) => vo
       setLoading(true);
       const documentsStatusToInclude = ["Success", "uploaded"];
       const documents: UploadedDocument[] = await getDocumentsApi(accessToken, Number(caseId), userRole);
-      const filteredDocuments = documents.filter(
-        doc => documentsStatusToInclude.includes(doc.status)
-      );
+      const filteredDocuments = documents.filter(doc => documentsStatusToInclude.includes(doc.status));
       const documentsWithUrl: UploadedDocumentWithUrl[] = filteredDocuments.map(doc => ({
         ...doc,
         document: new Blob(),
