@@ -10,6 +10,7 @@ interface FillingApplicationSectionProps {
   handleToggleExpand: (stepName: string) => void;
   isLawyer: boolean;
   t: any;
+  onCaseSummaryUpdate: () => void;
 }
 
 const FillingApplicationSection: React.FC<FillingApplicationSectionProps> = ({
@@ -18,6 +19,7 @@ const FillingApplicationSection: React.FC<FillingApplicationSectionProps> = ({
   handleToggleExpand,
   isLawyer,
   t,
+  onCaseSummaryUpdate
 }) => {
   const { id } = useParams<{ id?: string }>();
   const navigate = useNavigate();
@@ -151,6 +153,7 @@ const FillingApplicationSection: React.FC<FillingApplicationSectionProps> = ({
                       isLawyer={isLawyer}
                       substepName={"FILLING_DETAILS"}
                       substepMetadata={metadata.percentage[field]}
+                      onCaseSummaryUpdate={onCaseSummaryUpdate}
                     />
                   </div>
                 </div>

@@ -66,6 +66,9 @@ export function RegisterInterviewTimeLocationModal({ modalData }: RegisterInterv
       currentSubStepMetadata,
     );
     if (success) {
+      if (modalData.onCaseSummaryUpdate) {
+        modalData.onCaseSummaryUpdate();
+      }
       dispatch(closeModal());
     }
   };

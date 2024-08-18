@@ -65,6 +65,9 @@ export function RegisterFingerprintTimeLocationModal({ modalData }: RegisterFing
       currentSubStepMetadata,
     );
     if (success) {
+      if (modalData.onCaseSummaryUpdate) {
+        modalData.onCaseSummaryUpdate();
+      }
       dispatch(closeModal());
     }
   };

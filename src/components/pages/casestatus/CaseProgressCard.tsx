@@ -9,6 +9,7 @@ import ProgressSection from "./ProgressSection";
 
 interface CaseProgressCardProps {
   caseSummary: CaseSummary;
+  onCaseSummaryUpdate: () => void;
 }
 
 const { Step } = Steps;
@@ -28,7 +29,7 @@ function findFirstInProgressSubstep(steps: { substeps: { name: string; status: s
   return null;
 }
 
-const CaseProgressCard: React.FC<CaseProgressCardProps> = ({ caseSummary }) => {
+const CaseProgressCard: React.FC<CaseProgressCardProps> = ({ caseSummary, onCaseSummaryUpdate }) => {
   const { t } = useTranslation();
   const { progress } = caseSummary;
 
@@ -83,6 +84,7 @@ const CaseProgressCard: React.FC<CaseProgressCardProps> = ({ caseSummary }) => {
           progress={progress}
           expandedStep={expandedStep}
           setExpandedStep={setExpandedStep}
+          onCaseSummaryUpdate={onCaseSummaryUpdate}
         />
       </Card>
     </Card>

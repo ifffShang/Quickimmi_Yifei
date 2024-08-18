@@ -11,9 +11,10 @@ interface ProgressSectionProps {
   progress: CaseSummary["progress"];
   expandedStep: string | null;
   setExpandedStep: React.Dispatch<React.SetStateAction<string | null>>;
+  onCaseSummaryUpdate: () => void;
 }
 
-const ProgressSection: React.FC<ProgressSectionProps> = ({ currentStep, progress, expandedStep, setExpandedStep }) => {
+const ProgressSection: React.FC<ProgressSectionProps> = ({ currentStep, progress, expandedStep, setExpandedStep, onCaseSummaryUpdate }) => {
   const { t } = useTranslation();
   const isLawyer = useAppSelector(state => state.auth.isLawyer);
 
@@ -33,6 +34,7 @@ const ProgressSection: React.FC<ProgressSectionProps> = ({ currentStep, progress
         handleToggleExpand={handleToggleExpand}
         isLawyer={isLawyer}
         t={t}
+        onCaseSummaryUpdate={onCaseSummaryUpdate}
       />
     );
   }
@@ -45,6 +47,7 @@ const ProgressSection: React.FC<ProgressSectionProps> = ({ currentStep, progress
       isLawyer={isLawyer}
       t={t}
       progress={progress}
+      onCaseSummaryUpdate={onCaseSummaryUpdate}
     />
   );
 };

@@ -9,6 +9,7 @@ interface OtherStepsSectionProps {
   isLawyer: boolean;
   t: any;
   progress: any;
+  onCaseSummaryUpdate: () => void;
 }
 
 const OtherStepsSection: React.FC<OtherStepsSectionProps> = ({
@@ -18,6 +19,7 @@ const OtherStepsSection: React.FC<OtherStepsSectionProps> = ({
   isLawyer,
   t,
   progress,
+  onCaseSummaryUpdate,
 }) => {
   return (
     <div className="progress-section">
@@ -43,6 +45,7 @@ const OtherStepsSection: React.FC<OtherStepsSectionProps> = ({
                   substepMetadata={substep.metadata ? JSON.parse(substep.metadata) : null}
                   substepStatus={substep.status}
                   progressSteps={progress.steps}
+                  onCaseSummaryUpdate={onCaseSummaryUpdate}
                 />
               </div>
             </div>

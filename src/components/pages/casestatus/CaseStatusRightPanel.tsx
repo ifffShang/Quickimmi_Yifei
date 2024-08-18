@@ -64,12 +64,16 @@ function useFetchCaseSummary() {
     fetchCaseSummary();
   }, [fetchCaseSummary]);
 
-  return { loading, error, caseSummary };
+  return { loading, error, caseSummary, setCaseSummary, fetchCaseSummary};
 }
 
 export function CaseStatusRightPanel() {
-  const { loading, error, caseSummary } = useFetchCaseSummary();
+  const { loading, error, caseSummary, setCaseSummary, fetchCaseSummary} = useFetchCaseSummary();
   const { t } = useTranslation();
+
+  const handleCaseSummaryUpdate = () => {
+    fetchCaseSummary();
+  };
 
   if (loading) {
     return <Loading />;
@@ -86,7 +90,7 @@ export function CaseStatusRightPanel() {
   return (
     <div className="caseStatus">
       <CaseSummaryCard caseSummary={caseSummary} />
-      <CaseProgressCard caseSummary={caseSummary} />
+      <CaseProgressCard caseSummary={caseSummary} onCaseSummaryUpdate={handleCaseSummaryUpdate} />
     </div>
   );
 }

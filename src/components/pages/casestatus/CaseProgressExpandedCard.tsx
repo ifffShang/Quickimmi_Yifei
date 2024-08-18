@@ -19,6 +19,7 @@ interface ExpandedCardProps {
     status: string;
     substeps: { name: string; status: string }[];
   }[];
+  onCaseSummaryUpdate: () => void;
 }
 
 const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
@@ -27,6 +28,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
   substepMetadata,
   substepStatus = null,
   progressSteps = null,
+  onCaseSummaryUpdate,
 }) => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
@@ -180,6 +182,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
           modalData: {
             progressSteps: progressSteps,
             substepName: substepName,
+            onCaseSummaryUpdate, 
           },
         }),
       );
