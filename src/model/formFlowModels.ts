@@ -77,5 +77,6 @@ export type ControlType =
   | "component_textarea_ai_refine"
   | "component_personal_statement"
   | "component_personal_statement_in_original_language"
+  | "component_view_application_form"
   | "percentage" // used only for percentage calculation
   | "multi_file_uploader_new"; // WIP!!! DON'T USE!!!;

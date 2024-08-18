@@ -12,6 +12,8 @@ export function getAntTheme() {
 
   const linkColor: string = getComputedStyle(document.documentElement).getPropertyValue("--link-color");
 
+  const whiteColor: string = getComputedStyle(document.documentElement).getPropertyValue("--white-color");
+
   const fontWeight: string = getComputedStyle(document.documentElement).getPropertyValue("--font-weight-bold");
 
   const theme: ThemeConfig = {
@@ -22,6 +24,7 @@ export function getAntTheme() {
     components: {
       Menu: {
         itemSelectedColor: primaryColor,
+        itemSelectedBg: primaryColorLight,
       },
       Button: {
         colorPrimary: primaryColor,
@@ -88,6 +91,11 @@ export function getAntTheme() {
       Upload: {
         colorPrimary: primaryColor,
         colorPrimaryHover: primaryColorLight,
+      },
+      Collapse: {
+        borderRadiusLG: 4,
+        headerBg: primaryColor,
+        colorTextHeading: whiteColor,
       },
     },
   };

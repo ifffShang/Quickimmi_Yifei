@@ -4,7 +4,6 @@
 
 .case-document-right-panel {
   overflow-y: auto;
-  max-height: 420px;
 }
 .case-document-file-upload {
   display: flex;
@@ -28,11 +27,6 @@
   margin-top: 10px;
 }
 
-.case-document-display-section {
-  overflow-y: auto;
-  max-height: 420px;
-}
-
 .case-document-section-search-input {
   width: 400px;
 }
@@ -43,8 +37,13 @@
   height: 40px;
   width: 100px;
 }
-.case-document-file-table {
+
+.case-document-display-section {
   margin-top: 18px;
+  overflow-y: auto;
+  max-height: 350px;
+}
+.case-document-file-table {
   max-height: 500px;
 }
 
