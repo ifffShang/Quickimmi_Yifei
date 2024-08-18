@@ -46,6 +46,9 @@
 .case-document-file-table {
   max-height: 500px;
 }
+.ant-table-pagination-center {
+  margin: 4px 0 !important;
+}
 
 .upload-modal-container {
   margin: auto;
