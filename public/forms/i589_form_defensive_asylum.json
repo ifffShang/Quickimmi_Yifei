@@ -103,9 +103,15 @@
       "steps": [
         {
           "label": "text_AsylumClaim",
-          "id": "asylum_information",
+          "id": "asylum_asylum_claim",
           "type": "level2",
           "referenceId": "i589_fields_asylum_claim"
+        },
+        {
+          "label": "text_AdditionalInformation",
+          "id": "asylum_additional_information",
+          "type": "level2",
+          "referenceId": "i589_fields_additional_information"
         }
       ]
     },

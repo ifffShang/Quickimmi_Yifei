@@ -50,17 +50,10 @@
           "maxChildPerRow": "3",
           "fields": [
             {
-              "label": "text_PassportNumber",
-              "placeholder": "text_PassportNumber",
+              "label": "text_PassportOrOtherIDNumber",
+              "placeholder": "text_PassportOrOtherIDNumber",
               "id": "children_passport_number",
               "key": "family.children[].passportNumber",
-              "control": "component_textbox_na"
-            },
-            {
-              "label": "text_TravelDocumentNumber",
-              "placeholder": "text_TravelDocumentNumber",
-              "id": "children_travel_document_number",
-              "key": "family.children[].travelDocumentNumber",
               "control": "component_textbox_na"
             }
           ]
@@ -107,13 +100,6 @@
               "control": "text"
             }
           ]
-        },
-        {
-          "label": "text_NamesUsedBeforeLabel",
-          "placeholder": "text_NamesUsedBefore",
-          "id": "other_names_Children",
-          "key": "family.children[].namesUsedBefore",
-          "control": "component_multi_textboxes_na"
         },
         {
           "label": "text_MartialStatus",
@@ -180,14 +166,6 @@
               "key": "family.children[].nationality",
               "control": "select",
               "options": "NationalityOptions"
-            },
-            {
-              "label": "text_NationalityAtBirth",
-              "placeholder": "text_NationalityAtBirth",
-              "id": "nationality_at_birth",
-              "key": "family.children[].nationalityAtBirth",
-              "control": "select",
-              "options": "NationalityOptions"
             }
           ]
         },
@@ -226,11 +204,10 @@
         {
           "label": "",
           "id": "PartA.II.13",
-          "visibility": "family.children[].personInUSNoCheckbox=true",
           "control": "section",
           "fields": [
             {
-              "label": "text_SpecifyLocationIfNotInUS",
+              "label": "text_SpecifyLocation",
               "id": "children_location_not_in_us",
               "key": "family.children[].specifyLocationIfNotInUS",
               "control": "text"
@@ -267,13 +244,15 @@
               "placeholder": "text_VisaTypeIfAny",
               "id": "children_last_admitted_status",
               "key": "family.children[].lastAdmittedStatus",
-              "control": "text"
+              "control": "select",
+              "options": "EntryRecordStatus"
             },
             {
               "label": "text_WhatsChildCurrentStatus",
               "id": "children_current_status",
               "key": "family.children[].currentStatus",
-              "control": "text"
+              "control": "select",
+              "options": "EntryRecordStatus"
             },
             {
               "label": "text_WhatsExpirationDate",

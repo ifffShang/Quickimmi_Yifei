@@ -36,6 +36,7 @@ export interface FormState {
   documentUrls: any[];
   uploadedDocuments: UploadedDocumentWithUrl[];
   generatedDocuments: GeneratedDocument[];
+  mergedDocuments: GeneratedDocument[];
   highlightMissingFields: boolean;
   disabledFields: KeyValues;
 }
@@ -50,6 +51,7 @@ const initialState: FormState = {
   documentUrls: [],
   uploadedDocuments: [],
   generatedDocuments: [],
+  mergedDocuments: [],
   asylumType: "AFFIRMATIVE",
   highlightMissingFields: false,
   disabledFields: {},
@@ -359,6 +361,9 @@ export const formSlice = createSlice({
     updateGeneratedDocuments: (state, action: PayloadAction<GeneratedDocument[]>) => {
       state.generatedDocuments = action.payload;
     },
+    updateMergedDocuments: (state, action: PayloadAction<GeneratedDocument[]>) => {
+      state.mergedDocuments = action.payload;
+    },
     incrementSaveTimes: state => {
       state.saveTimes++;
     },
@@ -387,6 +392,7 @@ export const {
   clearDocumentUrls,
   updateUploadedDocuments,
   updateGeneratedDocuments,
+  updateMergedDocuments,
   updateAsylumType,
   updateHighlightMissingFields,
   incrementSaveTimes,

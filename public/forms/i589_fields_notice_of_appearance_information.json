@@ -43,8 +43,8 @@
       "maxChildPerRow": "3",
       "fields": [
         {
-          "label": "text_Street",
-          "placeholder": "text_Street",
+          "label": "text_Address",
+          "placeholder": "text_Address",
           "id": "hearing_court_address_street",
           "key": "supplementDocument.masterHearingDetail.courtAddress",
           "control": "text"

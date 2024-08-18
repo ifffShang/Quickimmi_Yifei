@@ -54,7 +54,7 @@
         },
         {
           "label": "text_PassportOrOtherIDNumber",
-          "placeholder": "text_PassportNumber",
+          "placeholder": "text_PassportOrOtherIDNumber",
           "id": "spouse_passport_number",
           "key": "family.spouse.passportNumber",
           "control": "component_textbox_na"
@@ -73,10 +73,10 @@
           "maxChildPerRow": "3",
           "fields": [
             {
-              "label": "text_LastName",
-              "placeholder": "text_LastName",
-              "id": "spouse_last_name",
-              "key": "family.spouse.lastName",
+              "label": "text_FirstName",
+              "placeholder": "text_FirstName",
+              "id": "spouse_first_name",
+              "key": "family.spouse.firstName",
               "control": "text"
             },
             {
@@ -87,10 +87,10 @@
               "control": "component_textbox_na"
             },
             {
-              "label": "text_FirstName",
-              "placeholder": "text_FirstName",
-              "id": "spouse_first_name",
-              "key": "family.spouse.firstName",
+              "label": "text_LastName",
+              "placeholder": "text_LastName",
+              "id": "spouse_last_name",
+              "key": "family.spouse.lastName",
               "control": "text"
             }
           ]
@@ -177,6 +177,21 @@
           "label": "",
           "hideHeader": "true",
           "id": "PartA.II.15.",
+          "control": "section",
+          "fields": [
+            {
+              "label": "text_SpecifyLocation",
+              "placeholder": "text_SpecifyLocation",
+              "id": "spouse_location_not_in_us",
+              "key": "family.spouse.specifyLocationIfNotInUS",
+              "control": "text"
+            }
+          ]
+        },
+        {
+          "label": "",
+          "hideHeader": "true",
+          "id": "PartA.II.15.",
           "visibility": "family.spouse.personInUSYesCheckbox=true",
           "control": "section",
           "fields": [
@@ -205,20 +220,22 @@
               "placeholder": "text_VisaTypeIfAny",
               "id": "spouse_last_admitted_status",
               "key": "family.spouse.lastAdmittedStatus",
-              "control": "text"
+              "control": "select",
+              "options": "EntryRecordStatus"
             },
             {
               "label": "text_WhatsSpouseCurrentStatus",
               "id": "spouse_current_status",
               "key": "family.spouse.currentStatus",
-              "control": "text"
+              "control": "select",
+              "options": "EntryRecordStatus"
             },
             {
               "label": "text_WhatsExpirationDate",
               "placeholder": "text_MM/DD/YYYY",
               "id": "spouse_status_expire_date",
               "key": "family.spouse.statusExpireDate",
-              "control": "datepicker"
+              "control": "datepickerWithNA"
             },
             {
               "label": "text_IsSpouseImmigrationCourt",
@@ -243,7 +260,7 @@
               "placeholder": "text_MM/DD/YYYY",
               "id": "spouse_previous_arrival_date",
               "key": "family.spouse.previousArrivalDate",
-              "control": "datepicker"
+              "control": "datepickerWithNA"
             },
             {
               "label": "text_IsSpouseIncludedInApplication",
@@ -263,22 +280,6 @@
                   "keyValue": "false,true"
                 }
               ]
-            }
-          ]
-        },
-        {
-          "label": "",
-          "hideHeader": "true",
-          "id": "PartA.II.15.",
-          "visibility": "family.spouse.personInUSNoCheckbox=true",
-          "control": "section",
-          "fields": [
-            {
-              "label": "text_SpecifyLocationIfNotInUS",
-              "placeholder": "text_SpecifyLocationIfNotInUS",
-              "id": "spouse_location_not_in_us",
-              "key": "family.spouse.specifyLocationIfNotInUS",
-              "control": "text"
             }
           ]
         },

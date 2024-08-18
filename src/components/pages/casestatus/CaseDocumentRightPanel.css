@@ -2,6 +2,10 @@
   padding: 16px 24px !important;
 }
 
+.case-document-right-panel {
+  overflow-y: auto;
+  max-height: 420px;
+}
 .case-document-file-upload {
   display: flex;
   flex-direction: column;
