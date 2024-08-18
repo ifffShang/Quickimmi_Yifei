@@ -63,6 +63,9 @@ export function RegisterApplicationFinalResultReceiptModal({
       currentSubStepMetadata,
     );
     if (success) {
+      if (modalData.onCaseSummaryUpdate) {
+        modalData.onCaseSummaryUpdate();
+      }
       dispatch(closeModal());
     }
   };

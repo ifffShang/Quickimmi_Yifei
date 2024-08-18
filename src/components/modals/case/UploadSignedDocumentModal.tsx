@@ -54,6 +54,9 @@ export function UploadSignedDocumentModal({ modalData }: UploadSignedDocumentMod
       currentSubStepMetadata,
     );
     if (success) {
+      if (modalData.onCaseSummaryUpdate) {
+        modalData.onCaseSummaryUpdate();
+      }
       dispatch(closeModal());
     }
   };
