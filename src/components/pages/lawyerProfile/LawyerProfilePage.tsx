@@ -170,7 +170,7 @@ export function LawyerProfilePage() {
       setLoading(false);
       return;
     }
-    // setLoading(true);
+    setLoading(true);
     try {
       const updateLawyerRequest: UpdateLawyerRequest = {
         id: lawyerInfo.id,
@@ -190,7 +190,7 @@ export function LawyerProfilePage() {
     } catch (err) {
       console.error(err);
     } finally {
-      // setLoading(false);
+      setLoading(false);
       console.log(lawyerInfo);
     }
   };
@@ -241,7 +241,7 @@ export function LawyerProfilePage() {
             placeholder={t("phoneNumber")}
             value={lawyerInfo.phoneNumber}
             fieldKey={"lawyerInfo.phoneNumber"}
-            onChange={getOnChangeHandler(["phoneNumber", "profile.basicInfo.firstName"])}
+            onChange={getOnChangeHandler(["phoneNumber"])}
           />
           <QTextBox
             placeholder={t("daytimeTelephoneNumber")}
