@@ -1,0 +1,100 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: auto;
+}
+
+.progress-section {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border: 1px solid #f0f0f0;
+  border-radius: 4px;
+  background-color: #fafafa;
+  margin-top: 16px;
+  overflow-y: auto;
+  max-height: 200px;
+}
+
+.progress-content {
+  margin-left: 16px;
+  flex: 1;
+}
+
+.ant-steps-item-icon {
+  margin-left: 35px !important;
+}
+.ant-steps-item-content {
+  margin-top: 0 !important;
+}
+.ant-steps-item-title {
+  line-height: 24px !important;
+}
+
+.progress-header {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.progress-body {
+  font-size: 14px;
+  color: #595959;
+  margin-bottom: 16px;
+}
+
+.progress-actions button {
+  margin-right: 8px;
+}
+
+.progress-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+}
+
+.progress-item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.progress-title {
+  margin-left: 8px;
+}
+
+.progress-line {
+  width: 2px;
+  height: 20px;
+  background: repeating-linear-gradient(transparent, transparent 2px, #d9d9d9 2px, #d9d9d9 4px);
+  margin-left: 9px;
+}
+
+.expanded-card-container {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  position: relative;
+}
+
+.expanded-card-container .extended-line {
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.expanded-card {
+  width: 100%;
+  margin-left: 28px;
+  margin-top: 15px;
+}
+
+.expanded-card .ant-card {
+  background-color: #fff;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  width: calc(100% - 28px);
+}

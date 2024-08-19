@@ -1,10 +1,15 @@
 .form-content {
+  display: flex;
   position: relative;
   width: 100%;
   font-size: var(--font-size-p2);
-  flex-grow: 1;
-  overflow-y: auto;
   max-width: 1200px;
+}
+
+.form-content-form-container {
+  flex-grow: 1;
+  height: calc(100vh - 250px); /* Adjust according to your layout */
+  overflow: hidden;
 }
 
 .form-content-header {
@@ -23,8 +28,11 @@
 }
 
 .form-content-form {
-  padding: 40px;
+  height: calc(100% - 200px); /* Adjust according to your layout */
+  padding: 20px 40px;
   background-color: var(--white-color);
+  border-radius: 0 0 10px 10px;
+  overflow-y: auto;
 }
 
 .xsmall .form-content-form,
@@ -36,12 +44,18 @@
   margin-bottom: 40px;
 }
 
+.form-content-controls-container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+}
+
 .form-content-controls {
   display: flex;
   justify-content: space-between;
   padding: 20px 40px;
   background-color: var(--white-color);
-  border-radius: 0 0 10px 10px;
   border-top: 1px solid var(--gray-color-4);
 }
 
@@ -51,5 +65,27 @@
 }
 
 .form-content-controls button {
+  min-width: 100px;
+}
+
+.email-modal {
+  top: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50rem;
+}
+
+.email-modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.email-input {
+  margin-bottom: 20px;
+}
+
+.email-send-button {
   width: 100px;
 }

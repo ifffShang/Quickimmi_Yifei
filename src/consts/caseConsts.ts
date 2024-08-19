@@ -1,8 +1,17 @@
-import { ApplicationCase } from "../model/apiModels";
+import {
+  AddressHistory,
+  ApplicationCase,
+  Child,
+  EntryRecord,
+  FamilyMember,
+  MasterHearingDetail,
+  Spouse,
+  SupplementDocument,
+} from "../model/apiModels";
 
 export const InitialApplicant = {
   passportDocumentId: 0,
-  aNumber: "",
+  alienNumber: "",
   ssn: "",
   uscisOnlineAccountNumber: "",
   lastName: "",
@@ -53,29 +62,8 @@ export const InitialApplicant = {
   otherFluentLanguages: "",
   haveNoChildrenCheckbox: null,
   haveChildrenCheckbox: null,
-  childrenCnt: "",
+  childrenCnt: 0,
   notMarriedCheckbox: null,
-};
-
-export const InitialFamily = {
-  mother: {
-    part: "",
-    question: "",
-    name: "",
-    cityTownAndBirth: "",
-    location: "",
-    deceasedCheckbox: "",
-  },
-  father: {
-    part: "",
-    question: "",
-    name: "",
-    cityTownAndBirth: "",
-    location: "",
-    deceasedCheckbox: "",
-  },
-  children: [],
-  siblings: [],
 };
 
 export const InitialBackground = {
@@ -185,6 +173,130 @@ export const InitialDeclaration = {
   attorneyUscisOnlineAccountNumber: "",
 };
 
+export const InitialMasterHearingDetail: MasterHearingDetail = {
+  noticeOfAppearDate: "",
+  courtAddress: "",
+  courtZipCode: "",
+  courtCity: "",
+  courtState: "",
+  judgeName: "",
+  hearingDate: "",
+  hearingTime: "",
+};
+
+export const InitialSupplementDocument: SupplementDocument = {
+  personalStatement: "",
+  personalStatementInOriginalLanguage: "",
+  explainHaveBeenHarmedYesSupportDocuments: [],
+  explainFearReturnYesSupportDocuments: [],
+  explainFamilyMembersBeenChargedYesSupportDocuments: [],
+  explainYouOrFamilyContinueBelongAnyOrganizationYesSupportDocuments: [],
+  explainAfraidOfReturnYesSupportDocuments: [],
+  explainAppliedBeforeYesSupportDocuments: [],
+  explainAnyLawfulStatusAnyCountryYesSupportDocuments: [],
+  explainHaveYouHarmOthersYesSupportDocuments: [],
+  explainReturnCountryYesSupportDocuments: [],
+  explainMoreThanOneYearAfterArrivalYesSupportDocuments: [],
+  explainHaveCommittedCrimeYesSupportDocuments: [],
+  marriageCertificateDocument: -1,
+  i94Document: -1,
+  masterHearingDetail: InitialMasterHearingDetail,
+  marriageCertificate: null,
+};
+
+export const InitialChild: Child = {
+  passportDocumentId: "",
+  alienNumber: "",
+  passportNumber: "",
+  martialStatus: "",
+  ssn: "",
+  lastName: "",
+  firstName: "",
+  middleName: "",
+  birthDate: "",
+  cityAndCountryOfBirth: "",
+  nationality: "",
+  race: "",
+  genderMaleCheckbox: null,
+  genderFemaleCheckbox: null,
+  personInUSYesCheckbox: null,
+  personInUSNoCheckbox: null,
+  specifyLocationIfNotInUS: "",
+  placeLastEntryIntoUS: "",
+  lastEntryUSDate: "",
+  i94Number: "",
+  lastAdmittedStatus: "",
+  currentStatus: "",
+  statusExpireDate: "",
+  immigrationCourtProceedingYesCheckbox: null,
+  immigrationCourtProceedingNoCheckbox: null,
+  inThisApplicationYesCheckbox: null,
+  inThisApplicationNoCheckbox: null,
+};
+
+export const InitialSpouse: Spouse = {
+  passportDocumentId: "",
+  notMarriedCheckbox: "",
+  alienNumber: "",
+  passportNumber: "",
+  birthDate: "",
+  ssn: "",
+  lastName: "",
+  firstName: "",
+  middleName: "",
+  namesUsedBefore: "",
+  marriageDate: "",
+  marriagePlace: "",
+  cityAndCountryOfBirth: "",
+  nationality: "",
+  race: "",
+  genderMaleCheckbox: null,
+  genderFemaleCheckbox: null,
+  personInUSYesCheckbox: null,
+  personInUSNoCheckbox: null,
+  specifyLocationIfNotInUS: "",
+  placeLastEntryIntoUS: "",
+  lastEntryUSDate: "",
+  i94Number: "",
+  lastAdmittedStatus: "",
+  currentStatus: "",
+  statusExpireDate: "",
+  immigrationCourtProceedingYesCheckbox: null,
+  immigrationCourtProceedingNoCheckbox: null,
+  previousArrivalDate: "",
+  inThisApplicationYesCheckbox: null,
+  inThisApplicationNoCheckbox: null,
+};
+
+export const InitialFamilyMember: FamilyMember = {
+  name: "",
+  cityTownAndBirth: "",
+  location: "",
+  deceasedCheckbox: "",
+};
+
+export const InitialFamily = {
+  mother: {
+    part: "",
+    question: "",
+    name: "",
+    cityTownAndBirth: "",
+    location: "",
+    deceasedCheckbox: "",
+  },
+  father: {
+    part: "",
+    question: "",
+    name: "",
+    cityTownAndBirth: "",
+    location: "",
+    deceasedCheckbox: "",
+  },
+  children: [],
+  siblings: [],
+  spouse: InitialSpouse,
+};
+
 export const InitialApplicationCase: ApplicationCase = {
   id: 0,
   userId: 0,
@@ -199,6 +311,7 @@ export const InitialApplicationCase: ApplicationCase = {
   uscisReceiptNumber: "",
   paid: false,
   assignedLawyer: 0,
+  progress: { steps: [] },
   profile: {
     applyForWithholdingYesCheckbox: "",
     applicant: InitialApplicant,
@@ -207,5 +320,51 @@ export const InitialApplicationCase: ApplicationCase = {
     applicationDetails: InitialApplicationDetails,
     signature: InitialSignature,
     declaration: InitialDeclaration,
+    supplementDocument: InitialSupplementDocument,
   },
+};
+
+export const InitialEntryRecord: EntryRecord = {
+  date: "",
+  city: "",
+  state: "",
+  status: "",
+};
+
+export const InitialAddressHistoryBeforeUS: AddressHistory = {
+  numberAndStreet: "",
+  city: "",
+  province: "",
+  country: "",
+  startDate: "",
+  endDate: "",
+};
+
+export const InitialUSAddressHistoryPast5Y: AddressHistory = {
+  numberAndStreet: "",
+  city: "",
+  province: "",
+  country: "",
+  startDate: "",
+  endDate: "",
+};
+
+export const InitialEducationHistory = {
+  schoolName: "",
+  schoolType: "",
+  location: "",
+  startDate: "",
+  endDate: "",
+};
+
+export const InitialEmploymentHistory = {
+  nameAndAddress: "",
+  occupation: "",
+  startDate: "",
+  endDate: "",
+};
+
+export const InitialMember = {
+  name: "",
+  relationship: "",
 };

@@ -1,9 +1,7 @@
 .textbox-na {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  margin-top: 10px;
+  justify-content: flex-start;
+  align-items: center;
   gap: 10px;
 }
 

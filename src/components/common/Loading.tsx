@@ -1,9 +1,9 @@
 import { Spin } from "antd";
 import "./Loading.css";
-import { Loading3QuartersOutlined } from "@ant-design/icons";
 
 export interface LoadingProps {
   text?: string;
+  size?: "small" | "default" | "large";
 }
 
 /**
@@ -14,6 +14,15 @@ export interface LoadingProps {
 export function Loading(props: LoadingProps) {
   return (
     <div className="loading">
+      <Spin size={props.size || "default"} />
+      <p>{props.text || ""}</p>
+    </div>
+  );
+}
+
+export function CentralizedLoading(props: LoadingProps) {
+  return (
+    <div className="loading centralized-loading">
       <Spin />
       <p>{props.text || ""}</p>
     </div>

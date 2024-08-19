@@ -1,7 +1,6 @@
 import Link from "antd/es/typography/Link";
 import { LeftOutlined } from "@ant-design/icons";
 import "./Links.css";
-import { QText } from "./Fonts";
 
 export interface QLinkProps {
   onClick?: () => void;
@@ -22,21 +21,18 @@ export function QLink(props: QLinkProps) {
 }
 
 export interface QReturnLinkProps {
-  text: string;
+  text: React.ReactNode | string;
   onClick?: () => void;
   margin?: string;
 }
 
 export function QReturnLink(props: QReturnLinkProps) {
   return (
-    <div
-      className="qlink-return-container"
-      style={{ margin: props.margin || "" }}
-    >
+    <div className="qlink-return-container" style={{ margin: props.margin || "" }}>
       <QLink onClick={props.onClick}>
         <div className="qlink-return">
           <LeftOutlined />
-          <QText>{props.text}</QText>
+          {props.text}
         </div>
       </QLink>
     </div>

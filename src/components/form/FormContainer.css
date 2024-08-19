@@ -4,13 +4,19 @@
   gap: 10px;
   background-color: var(--gray-color-4);
   height: 100%;
-  padding: 60px 40px 0 40px;
+  padding: 0px 40px 0 40px;
   box-sizing: border-box;
 }
 
 .xsmall .form-flow,
 .small .form-flow {
   padding: 10px 0;
+}
+
+.form-top {
+  margin: 0 auto;
+  max-width: 1460px;
+  width: 100%;
 }
 
 .form-flow-icon {
@@ -32,7 +38,8 @@
 
 .form-flow-content {
   display: flex;
+  flex-grow: 1;
   justify-content: center;
   gap: 10px;
-  overflow-y: auto;
+  overflow-y: hidden;
 }

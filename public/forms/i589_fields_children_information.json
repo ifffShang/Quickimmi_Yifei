@@ -1,0 +1,328 @@
+{
+  "id": "i589_fields_children_information",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    {
+      "label": "text_HaveChildren",
+      "id": "have_children",
+      "key": "applicant.haveChildrenCheckbox,applicant.haveNoChildrenCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "no",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_Child",
+      "hideHeader": "true",
+      "id": "children_form",
+      "visibility": "applicant.haveChildrenCheckbox=true",
+      "key": "applicant.childrenCnt-family.children",
+      "control": "removable_section",
+      "fields": [
+        {
+          "label": "text_ChildUploadPassport",
+          "placeholder": "text_ChildUploadPassport",
+          "id": "children_upload_passport",
+          "key": "family.children[].passportDocumentId",
+          "control": "component_passport_uploader"
+        },
+        {
+          "label": "text_UploadPassportStampPages",
+          "id": "children_passport_stamp_page_documents",
+          "key": "family.children[].passportStampPageDocumentIds",
+          "control": "multi_file_uploader",
+          "documentType": "PASSPORT_STAMP_PAGES"
+        },
+        {
+          "label": "text_IdNumber",
+          "id": "name",
+          "control": "group",
+          "maxChildPerRow": "3",
+          "fields": [
+            {
+              "label": "text_PassportOrOtherIDNumber",
+              "placeholder": "text_PassportOrOtherIDNumber",
+              "id": "children_passport_number",
+              "key": "family.children[].passportNumber",
+              "control": "component_textbox_na"
+            }
+          ]
+        },
+        {
+          "label": "text_AlienRegistrationNumber",
+          "placeholder": "text_EnterIfApplicable",
+          "id": "alienNumber",
+          "key": "family.children[].alienNumber",
+          "control": "component_textbox_na"
+        },
+        {
+          "label": "text_SSN",
+          "placeholder": "text_EnterIfApplicable",
+          "id": "ssn",
+          "key": "family.children[].ssn",
+          "control": "component_textbox_na"
+        },
+        {
+          "label": "text_Name",
+          "id": "children_name",
+          "control": "group",
+          "maxChildPerRow": "3",
+          "fields": [
+            {
+              "label": "text_LastName",
+              "placeholder": "text_LastName",
+              "id": "children_last_name",
+              "key": "family.children[].lastName",
+              "control": "text"
+            },
+            {
+              "label": "text_MiddleName",
+              "placeholder": "text_MiddleName",
+              "id": "children_middle_name",
+              "key": "family.children[].middleName",
+              "control": "component_textbox_na"
+            },
+            {
+              "label": "text_FirstName",
+              "placeholder": "text_FirstName",
+              "id": "children_first_name",
+              "key": "family.children[].firstName",
+              "control": "text"
+            }
+          ]
+        },
+        {
+          "label": "text_MartialStatus",
+          "id": "children_marriage_place",
+          "key": "family.children[].martialStatus",
+          "control": "select",
+          "options": [
+            {
+              "value": "Married",
+              "label": "text_Married",
+              "keyValue": "Married"
+            },
+            {
+              "value": "Single",
+              "label": "text_Single",
+              "keyValue": "Single"
+            },
+            {
+              "value": "Divorced",
+              "label": "text_Divorced",
+              "keyValue": "Divorced"
+            },
+            {
+              "value": "Widowed",
+              "label": "text_Widowed",
+              "keyValue": "Widowed"
+            }
+          ]
+        },
+        {
+          "label": "text_BirthDate",
+          "id": "birth_date_Children",
+          "key": "family.children[].birthDate",
+          "control": "datepicker"
+        },
+        {
+          "label": "text_Gender",
+          "id": "gender_Children",
+          "key": "family.children[].genderMaleCheckbox,family.children[].genderFemaleCheckbox",
+          "control": "select",
+          "options": [
+            {
+              "value": "Male",
+              "label": "text_Male",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "Female",
+              "label": "text_Female",
+              "keyValue": "false,true"
+            }
+          ]
+        },
+        {
+          "label": "text_Nationality",
+          "id": "nationality_Children",
+          "control": "group",
+          "maxChildPerRow": "3",
+          "fields": [
+            {
+              "label": "text_PresentNationality",
+              "placeholder": "text_PresentNationality",
+              "id": "nationality",
+              "key": "family.children[].nationality",
+              "control": "select",
+              "options": "NationalityOptions"
+            }
+          ]
+        },
+        {
+          "label": "text_Race",
+          "id": "race_Children",
+          "key": "family.children[].race",
+          "control": "component_textbox_na"
+        },
+        {
+          "label": "text_CityAndCountryOfBirth",
+          "placeholder": "text_CityAndCountryOfBirth",
+          "id": "location_of_birth_Children",
+          "key": "family.children[].cityAndCountryOfBirth",
+          "control": "component_location_dropdown"
+        },
+
+        {
+          "label": "text_ChildrenIsInUS",
+          "id": "children_is_in_us",
+          "key": "family.children[].personInUSYesCheckbox,family.children[].personInUSNoCheckbox",
+          "control": "select",
+          "options": [
+            {
+              "value": "true",
+              "label": "text_Yes",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "false",
+              "label": "text_No",
+              "keyValue": "false,true"
+            }
+          ]
+        },
+        {
+          "label": "",
+          "id": "PartA.II.13",
+          "control": "section",
+          "fields": [
+            {
+              "label": "text_SpecifyLocation",
+              "id": "children_location_not_in_us",
+              "key": "family.children[].specifyLocationIfNotInUS",
+              "control": "text"
+            }
+          ]
+        },
+        {
+          "label": "",
+          "id": "PartA.II.13",
+          "visibility": "family.children[].personInUSYesCheckbox=true",
+          "control": "section",
+          "fields": [
+            {
+              "label": "text_PlaceOfLastEntryIntoUS",
+              "id": "children_last_entry_us_date",
+              "key": "family.children[].placeLastEntryIntoUS",
+              "control": "text"
+            },
+            {
+              "label": "text_DateOfLastEntryIntoUS",
+              "placeholder": "text_DateOfLastEntryIntoUS",
+              "id": "children_last_entry_us_date",
+              "key": "family.children[].lastEntryUSDate",
+              "control": "datepicker"
+            },
+            {
+              "label": "text_I94Number",
+              "id": "children_i94_number",
+              "key": "family.children[].i94Number",
+              "control": "component_textbox_na"
+            },
+            {
+              "label": "text_LastAdmittedStatus",
+              "placeholder": "text_VisaTypeIfAny",
+              "id": "children_last_admitted_status",
+              "key": "family.children[].lastAdmittedStatus",
+              "control": "select",
+              "options": "EntryRecordStatus"
+            },
+            {
+              "label": "text_WhatsChildCurrentStatus",
+              "id": "children_current_status",
+              "key": "family.children[].currentStatus",
+              "control": "select",
+              "options": "EntryRecordStatus"
+            },
+            {
+              "label": "text_WhatsExpirationDate",
+              "placeholder": "text_MM/DD/YYYY",
+              "id": "children_status_expire_date",
+              "key": "family.children[].statusExpireDate",
+              "control": "component_textbox_na"
+            },
+            {
+              "label": "text_IsChildImmigrationCourt",
+              "id": "immigration_court",
+              "key": "family.children[].immigrationCourtProceedingYesCheckbox,family.children[].immigrationCourtProceedingNoCheckbox",
+              "control": "radio",
+              "options": [
+                {
+                  "value": "yes",
+                  "label": "text_Yes",
+                  "keyValue": "true,false"
+                },
+                {
+                  "value": "no",
+                  "label": "text_No",
+                  "keyValue": "false,true"
+                }
+              ]
+            },
+            {
+              "label": "text_IsChildIncludedInApplication",
+              "hideHeader": "true",
+              "id": "children_included_in_application",
+              "key": "family.children[].inThisApplicationYesCheckbox,family.children[].inThisApplicationNoCheckbox",
+              "control": "checkbox",
+              "options": [
+                {
+                  "value": "true",
+                  "label": "text_Yes",
+                  "keyValue": "true,false"
+                },
+                {
+                  "value": "false",
+                  "label": "text_No",
+                  "keyValue": "false,true"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "",
+          "id": "children_information",
+          "control": "divider"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "children_form",
+      "visibility": "applicant.haveChildrenCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "hideHeader": "true",
+          "placeholder": "text_AddAChild",
+          "id": "add_a_child",
+          "key": "applicant.childrenCnt-family.children",
+          "control": "component_add_item"
+        }
+      ]
+    }
+  ]
+}

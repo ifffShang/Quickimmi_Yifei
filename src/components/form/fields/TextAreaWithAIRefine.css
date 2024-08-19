@@ -1,0 +1,57 @@
+.text-area-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.text-area-before {
+  width: 100%;
+  border: 1px solid var(--gray-color-3);
+  border-radius: 3px;
+  padding: 5px 10px;
+}
+
+.text-area-after {
+  width: 50%;
+  border: 1px solid var(--gray-color-3);
+  border-radius: 3px;
+  padding: 5px 10px;
+}
+
+.text-area-logo-gray {
+  color: "#9e9e9e";
+}
+.text-area-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-color);
+  background-color: var(--primary-color-light);
+  border-radius: 5px;
+
+  margin: 5px;
+  padding: 4px 16px 4px 10px;
+  cursor: pointer;
+}
+
+.text-area-refined-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.text-area-button-discard {
+  font-size: 20px;
+  color: var(--gray-color-7);
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: 10px;
+  transition: color 0.3s ease-in-out;
+}
+.text-area-button-discard:hover {
+  color: var(--danger-color);
+}
+
+.text-area-input {
+  height: 360px !important;
+  resize: none !important;
+  padding: 5px !important;
+}

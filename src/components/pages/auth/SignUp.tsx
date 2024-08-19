@@ -1,21 +1,20 @@
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import Link from "antd/es/typography/Link";
+import { Amplify } from "aws-amplify";
 import { resendSignUpCode, signUp } from "aws-amplify/auth";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
-import { updateAuthState } from "../../../reducers/authSlice";
-import {
-  validateEmail,
-  validatePassword,
-  validatePasswordConfirmation,
-} from "../../../utils/validators";
-import { FormInput } from "../../form/fields/Controls";
-import { ErrorMessage } from "../../common/Fonts";
-import { QText } from "../../common/Fonts";
-import { AuthComponent } from "./AuthComponent";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../../app/hooks";
+import awsExports from "../../../aws-exports";
+import { updateAuthState } from "../../../reducers/authSlice";
+import { validateEmail, validatePassword, validatePasswordConfirmation } from "../../../utils/validators";
+import { ErrorMessage, QText } from "../../common/Fonts";
+import { FormInput } from "../../form/fields/Controls";
+import { AuthComponent } from "./AuthComponent";
+import { Role } from "../../../consts/consts";
 
 export function SignUp() {
   const dispatch = useDispatch();
@@ -24,14 +23,33 @@ export function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [showFormInputErrorMessage, setShowFormInputErrorMessage] =
-    useState(false);
+  const [showFormInputErrorMessage, setShowFormInputErrorMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const role = useAppSelector(state => state.auth.role);
 
   useEffect(() => {
     setShowFormInputErrorMessage(false);
     setErrorMessage("");
   }, [email, password]);
+
+  // Configure Amplify with the user pool based on the role
+  useEffect(() => {
+    let userPoolConfig: any;
+    if (role === Role.LAWYER) {
+      userPoolConfig = awsExports.CUSTOMER_POOL;
+    } else {
+      userPoolConfig = awsExports.CUSTOMER_POOL;
+    }
+
+    Amplify.configure({
+      Auth: {
+        Cognito: {
+          userPoolId: userPoolConfig.USER_POOL_ID,
+          userPoolClientId: userPoolConfig.USER_POOL_APP_CLIENT_ID,
+        },
+      },
+    });
+  }, [role]);
 
   const signUpButtonOnClick = async () => {
     if (
@@ -73,9 +91,7 @@ export function SignUp() {
           });
           return;
         }
-        setErrorMessage(
-          "There was an error signing up. Please try again later.",
-        );
+        setErrorMessage("There was an error signing up. Please try again later.");
       });
   };
 
@@ -130,8 +146,7 @@ export function SignUp() {
 
   const bottomBottom = (
     <QText color="secondary">
-      By signing up, I agree to the QuickImmi&apos;s Privacy Statement and Terms
-      of Service.
+      By signing up, I agree to the QuickImmi&apos;s Privacy Statement and Terms of Service.
     </QText>
   );
 

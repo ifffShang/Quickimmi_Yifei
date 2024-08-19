@@ -1,0 +1,12 @@
+.ant-layout-sider .ant-menu-item {
+  color: #333333;
+}
+
+.ant-layout-sider .ant-menu-item-active {
+  color: #42b874;
+}
+
+.ant-layout-sider .ant-menu-item-selected {
+  color: #42b874;
+  font-weight: bold;
+}

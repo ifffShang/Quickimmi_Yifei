@@ -3,7 +3,7 @@ import { GetProp, Upload, UploadProps } from "antd";
 import { useState } from "react";
 import { generateDocumentPresignedUrl } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { DocumentType } from "../../../model/commonModels";
+import { DocumentOperation, DocumentType, Identity } from "../../../model/commonModels";
 import { updateTmpImageUrl } from "../../../reducers/commonSlice";
 import { ErrorMessage } from "../../common/Fonts";
 import "./Uploader.css";
@@ -18,19 +18,21 @@ export const getBase64 = (img: FileType, callback: (url: string) => void) => {
 
 export interface UploaderProps {
   documentType: DocumentType;
-  documentName: string;
+  identity: Identity;
+  documentName?: string;
+  operation?: DocumentOperation;
+  description?: string;
+  createdBy?: string;
   onImageUrlReceived?: (imageUrl: string) => void;
-  onPresignedUrlReceived?: (
-    presignedUrlRes: GeneratePresignedUrlResponse,
-    file: any,
-  ) => void;
+  onPresignedUrlReceived?: (presignedUrlRes: GeneratePresignedUrlResponse, file: any) => void;
 }
 
 export function Uploader(props: UploaderProps) {
   const dispatch = useAppDispatch();
   const userId = useAppSelector(state => state.auth.userId);
-  const caseId = useAppSelector(state => state.form.applicationCase?.id);
+  const caseId = useAppSelector(state => state.form.caseId);
   const accessToken = useAppSelector(state => state.auth.accessToken);
+  const role = useAppSelector(state => state.auth.role);
   const tmpImageUrl = useAppSelector(state => state.common.tmpImageUrl);
 
   const [loading, setLoading] = useState(false);
@@ -58,13 +60,19 @@ export function Uploader(props: UploaderProps) {
       if (!userId || !caseId || !accessToken) {
         throw new Error("User id, case id or access token is missing");
       }
+      setErrorMessage("");
       const fileExt = file.name.split(".").pop();
       const res = await generateDocumentPresignedUrl(
         userId,
         caseId,
         props.documentType,
-        props.documentName + "." + fileExt,
+        props.documentName ? props.documentName + "." + fileExt : file.name,
+        props.identity,
+        props.operation || "NEW",
+        props.description || "",
+        role,
         accessToken,
+        role,
       );
       onSuccess(res, file, null);
       props.onPresignedUrlReceived?.(res, file);

@@ -29,13 +29,14 @@ export const store = configureStore({
   middleware: [thunk],
 });
 
+// Subscribe to store changes
+store.subscribe(() => {
+  const currentState = store.getState();
+  console.debug("-------- Current state: ", currentState);
+});
+
 export const persistor = persistStore(store);
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
-export type AppThunk<ReturnType = void> = ThunkAction<
-  ReturnType,
-  RootState,
-  unknown,
-  Action<string>
->;
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;

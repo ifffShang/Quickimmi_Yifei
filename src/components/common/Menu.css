@@ -74,3 +74,15 @@
 .menu-option.option-align-center {
   justify-content: center;
 }
+
+.menu-option.selected {
+  background-color: var(--primary-color-light);
+}
+
+.menu-option.header {
+  cursor: default;
+}
+
+.menu-option.header:hover {
+  background-color: var(--white-color);
+}

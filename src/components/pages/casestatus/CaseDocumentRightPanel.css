@@ -1,0 +1,99 @@
+.ant-card-body {
+  padding: 16px 24px !important;
+}
+
+.case-document-right-panel {
+  overflow-y: auto;
+}
+.case-document-file-upload {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+.ant-upload-drag:hover {
+  border-color: var(--success-color) !important;
+}
+.ant-upload-drag-icon {
+  color: var(--primary-color);
+}
+
+.case-document-section-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 5px;
+}
+.case-document-uploader {
+  margin-top: 10px;
+}
+
+.case-document-section-search-input {
+  width: 400px;
+}
+.case-document-section-search-button {
+  border: 1px solid var(--primary-color);
+  border-radius: 3px;
+  margin-left: 10px;
+  height: 40px;
+  width: 100px;
+}
+
+.case-document-display-section {
+  margin-top: 18px;
+  overflow-y: auto;
+  max-height: 350px;
+}
+.case-document-file-table {
+  max-height: 500px;
+}
+.ant-table-pagination-center {
+  margin: 4px 0 !important;
+}
+
+.upload-modal-container {
+  margin: auto;
+  padding: 32px;
+}
+.upload-modal-body {
+  display: grid;
+  grid-template-areas: "fileIcon fileInfo";
+  grid-template-columns: 1fr 2fr;
+  padding: 30px 0;
+  align-items: center;
+}
+.upload-modal-body-fileIcon {
+  grid-area: fileIcon;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  padding-top: 30px;
+}
+.upload-modal-body-fileIcon-icon > p {
+  width: 100px;
+}
+.upload-modal-body-fileInfo {
+  grid-area: fileInfo;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-left: auto;
+}
+.upload-modal-body-fileInfo > p {
+  font-size: var(--font-size-p2);
+  font-weight: 600;
+  width: 300px;
+}
+
+.document-delete-modal {
+  width: 600px !important;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30vh;
+}

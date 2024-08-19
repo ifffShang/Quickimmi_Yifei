@@ -28,6 +28,8 @@
   border-radius: 4px;
   cursor: pointer;
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .passport-uploader-inner:hover {
@@ -36,5 +38,6 @@
 
 .passport-uploader-inner img {
   cursor: pointer;
-  align-self: center;
+  max-width: 100px;
+  max-height: 100px;
 }

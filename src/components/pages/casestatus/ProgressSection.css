@@ -1,0 +1,154 @@
+.progress-section h2 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.filling-details {
+  margin-top: 16px;
+}
+
+.progress-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  width: 100%;
+}
+
+.progress-item .progress-title {
+  margin-left: 8px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.progress-item .go-complete {
+  color: #fa8c16;
+  cursor: pointer;
+}
+
+.custom-percentage-tag {
+  background-color: #f2f2f2 !important;
+  color: #828282 !important;
+  margin-left: 5px;
+}
+
+.expanded-card-container {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  position: relative;
+}
+
+.expanded-card-container .extended-line {
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.expanded-card {
+  width: 100%;
+  margin-left: 28px;
+  margin-top: 15px;
+}
+
+.expanded-card .ant-card {
+  background-color: #fff;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  width: calc(100% - 28px);
+}
+
+.expand-icon {
+  margin-left: 20px;
+}
+
+.progress-item-content {
+  display: flex;
+  align-items: center;
+}
+
+.progress-item-actions {
+  display: flex;
+  align-items: center;
+}
+
+.custom-card {
+  background-color: white;
+}
+
+.card-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lawyer-review-message {
+  flex-grow: 1;
+}
+
+.custom-button {
+  border: 1px solid #f2994a;
+  background-color: white;
+  color: #f2994a;
+  margin-left: 8px;
+  font-size: 14px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.info-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.info-group h4 {
+  font-weight: bold;
+  margin: 0;
+}
+.info-group h4 span {
+  font-weight: normal;
+  color: var(--gray-color-1);
+}
+.info-subinfo {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.info-doc {
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  gap: 8px;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filling-details-card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.metadata-item {
+  width: 100%;
+  display: flex;
+  padding: 2px 0;
+  font-size: 14px;
+  align-items: center;
+}
+
+.metadata-key {
+  font-weight: bold;
+  color: #333;
+  text-align: left;
+}
+
+.metadata-value {
+  margin-left: 10px;
+}

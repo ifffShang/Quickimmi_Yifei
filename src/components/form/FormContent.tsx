@@ -1,28 +1,41 @@
 import { Button } from "antd";
 import { useEffect } from "react";
-import { getFormFields, updateApplicationCaseApi } from "../../api/caseAPI";
+import { getFormFields } from "../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useFormTranslation } from "../../hooks/commonHooks";
-import { updateFormFieldsMap } from "../../reducers/caseSlice";
-import { getUpdateApplicationCaseData } from "../../utils/utils";
+import useRenderingTrace from "../../hooks/renderHooks";
+import { decrementIndexLevel2, incrementIndexLevel2, resetForm, updateFormFieldsMap } from "../../reducers/caseSlice";
+import { updateHighlightMissingFields, updateOnePercentage } from "../../reducers/formSlice";
+import { getPercentage } from "../../utils/percentageUtils";
 import { QText } from "../common/Fonts";
+import { Loading } from "../common/Loading";
+import CaseStatusLayout from "../pages/casestatus/CaseStatusLayout";
 import "./FormContent.css";
 import { FormField } from "./FormField";
 
 interface FormContentProps {
+  sectionId: string;
   referenceId: string;
+  isLawyer?: boolean;
 }
 
 export function FormContent(props: FormContentProps) {
-  const { wt } = useFormTranslation();
+  const { wt, t } = useFormTranslation();
   const dispatch = useAppDispatch();
-  const applicationCase = useAppSelector(state => state.form.applicationCase);
+  const accessToken = useAppSelector(state => state.auth.accessToken);
+  const role = useAppSelector(state => state.auth.role);
   const currentStep = useAppSelector(state => state.case.currentStep);
   const formFieldsMap = useAppSelector(state => state.case.formFieldsMap);
-  const formFields =
-    formFieldsMap && props.referenceId
-      ? formFieldsMap[props.referenceId]
-      : null;
+
+  const isFirstStep = useAppSelector(state => state.case.isFirstStep);
+  const isLastStep = useAppSelector(state => state.case.isLastStep);
+
+  const caseId = useAppSelector(state => state.form.caseId);
+  const profile = useAppSelector(state => state.form.applicationCase.profile);
+  const progress = useAppSelector(state => state.form.applicationCase.progress);
+  const percentage = useAppSelector(state => state.form.percentage);
+
+  const formFields = formFieldsMap && props.referenceId ? formFieldsMap[props.referenceId] : null;
 
   useEffect(() => {
     if (!props.referenceId) return;
@@ -38,50 +51,127 @@ export function FormContent(props: FormContentProps) {
       .catch(error => {
         console.error(error);
       });
-  }, [props.referenceId, dispatch]);
+
+    () => {
+      dispatch(resetForm());
+    };
+  }, [props.referenceId]);
+
+  useEffect(() => {
+    if (props.referenceId === "i589_fields_view_reports") return;
+    if (!formFields) return;
+
+    const { total, fulfilled } = getPercentage(formFields.fields, profile);
+
+    let currentPercentage = 0;
+    if (total === 0) {
+      currentPercentage = 100;
+    } else {
+      currentPercentage = Math.round((fulfilled / total) * 100);
+    }
+    const lastPrecentage = percentage?.[props.sectionId]?.[props.referenceId] ?? -1;
+    if (currentPercentage !== lastPrecentage) {
+      dispatch(
+        updateOnePercentage({
+          sectionId: props.sectionId,
+          referenceId: props.referenceId,
+          value: currentPercentage,
+        }),
+      );
+    }
+  }, [props.referenceId, props.sectionId, profile, formFields, percentage]);
+
+  useRenderingTrace("FormContent", {
+    ...props,
+    profile,
+    progress,
+    percentage,
+    formFieldsMap,
+    accessToken,
+    role,
+    currentStep,
+    isFirstStep,
+    isLastStep,
+    caseId,
+  });
 
   if (!formFields || !currentStep) {
-    return <div>Loading...</div>;
+    return (
+      <div className="form-content">
+        <div className="form-content-header">
+          <QText level="large">{t("Loading...")}</QText>
+        </div>
+        <div className="form-content-form">
+          <Loading />
+        </div>
+      </div>
+    );
   }
 
-  const saveApplicationCase = () => {
-    updateApplicationCaseApi(
-      getUpdateApplicationCaseData(applicationCase),
-      "accessToken",
-    );
-  };
-
-  return (
+  const CustomerForm = (
     <div className="form-content">
-      <div className="form-content-header">
-        <QText level="large">{wt(currentStep.label || "")}</QText>
-      </div>
-      <div className="form-content-form">
-        {formFields.fields.map((field, index) => (
-          <div key={index}>
-            <QText level="normal bold">{wt(field.label)}</QText>
-            <FormField
-              parentFieldKey={formFields.key}
-              fieldKey={field.key}
-              control={field.control}
-              label={field.label}
-              maxChildPerRow={field.maxChildPerRow}
-              subFields={field.fields}
-              options={field.options}
-              placeholder={field.placeholder}
-              format={field.format}
-              className={field.className}
-            />
+      <div className="form-content-form-container">
+        <div className="form-content-header">
+          <QText level="large">{wt(currentStep.label || "")}</QText>
+        </div>
+        <div className="form-content-form">
+          {formFields.fields.map((field, index) => (
+            <div key={index}>
+              {!field.hideHeader && field.label && <QText level="field-label">{wt(field.label)}</QText>}
+              <FormField
+                fieldKey={field.key}
+                control={field.control}
+                label={field.label}
+                maxChildPerRow={field.maxChildPerRow}
+                subFields={field.fields}
+                options={field.options}
+                placeholder={field.placeholder}
+                format={field.format}
+                className={field.className}
+                visibility={field.visibility}
+                hideHeader={field.hideHeader}
+                fieldIndex={field.fieldIndex}
+                lastField={index === formFields.fields.length - 1}
+                documentType={field.documentType}
+              />
+            </div>
+          ))}
+        </div>
+        <div className="form-content-controls-container">
+          <div className="form-content-controls">
+            <Button
+              disabled={isFirstStep}
+              type="primary"
+              onClick={() => {
+                dispatch(decrementIndexLevel2());
+              }}
+            >
+              {t("Previous")}
+            </Button>
+            <Button
+              className="default-button"
+              onClick={() => {
+                dispatch(updateHighlightMissingFields(true));
+              }}
+            >
+              {t("FindIncomplete")}
+            </Button>
+            <Button
+              disabled={isLastStep}
+              type="primary"
+              onClick={() => {
+                dispatch(incrementIndexLevel2());
+              }}
+            >
+              {t("Next")}
+            </Button>
           </div>
-        ))}
-      </div>
-      <div className="form-content-controls">
-        <Button type="primary">{wt("Previous")}</Button>
-        <Button className="default-button" onClick={saveApplicationCase}>
-          {wt("Save")}
-        </Button>
-        <Button type="primary">{wt("Next")}</Button>
+        </div>
       </div>
     </div>
   );
+
+  const LawyerForm = <CaseStatusLayout />;
+
+  return <>{props.isLawyer ? LawyerForm : CustomerForm}</>;
 }

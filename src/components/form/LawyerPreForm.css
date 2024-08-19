@@ -1,0 +1,108 @@
+.form-content-preForm {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--font-size-p2);
+  background-color: var(--gray-color-4);
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 0px 80px 40px 80px;
+  height: 100%;
+  /* max-width: 1460px; */
+}
+
+.form-content-container-preForm {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--white-color);
+  height: 80%;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.form-content-header-preForm {
+  display: flex;
+  flex-direction: column;
+  padding: 30px 30px;
+}
+
+.form-content-form-preForm {
+  padding: 0;
+}
+
+.field-section-name-preForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px 30px;
+  margin: 0;
+  border-top: 2px solid var(--gray-color-4);
+}
+.field-section-type-preForm {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+  padding: 30px 30px;
+  margin: 0;
+  border-top: 2px solid var(--gray-color-4);
+}
+.field-input-preForm {
+  width: 250px;
+  border-radius: 3px;
+}
+
+@media (max-width: 768px) {
+  .immigType {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.form-content-controls-preForm {
+  display: flex;
+  justify-content: center;
+  padding: 20px 40px;
+}
+
+.form-content-controls-preForm button {
+  width: 100px;
+}
+
+.email-modal-preForm {
+  top: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.email-modal-preForm-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  width: 700px;
+  height: 320px;
+}
+.email-modal-content-preForm {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+.email-modal-inputSection-preForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.email-input-preForm {
+  height: 40px;
+  width: 350px;
+  margin-top: 20px;
+}
+.email-send-button-preForm {
+  width: 100px;
+  margin-bottom: 30px;
+  align-self: self-end;
+}

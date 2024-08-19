@@ -1,0 +1,41 @@
+.lawyer-profile-content {
+  padding: 40px;
+  padding-bottom: 100px;
+  background-color: var(--white-color);
+  border-radius: 10px;
+  overflow-y: auto;
+}
+
+.xsmall .form-content-form,
+.small .form-content-form {
+  padding: 20px;
+}
+
+.form-content-form > div {
+  margin-bottom: 40px;
+}
+
+.lawyer-profile-container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--gray-color-4);
+  height: 100%;
+  padding: 20px 40px;
+  /* min-width: 1000px; */
+}
+
+.lawyer-profile-container h2 {
+  margin-bottom: 20px;
+}
+
+.lawyer-profile-header {
+  /* max-width: 1390px; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+}
+
+.lawyer-profile-header h2 {
+  margin-bottom: 0;
+}

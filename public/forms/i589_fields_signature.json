@@ -1,0 +1,127 @@
+{
+  "id": "i589_fields_signature",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    {
+      "label": "text_PrintCompleteName",
+      "id": "PartD.name",
+      "key": "signature.name",
+      "control": "text"
+    },
+    {
+      "label": "text_NameInNativeAlphabet",
+      "id": "PartD.nameInNativeAlphabet",
+      "key": "signature.nameInNativeAlphabet",
+      "control": "text"
+    },
+    {
+      "label": "text_FamilyMemberAssist",
+      "id": "PartD.familyMemberAssist",
+      "key": "signature.familyMemberAssistYesCheckbox,signature.familyMemberAssistNoCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "true",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "false",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "PartD.members",
+      "visibility": "signature.familyMemberAssistYesCheckbox=true",
+      "control": "removable_section",
+      "fields": [
+        {
+          "label": "text_ListNameAndRelationship",
+          "placeholder": "text_AddMember",
+          "id": "PartD.members",
+          "key": "count-signature.members",
+          "className": "add-item-compact",
+          "control": "component_add_item"
+        }
+      ]
+    },
+    {
+      "label": "text_FamilyMember",
+      "hideHeader": "true",
+      "id": "PartD.members",
+      "key": "count-signature.members",
+      "visibility": "signature.familyMemberAssistYesCheckbox=true",
+      "control": "removable_section",
+      "fields": [
+        {
+          "placeholder": "text_Name",
+          "id": "PartD.member.name",
+          "key": "signature.members[].name",
+          "control": "text"
+        },
+        {
+          "placeholder": "text_Relationship",
+          "id": "PartD.member.relationship",
+          "key": "signature.members[].relationship",
+          "control": "text"
+        }
+      ]
+    },
+
+    {
+      "label": "text_OtherPeopleAssist",
+      "id": "PartD.otherPeopleAssist",
+      "key": "signature.otherPeopleAssistYesCheckbox,signature.otherPeopleAssistNoCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "true",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "false",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_ProvideCounsel",
+      "id": "PartD.provideCounsel",
+      "key": "signature.providePeopleCounselYesCheckbox,signature.providePeopleCounselNoCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "true",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "false",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_Signature",
+      "placeholder": "text_Signature",
+      "id": "PartD.signature",
+      "key": "signature.signature",
+      "control": "text"
+    },
+    {
+      "label": "text_Date",
+      "placeholder": "text_Date",
+      "id": "PartD.date",
+      "key": "signature.date",
+      "control": "datepicker"
+    }
+  ]
+}

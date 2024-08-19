@@ -1,9 +1,5 @@
 .loading {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  display: block;
 }
 
 .loading p {
@@ -21,6 +17,14 @@
 
 .loading .ant-spin-dot {
   font-size: 35px;
+}
+
+.centralized-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-top: 0;
 }
 
 /* Styles for viewports up to 1024px wide (e.g., tablets) */

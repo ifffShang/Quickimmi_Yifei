@@ -1,0 +1,41 @@
+.form-header {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: var(--white-color);
+  box-sizing: border-box;
+  border-radius: 10px;
+  height: 120px;
+}
+
+.form-header-action {
+  margin-right: 210px;
+}
+
+.form-header-icon {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 200px;
+  height: 140px;
+}
+
+.form-header-tags {
+  display: flex;
+  margin-top: 25px;
+  gap: 10px;
+}
+
+.form-header-tag {
+  background-color: var(--gray-color-4);
+  border: 1px solid var(--gray-color-3);
+  border-radius: 5px;
+  padding: 2px 8px;
+  width: fit-content;
+}
+
+.form-header-save-btn {
+  margin-right: 10px;
+}

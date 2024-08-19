@@ -1,13 +1,19 @@
 import { Route, Routes } from "react-router-dom";
-import { useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useTokenExpirationTimer } from "../../hooks/cacheHooks";
+import { LawyerPreForm } from "../form/LawyerPreForm";
 import { AuthPage } from "../pages/auth/AuthPage";
+import CaseStatusLayout from "../pages/casestatus/CaseStatusLayout";
 import { CaseDetails } from "../pages/dashboard/CaseDetails";
 import { Dashboard } from "../pages/dashboard/Dashboard";
+import { LawyerProfilePage } from "../pages/lawyerProfile/LawyerProfilePage";
 import { Home } from "../pages/home/Home";
 import { SinglePageView } from "../pages/singlePage/SinglePageView";
-import { TestPageView } from "../pages/singlePage/Test";
 import { Checkout } from "../payment/Checkout";
 import "./MainView.css";
+import { Role } from "../../consts/consts";
+import awsExports from "../../aws-exports";
+import { Amplify } from "aws-amplify";
 
 export const PATH = {
   Home: "/",
@@ -20,8 +26,12 @@ export const PATH = {
   ConfirmCode: "/confirmcode",
   AuthSuccess: "/authsuccess",
   Dashboard: "/dashboard",
+  Profile: "/profile",
+  CaseStatus: "/casestatus/:id",
   CaseDetails: "/case/:id",
+  CaseDocuments: "/casedocuments/:id",
   Checkout: "/checkout",
+  LawyerPreForm: "/lawyerNewCase",
   Others: "*",
 };
 
@@ -77,8 +87,23 @@ export const RouterConfig = [
     needLogin: true,
   },
   {
+    path: PATH.Profile,
+    element: <LawyerProfilePage />,
+    needLogin: true,
+  },
+  {
+    path: PATH.CaseStatus,
+    element: <CaseStatusLayout menuItemSelected={"caseOverview"} />,
+    needLogin: true,
+  },
+  {
     path: PATH.CaseDetails,
     element: <CaseDetails />,
+    needLogin: true,
+  },
+  {
+    path: PATH.CaseDocuments,
+    element: <CaseStatusLayout menuItemSelected={"caseDocuments"} />,
     needLogin: true,
   },
   {
@@ -87,6 +112,12 @@ export const RouterConfig = [
     needLogin: true,
   },
   {
+    path: PATH.LawyerPreForm,
+    element: <LawyerPreForm />,
+    needLogin: true,
+  },
+
+  {
     path: PATH.Others,
     element: <Dashboard />,
     needLogin: true,
@@ -94,7 +125,10 @@ export const RouterConfig = [
 ];
 
 export function MainView() {
-  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
+  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn) || false;
+  const dispatch = useAppDispatch();
+
+  useTokenExpirationTimer(dispatch, isLoggedIn);
 
   return (
     <div className="mainview-container">
@@ -103,13 +137,7 @@ export function MainView() {
           <Route
             key={index}
             path={route.path}
-            element={
-              route.needLogin && !isLoggedIn ? (
-                <AuthPage type="signin" />
-              ) : (
-                route.element
-              )
-            }
+            element={route.needLogin && !isLoggedIn ? <AuthPage type="signin" /> : route.element}
           />
         ))}
       </Routes>

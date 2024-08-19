@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  AiAssist,
-  ProfessionalLaywer,
-  TransparentCost,
-  FastTrack,
-} from "../../icons/Highlights";
+import { AiAssist, ProfessionalLaywer, TransparentCost, FastTrack } from "../../icons/Highlights";
 import { useTranslation } from "react-i18next";
 import "./Highlights.css";
 

@@ -1,19 +1,22 @@
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+import { Button, Switch } from "antd";
 import Link from "antd/es/typography/Link";
+import { Amplify } from "aws-amplify";
 import { fetchAuthSession, resendSignUpCode, signIn } from "aws-amplify/auth";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { createUserApi, getUserInfoApi } from "../../../api/authAPI";
+import { createUserApi, getUserInfoApi, getLawyerInfoApi } from "../../../api/authAPI";
 import { useAppDispatch } from "../../../app/hooks";
+import awsExports from "../../../aws-exports";
+import { Role } from "../../../consts/consts";
+import { UserInfo, LawyerInfo } from "../../../model/apiModels";
 import { updateAuthState } from "../../../reducers/authSlice";
-import { signOutCurrentUser } from "../../../utils/authUtils";
+import { signOutCurrentUser, startTokenExpirationTimer } from "../../../utils/authUtils";
 import { validateEmail, validatePassword } from "../../../utils/validators";
 import { ErrorMessage, QText } from "../../common/Fonts";
 import { FormInput } from "../../form/fields/Controls";
 import { AuthComponent } from "./AuthComponent";
-import { UserInfo } from "../../../model/apiModels";
 
 export function SignIn() {
   const dispatch = useAppDispatch();
@@ -22,78 +25,135 @@ export function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [showFormInputErrorMessage, setShowFormInputErrorMessage] =
-    useState(false);
+  const [showFormInputErrorMessage, setShowFormInputErrorMessage] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [role, setRole] = useState<Role>(Role.LAWYER);
 
   useEffect(() => {
     setShowFormInputErrorMessage(false);
     setErrorMessage("");
   }, [email, password]);
 
+  // Configure Amplify when the role changes
+  useEffect(() => {
+    const userPoolConfig = role === Role.LAWYER ? awsExports.LAWYER_POOL : awsExports.CUSTOMER_POOL;
+    Amplify.configure({
+      Auth: {
+        Cognito: {
+          userPoolId: userPoolConfig.USER_POOL_ID,
+          userPoolClientId: userPoolConfig.USER_POOL_APP_CLIENT_ID,
+        },
+      },
+    });
+  }, [role]);
+
   const loginUser = async () => {
     try {
+      setIsLoading(true);
       if (validateEmail(email) !== "" || validatePassword(password) !== "") {
         setShowFormInputErrorMessage(true);
+        setIsLoading(false);
         return;
       }
-      const { isSignedIn, nextStep } = await signIn({
-        username: email,
-        password,
-      });
-      if (isSignedIn) {
-        const session = await fetchAuthSession();
-        if (!session || !session.tokens || !session.tokens.accessToken) {
-          throw new Error("Failed to fetch session after sign in");
-        }
-        const accessToken = session.tokens.accessToken.toString();
-        let userInfo: UserInfo;
-        try {
-          userInfo = await getUserInfoApi(email, accessToken);
-        } catch (error: any) {
-          if (error?.message === "USE_NOT_FOUND") {
-            await createUserApi(email, accessToken);
-            userInfo = await getUserInfoApi(email, accessToken);
-          } else {
-            throw error;
+
+      const signInUser = async () => {
+        const { isSignedIn, nextStep } = await signIn({
+          username: email,
+          password,
+        });
+
+        if (isSignedIn) {
+          const session = await fetchAuthSession();
+          if (!session || !session.tokens || !session.tokens.accessToken) {
+            throw new Error("Failed to fetch session after sign in");
           }
+          const accessToken = session.tokens.accessToken.toString();
+
+          let userInfo: UserInfo | LawyerInfo;
+          try {
+            if (role === Role.LAWYER) {
+              userInfo = await getLawyerInfoApi(email, accessToken, role);
+            } else {
+              userInfo = await getUserInfoApi(email, accessToken, role);
+            }
+          } catch (error: any) {
+            if (error?.message === "USE_NOT_FOUND") {
+              await createUserApi(email, accessToken, role);
+              if (role === Role.LAWYER) {
+                userInfo = await getLawyerInfoApi(email, accessToken, role);
+              } else {
+                userInfo = await getUserInfoApi(email, accessToken, role);
+              }
+            } else {
+              throw error;
+            }
+          }
+
+          dispatch(
+            updateAuthState({
+              userId: userInfo?.id || undefined,
+              isLawyer: role === Role.LAWYER,
+              isLoggedIn: true,
+              email,
+              accessToken: accessToken,
+              role: role,
+            }),
+          );
+
+          startTokenExpirationTimer(dispatch, true);
+
+          navigate("/dashboard");
+        } else if (nextStep?.signInStep === "CONFIRM_SIGN_UP") {
+          await resendSignUpCode({ username: email });
+          dispatch(
+            updateAuthState({
+              prevStep: "signin",
+              email,
+            }),
+          );
+          navigate("/signup");
         }
-        dispatch(
-          updateAuthState({
-            userId: userInfo?.id || 0,
-            isLoggedIn: true,
-            email,
-            accessToken: accessToken,
-          }),
-        );
-        navigate("/dashboard");
-      } else if (nextStep?.signInStep === "CONFIRM_SIGN_UP") {
-        await resendSignUpCode({ username: email });
-        dispatch(
-          updateAuthState({
-            prevStep: "signin",
-            email,
-          }),
-        );
-        navigate("/signup");
+      };
+
+      try {
+        await signInUser();
+      } catch (error: any) {
+        if (error?.name === "UserAlreadyAuthenticatedException") {
+          signOutCurrentUser(dispatch);
+          await signInUser();
+        } else {
+          throw error;
+        }
       }
     } catch (error: any) {
       if (error?.message === "Incorrect username or password.") {
         setErrorMessage(t("ErrorMessage.IncorrectEmailOrPassword"));
+        setIsLoading(false);
         return;
-      }
-      if (error?.name === "UserAlreadyAuthenticatedException") {
-        signOutCurrentUser(dispatch);
       }
       console.error("Error signing in: ", error);
       setErrorMessage(t("ErrorMessage.ErrorSigningIn"));
       signOutCurrentUser(dispatch);
+      setIsLoading(false);
     }
   };
 
   const form = (
     <>
+      <div className="auth-toggle">
+        <QText>{t("IAmLawyer")}</QText>
+        <Switch
+          checked={role === Role.LAWYER}
+          onChange={checked => {
+            const roleValue = checked ? Role.LAWYER : Role.APPLICANT;
+            setRole(roleValue);
+            localStorage.setItem("userRole", roleValue);
+          }}
+        />
+      </div>
+
       <FormInput
-        placeholder={t("Email address")}
+        placeholder={t("Email")}
         value={email}
         onChange={setEmail}
         validate={validateEmail}
@@ -116,9 +176,9 @@ export function SignIn() {
 
   const actions = (
     <>
-      <Link onClick={() => navigate("/forgotpassword")}>Forgot Password?</Link>
-      <Button type="primary" onClick={loginUser}>
-        Login
+      <Link onClick={() => navigate("/forgotpassword")}>{t("ForgotPassword")}</Link>
+      <Button type="primary" onClick={loginUser} loading={isLoading}>
+        {t("Login")}
       </Button>
     </>
   );
@@ -127,23 +187,23 @@ export function SignIn() {
 
   const bottomTop = (
     <>
-      <QText>{"Doesn't have account?"}</QText>
-      <Link onClick={() => navigate("/signup")}>Sign Up</Link>
+      {/*<QText>{t("Doesn't have account?")}</QText>*/}
+      {/*<Link onClick={() => navigate("/signup")}>Sign Up</Link>*/}
+      <QText>{t("Contact contact@quickimmi.ai to sign up")}</QText>
     </>
   );
 
   const bottomBottom = (
     <>
       <QText color="secondary">
-        By signing up, I agree to the QuickImmi&apos;s Privacy Statement and
-        Terms of Service.
+        By signing up, I agree to the QuickImmi&apos;s Privacy Statement and Terms of Service.
       </QText>
     </>
   );
 
   return (
     <AuthComponent
-      formHeader="Sign In"
+      formHeader={t("Login")}
       form={form}
       actions={actions}
       error={error}

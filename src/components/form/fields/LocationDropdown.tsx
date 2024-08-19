@@ -3,6 +3,7 @@ import { City, ICity, IState, State } from "country-state-city";
 import { useEffect, useState } from "react";
 import { getPrefillLocationOptions } from "../../../utils/utils";
 import "./LocationDropdown.css";
+import { useFormTranslation } from "../../../hooks/commonHooks";
 
 export interface LocationSelectOption {
   value: string;
@@ -18,28 +19,17 @@ export interface LocationDropdownProps {
   prefillStr?: string;
   prefillData?: LocationObject;
   placeholder?: LocationObject;
-  onLocationChange?: (country?: string, state?: string, city?: string) => void;
+  onLocationChange: (country?: string, state?: string, city?: string) => void;
 }
 
 export function LocationDropdown(props: LocationDropdownProps) {
-  const {
-    countries,
-    countryPrefillOption,
-    states,
-    statePrefillOption,
-    cities,
-    cityPrefillOption,
-  } = getPrefillLocationOptions(props.prefillStr ?? "", props.prefillData);
+  const { countries, countryPrefillOption, states, statePrefillOption, cities, cityPrefillOption } =
+    getPrefillLocationOptions(props.prefillStr ?? "", props.prefillData);
 
-  const [country, setCountry] = useState<LocationSelectOption | undefined>(
-    countryPrefillOption,
-  );
-  const [state, setState] = useState<LocationSelectOption | undefined>(
-    statePrefillOption,
-  );
-  const [city, setCity] = useState<LocationSelectOption | undefined>(
-    cityPrefillOption,
-  );
+  const { t } = useFormTranslation();
+  const [country, setCountry] = useState<LocationSelectOption | undefined>(countryPrefillOption);
+  const [state, setState] = useState<LocationSelectOption | undefined>(statePrefillOption);
+  const [city, setCity] = useState<LocationSelectOption | undefined>(cityPrefillOption);
 
   const [stateData, setStateData] = useState<IState[]>(states ?? []);
   const [cityData, setCityData] = useState<ICity[]>(cities ?? []);
@@ -78,35 +68,45 @@ export function LocationDropdown(props: LocationDropdownProps) {
   };
 
   useEffect(() => {
-    props.onLocationChange?.(country?.value, state?.value, city?.value);
+    const { countryPrefillOption, states, statePrefillOption, cities, cityPrefillOption } = getPrefillLocationOptions(
+      props.prefillStr ?? "",
+      props.prefillData,
+    );
+
+    setStateData(states ?? []);
+    setCityData(cities ?? []);
+    setCountry(countryPrefillOption);
+    setState(statePrefillOption);
+    setCity(cityPrefillOption);
+
+    props.onLocationChange(countryPrefillOption?.value, statePrefillOption?.value, cityPrefillOption?.value);
+  }, [props.prefillStr, props.prefillData]);
+
+  useEffect(() => {
+    props.onLocationChange(country?.value, state?.value, city?.value);
   }, [country, state, city]);
 
   return (
     <div className="location-dropdown-container horizontal-3">
       <Select
         className="sub-field"
-        placeholder={props.placeholder?.country || "Select a country"}
+        placeholder={props.placeholder?.country || t("Select a country")}
         labelInValue
         showSearch
-        allowClear
         onChange={onCountryChange}
         value={country}
         notFoundContent="Not found"
       >
         {countries.map(item => (
-          <Select.Option
-            key={item.isoCode}
-            value={item.name}
-          >{`${item.flag} ${item.name}`}</Select.Option>
+          <Select.Option key={item.isoCode} value={item.name}>{`${item.flag} ${item.name}`}</Select.Option>
         ))}
       </Select>
       {stateData.length > 0 && (
         <Select
           className="sub-field"
-          placeholder={props.placeholder?.state || "Select a state"}
+          placeholder={props.placeholder?.state || t("Select a state")}
           labelInValue
           showSearch
-          allowClear
           onChange={onStateChange}
           value={state}
           notFoundContent="Not found"
@@ -121,10 +121,9 @@ export function LocationDropdown(props: LocationDropdownProps) {
       {cityData.length > 0 && (
         <Select
           className="sub-field"
-          placeholder={props.placeholder?.city || "Select a city"}
+          placeholder={props.placeholder?.city || t("Select a city")}
           labelInValue
           showSearch
-          allowClear
           onChange={onCityChange}
           value={city}
           notFoundContent="Not found"

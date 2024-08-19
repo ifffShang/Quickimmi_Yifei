@@ -1,0 +1,21 @@
+.standalone-steps {
+  background-color: var(--white-color);
+  border-radius: 10px;
+  margin: 10px 0;
+}
+
+.standalone-step {
+  position: relative;
+  display: flex;
+}
+
+.standalone-step > div {
+  width: 100%;
+}
+
+.standalone-step svg {
+  position: absolute;
+  right: 30px;
+  top: 20px;
+  font-size: 16px;
+}

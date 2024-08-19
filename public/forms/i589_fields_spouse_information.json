@@ -1,0 +1,444 @@
+{
+  "id": "i589_fields_spouse_information",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    {
+      "label": "text_MaritalStatus",
+      "id": "maritalStatus",
+      "key": "applicant.maritalStatusSingleCheckbox,applicant.maritalStatusMarriedCheckbox,applicant.maritalStatusDivorcedCheckbox,applicant.maritalStatusWidowedCheckbox,applicant.notMarriedCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "Single",
+          "label": "text_Single",
+          "keyValue": "true,false,false,false,true"
+        },
+        {
+          "value": "Married",
+          "label": "text_Married",
+          "keyValue": "false,true,false,false,false"
+        },
+        {
+          "value": "Divorced",
+          "label": "text_Divorced",
+          "keyValue": "false,false,true,false,false"
+        },
+        {
+          "value": "Widowed",
+          "label": "text_Widowed",
+          "keyValue": "false,false,false,true,false"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "spouse_form",
+      "visibility": "applicant.maritalStatusMarriedCheckbox=true|applicant.maritalStatusDivorcedCheckbox=true|applicant.maritalStatusWidowedCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_UploadSpousePassportOrOtherID",
+          "placeholder": "text_UploadSpousePassportOrOtherID",
+          "id": "spouse_upload_passport",
+          "key": "family.spouse.passportDocumentId",
+          "control": "component_passport_uploader"
+        },
+        {
+          "label": "text_UploadPassportStampPages",
+          "id": "spouse_passport_stamp_page_documents",
+          "key": "family.spouse.passportStampPageDocumentIds",
+          "control": "multi_file_uploader",
+          "documentType": "PASSPORT_STAMP_PAGES"
+        },
+        {
+          "label": "text_PassportOrOtherIDNumber",
+          "placeholder": "text_PassportOrOtherIDNumber",
+          "id": "spouse_passport_number",
+          "key": "family.spouse.passportNumber",
+          "control": "component_textbox_na"
+        },
+        {
+          "label": "text_BirthDate",
+          "placeholder": "text_MM/DD/YYYY",
+          "id": "birth_date_spouse",
+          "key": "family.spouse.birthDate",
+          "control": "datepicker"
+        },
+        {
+          "label": "text_Name",
+          "id": "spouse_name",
+          "control": "group",
+          "maxChildPerRow": "3",
+          "fields": [
+            {
+              "label": "text_FirstName",
+              "placeholder": "text_FirstName",
+              "id": "spouse_first_name",
+              "key": "family.spouse.firstName",
+              "control": "text"
+            },
+            {
+              "label": "text_MiddleName",
+              "placeholder": "text_MiddleName",
+              "id": "spouse_middle_name",
+              "key": "family.spouse.middleName",
+              "control": "component_textbox_na"
+            },
+            {
+              "label": "text_LastName",
+              "placeholder": "text_LastName",
+              "id": "spouse_last_name",
+              "key": "family.spouse.lastName",
+              "control": "text"
+            }
+          ]
+        },
+        {
+          "label": "text_NamesUsedBeforeLabel",
+          "placeholder": "text_NamesUsedBefore",
+          "id": "other_names_spouse",
+          "key": "family.spouse.namesUsedBefore",
+          "control": "component_multi_textboxes_na"
+        },
+        {
+          "label": "text_CityAndCountryOfBirth",
+          "placeholder": "text_CityAndCountryOfBirth",
+          "id": "location_of_birth_spouse",
+          "key": "family.spouse.cityAndCountryOfBirth",
+          "control": "component_location_dropdown"
+        },
+        {
+          "label": "text_Nationality",
+          "placeholder": "text_PresentNationality",
+          "id": "nationality",
+          "key": "family.spouse.nationality",
+          "control": "select",
+          "options": "NationalityOptions"
+        },
+        {
+          "label": "text_Race",
+          "id": "race_spouse",
+          "key": "family.spouse.race",
+          "control": "component_textbox_na"
+        },
+        {
+          "label": "text_Gender",
+          "id": "gender_spouse",
+          "key": "family.spouse.genderMaleCheckbox,family.spouse.genderFemaleCheckbox",
+          "control": "select",
+          "options": [
+            {
+              "value": "Male",
+              "label": "text_Male",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "Female",
+              "label": "text_Female",
+              "keyValue": "false,true"
+            }
+          ]
+        },
+        {
+          "label": "text_AlienRegistrationNumber",
+          "placeholder": "text_EnterIfApplicable",
+          "id": "alien_registration_number",
+          "key": "family.spouse.alienNumber",
+          "control": "component_textbox_na"
+        },
+        {
+          "label": "text_SSN",
+          "placeholder": "text_EnterIfApplicable",
+          "id": "ssn",
+          "key": "family.spouse.ssn",
+          "control": "component_textbox_na"
+        },
+        {
+          "label": "text_SpouseIsInUS",
+          "id": "PartA.II.15.",
+          "key": "family.spouse.personInUSYesCheckbox,family.spouse.personInUSNoCheckbox",
+          "control": "select",
+          "options": [
+            {
+              "value": "true",
+              "label": "text_Yes",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "false",
+              "label": "text_No",
+              "keyValue": "false,true"
+            }
+          ]
+        },
+        {
+          "label": "",
+          "hideHeader": "true",
+          "id": "PartA.II.15.",
+          "control": "section",
+          "fields": [
+            {
+              "label": "text_SpecifyLocation",
+              "placeholder": "text_SpecifyLocation",
+              "id": "spouse_location_not_in_us",
+              "key": "family.spouse.specifyLocationIfNotInUS",
+              "control": "text"
+            }
+          ]
+        },
+        {
+          "label": "",
+          "hideHeader": "true",
+          "id": "PartA.II.15.",
+          "visibility": "family.spouse.personInUSYesCheckbox=true",
+          "control": "section",
+          "fields": [
+            {
+              "label": "text_PlaceOfLastEntryIntoUS",
+              "id": "spouse_last_entry_us_place",
+              "key": "family.spouse.placeLastEntryIntoUS",
+              "control": "text"
+            },
+            {
+              "label": "text_DateOfLastEntryIntoUS",
+              "placeholder": "text_MM/DD/YYYY",
+              "id": "spouse_last_entry_us_date",
+              "key": "family.spouse.lastEntryUSDate",
+              "control": "datepicker"
+            },
+            {
+              "label": "text_I94Number",
+              "placeholder": "text_EnterIfApplicable",
+              "id": "spouse_i94_number",
+              "key": "family.spouse.i94Number",
+              "control": "component_textbox_na"
+            },
+            {
+              "label": "text_LastAdmittedStatus",
+              "placeholder": "text_VisaTypeIfAny",
+              "id": "spouse_last_admitted_status",
+              "key": "family.spouse.lastAdmittedStatus",
+              "control": "select",
+              "options": "EntryRecordStatus"
+            },
+            {
+              "label": "text_WhatsSpouseCurrentStatus",
+              "id": "spouse_current_status",
+              "key": "family.spouse.currentStatus",
+              "control": "select",
+              "options": "EntryRecordStatus"
+            },
+            {
+              "label": "text_WhatsExpirationDate",
+              "placeholder": "text_MM/DD/YYYY",
+              "id": "spouse_status_expire_date",
+              "key": "family.spouse.statusExpireDate",
+              "control": "datepickerWithNA"
+            },
+            {
+              "label": "text_IsSpouseImmigrationCourt",
+              "id": "immigration_court",
+              "key": "family.spouse.immigrationCourtProceedingYesCheckbox,family.spouse.immigrationCourtProceedingNoCheckbox",
+              "control": "radio",
+              "options": [
+                {
+                  "value": "yes",
+                  "label": "text_Yes",
+                  "keyValue": "true,false"
+                },
+                {
+                  "value": "no",
+                  "label": "text_No",
+                  "keyValue": "false,true"
+                }
+              ]
+            },
+            {
+              "label": "text_DateOfPreviousArrival",
+              "placeholder": "text_MM/DD/YYYY",
+              "id": "spouse_previous_arrival_date",
+              "key": "family.spouse.previousArrivalDate",
+              "control": "datepickerWithNA"
+            },
+            {
+              "label": "text_IsSpouseIncludedInApplication",
+              "hideHeader": "true",
+              "id": "spouse_included_in_application",
+              "key": "family.spouse.inThisApplicationYesCheckbox,family.spouse.inThisApplicationNoCheckbox",
+              "control": "checkbox",
+              "options": [
+                {
+                  "value": "true",
+                  "label": "text_Yes",
+                  "keyValue": "true,false"
+                },
+                {
+                  "value": "false",
+                  "label": "text_No",
+                  "keyValue": "false,true"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "",
+          "control": "divider"
+        },
+        {
+          "label": "text_UploadMarriageCertificate",
+          "id": "marriage_license",
+          "key": "supplementDocument.marriageCertificateDocument",
+          "control": "single_file_uploader",
+          "documentType": "MARRIAGE_CERTIFICATE_ORIGINAL"
+        },
+        {
+          "label": "text_MarriageCertificateInformation",
+          "id": "spouse_marriage_certificate",
+          "control": "group",
+          "maxChildPerRow": "3",
+          "fields": [
+            {
+              "label": "text_LicenseHolder",
+              "placeholder": "text_LicenseHolder",
+              "id": "license_holder",
+              "key": "supplementDocument.marriageCertificate.licenseHolder",
+              "control": "text"
+            },
+            {
+              "label": "text_RegistrationDate",
+              "placeholder": "text_RegistrationDate",
+              "id": "registration_date",
+              "key": "supplementDocument.marriageCertificate.registrationDate",
+              "control": "datepicker"
+            },
+            {
+              "label": "text_LicenseNumber",
+              "placeholder": "text_LicenseNumber",
+              "id": "license_holder",
+              "key": "supplementDocument.marriageCertificate.licenseNumber",
+              "control": "text"
+            },
+            {
+              "label": "text_Seal",
+              "placeholder": "text_Seal",
+              "id": "license_holder",
+              "key": "supplementDocument.marriageCertificate.seal",
+              "control": "text"
+            }
+          ]
+        },
+        {
+          "label": "text_MarriageDateAndPlace",
+          "id": "spouse_marriage_information",
+          "control": "group",
+          "maxChildPerRow": "3",
+          "fields": [
+            {
+              "label": "text_MarriageDate",
+              "placeholder": "text_MarriageDate",
+              "id": "spouse_marriage_date",
+              "key": "family.spouse.marriageDate",
+              "control": "datepicker"
+            },
+            {
+              "label": "text_MarriagePlace",
+              "placeholder": "text_MarriagePlace",
+              "id": "spouse_marriage_place",
+              "key": "family.spouse.marriagePlace",
+              "control": "text"
+            }
+          ]
+        },
+        {
+          "label": "text_MarriageLicenseHolderInformation",
+          "id": "spouse_marriage_certificate",
+          "control": "group",
+          "maxChildPerRow": "3",
+          "fields": [
+            {
+              "label": "text_LicenseHolderName",
+              "placeholder": "text_LicenseHolderName",
+              "id": "license_holder",
+              "key": "supplementDocument.marriageCertificate.holderName",
+              "control": "text"
+            },
+            {
+              "label": "text_Gender",
+              "placeholder": "text_Gender",
+              "id": "license_holder",
+              "key": "supplementDocument.marriageCertificate.gender",
+              "control": "text"
+            },
+            {
+              "label": "text_Nationality",
+              "placeholder": "text_Nationality",
+              "id": "license_holder",
+              "key": "supplementDocument.marriageCertificate.nationality",
+              "control": "text"
+            },
+            {
+              "label": "text_BirthDate",
+              "placeholder": "text_BirthDate",
+              "id": "license_holder",
+              "key": "supplementDocument.marriageCertificate.birthDate",
+              "control": "text"
+            },
+            {
+              "label": "text_IdNumber",
+              "placeholder": "text_IdNumber",
+              "id": "license_holder",
+              "key": "supplementDocument.marriageCertificate.idNumber",
+              "control": "text"
+            }
+          ]
+        },
+        {
+          "label": "text_MarriageLicenseSpouseInformation",
+          "id": "spouse_marriage_certificate",
+          "control": "group",
+          "maxChildPerRow": "3",
+          "fields": [
+            {
+              "label": "text_LicenseSpouseName",
+              "placeholder": "text_LicenseSpouseName",
+              "id": "license_holder",
+              "key": "supplementDocument.marriageCertificate.spouseName",
+              "control": "text"
+            },
+            {
+              "label": "text_Gender",
+              "placeholder": "text_Gender",
+              "id": "license_holder",
+              "key": "supplementDocument.marriageCertificate.spouseGender",
+              "control": "text"
+            },
+            {
+              "label": "text_Nationality",
+              "placeholder": "text_Nationality",
+              "id": "license_holder",
+              "key": "supplementDocument.marriageCertificate.spouseNationality",
+              "control": "text"
+            },
+            {
+              "label": "text_BirthDate",
+              "placeholder": "text_BirthDate",
+              "id": "license_holder",
+              "key": "supplementDocument.marriageCertificate.spouseBirthDate",
+              "control": "text"
+            },
+            {
+              "label": "text_IdNumber",
+              "placeholder": "text_IdNumber",
+              "id": "license_holder",
+              "key": "supplementDocument.marriageCertificate.spouseIdNumber",
+              "control": "text"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+/*
+ Left Menu
+ */
+.ant-layout-sider .ant-menu {
+  background: #f0f2f5;
+}
+
+.ant-layout .ant-layout-sider {
+  background: #f0f2f5;
+}
+
+.ant-layout .ant-layout-sider-trigger {
+  background: #f0f2f5;
+}
+
+.ant-layout-sider .ant-menu-item {
+  color: #333333;
+}
+
+.ant-layout-sider .ant-menu-item-active {
+  color: #42b874;
+}
+
+.ant-layout-sider .ant-menu-item-selected {
+  color: #42b874;
+  font-weight: bold;
+}
+
+/*
+ Right Content Panel Case Detail Card
+ */
+.caseStatus .ant-steps-item-icon {
+  background-color: #52c41a;
+}
+
+.ant-card-bordered {
+  margin-bottom: 10px;
+}
+
+.ant-descriptions-view table {
+  border: none;
+}
+.ant-descriptions-view table td,
+.ant-descriptions-view table th {
+  border: none;
+}
+
+.case-card {
+  position: relative;
+}
+
+.overview-status {
+  box-sizing: content-box;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  text-align: center;
+  margin: 0;
+  padding: 3px 5px;
+  border-top-right-radius: 12px;
+  border-bottom-left-radius: 12px;
+}

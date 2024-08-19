@@ -1,5 +1,5 @@
 import i18next from "i18next";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useClickOutsideOfRef } from "../../hooks/commonHooks";
 import { Language } from "../../model/commonModels";
@@ -9,15 +9,19 @@ import "./LanguageSelector.css";
 
 export function LanguageSelector() {
   const dispatch = useAppDispatch();
-  const selectedLanguage = useAppSelector(
-    state => state.common.selectedLanguage,
-  );
+  const selectedLanguage = useAppSelector(state => state.common.selectedLanguage);
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const componentRef = useRef<HTMLDivElement>(null);
 
   useClickOutsideOfRef(componentRef, setIsPopupOpen);
+
+  useEffect(() => {
+    i18next.changeLanguage(selectedLanguage, err => {
+      if (err) return console.error("something went wrong loading", err);
+    });
+  }, []);
 
   const handleChangeLanguage = (language: Language) => {
     i18next.changeLanguage(language, err => {
@@ -44,14 +48,8 @@ export function LanguageSelector() {
   }
 
   return (
-    <div
-      ref={componentRef}
-      className={isPopupOpen ? "lang-container popup" : "lang-container"}
-    >
-      <div
-        className="lang-display"
-        onClick={() => setIsPopupOpen(!isPopupOpen)}
-      >
+    <div ref={componentRef} className={isPopupOpen ? "lang-container popup" : "lang-container"}>
+      <div className="lang-display" onClick={() => setIsPopupOpen(!isPopupOpen)}>
         {languageDisplay}
         <ArrowDown />
       </div>

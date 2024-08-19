@@ -1,11 +1,69 @@
 .dashboard {
+  display: flex;
+  flex-direction: column;
   background-color: var(--gray-color-4);
   height: 100%;
   padding: 20px 40px;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 1390px;
 }
 
 .dashboard h2 {
   margin-bottom: 20px;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1390px;
+}
+
+.dashboard-header h2 {
+  margin-bottom: 0;
+}
+
+.dashboard-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+  max-width: 1390px;
+}
+
+.dashboard-search-input {
+  border-radius: 2px;
+}
+.dashboard-search-button {
+  border: 1px solid var(--primary-color);
+  border-radius: 2px;
+  /* margin-left: 10px; */
+  height: 40px;
+  width: 100px;
+}
+
+.dashboard-view-toggle {
+  font-size: 24px;
+
+  background-color: var(--white-color);
+  border: 1px solid var(--primary-color);
+  border-radius: 3px;
+
+  padding: 7px;
+}
+
+.dashboard-sort {
+  display: flex;
+  align-items: center;
+  background-color: var(--white-color);
+  border: 1px solid var(--gray-color-3);
+}
+.dashboard-sort-toggle {
+  font-size: 20px;
+  padding: 3px 7px;
+  color: var(--primary-color);
+  border-left: 1px solid var(--gray-color-3);
 }
 
 .dashboard-panel {
@@ -13,6 +71,8 @@
   display: flex;
   gap: 20px;
   flex-flow: wrap;
+  overflow-y: auto;
+  padding-bottom: 40px;
 }
 
 .dashboard-panel.no-application {
@@ -23,14 +83,18 @@
   align-items: center;
 }
 
+.dashboard-panel.has-application {
+  max-width: 1390px;
+}
+
 .dashboard-panel.has-application > div {
   background-color: var(--white-color);
-  flex: 0 0 30%;
-  border-radius: 10px;
+  flex: 0 0 35%;
+  border-radius: 12px;
 }
 
 .medium .dashboard-panel.has-application > div {
-  flex: 0 0 48%;
+  flex: 0 0 55%;
 }
 
 .small .dashboard-panel.has-application > div,
@@ -38,17 +102,15 @@
   flex: 0 0 100%;
 }
 
-.dashboard-panel.has-application > div svg {
+/* .dashboard-panel.has-application > div svg {
   border-bottom: 1px solid var(--gray-color-3);
-}
+} */
 
-.dashboard-header {
+.pagination-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.dashboard-header h2 {
-  margin-bottom: 0;
+  justify-content: center;
+  margin-top: auto;
+  padding: 20px 0 35px 0;
+  position: relative;
+  bottom: 0;
 }

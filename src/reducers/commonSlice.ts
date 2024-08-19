@@ -1,11 +1,23 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Language, ScreenSize } from "../model/commonModels";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { KeyValues, Language, ScreenSize } from "../model/commonModels";
 import { handleResize } from "../utils/utils";
 
-export type ModalType = "uploadpassport" | "uploadotherid" | "";
+export type ModalType =
+  | "uploadpassport"
+  | "uploadotherid"
+  | "uploadSignedDocument"
+  | "registerTrackingNumber"
+  | "registerApplicationReceipt"
+  | "registerFingerprintTimeLocation"
+  | "registerInterviewTimeLocation"
+  | "registerApplicationFinalResultReceipt"
+  | "tokenRefreshPopup"
+  | "";
+
 export interface CommonState {
   showModal?: boolean;
   modalType?: ModalType;
+  modalData?: KeyValues;
   tmpImageUrl?: string;
   selectedLanguage: Language;
   screenSize: ScreenSize;
@@ -31,9 +43,10 @@ export const commonSlice = createSlice({
     updateShowNavbar: (state, action: PayloadAction<boolean>) => {
       state.showNavbar = action.payload;
     },
-    openModal: (state, action: PayloadAction<ModalType>) => {
+    openModal: (state, action: PayloadAction<{ modalType: ModalType; modalData: KeyValues }>) => {
       state.showModal = true;
-      state.modalType = action.payload;
+      state.modalType = action.payload.modalType;
+      state.modalData = action.payload.modalData;
     },
     changeModalType: (state, action: PayloadAction<ModalType>) => {
       state.modalType = action.payload;
@@ -45,6 +58,7 @@ export const commonSlice = createSlice({
       state.showModal = false;
       state.modalType = "";
       state.tmpImageUrl = "";
+      state.modalData = {};
     },
   },
 });
