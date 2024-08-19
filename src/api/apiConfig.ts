@@ -1,6 +1,6 @@
 import { Role } from "../consts/consts";
 
-export const baseUrl = "https://devapi.quickimmi.ai";
+export const baseUrl = process.env.BACKENDAPI ?? "https://devapi.quickimmi.ai";
 
 export const fetchFunction = async (
   endPoint: string,
