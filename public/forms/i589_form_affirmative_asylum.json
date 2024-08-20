@@ -106,6 +106,12 @@
           "id": "asylum_information",
           "type": "level2",
           "referenceId": "i589_fields_asylum_claim"
+        },
+        {
+          "label": "text_AdditionalInformation",
+          "id": "asylum_additional_information",
+          "type": "level2",
+          "referenceId": "i589_fields_additional_information"
         }
       ]
     },
