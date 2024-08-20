@@ -33,23 +33,23 @@ export function SignUp() {
   }, [email, password]);
 
   // Configure Amplify with the user pool based on the role
-  useEffect(() => {
-    let userPoolConfig: any;
-    if (role === Role.LAWYER) {
-      userPoolConfig = awsExports.CUSTOMER_POOL;
-    } else {
-      userPoolConfig = awsExports.CUSTOMER_POOL;
-    }
-
-    Amplify.configure({
-      Auth: {
-        Cognito: {
-          userPoolId: userPoolConfig.USER_POOL_ID,
-          userPoolClientId: userPoolConfig.USER_POOL_APP_CLIENT_ID,
-        },
-      },
-    });
-  }, [role]);
+  // useEffect(() => {
+  //   let userPoolConfig: any;
+  //   if (role === Role.LAWYER) {
+  //     userPoolConfig = awsExports.LAWYER_POOL;
+  //   } else {
+  //     userPoolConfig = awsExports.CUSTOMER_POOL;
+  //   }
+  //
+  //   Amplify.configure({
+  //     Auth: {
+  //       Cognito: {
+  //         userPoolId: userPoolConfig.USER_POOL_ID,
+  //         userPoolClientId: userPoolConfig.USER_POOL_APP_CLIENT_ID,
+  //       },
+  //     },
+  //   });
+  // }, [role]);
 
   const signUpButtonOnClick = async () => {
     if (

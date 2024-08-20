@@ -6,7 +6,7 @@ import { fetchAuthSession, resendSignUpCode, signIn } from "aws-amplify/auth";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { createUserApi, getUserInfoApi, getLawyerInfoApi } from "../../../api/authAPI";
+import { createUserApi, getUserInfoApi, getLawyerInfoApi, createNewLawyerApi } from "../../../api/authAPI";
 import { useAppDispatch } from "../../../app/hooks";
 import awsExports from "../../../aws-exports";
 import { Role } from "../../../consts/consts";
@@ -36,7 +36,8 @@ export function SignIn() {
 
   // Configure Amplify when the role changes
   useEffect(() => {
-    const userPoolConfig = role === Role.LAWYER ? awsExports.LAWYER_POOL : awsExports.CUSTOMER_POOL;
+    // const userPoolConfig = role === Role.LAWYER ? awsExports.LAWYER_POOL : awsExports.CUSTOMER_POOL;
+    const userPoolConfig = awsExports.LAWYER_POOL;
     Amplify.configure({
       Auth: {
         Cognito: {
@@ -64,7 +65,13 @@ export function SignIn() {
 
         if (isSignedIn) {
           const session = await fetchAuthSession();
-          if (!session || !session.tokens || !session.tokens.accessToken) {
+          if (
+            !session ||
+            !session.tokens ||
+            !session.tokens.accessToken ||
+            !session.tokens.accessToken.payload ||
+            !session.tokens.accessToken.payload.username
+          ) {
             throw new Error("Failed to fetch session after sign in");
           }
           const accessToken = session.tokens.accessToken.toString();
@@ -78,10 +85,12 @@ export function SignIn() {
             }
           } catch (error: any) {
             if (error?.message === "USE_NOT_FOUND") {
-              await createUserApi(email, accessToken, role);
               if (role === Role.LAWYER) {
+                const cognitoId = session.tokens.accessToken.payload.username;
+                await createNewLawyerApi(cognitoId.toString(), email, accessToken, role);
                 userInfo = await getLawyerInfoApi(email, accessToken, role);
               } else {
+                await createUserApi(email, accessToken, role);
                 userInfo = await getUserInfoApi(email, accessToken, role);
               }
             } else {
@@ -187,9 +196,9 @@ export function SignIn() {
 
   const bottomTop = (
     <>
-      {/*<QText>{t("Doesn't have account?")}</QText>*/}
-      {/*<Link onClick={() => navigate("/signup")}>Sign Up</Link>*/}
-      <QText>{t("Contact contact@quickimmi.ai to sign up")}</QText>
+      <QText>{t("Doesn't have account?")}</QText>
+      <Link onClick={() => navigate("/signup")}>Sign Up</Link>
+      {/*<QText>{t("Contact contact@quickimmi.ai to sign up")}</QText>*/}
     </>
   );
 

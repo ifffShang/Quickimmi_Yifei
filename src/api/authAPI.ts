@@ -17,6 +17,26 @@ export async function createUserApi(email: string, accessToken: string, role: Ro
   return userId || 0;
 }
 
+export async function createNewLawyerApi(
+  cognitoId: string,
+  email: string,
+  accessToken: string,
+  role: Role,
+): Promise<number> {
+  const userId = await performApiRequest({
+    endPoint: "api/lawyer/create",
+    method: "POST",
+    data: {
+      email: email,
+      cognitoId: cognitoId,
+      phoneNumber: "",
+    },
+    accessToken,
+    role,
+  });
+  return userId || 0;
+}
+
 export async function getUserInfoApi(email: string, accessToken: string, role: Role): Promise<UserInfo> {
   if (role !== "APPLICANT") {
     throw new Error(`Invalid role ${role}`);
