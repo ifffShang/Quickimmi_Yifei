@@ -64,11 +64,11 @@ function useFetchCaseSummary() {
     fetchCaseSummary();
   }, [fetchCaseSummary]);
 
-  return { loading, error, caseSummary, setCaseSummary, fetchCaseSummary};
+  return { loading, error, caseSummary, setCaseSummary, fetchCaseSummary };
 }
 
 export function CaseStatusRightPanel() {
-  const { loading, error, caseSummary, setCaseSummary, fetchCaseSummary} = useFetchCaseSummary();
+  const { loading, error, caseSummary, setCaseSummary, fetchCaseSummary } = useFetchCaseSummary();
   const { t } = useTranslation();
 
   const handleCaseSummaryUpdate = () => {

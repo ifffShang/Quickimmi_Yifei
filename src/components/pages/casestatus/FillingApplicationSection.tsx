@@ -19,7 +19,7 @@ const FillingApplicationSection: React.FC<FillingApplicationSectionProps> = ({
   handleToggleExpand,
   isLawyer,
   t,
-  onCaseSummaryUpdate
+  onCaseSummaryUpdate,
 }) => {
   const { id } = useParams<{ id?: string }>();
   const navigate = useNavigate();

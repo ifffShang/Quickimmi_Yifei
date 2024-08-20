@@ -665,17 +665,6 @@ export async function getLawyerByCognitoIdApi(accessToken: string, role: Role, c
   return <LawyerInfo>res.data;
 }
 
-export async function getLawyerByUsernameApi(accessToken: string, role: Role, username: string): Promise<LawyerInfo> {
-  const res = await performApiRequest({
-    endPoint: `api/lawyer/getLawyerByUsername?username=${username}`,
-    method: "GET",
-    data: null,
-    accessToken,
-    role,
-  });
-  return <LawyerInfo>res.data;
-}
-
 export async function updateLawyerInfoApi(
   accessToken: string,
   role: Role,

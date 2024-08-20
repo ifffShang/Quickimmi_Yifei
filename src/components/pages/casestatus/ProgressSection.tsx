@@ -14,7 +14,13 @@ interface ProgressSectionProps {
   onCaseSummaryUpdate: () => void;
 }
 
-const ProgressSection: React.FC<ProgressSectionProps> = ({ currentStep, progress, expandedStep, setExpandedStep, onCaseSummaryUpdate }) => {
+const ProgressSection: React.FC<ProgressSectionProps> = ({
+  currentStep,
+  progress,
+  expandedStep,
+  setExpandedStep,
+  onCaseSummaryUpdate,
+}) => {
   const { t } = useTranslation();
   const isLawyer = useAppSelector(state => state.auth.isLawyer);
 

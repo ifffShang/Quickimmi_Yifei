@@ -6,11 +6,11 @@ import { fetchAuthSession, resendSignUpCode, signIn } from "aws-amplify/auth";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { createUserApi, getUserInfoApi, getLawyerInfoApi, createNewLawyerApi } from "../../../api/authAPI";
+import { createNewLawyerApi, createUserApi, getLawyerInfoApi, getUserInfoApi } from "../../../api/authAPI";
 import { useAppDispatch } from "../../../app/hooks";
 import awsExports from "../../../aws-exports";
 import { Role } from "../../../consts/consts";
-import { UserInfo, LawyerInfo } from "../../../model/apiModels";
+import { LawyerInfo, UserInfo } from "../../../model/apiModels";
 import { updateAuthState } from "../../../reducers/authSlice";
 import { signOutCurrentUser, startTokenExpirationTimer } from "../../../utils/authUtils";
 import { validateEmail, validatePassword } from "../../../utils/validators";
@@ -75,6 +75,7 @@ export function SignIn() {
             throw new Error("Failed to fetch session after sign in");
           }
           const accessToken = session.tokens.accessToken.toString();
+          const cognitoId = session.tokens.accessToken.payload.username.toString();
 
           let userInfo: UserInfo | LawyerInfo;
           try {
@@ -86,8 +87,7 @@ export function SignIn() {
           } catch (error: any) {
             if (error?.message === "USE_NOT_FOUND") {
               if (role === Role.LAWYER) {
-                const cognitoId = session.tokens.accessToken.payload.username;
-                await createNewLawyerApi(cognitoId.toString(), email, accessToken, role);
+                await createNewLawyerApi(cognitoId, email, accessToken, role);
                 userInfo = await getLawyerInfoApi(email, accessToken, role);
               } else {
                 await createUserApi(email, accessToken, role);
