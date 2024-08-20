@@ -182,7 +182,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
           modalData: {
             progressSteps: progressSteps,
             substepName: substepName,
-            onCaseSummaryUpdate, 
+            onCaseSummaryUpdate,
           },
         }),
       );

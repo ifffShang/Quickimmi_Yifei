@@ -1,5 +1,5 @@
 import { Role } from "../consts/consts";
-import { UserInfo, LawyerInfo } from "../model/apiModels";
+import { LawyerInfo, UserInfo } from "../model/apiModels";
 import { performApiRequest } from "./apiConfig";
 
 export async function createUserApi(email: string, accessToken: string, role: Role): Promise<number> {
@@ -57,6 +57,24 @@ export async function getLawyerInfoApi(email: string, accessToken: string, role:
   }
   const lawyerInfo = await performApiRequest({
     endPoint: `api/lawyer/getLawyerByUsername?username=${email}`,
+    method: "GET",
+    data: null,
+    accessToken,
+    role,
+  });
+  return lawyerInfo?.data;
+}
+
+export async function getLawyerInfoByCognitoIdApi(
+  cognitoId: string,
+  accessToken: string,
+  role: Role,
+): Promise<LawyerInfo> {
+  if (role !== "LAWYER") {
+    throw new Error(`Invalid role ${role}`);
+  }
+  const lawyerInfo = await performApiRequest({
+    endPoint: `api/lawyer/getLawyerByCognitoId?cognitoId=${cognitoId}`,
     method: "GET",
     data: null,
     accessToken,

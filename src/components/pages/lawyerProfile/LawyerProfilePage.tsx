@@ -1,35 +1,22 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useLocation } from "react-router-dom";
-import { Button, Pagination, message, Input, Select } from "antd";
-import { SwapOutlined, SearchOutlined } from "@ant-design/icons";
-import {
-  createNewCaseApi,
-  getCasesApi,
-  getCasesByLawyerApi,
-  getLawyerByUsernameApi,
-  updateLawyerInfoApi,
-} from "../../../api/caseAPI";
+import { useNavigate } from "react-router-dom";
+import { Button, message, Select } from "antd";
+import { updateLawyerInfoApi } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { updateCases, updateCurrentCaseId } from "../../../reducers/caseSlice";
 import { QText } from "../../common/Fonts";
 import { Loading } from "../../common/Loading";
-import { NewApplicationIcon } from "../../icons/Dashboard";
-import { CaseCard } from "../dashboard/CaseCard";
 // import "./Dashboard.css";
-import { Role } from "../../../consts/consts";
-import { set, update } from "lodash";
-import { FormControlContainer } from "../../form/FormControlContainer";
 import { QTextBox } from "../../form/fields/Controls";
-import { fireEvent } from "@testing-library/react";
 import {
-  LawyerInfo,
   LawyerBasicInfo,
   LawyerEligibility,
+  LawyerInfo,
   LawyerProfile,
   UpdateLawyerRequest,
 } from "../../../model/apiModels";
 import "./LawyerProfilePage.css";
+import { getLawyerInfoApi } from "../../../api/authAPI";
 
 export function LawyerProfilePage() {
   const navigate = useNavigate();
@@ -38,10 +25,10 @@ export function LawyerProfilePage() {
   const [loading, setLoading] = useState(false);
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const userId = useAppSelector(state => state.auth.userId);
+  const email = useAppSelector(state => state.auth.email);
   const isLawyer = useAppSelector(state => state.auth.isLawyer);
   const role = useAppSelector(state => state.auth.role);
   const allCases = useAppSelector(state => state.case.cases);
-
   const { Option } = Select;
 
   const defaultBasicInfo: LawyerBasicInfo = {
@@ -112,7 +99,7 @@ export function LawyerProfilePage() {
   }, [accessToken, userId]);
 
   const fetchLawyerInfo = async () => {
-    if (!accessToken || !userId) {
+    if (!accessToken || !userId || !email) {
       console.error(`Access token ${accessToken} or user id ${userId} is missing`);
       message.error("Access token or user id is missing");
       setLoading(false);
@@ -120,7 +107,7 @@ export function LawyerProfilePage() {
     }
     setLoading(true);
     try {
-      const data = await getLawyerByUsernameApi(accessToken, role, "justinzhou200726@gmail.com");
+      const data = await getLawyerInfoApi(email, accessToken, role);
       setLawyerInfo(data);
     } catch (err) {
       console.error(err);
@@ -144,6 +131,10 @@ export function LawyerProfilePage() {
 
         // Traverse to the correct nested object
         for (let i = 0; i < keyParts.length - 1; i++) {
+          if (!obj[keyParts[i]]) {
+            // Initialize the nested object if it's null or undefined
+            obj[keyParts[i]] = {};
+          }
           obj = obj[keyParts[i]];
         }
 
@@ -204,19 +195,19 @@ export function LawyerProfilePage() {
         <div className={"horizontal-2"}>
           <QTextBox
             placeholder={t("FirstName")}
-            value={lawyerInfo.firstName}
+            value={lawyerInfo.firstName ?? ""}
             fieldKey={"lawyerInfo.firstName"}
             onChange={getOnChangeHandler(["firstName", "profile.basicInfo.firstName"])}
           />
           <QTextBox
             placeholder={t("MiddleName")}
-            value={lawyerInfo.middleName}
+            value={lawyerInfo.middleName ?? ""}
             fieldKey={"lawyerInfo.middleName"}
             onChange={getOnChangeHandler(["middleName", "profile.basicInfo.middleName"])}
           />
           <QTextBox
             placeholder={t("LastName")}
-            value={lawyerInfo.lastName}
+            value={lawyerInfo.lastName ?? ""}
             fieldKey={"lawyerInfo.lastName"}
             onChange={getOnChangeHandler(["lastName", "profile.basicInfo.lastName"])}
           />
@@ -230,7 +221,7 @@ export function LawyerProfilePage() {
         <div className={"horizontal-2"}>
           <QTextBox
             placeholder={t("Email")}
-            value={lawyerInfo.email}
+            value={lawyerInfo.email ?? ""}
             fieldKey={"lawyerInfo.email"}
             onChange={getOnChangeHandler([])}
             disabled={true}
@@ -239,25 +230,25 @@ export function LawyerProfilePage() {
         <div className={"horizontal-2"}>
           <QTextBox
             placeholder={t("phoneNumber")}
-            value={lawyerInfo.phoneNumber}
+            value={lawyerInfo.phoneNumber ?? ""}
             fieldKey={"lawyerInfo.phoneNumber"}
             onChange={getOnChangeHandler(["phoneNumber"])}
           />
           <QTextBox
             placeholder={t("daytimeTelephoneNumber")}
-            value={lawyerInfo.profile.basicInfo.daytimeTelephoneNumber}
+            value={lawyerInfo?.profile?.basicInfo?.daytimeTelephoneNumber ?? ""}
             fieldKey={"lawyerInfo.phoneNumber"}
             onChange={getOnChangeHandler(["profile.basicInfo.daytimeTelephoneNumber"])}
           />
           <QTextBox
             placeholder={t("mobileTelephoneNumber")}
-            value={lawyerInfo.profile.basicInfo.mobileTelephoneNumber}
+            value={lawyerInfo?.profile?.basicInfo?.mobileTelephoneNumber ?? ""}
             fieldKey={"lawyerInfo.phoneNumber"}
             onChange={getOnChangeHandler(["profile.basicInfo.mobileTelephoneNumber"])}
           />
           <QTextBox
             placeholder={t("faxNumber")}
-            value={lawyerInfo.profile.basicInfo.faxNumber}
+            value={lawyerInfo?.profile?.basicInfo?.faxNumber ?? ""}
             fieldKey={"lawyerInfo.phoneNumber"}
             onChange={getOnChangeHandler(["profile.basicInfo.faxNumber"])}
           />
@@ -271,20 +262,20 @@ export function LawyerProfilePage() {
         <div className={"horizontal-2"}>
           <QTextBox
             placeholder={t("Street")}
-            value={lawyerInfo.profile.basicInfo.streetNumberAndName}
+            value={lawyerInfo?.profile?.basicInfo?.streetNumberAndName ?? ""}
             fieldKey={"lawyerInfo.email"}
             onChange={getOnChangeHandler(["profile.basicInfo.streetNumberAndName"])}
           />
           <QTextBox
             placeholder={t("ApartmentNumber")}
-            value={lawyerInfo.profile.basicInfo.aptSteFlrNumber}
+            value={lawyerInfo?.profile?.basicInfo?.aptSteFlrNumber ?? ""}
             fieldKey={"lawyerInfo.email"}
             onChange={getOnChangeHandler(["profile.basicInfo.aptSteFlrNumber"])}
           />
 
           <QTextBox
             placeholder={t("City")}
-            value={lawyerInfo.profile.basicInfo.city}
+            value={lawyerInfo?.profile?.basicInfo?.city ?? ""}
             fieldKey={"lawyerInfo.phoneNumber"}
             onChange={getOnChangeHandler(["profile.basicInfo.city"])}
           />
@@ -292,13 +283,13 @@ export function LawyerProfilePage() {
         <div className={"horizontal-2"}>
           <QTextBox
             placeholder={t("State")}
-            value={lawyerInfo.profile.basicInfo.stateDropdown}
+            value={lawyerInfo?.profile?.basicInfo?.stateDropdown ?? ""}
             fieldKey={"lawyerInfo.phoneNumber"}
             onChange={getOnChangeHandler(["profile.basicInfo.stateDropdown"])}
           />
           <QTextBox
             placeholder={t("ZipCode")}
-            value={lawyerInfo.profile.basicInfo.zipCode}
+            value={lawyerInfo?.profile?.basicInfo?.zipCode ?? ""}
             fieldKey={"lawyerInfo.phoneNumber"}
             onChange={getOnChangeHandler(["profile.basicInfo.zipCode", "profile.basicInfo.postalCode"])}
           />
@@ -312,13 +303,13 @@ export function LawyerProfilePage() {
         <div className={"horizontal-2"}>
           <QTextBox
             placeholder={t("UscisOnlineAccountNumber")}
-            value={lawyerInfo.profile.basicInfo.uscisOnlineAccountNumber}
+            value={lawyerInfo?.profile?.basicInfo?.uscisOnlineAccountNumber ?? ""}
             fieldKey={"lawyerInfo.email"}
             onChange={getOnChangeHandler(["profile.basicInfo.uscisOnlineAccountNumber"])}
           />
           <QTextBox
             placeholder={t("eoirNumber")}
-            value={lawyerInfo.profile.basicInfo.eoirNumber}
+            value={lawyerInfo?.profile?.basicInfo?.eoirNumber ?? ""}
             fieldKey={"lawyerInfo.email"}
             onChange={getOnChangeHandler(["profile.basicInfo.eoirNumber"])}
           />
@@ -332,19 +323,19 @@ export function LawyerProfilePage() {
         <div className={"horizontal-2"}>
           <QTextBox
             placeholder={t("lawFirm")}
-            value={lawyerInfo.lawFirm}
+            value={lawyerInfo?.lawFirm ?? ""}
             onChange={getOnChangeHandler(["lawFirm", "profile.basicInfo.nameofLawFirm"])}
           />
           <QTextBox
             placeholder={t("specialization")}
-            value={lawyerInfo.specialization}
+            value={lawyerInfo?.specialization ?? ""}
             fieldKey={"lawyerInfo.email"}
             onChange={getOnChangeHandler(["specialization"])}
           />
 
           <QTextBox
             placeholder={t("experienceYears")}
-            value={lawyerInfo.experienceYears.toString()}
+            value={lawyerInfo?.experienceYears?.toString() ?? ""}
             fieldKey={"lawyerInfo.email"}
             onChange={getOnChangeHandler(["experienceYears"])}
           />
@@ -352,26 +343,26 @@ export function LawyerProfilePage() {
         <div className={"horizontal-2"}>
           <QTextBox
             placeholder={t("AttorneyStateBarNumberPlaceholder")}
-            value={lawyerInfo.profile.eligibility.barNumber}
+            value={lawyerInfo?.profile?.eligibility?.barNumber ?? ""}
             fieldKey={"lawyerInfo.email"}
             onChange={getOnChangeHandler(["profile.eligibility.barNumber"])}
           />
 
           <QTextBox
             placeholder={t("licensingAuthority")}
-            value={lawyerInfo.profile.eligibility.licensingAuthority}
+            value={lawyerInfo?.profile?.eligibility?.licensingAuthority ?? ""}
             fieldKey={"lawyerInfo.email"}
             onChange={getOnChangeHandler(["profile.eligibility.licensingAuthority"])}
           />
           <QTextBox
             placeholder={t("dateofAccreditation")}
-            value={lawyerInfo.profile.eligibility.dateofAccreditation}
+            value={lawyerInfo?.profile?.eligibility?.dateofAccreditation ?? ""}
             fieldKey={"lawyerInfo.email"}
             onChange={getOnChangeHandler(["profile.eligibility.dateofAccreditation"])}
           />
           <QTextBox
             placeholder={t("nameofLawStudentOrLawGraduate")}
-            value={lawyerInfo.profile.eligibility.nameofLawStudentOrLawGraduate}
+            value={lawyerInfo?.profile?.eligibility?.nameofLawStudentOrLawGraduate ?? ""}
             fieldKey={"lawyerInfo.email"}
             onChange={getOnChangeHandler(["profile.eligibility.nameofLawStudentOrLawGraduate"])}
           />
