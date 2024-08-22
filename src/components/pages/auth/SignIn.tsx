@@ -8,7 +8,6 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { createNewLawyerApi, createUserApi, getLawyerInfoApi, getUserInfoApi } from "../../../api/authAPI";
 import { useAppDispatch } from "../../../app/hooks";
-import awsExports from "../../../aws-exports";
 import { Role } from "../../../consts/consts";
 import { LawyerInfo, UserInfo } from "../../../model/apiModels";
 import { updateAuthState } from "../../../reducers/authSlice";
@@ -36,13 +35,18 @@ export function SignIn() {
 
   // Configure Amplify when the role changes
   useEffect(() => {
-    // const userPoolConfig = role === Role.LAWYER ? awsExports.LAWYER_POOL : awsExports.CUSTOMER_POOL;
-    const userPoolConfig = awsExports.LAWYER_POOL;
+    const userPoolId =
+      role === Role.LAWYER ? process.env.REACT_APP_LAWYER_POOL_ID : process.env.REACT_APP_CUSTOMER_POOL_ID;
+    const userPoolClientId =
+      role === Role.LAWYER
+        ? process.env.REACT_APP_LAWYER_POOL_APP_CLIENT_ID
+        : process.env.REACT_APP_CUSTOMER_POOL_APP_CLIENT_ID;
+
     Amplify.configure({
       Auth: {
         Cognito: {
-          userPoolId: userPoolConfig.USER_POOL_ID,
-          userPoolClientId: userPoolConfig.USER_POOL_APP_CLIENT_ID,
+          userPoolId: userPoolId!,
+          userPoolClientId: userPoolClientId!,
         },
       },
     });

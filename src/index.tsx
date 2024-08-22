@@ -10,16 +10,21 @@ import "./locales/i18n";
 import reportWebVitals from "./reportWebVitals";
 import { pdfjs } from "react-pdf";
 import { Amplify } from "aws-amplify";
-import awsExports from "./aws-exports";
 import { Role } from "./consts/consts";
 
 const userRole = localStorage.getItem("userRole") || Role.LAWYER;
-const userPoolConfig = userRole === Role.LAWYER ? awsExports.LAWYER_POOL : awsExports.CUSTOMER_POOL;
+const userPoolId =
+  userRole === Role.LAWYER ? process.env.REACT_APP_LAWYER_POOL_ID : process.env.REACT_APP_CUSTOMER_POOL_ID;
+const userPoolClientId =
+  userRole === Role.LAWYER
+    ? process.env.REACT_APP_LAWYER_POOL_APP_CLIENT_ID
+    : process.env.REACT_APP_CUSTOMER_POOL_APP_CLIENT_ID;
+
 Amplify.configure({
   Auth: {
     Cognito: {
-      userPoolId: userPoolConfig.USER_POOL_ID,
-      userPoolClientId: userPoolConfig.USER_POOL_APP_CLIENT_ID,
+      userPoolId: userPoolId!,
+      userPoolClientId: userPoolClientId!,
     },
   },
 });

@@ -7,11 +7,12 @@ export function SignUpEntry() {
   return (
     <div className="signup-entry">
       <h2 className="signup-entry-header">
-        <div className="signup-entry-text">{t("LandingPage.SignupEntryTitle")}</div>
+        <div className="signup-entry-text">{t("LandingPage.StepInFutureCasework1")}</div>
+        <div className="signup-entry-text">{t("LandingPage.StepInFutureCasework2")}</div>
       </h2>
       <a href="https://forms.gle/7i85vwVHMbsBSe3a8" target="_blank" rel="noopener noreferrer">
-        <Button type="default" size="large">
-          {t("LandingPage.JoinWaitingList")}
+        <Button type="primary" size="large" className="request-demo-button">
+          {t("LandingPage.RequestDemo")}
         </Button>
       </a>
       {/* <Space.Compact style={{ maxWidth: "300px" }}>
