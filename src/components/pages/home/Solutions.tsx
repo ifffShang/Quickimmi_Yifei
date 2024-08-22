@@ -70,7 +70,10 @@ export function Solutions() {
             customizedCss="solution-text-block"
           />
           <SolutionCheckList
-            itemList={[t("LandingPage.AutoDocGenerationListItem1"), t("LandingPage.AutoDocGenerationListItem2 ")]}
+            itemList={[
+              t("LandingPage.AutoDocGenerationListItem1"), 
+              t("LandingPage.AutoDocGenerationListItem2"),
+            ]}
           />
           <Button
             type="primary"
@@ -151,9 +154,9 @@ export function Solutions() {
           />
           <SolutionCheckList
             itemList={[
-              t("LandingPage.AiAssistListItem1"),
-              t("LandingPage.AiAssistListItem2"),
-              t("LandingPage.AiAssistListItem3"),
+              t("LandingPage.AiAssistDescriptionListItem1"),
+              t("LandingPage.AiAssistDescriptionListItem2"),
+              t("LandingPage.AiAssistDescriptionListItem3"),
             ]}
           />
           <Button
