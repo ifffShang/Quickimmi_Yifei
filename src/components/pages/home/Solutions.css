@@ -1,0 +1,109 @@
+.ant-btn.ant-btn-lg.home-solutions-button {
+  color: var(--primary-color);
+  background: var(--primary-color-light);
+
+  width: 160px;
+  height: 40px;
+  font-weight: 700;
+  margin-left: 40px;
+}
+
+.home-solutions{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-color: var(--white-color);
+  padding-bottom: 80px;
+  width: 100%;
+}
+
+.section-title-button {
+  margin: 75px 0 15px 0;
+  padding: 3px 15px;
+  border-radius: 25px;
+  background-color: var(--primary-color-trans1);
+  color: black;
+}
+
+.solution-text-block {
+  padding: 0 20px 20px 40px !important;
+}
+.solution-text-block.text-block-description {
+  padding-left: 0 !important;
+}
+
+.hs-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 80px;
+}
+.xsmall .hs-section,
+.small .hs-section {
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 0;
+}
+.xsmall .hs-section svg,
+.small .hs-section svg {
+  width: 100%;
+}
+
+.hs-section-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  padding: 0 20px;
+}
+
+.solution-checklist {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  padding: 0 40px 20px 40px;
+}
+.solution-checklist-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.supported-immigration {
+  padding: 80px 0;
+  width: 50%;
+}
+
+.xsmall .supported-immigration,
+.small .supported-immigration {
+  width: 90%;
+}
+
+.supported-immigration-title {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-bold);
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.xsmall .supported-immigration-title,
+.small .supported-immigration-title {
+  font-size: var(--font-size-h4);
+}
+
+.supported-immigration-types {
+  display: flex;
+  justify-content: space-around;
+  gap: 10%;
+  font-weight: var(--font-weight-bold);
+}
+
+.xsmall .supported-immigration-types,
+.small .supported-immigration-types {
+  gap: 1%;
+}

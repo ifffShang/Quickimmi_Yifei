@@ -4,6 +4,7 @@ import type { CollapseProps } from "antd";
 import { useAppSelector } from "../../../app/hooks";
 import { AsylumCaseProfile } from "../../../model/apiModels";
 import { useTranslation } from "react-i18next";
+import "./FormSummary.css";
 
 export function FormSummary() {
   const { t } = useTranslation();

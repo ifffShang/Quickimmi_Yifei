@@ -12,8 +12,8 @@ export function TextBlock({ title, titleLevel, description, align, customizedCss
   const titleCss = `text-block-title ${titleLevel}`;
   return (
     <div className={`text-block ${align} ${customizedCss || ""}`}>
-      <h2 className={titleCss}>{title}</h2>
-      {description && <div className="text-block-description">{description}</div>}
+      <h3 className={titleCss}>{title}</h3>
+      {description && <div className={`text-block-description ${customizedCss}`}>{description}</div>}
     </div>
   );
 }
