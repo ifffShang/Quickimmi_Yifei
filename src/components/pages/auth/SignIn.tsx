@@ -35,8 +35,12 @@ export function SignIn() {
 
   // Configure Amplify when the role changes
   useEffect(() => {
-    const userPoolId = role === Role.LAWYER ? process.env.REACT_APP_LAWYER_POOL_ID : process.env.REACT_APP_CUSTOMER_POOL_ID;
-    const userPoolClientId = role === Role.LAWYER ? process.env.REACT_APP_LAWYER_POOL_APP_CLIENT_ID : process.env.REACT_APP_CUSTOMER_POOL_APP_CLIENT_ID;
+    const userPoolId =
+      role === Role.LAWYER ? process.env.REACT_APP_LAWYER_POOL_ID : process.env.REACT_APP_CUSTOMER_POOL_ID;
+    const userPoolClientId =
+      role === Role.LAWYER
+        ? process.env.REACT_APP_LAWYER_POOL_APP_CLIENT_ID
+        : process.env.REACT_APP_CUSTOMER_POOL_APP_CLIENT_ID;
 
     Amplify.configure({
       Auth: {

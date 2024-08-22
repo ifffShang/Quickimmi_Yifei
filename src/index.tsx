@@ -13,8 +13,12 @@ import { Amplify } from "aws-amplify";
 import { Role } from "./consts/consts";
 
 const userRole = localStorage.getItem("userRole") || Role.LAWYER;
-const userPoolId = userRole === Role.LAWYER ? process.env.REACT_APP_LAWYER_POOL_ID : process.env.REACT_APP_CUSTOMER_POOL_ID;
-const userPoolClientId = userRole === Role.LAWYER ? process.env.REACT_APP_LAWYER_POOL_APP_CLIENT_ID : process.env.REACT_APP_CUSTOMER_POOL_APP_CLIENT_ID;
+const userPoolId =
+  userRole === Role.LAWYER ? process.env.REACT_APP_LAWYER_POOL_ID : process.env.REACT_APP_CUSTOMER_POOL_ID;
+const userPoolClientId =
+  userRole === Role.LAWYER
+    ? process.env.REACT_APP_LAWYER_POOL_APP_CLIENT_ID
+    : process.env.REACT_APP_CUSTOMER_POOL_APP_CLIENT_ID;
 
 Amplify.configure({
   Auth: {
