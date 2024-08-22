@@ -324,7 +324,7 @@ export function LawyerProfilePage() {
           <QTextBox
             placeholder={t("lawFirm")}
             value={lawyerInfo?.lawFirm ?? ""}
-            onChange={getOnChangeHandler(["lawFirm", "profile.basicInfo.nameofLawFirm"])}
+            onChange={getOnChangeHandler(["lawFirm", "profile.eligibility.nameofLawFirm"])}
           />
           <QTextBox
             placeholder={t("specialization")}

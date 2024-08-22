@@ -66,6 +66,7 @@
 
 .nav-l1-label .qtag {
   width: 30px;
+  color: var(--gray-color-1);
 }
 
 .nav-exclamation-icon {
