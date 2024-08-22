@@ -20,7 +20,6 @@ import { Services } from "./Service";
 import { DataShowCase } from "./DataShowCase";
 import "./Home.css";
 
-
 export function Home() {
   const { t } = useTranslation();
   const selectedLanguage = useAppSelector(state => state.common.selectedLanguage);
@@ -44,10 +43,10 @@ export function Home() {
               {t("LandingPage.TryForFree")}
             </Button>
           </a> */}
-          <Button 
-            type="primary" 
-            size="large" 
-            icon={<ArrowRightOutlined />} 
+          <Button
+            type="primary"
+            size="large"
+            icon={<ArrowRightOutlined />}
             onClick={() => navigate("/signin")}
             className="first-home-button"
           >
@@ -84,7 +83,6 @@ export function Home() {
             <StatueOfLiberty />
           </div>
         </div>
-
       </div>
 
       {/* <div className="home-section home-highlights">

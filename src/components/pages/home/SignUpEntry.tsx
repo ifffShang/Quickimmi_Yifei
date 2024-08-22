@@ -11,11 +11,7 @@ export function SignUpEntry() {
         <div className="signup-entry-text">{t("LandingPage.StepInFutureCasework2")}</div>
       </h2>
       <a href="https://forms.gle/7i85vwVHMbsBSe3a8" target="_blank" rel="noopener noreferrer">
-        <Button 
-          type="primary" 
-          size="large" 
-          className="request-demo-button"
-          >
+        <Button type="primary" size="large" className="request-demo-button">
           {t("LandingPage.RequestDemo")}
         </Button>
       </a>

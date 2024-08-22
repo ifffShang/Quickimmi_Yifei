@@ -8,12 +8,12 @@
 .top-section {
   position: relative;
   z-index: 1;
-  background: linear-gradient(180deg, #EEFFF6 0%, #FFFFFF 22.5%, #FFFFFF 72.5%, #EEFFF7 99.99%);
+  background: linear-gradient(180deg, #eefff6 0%, #ffffff 22.5%, #ffffff 72.5%, #eefff7 99.99%);
 }
 
 .first-home-button {
   color: var(--white-color) !important;
-  background: var(--primary-color)!important;
+  background: var(--primary-color) !important;
   margin: 0 !important;
 }
 .first-home-button:hover {

@@ -31,12 +31,14 @@ function SolutionCheckList(props: { itemList: string[] }) {
     <div className="solution-checklist">
       {props.itemList.map((item, index) => (
         <div key={index} className="solution-checklist-item">
-          <CheckCircleFilled style={{color: "#27AE60"}}/>
-          <QText level="normal" color="dark">{item}</QText>
+          <CheckCircleFilled style={{ color: "#27AE60" }} />
+          <QText level="normal" color="dark">
+            {item}
+          </QText>
         </div>
-      ))}  
+      ))}
     </div>
-  )
+  );
 }
 
 export function Solutions() {
@@ -46,7 +48,6 @@ export function Solutions() {
 
   return (
     <div className="home-solutions">
-      
       <div className="section-title-button">
         <QText level="normal bold" color="dark">
           {t("LandingPage.Solution")}
@@ -67,25 +68,22 @@ export function Solutions() {
             description={t("LandingPage.AutoDocGenerationDescription")}
             align={screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall ? "center" : "left"}
             customizedCss="solution-text-block"
-          /> 
-          <SolutionCheckList 
-            itemList={[
-              t("LandingPage.AutoDocGenerationListItem1"), 
-              t("LandingPage.AutoDocGenerationListItem2 "), 
-            ]} 
-          /> 
-          <Button 
-            type="primary" size="large" 
-            icon={<ArrowRightOutlined />} 
+          />
+          <SolutionCheckList
+            itemList={[t("LandingPage.AutoDocGenerationListItem1"), t("LandingPage.AutoDocGenerationListItem2 ")]}
+          />
+          <Button
+            type="primary"
+            size="large"
+            icon={<ArrowRightOutlined />}
             className="home-solutions-button"
             onClick={() => navigate("/signin")}
           >
             {t("LandingPage.TryForFree")}
           </Button>
-        </div>     
-        <AiTranslate />  
+        </div>
+        <AiTranslate />
       </div>
-
 
       <div className="hs-section">
         <AiComplete />
@@ -97,16 +95,17 @@ export function Solutions() {
             align={screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall ? "center" : "left"}
             customizedCss="solution-text-block"
           />
-          <SolutionCheckList 
+          <SolutionCheckList
             itemList={[
-              t("LandingPage.AiInfoCollectionListItem1"), 
-              t("LandingPage.AiInfoCollectionListItem2"), 
-              t("LandingPage.AiInfoCollectionListItem3"), 
+              t("LandingPage.AiInfoCollectionListItem1"),
+              t("LandingPage.AiInfoCollectionListItem2"),
+              t("LandingPage.AiInfoCollectionListItem3"),
             ]}
           />
-          <Button 
-            type="primary" size="large" 
-            icon={<ArrowRightOutlined />} 
+          <Button
+            type="primary"
+            size="large"
+            icon={<ArrowRightOutlined />}
             className="home-solutions-button"
             onClick={() => navigate("/signin")}
           >
@@ -114,7 +113,7 @@ export function Solutions() {
           </Button>
         </div>
       </div>
-      
+
       <div className="hs-section">
         <div className="hs-section-description">
           <TextBlock
@@ -124,15 +123,13 @@ export function Solutions() {
             align={screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall ? "center" : "left"}
             customizedCss="solution-text-block"
           />
-          <SolutionCheckList 
-            itemList={[
-              t("LandingPage.SmartCaseManagementListItem1"), 
-              t("LandingPage.SmartCaseManagementListItem2"), 
-            ]}
+          <SolutionCheckList
+            itemList={[t("LandingPage.SmartCaseManagementListItem1"), t("LandingPage.SmartCaseManagementListItem2")]}
           />
-          <Button 
-            type="primary" size="large" 
-            icon={<ArrowRightOutlined />} 
+          <Button
+            type="primary"
+            size="large"
+            icon={<ArrowRightOutlined />}
             className="home-solutions-button"
             onClick={() => navigate("/signin")}
           >
@@ -152,16 +149,17 @@ export function Solutions() {
             align={screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall ? "center" : "left"}
             customizedCss="solution-text-block"
           />
-          <SolutionCheckList 
+          <SolutionCheckList
             itemList={[
-              t("LandingPage.AiAssistListItem1"), 
-              t("LandingPage.AiAssistListItem2"), 
-              t("LandingPage.AiAssistListItem3"), 
+              t("LandingPage.AiAssistListItem1"),
+              t("LandingPage.AiAssistListItem2"),
+              t("LandingPage.AiAssistListItem3"),
             ]}
           />
-          <Button 
-            type="primary" size="large" 
-            icon={<ArrowRightOutlined />} 
+          <Button
+            type="primary"
+            size="large"
+            icon={<ArrowRightOutlined />}
             className="home-solutions-button"
             onClick={() => navigate("/signin")}
           >
@@ -169,7 +167,6 @@ export function Solutions() {
           </Button>
         </div>
       </div>
-
     </div>
   );
 }

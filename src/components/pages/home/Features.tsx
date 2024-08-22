@@ -43,7 +43,7 @@ const featuresItemMapRight = [
   },
 ];
 
-function FeatureItem(props: { title: string, description: string, icon: React.ReactNode }) {
+function FeatureItem(props: { title: string; description: string; icon: React.ReactNode }) {
   const { title, description, icon } = props;
   const { t } = useTranslation();
 
@@ -58,7 +58,7 @@ function FeatureItem(props: { title: string, description: string, icon: React.Re
         customizedCss="hf-text-block"
       />
     </div>
-  )
+  );
 }
 
 export function Features() {
@@ -72,33 +72,18 @@ export function Features() {
           {t("LandingPage.Features")}
         </QText>
       </div>
-      <TextBlock
-        title={t("LandingPage.FeaturesTitle")}
-        titleLevel="h2"
-        align="center"
-        customizedCss="hf-text-block"
-      />
-      
+      <TextBlock title={t("LandingPage.FeaturesTitle")} titleLevel="h2" align="center" customizedCss="hf-text-block" />
+
       <div className="hf-section">
         <div className="hs-subsection">
           {featuresItemMapLeft.map((item, index) => (
-            <FeatureItem
-              key={index}
-              title={item.title}
-              description={item.description}
-              icon={item.icon}
-            />
+            <FeatureItem key={index} title={item.title} description={item.description} icon={item.icon} />
           ))}
         </div>
 
         <div className="hf-subsection">
           {featuresItemMapRight.map((item, index) => (
-            <FeatureItem
-              key={index}
-              title={item.title}
-              description={item.description}
-              icon={item.icon}
-            />
+            <FeatureItem key={index} title={item.title} description={item.description} icon={item.icon} />
           ))}
         </div>
       </div>
