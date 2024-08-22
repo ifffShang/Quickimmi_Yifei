@@ -1,20 +1,17 @@
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import Link from "antd/es/typography/Link";
-import { Amplify } from "aws-amplify";
 import { resendSignUpCode, signUp } from "aws-amplify/auth";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../../app/hooks";
-import awsExports from "../../../aws-exports";
 import { updateAuthState } from "../../../reducers/authSlice";
 import { validateEmail, validatePassword, validatePasswordConfirmation } from "../../../utils/validators";
 import { ErrorMessage, QText } from "../../common/Fonts";
 import { FormInput } from "../../form/fields/Controls";
 import { AuthComponent } from "./AuthComponent";
-import { Role } from "../../../consts/consts";
 
 export function SignUp() {
   const dispatch = useDispatch();
