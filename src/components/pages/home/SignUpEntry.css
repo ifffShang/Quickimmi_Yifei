@@ -1,7 +1,18 @@
+.ant-btn.ant-btn-lg.request-demo-button {
+  color: var(--primary-color);
+  background: var(--white-color);
+
+  width: 240px;
+  height: 60px;
+  font-size: 24px;
+  font-weight: 700;
+  border-radius: 40px;
+}
+
 .signup-entry {
   background-color: var(--primary-color);
   width: 100%;
-  padding: 80px 0;
+  padding: 160px 0;
 }
 
 .signup-entry-header {
@@ -19,8 +30,11 @@
 }
 
 .signup-entry-text {
+  font-size: 60px;
+  font-weight: 600;
   position: relative;
   display: inline-block;
+  line-height: 30px;
   width: 90%;
 }
 
