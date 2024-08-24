@@ -189,7 +189,7 @@ export function getPercentage(
         total++;
       }
     }
-    console.log("*** Field: ", total, fulfilled, fieldValue, field.key, field.control);
+    //console.log("*** Field: ", total, fulfilled, fieldValue, field.key, field.control);
   });
 
   return { total, fulfilled };
