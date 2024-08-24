@@ -11,7 +11,6 @@ import { FormInput } from "../../form/fields/Controls";
 import { ErrorMessage, QText } from "../../common/Fonts";
 import { AuthComponent } from "./AuthComponent";
 import "./ConfirmCode.css";
-import { updateAuthState } from "../../../reducers/authSlice";
 
 export function ConfirmCode() {
   const navigate = useNavigate();

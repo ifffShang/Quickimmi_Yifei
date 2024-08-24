@@ -113,7 +113,6 @@ export const RouterConfig = [
     element: <LawyerPreForm />,
     needLogin: true,
   },
-
   {
     path: PATH.Others,
     element: <Dashboard />,
@@ -122,7 +121,8 @@ export const RouterConfig = [
 ];
 
 export function MainView() {
-  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn) || false;
+  const tokenExpiration = useAppSelector(state => state.auth.tokenExpiration);
+  const isLoggedIn = tokenExpiration ? tokenExpiration > Date.now() : false;
   const dispatch = useAppDispatch();
 
   useTokenExpirationTimer(dispatch, isLoggedIn);

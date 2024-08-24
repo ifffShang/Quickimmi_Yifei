@@ -74,13 +74,14 @@ export function SignIn() {
             !session.tokens ||
             !session.tokens.accessToken ||
             !session.tokens.accessToken.payload ||
-            !session.tokens.accessToken.payload.username
+            !session.tokens.accessToken.payload.username ||
+            !session.tokens.accessToken.payload.exp
           ) {
             throw new Error("Failed to fetch session after sign in");
           }
           const accessToken = session.tokens.accessToken.toString();
           const cognitoId = session.tokens.accessToken.payload.username.toString();
-
+          const tokenExpiration = session.tokens.accessToken.payload.exp * 1000; // Convert seconds to milliseconds
           let userInfo: UserInfo | LawyerInfo;
           try {
             if (role === Role.LAWYER) {
@@ -106,10 +107,10 @@ export function SignIn() {
             updateAuthState({
               userId: userInfo?.id || undefined,
               isLawyer: role === Role.LAWYER,
-              isLoggedIn: true,
               email,
               accessToken: accessToken,
               role: role,
+              tokenExpiration: tokenExpiration,
             }),
           );
 

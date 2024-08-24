@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { ScreenSize } from "../../model/commonModels";
 import { signOutCurrentUser } from "../../utils/authUtils";
@@ -14,12 +14,13 @@ export function Navbar() {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const location = useLocation();
-  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
   const screenSize = useAppSelector(state => state.common.screenSize);
   const isSmallScreen = screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall;
+  const tokenExpiration = useAppSelector(state => state.auth.tokenExpiration);
+  const isLoggedIn = tokenExpiration ? tokenExpiration > Date.now() : false;
   const showFormNav = showFormNavigation();
 
+  // const location = useLocation();
   // const showNavbar = !isAuthPath(location.pathname);
   // Always show this nav because the language config is in the Nav.
   // if (!showNavbar) {
