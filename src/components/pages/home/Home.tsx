@@ -38,11 +38,6 @@ export function Home() {
               <Empower />
             </div>
           )}
-          {/* <a href="https://forms.gle/7i85vwVHMbsBSe3a8" target="_blank" rel="noopener noreferrer">
-            <Button type="primary" size="large">
-              {t("LandingPage.TryForFree")}
-            </Button>
-          </a> */}
           <Button
             type="primary"
             size="large"
@@ -52,27 +47,6 @@ export function Home() {
           >
             {t("LandingPage.TryForFree")}
           </Button>
-          <div className="home-video">
-            <ReactPlayer
-              className="home-video-player"
-              width="100%"
-              height="100%"
-              url="https://youtu.be/vYE1ukYjlNg?si=6alGE8dnzsN2uATd"
-              loop={true}
-              config={{
-                youtube: {
-                  playerVars: {
-                    showinfo: 0,
-                    controls: 1,
-                    modestbranding: 1,
-                    loop: 1,
-                    mute: 1,
-                    autoplay: 1,
-                  },
-                },
-              }}
-            />
-          </div>
         </div>
 
         <div className="home-section background-image border-bottom-2px">
@@ -83,6 +57,30 @@ export function Home() {
             <StatueOfLiberty />
           </div>
         </div>
+
+        <div className="home-video">
+          <div className="home-video-player">
+              <ReactPlayer
+                width="100%"
+                height="100%"
+                url="https://youtu.be/vYE1ukYjlNg?si=6alGE8dnzsN2uATd"
+                loop={true}
+                config={{
+                  youtube: {
+                    playerVars: {
+                      showinfo: 0,
+                      controls: 1,
+                      modestbranding: 1,
+                      loop: 1,
+                      mute: 1,
+                      autoplay: 1,
+                    },
+                  },
+                }}
+              />
+            </div>
+          </div>
+
       </div>
 
       {/* <div className="home-section home-highlights">
