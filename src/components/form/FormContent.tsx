@@ -52,7 +52,7 @@ export function FormContent(props: FormContentProps) {
         console.error(error);
       });
 
-    () => {
+    return () => {
       dispatch(resetForm());
     };
   }, [props.referenceId]);

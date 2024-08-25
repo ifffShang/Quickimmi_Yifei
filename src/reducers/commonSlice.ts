@@ -29,7 +29,7 @@ const initialState: CommonState = {
   selectedLanguage: "en",
   screenSize: handleResize(),
   showNavbar: true,
-  closeModalButtonEnabled: true
+  closeModalButtonEnabled: true,
 };
 
 export const commonSlice = createSlice({
@@ -45,7 +45,10 @@ export const commonSlice = createSlice({
     updateShowNavbar: (state, action: PayloadAction<boolean>) => {
       state.showNavbar = action.payload;
     },
-    openModal: (state, action: PayloadAction<{ modalType: ModalType; modalData: KeyValues; closeModalButtonEnabled?: boolean}>) => {
+    openModal: (
+      state,
+      action: PayloadAction<{ modalType: ModalType; modalData: KeyValues; closeModalButtonEnabled?: boolean }>,
+    ) => {
       state.showModal = true;
       state.modalType = action.payload.modalType;
       state.modalData = action.payload.modalData;
