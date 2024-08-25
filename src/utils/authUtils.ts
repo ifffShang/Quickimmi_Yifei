@@ -64,8 +64,6 @@ const fetchSessionWithRetry = async (retries: number): Promise<any> => {
     try {
       console.log(`Attempt ${attempt} to refresh token...`);
       const session = await fetchAuthSession({ forceRefresh: true });
-      console.log("Fetched tokens:", session.tokens);
-
       if (session.tokens && session.tokens.accessToken) {
         return session.tokens;
       } else {
@@ -91,7 +89,7 @@ export const startTokenExpirationTimer = (dispatch: AppDispatch, isLoggedIn: boo
   if (isLoggedIn) {
     const ExpirationTime = 1000 * 60 * 30; // 30 minutes
     const timerId = setTimeout(() => {
-      dispatch(openModal({ modalType: "tokenRefreshPopup", modalData: {} }));
+      dispatch(openModal({ modalType: "tokenRefreshPopup", modalData: {}, closeModalButtonEnabled: false }));
     }, ExpirationTime);
     InMemoryCache.set("tokenExpirationTimerId", timerId);
   }
@@ -106,13 +104,22 @@ export const refreshToken = async (dispatch: AppDispatch) => {
    * https://docs.amplify.aws/gen1/javascript/build-a-backend/auth/manage-user-session/#refreshing-sessions
    */
   const tokens = await fetchSessionWithRetry(MAX_RETRIES);
-  console.log("tokens", tokens);
   if (!tokens || !tokens.accessToken) {
     message.error("Empty tokens in session after refresh");
     throw new Error("Empty tokens in session after refresh");
   }
   const accessToken = tokens.accessToken.toString();
-  dispatch(updateAuthState({ accessToken: accessToken, tokenRefreshCountDownSeconds: 30 }));
-  InMemoryCache.get("tokenRefreshCountDownId") && clearInterval(InMemoryCache.get("tokenRefreshCountDownId"));
-  InMemoryCache.set("tokenRefreshCountDownId", undefined);
+  const tokenExpiration = tokens.accessToken.payload.exp * 1000; // Convert seconds to milliseconds
+  dispatch(
+    updateAuthState({
+      accessToken: accessToken,
+      tokenExpiration: tokenExpiration, // Update the token expiration in state
+      tokenRefreshCountDownSeconds: 30,
+    }),
+  );
+  // Clear the existing countdown timer if it exists
+  if (InMemoryCache.get("tokenRefreshCountDownId")) {
+    clearInterval(InMemoryCache.get("tokenRefreshCountDownId"));
+    InMemoryCache.set("tokenRefreshCountDownId", undefined);
+  }
 };

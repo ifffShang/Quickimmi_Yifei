@@ -14,19 +14,26 @@ import { UploadOtherIdModal } from "./case/UploadOtherIdModal";
 import { UploadPassportModal } from "./case/UploadPassportModal";
 import { UploadSignedDocumentModal } from "./case/UploadSignedDocumentModal";
 
-function Modal({ children }: { children?: ReactNode }) {
+interface ModalProps {
+  children?: ReactNode;
+  closeButtonEnabled?: boolean;
+}
+
+function Modal({ children, closeButtonEnabled = true }: ModalProps) {
   const dispatch = useAppDispatch();
 
   const close = useCallback(() => {
     dispatch(closeModal());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="modalview-container">
       <div className="modalview-popup">
-        <Link className="modalview-close" onClick={close}>
-          <CloseOutlined />
-        </Link>
+        {closeButtonEnabled && (
+          <Link className="modalview-close" onClick={close}>
+            <CloseOutlined />
+          </Link>
+        )}
         <div className="modalview-content">{children}</div>
       </div>
     </div>
@@ -41,25 +48,37 @@ export function ModalView() {
   }
 
   let innerModal;
-  if (common.modalType === "uploadpassport") {
-    innerModal = <UploadPassportModal />;
-  } else if (common.modalType === "uploadotherid") {
-    innerModal = <UploadOtherIdModal />;
-  } else if (common.modalType === "uploadSignedDocument") {
-    innerModal = <UploadSignedDocumentModal modalData={common.modalData} />;
-  } else if (common.modalType === "registerTrackingNumber") {
-    innerModal = <RegisterTrackingNumberModal modalData={common.modalData} />;
-  } else if (common.modalType === "registerApplicationReceipt") {
-    innerModal = <RegisterApplicationReceiptModal modalData={common.modalData} />;
-  } else if (common.modalType === "registerFingerprintTimeLocation") {
-    innerModal = <RegisterFingerprintTimeLocationModal modalData={common.modalData} />;
-  } else if (common.modalType === "registerInterviewTimeLocation") {
-    innerModal = <RegisterInterviewTimeLocationModal modalData={common.modalData} />;
-  } else if (common.modalType === "registerApplicationFinalResultReceipt") {
-    innerModal = <RegisterApplicationFinalResultReceiptModal modalData={common.modalData} />;
-  } else if (common.modalType === "tokenRefreshPopup") {
-    innerModal = <TokenRefreshModal />;
+  switch (common.modalType) {
+    case "uploadpassport":
+      innerModal = <UploadPassportModal />;
+      break;
+    case "uploadotherid":
+      innerModal = <UploadOtherIdModal />;
+      break;
+    case "uploadSignedDocument":
+      innerModal = <UploadSignedDocumentModal modalData={common.modalData} />;
+      break;
+    case "registerTrackingNumber":
+      innerModal = <RegisterTrackingNumberModal modalData={common.modalData} />;
+      break;
+    case "registerApplicationReceipt":
+      innerModal = <RegisterApplicationReceiptModal modalData={common.modalData} />;
+      break;
+    case "registerFingerprintTimeLocation":
+      innerModal = <RegisterFingerprintTimeLocationModal modalData={common.modalData} />;
+      break;
+    case "registerInterviewTimeLocation":
+      innerModal = <RegisterInterviewTimeLocationModal modalData={common.modalData} />;
+      break;
+    case "registerApplicationFinalResultReceipt":
+      innerModal = <RegisterApplicationFinalResultReceiptModal modalData={common.modalData} />;
+      break;
+    case "tokenRefreshPopup":
+      innerModal = <TokenRefreshModal />;
+      break;
+    default:
+      innerModal = null;
   }
 
-  return <Modal>{innerModal}</Modal>;
+  return <Modal closeButtonEnabled={common.closeModalButtonEnabled ?? true}>{innerModal}</Modal>;
 }

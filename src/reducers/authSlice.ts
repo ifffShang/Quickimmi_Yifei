@@ -1,54 +1,61 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Role } from "../consts/consts";
 import { InMemoryCache } from "../cache/inMemoryCache";
-import { closeModal } from "./commonSlice";
 
 export type Step = "signup" | "signin" | "forgotpassword" | "none";
 
 export interface AuthStateOptional {
   prevStep?: Step;
-  isLoggedIn?: boolean;
   accessToken?: string;
   email?: string;
   userId?: number;
   isLawyer?: boolean;
   role?: Role;
   tokenRefreshCountDownSeconds?: number;
+  tokenExpiration?: number;
 }
 
 export interface AuthState {
   prevStep?: Step;
-  isLoggedIn?: boolean;
   accessToken?: string;
   email?: string;
   userId?: number;
   isLawyer: boolean;
   role: Role;
   tokenRefreshCountDownSeconds: number;
+  tokenExpiration: number | null;
 }
 
 const initialState: AuthState = {
   prevStep: "none",
-  isLoggedIn: false,
   accessToken: "",
   email: "",
   userId: 0,
   isLawyer: false,
   role: Role.APPLICANT,
   tokenRefreshCountDownSeconds: 30,
+  tokenExpiration: null,
 };
 
-function logout(state: AuthState) {
+function clearTimers() {
   const tokenExpirationTimerId = InMemoryCache.get("tokenExpirationTimerId");
   if (tokenExpirationTimerId) {
     clearTimeout(tokenExpirationTimerId);
+    InMemoryCache.remove("tokenExpirationTimerId");
   }
+
   const tokenRefreshCountDownId = InMemoryCache.get("tokenRefreshCountDownId");
   if (tokenRefreshCountDownId) {
     clearInterval(tokenRefreshCountDownId);
+    InMemoryCache.remove("tokenRefreshCountDownId");
   }
+}
+
+function logout(state: AuthState) {
+  clearTimers();
   InMemoryCache.clearAll();
   Object.assign(state, initialState);
+  console.log("User has been logged out and state reset.");
 }
 
 export const authSlice = createSlice({
@@ -57,21 +64,26 @@ export const authSlice = createSlice({
   reducers: {
     updateAuthState: (state, action: PayloadAction<AuthStateOptional>) => {
       Object.assign(state, action.payload);
-    },
-    updateRole(state, action: PayloadAction<Role>) {
-      state.role = action.payload;
-      state.isLawyer = action.payload === Role.LAWYER;
+      console.log("Auth state updated: ", action.payload);
     },
     countDownTokenRefresh: state => {
-      state.tokenRefreshCountDownSeconds > 0 && state.tokenRefreshCountDownSeconds--;
-      console.log("Token refresh count down: ", state.tokenRefreshCountDownSeconds);
+      if (state.tokenRefreshCountDownSeconds > 0) {
+        state.tokenRefreshCountDownSeconds--;
+        console.log("Token refresh countdown: ", state.tokenRefreshCountDownSeconds);
+      } else {
+        console.log("Token refresh countdown has reached zero.");
+      }
     },
     resetAuthState: state => {
       logout(state);
     },
+    updateTokenExpiration: (state, action: PayloadAction<number>) => {
+      state.tokenExpiration = action.payload;
+      console.log("Token expiration time updated: ", new Date(action.payload).toLocaleString());
+    },
   },
 });
 
-export const { updateAuthState, updateRole, countDownTokenRefresh, resetAuthState } = authSlice.actions;
+export const { updateAuthState, countDownTokenRefresh, resetAuthState, updateTokenExpiration } = authSlice.actions;
 
 export default authSlice.reducer;
