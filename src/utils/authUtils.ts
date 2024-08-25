@@ -89,7 +89,7 @@ export const startTokenExpirationTimer = (dispatch: AppDispatch, isLoggedIn: boo
   if (isLoggedIn) {
     const ExpirationTime = 1000 * 60 * 30; // 30 minutes
     const timerId = setTimeout(() => {
-      dispatch(openModal({ modalType: "tokenRefreshPopup", modalData: {} }));
+      dispatch(openModal({ modalType: "tokenRefreshPopup", modalData: {}, closeModalButtonEnabled: false }));
     }, ExpirationTime);
     InMemoryCache.set("tokenExpirationTimerId", timerId);
   }

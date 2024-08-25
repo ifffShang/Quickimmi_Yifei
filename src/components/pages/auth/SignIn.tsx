@@ -61,83 +61,71 @@ export function SignIn() {
         return;
       }
 
-      const signInUser = async () => {
-        const { isSignedIn, nextStep } = await signIn({
-          username: email,
-          password,
-        });
+      // Check if there is already a signed-in user
+      const currentSession = await fetchAuthSession();
+      if (currentSession) {
+        console.log("User already signed in.");
+        signOutCurrentUser(dispatch);
+      }
 
-        if (isSignedIn) {
-          const session = await fetchAuthSession();
-          if (
-            !session ||
-            !session.tokens ||
-            !session.tokens.accessToken ||
-            !session.tokens.accessToken.payload ||
-            !session.tokens.accessToken.payload.username ||
-            !session.tokens.accessToken.payload.exp
-          ) {
-            throw new Error("Failed to fetch session after sign in");
+      const { isSignedIn, nextStep } = await signIn({ username: email, password });
+
+      if (isSignedIn) {
+        const session = await fetchAuthSession();
+        if (
+          !session?.tokens?.accessToken?.payload ||
+          !session.tokens.accessToken.payload.username ||
+          !session.tokens.accessToken.payload.exp
+        ) {
+          throw new Error("Failed to fetch session after sign in");
+        }
+        const accessToken = session.tokens.accessToken.toString();
+        const cognitoId = session.tokens.accessToken.payload.username.toString();
+        const tokenExpiration = session.tokens.accessToken.payload.exp * 1000; // Convert seconds to milliseconds
+        let userInfo: UserInfo | LawyerInfo;
+        try {
+          if (role === Role.LAWYER) {
+            userInfo = await getLawyerInfoApi(email, accessToken, role);
+          } else {
+            userInfo = await getUserInfoApi(email, accessToken, role);
           }
-          const accessToken = session.tokens.accessToken.toString();
-          const cognitoId = session.tokens.accessToken.payload.username.toString();
-          const tokenExpiration = session.tokens.accessToken.payload.exp * 1000; // Convert seconds to milliseconds
-          let userInfo: UserInfo | LawyerInfo;
-          try {
+        } catch (error: any) {
+          if (error?.message === "USE_NOT_FOUND") {
             if (role === Role.LAWYER) {
+              await createNewLawyerApi(cognitoId, email, accessToken, role);
               userInfo = await getLawyerInfoApi(email, accessToken, role);
             } else {
+              await createUserApi(email, accessToken, role);
               userInfo = await getUserInfoApi(email, accessToken, role);
             }
-          } catch (error: any) {
-            if (error?.message === "USE_NOT_FOUND") {
-              if (role === Role.LAWYER) {
-                await createNewLawyerApi(cognitoId, email, accessToken, role);
-                userInfo = await getLawyerInfoApi(email, accessToken, role);
-              } else {
-                await createUserApi(email, accessToken, role);
-                userInfo = await getUserInfoApi(email, accessToken, role);
-              }
-            } else {
-              throw error;
-            }
+          } else {
+            throw error;
           }
-
-          dispatch(
-            updateAuthState({
-              userId: userInfo?.id || undefined,
-              isLawyer: role === Role.LAWYER,
-              email,
-              accessToken: accessToken,
-              role: role,
-              tokenExpiration: tokenExpiration,
-            }),
-          );
-
-          startTokenExpirationTimer(dispatch, true);
-
-          navigate("/dashboard");
-        } else if (nextStep?.signInStep === "CONFIRM_SIGN_UP") {
-          await resendSignUpCode({ username: email });
-          dispatch(
-            updateAuthState({
-              prevStep: "signin",
-              email,
-            }),
-          );
-          navigate("/signup");
         }
-      };
 
-      try {
-        await signInUser();
-      } catch (error: any) {
-        if (error?.name === "UserAlreadyAuthenticatedException") {
-          signOutCurrentUser(dispatch);
-          await signInUser();
-        } else {
-          throw error;
-        }
+        dispatch(
+          updateAuthState({
+            userId: userInfo?.id || undefined,
+            isLawyer: role === Role.LAWYER,
+            email,
+            accessToken: accessToken,
+            role: role,
+            tokenExpiration: tokenExpiration,
+          }),
+        );
+
+        startTokenExpirationTimer(dispatch, true);
+
+        navigate("/dashboard");
+      } else if (nextStep?.signInStep === "CONFIRM_SIGN_UP") {
+        await resendSignUpCode({ username: email });
+        dispatch(
+          updateAuthState({
+            prevStep: "signin",
+            email,
+          }),
+        );
+        navigate("/signup");
       }
     } catch (error: any) {
       if (error?.message === "Incorrect username or password.") {
