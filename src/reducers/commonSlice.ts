@@ -18,6 +18,7 @@ export interface CommonState {
   showModal?: boolean;
   modalType?: ModalType;
   modalData?: KeyValues;
+  closeModalButtonEnabled?: boolean;
   tmpImageUrl?: string;
   selectedLanguage: Language;
   screenSize: ScreenSize;
@@ -28,6 +29,7 @@ const initialState: CommonState = {
   selectedLanguage: "en",
   screenSize: handleResize(),
   showNavbar: true,
+  closeModalButtonEnabled: true
 };
 
 export const commonSlice = createSlice({
@@ -43,10 +45,11 @@ export const commonSlice = createSlice({
     updateShowNavbar: (state, action: PayloadAction<boolean>) => {
       state.showNavbar = action.payload;
     },
-    openModal: (state, action: PayloadAction<{ modalType: ModalType; modalData: KeyValues }>) => {
+    openModal: (state, action: PayloadAction<{ modalType: ModalType; modalData: KeyValues; closeModalButtonEnabled?: boolean}>) => {
       state.showModal = true;
       state.modalType = action.payload.modalType;
       state.modalData = action.payload.modalData;
+      state.closeModalButtonEnabled = action.payload.closeModalButtonEnabled ?? true;
     },
     changeModalType: (state, action: PayloadAction<ModalType>) => {
       state.modalType = action.payload;
