@@ -12,7 +12,8 @@ export function TokenRefreshModal() {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const tokenRefreshCountDownSeconds = useAppSelector(state => state.auth.tokenRefreshCountDownSeconds);
-  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn) || false;
+  const tokenExpiration = useAppSelector(state => state.auth.tokenExpiration);
+  const isLoggedIn = tokenExpiration ? tokenExpiration > Date.now() : false;
 
   useEffect(() => {
     if (!isLoggedIn) return;
