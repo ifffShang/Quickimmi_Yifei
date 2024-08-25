@@ -66,6 +66,9 @@ export function Dashboard() {
   };
 
   const applySearchAndFilter = (cases, searchQuery, sortOption, sortOrder) => {
+    if (!cases || cases.length === 0) {
+      return [];
+    }
     let filteredCases = cases.filter(
       c => c.caseName.toLowerCase().includes(searchQuery.toLowerCase()) || c.id.toString() === searchQuery,
     );
