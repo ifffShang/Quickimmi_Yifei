@@ -162,7 +162,7 @@ export function Dashboard() {
 
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
-  const paginatedCases = filteredCases.slice(startIndex, endIndex);
+  const paginatedCases = filteredCases?.slice(startIndex, endIndex);
 
   const innerContent =
     paginatedCases && paginatedCases.length > 0 ? (
