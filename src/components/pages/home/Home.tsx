@@ -60,27 +60,26 @@ export function Home() {
 
         <div className="home-video">
           <div className="home-video-player">
-              <ReactPlayer
-                width="100%"
-                height="100%"
-                url="https://youtu.be/vYE1ukYjlNg?si=6alGE8dnzsN2uATd"
-                loop={true}
-                config={{
-                  youtube: {
-                    playerVars: {
-                      showinfo: 0,
-                      controls: 1,
-                      modestbranding: 1,
-                      loop: 1,
-                      mute: 1,
-                      autoplay: 1,
-                    },
+            <ReactPlayer
+              width="100%"
+              height="100%"
+              url="https://youtu.be/vYE1ukYjlNg?si=6alGE8dnzsN2uATd"
+              loop={true}
+              config={{
+                youtube: {
+                  playerVars: {
+                    showinfo: 0,
+                    controls: 1,
+                    modestbranding: 1,
+                    loop: 1,
+                    mute: 1,
+                    autoplay: 1,
                   },
-                }}
-              />
-            </div>
+                },
+              }}
+            />
           </div>
-
+        </div>
       </div>
 
       {/* <div className="home-section home-highlights">
