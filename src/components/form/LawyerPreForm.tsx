@@ -18,6 +18,18 @@ const immigrationData = [
     Type: "Asylum",
     SubType: ["AFFIRMATIVE", "DEFENSIVE"],
   },
+  {
+    Type: "Family-Based Immigration",
+    SubType: ["Immediate relatives of U.S. citizens", "Family preference categories"],
+  },
+  {
+    Type: "Employment-Based Immigration",
+    SubType: ["EB-1", "EB-2", "EB-5"],
+  },
+  {
+    Type: "Temporary Work Visas",
+    SubType: ["H-1B", "L-1", "O-1"],
+  },
 ];
 
 export function LawyerPreForm() {

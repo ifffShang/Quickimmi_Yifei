@@ -190,8 +190,8 @@ export function SignIn() {
   const bottomTop = (
     <>
       <QText>{t("Doesn't have account?")}</QText>
-      <Link onClick={() => navigate("/signup")}>Sign Up</Link>
-      {/*<QText>{t("Contact contact@quickimmi.ai to sign up")}</QText>*/}
+      {/*<Link onClick={() => navigate("/signup")}>Sign Up</Link>*/}
+      <QText>{t("Contact contact@quickimmi.ai to sign up")}</QText>
     </>
   );
 
