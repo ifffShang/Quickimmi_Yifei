@@ -13,8 +13,11 @@
 }
 
 .first-home-button {
+  z-index: 1;
   color: var(--white-color) !important;
   background: var(--primary-color) !important;
+  width: 160px;
+  height: 40px;
   margin: 0 !important;
 }
 .first-home-button:hover {
@@ -124,8 +127,8 @@
 }
 
 .home-video-player iframe {
-  width: 850px;
-  height: 500px;
+  width: 1000px;
+  height: 600px;
   border-radius: 12px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
 }
