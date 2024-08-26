@@ -28,9 +28,9 @@ function SupportedImmigrationTypes() {
 
 function SolutionCheckList(props: { itemList: string[] }) {
   return (
-    <div className="solution-checklist">
+    <div className="solutions-checklist">
       {props.itemList.map((item, index) => (
-        <div key={index} className="solution-checklist-item">
+        <div key={index} className="solutions-checklist-item">
           <CheckCircleFilled style={{ color: "#27AE60" }} />
           <QText level="normal" color="dark">
             {item}
@@ -48,7 +48,7 @@ export function Solutions() {
 
   return (
     <div className="home-solutions">
-      <div className="section-title-button">
+      <div className="section-title">
         <QText level="normal bold" color="dark">
           {t("LandingPage.Solution")}
         </QText>
@@ -57,17 +57,17 @@ export function Solutions() {
         title={t("LandingPage.SolutionTitle")}
         titleLevel="h2"
         align="center"
-        customizedCss="solution-text-block"
+        customizedCss="home-solutions-title-block"
       />
 
-      <div className="hs-section">
-        <div className="hs-section-description">
+      <div className="home-solutions-section">
+        <div className="home-solutions-section-description">
           <TextBlock
             title={t("LandingPage.AutoDocGeneration")}
             titleLevel="h2"
             description={t("LandingPage.AutoDocGenerationDescription")}
             align={screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall ? "center" : "left"}
-            customizedCss="solution-text-block"
+            customizedCss="home-solutions-text-block"
           />
           <SolutionCheckList
             itemList={[t("LandingPage.AutoDocGenerationListItem1"), t("LandingPage.AutoDocGenerationListItem2")]}
@@ -85,15 +85,15 @@ export function Solutions() {
         <AiTranslate />
       </div>
 
-      <div className="hs-section">
+      <div className="home-solutions-section">
         <AiComplete />
-        <div className="hs-section-description">
+        <div className="home-solutions-section-description">
           <TextBlock
             title={t("LandingPage.AiInfoCollection")}
             titleLevel="h2"
             description={t("LandingPage.AiInfoCollectionDescription")}
             align={screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall ? "center" : "left"}
-            customizedCss="solution-text-block"
+            customizedCss="home-solutions-text-block"
           />
           <SolutionCheckList
             itemList={[
@@ -114,14 +114,14 @@ export function Solutions() {
         </div>
       </div>
 
-      <div className="hs-section">
-        <div className="hs-section-description">
+      <div className="home-solutions-section">
+        <div className="home-solutions-section-description">
           <TextBlock
             title={t("LandingPage.SmartCaseManagement")}
             titleLevel="h2"
             description={t("LandingPage.SmartCaseManagementDescription")}
             align={screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall ? "center" : "left"}
-            customizedCss="solution-text-block"
+            customizedCss="home-solutions-text-block"
           />
           <SolutionCheckList
             itemList={[t("LandingPage.SmartCaseManagementListItem1"), t("LandingPage.SmartCaseManagementListItem2")]}
@@ -139,15 +139,15 @@ export function Solutions() {
         <ManAndComputer />
       </div>
 
-      <div className="hs-section">
+      <div className="home-solutions-section">
         <AiIntelligent />
-        <div className="hs-section-description">
+        <div className="home-solutions-section-description">
           <TextBlock
             title={t("LandingPage.AiAssist")}
             titleLevel="h2"
             description={t("LandingPage.AiAssistDescription")}
             align={screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall ? "center" : "left"}
-            customizedCss="solution-text-block"
+            customizedCss="home-solutions-text-block"
           />
           <SolutionCheckList
             itemList={[

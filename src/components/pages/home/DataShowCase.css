@@ -26,9 +26,10 @@
   border-left: 1px solid var(--dark-gray-color);
   padding: 10px 40px;
 }
-.text-block-title {
+.hd-text-block > h3 {
   color: var(--dark-gray-color);
 }
+
 .text-block-title.hd-text-block {
   color: var(--dark-gray-color);
 }
