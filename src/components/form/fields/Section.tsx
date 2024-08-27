@@ -30,7 +30,6 @@ export interface SectionProps {
   visibility?: string;
   hideHeader?: boolean;
   fieldIndex?: number;
-  lastField: boolean;
   documentType?: DocumentType;
 }
 
@@ -181,7 +180,6 @@ export function Section(props: SectionProps) {
                     format={field.format}
                     visibility={field.visibility}
                     fieldIndex={arrIndex}
-                    lastField={props.lastField && (props.subFields ? index === props.subFields.length - 1 : true)}
                     documentType={field.documentType}
                   />
                 </div>
@@ -208,7 +206,6 @@ export function Section(props: SectionProps) {
               format={field.format}
               visibility={field.visibility}
               fieldIndex={props.fieldIndex}
-              lastField={props.lastField && (props.subFields ? index === props.subFields.length - 1 : true)}
               documentType={field.documentType}
             />
           </div>

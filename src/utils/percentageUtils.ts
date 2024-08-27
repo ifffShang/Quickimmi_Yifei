@@ -66,27 +66,6 @@ export function excludeForPercentageCalc(control: ControlType) {
   );
 }
 
-export function includeForPercentageCalc(control: ControlType) {
-  return (
-    control !== "label" &&
-    control !== "divider" &&
-    control !== "section" &&
-    control !== "removable_section" &&
-    control !== "component_mailing_same_as_residential" &&
-    control !== "component_list_documents" &&
-    control !== "component_add_item"
-  );
-}
-
-export function includeForLastField(control: ControlType) {
-  return (
-    control !== "group" &&
-    control !== "section" &&
-    control !== "removable_section" &&
-    control !== "component_list_documents"
-  );
-}
-
 export function getPercentage(
   fields: IFormField[] | undefined,
   profile: AsylumCaseProfile,

@@ -55,7 +55,6 @@ export interface FormFieldProps {
   visibility?: string;
   hideHeader?: boolean;
   fieldIndex?: number;
-  lastField: boolean;
   documentType?: DocumentType;
 }
 
@@ -82,7 +81,6 @@ export function FormField(props: FormFieldProps) {
     `Field key ${props.fieldKey},
     value: ${JSON.stringify(fieldValue)},
     control: ${props.control},
-    lastField: ${props.lastField},
     totalFields_fulfilled: ${fieldCount}
     `,
   );
@@ -211,30 +209,6 @@ export function FormField(props: FormFieldProps) {
         keyValueObject[key] = values[index];
       });
       dispatchFormValue(dispatch, keyValueObject, props.fieldIndex);
-      return;
-    }
-    dispatchFormValue(
-      dispatch,
-      {
-        [props.fieldKey]: value,
-      },
-      props.fieldIndex,
-    );
-  };
-
-  const onPureCheckboxChange = (value: boolean) => {
-    if (!props.fieldKey) return;
-
-    if (props.fieldKey.indexOf(",") > -1) {
-      const keys = props.fieldKey.split(",");
-      dispatchFormValue(
-        dispatch,
-        {
-          [keys[0]]: value,
-          [keys[1]]: !value,
-        },
-        props.fieldIndex,
-      );
       return;
     }
     dispatchFormValue(
@@ -585,7 +559,6 @@ export function FormField(props: FormFieldProps) {
                   format={field.format}
                   visibility={field.visibility}
                   fieldIndex={props.fieldIndex}
-                  lastField={props.lastField && (props.subFields ? index === props.subFields.length - 1 : true)}
                   documentType={field.documentType}
                 />
               </div>

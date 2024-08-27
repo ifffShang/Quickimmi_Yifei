@@ -131,7 +131,6 @@ export function FormContent(props: FormContentProps) {
                 visibility={field.visibility}
                 hideHeader={field.hideHeader}
                 fieldIndex={field.fieldIndex}
-                lastField={index === formFields.fields.length - 1}
                 documentType={field.documentType}
               />
             </div>
