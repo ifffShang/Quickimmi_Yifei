@@ -29,7 +29,7 @@ import { retryApi } from "./retry";
 import { removePropertiesNotDefinedInModel } from "../utils/caseUtils";
 import { InitialApplicationCase } from "../consts/caseConsts";
 
-export async function getForm(id: string, cachedForm?: IForm): Promise<IForm> {
+export async function getForm(id: string): Promise<IForm> {
   return await performApiRequest({
     endPoint: `forms/${id}.json?${new Date().getTime()}`,
     method: "GET",

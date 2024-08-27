@@ -1,3 +1,4 @@
+import { Alert } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getCaseProfileAndProgressApi, getCaseSummaryApi, getForm } from "../../../api/caseAPI";
@@ -8,7 +9,6 @@ import { updateAsylumType, updateCaseProfileAndProgress } from "../../../reducer
 import { buildPercentageObject } from "../../../utils/percentageUtils";
 import { CentralizedLoading } from "../../common/Loading";
 import { FormContainer } from "../../form/FormContainer";
-import { Alert } from "antd";
 
 export function CaseDetails() {
   const dispatch = useAppDispatch();

@@ -1,11 +1,12 @@
+import { message } from "antd";
 import { fetchAuthSession, signOut } from "aws-amplify/auth";
 import { AppDispatch } from "../app/store";
-import { resetAuthState, updateAuthState } from "../reducers/authSlice";
-import { closeModal, openModal } from "../reducers/commonSlice";
-import { InMemoryCache } from "../cache/inMemoryCache";
-import { message } from "antd";
-import { resetFormState } from "../reducers/formSlice";
 import { CacheStore } from "../cache/cache";
+import { InMemoryCache } from "../cache/inMemoryCache";
+import { resetAuthState, updateAuthState } from "../reducers/authSlice";
+import { resetCaseState } from "../reducers/caseSlice";
+import { closeModal, openModal } from "../reducers/commonSlice";
+import { resetFormState } from "../reducers/formSlice";
 
 export const signOutCurrentUser = (dispatch: AppDispatch) => {
   signOut()
@@ -24,6 +25,7 @@ export const signOutCurrentUser = (dispatch: AppDispatch) => {
       // Reset application state
       dispatch(resetFormState());
       dispatch(resetAuthState());
+      dispatch(resetCaseState());
       dispatch(closeModal());
     })
     .catch(error => {
