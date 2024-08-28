@@ -30,9 +30,9 @@ export function Navbar(props: { currentPath: string }) {
   const currentPath = props.currentPath;
   const onHomepage = currentPath === "/";
   const containerCss = `${isSmallScreen && showFormNav ? "navbar-container form-nav" : "navbar-container"}${onHomepage ? " navbar-container-homepage" : ""}`;
-  
+
   const [firstLetter, setFirstLetter] = useState("U");
-  
+
   useEffect(() => {
     fetchLawyerInfo();
   }, [accessToken, userId]);
@@ -52,7 +52,6 @@ export function Navbar(props: { currentPath: string }) {
       console.error(err);
     }
   };
-
 
   const handleScrollToSection = (sectionId: string) => {
     const sectionElement = document.getElementById(sectionId);

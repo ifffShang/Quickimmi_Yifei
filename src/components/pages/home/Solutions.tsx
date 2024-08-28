@@ -62,7 +62,7 @@ function SolutionSection({
 
   return (
     <div className="home-solutions-section">
-      {picOnLeft ? (IconComponent && <IconComponent />) : (<></>)}
+      {picOnLeft ? IconComponent && <IconComponent /> : <></>}
       <div className="home-solutions-section-description">
         <TextBlock
           title={title}
@@ -82,7 +82,7 @@ function SolutionSection({
           {t("LandingPage.TryForFree")}
         </Button>
       </div>
-      {picOnLeft ? (<></>): (IconComponent && <IconComponent />)}
+      {picOnLeft ? <></> : IconComponent && <IconComponent />}
     </div>
   );
 }
