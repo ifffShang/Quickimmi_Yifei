@@ -30,11 +30,13 @@ export function Navbar(props: { currentPath: string }) {
   const currentPath = props.currentPath;
   const onHomepage = currentPath === "/";
   const containerCss = `${isSmallScreen && showFormNav ? "navbar-container form-nav" : "navbar-container"}${onHomepage ? " navbar-container-homepage" : ""}`;
-
-  let lawyerFirstName = "";
+  
+  const [firstLetter, setFirstLetter] = useState("U");
+  
   useEffect(() => {
     fetchLawyerInfo();
   }, [accessToken, userId]);
+
   const fetchLawyerInfo = async () => {
     if (!accessToken || !email) {
       return;
@@ -42,13 +44,15 @@ export function Navbar(props: { currentPath: string }) {
     try {
       const data = await getLawyerInfoApi(email, accessToken, role);
       if (data) {
-        lawyerFirstName = data.firstName[0];
+        const firstName = data.firstName[0];
+        setFirstLetter(firstName ? firstName[0] : "U");
+        console.log("lawyerFirstName", firstName);
       }
     } catch (err) {
       console.error(err);
     }
   };
-  const firstLetter = lawyerFirstName ? lawyerFirstName[0] : "U";
+
 
   const handleScrollToSection = (sectionId: string) => {
     const sectionElement = document.getElementById(sectionId);
