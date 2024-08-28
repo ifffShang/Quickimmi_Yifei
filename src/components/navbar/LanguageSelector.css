@@ -34,6 +34,6 @@
 }
 
 .selected-lang {
-  background-color: var(--gray-color-4); 
-  cursor: default; 
+  background-color: var(--gray-color-4);
+  cursor: default;
 }

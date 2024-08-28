@@ -131,7 +131,7 @@ export function MainView() {
 
   return (
     <div className="mainview-container">
-      <Navbar currentPath={location.pathname}/>
+      <Navbar currentPath={location.pathname} />
       <div className="mainview-content">
         <Routes>
           {RouterConfig.map((route, index) => (

@@ -58,7 +58,7 @@ export function Menu({ items, popupPosition, optionAlign }: MenuProps) {
       onClick={() => setIsPopupOpen(!isPopupOpen)}
     >
       <div className="menu-display">
-        <MenuOutlined style={{color: "#27AE60"}}/>
+        <MenuOutlined style={{ color: "#27AE60" }} />
       </div>
       {isPopupOpen && <div className={`menu-popup popup-position-${popupPosition}`}>{options}</div>}
     </div>

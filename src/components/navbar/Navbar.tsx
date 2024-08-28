@@ -10,7 +10,7 @@ import { ScreenSize } from "../../model/commonModels";
 import LanguageSelector from "./LanguageSelector";
 import { Menu } from "../common/Menu";
 import { Logo } from "../icons/Logo";
-import { Button, message } from "antd"; 
+import { Button, message } from "antd";
 import "./Navbar.css";
 
 export function Navbar(props: { currentPath: string }) {
@@ -30,7 +30,7 @@ export function Navbar(props: { currentPath: string }) {
   const currentPath = props.currentPath;
   const onHomepage = currentPath === "/";
   const containerCss = `${isSmallScreen && showFormNav ? "navbar-container form-nav" : "navbar-container"}${onHomepage ? " navbar-container-homepage" : ""}`;
-  
+
   let lawyerFirstName = "";
   useEffect(() => {
     fetchLawyerInfo();
@@ -153,12 +153,7 @@ export function Navbar(props: { currentPath: string }) {
       <div className="navbar-group mid">
         <div className="navbar-links">
           {navLinks.map(link => (
-            <Button
-              key={link.key}
-              type="link"
-              onClick={link.onClick}
-              className="navbar-link"
-            >
+            <Button key={link.key} type="link" onClick={link.onClick} className="navbar-link">
               {link.label}
             </Button>
           ))}
@@ -187,7 +182,7 @@ export function Navbar(props: { currentPath: string }) {
               </Button>
               <Menu items={menuItems} popupPosition="bottom-left" />
             </div>
-          ):(
+          ) : (
             <a href="https://forms.gle/7i85vwVHMbsBSe3a8" target="_blank" rel="noopener noreferrer">
               <Button type="primary" className="nav-btn-demo">
                 {t("LandingPage.RequestDemo")}

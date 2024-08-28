@@ -32,7 +32,7 @@
 }
 .navbar-group.mid {
   justify-content: flex-start;
-  margin-right: auto; 
+  margin-right: auto;
 }
 .navbar-group.right {
   width: 300px;
@@ -80,7 +80,6 @@
   height: 38px;
 }
 .navbar-profile {
-
 }
 .navbar-profile-button {
   display: flex;
