@@ -29,14 +29,14 @@ function ServiceItem(props: { title: string; description: string; icon: React.Re
   const { t } = useTranslation();
 
   return (
-    <div className="hf-subsection-item">
+    <div className="hs-subsection-item">
       {icon}
       <TextBlock
         title={t(title)}
         titleLevel="h3"
         description={t(description)}
         align="left"
-        customizedCss="hf-text-block"
+        customizedCss="hs-text-block"
       />
     </div>
   );

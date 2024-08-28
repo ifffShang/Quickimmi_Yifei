@@ -2,9 +2,9 @@
   display: flex;
   flex-direction: column;
   background-color: var(--gray-color-4);
-
+  width: 1150px;
   gap: 40px;
-  padding: 120px 80px 160px 80px;
+  padding: 120px 0 160px;
 }
 
 .hd-section {

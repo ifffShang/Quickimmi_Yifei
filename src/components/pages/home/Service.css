@@ -29,10 +29,11 @@
 .hs-section {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 
-  padding: 20px 40px;
+  width: 1150px;
+  padding: 10px 0 40px;
   gap: 40px;
 }
 .xsmall .hf-section,
@@ -49,19 +50,18 @@
 .hs-subsection {
   display: flex;
   flex-direction: column;
-  justify-content: left;
 
-  padding: 0 80px;
+  padding: 60px 40px 0;
   min-width: 500px;
 }
 .hs-subsection-item {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  justify-content: center;
 
   gap: 10px;
   height: 120px;
-  padding: 10px 0;
+  padding-top: 30px;
 }
 .hs-subsection-item svg {
   min-width: 50px;
