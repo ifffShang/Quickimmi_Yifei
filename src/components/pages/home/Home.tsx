@@ -86,15 +86,15 @@ export function Home() {
         <Highlights />
       </div> */}
 
-      <div className="home-section center">
+      <div className="home-section center" id="solutions">
         <Solutions />
       </div>
 
-      <div className="home-section center">
+      <div className="home-section center" id="features">
         <Features />
       </div>
 
-      <div className="home-section center">
+      <div className="home-section center" id="services">
         <Services />
       </div>
 

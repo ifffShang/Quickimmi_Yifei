@@ -46,7 +46,7 @@ function App() {
         <div className={`appview ${languageCss} ${screenSizeCss}`}>
           <ModalView />
           {/* <ChatbotFloating /> */}
-          <Navbar />
+          {/* <Navbar /> */}
           <MainView />
         </div>
       </ConfigProvider>
