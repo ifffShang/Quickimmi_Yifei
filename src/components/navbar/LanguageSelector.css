@@ -1,8 +1,9 @@
 .lang-container {
   position: relative;
-  padding: 10px 10px;
+  padding: 10px 1px;
   border-radius: 5px;
-  width: 80px;
+  margin-right: 2px;
+  width: 40px;
 }
 
 .lang-display {
@@ -13,21 +14,26 @@
   cursor: pointer;
 }
 
-.popup {
+.lang-container.popup {
   background-color: var(--gray-color-4);
 }
-
 .lang-popup {
   position: absolute;
-  top: 46px;
+  top: 40px;
   right: 0px;
   background-color: var(--white-color);
   box-shadow: var(--shadow);
   border-radius: 5px;
+  width: 65px;
 }
 
 .lang-option {
-  padding: 10px 20px;
+  padding: 10px;
   cursor: pointer;
-  width: 60px;
+  text-align: center;
+}
+
+.selected-lang {
+  background-color: var(--gray-color-4); 
+  cursor: default; 
 }

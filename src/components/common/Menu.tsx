@@ -34,7 +34,7 @@ export function Menu({ items, popupPosition, optionAlign }: MenuProps) {
 
   const options = items.map((item, index) => {
     const attributes: any = {
-      className: `menu-option option-align-${optionAlign || "left"}`,
+      className: `menu-option option-align-${optionAlign || "center"}`,
     };
     if (item.onClick) {
       attributes.onClick = () => onClick(item);
@@ -58,7 +58,7 @@ export function Menu({ items, popupPosition, optionAlign }: MenuProps) {
       onClick={() => setIsPopupOpen(!isPopupOpen)}
     >
       <div className="menu-display">
-        <MenuOutlined />
+        <MenuOutlined style={{color: "#27AE60"}}/>
       </div>
       {isPopupOpen && <div className={`menu-popup popup-position-${popupPosition}`}>{options}</div>}
     </div>
