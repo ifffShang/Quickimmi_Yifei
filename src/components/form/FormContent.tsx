@@ -4,7 +4,7 @@ import { getFormFields } from "../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useFormTranslation } from "../../hooks/commonHooks";
 import useRenderingTrace from "../../hooks/renderHooks";
-import { decrementIndexLevel2, incrementIndexLevel2, resetForm, updateFormFieldsMap } from "../../reducers/caseSlice";
+import { decrementIndexLevel2, incrementIndexLevel2, updateFormFieldsMap } from "../../reducers/caseSlice";
 import { updateHighlightMissingFields, updateOnePercentage } from "../../reducers/formSlice";
 import { getPercentage } from "../../utils/percentageUtils";
 import { QText } from "../common/Fonts";
@@ -51,10 +51,6 @@ export function FormContent(props: FormContentProps) {
       .catch(error => {
         console.error(error);
       });
-
-    return () => {
-      dispatch(resetForm());
-    };
   }, [props.referenceId]);
 
   useEffect(() => {
@@ -81,28 +77,16 @@ export function FormContent(props: FormContentProps) {
     }
   }, [props.referenceId, props.sectionId, profile, formFields, percentage]);
 
-  useRenderingTrace("FormContent", {
-    ...props,
-    profile,
-    progress,
-    percentage,
-    formFieldsMap,
-    accessToken,
-    role,
-    currentStep,
-    isFirstStep,
-    isLastStep,
-    caseId,
-  });
-
   if (!formFields || !currentStep) {
     return (
       <div className="form-content">
-        <div className="form-content-header">
-          <QText level="large">{t("Loading...")}</QText>
-        </div>
-        <div className="form-content-form">
-          <Loading />
+        <div className="form-content-form-container">
+          <div className="form-content-header">
+            <QText level="large">{t("Loading...")}</QText>
+          </div>
+          <div className="form-content-form">
+            <Loading />
+          </div>
         </div>
       </div>
     );
@@ -131,7 +115,6 @@ export function FormContent(props: FormContentProps) {
                 visibility={field.visibility}
                 hideHeader={field.hideHeader}
                 fieldIndex={field.fieldIndex}
-                lastField={index === formFields.fields.length - 1}
                 documentType={field.documentType}
               />
             </div>

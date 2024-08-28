@@ -1,7 +1,11 @@
 .mainview-container {
   padding: 0;
-  margin-top: 71px;
+  /* padding-top: 70px; */
   width: 100%;
   overflow: hidden;
   background-color: var(--gray-color-4);
+}
+
+.mainview-content {
+  margin-top: 70px;
 }

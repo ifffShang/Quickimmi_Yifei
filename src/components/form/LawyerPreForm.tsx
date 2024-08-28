@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Button, Input, Select, Checkbox, Modal } from "antd";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { Button, Input, Modal, Select } from "antd";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import { createNewCaseByLawyerApi } from "../../api/caseAPI";
-import { resetForm, updateCurrentCaseId } from "../../reducers/caseSlice";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { resetCaseState, updateCurrentCaseId } from "../../reducers/caseSlice";
 import { validateEmail } from "../../utils/utils";
 import { QText } from "../common/Fonts";
 import { QReturnLink } from "../common/Links";
@@ -17,6 +17,18 @@ const immigrationData = [
   {
     Type: "Asylum",
     SubType: ["AFFIRMATIVE", "DEFENSIVE"],
+  },
+  {
+    Type: "Family-Based Immigration",
+    SubType: ["Immediate relatives of U.S. citizens", "Family preference categories"],
+  },
+  {
+    Type: "Employment-Based Immigration",
+    SubType: ["EB-1", "EB-2", "EB-5"],
+  },
+  {
+    Type: "Temporary Work Visas",
+    SubType: ["H-1B", "L-1", "O-1"],
   },
 ];
 
@@ -80,7 +92,7 @@ export function LawyerPreForm() {
         providedCustomerEmail,
         role,
       );
-      dispatch(resetForm());
+      dispatch(resetCaseState());
       dispatch(updateCurrentCaseId(caseId));
       navigate("/casestatus/" + caseId);
     } catch (error) {

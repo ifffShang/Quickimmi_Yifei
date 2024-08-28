@@ -1,7 +1,8 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { Case } from "../model/apiModels";
 import { IForm, IFormFields, IFormStep } from "../model/formFlowModels";
-import { Case, CaseSummary } from "../model/apiModels";
 import { getCorrectedIndexes } from "../utils/caseUtils";
+import _ from "lodash";
 
 export interface FormFieldsMap {
   [key: string]: IFormFields;
@@ -49,6 +50,19 @@ export const caseSlice = createSlice({
   initialState,
   reducers: {
     updateForm: (state, action: PayloadAction<IForm>) => {
+      if (!_.isEqual(state.form, action.payload)) {
+        state.isFirstStep = true;
+        state.isLastStep = false;
+        state.isStandAlone = false;
+        state.form = {} as IForm;
+        state.indexLevel1 = 0;
+        state.indexLevel2 = 0;
+        state.totalLevel1s = 0;
+        state.currentStep = {} as IFormStep;
+        state.formFieldsMap = {};
+        state.currentCaseId = "";
+      }
+
       state.form = action.payload;
       state.totalLevel1s = action.payload.steps.length;
       state.currentStep = action.payload.steps[state.indexLevel1].steps[state.indexLevel2];
@@ -135,7 +149,19 @@ export const caseSlice = createSlice({
       state.cases = action.payload;
     },
     resetForm: state => {
-      state = initialState;
+      state.isFirstStep = true;
+      state.isLastStep = false;
+      state.isStandAlone = false;
+      state.form = {} as IForm;
+      state.indexLevel1 = 0;
+      state.indexLevel2 = 0;
+      state.totalLevel1s = 0;
+      state.currentStep = {} as IFormStep;
+      state.formFieldsMap = {};
+      state.currentCaseId = "";
+    },
+    resetCaseState: state => {
+      return initialState;
     },
   },
 });
@@ -152,6 +178,7 @@ export const {
   updateCurrentCaseId,
   updateCases,
   resetForm,
+  resetCaseState,
 } = caseSlice.actions;
 
 export default caseSlice.reducer;

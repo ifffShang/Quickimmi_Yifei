@@ -5,7 +5,6 @@
   width: 160px;
   height: 40px;
   font-weight: 700;
-  margin-left: 40px;
 }
 
 .home-solutions {
@@ -19,7 +18,7 @@
   width: 100%;
 }
 
-.section-title-button {
+.section-title {
   margin: 75px 0 15px 0;
   padding: 3px 15px;
   border-radius: 25px;
@@ -27,44 +26,53 @@
   color: black;
 }
 
-.solution-text-block {
-  padding: 0 20px 20px 40px !important;
-}
-.solution-text-block.text-block-description {
-  padding-left: 0 !important;
+.home-solutions-title-block {
+  padding: 40px 0;
 }
 
-.hs-section {
+.home-solutions-section {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  padding: 20px 80px;
+
+  width: 1150px;
+  padding: 40px 0;
 }
-.xsmall .hs-section,
-.small .hs-section {
+.xsmall .home-solutions-section,
+.small .home-solutions-section {
   flex-direction: column;
   align-items: center;
   padding-bottom: 0;
 }
-.xsmall .hs-section svg,
-.small .hs-section svg {
+.xsmall .home-solutions-section svg,
+.small .home-solutions-section svg {
   width: 100%;
 }
 
-.hs-section-description {
+.home-solutions-section-description {
   display: flex;
   flex-direction: column;
   justify-content: left;
-  padding: 0 20px;
+
+  padding: 20px 0;
+  width: 550px;
+  gap: 30px;
 }
 
-.solution-checklist {
+.home-solutions-text-block {
+  padding: 0;
+}
+.home-solutions-text-block.text-block-description {
+  padding-left: 0;
+}
+
+.solutions-checklist {
   display: flex;
   flex-direction: column;
   justify-content: left;
-  padding: 0 40px 20px 40px;
+  padding: 0;
 }
-.solution-checklist-item {
+.solutions-checklist-item {
   display: flex;
   flex-direction: row;
   align-items: center;

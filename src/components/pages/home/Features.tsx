@@ -14,27 +14,27 @@ const featuresItemMapLeft = [
     icon: <DocGenerate />,
   },
   {
-    title: "LandingPage.FeatureCasePreparation",
-    description: "LandingPage.FeatureCasePreparationDescription",
-    icon: <Rocket />,
-  },
-  {
     title: "LandingPage.FeatureNoErrorDocumentation",
     description: "LandingPage.FeatureNoErrorDocumentationDescription",
     icon: <Check />,
-  },
-];
-
-const featuresItemMapRight = [
-  {
-    title: "LandingPage.FeatureLawyerClientInteraction",
-    description: "LandingPage.FeatureLawyerClientInteractionDescription",
-    icon: <LawyerClient />,
   },
   {
     title: "LandingPage.FeatureProfitBoost",
     description: "LandingPage.FeatureProfitBoostDescription",
     icon: <Diamond />,
+  },
+];
+
+const featuresItemMapRight = [
+  {
+    title: "LandingPage.FeatureCasePreparation",
+    description: "LandingPage.FeatureCasePreparationDescription",
+    icon: <Rocket />,
+  },
+  {
+    title: "LandingPage.FeatureLawyerClientInteraction",
+    description: "LandingPage.FeatureLawyerClientInteractionDescription",
+    icon: <LawyerClient />,
   },
   {
     title: "LandingPage.FeatureDataSecurity",
@@ -75,7 +75,7 @@ export function Features() {
       <TextBlock title={t("LandingPage.FeaturesTitle")} titleLevel="h2" align="center" customizedCss="hf-text-block" />
 
       <div className="hf-section">
-        <div className="hs-subsection">
+        <div className="hf-subsection">
           {featuresItemMapLeft.map((item, index) => (
             <FeatureItem key={index} title={item.title} description={item.description} icon={item.icon} />
           ))}
