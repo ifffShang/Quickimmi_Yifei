@@ -227,6 +227,12 @@ export function DocumentList() {
     }
   };
 
+  const calculateGeneratedDocStatus = (doc: GeneratedDocument) => {
+    if (doc.manualOverridden) {
+      return "Replaced";
+    }
+    return doc.status;
+  };
   const uploadedDocumentsInTable = generatedDocuments
     .filter(doc => doc.generationType === "system_auto_generated")
     .map(doc => {
@@ -260,7 +266,7 @@ export function DocumentList() {
             )}
           </div>
         ),
-        status: <Status status={doc.status} />,
+        status: <Status status={calculateGeneratedDocStatus(doc)} />,
         createdAt: doc.createdAt ? new Date(doc.createdAt).toLocaleString() : "-",
         updatedAt: doc.updatedAt ? new Date(doc.updatedAt).toLocaleString() : "-",
         action: (

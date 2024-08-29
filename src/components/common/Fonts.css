@@ -21,6 +21,10 @@
   color: var(--gray-color-1);
 }
 
+.text.warning {
+  color: var(--warning-color);
+}
+
 .text.danger {
   color: var(--danger-color);
 }
@@ -64,9 +68,11 @@
 .text.margin-bottom-10 {
   margin-bottom: 10px;
 }
+
 .text.margin-bottom-0 {
   margin-bottom: 0;
 }
+
 .text.margin-5 {
   margin: 5px;
 }
