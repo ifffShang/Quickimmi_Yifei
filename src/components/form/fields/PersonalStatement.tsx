@@ -24,39 +24,31 @@ export function PersonalStatement(props: PersonalStatementProps) {
   const role = useAppSelector(state => state.auth.role);
   const caseId = useAppSelector(state => state.form.caseId);
   const progress = useAppSelector(state => state.form.applicationCase.progress);
+  const percentage = useAppSelector(state => state.form.percentage);
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const [isOriginalLoading, setIsOriginalLoading] = useState(false);
   const [isTranslatedLoading, setIsTranslatedLoading] = useState(false);
   const [showTranslatedArea, setShowTranslatedArea] = useState(false);
   const [value, setValue] = useState("");
   const [translatedValue, setTranslatedValue] = useState("");
+  const [isAllPreviousSectionComplete, setIsAllPreviousSectionComplete] = useState(false);
 
   // Check if all sections before personal statement are 100% complete
-  const isPreviousSectionComplete = () => {
-    const fillingApplicationStep = progress?.steps
-      .find(step => step.name === "FILLING_APPLICATION")
-      ?.substeps?.find(substep => substep.name === "FILLING_DETAILS");
-
-    console.log("fillingApplicationStep", fillingApplicationStep);
-
-    if (fillingApplicationStep && fillingApplicationStep.metadata) {
-      const metadata = JSON.parse(fillingApplicationStep.metadata);
-      const percentages = metadata.percentage;
-      console.log("percentages", percentages);
-      for (const key in percentages) {
-        if (key !== "personal_statement" && key !== "overall") {
-          if (percentages[key]?.avg !== 100) {
-            return false;
-          }
+  const checkIfPreviousSectionsComplete = () => {
+    // console.log("-------percentage", JSON.stringify({"percentage": percentage}));
+    // console.log("-------progress", progress.steps.find(step => step.name == 'FILLING_APPLICATION')?.substeps.find(subStep => subStep.name == 'FILLING_DETAILS')?.metadata);
+    for (const key in percentage) {
+      if (key !== "personal_statement" && key !== "overall") {
+        if (percentage[key]?.avg !== 100) {
+          return false;
         }
       }
-      return true;
     }
-    return false;
+    return true;
   };
-  const isAllPreviousSectionComplete = isPreviousSectionComplete();
 
   useEffect(() => {
+    setIsAllPreviousSectionComplete(checkIfPreviousSectionsComplete());
     if (props.value === "") {
       setValue("");
     } else {
@@ -72,7 +64,7 @@ export function PersonalStatement(props: PersonalStatementProps) {
         message.error("Failed to display the stored personal statement.");
       }
     }
-  }, [props.value, progress]);
+  }, [props.value]);
 
   const onTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>, isEnglishPs: boolean) => {
     if (props.disabled) return;
@@ -186,7 +178,6 @@ export function PersonalStatement(props: PersonalStatementProps) {
   );
 
   const AiIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={AiSvg} {...props} />;
-
   return (
     <div>
       {showTranslatedArea ? (

@@ -49,7 +49,7 @@ export function TokenRefreshModal() {
           } catch (error) {
             console.error("Error refreshing token", error);
             dispatch(closeModal());
-            signOutCurrentUser(dispatch);
+            await signOutCurrentUser(dispatch);
           }
         }}
       >

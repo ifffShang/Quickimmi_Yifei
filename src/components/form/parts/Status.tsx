@@ -4,6 +4,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 export interface StatusProps {
   status: string;
 }
+
 export function Status({ status }: StatusProps) {
   if (status === "Success" || status === "uploaded") {
     return <QText level="xsmall">Success</QText>;
@@ -29,6 +30,12 @@ export function Status({ status }: StatusProps) {
     return (
       <QText level="xsmall" color="gray">
         Timeout
+      </QText>
+    );
+  } else if (status === "Replaced") {
+    return (
+      <QText level="xsmall" color="warning">
+        Replaced
       </QText>
     );
   } else {

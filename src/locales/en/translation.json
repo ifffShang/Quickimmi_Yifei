@@ -337,7 +337,7 @@
   "PersonalStatement": "Personal Statement",
   "PersonalStatementInOriginalLanguage": "Personal Statement in Original Language",
   "ViewFormSummary": "View Form Summary",
-  "DisableDocDeleteButtonText": "System generated documents can't be deleted",
+  "DisableDocDeleteButtonText": "The system-generated files or files used for system generation cannot be deleted on this page.",
 
   "IdNumber": "ID Number",
   "IdInformation": "ID Information",

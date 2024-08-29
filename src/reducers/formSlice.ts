@@ -124,6 +124,7 @@ export const ArrayFields = [
   },
 ];
 
+const updatePercentageInStateAndApplicationCaseProgress = () => {};
 export const formSlice = createSlice({
   name: "form",
   initialState,
@@ -162,7 +163,15 @@ export const formSlice = createSlice({
     },
     updatePercentage: (state, action: PayloadAction<Percentage>) => {
       state.percentage = action.payload;
-
+      const fillingApplicationStep = state.applicationCase.progress?.steps.find(
+        step => step.name === "FILLING_APPLICATION",
+      );
+      const fillingDetailsSubStep = fillingApplicationStep?.substeps.find(
+        subStep => subStep.name === "FILLING_DETAILS",
+      );
+      if (fillingDetailsSubStep) {
+        fillingDetailsSubStep.metadata = JSON.stringify({ percentage: action.payload });
+      }
       CacheStore.setPercentage(state.percentage, state.caseId);
     },
     updateOnePercentage: (
@@ -207,7 +216,15 @@ export const formSlice = createSlice({
       updatedPercentage.overall.avg = Math.round(sum / count);
 
       state.percentage = updatedPercentage;
-
+      const fillingApplicationStep = state.applicationCase.progress?.steps.find(
+        step => step.name === "FILLING_APPLICATION",
+      );
+      const fillingDetailsSubStep = fillingApplicationStep?.substeps.find(
+        subStep => subStep.name === "FILLING_DETAILS",
+      );
+      if (fillingDetailsSubStep) {
+        fillingDetailsSubStep.metadata = JSON.stringify({ percentage: updatedPercentage });
+      }
       CacheStore.setPercentage(state.percentage, state.caseId);
     },
     updateCaseFields: (state, action: PayloadAction<AsylumCaseProfileOptional>) => {
