@@ -23,6 +23,7 @@ export function PersonalStatement(props: PersonalStatementProps) {
   const inputRef = useRef<InputRef>(null);
   const role = useAppSelector(state => state.auth.role);
   const caseId = useAppSelector(state => state.form.caseId);
+  const progress = useAppSelector(state => state.form.applicationCase.progress);
   const percentage = useAppSelector(state => state.form.percentage);
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const [isOriginalLoading, setIsOriginalLoading] = useState(false);
@@ -34,14 +35,16 @@ export function PersonalStatement(props: PersonalStatementProps) {
 
   // Check if all sections before personal statement are 100% complete
   const checkIfPreviousSectionsComplete = () => {
-      for (const key in percentage) {
-        if (key !== "personal_statement" && key !== "overall") {
-          if (percentage[key]?.avg !== 100) {
-            return false;
-          }
+    // console.log("-------percentage", JSON.stringify({"percentage": percentage}));
+    // console.log("-------progress", progress.steps.find(step => step.name == 'FILLING_APPLICATION')?.substeps.find(subStep => subStep.name == 'FILLING_DETAILS')?.metadata);
+    for (const key in percentage) {
+      if (key !== "personal_statement" && key !== "overall") {
+        if (percentage[key]?.avg !== 100) {
+          return false;
         }
       }
-      return true;
+    }
+    return true;
   };
 
   useEffect(() => {
