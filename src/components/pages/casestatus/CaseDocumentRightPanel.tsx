@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Button, Card, Input, message, Modal, Select, Space, Table, Upload, UploadProps, Tooltip } from "antd";
+import { Button, Card, Input, message, Modal, Select, Space, Table, Tooltip, Upload, UploadProps } from "antd";
 import { useTranslation } from "react-i18next";
 import { InboxOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -344,7 +344,7 @@ const CaseDocumentRightPanel: React.FC = () => {
     }
   };
 
-  const convertBackendDocTypeToFrontendType = (type: DocumentType) => {
+  const convertDocTypeToCategory = (type: DocumentType) => {
     switch (type.toUpperCase()) {
       case "PASSPORT_MAIN":
         return t("Passport Main");
@@ -440,9 +440,19 @@ const CaseDocumentRightPanel: React.FC = () => {
         return t("All");
       case "MERGE":
         return t("Merge");
+      case "MARRIAGE_CERTIFICATE_ORIGINAL":
+        return t("Marriage Certificate Original");
       default:
         return t("Other");
     }
+  };
+
+  const canNotDeleteFile = (doc: UploadedDocumentWithUrl) => {
+    if (!doc.type) {
+      return true; // Cannot delete if the type is null or undefined
+    }
+
+    return doc.type !== "other";
   };
 
   const dataSource = filteredDocuments.map(doc => ({
@@ -457,17 +467,11 @@ const CaseDocumentRightPanel: React.FC = () => {
         <Button type="link" size="small" onClick={() => handleDownload(doc)}>
           {t("Download")}
         </Button>
-        <Tooltip
-          title={
-            doc.generationType === "system_auto_generated" || doc.generationType === "system_merged"
-              ? t("DisableDocDeleteButtonText")
-              : ""
-          }
-        >
+        <Tooltip title={canNotDeleteFile(doc) ? t("DisableDocDeleteButtonText") : ""}>
           <Button
             type="link"
             size="small"
-            disabled={doc.generationType === "system_auto_generated" || doc.generationType === "system_merged"}
+            disabled={canNotDeleteFile(doc)}
             onClick={() => {
               setDocumentToDelete({ id: doc.id, name: doc.name });
               setDeleteConfirmVisible(true);
@@ -486,7 +490,7 @@ const CaseDocumentRightPanel: React.FC = () => {
       dataIndex: "type",
       key: "type",
       width: "20%",
-      render: (type: DocumentType) => convertBackendDocTypeToFrontendType(type),
+      render: (type: DocumentType) => convertDocTypeToCategory(type),
     },
     {
       title: t("File Name"),
