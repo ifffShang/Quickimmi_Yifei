@@ -96,7 +96,7 @@ export function Navbar(props: { currentPath: string }) {
       {
         key: "signout",
         label: t("SignOut"),
-        onClick: () => signOutCurrentUser(dispatch),
+        onClick: async () => await signOutCurrentUser(dispatch),
       },
     ];
   }

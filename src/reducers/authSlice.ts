@@ -64,7 +64,6 @@ export const authSlice = createSlice({
   reducers: {
     updateAuthState: (state, action: PayloadAction<AuthStateOptional>) => {
       Object.assign(state, action.payload);
-      console.log("Auth state updated: ", action.payload);
     },
     countDownTokenRefresh: state => {
       if (state.tokenRefreshCountDownSeconds > 0) {

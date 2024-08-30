@@ -8,10 +8,34 @@ import { resetCaseState } from "../reducers/caseSlice";
 import { closeModal, openModal } from "../reducers/commonSlice";
 import { resetFormState } from "../reducers/formSlice";
 
-export const signOutCurrentUser = (dispatch: AppDispatch) => {
-  signOut()
-    .then(() => {
-      console.log("User signed out");
+export const signOutCurrentUser = async (dispatch: AppDispatch) => {
+  try {
+    await signOut();
+    console.log("User signed out");
+
+    // Clear the countdown interval
+    const intervalId = InMemoryCache.get("tokenRefreshCountDownId");
+    if (intervalId) {
+      clearInterval(intervalId);
+      InMemoryCache.remove("tokenRefreshCountDownId");
+    }
+
+    // Remove role from localStorage
+    CacheStore.clear();
+
+    // Reset application state
+    dispatch(resetFormState());
+    dispatch(resetAuthState());
+    dispatch(resetCaseState());
+    dispatch(closeModal());
+  } catch (error: any) {
+    /*
+     * To handle the "Auth UserPool not configured" exception when calling signOut.
+     * This exception will happen after the token is expired but the user was not signed out correctly.
+     * Ideally this issue should not happen.
+     */
+    if (error.message === "Auth UserPool not configured.") {
+      console.warn("UserPool not configured. Proceeding with sign out.");
 
       // Clear the countdown interval
       const intervalId = InMemoryCache.get("tokenRefreshCountDownId");
@@ -19,42 +43,19 @@ export const signOutCurrentUser = (dispatch: AppDispatch) => {
         clearInterval(intervalId);
         InMemoryCache.remove("tokenRefreshCountDownId");
       }
+
       // Remove role from localStorage
-      CacheStore.clear();
+      localStorage.removeItem("userRole");
 
       // Reset application state
       dispatch(resetFormState());
       dispatch(resetAuthState());
-      dispatch(resetCaseState());
       dispatch(closeModal());
-    })
-    .catch(error => {
-      /*
-       * To handle the "Auth UserPool not configured" exception when calling signOut.
-       * This exception will happen after the token is expired but the user was not sign out correctly.
-       * Ideally this issue should not happen.
-       */
-      if (error.message === "Auth UserPool not configured.") {
-        console.warn("UserPool not configured. Proceeding with sign out.");
-
-        // Clear the countdown interval
-        const intervalId = InMemoryCache.get("tokenRefreshCountDownId");
-        if (intervalId) {
-          clearInterval(intervalId);
-          InMemoryCache.remove("tokenRefreshCountDownId");
-        }
-        // Remove role from localStorage
-        localStorage.removeItem("userRole");
-
-        // Reset application state
-        dispatch(resetFormState());
-        dispatch(resetAuthState());
-        dispatch(closeModal());
-      } else {
-        // Handle other possible errors
-        console.error("Unexpected sign out error:", error);
-      }
-    });
+    } else {
+      // Handle other possible errors
+      console.error("Unexpected sign out error:", error);
+    }
+  }
 };
 
 const MAX_RETRIES = 3;

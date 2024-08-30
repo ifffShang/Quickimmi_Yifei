@@ -65,7 +65,7 @@ export function SignIn() {
       const currentSession = await fetchAuthSession();
       if (currentSession) {
         console.log("User already signed in.");
-        signOutCurrentUser(dispatch);
+        await signOutCurrentUser(dispatch);
       }
 
       const { isSignedIn, nextStep } = await signIn({ username: email, password });
@@ -135,7 +135,7 @@ export function SignIn() {
       }
       console.error("Error signing in: ", error);
       setErrorMessage(t("ErrorMessage.ErrorSigningIn"));
-      signOutCurrentUser(dispatch);
+      await signOutCurrentUser(dispatch);
       setIsLoading(false);
     }
   };
