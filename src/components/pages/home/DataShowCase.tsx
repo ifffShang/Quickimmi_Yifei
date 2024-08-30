@@ -12,7 +12,6 @@ export function DataShowCase() {
   return (
     <div className="home-data-showcase">
       <TextBlock title={t("LandingPage.GrowYourBusiness")} titleLevel="h2" align="left" customizedCss="hd-title" />
-
       <div className="hd-section">
         <TextBlock
           title="80%"
