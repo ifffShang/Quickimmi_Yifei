@@ -43,8 +43,7 @@
   padding-bottom: 0;
 }
 
-.xsmall .hs-section > div 
-.small .hs-section > div {
+.xsmall .hs-section > div .small .hs-section > div {
   width: 20%;
 }
 .hs-subsection {

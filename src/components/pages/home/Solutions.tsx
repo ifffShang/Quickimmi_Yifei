@@ -62,9 +62,7 @@ function SolutionSection({
 
   return (
     <div className={`home-solutions-section ${picOnLeft ? "icon-left" : "icon-right"}`}>
-      <div className="home-solutions-icon">
-        {picOnLeft ? IconComponent && <IconComponent /> : <IconComponent />}
-      </div>
+      <div className="home-solutions-icon">{picOnLeft ? IconComponent && <IconComponent /> : <IconComponent />}</div>
       <div className="home-solutions-section-description">
         <TextBlock
           title={title}
