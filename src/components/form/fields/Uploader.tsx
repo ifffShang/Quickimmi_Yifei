@@ -1,7 +1,7 @@
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { GetProp, Upload, UploadProps } from "antd";
 import { useState } from "react";
-import { generateDocumentPresignedUrl } from "../../../api/caseAPI";
+import { generateDocumentPresignedUrl } from "../../../api/documentAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { DocumentOperation, DocumentType, Identity } from "../../../model/commonModels";
 import { updateTmpImageUrl } from "../../../reducers/commonSlice";

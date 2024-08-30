@@ -2,13 +2,12 @@ import { DeleteOutlined, DownloadOutlined, EyeOutlined, LoadingOutlined } from "
 import PlusOutlined from "@ant-design/icons/PlusOutlined";
 import { Button, Image, Upload, UploadFile } from "antd";
 import { useState } from "react";
+import { deleteDocumentApi, updateDocumentStatus } from "../../../api/documentAPI";
 import {
-  deleteDocumentApi,
   generateDocumentPresignedUrl,
   parseMarriageCertificateApi,
-  updateDocumentStatus,
   uploadFileToPresignUrl,
-} from "../../../api/caseAPI";
+} from "../../../api/documentAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useFormTranslation, useLoadSingleDocument } from "../../../hooks/commonHooks";
 import { UploadedDocument } from "../../../model/apiModels";
@@ -56,6 +55,7 @@ export function SingleFileUploaderV2(props: SingleFileUploaderV2Props) {
     accessToken: accessToken,
     role: role,
     documentId: props.documentId,
+    caseId: caseId,
     setLoading: setLoading,
     onDocumentsReceived: (doc: UploadedDocument) => {
       const newFileList = [
@@ -101,12 +101,12 @@ export function SingleFileUploaderV2(props: SingleFileUploaderV2Props) {
         file,
         onProgress,
         () => {
-          updateDocumentStatus(role, res.documentId, true, "UPLOADED", accessToken);
+          updateDocumentStatus(role, res.documentId, true, "UPLOADED", accessToken, caseId);
           onSuccess(res, file, null);
 
           if (props.documentType === ("MARRIAGE_CERTIFICATE_ORIGINAL" as DocumentType)) {
             setParseLoading(true);
-            parseMarriageCertificateApi(res.documentId, accessToken, role)
+            parseMarriageCertificateApi(res.documentId, accessToken, role, caseId)
               .then(parsedRes => {
                 dispatch(updateMarriageLicenseInfo(parsedRes));
                 setParseLoading(false);
@@ -119,7 +119,7 @@ export function SingleFileUploaderV2(props: SingleFileUploaderV2Props) {
           }
         },
         () => {
-          updateDocumentStatus(role, res.documentId, false, "FAILED", accessToken);
+          updateDocumentStatus(role, res.documentId, false, "FAILED", accessToken, caseId);
           onError(new Error("Failed to upload the file, please try again."));
         },
         /\.(jpg|jpeg|png|gif)$/i.test(file.name),
@@ -150,7 +150,7 @@ export function SingleFileUploaderV2(props: SingleFileUploaderV2Props) {
       }
       setFileList([]);
       props.onChange(-1);
-      await deleteDocumentApi(role, parseInt(file.uid), accessToken);
+      await deleteDocumentApi(role, parseInt(file.uid), accessToken, caseId);
     } catch (error) {
       console.error(error);
     }

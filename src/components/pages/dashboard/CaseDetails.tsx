@@ -1,7 +1,8 @@
 import { Alert } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getCaseProfileAndProgressApi, getCaseSummaryApi, getForm } from "../../../api/caseAPI";
+import { getCaseProfileAndProgressApi, getCaseSummaryApi } from "../../../api/caseAPI";
+import { getForm } from "../../../api/utilsAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import useRenderingTrace from "../../../hooks/renderHooks";
 import { updateForm } from "../../../reducers/caseSlice";

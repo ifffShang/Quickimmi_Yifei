@@ -6,7 +6,7 @@ import { getFileIcon, getFileType } from "../../../utils/fileIconUtils";
 import { ModalType, openModal } from "../../../reducers/commonSlice";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { QText } from "../../common/Fonts";
-import { getDocumentByIdApi } from "../../../api/caseAPI";
+import { getDocumentByIdApi } from "../../../api/documentAPI";
 import { UploadedDocument } from "../../../model/apiModels";
 
 interface ExpandedCardProps {
@@ -41,10 +41,13 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
 
   useEffect(() => {
     const fetchDocument = async () => {
-      if (!accessToken || !userRole) return;
+      if (!accessToken || !userRole || !id) {
+        console.warn("accessToken, or userRole, or caseId cannot be null.");
+        return;
+      }
       if (substepMetadata?.documentIds) {
         try {
-          const document = await getDocumentByIdApi(accessToken, substepMetadata.documentIds, userRole);
+          const document = await getDocumentByIdApi(accessToken, substepMetadata.documentIds, userRole, parseInt(id));
           setSubStepDocument(document);
         } catch (error) {
           console.error("Failed to fetch document:", error);

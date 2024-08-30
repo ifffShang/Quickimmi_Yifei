@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { getDocumentByIdApiWithRetry, getDocumentsApi } from "../api/caseAPI";
+import { getDocumentByIdApiWithRetry, getDocumentsApi } from "../api/documentAPI";
 import { Role } from "../consts/consts";
 import { GetDocumentsAdditionalParams } from "../model/apiReqResModels";
 import { clearDocumentUrls } from "../reducers/formSlice";
@@ -111,6 +111,7 @@ export interface UseSingleDocParams {
   accessToken: string | undefined;
   role: Role;
   documentId: number;
+  caseId: number;
   setLoading: Dispatch<SetStateAction<boolean>>;
   onDocumentsReceived: (documents: UploadedDocument) => void;
 }
@@ -129,7 +130,7 @@ export function useLoadSingleDocument(params: UseSingleDocParams) {
       }
       return true;
     };
-    getDocumentByIdApiWithRetry(params.accessToken, params.documentId, params.role, retryOnError)
+    getDocumentByIdApiWithRetry(params.accessToken, params.documentId, params.caseId, params.role, retryOnError)
       .then(doc => {
         params.setLoading(false);
         params.onDocumentsReceived(doc);

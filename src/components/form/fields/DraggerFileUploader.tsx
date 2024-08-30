@@ -1,6 +1,7 @@
 import { Button, message, Upload, UploadProps } from "antd";
 import React, { useRef, useState } from "react";
-import { generateDocumentPresignedUrl, updateDocumentStatus, uploadFileToPresignUrl } from "../../../api/caseAPI";
+import { updateDocumentStatus, uploadFileToPresignUrl } from "../../../api/documentAPI";
+import { generateDocumentPresignedUrl } from "../../../api/documentAPI";
 import { useAppSelector } from "../../../app/hooks";
 import { DocumentOperation, DocumentStatus, DocumentType, Identity } from "../../../model/commonModels";
 import { InboxOutlined, LoadingOutlined } from "@ant-design/icons";
@@ -134,7 +135,7 @@ export function DraggerFileUploader(props: MultipleFileUploaderProps) {
         message.error("Access token is missing");
         return;
       }
-      await updateDocumentStatus(role, documentId, true, documentStatus, accessToken);
+      await updateDocumentStatus(role, documentId, true, documentStatus, accessToken, caseId);
     } catch (error) {
       console.error(`Failed to update document status: ${error}`);
     }

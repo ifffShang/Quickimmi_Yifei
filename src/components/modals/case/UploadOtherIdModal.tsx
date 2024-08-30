@@ -1,7 +1,7 @@
 import { LoadingOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import { useRef, useState } from "react";
-import { parsePassportApi, uploadFileToPresignUrl } from "../../../api/caseAPI";
+import { parsePassportApi, uploadFileToPresignUrl } from "../../../api/documentAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useFormTranslation } from "../../../hooks/commonHooks";
 import { GeneratePresignedUrlResponse } from "../../../model/apiModels";
@@ -20,6 +20,7 @@ export function UploadOtherIdModal() {
   const dispatch = useAppDispatch();
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const modalData = useAppSelector(state => state.common.modalData);
+  const caseId = useAppSelector(state => state.form.caseId);
   const role = useAppSelector(state => state.auth.role);
 
   const [loading, setLoading] = useState(false);
@@ -52,7 +53,7 @@ export function UploadOtherIdModal() {
       if (!accessToken) {
         throw new Error(`Access token ${accessToken} is missing`);
       }
-      const idInfo = await parsePassportApi(documentId, accessToken, role);
+      const idInfo = await parsePassportApi(documentId, accessToken, role, caseId);
       if (!idInfo) {
         console.error(`Failed to parse ID card info for document id ${documentId}`);
         dispatch(closeModal());

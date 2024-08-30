@@ -1,9 +1,8 @@
 import { Button } from "antd";
 import { useEffect } from "react";
-import { getFormFields } from "../../api/caseAPI";
+import { getFormFields } from "../../api/utilsAPI";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useFormTranslation } from "../../hooks/commonHooks";
-import useRenderingTrace from "../../hooks/renderHooks";
 import { decrementIndexLevel2, incrementIndexLevel2, updateFormFieldsMap } from "../../reducers/caseSlice";
 import { updateHighlightMissingFields, updateOnePercentage } from "../../reducers/formSlice";
 import { getPercentage } from "../../utils/percentageUtils";

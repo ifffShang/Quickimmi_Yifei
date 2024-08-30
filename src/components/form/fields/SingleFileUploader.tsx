@@ -1,7 +1,7 @@
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { Image } from "antd";
 import { useEffect, useState } from "react";
-import { getDocumentByIdApi } from "../../../api/caseAPI";
+import { getDocumentByIdApi } from "../../../api/documentAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { openModal } from "../../../reducers/commonSlice";
 import { downloadImage } from "../../../utils/utils";
@@ -23,6 +23,7 @@ export function SingleFileUploader(props: SingleFileUploader) {
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const showModal = useAppSelector(state => state.common.showModal);
   const role = useAppSelector(state => state.auth.role);
+  const caseId = useAppSelector(state => state.form.caseId);
 
   const [loading, setLoading] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
@@ -31,7 +32,7 @@ export function SingleFileUploader(props: SingleFileUploader) {
   useEffect(() => {
     if (!accessToken || !props.documentId) return;
     setLoading(true);
-    getDocumentByIdApi(accessToken, props.documentId, role)
+    getDocumentByIdApi(accessToken, props.documentId, role, caseId)
       .then(document => {
         const presignUrl = document.presignUrl;
         downloadImage(presignUrl).then(doc => {

@@ -11,7 +11,7 @@ import {
   getDocumentTypesApi,
   updateDocumentStatus,
   uploadFileToPresignUrl,
-} from "../../../api/caseAPI";
+} from "../../../api/documentAPI";
 import { useAppSelector } from "../../../app/hooks";
 import { UploadedDocument, UploadedDocumentWithUrl } from "../../../model/apiModels";
 import { DocumentStatus, DocumentType } from "../../../model/commonModels";
@@ -41,7 +41,7 @@ function useFetchDocuments(setDocuments: (docs: UploadedDocumentWithUrl[]) => vo
     try {
       setLoading(true);
       const documentsStatusToInclude = ["Success", "uploaded"];
-      const documents: UploadedDocument[] = await getDocumentsApi(accessToken, Number(caseId), userRole);
+      const documents: UploadedDocument[] = await getDocumentsApi(accessToken, parseInt(caseId), userRole);
       const filteredDocuments = documents.filter(doc => documentsStatusToInclude.includes(doc.status));
       const documentsWithUrl: UploadedDocumentWithUrl[] = filteredDocuments.map(doc => ({
         ...doc,
@@ -140,13 +140,13 @@ const CaseDocumentRightPanel: React.FC = () => {
   };
 
   const handleDelete = async () => {
-    if (!accessToken || documentToDelete === null) {
+    if (!accessToken || documentToDelete === null || !caseId) {
       message.error("Access token is missing or no document selected for deletion");
       return;
     }
     try {
       console.log("delete documentId", documentToDelete.id);
-      const successDelete = await deleteDocumentApi(userRole, documentToDelete.id, accessToken);
+      const successDelete = await deleteDocumentApi(userRole, documentToDelete.id, accessToken, parseInt(caseId));
       if (successDelete) {
         message.success("Document deleted successfully");
         fetchDocuments();
@@ -163,11 +163,11 @@ const CaseDocumentRightPanel: React.FC = () => {
 
   const updateStatus = async (documentId: number, documentStatus: DocumentStatus) => {
     try {
-      if (!accessToken) {
+      if (!accessToken || !caseId) {
         message.error("Access token is missing");
         return;
       }
-      await updateDocumentStatus(userRole, documentId, true, documentStatus, accessToken);
+      await updateDocumentStatus(userRole, documentId, true, documentStatus, accessToken, parseInt(caseId));
     } catch (error) {
       console.error(`Failed to update document status: ${error}`);
     }
@@ -304,12 +304,12 @@ const CaseDocumentRightPanel: React.FC = () => {
   }, [location.search, documents]);
 
   const handlePreview = async (documentId: number) => {
-    if (!accessToken) {
+    if (!accessToken || !caseId) {
       message.error("Access token is missing");
       return;
     }
     try {
-      const document = await getDocumentByIdApi(accessToken, documentId, userRole);
+      const document = await getDocumentByIdApi(accessToken, documentId, userRole, parseInt(caseId));
       if (!document.presignUrl) {
         message.error("Presigned URL is missing");
         return;
@@ -322,12 +322,12 @@ const CaseDocumentRightPanel: React.FC = () => {
   };
 
   const handleDownload = async (document: UploadedDocumentWithUrl) => {
-    if (!accessToken) {
+    if (!accessToken || !caseId) {
       message.error("Access token is missing! Please login again.");
       return;
     }
     try {
-      const docWithPresignedUrl = await getDocumentByIdApi(accessToken, document.id, userRole);
+      const docWithPresignedUrl = await getDocumentByIdApi(accessToken, document.id, userRole, parseInt(caseId));
       const response = await fetch(docWithPresignedUrl.presignUrl);
       if (!response.ok) {
         message.error("Failed to download document.");

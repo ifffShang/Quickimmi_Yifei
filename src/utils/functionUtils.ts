@@ -1,5 +1,6 @@
 import { message, UploadFile } from "antd";
-import { getDocumentByIdApi, updateApplicationCaseApi } from "../api/caseAPI";
+import { updateApplicationCaseApi } from "../api/caseAPI";
+import { getDocumentByIdApi } from "../api/documentAPI";
 import { Role } from "../consts/consts";
 import { AsylumCaseProfile, Percentage, Progress } from "../model/apiModels";
 import { getProgressWithPercentage } from "./percentageUtils";
@@ -34,7 +35,7 @@ export const updateApplicationCaseFunc = async (
       currentStep = "REVIEW_AND_SIGN";
     }
 
-    updateApplicationCaseApi(
+    await updateApplicationCaseApi(
       {
         id: caseId,
         profile,
@@ -43,6 +44,7 @@ export const updateApplicationCaseFunc = async (
       },
       accessToken,
       role,
+      caseId,
     );
   } catch (error) {
     console.error("Error updating application case: ", error);
@@ -63,13 +65,13 @@ export const formAllowedToBeEdit = (progress: Progress): boolean => {
   );
 };
 
-export const handleFileDownload = async (file: UploadFile, accessToken: string, role: Role) => {
+export const handleFileDownload = async (file: UploadFile, accessToken: string, role: Role, caseId: number) => {
   if (!accessToken) {
     message.error("Access token is missing! Please login again.");
     return;
   }
   try {
-    const docWithPresignedUrl = await getDocumentByIdApi(accessToken, parseInt(file.uid), role);
+    const docWithPresignedUrl = await getDocumentByIdApi(accessToken, parseInt(file.uid), role, caseId);
     const response = await fetch(docWithPresignedUrl.presignUrl);
     if (!response.ok) {
       message.error("Failed to download document.");

@@ -62,6 +62,7 @@ export function FormField(props: FormFieldProps) {
   const { wt, t } = useFormTranslation();
   const dispatch = useAppDispatch();
   const caseDetails = useAppSelector(state => state.form.applicationCase?.profile);
+  const caseId = useAppSelector(state => state.form.caseId);
   const disabledFields = useAppSelector(state => state.form.disabledFields);
   const asylumType = useAppSelector(state => state.form.asylumType);
 
@@ -266,6 +267,7 @@ export function FormField(props: FormFieldProps) {
             value={fieldValue}
             fieldKey={props.fieldKey}
             onChange={onTextChange}
+            caseId={caseId}
           />
         </FormControlContainer>
       );

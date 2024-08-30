@@ -8,7 +8,7 @@ import {
   getDocumentByIdApi,
   updateDocumentStatus,
   uploadFileToPresignUrl,
-} from "../../../api/caseAPI";
+} from "../../../api/documentAPI";
 import { useAppSelector } from "../../../app/hooks";
 import { useDocumentsOnLoadCallback } from "../../../hooks/commonHooks";
 import { DocumentOperation, DocumentType, Identity } from "../../../model/commonModels";
@@ -117,11 +117,11 @@ export function MultiFileUploader(props: MultiFileUploaderProps) {
         file,
         onProgress,
         () => {
-          updateDocumentStatus(role, res.documentId, true, "UPLOADED", accessToken);
+          updateDocumentStatus(role, res.documentId, true, "UPLOADED", accessToken, caseId);
           onSuccess(res, file, null);
         },
         () => {
-          updateDocumentStatus(role, res.documentId, false, "FAILED", accessToken);
+          updateDocumentStatus(role, res.documentId, false, "FAILED", accessToken, caseId);
           onError(new Error("Failed to upload the file, please try again."));
         },
       );
@@ -136,7 +136,7 @@ export function MultiFileUploader(props: MultiFileUploaderProps) {
     if (file.name.indexOf("pdf") > -1) {
       return;
     }
-    const doc = await getDocumentByIdApi(accessToken!, parseInt(file.uid), role);
+    const doc = await getDocumentByIdApi(accessToken!, parseInt(file.uid), role, caseId);
     file.url = doc.presignUrl;
 
     if (!file.url && !file.preview) {
@@ -155,7 +155,7 @@ export function MultiFileUploader(props: MultiFileUploaderProps) {
       documentIds.current = documentIds.current.filter(id => id !== documentId);
       setFileList(fileList.filter(f => f.uid !== file.uid));
       props.onChange(documentIds.current);
-      await deleteDocumentApi(role, documentId, accessToken);
+      await deleteDocumentApi(role, documentId, accessToken, caseId);
     } catch (error) {
       console.error(error);
     }
@@ -183,7 +183,7 @@ export function MultiFileUploader(props: MultiFileUploaderProps) {
                   type="link"
                   icon={isImage ? <EyeOutlined /> : <DownloadOutlined />}
                   onClick={() => {
-                    isImage ? handlePreview(file) : handleFileDownload(file, accessToken!, role);
+                    isImage ? handlePreview(file) : handleFileDownload(file, accessToken!, role, caseId);
                   }}
                   style={{ marginLeft: "auto" }}
                 />

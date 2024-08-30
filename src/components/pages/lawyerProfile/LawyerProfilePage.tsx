@@ -2,11 +2,10 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { Button, message, Select } from "antd";
-import { updateLawyerInfoApi } from "../../../api/caseAPI";
+import { updateLawyerInfoApi } from "../../../api/userAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { QText } from "../../common/Fonts";
 import { Loading } from "../../common/Loading";
-// import "./Dashboard.css";
 import { QTextBox } from "../../form/fields/Controls";
 import {
   LawyerBasicInfo,

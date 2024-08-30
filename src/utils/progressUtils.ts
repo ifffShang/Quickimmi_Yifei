@@ -43,7 +43,7 @@ export async function moveCaseProgressToNextStep(
   };
 
   try {
-    const result = await updateCaseProgressApi(progressData, accessToken, role);
+    const result = await updateCaseProgressApi(progressData, accessToken, role, parseInt(caseId));
     if (result) {
       message.success("Case progress updated successfully");
       return true;

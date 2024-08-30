@@ -1,10 +1,10 @@
 import { QText } from "../../common/Fonts";
-import { Button, InputRef, Input, Spin } from "antd";
-import Icon, { CheckOutlined, RetweetOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import type { GetProps } from "antd";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { refineApi } from "../../../api/caseAPI";
-import React, { useRef, useState, useEffect } from "react";
+import { Button, Input, InputRef, Spin } from "antd";
+import Icon, { CheckOutlined, CloseCircleOutlined } from "@ant-design/icons";
+import { useAppSelector } from "../../../app/hooks";
+import { refineApi } from "../../../api/utilsAPI";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import "./TextAreaWithAIRefine.css";
 
@@ -14,6 +14,7 @@ export interface TextAreaWithAIRefineProps {
   value: string;
   onChange: (value: string) => string;
   fieldKey?: string;
+  caseId?: number;
 }
 
 export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {

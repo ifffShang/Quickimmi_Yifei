@@ -11,7 +11,7 @@ import {
   retryGetDocumentsApi,
   updateDocumentStatus,
   uploadFileToPresignUrl,
-} from "../../../api/caseAPI";
+} from "../../../api/documentAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { GeneratedDocument } from "../../../model/apiModels";
 import { convertToDocumentType, DocumentType } from "../../../model/commonModels";
@@ -133,7 +133,7 @@ export function MergedDocumentList() {
       return;
     }
     try {
-      const docWithPresignedUrl = await getDocumentByIdApi(accessToken, doc.id, role);
+      const docWithPresignedUrl = await getDocumentByIdApi(accessToken, doc.id, role, caseId);
       const response = await fetch(docWithPresignedUrl.presignUrl);
       if (!response.ok) {
         message.error("Failed to download document.");
@@ -228,7 +228,7 @@ export function MergedDocumentList() {
           file,
           (_percent: number) => {},
           () => {
-            updateDocumentStatus(role, documentId, true, "UPLOADED", accessToken).then(isSuccessful => {
+            updateDocumentStatus(role, documentId, true, "UPLOADED", accessToken, caseId).then(isSuccessful => {
               if (isSuccessful) {
                 setReplaceLoading(false);
                 console.log("File uploaded successfully");
@@ -236,7 +236,7 @@ export function MergedDocumentList() {
             });
           },
           (error: Error) => {
-            updateDocumentStatus(role, documentId, true, "FAILED", accessToken).then(isSuccessful => {
+            updateDocumentStatus(role, documentId, true, "FAILED", accessToken, caseId).then(isSuccessful => {
               if (isSuccessful) {
                 setReplaceLoading(false);
                 console.log("File error status updated successfully");
@@ -266,7 +266,7 @@ export function MergedDocumentList() {
                     return;
                   }
                   try {
-                    const document = await getDocumentByIdApi(accessToken, doc.id, role);
+                    const document = await getDocumentByIdApi(accessToken, doc.id, role, caseId);
                     const downloadedDocument = await downloadDocument(document.presignUrl, { ...document });
                     window.open(downloadedDocument.presignUrl, "_blank");
                   } catch (error) {
