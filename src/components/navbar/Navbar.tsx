@@ -34,7 +34,9 @@ export function Navbar(props: { currentPath: string }) {
   const [firstLetter, setFirstLetter] = useState("U");
 
   useEffect(() => {
-    fetchLawyerInfo();
+    if (isLoggedIn) {
+      fetchLawyerInfo();
+    }
   }, [accessToken, userId]);
 
   const fetchLawyerInfo = async () => {

@@ -61,8 +61,8 @@ function SolutionSection({
   const { t } = useTranslation();
 
   return (
-    <div className="home-solutions-section">
-      {picOnLeft ? IconComponent && <IconComponent /> : <></>}
+    <div className={`home-solutions-section ${picOnLeft ? "icon-left" : "icon-right"}`}>
+      <div className="home-solutions-icon">{picOnLeft ? IconComponent && <IconComponent /> : <IconComponent />}</div>
       <div className="home-solutions-section-description">
         <TextBlock
           title={title}
@@ -82,7 +82,7 @@ function SolutionSection({
           {t("LandingPage.TryForFree")}
         </Button>
       </div>
-      {picOnLeft ? <></> : IconComponent && <IconComponent />}
+      {/* {picOnLeft ? <></> : IconComponent && <IconComponent />} */}
     </div>
   );
 }
