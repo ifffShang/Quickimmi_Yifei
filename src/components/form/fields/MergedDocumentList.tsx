@@ -19,7 +19,7 @@ import { moveCaseProgressToNextStep } from "../../../utils/progressUtils";
 import { downloadDocument } from "../../../utils/utils";
 import { Status } from "../parts/Status";
 import "./DocumentList.css";
-import { updateGeneratedDocuments } from "../../../reducers/formSlice";
+import { updateMergedDocuments } from "../../../reducers/formSlice";
 
 interface DataType {
   key: number;
@@ -71,7 +71,6 @@ export function MergedDocumentList() {
 
   const caseId = useAppSelector(state => state.form.caseId);
   const progress = useAppSelector(state => state.form.applicationCase.progress);
-  const percentage = useAppSelector(state => state.form.percentage);
 
   const mergedDocuments = useAppSelector(state => state.form.mergedDocuments);
   const [loading, setLoading] = useState(false);
@@ -82,6 +81,7 @@ export function MergedDocumentList() {
   const replaceFileControl = useRef<HTMLInputElement | null>(null);
   const systemMergedDocumentType = { generationType: "SYSTEM_MERGED" };
 
+  console.log("------------------mergedDocuments", mergedDocuments);
   const refreshTableContentAndMergeButton = () => {
     if (!accessToken || !caseId || caseId === 0) {
       console.error("Access token or case id is missing");
@@ -101,12 +101,13 @@ export function MergedDocumentList() {
     getDocumentsApi(accessToken, caseId, role, systemMergedDocumentType)
       .then(documents => {
         if (!documents) {
+          message.error("Failed to get merged documents.");
           console.error("Failed to get documents");
           return;
         }
+        dispatch(updateMergedDocuments(documents));
         const allFinished = !documents.some(doc => doc.status === "In Progress");
         setAllMergeCompleted(allFinished);
-        dispatch(updateGeneratedDocuments(documents));
       })
       .catch(error => {
         console.error(error);
@@ -165,10 +166,10 @@ export function MergedDocumentList() {
           }
           setLoading(false);
           const documentsToUpdate = [...documents];
-          const allFinished = !documentsToUpdate.some(doc => doc.status === "In Progress");
-          setAllMergeCompleted(allFinished);
-          dispatch(updateGeneratedDocuments(documentsToUpdate));
-          return allFinished;
+          dispatch(updateMergedDocuments(documentsToUpdate));
+          const allMergeTasksFinished = !documentsToUpdate.some(doc => doc.status === "In Progress");
+          setAllMergeCompleted(allMergeTasksFinished);
+          return allMergeTasksFinished;
         },
         systemMergedDocumentType,
       );
@@ -337,7 +338,7 @@ export function MergedDocumentList() {
           type="primary"
           onClick={markLawyerReviewAsCompleted}
           className="document-list-btn"
-          disabled={!(canMerge && allMergeCompleted)}
+          disabled={!(canMerge && allMergeCompleted && mergedDocuments.length > 0)}
         >
           {t("Complete Review")}
         </Button>
