@@ -34,7 +34,7 @@
           "placeholder": "text_ChildUploadPassport",
           "id": "children_upload_passport",
           "key": "family.children[].passportDocumentId",
-          "control": "component_passport_uploader"
+          "control": "component_passport_uploader_with_na"
         },
         {
           "label": "text_UploadPassportStampPages",

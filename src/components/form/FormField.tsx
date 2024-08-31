@@ -460,6 +460,28 @@ export function FormField(props: FormFieldProps) {
         </FormControlContainer>
       );
     }
+    case "component_passport_uploader_with_na": {
+      return (
+        <FormControlContainer fieldValue={fieldValue}>
+          <PassportUploader
+            documentId={fieldValue}
+            fieldKey={props.fieldKey}
+            fieldIndex={props.fieldIndex}
+            enableNACheckbox={true}
+            onChange={(value: any) => {
+              props.fieldKey &&
+                dispatchFormValue(
+                  dispatch,
+                  {
+                    [props.fieldKey]: value,
+                  },
+                  props.fieldIndex,
+                );
+            }}
+          />
+        </FormControlContainer>
+      );
+    }
     case "component_textbox_na":
       // TODO: This is a temporary solution for A-Number. Need to refactor this and move the control to JSON
       if (asylumType === "DEFENSIVE" && props.fieldKey === "applicant.alienNumber") {

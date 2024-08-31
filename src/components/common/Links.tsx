@@ -6,6 +6,7 @@ export interface QLinkProps {
   onClick?: () => void;
   children: React.ReactNode;
   color?: "white";
+  disabled?: boolean;
 }
 
 /**
@@ -14,7 +15,7 @@ export interface QLinkProps {
  */
 export function QLink(props: QLinkProps) {
   return (
-    <Link className={`qlink ${props.color || ""}`} onClick={props.onClick}>
+    <Link className={`qlink ${props.color || ""}`} onClick={props.onClick} disabled={props.disabled}>
       {props.children}
     </Link>
   );

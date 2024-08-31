@@ -21,17 +21,11 @@ interface FormContentProps {
 export function FormContent(props: FormContentProps) {
   const { wt, t } = useFormTranslation();
   const dispatch = useAppDispatch();
-  const accessToken = useAppSelector(state => state.auth.accessToken);
-  const role = useAppSelector(state => state.auth.role);
   const currentStep = useAppSelector(state => state.case.currentStep);
   const formFieldsMap = useAppSelector(state => state.case.formFieldsMap);
-
   const isFirstStep = useAppSelector(state => state.case.isFirstStep);
   const isLastStep = useAppSelector(state => state.case.isLastStep);
-
-  const caseId = useAppSelector(state => state.form.caseId);
   const profile = useAppSelector(state => state.form.applicationCase.profile);
-  const progress = useAppSelector(state => state.form.applicationCase.progress);
   const percentage = useAppSelector(state => state.form.percentage);
 
   const formFields = formFieldsMap && props.referenceId ? formFieldsMap[props.referenceId] : null;

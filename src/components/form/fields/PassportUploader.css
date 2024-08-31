@@ -32,6 +32,22 @@
   align-items: center;
 }
 
+.passport-uploader-inner-disabled {
+  width: 100px;
+  height: 100px;
+  background-color: var(--upload-btn-background);
+  border: var(--upload-btn-border);
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.passport-uploader-inner-disabled svg {
+  fill: var(--gray-color-2);
+}
+
 .passport-uploader-inner:hover {
   border-color: var(--upload-btn-hover);
 }
