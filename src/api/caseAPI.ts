@@ -239,6 +239,18 @@ export async function generatePersonalStatementApi(
   return <string>res.data;
 }
 
+export async function generateCoverLetterApi(accessToken: string, role: Role, caseId: number): Promise<string> {
+  const res = await performApiRequest({
+    endPoint: `api/case/asylum/generateCoverLetter?caseId=${caseId}`,
+    method: "GET",
+    data: null,
+    accessToken,
+    role,
+    caseId,
+  });
+  return <string>res.data;
+}
+
 export async function translatePersonalStatementToOriginalLanguageApi(
   accessToken: string,
   role: Role,

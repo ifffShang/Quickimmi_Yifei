@@ -38,7 +38,7 @@ export function PersonalStatement(props: PersonalStatementProps) {
     // console.log("-------percentage", JSON.stringify({"percentage": percentage}));
     // console.log("-------progress", progress.steps.find(step => step.name == 'FILLING_APPLICATION')?.substeps.find(subStep => subStep.name == 'FILLING_DETAILS')?.metadata);
     for (const key in percentage) {
-      if (key !== "personal_statement" && key !== "overall") {
+      if (key !== "personal_statement" && key !== "cover_letter" && key !== "overall") {
         if (percentage[key]?.avg !== 100) {
           return false;
         }

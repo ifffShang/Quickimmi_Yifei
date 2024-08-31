@@ -28,9 +28,12 @@
   "Use": "Use",
   "Rewrite": "Rewrite",
   "Write your Personal Statement with AI": "Write your Personal Statement with AI",
+  "Write your Cover Letter with AI": "Write your Cover Letter with AI",
   "Please complete the previous sections before using this feature": "Please complete the previous sections before using this feature",
   "Translate the PS on the left panel into Original Language.": "Translate the PS on the left panel into Original Language.",
   "AI will generate the Personal Statement based on the information provided in the previous sections.": "AI will generate the Personal Statement based on the information provided in the previous sections.",
+  "AI will generate the Cover Letter based on the information provided in the previous sections.": "AI will generate the Cover Letter based on the information provided in the previous sections.",
+
   "Discard": "Discard",
 
   "Home": "Home",
@@ -336,6 +339,7 @@
   "ViewMergedDocuments": "View Merged Documents",
   "PersonalStatement": "Personal Statement",
   "PersonalStatementInOriginalLanguage": "Personal Statement in Original Language",
+  "CoverLetter": "Cover Letter",
   "ViewFormSummary": "View Form Summary",
   "DisableDocDeleteButtonText": "The system-generated files or files used for system generation cannot be deleted on this page.",
 

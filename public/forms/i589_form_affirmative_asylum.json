@@ -125,6 +125,12 @@
           "id": "personal_statement",
           "type": "level2",
           "referenceId": "i589_fields_personal_statement"
+        },
+        {
+          "label": "text_CoverLetter",
+          "id": "cover_letter",
+          "type": "level2",
+          "referenceId": "i589_fields_cover_letter"
         }
       ]
     },

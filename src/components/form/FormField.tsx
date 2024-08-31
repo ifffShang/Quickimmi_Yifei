@@ -41,6 +41,7 @@ import { TextAreaWithAIRefine } from "./fields/TextAreaWithAIRefine";
 import { TextboxWithNA } from "./fields/TextboxWithNA";
 import { FormSummary } from "./fields/FormSummary";
 import { Section } from "./fields/Section";
+import { CoverLetter } from "./fields/CoverLetter";
 
 export interface FormFieldProps {
   fieldKey: string;
@@ -274,6 +275,16 @@ export function FormField(props: FormFieldProps) {
     case "component_personal_statement":
       return (
         <PersonalStatement
+          placeholder={placeholder}
+          value={fieldValue}
+          fieldKey={props.fieldKey}
+          onChange={onTextChange}
+          originLanguage={LanguageEnum.CHINESE}
+        />
+      );
+    case "component_cover_letter":
+      return (
+        <CoverLetter
           placeholder={placeholder}
           value={fieldValue}
           fieldKey={props.fieldKey}
