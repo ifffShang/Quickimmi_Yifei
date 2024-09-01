@@ -76,8 +76,8 @@ export const performApiRequest = async ({
     additionalHeaders.Role = role;
   }
 
-  if (!caseId) {
-    additionalHeaders.CaseId = caseId;
+  if (caseId) {
+    additionalHeaders["Case-Id"] = caseId;
   }
 
   try {
