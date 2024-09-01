@@ -315,9 +315,14 @@ export function DocumentList() {
     });
 
   const generateTooltipText = () => {
-    if (canGenerateDoc) {
-      return "";
+    if (canGenerateDoc && generatedDocuments.length > 0) {
+      // For "Regenerate Documents" button
+      return t("RegeneratingDocButtonTooltip");
+    } else if (canGenerateDoc && generatedDocuments.length === 0) {
+      // For enabled "Regenerate Documents" button
+      return t("Automatically generate application document based on the input information");
     } else {
+      // For disabled "Generate Documents" button
       return t("The button will only be available when the form is 100% complete.");
     }
   };
@@ -327,7 +332,7 @@ export function DocumentList() {
       <div className="document-list-inner">
         <Tooltip title={generateTooltipText()}>
           <Button type="primary" onClick={generateDocument} className="document-list-btn" disabled={!canGenerateDoc}>
-            {t("Generate Documents")}
+            {generatedDocuments.length === 0 ? t("Generate Documents") : t("Regenerate Documents")}
           </Button>
         </Tooltip>
         <Table
