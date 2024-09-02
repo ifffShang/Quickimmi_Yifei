@@ -203,6 +203,16 @@
     "SearchByCaseNameOrCaseId": "通过案件名称或案件编号搜索"
   },
 
+  "LawyerProfile" : {
+    "LawyerProfile": "律师信息",
+    "NameEditMessage": "确保这和你ID上的名字一致。",
+    "PhoneEditMessage": "输入美国的电话或移动电话号码",
+    "FaxEditMessage": "请勿使用电话作为传真号码",
+    "AddressEditMessage":"请填入可以收到邮件的永久地址.",
+    "AccountNumbersEditMessage":"填写您最新的USCIS线上账号与EOIR号码",
+    "EligibilityEditMessage": "请填正确填写并合适您的执照信息"
+  },
+
   "FindIncomplete": "找出未完成字段",
   "Complete Form": "资料完善",
   "Total Progress": "全部进度",
