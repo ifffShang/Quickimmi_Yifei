@@ -200,6 +200,16 @@
     "SearchByCaseNameOrCaseId": "Search by case name or case ID"
   },
 
+  "LawyerProfile": {
+    "LawyerProfile": "Lawyer Profile",
+    "NameEditMessage": "Make sure this matches the name on your government ID.",
+    "PhoneEditMessage": "Input US only Phone/Tele numbers",
+    "FaxEditMessage": "Don't use phone number as your fax number",
+    "AddressEditMessage": "Use a permanent address where you can receive mail.",
+    "AccountNumbersEditMessage": "Enter your latest USCIS Online Account Number and EOIR Number",
+    "EligibilityEditMessage": "Please provide and verify your eligibility information"
+  },
+
   "FindIncomplete": "Find Incomplete",
   "Complete Form": "Complete Form",
   "Total Progress": "Total Progress",
