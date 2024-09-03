@@ -133,7 +133,7 @@ export async function updateCaseNameApi(
   role: Role,
 ): Promise<boolean> {
   const res = await performApiRequest({
-    endPoint: `api/case/asylum/updateCaseName`,
+    endPoint: `api/case/updateCaseName`,
     method: "POST",
     data: { caseId, caseName },
     accessToken,
@@ -158,7 +158,7 @@ export async function getCaseProfileAndProgressApi(
     };
   }
   const res = await performApiRequest({
-    endPoint: `api/case/asylum/getCaseProfile?id=${caseId}`,
+    endPoint: `api/case/getCaseProfile?id=${caseId}`,
     method: "GET",
     data: null,
     accessToken,
@@ -212,7 +212,7 @@ export async function updateCaseProgressApi(
   caseId: number,
 ): Promise<boolean> {
   const res = await performApiRequest({
-    endPoint: "api/case/asylum/updateProgress",
+    endPoint: "api/case/updateProgress",
     method: "POST",
     data,
     accessToken,
