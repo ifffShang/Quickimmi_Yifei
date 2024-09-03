@@ -189,7 +189,7 @@ export async function getCaseProfileAndProgressApi(
     };
   }
   const res = await performApiRequest({
-    endPoint: `api/case/getCaseProfile?id=${caseId}`,
+    endPoint: `api/case/asylum/getCaseProfile?id=${caseId}`,
     method: "GET",
     data: null,
     accessToken,
