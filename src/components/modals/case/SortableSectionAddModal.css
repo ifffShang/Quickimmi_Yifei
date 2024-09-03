@@ -7,5 +7,14 @@
   margin-bottom: 20px;
 }
 
-.sortable-section-add-content > .section-popup {
+.sortable-section-add-content > .section-popup .text-box {
+  max-width: 100%;
+}
+
+.sortable-section-add-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  padding: 20px 0 0;
+  border-top: var(--border);
 }

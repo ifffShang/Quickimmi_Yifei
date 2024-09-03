@@ -306,6 +306,7 @@ export function QMonthYearPicker(props: QMonthYearPickerProps) {
         format="MM/YYYY"
         onChange={onMonthYearChange}
         disabled={props.disabled || false}
+        getPopupContainer={trigger => trigger.parentElement || document.body}
       />
       {value && (
         <div className="inline-placeholder">

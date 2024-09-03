@@ -32,6 +32,9 @@ export const handleResize = (dispatch?: React.Dispatch<any>, callback?: any) => 
 };
 
 export const equalsIgnoreCase = (str1: string, str2: string) => {
+  if (str1 === undefined && str2 === undefined) return true;
+  if (str1 === null && str2 === null) return true;
+  if (!str1 || !str2) return false;
   return str1.toLowerCase() === str2.toLowerCase();
 };
 

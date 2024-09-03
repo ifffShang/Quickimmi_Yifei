@@ -12,6 +12,8 @@ import { Loading } from "../../common/Loading";
 import { NewApplicationIcon } from "../../icons/Dashboard";
 import { CaseCard } from "./CaseCard";
 import "./Dashboard.css";
+import { equalsIgnoreCase } from "../../../utils/utils";
+import { Case } from "../../../model/apiModels";
 
 export function Dashboard() {
   const navigate = useNavigate();
@@ -47,7 +49,7 @@ export function Dashboard() {
     try {
       let allCases;
       if (isLawyer) {
-        const data = await getCasesByLawyerApi(userId!, 1, 1000, accessToken, role);
+        const data = await queryCasesByLawyerApi(userId!, 1, 1000, accessToken, role);
         allCases = data.cases;
       } else {
         const data = await getCasesApi(userId!, 1, 1000, accessToken, role);
@@ -64,13 +66,16 @@ export function Dashboard() {
     }
   };
 
-  const applySearchAndFilter = (cases, searchQuery, sortOption, sortOrder) => {
+  const applySearchAndFilter = (cases: Case[], searchQuery, sortOption, sortOrder) => {
     if (!cases || cases.length === 0) {
       return [];
     }
-    let filteredCases = cases.filter(
-      c => c.caseName.toLowerCase().includes(searchQuery.toLowerCase()) || c.id.toString() === searchQuery,
-    );
+
+    let filteredCases = [...cases];
+
+    if (searchQuery) {
+      filteredCases = cases.filter(c => equalsIgnoreCase(c.caseName, searchQuery) || c.id.toString() === searchQuery);
+    }
 
     filteredCases = filteredCases.sort((a, b) => {
       let result;
@@ -78,7 +83,7 @@ export function Dashboard() {
         result = new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
       } else if (sortOption === "id") {
         result = b.id - a.id;
-      } else {
+      } else if (a.caseName && b.caseName) {
         result = a.caseName.localeCompare(b.caseName);
       }
       return sortOrder === "asc" ? -result : result;

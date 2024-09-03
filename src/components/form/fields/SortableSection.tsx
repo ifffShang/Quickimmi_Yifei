@@ -10,7 +10,7 @@ import {
 } from "../../../utils/utils";
 import { QText } from "../../common/Fonts";
 import { FormField } from "../FormField";
-import { RemovableSectionHeader } from "../parts/RemovableSectionHeader";
+import { SectionHeader } from "../parts/SectionHeader";
 import { DocumentType, KeyValues } from "../../../model/commonModels";
 import { DefaultCaseProfile } from "../../../consts/caseProfile";
 import { ArrayFields } from "../../../reducers/formSlice";
@@ -146,6 +146,30 @@ export function SortableSection(props: SortableSectionProps) {
     }
   }, [isVisible]);
 
+  const SubFieldsEditComponent = (
+    <>
+      {props?.subFields?.map((field, index) => (
+        <div key={index} className="section-popup">
+          {field.label && field.hideHeader !== true && <QText level="normal bold">{wt(field.label)}</QText>}
+          <FormField
+            fieldKey={field.key}
+            control={field.control}
+            label={field.label}
+            options={field.options}
+            placeholder={field.placeholder}
+            className={field.className}
+            maxChildPerRow={field.maxChildPerRow}
+            subFields={field.fields}
+            format={field.format}
+            visibility={field.visibility}
+            fieldIndex={previousArrLength.current}
+            documentType={field.documentType}
+          />
+        </div>
+      ))}
+    </>
+  );
+
   useEffect(() => {
     console.log("testing sortable section", fieldValue);
     if (fieldValue.arr.length > previousArrLength.current) {
@@ -154,29 +178,7 @@ export function SortableSection(props: SortableSectionProps) {
           modalType: "sortableSectionAddModal",
           modalData: {
             label: t("Add") + " " + wt(props.label),
-            content: (
-              <>
-                {props?.subFields?.map((field, index) => (
-                  <div key={index} className="section-popup">
-                    {field.label && field.hideHeader !== true && <QText level="normal bold">{wt(field.label)}</QText>}
-                    <FormField
-                      fieldKey={field.key}
-                      control={field.control}
-                      label={field.label}
-                      options={field.options}
-                      placeholder={field.placeholder}
-                      className={field.className}
-                      maxChildPerRow={field.maxChildPerRow}
-                      subFields={field.fields}
-                      format={field.format}
-                      visibility={field.visibility}
-                      fieldIndex={previousArrLength.current}
-                      documentType={field.documentType}
-                    />
-                  </div>
-                ))}
-              </>
-            ),
+            content: SubFieldsEditComponent,
           },
         }),
       );
@@ -198,12 +200,15 @@ export function SortableSection(props: SortableSectionProps) {
         <>
           {fieldValue.arr.map((_i, arrIndex) => (
             <div key={arrIndex} className="section-container sortable">
-              <RemovableSectionHeader
+              <SectionHeader
                 label={wt(props.label)}
                 fieldIndex={arrIndex}
                 onRemove={() => {
                   const keyValues = createKeyValuesForRemoveItem(fieldValue, arrIndex);
                   dispatchFormValue(dispatch, keyValues, arrIndex);
+                }}
+                onEdit={() => {
+                  console.log("Edit section");
                 }}
               />
               {props?.subFields?.map((field, index) => (
@@ -230,28 +235,6 @@ export function SortableSection(props: SortableSectionProps) {
         </>
       );
     }
-    return (
-      <div className="section-container">
-        {props.subFields.map((field, index) => (
-          <div key={index}>
-            {field.label && field.hideHeader !== true && <QText level="normal bold">{wt(field.label)}</QText>}
-            <FormField
-              fieldKey={field.key}
-              control={field.control}
-              label={field.label}
-              options={field.options}
-              placeholder={field.placeholder}
-              className={field.className}
-              maxChildPerRow={field.maxChildPerRow}
-              subFields={field.fields}
-              format={field.format}
-              visibility={field.visibility}
-              fieldIndex={props.fieldIndex}
-              documentType={field.documentType}
-            />
-          </div>
-        ))}
-      </div>
-    );
-  } else return <div>Section needs sub fields</div>;
+  }
+  return <div>Section needs sub fields</div>;
 }

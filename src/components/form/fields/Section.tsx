@@ -10,7 +10,7 @@ import {
 } from "../../../utils/utils";
 import { QText } from "../../common/Fonts";
 import { FormField } from "../FormField";
-import { RemovableSectionHeader } from "../parts/RemovableSectionHeader";
+import { SectionHeader } from "../parts/SectionHeader";
 import { DocumentType, KeyValues } from "../../../model/commonModels";
 import { DefaultCaseProfile } from "../../../consts/caseProfile";
 import { ArrayFields } from "../../../reducers/formSlice";
@@ -156,7 +156,7 @@ export function Section(props: SectionProps) {
           {fieldValue.arr.map((_i, arrIndex) => (
             <div key={arrIndex} className="section-container">
               {props.control === "removable_section" && (
-                <RemovableSectionHeader
+                <SectionHeader
                   label={wt(props.label)}
                   fieldIndex={arrIndex}
                   onRemove={() => {
