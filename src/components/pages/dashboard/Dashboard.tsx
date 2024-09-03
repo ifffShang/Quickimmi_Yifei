@@ -3,7 +3,7 @@ import { Button, Input, Pagination, Select, message } from "antd";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { createNewCaseApi, getCasesApi, queryCasesByLawyerApi } from "../../../api/caseAPI";
+import { createNewCaseApi, getCasesApi, getCasesByLawyerApi, queryCasesByLawyerApi } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { Role } from "../../../consts/consts";
 import { updateCases, updateCurrentCaseId } from "../../../reducers/caseSlice";
@@ -47,7 +47,7 @@ export function Dashboard() {
     try {
       let allCases;
       if (isLawyer) {
-        const data = await queryCasesByLawyerApi(userId!, 1, 1000, accessToken, role);
+        const data = await getCasesByLawyerApi(userId!, 1, 1000, accessToken, role);
         allCases = data.cases;
       } else {
         const data = await getCasesApi(userId!, 1, 1000, accessToken, role);
