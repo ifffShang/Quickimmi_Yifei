@@ -108,6 +108,7 @@ export async function getCasesApi(
   return <ListCase>res.data;
 }
 
+// @deprecated
 // get all cases for a lawyer
 export async function getCasesByLawyerApi(
   lawyerId: number,
@@ -120,6 +121,36 @@ export async function getCasesByLawyerApi(
     endPoint: `api/case/listByLawyerId?lawyerId=${lawyerId}&pageNumber=${pageNumber}&pageSize=${pageSize}`,
     method: "GET",
     data: null,
+    accessToken,
+    role,
+  });
+  return <ListCase>res.data;
+}
+
+/**
+ * Query cases by lawyer, can also pass into query, current step, sorted by as parameters
+ * @param lawyerId
+ * @param pageNumber
+ * @param pageSize
+ * @param accessToken
+ * @param role
+ * @returns
+ */
+export async function queryCasesByLawyerApi(
+  lawyerId: number,
+  pageNumber: number,
+  pageSize: number,
+  accessToken: string,
+  role: Role,
+): Promise<ListCase> {
+  const res = await performApiRequest({
+    endPoint: "api/case/queryByLawyer",
+    method: "POST",
+    data: {
+      lawyerId,
+      pageNumber,
+      pageSize,
+    },
     accessToken,
     role,
   });

@@ -1,18 +1,17 @@
+import { SearchOutlined, SwapOutlined } from "@ant-design/icons";
+import { Button, Input, Pagination, Select, message } from "antd";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useLocation } from "react-router-dom";
-import { Button, Pagination, message, Input, Select } from "antd";
-import { SwapOutlined, SearchOutlined } from "@ant-design/icons";
-import { createNewCaseApi, getCasesApi, getCasesByLawyerApi } from "../../../api/caseAPI";
+import { useNavigate } from "react-router-dom";
+import { createNewCaseApi, getCasesApi, queryCasesByLawyerApi } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { Role } from "../../../consts/consts";
 import { updateCases, updateCurrentCaseId } from "../../../reducers/caseSlice";
 import { QText } from "../../common/Fonts";
 import { Loading } from "../../common/Loading";
 import { NewApplicationIcon } from "../../icons/Dashboard";
 import { CaseCard } from "./CaseCard";
 import "./Dashboard.css";
-import { Role } from "../../../consts/consts";
-import { set } from "lodash";
 
 export function Dashboard() {
   const navigate = useNavigate();
@@ -48,7 +47,7 @@ export function Dashboard() {
     try {
       let allCases;
       if (isLawyer) {
-        const data = await getCasesByLawyerApi(userId!, 1, 1000, accessToken, role);
+        const data = await queryCasesByLawyerApi(userId!, 1, 1000, accessToken, role);
         allCases = data.cases;
       } else {
         const data = await getCasesApi(userId!, 1, 1000, accessToken, role);

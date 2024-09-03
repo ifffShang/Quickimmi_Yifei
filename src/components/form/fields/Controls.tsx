@@ -54,6 +54,30 @@ export function FormInput(props: FormInputProps) {
   );
 }
 
+/** TextBox View control ***************************************************/
+
+export interface QFieldViewProps {
+  label: string;
+  value: string;
+}
+
+export function QFieldView(props: QFieldViewProps) {
+  const [value, setValue] = useState(props.value);
+
+  useEffect(() => {
+    setValue(props.value);
+  }, [props.value]);
+
+  return (
+    <div className="field-view-container">
+      <QText level="normal bold">{props.label}</QText>
+      <QText level="normal" color="dark">
+        {value}
+      </QText>
+    </div>
+  );
+}
+
 /** TextBox control ***************************************************/
 
 export interface QTextBoxProps {

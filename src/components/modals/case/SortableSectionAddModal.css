@@ -1,0 +1,11 @@
+.sortable-section-add-content {
+  padding: 20px 0;
+  border-top: var(--border);
+}
+
+.sortable-section-add-content > div {
+  margin-bottom: 20px;
+}
+
+.sortable-section-add-content > .section-popup {
+}

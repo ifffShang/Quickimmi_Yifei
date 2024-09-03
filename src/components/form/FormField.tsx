@@ -20,15 +20,18 @@ import {
   CheckBoxMultiOptions,
   QDatePicker,
   QDatePickerWithNA,
+  QFieldView,
   QMonthYearPicker,
   QTextArea,
   QTextBox,
   RadioSelect,
   SelectBox,
 } from "./fields/Controls";
+import { CoverLetter } from "./fields/CoverLetter";
 import { DocumentList } from "./fields/DocumentList";
 import { DraggerFileUploader } from "./fields/DraggerFileUploader";
 import { EntryRecords } from "./fields/EntryRecords";
+import { FormSummary } from "./fields/FormSummary";
 import { LocationDropdown } from "./fields/LocationDropdown";
 import { MergedDocumentList } from "./fields/MergedDocumentList";
 import { MultiFileUploader } from "./fields/MultiFileUploader";
@@ -36,12 +39,11 @@ import { MultipleTextboxesWithNA } from "./fields/MultipleTextboxesWithNA";
 import { PassportUploader } from "./fields/PassportUploader";
 import { PersonalStatement } from "./fields/PersonalStatement";
 import { SameAddressCheckbox } from "./fields/SameAddressCheckbox";
+import { Section } from "./fields/Section";
 import { SingleFileUploaderV2 } from "./fields/SingleFileUploaderV2";
+import { SortableSection } from "./fields/SortableSection";
 import { TextAreaWithAIRefine } from "./fields/TextAreaWithAIRefine";
 import { TextboxWithNA } from "./fields/TextboxWithNA";
-import { FormSummary } from "./fields/FormSummary";
-import { Section } from "./fields/Section";
-import { CoverLetter } from "./fields/CoverLetter";
 
 export interface FormFieldProps {
   fieldKey: string;
@@ -57,6 +59,7 @@ export interface FormFieldProps {
   hideHeader?: boolean;
   fieldIndex?: number;
   documentType?: DocumentType;
+  mode?: "view" | "edit";
 }
 
 export function FormField(props: FormFieldProps) {
@@ -237,6 +240,14 @@ export function FormField(props: FormFieldProps) {
     const keyValues = createKeyValuesForAddItem(fieldValue);
     dispatchFormValue(dispatch, keyValues, props.fieldIndex);
   };
+
+  if (props.mode === "view") {
+    return (
+      <FormControlContainer fieldValue={fieldValue}>
+        <QFieldView label={wt(props.label)} value={fieldValue} />
+      </FormControlContainer>
+    );
+  }
 
   switch (props.control) {
     case "label":
@@ -572,7 +583,6 @@ export function FormField(props: FormFieldProps) {
           />
         </FormControlContainer>
       );
-
     case "component_add_item":
       return <AddItemControl className={props.className} placeholder={placeholder} onClick={() => onAddItemClick()} />;
     case "group":
@@ -604,6 +614,8 @@ export function FormField(props: FormFieldProps) {
     case "section":
     case "removable_section":
       return <Section {...props} />;
+    case "sortable_section":
+      return <SortableSection {...props} />;
     default:
       return <div>Control not found</div>;
   }

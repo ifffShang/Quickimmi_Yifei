@@ -9,7 +9,7 @@ export interface TextProps {
   children: string | JSX.Element | React.ReactNode;
   level?: "xlarge" | "large" | "medium" | "normal" | "normal bold" | "small" | "xsmall" | "field-label" | "placeholder";
   color?: "primary" | "secondary" | "gray" | "dark" | "danger" | "warning" | "inherit";
-  margin?: "margin-bottom-10" | "margin-5";
+  margin?: "margin-bottom-20" | "margin-bottom-10" | "margin-5";
 }
 
 /**

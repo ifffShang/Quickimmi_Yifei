@@ -9,6 +9,7 @@ import { RegisterApplicationReceiptModal } from "./case/RegisterApplicationRecei
 import { RegisterFingerprintTimeLocationModal } from "./case/RegisterFingerprintTimeLocationModal";
 import { RegisterInterviewTimeLocationModal } from "./case/RegisterInterviewTimeLocationModal";
 import { RegisterTrackingNumberModal } from "./case/RegisterTrackingNumberModal";
+import { SortableSectionAddModal } from "./case/SortableSectionAddModal";
 import { TokenRefreshModal } from "./case/TokenRefreshModal";
 import { UploadOtherIdModal } from "./case/UploadOtherIdModal";
 import { UploadPassportModal } from "./case/UploadPassportModal";
@@ -75,6 +76,9 @@ export function ModalView() {
       break;
     case "tokenRefreshPopup":
       innerModal = <TokenRefreshModal />;
+      break;
+    case "sortableSectionAddModal":
+      innerModal = <SortableSectionAddModal />;
       break;
     default:
       innerModal = null;

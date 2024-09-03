@@ -1,3 +1,13 @@
 .section-container > div {
   margin-bottom: 40px;
 }
+
+.section-container.sortable > .section-view {
+  margin-bottom: 0;
+  margin-left: 20px;
+}
+
+.section-container.sortable > div:first-child,
+.section-container.sortable > div:last-child {
+  margin-bottom: 20px;
+}

@@ -12,6 +12,7 @@ export type ModalType =
   | "registerInterviewTimeLocation"
   | "registerApplicationFinalResultReceipt"
   | "tokenRefreshPopup"
+  | "sortableSectionAddModal"
   | "";
 
 export interface CommonState {

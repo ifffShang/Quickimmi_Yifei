@@ -64,6 +64,7 @@ export type ControlType =
   | "group"
   | "section"
   | "removable_section"
+  | "sortable_section"
   | "component_passport_uploader"
   | "component_passport_uploader_with_na"
   | "component_multi_textboxes_na"

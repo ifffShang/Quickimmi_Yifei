@@ -13,7 +13,7 @@
       "hideHeader": "true",
       "id": "address_berfore_us",
       "key": "count-background.addressHistoriesBeforeUS",
-      "control": "removable_section",
+      "control": "sortable_section",
       "fields": [
         {
           "label": "text_NumberAndStreet",

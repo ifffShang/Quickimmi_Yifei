@@ -435,7 +435,7 @@ export function createKeyValuesForAddItem(fieldValue: any) {
     keyValues[fieldValue.countKey] = parseInt(fieldValue.count) + 1;
   }
   if (fieldValue.arrKey) {
-    const arrayField = getArrayFieldInfo(fieldValue.arrKey);
+    const arrayField = getInitArrayFieldInfo(fieldValue.arrKey);
     keyValues[arrayField.overwriteField] = true;
     keyValues[fieldValue.arrKey] = [...fieldValue.arr, arrayField.default];
   }
@@ -450,14 +450,14 @@ export function createKeyValuesForRemoveItem(fieldValue: any, arrIndex: number) 
     keyValues[fieldValue.countKey] = fieldValue.count - 1;
   }
   if (fieldValue.arrKey) {
-    const arrayField = getArrayFieldInfo(fieldValue.arrKey);
+    const arrayField = getInitArrayFieldInfo(fieldValue.arrKey);
     keyValues[arrayField.overwriteField] = true;
     keyValues[fieldValue.arrKey] = newArr;
   }
   return keyValues;
 }
 
-export function getArrayFieldInfo(fieldKey: string) {
+export function getInitArrayFieldInfo(fieldKey: string) {
   const arrayField = ArrayFields.find(f => f.field === fieldKey);
   if (!arrayField) {
     console.error(`[getArrayFieldInfo] Array field is missing for key: ${fieldKey}`);
