@@ -1,11 +1,13 @@
 import { Button } from "antd";
-import { useAppSelector } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { QText } from "../../common/Fonts";
 import "./SortableSectionAddModal.css";
 import { useTranslation } from "react-i18next";
+import { closeModal } from "../../../reducers/commonSlice";
 
 export function SortableSectionAddModal() {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
   const modalData = useAppSelector(state => state.common.modalData);
 
   if (!modalData) return null;
@@ -20,8 +22,13 @@ export function SortableSectionAddModal() {
         <Button className="button" onClick={() => console.log("Cancel")}>
           {t("Cancel")}
         </Button>
-        <Button type="primary" onClick={() => console.log("Add")}>
-          {t("Add")}
+        <Button
+          type="primary"
+          onClick={() => {
+            dispatch(closeModal());
+          }}
+        >
+          {t("Confirm")}
         </Button>
       </div>
     </div>

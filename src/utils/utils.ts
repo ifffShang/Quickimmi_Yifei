@@ -460,6 +460,20 @@ export function createKeyValuesForRemoveItem(fieldValue: any, arrIndex: number) 
   return keyValues;
 }
 
+export function createKeyValuesForSwapItems(fieldValue: any, startIndex: number, targetIndex: number) {
+  const newArr = [...fieldValue.arr];
+  const temp = newArr[startIndex];
+  newArr[startIndex] = newArr[targetIndex];
+  newArr[targetIndex] = temp;
+  const keyValues: any = {};
+  if (fieldValue.arrKey) {
+    const arrayField = getInitArrayFieldInfo(fieldValue.arrKey);
+    keyValues[arrayField.overwriteField] = true;
+    keyValues[fieldValue.arrKey] = newArr;
+  }
+  return keyValues;
+}
+
 export function getInitArrayFieldInfo(fieldKey: string) {
   const arrayField = ArrayFields.find(f => f.field === fieldKey);
   if (!arrayField) {

@@ -3,17 +3,17 @@ import { Button, Input, Pagination, Select, message } from "antd";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { createNewCaseApi, getCasesApi, getCasesByLawyerApi, queryCasesByLawyerApi } from "../../../api/caseAPI";
+import { createNewCaseApi, getCasesApi, queryCasesByLawyerApi } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { Role } from "../../../consts/consts";
+import { Case } from "../../../model/apiModels";
 import { updateCases, updateCurrentCaseId } from "../../../reducers/caseSlice";
+import { equalsIgnoreCase } from "../../../utils/utils";
 import { QText } from "../../common/Fonts";
 import { Loading } from "../../common/Loading";
 import { NewApplicationIcon } from "../../icons/Dashboard";
 import { CaseCard } from "./CaseCard";
 import "./Dashboard.css";
-import { equalsIgnoreCase } from "../../../utils/utils";
-import { Case } from "../../../model/apiModels";
 
 export function Dashboard() {
   const navigate = useNavigate();
