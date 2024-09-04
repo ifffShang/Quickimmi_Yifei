@@ -19,9 +19,6 @@ export function SortableSectionAddModal() {
       </QText>
       <div className="sortable-section-add-content">{modalData.content}</div>
       <div className="sortable-section-add-footer">
-        <Button className="button" onClick={() => console.log("Cancel")}>
-          {t("Cancel")}
-        </Button>
         <Button
           type="primary"
           onClick={() => {

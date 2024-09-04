@@ -36,6 +36,7 @@ export function SortableSection(props: SortableSectionProps) {
   const { wt, t } = useFormTranslation();
   const caseDetails = useAppSelector(state => state.form.applicationCase?.profile);
   const sortableSectionRef = useRef<HTMLDivElement>(null);
+  const modalType = useAppSelector(state => state.common.modalType);
 
   const fieldValue = getFieldValue(
     caseDetails,
@@ -60,7 +61,7 @@ export function SortableSection(props: SortableSectionProps) {
               <SectionSubFields
                 className={"section-popup"}
                 subFields={props.subFields}
-                fieldIndex={previousArrLength.current}
+                fieldIndex={fieldValue.arr.length - 1}
               />
             ),
           },
@@ -150,50 +151,55 @@ export function SortableSection(props: SortableSectionProps) {
             {t("Drag and drop to change the order")}
           </div>
 
-          {fieldValue.arr.map((_i, arrIndex) => (
-            <div
-              key={arrIndex}
-              id={`sortable-section-${arrIndex}`}
-              className="section-container sortable"
-              draggable
-              onDragStart={e => handleDragStart(e, arrIndex)}
-              onDragOver={e => handleDragEnter(e, arrIndex)}
-              onDragLeave={e => handleDragLeave(e, arrIndex)}
-              onDrop={e => handleDragEnd(e, arrIndex)}
-            >
-              <SectionHeader
-                label={wt(props.label)}
-                fieldIndex={arrIndex}
-                onRemove={() => {
-                  const keyValues = createKeyValuesForRemoveItem(fieldValue, arrIndex);
-                  dispatchFormValue(dispatch, keyValues, arrIndex);
-                }}
-                onEdit={() => {
-                  dispatch(
-                    openModal({
-                      modalType: "sortableSectionAddModal",
-                      modalData: {
-                        label: t("Edit") + " " + wt(props.label),
-                        content: (
-                          <SectionSubFields
-                            className={"section-popup"}
-                            subFields={props.subFields}
-                            fieldIndex={arrIndex}
-                          />
-                        ),
-                      },
-                    }),
-                  );
-                }}
-              />
-              <SectionSubFields
-                className={"section-view"}
-                subFields={props.subFields}
-                fieldIndex={arrIndex}
-                mode={"view"}
-              />
-            </div>
-          ))}
+          {fieldValue.arr.map((_i, arrIndex) => {
+            if (modalType === "sortableSectionAddModal" && arrIndex === fieldValue.arr.length - 1) {
+              return <div key={arrIndex}></div>;
+            }
+            return (
+              <div
+                key={arrIndex}
+                id={`sortable-section-${arrIndex}`}
+                className="section-container sortable"
+                draggable
+                onDragStart={e => handleDragStart(e, arrIndex)}
+                onDragOver={e => handleDragEnter(e, arrIndex)}
+                onDragLeave={e => handleDragLeave(e, arrIndex)}
+                onDrop={e => handleDragEnd(e, arrIndex)}
+              >
+                <SectionHeader
+                  label={wt(props.label)}
+                  fieldIndex={arrIndex}
+                  onRemove={() => {
+                    const keyValues = createKeyValuesForRemoveItem(fieldValue, arrIndex);
+                    dispatchFormValue(dispatch, keyValues, arrIndex);
+                  }}
+                  onEdit={() => {
+                    dispatch(
+                      openModal({
+                        modalType: "sortableSectionAddModal",
+                        modalData: {
+                          label: t("Edit") + " " + wt(props.label),
+                          content: (
+                            <SectionSubFields
+                              className={"section-popup"}
+                              subFields={props.subFields}
+                              fieldIndex={arrIndex}
+                            />
+                          ),
+                        },
+                      }),
+                    );
+                  }}
+                />
+                <SectionSubFields
+                  className={"section-view"}
+                  subFields={props.subFields}
+                  fieldIndex={arrIndex}
+                  mode={"view"}
+                />
+              </div>
+            );
+          })}
         </div>
       );
     }
