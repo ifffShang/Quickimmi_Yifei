@@ -10,6 +10,7 @@ export interface TextProps {
   level?: "xlarge" | "large" | "medium" | "normal" | "normal bold" | "small" | "xsmall" | "field-label" | "placeholder";
   color?: "primary" | "secondary" | "gray" | "dark" | "danger" | "warning" | "inherit";
   margin?: "margin-bottom-20" | "margin-bottom-10" | "margin-5";
+  noWrap?: boolean;
 }
 
 /**
@@ -18,7 +19,7 @@ export interface TextProps {
  * @returns
  */
 export function QText(props: TextProps) {
-  const textClass = `text ${props.level || "normal"} ${props.color || "inherit"} ${props.margin || ""}`;
+  const textClass = `text ${props.level || "normal"} ${props.color || "inherit"} ${props.margin || ""} ${props.noWrap ? "no-wrap" : ""}`;
   return <div className={textClass}>{props.children}</div>;
 }
 

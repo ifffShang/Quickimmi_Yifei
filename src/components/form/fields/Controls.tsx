@@ -70,7 +70,9 @@ export function QFieldView(props: QFieldViewProps) {
 
   return (
     <div className="field-view-container">
-      <QText level="normal bold">{props.label + ":"}</QText>
+      <QText level="normal bold" noWrap>
+        {props.label + ":"}
+      </QText>
       <QText level="normal" color="dark">
         {value}
       </QText>
