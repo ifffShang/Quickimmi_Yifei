@@ -13,7 +13,7 @@
       "hideHeader": "true",
       "id": "employment_information",
       "key": "count-background.employmentHistories",
-      "control": "removable_section",
+      "control": "sortable_section",
       "fields": [
         {
           "label": "text_NameAndAddressOfEmployer",

@@ -13,7 +13,7 @@
       "hideHeader": "true",
       "id": "education_information",
       "key": "count-background.educationHistories",
-      "control": "removable_section",
+      "control": "sortable_section",
       "fields": [
         {
           "label": "text_SchoolName",

@@ -35,8 +35,9 @@ export function SortableSection(props: SortableSectionProps) {
   const dispatch = useAppDispatch();
   const { wt, t } = useFormTranslation();
   const caseDetails = useAppSelector(state => state.form.applicationCase?.profile);
-  const sortableSectionRef = useRef<HTMLDivElement>(null);
   const modalType = useAppSelector(state => state.common.modalType);
+
+  const sortableSectionRef = useRef<HTMLDivElement>(null);
 
   const fieldValue = getFieldValue(
     caseDetails,
@@ -48,10 +49,11 @@ export function SortableSection(props: SortableSectionProps) {
   );
 
   const previousArrLength = useRef(fieldValue.arr.length);
+  const previousArrKey = useRef(fieldValue.arrKey);
 
   useEffect(() => {
     console.log("testing sortable section", fieldValue);
-    if (fieldValue.arr.length > previousArrLength.current) {
+    if (fieldValue.arr.length > previousArrLength.current && fieldValue.arrKey === previousArrKey.current) {
       dispatch(
         openModal({
           modalType: "sortableSectionAddModal",
@@ -70,31 +72,26 @@ export function SortableSection(props: SortableSectionProps) {
     }
     // Update the previous length
     previousArrLength.current = fieldValue.arr.length;
+    previousArrKey.current = fieldValue.arrKey;
   }, [fieldValue.arr]);
 
   useEffect(() => {
-    if (!sortableSectionRef.current) return;
-
-    const rect = sortableSectionRef.current.getBoundingClientRect();
-
     // Add tooltip for sortable section
     const sortableSection = document.getElementById("sortable-section");
     sortableSection?.addEventListener("mousemove", function (event: Event) {
+      if (!sortableSectionRef.current) return;
+
+      const rect = sortableSectionRef.current.getBoundingClientRect();
+      const scrollTop = sortableSectionRef.current.scrollTop;
       const x = (event as MouseEvent).clientX - rect.left + 10;
-      const y = (event as MouseEvent).clientY - rect.top + 10;
+      const y = (event as MouseEvent).clientY - rect.top - scrollTop + 10;
       const tooltip = document.getElementById("section-tooltip") as HTMLElement;
       tooltip.style.left = x + "px";
       tooltip.style.top = y + "px";
     });
 
     return () => {
-      sortableSection?.removeEventListener("mousemove", function (event: Event) {
-        const x = (event as MouseEvent).clientX - rect.left;
-        const y = (event as MouseEvent).clientY - rect.top;
-        const tooltip = document.getElementById("section-tooltip") as HTMLElement;
-        tooltip.style.left = x + "px";
-        tooltip.style.top = y + "px";
-      });
+      sortableSection?.removeEventListener("mousemove", function (event: Event) {});
     };
   }, []);
 

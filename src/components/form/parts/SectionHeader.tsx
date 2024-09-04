@@ -13,7 +13,9 @@ export interface ISectionHeaderProps {
 export function SectionHeader(props: ISectionHeaderProps) {
   return (
     <div className="section-header">
-      <QText level="large">{props.label + " " + (props.fieldIndex + 1)}</QText>
+      <QText level="large" color="primary">
+        {props.label + " " + (props.fieldIndex + 1)}
+      </QText>
       <div className="section-header-control">
         <Button type="dashed" danger onClick={() => props.onRemove(props.fieldIndex)} icon={<DeleteOutlined />} />
         {props.onEdit && (
