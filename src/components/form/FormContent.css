@@ -8,7 +8,6 @@
 
 .form-content-form-container {
   flex-grow: 1;
-  height: calc(100vh - 250px); /* Adjust according to your layout */
   overflow: hidden;
 }
 
@@ -48,6 +47,7 @@
   position: absolute;
   width: 100%;
   height: auto;
+  bottom: 0;
 }
 
 .form-content-controls {

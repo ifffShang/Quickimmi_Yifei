@@ -42,4 +42,5 @@
   justify-content: center;
   gap: 10px;
   overflow-y: hidden;
+  height: calc(100vh - 270px); /* Adjust according to your layout */
 }
