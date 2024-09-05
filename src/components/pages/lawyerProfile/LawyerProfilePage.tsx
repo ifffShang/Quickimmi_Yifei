@@ -202,346 +202,357 @@ export function LawyerProfilePage() {
 
   const innerContent = (
     <div className="lawyer-profile-content">
-      {/* Name Group */}
-      <div className={`lawyer-profile-group ${isEditing && isEditing !== "name" ? "disabled" : ""}`}>
-        <div className="lawyer-profile-subTitle">
-          <QText level="normal bold">{t("Name")}</QText>
-          <Button type="link" onClick={() => handleEditClick("name")}>
-            {isEditing === "name" ? t("Cancel") : t("Edit")}
-          </Button>
-        </div>
-
-        <div className="lawyer-profile-section">
-          <div className="lawyer-profile-display">
-            <QText level="small" color="gray">
-              {isEditing === "name"
-                ? t("LawyerProfile.NameEditMessage")
-                : [lawyerInfo.firstName, lawyerInfo.middleName, lawyerInfo.lastName].filter(name => name).join(" ") ||
-                  "Not Provided"}
-            </QText>
-          </div>
-
-          <div className={`lawyer-profile-edit ${isEditing === "name" ? "isEditing" : ""}`}>
-            <div className="lawyer-profile-edit-input">
-              <QTextBox
-                placeholder={t("FirstName")}
-                value={lawyerInfo.firstName ?? ""}
-                fieldKey={"lawyerInfo.firstName"}
-                onChange={getOnChangeHandler(["firstName", "profile.basicInfo.firstName"])}
-              />
-              <QTextBox
-                placeholder={t("MiddleName")}
-                value={lawyerInfo.middleName ?? ""}
-                fieldKey={"lawyerInfo.middleName"}
-                onChange={getOnChangeHandler(["middleName", "profile.basicInfo.middleName"])}
-              />
-              <QTextBox
-                placeholder={t("LastName")}
-                value={lawyerInfo.lastName ?? ""}
-                fieldKey={"lawyerInfo.lastName"}
-                onChange={getOnChangeHandler(["lastName", "profile.basicInfo.lastName"])}
-              />
-            </div>
-            <Button type="primary" className="lawyer-profile-edit-save" onClick={handleSaveClick}>
-              {t("Save")}
+      <div className="lawyer-profile-display-section">
+        {/* Name Group */}
+        <div className={`lawyer-profile-group ${isEditing && isEditing !== "name" ? "disabled" : ""}`}>
+          <div className="lawyer-profile-subTitle">
+            <QText level="normal bold">{t("Name")}</QText>
+            <Button type="link" onClick={() => handleEditClick("name")}>
+              {isEditing === "name" ? t("Cancel") : t("Edit")}
             </Button>
           </div>
-        </div>
-      </div>
 
-      {/* Email Group */}
-      <div className={`lawyer-profile-group ${isEditing && isEditing !== "email" ? "disabled" : ""}`}>
-        <div className="lawyer-profile-subTitle">
-          <QText level="normal bold">{t("Email Address")}</QText>
-          {/* <Button type="link" onClick={() => handleEditClick('contact')}>
-            {isEditing === "contact" ? t("Cancel") : t("Edit")}
-          </Button> */}
-        </div>
+          <div className="lawyer-profile-section">
+            <div className="lawyer-profile-display">
+              <QText level="small" color="gray">
+                {isEditing === "name"
+                  ? t("LawyerProfile.NameEditMessage")
+                  : [lawyerInfo.firstName, lawyerInfo.middleName, lawyerInfo.lastName].filter(name => name).join(" ") ||
+                    "Not Provided"}
+              </QText>
+            </div>
 
-        <div className="lawyer-profile-section">
-          <div className="lawyer-profile-display">
-            <QText level="small" color="gray">
-              {isEditing === "contact" ? t("LawyerProfile.ContactEditMessage") : lawyerInfo.email ?? "Not Provided"}
-            </QText>
-            {/* <QTextBox
-                    placeholder={t("Email")}
-                    value={lawyerInfo.email ?? ""}
-                    fieldKey={"lawyerInfo.email"}
-                    onChange={getOnChangeHandler([])}
-                    disabled={true}
-                  /> */}
-          </div>
-        </div>
-      </div>
-
-      {/* Phone Group */}
-      <div className={`lawyer-profile-group ${isEditing && isEditing !== "phone" ? "disabled" : ""}`}>
-        <div className="lawyer-profile-subTitle">
-          <QText level="normal bold">{t("Phone Numbers")}</QText>
-          <Button type="link" onClick={() => handleEditClick("phone")}>
-            {isEditing === "phone" ? t("Cancel") : t("Edit")}
-          </Button>
-        </div>
-
-        <div className="lawyer-profile-section">
-          <div className="lawyer-profile-display">
-            <QText level="small" color="gray">
-              {isEditing === "phone"
-                ? t("LawyerProfile.ContactEditMessage")
-                : `Main Number: ${lawyerInfo.phoneNumber ?? "Not Provided"}`}
-            </QText>
-            <QText level="small" color="gray">
-              {isEditing === "phone"
-                ? ""
-                : `Tele Number(DayTime): ${lawyerInfo?.profile?.basicInfo?.daytimeTelephoneNumber ?? "Not Provided"}`}
-            </QText>
-            <QText level="small" color="gray">
-              {isEditing === "phone"
-                ? ""
-                : `Mobile Number: ${lawyerInfo?.profile?.basicInfo?.mobileTelephoneNumber ?? "Not Provided"}`}
-            </QText>
+            <div className={`lawyer-profile-edit ${isEditing === "name" ? "isEditing" : ""}`}>
+              <div className="lawyer-profile-edit-input">
+                <QTextBox
+                  placeholder={t("FirstName")}
+                  value={lawyerInfo.firstName ?? ""}
+                  fieldKey={"lawyerInfo.firstName"}
+                  onChange={getOnChangeHandler(["firstName", "profile.basicInfo.firstName"])}
+                />
+                <QTextBox
+                  placeholder={t("MiddleName")}
+                  value={lawyerInfo.middleName ?? ""}
+                  fieldKey={"lawyerInfo.middleName"}
+                  onChange={getOnChangeHandler(["middleName", "profile.basicInfo.middleName"])}
+                />
+                <QTextBox
+                  placeholder={t("LastName")}
+                  value={lawyerInfo.lastName ?? ""}
+                  fieldKey={"lawyerInfo.lastName"}
+                  onChange={getOnChangeHandler(["lastName", "profile.basicInfo.lastName"])}
+                />
+              </div>
+              <Button type="primary" className="lawyer-profile-edit-save" onClick={handleSaveClick}>
+                {t("Save")}
+              </Button>
+            </div>
           </div>
         </div>
 
-        <div className={`lawyer-profile-edit ${isEditing === "phone" ? "isEditing" : ""}`}>
-          <div className="lawyer-profile-edit-input">
-            <QTextBox
-              placeholder={t("phoneNumber")}
-              value={lawyerInfo.phoneNumber ?? ""}
-              fieldKey={"lawyerInfo.phoneNumber"}
-              onChange={getOnChangeHandler(["phoneNumber"])}
-            />
-            <QTextBox
-              placeholder={t("daytimeTelephoneNumber")}
-              value={lawyerInfo?.profile?.basicInfo?.daytimeTelephoneNumber ?? ""}
-              fieldKey={"lawyerInfo.phoneNumber"}
-              onChange={getOnChangeHandler(["profile.basicInfo.daytimeTelephoneNumber"])}
-            />
-            <QTextBox
-              placeholder={t("mobileTelephoneNumber")}
-              value={lawyerInfo?.profile?.basicInfo?.mobileTelephoneNumber ?? ""}
-              fieldKey={"lawyerInfo.phoneNumber"}
-              onChange={getOnChangeHandler(["profile.basicInfo.mobileTelephoneNumber"])}
-            />
-          </div>
-          <Button type="primary" className="lawyer-profile-edit-save" onClick={handleSaveClick}>
-            {t("Save")}
-          </Button>
-        </div>
-      </div>
-
-      {/* Fax Group */}
-      <div className={`lawyer-profile-group ${isEditing && isEditing !== "fax" ? "disabled" : ""}`}>
-        <div className="lawyer-profile-subTitle">
-          <QText level="normal bold">{t("Fax Number")}</QText>
-          <Button type="link" onClick={() => handleEditClick("fax")}>
-            {isEditing === "fax" ? t("Cancel") : t("Edit")}
-          </Button>
-        </div>
-
-        <div className="lawyer-profile-section">
-          <div className="lawyer-profile-display">
-            <QText level="small" color="gray">
-              {isEditing === "fax"
-                ? t("LawyerProfile.FaxEditMessage")
-                : lawyerInfo?.profile?.basicInfo?.faxNumber || "Not Provided"}
-            </QText>
+        {/* Email Group */}
+        <div className={`lawyer-profile-group ${isEditing && isEditing !== "email" ? "disabled" : ""}`}>
+          <div className="lawyer-profile-subTitle">
+            <QText level="normal bold">{t("Email Address")}</QText>
+            {/* <Button type="link" onClick={() => handleEditClick('contact')}>
+              {isEditing === "contact" ? t("Cancel") : t("Edit")}
+            </Button> */}
           </div>
 
-          <div className={`lawyer-profile-edit ${isEditing === "fax" ? "isEditing" : ""}`}>
+          <div className="lawyer-profile-section">
+            <div className="lawyer-profile-display">
+              <QText level="small" color="gray">
+                {isEditing === "contact" ? t("LawyerProfile.ContactEditMessage") : lawyerInfo.email ?? "Not Provided"}
+              </QText>
+              {/* <QTextBox
+                      placeholder={t("Email")}
+                      value={lawyerInfo.email ?? ""}
+                      fieldKey={"lawyerInfo.email"}
+                      onChange={getOnChangeHandler([])}
+                      disabled={true}
+                    /> */}
+            </div>
+          </div>
+        </div>
+
+        {/* Phone Group */}
+        <div className={`lawyer-profile-group ${isEditing && isEditing !== "phone" ? "disabled" : ""}`}>
+          <div className="lawyer-profile-subTitle">
+            <QText level="normal bold">{t("Phone Numbers")}</QText>
+            <Button type="link" onClick={() => handleEditClick("phone")}>
+              {isEditing === "phone" ? t("Cancel") : t("Edit")}
+            </Button>
+          </div>
+
+          <div className="lawyer-profile-section">
+            <div className="lawyer-profile-display">
+              <QText level="small" color="gray">
+                {isEditing === "phone"
+                  ? t("LawyerProfile.ContactEditMessage")
+                  : `Main Number: ${lawyerInfo.phoneNumber ?? "Not Provided"}`}
+              </QText>
+              <QText level="small" color="gray">
+                {isEditing === "phone"
+                  ? ""
+                  : `Tele Number(DayTime): ${lawyerInfo?.profile?.basicInfo?.daytimeTelephoneNumber ?? "Not Provided"}`}
+              </QText>
+              <QText level="small" color="gray">
+                {isEditing === "phone"
+                  ? ""
+                  : `Mobile Number: ${lawyerInfo?.profile?.basicInfo?.mobileTelephoneNumber ?? "Not Provided"}`}
+              </QText>
+            </div>
+          </div>
+
+          <div className={`lawyer-profile-edit ${isEditing === "phone" ? "isEditing" : ""}`}>
             <div className="lawyer-profile-edit-input">
               <QTextBox
-                placeholder={t("faxNumber")}
-                value={lawyerInfo?.profile?.basicInfo?.faxNumber ?? ""}
+                placeholder={t("phoneNumber")}
+                value={lawyerInfo.phoneNumber ?? ""}
                 fieldKey={"lawyerInfo.phoneNumber"}
-                onChange={getOnChangeHandler(["profile.basicInfo.faxNumber"])}
+                onChange={getOnChangeHandler(["phoneNumber"])}
+              />
+              <QTextBox
+                placeholder={t("daytimeTelephoneNumber")}
+                value={lawyerInfo?.profile?.basicInfo?.daytimeTelephoneNumber ?? ""}
+                fieldKey={"lawyerInfo.phoneNumber"}
+                onChange={getOnChangeHandler(["profile.basicInfo.daytimeTelephoneNumber"])}
+              />
+              <QTextBox
+                placeholder={t("mobileTelephoneNumber")}
+                value={lawyerInfo?.profile?.basicInfo?.mobileTelephoneNumber ?? ""}
+                fieldKey={"lawyerInfo.phoneNumber"}
+                onChange={getOnChangeHandler(["profile.basicInfo.mobileTelephoneNumber"])}
               />
             </div>
             <Button type="primary" className="lawyer-profile-edit-save" onClick={handleSaveClick}>
               {t("Save")}
             </Button>
+          </div>
+        </div>
+
+        {/* Fax Group */}
+        <div className={`lawyer-profile-group ${isEditing && isEditing !== "fax" ? "disabled" : ""}`}>
+          <div className="lawyer-profile-subTitle">
+            <QText level="normal bold">{t("Fax Number")}</QText>
+            <Button type="link" onClick={() => handleEditClick("fax")}>
+              {isEditing === "fax" ? t("Cancel") : t("Edit")}
+            </Button>
+          </div>
+
+          <div className="lawyer-profile-section">
+            <div className="lawyer-profile-display">
+              <QText level="small" color="gray">
+                {isEditing === "fax"
+                  ? t("LawyerProfile.FaxEditMessage")
+                  : lawyerInfo?.profile?.basicInfo?.faxNumber || "Not Provided"}
+              </QText>
+            </div>
+
+            <div className={`lawyer-profile-edit ${isEditing === "fax" ? "isEditing" : ""}`}>
+              <div className="lawyer-profile-edit-input">
+                <QTextBox
+                  placeholder={t("faxNumber")}
+                  value={lawyerInfo?.profile?.basicInfo?.faxNumber ?? ""}
+                  fieldKey={"lawyerInfo.phoneNumber"}
+                  onChange={getOnChangeHandler(["profile.basicInfo.faxNumber"])}
+                />
+              </div>
+              <Button type="primary" className="lawyer-profile-edit-save" onClick={handleSaveClick}>
+                {t("Save")}
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Address Group */}
+        <div className={`lawyer-profile-group ${isEditing && isEditing !== "address" ? "disabled" : ""}`}>
+          <div className="lawyer-profile-subTitle">
+            <QText level="normal bold">{t("Address")}</QText>
+            <Button type="link" onClick={() => handleEditClick("address")}>
+              {isEditing === "address" ? t("Cancel") : t("Edit")}
+            </Button>
+          </div>
+          <div className="lawyer-profile-section">
+            <div className="lawyer-profile-display">
+              <QText level="small" color="gray">
+                {isEditing === "address"
+                  ? ""
+                  : `${lawyerInfo.lawFirm || "Law Firm Name Not Provided"}`}
+              </QText>
+              <QText level="small" color="gray">
+                {isEditing === "address"
+                  ? t("LawyerProfile.AddressEditMessage")
+                  : `${lawyerInfo?.profile?.basicInfo?.streetNumberAndName || "Street Not Provided"}, ` +
+                    `${lawyerInfo?.profile?.basicInfo?.city || "City Not Provided"}, ` +
+                    `${lawyerInfo?.profile?.basicInfo?.stateDropdown || "State Not Provided"}, ` +
+                    `${lawyerInfo?.profile?.basicInfo?.zipCode || "Postal Code Not Provided"}`}
+              </QText>
+            </div>
+
+            <div className={`lawyer-profile-edit ${isEditing === "address" ? "isEditing" : ""}`}>
+              <div className="lawyer-profile-edit-input">
+                <QTextBox
+                  placeholder={t("lawFirm")}
+                  value={lawyerInfo?.lawFirm ?? ""}
+                  onChange={getOnChangeHandler(["lawFirm", "profile.eligibility.nameofLawFirm"])}
+                />
+              </div>
+              <div className="lawyer-profile-edit-input">
+                <QTextBox
+                  placeholder={t("Street")}
+                  value={lawyerInfo?.profile?.basicInfo?.streetNumberAndName ?? ""}
+                  fieldKey={"lawyerInfo.email"}
+                  onChange={getOnChangeHandler(["profile.basicInfo.streetNumberAndName"])}
+                />
+                <QTextBox
+                  placeholder={t("ApartmentNumber")}
+                  value={lawyerInfo?.profile?.basicInfo?.aptSteFlrNumber ?? ""}
+                  fieldKey={"lawyerInfo.email"}
+                  onChange={getOnChangeHandler(["profile.basicInfo.aptSteFlrNumber"])}
+                />
+              </div>
+              <div className="lawyer-profile-edit-input">
+                <QTextBox
+                  placeholder={t("City")}
+                  value={lawyerInfo?.profile?.basicInfo?.city ?? ""}
+                  fieldKey={"lawyerInfo.phoneNumber"}
+                  onChange={getOnChangeHandler(["profile.basicInfo.city"])}
+                />
+                <QTextBox
+                  placeholder={t("State")}
+                  value={lawyerInfo?.profile?.basicInfo?.stateDropdown ?? ""}
+                  fieldKey={"lawyerInfo.phoneNumber"}
+                  onChange={getOnChangeHandler(["profile.basicInfo.stateDropdown"])}
+                />
+                <QTextBox
+                  placeholder={t("ZipCode")}
+                  value={lawyerInfo?.profile?.basicInfo?.zipCode ?? ""}
+                  fieldKey={"lawyerInfo.phoneNumber"}
+                  onChange={getOnChangeHandler(["profile.basicInfo.zipCode", "profile.basicInfo.postalCode"])}
+                />
+              </div>
+              <Button type="primary" className="lawyer-profile-edit-save" onClick={handleSaveClick}>
+                {t("Save")}
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Account Numbers Group */}
+        <div className={`lawyer-profile-group ${isEditing && isEditing !== "account" ? "disabled" : ""}`}>
+          <div className="lawyer-profile-subTitle">
+            <QText level="normal bold">{t("AccountNumbers")}</QText>
+            <Button type="link" onClick={() => handleEditClick("account")}>
+              {isEditing === "account" ? t("Cancel") : t("Edit")}
+            </Button>
+          </div>
+          <div className="lawyer-profile-section">
+            <div className="lawyer-profile-display">
+              <QText level="small" color="gray">
+                {isEditing === "account"
+                  ? t("LawyerProfile.AccountNumbersEditMessage")
+                  : `USCIS Online Account Number: ${lawyerInfo?.profile?.basicInfo?.uscisOnlineAccountNumber || "Not Provided"}`}
+              </QText>
+              <QText level="small" color="gray">
+                {isEditing === "account"
+                  ? ""
+                  : `EOIR Number: ${lawyerInfo?.profile?.basicInfo?.eoirNumber || "Not Provided"}`}
+              </QText>
+            </div>
+
+            <div className={`lawyer-profile-edit ${isEditing === "account" ? "isEditing" : ""}`}>
+              <div className="lawyer-profile-edit-input">
+                <QTextBox
+                  placeholder={t("UscisOnlineAccountNumber")}
+                  value={lawyerInfo?.profile?.basicInfo?.uscisOnlineAccountNumber ?? ""}
+                  fieldKey={"lawyerInfo.email"}
+                  onChange={getOnChangeHandler(["profile.basicInfo.uscisOnlineAccountNumber"])}
+                />
+                <QTextBox
+                  placeholder={t("eoirNumber")}
+                  value={lawyerInfo?.profile?.basicInfo?.eoirNumber ?? ""}
+                  fieldKey={"lawyerInfo.email"}
+                  onChange={getOnChangeHandler(["profile.basicInfo.eoirNumber"])}
+                />
+              </div>
+              <Button type="primary" className="lawyer-profile-edit-save" onClick={handleSaveClick}>
+                {t("Save")}
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Eligibility Group */}
+        <div className={`lawyer-profile-group ${isEditing && isEditing !== "eligibility" ? "disabled" : ""}`}>
+          <div className="lawyer-profile-subTitle">
+            <QText level="normal bold">{t("Eligibility")}</QText>
+            <Button type="link" onClick={() => handleEditClick("eligibility")}>
+              {isEditing === "eligibility" ? t("Cancel") : t("Edit")}
+            </Button>
+          </div>
+          <div className="lawyer-profile-section">
+            <div className="lawyer-profile-display">
+              <QText level="small" color="gray">
+                {isEditing === "eligibility"
+                  ? t("LawyerProfile.EligibilityEditMessage")
+                  : `Experience Years: ${
+                      lawyerInfo?.experienceYears
+                        ? `${lawyerInfo.experienceYears} ${lawyerInfo.experienceYears > 1 ? "years" : "year"}`
+                        : "Not Provided"
+                    }`}
+              </QText>
+              <QText level="small" color="gray">
+                {isEditing === "eligibility"
+                  ? ""
+                  : `Attorney State Bar Number: ${lawyerInfo?.profile?.eligibility?.barNumber || "Not Provided"} `}
+              </QText>
+              <QText level="small" color="gray">
+                {isEditing === "eligibility"
+                  ? ""
+                  : `Licensing Authority: ${lawyerInfo?.profile?.eligibility?.licensingAuthority || "Not Provided"} `}
+              </QText>
+              <QText level="small" color="gray">
+                {isEditing === "eligibility"
+                  ? ""
+                  : `Date of Accreditation: ${lawyerInfo?.profile?.eligibility?.dateofAccreditation || "Not Provided"} `}
+              </QText>
+            </div>
+
+            <div className={`lawyer-profile-edit ${isEditing === "eligibility" ? "isEditing" : ""}`}>
+              <div className="lawyer-profile-edit-input">
+                <QTextBox
+                  placeholder={t("experienceYears")}
+                  value={lawyerInfo?.experienceYears?.toString() ?? ""}
+                  onChange={getOnChangeHandler(["experienceYears"])}
+                />
+                <QTextBox
+                  placeholder={t("AttorneyStateBarNumberPlaceholder")}
+                  value={lawyerInfo?.profile?.eligibility?.barNumber ?? ""}
+                  onChange={getOnChangeHandler(["profile.eligibility.barNumber"])}
+                />
+              </div>
+              <div className="lawyer-profile-edit-input">
+                <QTextBox
+                  placeholder={t("licensingAuthority")}
+                  value={lawyerInfo?.profile?.eligibility?.licensingAuthority ?? ""}
+                  onChange={getOnChangeHandler(["profile.eligibility.licensingAuthority"])}
+                />
+                <QTextBox
+                  placeholder={t("dateofAccreditation")}
+                  value={lawyerInfo?.profile?.eligibility?.dateofAccreditation ?? ""}
+                  onChange={getOnChangeHandler(["profile.eligibility.dateofAccreditation"])}
+                />
+              </div>
+              <Button type="primary" className="lawyer-profile-edit-save" onClick={handleSaveClick}>
+                {t("Save")}
+              </Button>
+            </div>
           </div>
         </div>
       </div>
+      <div className="lawyer-profile-message"> 
 
-      {/* Address Group */}
-      <div className={`lawyer-profile-group ${isEditing && isEditing !== "address" ? "disabled" : ""}`}>
-        <div className="lawyer-profile-subTitle">
-          <QText level="normal bold">{t("Address")}</QText>
-          <Button type="link" onClick={() => handleEditClick("address")}>
-            {isEditing === "address" ? t("Cancel") : t("Edit")}
-          </Button>
-        </div>
-        <div className="lawyer-profile-section">
-          <div className="lawyer-profile-display">
-            <QText level="small" color="gray">
-              {isEditing === "address"
-                ? t("LawyerProfile.AddressEditMessage")
-                : `${lawyerInfo?.profile?.basicInfo?.streetNumberAndName || "Street Not Provided"}, ` +
-                  `${lawyerInfo?.profile?.basicInfo?.city || "City Not Provided"}, ` +
-                  `${lawyerInfo?.profile?.basicInfo?.stateDropdown || "State Not Provided"}, ` +
-                  `${lawyerInfo?.profile?.basicInfo?.zipCode || "Postal Code Not Provided"}`}
-            </QText>
-          </div>
-
-          <div className={`lawyer-profile-edit ${isEditing === "address" ? "isEditing" : ""}`}>
-            <div className="lawyer-profile-edit-input">
-              <QTextBox
-                placeholder={t("Street")}
-                value={lawyerInfo?.profile?.basicInfo?.streetNumberAndName ?? ""}
-                fieldKey={"lawyerInfo.email"}
-                onChange={getOnChangeHandler(["profile.basicInfo.streetNumberAndName"])}
-              />
-              <QTextBox
-                placeholder={t("ApartmentNumber")}
-                value={lawyerInfo?.profile?.basicInfo?.aptSteFlrNumber ?? ""}
-                fieldKey={"lawyerInfo.email"}
-                onChange={getOnChangeHandler(["profile.basicInfo.aptSteFlrNumber"])}
-              />
-              <QTextBox
-                placeholder={t("City")}
-                value={lawyerInfo?.profile?.basicInfo?.city ?? ""}
-                fieldKey={"lawyerInfo.phoneNumber"}
-                onChange={getOnChangeHandler(["profile.basicInfo.city"])}
-              />
-              <QTextBox
-                placeholder={t("State")}
-                value={lawyerInfo?.profile?.basicInfo?.stateDropdown ?? ""}
-                fieldKey={"lawyerInfo.phoneNumber"}
-                onChange={getOnChangeHandler(["profile.basicInfo.stateDropdown"])}
-              />
-              <QTextBox
-                placeholder={t("ZipCode")}
-                value={lawyerInfo?.profile?.basicInfo?.zipCode ?? ""}
-                fieldKey={"lawyerInfo.phoneNumber"}
-                onChange={getOnChangeHandler(["profile.basicInfo.zipCode", "profile.basicInfo.postalCode"])}
-              />
-            </div>
-            <Button type="primary" className="lawyer-profile-edit-save" onClick={handleSaveClick}>
-              {t("Save")}
-            </Button>
-          </div>
-        </div>
-      </div>
-
-      {/* Account Numbers Group */}
-      <div className={`lawyer-profile-group ${isEditing && isEditing !== "account" ? "disabled" : ""}`}>
-        <div className="lawyer-profile-subTitle">
-          <QText level="normal bold">{t("AccountNumbers")}</QText>
-          <Button type="link" onClick={() => handleEditClick("account")}>
-            {isEditing === "account" ? t("Cancel") : t("Edit")}
-          </Button>
-        </div>
-        <div className="lawyer-profile-section">
-          <div className="lawyer-profile-display">
-            <QText level="small" color="gray">
-              {isEditing === "account"
-                ? t("LawyerProfile.AccountNumbersEditMessage")
-                : `USCIS Online Account Number: ${lawyerInfo?.profile?.basicInfo?.uscisOnlineAccountNumber || "Not Provided"}`}
-            </QText>
-            <QText level="small" color="gray">
-              {isEditing === "account"
-                ? ""
-                : `EOIR Number: ${lawyerInfo?.profile?.basicInfo?.eoirNumber || "Not Provided"}`}
-            </QText>
-          </div>
-
-          <div className={`lawyer-profile-edit ${isEditing === "account" ? "isEditing" : ""}`}>
-            <div className="lawyer-profile-edit-input">
-              <QTextBox
-                placeholder={t("UscisOnlineAccountNumber")}
-                value={lawyerInfo?.profile?.basicInfo?.uscisOnlineAccountNumber ?? ""}
-                fieldKey={"lawyerInfo.email"}
-                onChange={getOnChangeHandler(["profile.basicInfo.uscisOnlineAccountNumber"])}
-              />
-              <QTextBox
-                placeholder={t("eoirNumber")}
-                value={lawyerInfo?.profile?.basicInfo?.eoirNumber ?? ""}
-                fieldKey={"lawyerInfo.email"}
-                onChange={getOnChangeHandler(["profile.basicInfo.eoirNumber"])}
-              />
-            </div>
-            <Button type="primary" className="lawyer-profile-edit-save" onClick={handleSaveClick}>
-              {t("Save")}
-            </Button>
-          </div>
-        </div>
-      </div>
-
-      {/* Eligibility Group */}
-      <div className={`lawyer-profile-group ${isEditing && isEditing !== "eligibility" ? "disabled" : ""}`}>
-        <div className="lawyer-profile-subTitle">
-          <QText level="normal bold">{t("Eligibility")}</QText>
-          <Button type="link" onClick={() => handleEditClick("eligibility")}>
-            {isEditing === "eligibility" ? t("Cancel") : t("Edit")}
-          </Button>
-        </div>
-        <div className="lawyer-profile-section">
-          <div className="lawyer-profile-display">
-            <QText level="small" color="gray">
-              {isEditing === "eligibility"
-                ? t("LawyerProfile.EligibilityEditMessage")
-                : `Law Firm: ${lawyerInfo?.lawFirm || "Not Provided"}, ` +
-                  `Specialization: ${lawyerInfo?.specialization || "Not Provided"}, ` +
-                  `Experience Years: ${lawyerInfo?.experienceYears?.toString() || "Not Provided"}, ` +
-                  `Attorney State Bar Number: ${lawyerInfo?.profile?.eligibility?.barNumber || "Not Provided"}, `}
-            </QText>
-          </div>
-          <div className="lawyer-profile-display">
-            <QText level="small" color="gray">
-              {isEditing === "eligibility"
-                ? ""
-                : `Licensing Authority: ${lawyerInfo?.profile?.eligibility?.licensingAuthority || "Not Provided"}, ` +
-                  `Date of Accreditation: ${lawyerInfo?.profile?.eligibility?.dateofAccreditation || "Not Provided"}, ` +
-                  `Name of Law Student or Graduate: ${lawyerInfo?.profile?.eligibility?.nameofLawStudentOrLawGraduate || "Not Provided"}`}
-            </QText>
-          </div>
-
-          <div className={`lawyer-profile-edit ${isEditing === "eligibility" ? "isEditing" : ""}`}>
-            <div className="lawyer-profile-edit-input">
-              <QTextBox
-                placeholder={t("lawFirm")}
-                value={lawyerInfo?.lawFirm ?? ""}
-                onChange={getOnChangeHandler(["lawFirm", "profile.eligibility.nameofLawFirm"])}
-              />
-              <QTextBox
-                placeholder={t("specialization")}
-                value={lawyerInfo?.specialization ?? ""}
-                onChange={getOnChangeHandler(["specialization"])}
-              />
-              <QTextBox
-                placeholder={t("experienceYears")}
-                value={lawyerInfo?.experienceYears?.toString() ?? ""}
-                onChange={getOnChangeHandler(["experienceYears"])}
-              />
-              <QTextBox
-                placeholder={t("AttorneyStateBarNumberPlaceholder")}
-                value={lawyerInfo?.profile?.eligibility?.barNumber ?? ""}
-                onChange={getOnChangeHandler(["profile.eligibility.barNumber"])}
-              />
-            </div>
-            <div className="lawyer-profile-edit-input">
-              <QTextBox
-                placeholder={t("licensingAuthority")}
-                value={lawyerInfo?.profile?.eligibility?.licensingAuthority ?? ""}
-                onChange={getOnChangeHandler(["profile.eligibility.licensingAuthority"])}
-              />
-              <QTextBox
-                placeholder={t("dateofAccreditation")}
-                value={lawyerInfo?.profile?.eligibility?.dateofAccreditation ?? ""}
-                onChange={getOnChangeHandler(["profile.eligibility.dateofAccreditation"])}
-              />
-              <QTextBox
-                placeholder={t("nameofLawStudentOrLawGraduate")}
-                value={lawyerInfo?.profile?.eligibility?.nameofLawStudentOrLawGraduate ?? ""}
-                onChange={getOnChangeHandler(["profile.eligibility.nameofLawStudentOrLawGraduate"])}
-              />
-            </div>
-            <Button type="primary" className="lawyer-profile-edit-save" onClick={handleSaveClick}>
-              {t("Save")}
-            </Button>
-          </div>
-        </div>
       </div>
     </div>
   );

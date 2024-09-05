@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 
 export enum ScreenSize {
   xsmall = 550,
-  small = 900,
-  medium = 1500,
+  small = 950,
+  medium = 1600,
   large = 2100,
 }
 

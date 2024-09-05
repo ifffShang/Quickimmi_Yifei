@@ -88,11 +88,11 @@ export function Navbar(props: { currentPath: string }) {
       //   label: t("Dashboard.Dashboard"),
       //   onClick: goToDashboard,
       // },
-      // {
-      //   key: "profile",
-      //   label: t("Profile"),
-      //   onClick: goToProfile,
-      // },
+      {
+        key: "profile",
+        label: t("Profile"),
+        onClick: goToProfile,
+      },
       {
         key: "signout",
         label: t("SignOut"),

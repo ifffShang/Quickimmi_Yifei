@@ -151,7 +151,9 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
             <div className="case-card-progress-inner" style={{ width: `${caseData.overallPercentage}%` }}></div>
             <div className="case-card-progress-text">
               <QText level="normal" color="gray">
-                {caseData.overallPercentage === 100
+                {caseData.overallPercentage === null
+                  ? `${t("Completion")}: 0%`
+                  : caseData.overallPercentage === 100
                   ? t("LawyerReview")
                   : `${t("Completion")}: ${caseData.overallPercentage}%`}
               </QText>
