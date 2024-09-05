@@ -20,6 +20,10 @@
 .hs-text-block {
   padding: 0 20px 20px 20px !important;
 }
+.xsmall .hs-text-block,
+.small .hs-text-block {
+  width: 80%;
+}
 .text-block-title.h3 {
   color: black !important;
   padding-bottom: 0 !important;
@@ -63,6 +67,10 @@
 .hs-subsection-item svg {
   min-width: 50px;
   padding-bottom: 30px;
+}
+.xsmall .hs-subsection-item svg,
+.small .hs-subsection-item svg {
+  padding-left: 20px;
 }
 
 .hs-text-block.text-block-description {

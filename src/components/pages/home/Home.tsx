@@ -31,6 +31,8 @@ export function Home() {
         <div className="home-section center first">
           {selectedLanguage === "cn" ? (
             <div className="home-image landing-page-title" aria-label="Fast-Track Your American Dream with AI">
+              {/* <h2 className="home-heading">Empower You Immigration Legal Professionals</h2>
+              <h2 className="home-heading-ai">With AI</h2> */}
               <Empower />
             </div>
           ) : (

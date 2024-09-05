@@ -205,6 +205,7 @@
     "NameEditMessage": "Make sure this matches the name on your government ID.",
     "PhoneEditMessage": "Input US only Phone/Tele numbers",
     "FaxEditMessage": "Don't use phone number as your fax number",
+    "LawFirmAddress": "Law Firm Address",
     "AddressEditMessage": "Use a permanent address where you can receive mail.",
     "AccountNumbersEditMessage": "Enter your latest USCIS Online Account Number and EOIR Number",
     "EligibilityEditMessage": "Please provide and verify your eligibility information"
@@ -591,6 +592,7 @@
   "licensingAuthority": "Licensing Authority",
   "dateofAccreditation": "Date of Accreditation",
   "Eligibility": "Eligibility",
+  "EligibilityInformation": "Eligibility Information",
   "AccountNumbers": "Account Numbers",
   "lawFirm": "Law Firm",
   "specialization": "Specialization",

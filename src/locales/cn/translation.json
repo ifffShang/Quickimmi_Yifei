@@ -211,6 +211,7 @@
     "NameEditMessage": "确保这和你ID上的名字一致。",
     "PhoneEditMessage": "输入美国的电话或移动电话号码",
     "FaxEditMessage": "请勿使用电话作为传真号码",
+    "LawFirmAddress": "律所地址",
     "AddressEditMessage": "请填入可以收到邮件的永久地址.",
     "AccountNumbersEditMessage": "填写您最新的USCIS线上账号与EOIR号码",
     "EligibilityEditMessage": "请填正确填写并合适您的执照信息"
@@ -588,6 +589,7 @@
   "licensingAuthority": "授权机构",
   "dateofAccreditation": "授权日期",
   "Eligibility": "律师资格",
+  "EligibilityInformation": "律师资格信息",
   "AccountNumbers": "账号",
   "lawFirm": "律师事务所",
   "specialization": "从业领域",

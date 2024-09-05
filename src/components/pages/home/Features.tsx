@@ -72,7 +72,12 @@ export function Features() {
           {t("LandingPage.Features")}
         </QText>
       </div>
-      <TextBlock title={t("LandingPage.FeaturesTitle")} titleLevel="h2" align="center" customizedCss="hf-text-block" />
+      <TextBlock
+        title={t("LandingPage.FeaturesTitle")}
+        titleLevel="h2"
+        align="center"
+        customizedCss="hf-text-block-title"
+      />
 
       <div className="hf-section">
         <div className="hf-subsection">
