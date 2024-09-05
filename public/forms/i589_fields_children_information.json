@@ -190,12 +190,12 @@
           "control": "select",
           "options": [
             {
-              "value": "true",
+              "value": "yes",
               "label": "text_Yes",
               "keyValue": "true,false"
             },
             {
-              "value": "false",
+              "value": "no",
               "label": "text_No",
               "keyValue": "false,true"
             }
