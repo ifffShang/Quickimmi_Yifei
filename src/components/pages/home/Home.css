@@ -37,8 +37,8 @@
 .first-home-button {
   z-index: 1;
   color: var(--white-color) !important;
-  background: linear-gradient(135deg, #04befe, #27AE60);
-  border: none; 
+  background: linear-gradient(135deg, #04befe, #27ae60);
+  border: none;
   width: 160px;
   height: 40px;
   margin: 0 !important;
@@ -47,8 +47,8 @@
 }
 
 .first-home-button::before {
-  content: '';
-  background: linear-gradient(135deg, #27AE60, #04befe);
+  content: "";
+  background: linear-gradient(135deg, #27ae60, #04befe);
   position: absolute;
   inset: 0;
   opacity: 1;
@@ -63,9 +63,8 @@
 
 .first-home-button:hover {
   color: var(--white-color) !important;
-  background: linear-gradient(135deg, #04befe, #27AE60) !important;
+  background: linear-gradient(135deg, #04befe, #27ae60) !important;
 }
-
 
 .home-section.center.first {
   padding: 40px 0 80px;
@@ -160,13 +159,13 @@
 }
 
 .home-video-player {
-  width: 80vw; 
-  height: calc(80vw * (675 / 1200)); 
-  max-width: 1200px; 
-  max-height:675px; 
+  width: 80vw;
+  height: calc(80vw * (675 / 1200));
+  max-width: 1200px;
+  max-height: 675px;
   border-radius: 12px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 .home-video-player iframe {
@@ -174,4 +173,3 @@
   height: 100%;
   border-radius: inherit;
 }
-

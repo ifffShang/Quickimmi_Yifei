@@ -376,9 +376,7 @@ export function LawyerProfilePage() {
           <div className="lawyer-profile-section">
             <div className="lawyer-profile-display">
               <QText level="small" color="gray">
-                {isEditing === "address"
-                  ? ""
-                  : `${lawyerInfo.lawFirm || "Law Firm Name Not Provided"}`}
+                {isEditing === "address" ? "" : `${lawyerInfo.lawFirm || "Law Firm Name Not Provided"}`}
               </QText>
               <QText level="small" color="gray">
                 {isEditing === "address"
@@ -551,9 +549,7 @@ export function LawyerProfilePage() {
           </div>
         </div>
       </div>
-      <div className="lawyer-profile-message"> 
-
-      </div>
+      <div className="lawyer-profile-message"></div>
     </div>
   );
 

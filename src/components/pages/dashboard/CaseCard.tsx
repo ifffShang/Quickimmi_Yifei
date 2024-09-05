@@ -154,8 +154,8 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
                 {caseData.overallPercentage === null
                   ? `${t("Completion")}: 0%`
                   : caseData.overallPercentage === 100
-                  ? t("LawyerReview")
-                  : `${t("Completion")}: ${caseData.overallPercentage}%`}
+                    ? t("LawyerReview")
+                    : `${t("Completion")}: ${caseData.overallPercentage}%`}
               </QText>
             </div>
           </div>
