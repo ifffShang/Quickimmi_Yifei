@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Regex } from "../../consts/consts";
 import { useFormTranslation } from "../../hooks/commonHooks";
 import { EntryRecord } from "../../model/apiModels";
-import { DocumentType, KeyValues, LanguageEnum } from "../../model/commonModels";
+import { DocumentType, Identity, KeyValues, LanguageEnum } from "../../model/commonModels";
 import { ControlType, IFormField, IFormOptions } from "../../model/formFlowModels";
 import {
   createKeyValuesForAddItem,
@@ -59,6 +59,7 @@ export interface FormFieldProps {
   hideHeader?: boolean;
   fieldIndex?: number;
   documentType?: DocumentType;
+  identity?: string;
   mode?: "view" | "edit";
 }
 
@@ -80,6 +81,11 @@ export function FormField(props: FormFieldProps) {
     props.format,
     props.fieldIndex,
   );
+
+  const identity =
+    props.identity === "Child" && typeof props.fieldIndex === "number"
+      ? props.identity + `_${props.fieldIndex + 1}`
+      : props.identity || "Applicant";
 
   /**
   console.log(
@@ -334,7 +340,7 @@ export function FormField(props: FormFieldProps) {
         <FormControlContainer fieldValue={fieldValue}>
           <SingleFileUploaderV2
             documentType={props.documentType || "SUPPORTING_DOCUMENT"}
-            identity={"Applicant"}
+            identity={identity as Identity}
             operation={"NEW"}
             description={props.fieldKey}
             documentId={fieldValue}
@@ -356,7 +362,7 @@ export function FormField(props: FormFieldProps) {
         <FormControlContainer fieldValue={fieldValue} fieldKey={props.fieldKey}>
           <MultiFileUploader
             documentType={props.documentType || "SUPPORTING_DOCUMENT"}
-            identity={"Applicant"}
+            identity={identity as Identity}
             operation={"NEW"}
             description={props.fieldKey}
             documentIds={fieldValue}
@@ -378,7 +384,7 @@ export function FormField(props: FormFieldProps) {
         <FormControlContainer fieldValue={fieldValue}>
           <DraggerFileUploader
             documentType={props.documentType || "SUPPORTING_DOCUMENT"}
-            identity={"Applicant"}
+            identity={identity as Identity}
             operation={"NEW"}
             description={props.fieldKey}
             documentIds={fieldValue}
@@ -605,6 +611,7 @@ export function FormField(props: FormFieldProps) {
                   visibility={field.visibility}
                   fieldIndex={props.fieldIndex}
                   documentType={field.documentType}
+                  identity={field.identity}
                 />
               </div>
             ))}

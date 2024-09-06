@@ -109,6 +109,7 @@ export function FormContent(props: FormContentProps) {
                 hideHeader={field.hideHeader}
                 fieldIndex={field.fieldIndex}
                 documentType={field.documentType}
+                identity={field.identity}
               />
             </div>
           ))}

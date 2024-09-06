@@ -34,6 +34,7 @@ export function SectionSubFields(props: SectionSubFieldsProps) {
             visibility={field.visibility}
             fieldIndex={props.fieldIndex}
             documentType={field.documentType}
+            identity={field.identity}
             mode={props.mode}
           />
         </div>

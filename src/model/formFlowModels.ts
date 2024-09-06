@@ -37,6 +37,7 @@ export interface IFormField {
   hideHeader?: boolean;
   fieldIndex?: number;
   documentType?: DocumentType;
+  identity?: string;
 }
 
 export interface IFormOptions {

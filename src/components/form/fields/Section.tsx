@@ -181,6 +181,7 @@ export function Section(props: SectionProps) {
                     visibility={field.visibility}
                     fieldIndex={arrIndex}
                     documentType={field.documentType}
+                    identity={field.identity}
                   />
                 </div>
               ))}
@@ -207,6 +208,7 @@ export function Section(props: SectionProps) {
               visibility={field.visibility}
               fieldIndex={props.fieldIndex}
               documentType={field.documentType}
+              identity={field.identity}
             />
           </div>
         ))}
