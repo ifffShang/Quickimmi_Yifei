@@ -239,7 +239,7 @@
   "CreateNewCaseForCustomer": "Create a new case and account for customer",
   "ApplicantName": "Applicant Name",
   "CaseName": "Case Name",
-  "CaseNumber": "Case Number",
+  "CaseNumber": "Case ID",
   "DownloadFile": "DownloadFile",
   "Send": "Send",
   "CreatedAt": "Created At",

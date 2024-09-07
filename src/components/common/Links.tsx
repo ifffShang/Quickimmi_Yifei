@@ -25,11 +25,12 @@ export interface QReturnLinkProps {
   text: React.ReactNode | string;
   onClick?: () => void;
   margin?: string;
+  padding?: string;
 }
 
 export function QReturnLink(props: QReturnLinkProps) {
   return (
-    <div className="qlink-return-container" style={{ margin: props.margin || "" }}>
+    <div className="qlink-return-container" style={{ margin: props.margin || "", padding: props.padding || "" }}>
       <QLink onClick={props.onClick}>
         <div className="qlink-return">
           <LeftOutlined />

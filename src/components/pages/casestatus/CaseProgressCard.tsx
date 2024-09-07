@@ -6,6 +6,7 @@ import { CollectInfoIcon, ReviewIcon, SubmitIcon, FingerPrintIcon, ResultIcon } 
 import { getProgressColor } from "../../../utils/caseStatusUtils";
 import "./CaseProgressCard.css";
 import ProgressSection from "./ProgressSection";
+import { QText } from "../../common/Fonts";
 
 interface CaseProgressCardProps {
   caseSummary: CaseSummary;
@@ -72,21 +73,30 @@ const CaseProgressCard: React.FC<CaseProgressCardProps> = ({ caseSummary, onCase
   });
 
   return (
-    <Card title={t("CaseProgressTitle")}>
-      <Steps current={currentStepIndex} onChange={onStepChange} labelPlacement="vertical">
+    <Card
+      title={
+        <div className="progress-card-header">
+          <QText level="large">{t("CaseProgressTitle")}</QText>
+        </div>
+      }
+    >
+      <Steps
+        className="progress-card-steps"
+        current={currentStepIndex}
+        onChange={onStepChange}
+        labelPlacement="vertical"
+      >
         {progress.steps.map((step, index) => (
           <Step key={step.name} title={t(step.name)} icon={icons[index]} />
         ))}
       </Steps>
-      <Card style={{ border: "none", boxShadow: "none" }}>
-        <ProgressSection
-          currentStep={currentStep}
-          progress={progress}
-          expandedStep={expandedStep}
-          setExpandedStep={setExpandedStep}
-          onCaseSummaryUpdate={onCaseSummaryUpdate}
-        />
-      </Card>
+      <ProgressSection
+        currentStep={currentStep}
+        progress={progress}
+        expandedStep={expandedStep}
+        setExpandedStep={setExpandedStep}
+        onCaseSummaryUpdate={onCaseSummaryUpdate}
+      />
     </Card>
   );
 };

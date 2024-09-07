@@ -14,7 +14,7 @@
   fill: var(--primary-color);
 }
 
-table {
+.privacy-policy-table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;

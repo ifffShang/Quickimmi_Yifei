@@ -3,6 +3,7 @@ import { CheckCircleOutlined, DownOutlined, ExclamationCircleOutlined, UpOutline
 import { Tag } from "antd";
 import CaseProgressExpandedCard from "./CaseProgressExpandedCard";
 import { useNavigate, useParams } from "react-router-dom";
+import { QText } from "../../common/Fonts";
 
 interface FillingApplicationSectionProps {
   currentStepDetails: any;
@@ -139,7 +140,9 @@ const FillingApplicationSection: React.FC<FillingApplicationSectionProps> = ({
   );
   return (
     <div className="progress-section">
-      <h2>{t("fillingDetailsMessage")}:</h2>
+      <QText level="normal" color="gray" margin="margin-bottom-20">
+        {t("fillingDetailsMessage")}:
+      </QText>
       {metadata && (
         <>
           {metadataFields.map(({ field, title, sectionIndex }, index) => (

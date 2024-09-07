@@ -605,7 +605,7 @@ export function PrivacyPolicy() {
             parties to whom each category of personal information was disclosed or sold.
           </QText>
           <QText level="small" color="gray" margin="margin-bottom-10">
-            <table>
+            <table className="privacy-policy-table">
               <tr>
                 <th>Categories of personal information that may be disclosed for our business purposes</th>
                 <th>Categories of third parties to whom this information may be disclosed</th>

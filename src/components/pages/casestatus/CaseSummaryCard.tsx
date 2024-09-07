@@ -3,7 +3,8 @@ import { Card, Descriptions, Tag } from "antd";
 import { CaseSummary } from "../../../model/apiModels";
 import { getCaseStatusAndColor } from "../../../utils/caseStatusUtils";
 import { useTranslation } from "react-i18next";
-import "./CaseStatusCard.css";
+import { QText } from "../../common/Fonts";
+import "./CaseSummaryCard.css";
 
 interface CaseStatusCardProps {
   caseSummary: CaseSummary;
@@ -31,10 +32,7 @@ const CaseSummaryCard: React.FC<CaseStatusCardProps> = ({ caseSummary }) => {
     <Card
       title={
         <div className="case-card-header">
-          <div>
-            <span style={{ fontWeight: "bold", fontSize: "16px" }}>{t("CaseNumber") + ": #"}</span>
-            {id}
-          </div>
+          <QText level="large">{t("CaseNumber") + " #" + id}</QText>
         </div>
       }
       extra={
@@ -44,7 +42,7 @@ const CaseSummaryCard: React.FC<CaseStatusCardProps> = ({ caseSummary }) => {
       }
       className="case-card"
     >
-      <Descriptions column={3}>
+      <Descriptions className="case-card-descriptions" column={3}>
         <Descriptions.Item label={t("CreatedAt")}>
           {createdAt ? new Date(createdAt).toLocaleDateString() : "N/A"}
         </Descriptions.Item>
