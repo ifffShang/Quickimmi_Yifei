@@ -232,6 +232,7 @@ export const InitialChild: Child = {
   immigrationCourtProceedingNoCheckbox: null,
   inThisApplicationYesCheckbox: null,
   inThisApplicationNoCheckbox: null,
+  passportStampPageDocumentIds: [],
 };
 
 export const InitialSpouse: Spouse = {

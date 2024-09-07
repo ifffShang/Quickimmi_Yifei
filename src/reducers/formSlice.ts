@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice, original } from "@reduxjs/toolkit";
 import _ from "lodash";
 import { CacheStore } from "../cache/cache";
 import {
@@ -23,10 +23,9 @@ import {
   Progress,
   UploadedDocumentWithUrl,
 } from "../model/apiModels";
-import { getUpdateProfileData } from "../utils/utils";
 import { ParseMarriageCertificateResponse } from "../model/apiReqResModels";
 import { KeyValues } from "../model/commonModels";
-import { WritableDraft } from "immer/dist/internal";
+import { getUpdateProfileData } from "../utils/utils";
 
 export interface FormState {
   caseId: number;
@@ -93,7 +92,18 @@ function deepOverwrite(update: any, target: any) {
     if (Object.prototype.hasOwnProperty.call(target, key)) {
       const value = update[key];
       if (Array.isArray(value)) {
-        target[key] = value;
+        if (value.length === 0) {
+          target[key] = [];
+        } else {
+          for (let i = 0; i < value.length; i++) {
+            if (typeof value[i] === "object") {
+              target[key][i] = deepOverwrite(value[i], target[key][i]);
+            } else {
+              target[key] = value;
+              break;
+            }
+          }
+        }
       } else if (typeof value === "object") {
         target[key] = deepOverwrite(value, target[key]);
       } else {
@@ -147,7 +157,6 @@ export const ArrayFields = [
   },
 ];
 
-const updatePercentageInStateAndApplicationCaseProgress = () => {};
 export const formSlice = createSlice({
   name: "form",
   initialState,
@@ -266,7 +275,7 @@ export const formSlice = createSlice({
         profile = _.merge(state.applicationCase.profile, action.payload);
       }
 
-      console.log("updateProfileData", profile);
+      console.log("=====", original(profile.family));
 
       state.applicationCase.profile = profile;
 

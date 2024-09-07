@@ -415,6 +415,7 @@ export interface Child {
   immigrationCourtProceedingNoCheckbox?: string | null;
   inThisApplicationYesCheckbox?: string | null;
   inThisApplicationNoCheckbox?: string | null;
+  passportStampPageDocumentIds?: number[];
 }
 
 export interface FamilyMember {

@@ -85,17 +85,17 @@ export function FormField(props: FormFieldProps) {
   const identity =
     props.identity === "Child" && typeof props.fieldIndex === "number"
       ? props.identity + `_${props.fieldIndex + 1}`
-      : props.identity || "Applicant";
+      : "Applicant";
 
-  /**
+  /**  
   console.log(
     `Field key ${props.fieldKey},
     value: ${JSON.stringify(fieldValue)},
     control: ${props.control},
-    totalFields_fulfilled: ${fieldCount}
+    fieldIndex: ${props.fieldIndex},
     `,
   );
- */
+  */
 
   const onOptionChange = (value: string) => {
     if (props.options && Array.isArray(props.options)) {
@@ -366,7 +366,7 @@ export function FormField(props: FormFieldProps) {
             operation={"NEW"}
             description={props.fieldKey}
             documentIds={fieldValue}
-            enableNACheckbox={true}
+            enableNACheckbox={identity !== "Applicant"}
             onChange={(documentIds: number[]) => {
               props.fieldKey &&
                 dispatchFormValue(
