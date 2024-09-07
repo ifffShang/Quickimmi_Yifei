@@ -12,7 +12,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 4px;
+  gap: 5px;
 }
 
 .passport-uploader-upload svg {
@@ -25,7 +25,7 @@
   height: 100px;
   background-color: var(--upload-btn-background);
   border: var(--upload-btn-border);
-  border-radius: 4px;
+  border-radius: 12px;
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -37,7 +37,7 @@
   height: 100px;
   background-color: var(--upload-btn-background);
   border: var(--upload-btn-border);
-  border-radius: 4px;
+  border-radius: 12px;
   cursor: pointer;
   display: flex;
   justify-content: center;

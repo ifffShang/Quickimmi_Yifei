@@ -65,7 +65,7 @@ export function CaseDetails() {
         setIsLoading(false);
       }
     })();
-  }, [id, accessToken, role, dispatch, navigate]);
+  }, [id, accessToken, role]);
 
   useRenderingTrace("CaseDetails", {
     id,

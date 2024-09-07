@@ -10,13 +10,14 @@ import {
   uploadFileToPresignUrl,
 } from "../../../api/documentAPI";
 import { useAppSelector } from "../../../app/hooks";
-import { useDocumentsOnLoadCallback } from "../../../hooks/commonHooks";
+import { useDocumentsOnLoadCallback, useFormTranslation } from "../../../hooks/commonHooks";
 import { DocumentOperation, DocumentType, Identity } from "../../../model/commonModels";
-import { ErrorMessage } from "../../common/Fonts";
+import { handleFileDownload } from "../../../utils/functionUtils";
+import { ErrorMessage, QText } from "../../common/Fonts";
 import { Loading } from "../../common/Loading";
+import { CheckBox } from "./Controls";
 import "./MultiFileUploader.css";
 import { FileType } from "./Uploader";
-import { handleFileDownload } from "../../../utils/functionUtils";
 
 export interface MultiFileUploaderProps {
   documentType: DocumentType;
@@ -25,6 +26,7 @@ export interface MultiFileUploaderProps {
   description?: string;
   documentIds?: number[];
   onChange: (documentIds: number[]) => void;
+  enableNACheckbox?: boolean;
 }
 
 const getBase64 = (file: FileType): Promise<string> =>
@@ -36,6 +38,8 @@ const getBase64 = (file: FileType): Promise<string> =>
   });
 
 export function MultiFileUploader(props: MultiFileUploaderProps) {
+  const { t } = useFormTranslation();
+
   const userId = useAppSelector(state => state.auth.userId);
   const caseId = useAppSelector(state => state.form.caseId);
   const accessToken = useAppSelector(state => state.auth.accessToken);
@@ -46,6 +50,7 @@ export function MultiFileUploader(props: MultiFileUploaderProps) {
   const [loading, setLoading] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
+  const [uploaderIsDisabled, setUploaderIdDisabled] = useState(props.documentIds?.[0] === -1);
 
   const documentIds = useRef<number[]>(props.documentIds || []);
 
@@ -54,6 +59,7 @@ export function MultiFileUploader(props: MultiFileUploaderProps) {
     accessToken: accessToken,
     role: role,
     setLoading: setLoading,
+    skip: uploaderIsDisabled,
     onDocumentsReceived: documents => {
       // Remove the documentId that is not in documents from the documentIds current
       documentIds.current = documentIds.current.filter(id => documents.some(doc => doc.id === id));
@@ -165,8 +171,8 @@ export function MultiFileUploader(props: MultiFileUploaderProps) {
     return <Loading />;
   }
 
-  return (
-    <div className="miltifile-uploader-container">
+  const enabledUploader = (
+    <>
       <Upload
         name="uploader"
         listType="picture-card"
@@ -198,10 +204,10 @@ export function MultiFileUploader(props: MultiFileUploaderProps) {
           );
         }}
       >
-        <button style={{ border: 0, background: "none" }} type="button">
+        <div className="uploader-upload">
           <PlusOutlined />
-          <div style={{ marginTop: 8 }}>Upload</div>
-        </button>
+          <QText level="upload">{t("Upload")}</QText>
+        </div>
       </Upload>
       {previewImage && (
         <Image
@@ -214,6 +220,43 @@ export function MultiFileUploader(props: MultiFileUploaderProps) {
           src={previewImage}
         />
       )}
+    </>
+  );
+
+  const disabledUploader = (
+    <div className="uploader-disabled">
+      <div className="uploader-upload">
+        <PlusOutlined />
+        <QText level="upload" color="gray">
+          Upload
+        </QText>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="miltifile-uploader-container">
+      <div className="miltifile-uploader-top">
+        {props.enableNACheckbox && uploaderIsDisabled ? disabledUploader : enabledUploader}
+        {props.enableNACheckbox && (
+          <CheckBox
+            label={t("NotApplicableText")}
+            checked={uploaderIsDisabled}
+            onChange={(value: any) => {
+              if (props.documentIds && props.documentIds.length > 0) {
+                props.documentIds.forEach(documentId => {
+                  if (documentId === -1 || documentId === 0) return;
+                  deleteDocumentApi(role, documentId, accessToken!, caseId).catch(error => {
+                    console.error(error);
+                  });
+                });
+              }
+              props.onChange(value === true ? [-1] : []);
+              setUploaderIdDisabled(value === true);
+            }}
+          />
+        )}
+      </div>
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </div>
   );

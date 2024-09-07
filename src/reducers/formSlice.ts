@@ -26,6 +26,7 @@ import {
 import { getUpdateProfileData } from "../utils/utils";
 import { ParseMarriageCertificateResponse } from "../model/apiReqResModels";
 import { KeyValues } from "../model/commonModels";
+import { WritableDraft } from "immer/dist/internal";
 
 export interface FormState {
   caseId: number;
@@ -79,6 +80,28 @@ function deepAssign(update: any, current: any, init: any) {
     }
   }
   return result;
+}
+
+/**
+ * Deeply overwrite the target object with the update object, like array fields in the application case
+ * @param update
+ * @param target
+ * @returns
+ */
+function deepOverwrite(update: any, target: any) {
+  for (const key in update) {
+    if (Object.prototype.hasOwnProperty.call(target, key)) {
+      const value = update[key];
+      if (Array.isArray(value)) {
+        target[key] = value;
+      } else if (typeof value === "object") {
+        target[key] = deepOverwrite(value, target[key]);
+      } else {
+        target[key] = value;
+      }
+    }
+  }
+  return target;
 }
 
 export const ArrayFields = [
@@ -236,7 +259,15 @@ export const formSlice = createSlice({
         }
       });
 
-      const profile = _.merge(state.applicationCase.profile, action.payload);
+      let profile: any;
+      if (action.payload.overwrite) {
+        profile = deepOverwrite(action.payload, state.applicationCase.profile);
+      } else {
+        profile = _.merge(state.applicationCase.profile, action.payload);
+      }
+
+      console.log("updateProfileData", profile);
+
       state.applicationCase.profile = profile;
 
       if (action.payload.supplementDocument) {

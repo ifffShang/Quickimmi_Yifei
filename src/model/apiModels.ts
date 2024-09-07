@@ -268,6 +268,7 @@ export interface AsylumCaseProfileOptional {
   overwriteSiblings?: boolean;
   overwriteAddressHistoriesBeforeUS?: boolean;
   overwriteUsAddressHistoriesPast5Years?: boolean;
+  overwrite?: boolean; // Overwrite a specific field like documentId array
 }
 export interface AsylumCaseProfile {
   applyForWithholdingYesCheckbox: string;

@@ -80,10 +80,15 @@ export interface GetDocumentsOnLoadCallbackParams {
   setLoading: Dispatch<SetStateAction<boolean>>;
   onDocumentsReceived: (documents: any) => void;
   additionalParams?: GetDocumentsAdditionalParams;
+  skip?: boolean;
 }
 
 export function useDocumentsOnLoadCallback(params: GetDocumentsOnLoadCallbackParams) {
   useEffect(() => {
+    if (params.skip) {
+      return;
+    }
+
     if (!params.accessToken || !params.caseId || params.caseId === 0) {
       console.error("Access token or case id is missing");
       return;

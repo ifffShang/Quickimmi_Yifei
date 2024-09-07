@@ -56,6 +56,11 @@
   font-size: var(--font-size-p3);
 }
 
+.text.upload {
+  font-size: var(--font-size-upload);
+  line-height: 18px;
+}
+
 .text.normal {
   font-size: var(--font-size-p2);
 }

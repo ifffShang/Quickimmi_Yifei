@@ -1,7 +1,7 @@
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { Image } from "antd";
 import { useEffect, useState } from "react";
-import { getDocumentByIdApi } from "../../../api/documentAPI";
+import { deleteDocumentApi, getDocumentByIdApi } from "../../../api/documentAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { openModal } from "../../../reducers/commonSlice";
 import { downloadImage } from "../../../utils/utils";
@@ -77,7 +77,7 @@ export function PassportUploader(props: PassportUploaderProps) {
       ) : (
         <div className="passport-uploader-upload" onClick={onButtonClick}>
           <PlusOutlined />
-          <QText level="xsmall">Upload</QText>
+          <QText level="upload">Upload</QText>
         </div>
       )}
       {previewOpen && (
@@ -98,8 +98,8 @@ export function PassportUploader(props: PassportUploaderProps) {
     <div className="passport-uploader-inner-disabled">
       <div className="passport-uploader-upload">
         <PlusOutlined />
-        <QText level="xsmall" color="gray">
-          Upload
+        <QText level="upload" color="gray">
+          {t("Upload")}
         </QText>
       </div>
     </div>
@@ -114,7 +114,13 @@ export function PassportUploader(props: PassportUploaderProps) {
       {props.enableNACheckbox && (
         <CheckBox
           label={t("NotApplicableText")}
+          checked={uploaderIsDisabled}
           onChange={(value: any) => {
+            if (props.documentId && props.documentId !== -1 && props.documentId !== 0) {
+              deleteDocumentApi(role, props.documentId, accessToken!, caseId).catch(error => {
+                console.error(error);
+              });
+            }
             props.onChange(value === true ? -1 : 0);
             setPassportOrIdImageUrl("");
             setUploaderIdDisabled(value === true);

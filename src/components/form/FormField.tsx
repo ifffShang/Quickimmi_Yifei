@@ -366,12 +366,14 @@ export function FormField(props: FormFieldProps) {
             operation={"NEW"}
             description={props.fieldKey}
             documentIds={fieldValue}
+            enableNACheckbox={true}
             onChange={(documentIds: number[]) => {
               props.fieldKey &&
                 dispatchFormValue(
                   dispatch,
                   {
                     [props.fieldKey]: documentIds,
+                    ["overwrite"]: true,
                   },
                   props.fieldIndex,
                 );
