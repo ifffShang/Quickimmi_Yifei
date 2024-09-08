@@ -87,7 +87,7 @@ const CaseProgressCard: React.FC<CaseProgressCardProps> = ({ caseSummary, onCase
         labelPlacement="vertical"
       >
         {progress.steps.map((step, index) => (
-          <Step key={step.name} title={t(step.name)} icon={icons[index]} />
+          <Step key={step.name} title={<QText level="normal">{t(step.name)}</QText>} icon={icons[index]} />
         ))}
       </Steps>
       <ProgressSection

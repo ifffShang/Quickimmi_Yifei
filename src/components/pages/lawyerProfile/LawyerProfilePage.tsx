@@ -214,7 +214,7 @@ export function LawyerProfilePage() {
 
           <div className="lawyer-profile-section">
             <div className="lawyer-profile-display">
-              <QText level="small" color="gray">
+              <QText level="normal" color="gray">
                 {isEditing === "name"
                   ? t("LawyerProfile.NameEditMessage")
                   : [lawyerInfo.firstName, lawyerInfo.middleName, lawyerInfo.lastName].filter(name => name).join(" ") ||
@@ -261,7 +261,7 @@ export function LawyerProfilePage() {
 
           <div className="lawyer-profile-section">
             <div className="lawyer-profile-display">
-              <QText level="small" color="gray">
+              <QText level="normal" color="gray">
                 {isEditing === "contact" ? t("LawyerProfile.ContactEditMessage") : lawyerInfo.email ?? "Not Provided"}
               </QText>
               {/* <QTextBox
@@ -286,17 +286,17 @@ export function LawyerProfilePage() {
 
           <div className="lawyer-profile-section">
             <div className="lawyer-profile-display">
-              <QText level="small" color="gray">
+              <QText level="normal" color="gray">
                 {isEditing === "phone"
                   ? t("LawyerProfile.ContactEditMessage")
                   : `Main Number: ${lawyerInfo.phoneNumber ?? "Not Provided"}`}
               </QText>
-              <QText level="small" color="gray">
+              <QText level="normal" color="gray">
                 {isEditing === "phone"
                   ? ""
                   : `Tele Number(DayTime): ${lawyerInfo?.profile?.basicInfo?.daytimeTelephoneNumber ?? "Not Provided"}`}
               </QText>
-              <QText level="small" color="gray">
+              <QText level="normal" color="gray">
                 {isEditing === "phone"
                   ? ""
                   : `Mobile Number: ${lawyerInfo?.profile?.basicInfo?.mobileTelephoneNumber ?? "Not Provided"}`}
@@ -342,7 +342,7 @@ export function LawyerProfilePage() {
 
           <div className="lawyer-profile-section">
             <div className="lawyer-profile-display">
-              <QText level="small" color="gray">
+              <QText level="normal" color="gray">
                 {isEditing === "fax"
                   ? t("LawyerProfile.FaxEditMessage")
                   : lawyerInfo?.profile?.basicInfo?.faxNumber || "Not Provided"}
@@ -375,10 +375,10 @@ export function LawyerProfilePage() {
           </div>
           <div className="lawyer-profile-section">
             <div className="lawyer-profile-display">
-              <QText level="small" color="gray">
+              <QText level="normal" color="gray">
                 {isEditing === "address" ? "" : `${lawyerInfo.lawFirm || "Law Firm Name Not Provided"}`}
               </QText>
-              <QText level="small" color="gray">
+              <QText level="normal" color="gray">
                 {isEditing === "address"
                   ? t("LawyerProfile.AddressEditMessage")
                   : `${lawyerInfo?.profile?.basicInfo?.streetNumberAndName || "Street Not Provided"}, ` +
@@ -447,12 +447,12 @@ export function LawyerProfilePage() {
           </div>
           <div className="lawyer-profile-section">
             <div className="lawyer-profile-display">
-              <QText level="small" color="gray">
+              <QText level="normal" color="gray">
                 {isEditing === "account"
                   ? t("LawyerProfile.AccountNumbersEditMessage")
                   : `USCIS Online Account Number: ${lawyerInfo?.profile?.basicInfo?.uscisOnlineAccountNumber || "Not Provided"}`}
               </QText>
-              <QText level="small" color="gray">
+              <QText level="normal" color="gray">
                 {isEditing === "account"
                   ? ""
                   : `EOIR Number: ${lawyerInfo?.profile?.basicInfo?.eoirNumber || "Not Provided"}`}
@@ -491,7 +491,7 @@ export function LawyerProfilePage() {
           </div>
           <div className="lawyer-profile-section">
             <div className="lawyer-profile-display">
-              <QText level="small" color="gray">
+              <QText level="normal" color="gray">
                 {isEditing === "eligibility"
                   ? t("LawyerProfile.EligibilityEditMessage")
                   : `Experience Years: ${
@@ -500,17 +500,17 @@ export function LawyerProfilePage() {
                         : "Not Provided"
                     }`}
               </QText>
-              <QText level="small" color="gray">
+              <QText level="normal" color="gray">
                 {isEditing === "eligibility"
                   ? ""
                   : `Attorney State Bar Number: ${lawyerInfo?.profile?.eligibility?.barNumber || "Not Provided"} `}
               </QText>
-              <QText level="small" color="gray">
+              <QText level="normal" color="gray">
                 {isEditing === "eligibility"
                   ? ""
                   : `Licensing Authority: ${lawyerInfo?.profile?.eligibility?.licensingAuthority || "Not Provided"} `}
               </QText>
-              <QText level="small" color="gray">
+              <QText level="normal" color="gray">
                 {isEditing === "eligibility"
                   ? ""
                   : `Date of Accreditation: ${lawyerInfo?.profile?.eligibility?.dateofAccreditation || "Not Provided"} `}

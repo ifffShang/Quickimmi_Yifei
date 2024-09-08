@@ -131,7 +131,7 @@ function PriceBox(props: PriceBoxProps) {
         {props.description.map((desc, index) => (
           <div className="price-area-description-item" key={index}>
             <RoundCheck />
-            <QText level="small" color="gray">
+            <QText level="normal" color="gray">
               {desc}
             </QText>
           </div>

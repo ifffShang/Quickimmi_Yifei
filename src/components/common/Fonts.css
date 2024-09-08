@@ -48,6 +48,10 @@
   font-size: var(--font-size-p1);
 }
 
+.text.normal {
+  font-size: var(--font-size-p2);
+}
+
 .text.small {
   font-size: var(--font-size-p2);
 }
@@ -59,10 +63,6 @@
 .text.upload {
   font-size: var(--font-size-upload);
   line-height: 18px;
-}
-
-.text.normal {
-  font-size: var(--font-size-p2);
 }
 
 .text.normal.bold {

@@ -13,7 +13,6 @@ export interface TextProps {
     | "medium"
     | "normal"
     | "normal bold"
-    | "small"
     | "xsmall"
     | "upload"
     | "field-label"

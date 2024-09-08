@@ -115,12 +115,18 @@ const FillingApplicationSection: React.FC<FillingApplicationSectionProps> = ({
 
   const renderProgressItem = (title: string, percentage: number, stepName: string, sectionIndex: number) => (
     <div className="progress-item" key={stepName}>
-      <div className="progress-item-content">
+      <div className="progress-item-content" onClick={() => handleToggleExpand(stepName)}>
         <div className="icon-container">{renderIconForFillingApplication(percentage)}</div>
-        <span className="progress-title">
-          {t(title)}
+        <div className="progress-title">
+          {expandedStep === stepName ? (
+            <QText level="normal bold">{t(title)}</QText>
+          ) : (
+            <QText level="normal" color="gray">
+              {t(title)}
+            </QText>
+          )}
           {renderPercentageTag(percentage)}
-        </span>
+        </div>
       </div>
       <div className="progress-item-actions">
         {percentage < 100 && (

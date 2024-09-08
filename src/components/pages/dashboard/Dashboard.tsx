@@ -182,7 +182,7 @@ export function Dashboard() {
       <div className="dashboard-panel no-application">
         <NewApplicationIcon />
         <QText level="large">{t("Dashboard.FirstApplication")}</QText>
-        <QText level="small" color="gray">
+        <QText level="normal" color="gray">
           {t("Dashboard.GreetingMessage")}
         </QText>
         <Button type="primary" onClick={role === Role.LAWYER ? CreateNewCaseForLawyer : CreateNewApplication}>

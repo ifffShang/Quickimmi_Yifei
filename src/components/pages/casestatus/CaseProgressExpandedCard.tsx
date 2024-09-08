@@ -490,7 +490,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
     }
   };
 
-  return <Card className="custom-card">{renderContent()}</Card>;
+  return <Card className="case-progress-expanded-card">{renderContent()}</Card>;
 };
 
 export default CaseProgressExpandedCard;

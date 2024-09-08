@@ -116,7 +116,7 @@ export function LawyerPreForm() {
       <div className="form-content-container-preForm">
         <div className="form-content-header-preForm">
           <QText level="large">{t("NewCase")}</QText>
-          <QText level="small" color="gray">
+          <QText level="normal" color="gray">
             {t("CreateNewCaseForCustomer")}
           </QText>
         </div>
@@ -230,7 +230,7 @@ export function LawyerPreForm() {
         <div className="email-modal-preForm-container">
           <div>
             <QText level="large">{t("InputClientEmail")}</QText>
-            <QText level="small" color="gray">
+            <QText level="normal" color="gray">
               {t("InviteClientViaEmail")}
             </QText>
           </div>
