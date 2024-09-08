@@ -62,6 +62,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
     i589_fields_basic_information: "BasicInformation",
     i589_fields_contact_information: "ContactInformation",
     i589_fields_immigration_information: "ImmigrationInformation",
+    i589_fields_notice_of_appearance_information: "NoticeOfAppearance",
     i589_fields_spouse_information: "SpouseInformation",
     i589_fields_children_information: "ChildrenInformation",
     i589_fields_parents_information: "ParentsInformation",
@@ -71,6 +72,8 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
     i589_fields_education_information: "EducationInformation",
     i589_fields_employment_information: "EmploymentInformation",
     i589_fields_asylum_claim: "AsylumClaim",
+    i589_fields_additional_information: "AdditionalInformation",
+    i589_fields_personal_statement: "PersonalStatement",
   };
 
   const getTooltipText = (stepStatus: string | null, currentStepStatus: string) => {

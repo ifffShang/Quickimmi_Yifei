@@ -26,6 +26,7 @@ import {
 import { ParseMarriageCertificateResponse } from "../model/apiReqResModels";
 import { KeyValues } from "../model/commonModels";
 import { getUpdateProfileData } from "../utils/utils";
+import { ExcludedSectionsFromPercentage } from "../consts/consts";
 
 export interface FormState {
   caseId: number;
@@ -219,6 +220,7 @@ export const formSlice = createSlice({
         console.log("Skip percentage update before form is loaded");
         return;
       }
+
       const updatedPercentage = { ...state.percentage };
       updatedPercentage[sectionId][referenceId] = value;
 
@@ -246,6 +248,10 @@ export const formSlice = createSlice({
         }
       });
       updatedPercentage.overall.avg = Math.round(sum / count);
+
+      ExcludedSectionsFromPercentage.forEach(referenceId => {
+        delete updatedPercentage[sectionId][referenceId];
+      });
 
       state.percentage = updatedPercentage;
       const fillingApplicationStep = state.applicationCase.progress?.steps.find(

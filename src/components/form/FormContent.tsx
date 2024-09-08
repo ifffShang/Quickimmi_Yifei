@@ -11,6 +11,7 @@ import { Loading } from "../common/Loading";
 import CaseStatusLayout from "../pages/casestatus/CaseStatusLayout";
 import "./FormContent.css";
 import { FormField } from "./FormField";
+import { ExcludedSectionsFromPercentage } from "../../consts/consts";
 
 interface FormContentProps {
   sectionId: string;
@@ -47,7 +48,8 @@ export function FormContent(props: FormContentProps) {
   }, [props.referenceId]);
 
   useEffect(() => {
-    if (props.referenceId === "i589_fields_view_reports") return;
+    if (ExcludedSectionsFromPercentage.includes(props.referenceId)) return;
+
     if (!formFields) return;
 
     const { total, fulfilled } = getPercentage(formFields.fields, profile);

@@ -12,3 +12,9 @@ export enum Role {
   APPLICANT = "APPLICANT",
   LAWYER = "LAWYER",
 }
+
+export const ExcludedSectionsFromPercentage = [
+  "i589_fields_view_reports",
+  "i589_fields_view_merged_documents",
+  "i589_fields_view_application_form",
+];
