@@ -100,13 +100,13 @@
 }
 
 .landing-page-title {
-  width: 570px;
+  width: 665px;
   margin: 20px 0 40px;
 }
 
 .xsmall .landing-page-title,
 .small .landing-page-title {
-  width: 60%;
+  width: 70%;
 }
 .large .landing-page-title {
   width: 40%;
@@ -157,7 +157,10 @@
   width: 100%;
   padding: 80px 0;
 }
-
+.small .home-video,
+.xsmall .home-video {
+  padding: 20px 0;
+}
 .home-video-player {
   width: 80vw;
   height: calc(80vw * (675 / 1200));
@@ -166,6 +169,11 @@
   border-radius: 12px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
   overflow: hidden;
+}
+.small .home-video-player,
+.xsmall .home-video-player {
+  width: 90vw;
+  height: calc(90vw * (675 / 1200));
 }
 
 .home-video-player iframe {
