@@ -5,6 +5,10 @@
   margin-right: 2px;
   width: 40px;
 }
+.small .lang-container,
+.xsmall .lang-container {
+  width: 25px;
+}
 
 .lang-display {
   display: flex;
