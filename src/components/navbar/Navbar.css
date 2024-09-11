@@ -45,16 +45,19 @@
 .small .navbar-group {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0;
 }
 
 .navbar-logo {
   margin-right: 0;
 }
+.xsmall .navbar-logo {
+  width: 100px;
+}
 
 .navbar-links {
   display: flex;
-  padding-left: 30px;
+  padding-left: 10px;
   align-items: center;
 }
 .small .navbar-links,
@@ -90,12 +93,23 @@
   width: 60px;
   padding: 0;
 }
+.small .nav-link-login,
+.xsmall .nav-link-login {
+  font-size: 14px;
+  font-weight: 500;
+  width: 45px;
+}
 .large .nav-link-login {
   font-size: 20px;
   font-weight: 500;
 }
 .nav-btn-demo {
   margin: 0 10px;
+}
+.small .nav-btn-demo,
+.xsmall .nav-btn-demo {
+  margin-right: 0;
+  font-size: 14px;
 }
 .nav-btn-demo:hover {
   color: var(--primary-color) !important;
