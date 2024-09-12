@@ -5,6 +5,8 @@ import { getCaseStatusAndColor } from "../../../utils/caseStatusUtils";
 import { useTranslation } from "react-i18next";
 import { QText } from "../../common/Fonts";
 import "./CaseSummaryCard.css";
+import { useAppSelector } from "../../../app/hooks";
+import { ScreenSize } from "../../../model/commonModels";
 
 interface CaseStatusCardProps {
   caseSummary: CaseSummary;
@@ -27,6 +29,8 @@ const CaseSummaryCard: React.FC<CaseStatusCardProps> = ({ caseSummary }) => {
   } = caseSummary;
 
   const { status, color, backgroundColor, width } = getCaseStatusAndColor(currentStep);
+  const screenSize = useAppSelector(state => state.common.screenSize);
+  const isSmallScreen = screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall;
 
   return (
     <Card
@@ -42,7 +46,7 @@ const CaseSummaryCard: React.FC<CaseStatusCardProps> = ({ caseSummary }) => {
       }
       className="case-card"
     >
-      <Descriptions className="case-card-descriptions" column={3}>
+      <Descriptions className="case-card-descriptions" column={isSmallScreen ? 1 : 3}>
         <Descriptions.Item label={t("CreatedAt")}>
           {createdAt ? new Date(createdAt).toLocaleDateString() : "N/A"}
         </Descriptions.Item>
