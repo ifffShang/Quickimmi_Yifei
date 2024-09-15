@@ -220,6 +220,7 @@
   "ImmigrationReason": "Immigration Reason",
   "ImmigrationSubtype": "Immigration Subtype",
   "Tips": "Tips",
+  "ImmigrationTypeNotSupported": "Immigration type not yet supported",
 
   "CaseStatusMenuOverview": "Overview",
   "CaseStatusMenuDocuments": "Documents",

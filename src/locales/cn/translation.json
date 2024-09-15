@@ -226,6 +226,7 @@
   "ImmigrationReason": "移民原因",
   "ImmigrationSubtype": "移民子类型",
   "Tips": "提示",
+  "ImmigrationTypeNotSupported": "移民类型还未支持",
 
   "DRAFT": "草稿",
   "REVIEW": "审核中",

@@ -226,17 +226,6 @@ export interface Substep {
   updatedAt: number;
 }
 
-export enum CaseType {
-  Asylum = "Asylum",
-  H1B = "H1b",
-  NIW = "Niw",
-}
-
-export enum AsylumType {
-  AFFIRMATIVE = "AFFIRMATIVE",
-  DEFENSIVE = "DEFENSIVE",
-}
-
 export interface Task {
   id: number;
   caseId: number;
