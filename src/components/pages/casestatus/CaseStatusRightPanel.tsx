@@ -53,9 +53,13 @@ function useFetchCaseSummary() {
       }
 
       setLoading(false);
-    } catch (error) {
-      console.error("Failed to fetch case summary:", error);
-      setError("Failed to fetch case summary. Please try again later.");
+    } catch (error: any) {
+      console.error(error);
+      let errMsg = "Failed to fetch case summary. Please try again later.";
+      if (error?.message?.includes("403") || error?.status === 403) {
+        errMsg = "Forbidden: You do not have permission to access this resource.";
+      }
+      setError(errMsg);
       setLoading(false);
     }
   }, [accessToken, userId, id, role]);
