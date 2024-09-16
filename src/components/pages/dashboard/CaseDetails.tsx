@@ -1,4 +1,4 @@
-import { Alert } from "antd";
+import { Alert, message } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getCaseProfileAndProgressApi } from "../../../api/caseAPI";
@@ -62,9 +62,13 @@ export function CaseDetails() {
         );
 
         setIsLoading(false);
-      } catch (err) {
+      } catch (err: any) {
         console.error(err);
-        setError("An error occurred while fetching case details. Please try again later.");
+        let errMsg = "An error occurred while fetching case details. Please try again later.";
+        if (err?.message?.includes("403") || err?.status === 403) {
+          errMsg = "Forbidden: You do not have permission to access this resource.";
+        }
+        setError(errMsg);
         setIsLoading(false);
       }
     })();

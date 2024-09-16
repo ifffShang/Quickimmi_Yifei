@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Button, Card, Input, message, Modal, Select, Space, Table, Tooltip, Upload, UploadProps } from "antd";
+import { Alert, Button, Card, Input, message, Modal, Select, Space, Table, Tooltip, Upload, UploadProps } from "antd";
 import { useTranslation } from "react-i18next";
 import { InboxOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -30,6 +30,7 @@ function useFetchDocuments(setDocuments: (docs: UploadedDocumentWithUrl[]) => vo
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const userRole = useAppSelector(state => state.auth.role);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchDocuments = useCallback(async () => {
     if (!accessToken || !caseId || !userRole) {
@@ -48,8 +49,13 @@ function useFetchDocuments(setDocuments: (docs: UploadedDocumentWithUrl[]) => vo
         document: new Blob(),
       }));
       setDocuments(documentsWithUrl);
-    } catch (error) {
-      message.error("Error fetching documents");
+    } catch (error: any) {
+      console.error(error);
+      let errMsg = "Failed to fetch document. Please try again later.";
+      if (error?.message?.includes("403") || error?.status === 403) {
+        errMsg = "Forbidden: You do not have permission to access this resource.";
+      }
+      setError(errMsg);
     } finally {
       setLoading(false);
     }
@@ -59,7 +65,7 @@ function useFetchDocuments(setDocuments: (docs: UploadedDocumentWithUrl[]) => vo
     fetchDocuments();
   }, [accessToken]);
 
-  return { loading, fetchDocuments };
+  return { error, loading, fetchDocuments };
 }
 
 const CaseDocumentRightPanel: React.FC = () => {
@@ -72,7 +78,7 @@ const CaseDocumentRightPanel: React.FC = () => {
   const userRole = useAppSelector(state => state.auth.role);
   const [documents, setDocuments] = useState<UploadedDocumentWithUrl[]>([]);
   const [filteredDocuments, setFilteredDocuments] = useState<UploadedDocumentWithUrl[]>([]);
-  const { loading, fetchDocuments } = useFetchDocuments(setDocuments);
+  const { error, loading, fetchDocuments } = useFetchDocuments(setDocuments);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [currentFile, setCurrentFile] = useState<File | null>(null);
   const [selectedDocumentType, setSelectedDocumentType] = useState<DocumentType>("OTHER");
@@ -432,6 +438,10 @@ const CaseDocumentRightPanel: React.FC = () => {
         <Loading />
       </div>
     );
+  }
+
+  if (error) {
+    return <Alert message="Error" description={error} type="error" showIcon />;
   }
 
   return (
