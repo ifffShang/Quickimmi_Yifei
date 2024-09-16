@@ -1,18 +1,15 @@
 export enum CaseType {
   Asylum = "Asylum",
-  FamilyBased = "Family-Based",
-  EmploymentBased = "Employment-Based",
+  FamilyBased = "FamilyBased",
+  EmploymentBased = "EmploymentBased",
   TemporaryWorkVisas = "TemporaryWorkVisas",
 }
 
-export enum AsylumType {
+export enum CaseSubType {
   AFFIRMATIVE = "AFFIRMATIVE",
   DEFENSIVE = "DEFENSIVE",
-}
-
-export enum FamilyBasedType {
-  IMMEDIATE_RELATIVES = "IMMEDIATE RELATIVES OF U.S. CITIZENS",
-  FAMILY_PREFERENCE = "FAMILY PREFERENCE CATEGORIES",
+  IMMEDIATE_RELATIVES = "IMMEDIATE_RELATIVES",
+  FAMILY_PREFERENCE = "FAMILY_PREFERENCE",
 }
 
 export const ImmigrationCategories = [
@@ -24,11 +21,11 @@ export const ImmigrationCategories = [
     SubType: [
       {
         text: "AFFIRMATIVE",
-        value: AsylumType.AFFIRMATIVE,
+        value: CaseSubType.AFFIRMATIVE,
       },
       {
         text: "DEFENSIVE",
-        value: AsylumType.DEFENSIVE,
+        value: CaseSubType.DEFENSIVE,
       },
     ],
   },
@@ -40,11 +37,11 @@ export const ImmigrationCategories = [
     SubType: [
       {
         text: "Immediate relatives of U.S. citizens",
-        value: FamilyBasedType.IMMEDIATE_RELATIVES,
+        value: CaseSubType.IMMEDIATE_RELATIVES,
       },
       {
         text: "Family preference categories",
-        value: FamilyBasedType.FAMILY_PREFERENCE,
+        value: CaseSubType.FAMILY_PREFERENCE,
       },
     ],
   },

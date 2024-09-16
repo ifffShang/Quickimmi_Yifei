@@ -164,18 +164,6 @@ export async function getCaseProfileAndProgressApi(
   };
 }
 
-export async function getCaseSummaryApi(caseId: number, accessToken: string, role: Role): Promise<CaseSummary> {
-  const res = await performApiRequest({
-    endPoint: `api/case/asylum/getCaseSummary?id=${caseId}`,
-    method: "GET",
-    data: null,
-    accessToken,
-    role,
-    caseId,
-  });
-  return res.data as CaseSummary;
-}
-
 export async function updateApplicationCaseApi(
   data: UpdateApplicationCaseData,
   accessToken: string,

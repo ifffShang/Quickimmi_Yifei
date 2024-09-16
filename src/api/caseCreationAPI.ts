@@ -1,5 +1,5 @@
 import { Role } from "../consts/consts";
-import { AsylumType, CaseType, FamilyBasedType } from "../model/immigrationTypes";
+import { CaseType, CaseSubType } from "../model/immigrationTypes";
 import { performApiRequest } from "./apiConfig";
 
 /**
@@ -22,8 +22,8 @@ export async function createNewCaseByLawyerApi(
   providedCustomerEmail: string,
   role: Role,
   caseType: CaseType,
-  caseSubType: AsylumType | FamilyBasedType | undefined,
-): Promise<string> {
+  caseSubType: CaseSubType,
+): Promise<string | undefined> {
   try {
     const base = {
       lawyerId,
@@ -33,17 +33,16 @@ export async function createNewCaseByLawyerApi(
       providedCustomerEmail,
     };
 
-    if (caseType === CaseType.Asylum && Object.values(AsylumType).includes(caseSubType as AsylumType)) {
-      return await createNewAsylumCaseByLawyerApi(accessToken, role, base, caseSubType as AsylumType);
+    if (caseType === CaseType.Asylum) {
+      return await createNewAsylumCaseByLawyerApi(accessToken, role, base, caseSubType);
     }
 
-    if (caseType === CaseType.FamilyBased && Object.values(FamilyBasedType).includes(caseSubType as FamilyBasedType)) {
-      return await createNewFamilyBasedCaseByLawyerApi(accessToken, role, base, caseSubType as FamilyBasedType);
+    if (caseType === CaseType.FamilyBased) {
+      return await createNewFamilyBasedCaseByLawyerApi(accessToken, role, base, caseSubType);
     }
   } catch (error) {
     console.error("Failed to create new case for lawyer:", error);
   }
-  return "";
 }
 
 export interface CaseCreationBaseParams {
@@ -54,11 +53,11 @@ export interface CaseCreationBaseParams {
   providedCustomerEmail: string;
 }
 
-export async function createNewAsylumCaseByLawyerApi(
+async function createNewAsylumCaseByLawyerApi(
   accessToken: string,
   role: Role,
   base: CaseCreationBaseParams,
-  asylumType: AsylumType,
+  asylumType: CaseSubType,
 ): Promise<string> {
   const res = await performApiRequest({
     endPoint: "api/case/asylum/createByLawyer",
@@ -73,14 +72,14 @@ export async function createNewAsylumCaseByLawyerApi(
   return <string>res.data;
 }
 
-export async function createNewFamilyBasedCaseByLawyerApi(
+async function createNewFamilyBasedCaseByLawyerApi(
   accessToken: string,
   role: Role,
   base: CaseCreationBaseParams,
-  familyBasedType: FamilyBasedType,
+  familyBasedType: CaseSubType,
 ): Promise<string> {
   const res = await performApiRequest({
-    endPoint: "api/case/familyBased/createByLawyer",
+    endPoint: "api/case/family-based/createByLawyer",
     method: "POST",
     data: {
       ...base,

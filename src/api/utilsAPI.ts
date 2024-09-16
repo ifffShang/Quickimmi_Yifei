@@ -1,29 +1,5 @@
 import { Role } from "../consts/consts";
 import { performApiRequest } from "./apiConfig";
-import { IForm, IFormFields } from "../model/formFlowModels";
-import { convertBooleans } from "../utils/utils";
-
-// Form related APIs
-export async function getForm(id: string): Promise<IForm> {
-  return await performApiRequest({
-    endPoint: `forms/${id}.json?${new Date().getTime()}`,
-    method: "GET",
-    data: null,
-    accessToken: "",
-    self: true,
-  });
-}
-
-export async function getFormFields(referenceId: string): Promise<IFormFields> {
-  const response = await performApiRequest({
-    endPoint: `forms/${referenceId}.json?${new Date().getTime()}`,
-    method: "GET",
-    data: null,
-    accessToken: "",
-    self: true,
-  });
-  return convertBooleans(<IFormFields>response);
-}
 
 export async function refineApi(
   accessToken: string,

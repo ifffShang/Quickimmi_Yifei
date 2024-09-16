@@ -39,13 +39,21 @@ const CaseProgressCard: React.FC<CaseProgressCardProps> = ({ caseSummary, onCase
   const [expandedStep, setExpandedStep] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!progress || !progress.steps) {
+      console.error("Progress is missing.");
+      return;
+    }
     if (!expandedStep) {
       const inProgressStep = findFirstInProgressSubstep(progress.steps);
       setExpandedStep(inProgressStep);
     }
     const stepIndex = getCurrentStepIndex(caseSummary.currentStep, progress.steps);
     setCurrentStepIndex(stepIndex);
-  }, [progress.steps, caseSummary.currentStep]);
+  }, [progress?.steps, caseSummary.currentStep]);
+
+  if (!progress || !progress.steps) {
+    return null;
+  }
 
   const onStepChange = (value: number) => {
     setCurrentStepIndex(value);

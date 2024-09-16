@@ -4,8 +4,8 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { createNewCaseByLawyerApi } from "../../api/caseCreationAPI";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { AsylumType, CaseType, FamilyBasedType, ImmigrationCategories } from "../../model/immigrationTypes";
-import { resetCaseState, updateCurrentCaseId } from "../../reducers/caseSlice";
+import { CaseSubType, CaseType, ImmigrationCategories } from "../../model/immigrationTypes";
+import { resetCaseState, updateCurrentCaseInfo } from "../../reducers/caseSlice";
 import { validateEmail } from "../../utils/utils";
 import { QText } from "../common/Fonts";
 import { QReturnLink } from "../common/Links";
@@ -26,7 +26,7 @@ export function LawyerPreForm() {
   const [applicantName, setApplicantName] = useState("");
   const [caseName, setCaseName] = useState("");
   const [immigrationType, setImmigrationType] = useState<CaseType>();
-  const [immigrationSubType, setImmigrationSubType] = useState<AsylumType | FamilyBasedType>();
+  const [immigrationSubType, setImmigrationSubType] = useState<CaseSubType>();
 
   const [providedCustomerEmail, setProvidedCustomerEmail] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -35,13 +35,16 @@ export function LawyerPreForm() {
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    if (immigrationType && immigrationType !== CaseType.Asylum) {
+    if (immigrationType && immigrationType !== CaseType.Asylum && immigrationType !== CaseType.FamilyBased) {
       setErrorMessage(t("ImmigrationTypeNotSupported"));
     } else {
       setErrorMessage("");
     }
 
-    const isFormValid = applicantName && immigrationSubType && immigrationType === CaseType.Asylum;
+    const isFormValid =
+      applicantName &&
+      immigrationSubType &&
+      (immigrationType === CaseType.Asylum || immigrationType === CaseType.FamilyBased);
     setIsSendButtonDisabled(!isFormValid);
     const isEmailValid = providedCustomerEmail && validateEmail(providedCustomerEmail);
     setIsEmailSendButtonDisabled(!isEmailValid);
@@ -63,8 +66,8 @@ export function LawyerPreForm() {
       return;
     }
 
-    if (!immigrationType) {
-      console.error("Immigration type is not selected");
+    if (!immigrationType || !immigrationSubType) {
+      console.error("Immigration type or sub type is not selected");
       return;
     }
 
@@ -79,8 +82,20 @@ export function LawyerPreForm() {
         immigrationType,
         immigrationSubType,
       );
+
+      if (!caseId) {
+        console.error("Failed to create new case for lawyer");
+        return;
+      }
+
       dispatch(resetCaseState());
-      dispatch(updateCurrentCaseId(caseId));
+      dispatch(
+        updateCurrentCaseInfo({
+          caseId: caseId,
+          caseType: immigrationType,
+          caseSubType: immigrationSubType,
+        }),
+      );
       navigate("/casestatus/" + caseId);
     } catch (error) {
       console.error("Failed to create new case for lawyer:", error);

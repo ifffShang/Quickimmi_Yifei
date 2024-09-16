@@ -131,16 +131,13 @@ export interface Case {
   submittedAt: number;
   taskList: string;
   type: string;
+  subType: string;
   asylumType: string;
   updatedAt: number;
   uscisReceiptNumber: string;
   userId: number;
 }
 
-// export interface AsylumType {
-//   AFFIRMATIVE("AFFIRMATIVE"),
-//   DEFENSIVE("DEFENSIVE");
-// }
 export interface UpdateApplicationCaseData {
   id: number;
   userId?: number;
@@ -195,6 +192,7 @@ export interface CaseSummary {
   caseType: string;
   caseName: string;
   asylumType: string | null;
+  subType: string | null;
   maritalStatus: string;
   applyWithSpouse: boolean;
   numberOfChildren: number;
