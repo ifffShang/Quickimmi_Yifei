@@ -18,19 +18,63 @@ const CaseSummaryCard: React.FC<CaseStatusCardProps> = ({ caseSummary }) => {
     id,
     applicantName,
     caseType,
+    createdAt,
+    updatedAt,
+    currentStep,
+    /** Asylum */
     asylumType,
     maritalStatus,
     applyWithSpouse,
     numberOfChildren,
     numberOfApplyingChildren,
-    createdAt,
-    updatedAt,
-    currentStep,
+    /** FamilyBased */
+    petitionFor,
+    petitionIdentity,
+    beneficiaryName,
+    beneficiaryInUSA,
   } = caseSummary;
 
   const { status, color, backgroundColor, width } = getCaseStatusAndColor(currentStep);
   const screenSize = useAppSelector(state => state.common.screenSize);
   const isSmallScreen = screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall;
+
+  let content = <></>;
+
+  if (caseType === "Asylum")
+    content = (
+      <>
+        <Descriptions.Item label={t("CreatedAt")}>
+          {createdAt ? new Date(createdAt).toLocaleDateString() : "N/A"}
+        </Descriptions.Item>
+        <Descriptions.Item label={t("LastUpdatedAt")}>
+          {updatedAt ? new Date(updatedAt).toLocaleDateString() : "N/A"}
+        </Descriptions.Item>
+        <Descriptions.Item label={t("MasterApplicant")}>{applicantName}</Descriptions.Item>
+        <Descriptions.Item label={t("MaritalStatus")}>{maritalStatus}</Descriptions.Item>
+        <Descriptions.Item label={t("SpousePartnerApplication")}>
+          {applyWithSpouse !== null ? (applyWithSpouse ? t("Yes") : t("No")) : "N/A"}
+        </Descriptions.Item>
+        <Descriptions.Item label={t("NumberOfChildren")}>{numberOfChildren}</Descriptions.Item>
+        <Descriptions.Item label={t("NumberOfChildApplication")}>{numberOfApplyingChildren}</Descriptions.Item>
+      </>
+    );
+
+  if (caseType === "FamilyBased")
+    content = (
+      <>
+        <Descriptions.Item label={t("CreatedAt")}>
+          {createdAt ? new Date(createdAt).toLocaleDateString() : "N/A"}
+        </Descriptions.Item>
+        <Descriptions.Item label={t("LastUpdatedAt")}>
+          {updatedAt ? new Date(updatedAt).toLocaleDateString() : "N/A"}
+        </Descriptions.Item>
+        <Descriptions.Item label={t("ApplicantName")}>{applicantName}</Descriptions.Item>
+        <Descriptions.Item label={t("PetitionIdentity")}>{petitionIdentity}</Descriptions.Item>
+        <Descriptions.Item label={t("PetitionFor")}>{petitionFor}</Descriptions.Item>
+        <Descriptions.Item label={t("BeneficiaryName")}>{beneficiaryName}</Descriptions.Item>
+        <Descriptions.Item label={t("BeneficiaryInUSA")}>{beneficiaryInUSA}</Descriptions.Item>
+      </>
+    );
 
   return (
     <Card
@@ -47,19 +91,7 @@ const CaseSummaryCard: React.FC<CaseStatusCardProps> = ({ caseSummary }) => {
       className="case-card"
     >
       <Descriptions className="case-card-descriptions" column={isSmallScreen ? 1 : 3}>
-        <Descriptions.Item label={t("CreatedAt")}>
-          {createdAt ? new Date(createdAt).toLocaleDateString() : "N/A"}
-        </Descriptions.Item>
-        <Descriptions.Item label={t("LastUpdatedAt")}>
-          {updatedAt ? new Date(updatedAt).toLocaleDateString() : "N/A"}
-        </Descriptions.Item>
-        <Descriptions.Item label={t("MasterApplicant")}>{applicantName}</Descriptions.Item>
-        <Descriptions.Item label={t("MaritalStatus")}>{maritalStatus}</Descriptions.Item>
-        <Descriptions.Item label={t("SpousePartnerApplication")}>
-          {applyWithSpouse !== null ? (applyWithSpouse ? t("Yes") : t("No")) : "N/A"}
-        </Descriptions.Item>
-        <Descriptions.Item label={t("NumberOfChildren")}>{numberOfChildren}</Descriptions.Item>
-        <Descriptions.Item label={t("NumberOfChildApplication")}>{numberOfApplyingChildren}</Descriptions.Item>
+        {content}
       </Descriptions>
     </Card>
   );

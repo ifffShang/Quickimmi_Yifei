@@ -191,32 +191,40 @@ export interface CaseSummary {
   applicantName: string;
   caseType: string;
   caseName: string;
-  asylumType: string | null;
   subType: string | null;
-  maritalStatus: string;
-  applyWithSpouse: boolean;
-  numberOfChildren: number;
-  numberOfApplyingChildren: number;
   currentStep: string;
   progress: Progress;
   desc: string | null;
   createdAt: number;
   updatedAt: number | null;
+
+  /** Asylum related params */
+  asylumType?: string | null;
+  maritalStatus?: string;
+  applyWithSpouse?: boolean;
+  numberOfChildren?: number;
+  numberOfApplyingChildren?: number;
+
+  /** Family based related params */
+  petitionFor?: string;
+  petitionIdentity?: string;
+  beneficiaryName?: string;
+  beneficiaryInUSA?: boolean;
 }
 
 export interface Progress {
-  steps: Step[];
+  steps: QStep[];
 }
 
-export interface Step {
+export interface QStep {
   name: string;
   status: string;
-  substeps: Substep[];
+  substeps: QSubstep[];
   startedAt: number;
   updatedAt: number;
 }
 
-export interface Substep {
+export interface QSubstep {
   name: string;
   status: string;
   metadata: string | null;

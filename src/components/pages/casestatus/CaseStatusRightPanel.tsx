@@ -46,12 +46,12 @@ function useFetchCaseSummary() {
 
       if (data) {
         setCaseSummary(data);
-        if (data.id && data.subType) {
+        if (data.id) {
           dispatch(
             updateCurrentCaseInfo({
               caseId: data.id.toString(),
               caseType: currentCaseType,
-              caseSubType: data.subType as CaseSubType,
+              caseSubType: (data.subType as CaseSubType) || null,
             }),
           );
         } else {

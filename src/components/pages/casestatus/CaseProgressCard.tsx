@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Card, Steps } from "antd";
-import { CaseSummary } from "../../../model/apiModels";
+import { CaseSummary, QStep } from "../../../model/apiModels";
 import { useTranslation } from "react-i18next";
 import { CollectInfoIcon, ReviewIcon, SubmitIcon, FingerPrintIcon, ResultIcon } from "../../icons/CaseProgressCard";
 import { getProgressColor } from "../../../utils/caseStatusUtils";
 import "./CaseProgressCard.css";
 import ProgressSection from "./ProgressSection";
 import { QText } from "../../common/Fonts";
+import { CaretUpOutlined } from "@ant-design/icons";
 
 interface CaseProgressCardProps {
   caseSummary: CaseSummary;
@@ -33,9 +34,10 @@ function findFirstInProgressSubstep(steps: { substeps: { name: string; status: s
 const CaseProgressCard: React.FC<CaseProgressCardProps> = ({ caseSummary, onCaseSummaryUpdate }) => {
   const { t } = useTranslation();
   const { progress } = caseSummary;
+  const currentStep = caseSummary.currentStep;
+  const currentStepIndex = getCurrentStepIndex(caseSummary.currentStep, progress.steps);
 
-  const [currentStepIndex, setCurrentStepIndex] = useState(0);
-  const [currentStep, setCurrentStep] = useState(caseSummary.currentStep);
+  const [activeStep, setActiveStep] = useState(currentStep);
   const [expandedStep, setExpandedStep] = useState<string | null>(null);
 
   useEffect(() => {
@@ -47,19 +49,14 @@ const CaseProgressCard: React.FC<CaseProgressCardProps> = ({ caseSummary, onCase
       const inProgressStep = findFirstInProgressSubstep(progress.steps);
       setExpandedStep(inProgressStep);
     }
-    const stepIndex = getCurrentStepIndex(caseSummary.currentStep, progress.steps);
-    setCurrentStepIndex(stepIndex);
   }, [progress?.steps, caseSummary.currentStep]);
 
   if (!progress || !progress.steps) {
     return null;
   }
 
-  const onStepChange = (value: number) => {
-    setCurrentStepIndex(value);
-    setCurrentStep(progress.steps[value].name);
-    console.log(`***********Current value is ${value}`);
-    console.log(`***********Step changed to ${progress.steps[value].name}`);
+  const onStepClick = (step: QStep) => {
+    setActiveStep(step.name);
   };
 
   const icons = progress.steps.map((step, index) => {
@@ -80,6 +77,16 @@ const CaseProgressCard: React.FC<CaseProgressCardProps> = ({ caseSummary, onCase
     }
   });
 
+  const getStepText = (step: QStep) => {
+    const isBold = step.name === currentStep;
+    const color = getProgressColor(step.status);
+    return (
+      <QText colorHex={color} level={isBold ? "normal bold" : "normal"}>
+        {t(step.name)}
+      </QText>
+    );
+  };
+
   return (
     <Card
       title={
@@ -88,18 +95,26 @@ const CaseProgressCard: React.FC<CaseProgressCardProps> = ({ caseSummary, onCase
         </div>
       }
     >
-      <Steps
-        className="progress-card-steps"
-        current={currentStepIndex}
-        onChange={onStepChange}
-        labelPlacement="vertical"
-      >
+      <Steps className="progress-card-steps" current={currentStepIndex} labelPlacement="vertical">
         {progress.steps.map((step, index) => (
-          <Step key={step.name} title={<QText level="normal">{t(step.name)}</QText>} icon={icons[index]} />
+          <Step
+            className="progress-card-step"
+            key={step.name}
+            title={getStepText(step)}
+            description={
+              step.name === activeStep ? (
+                <div className="active-step-indicator">
+                  <CaretUpOutlined />
+                </div>
+              ) : null
+            }
+            icon={icons[index]}
+            onClick={() => onStepClick(step)}
+          />
         ))}
       </Steps>
       <ProgressSection
-        currentStep={currentStep}
+        currentStep={activeStep}
         progress={progress}
         expandedStep={expandedStep}
         setExpandedStep={setExpandedStep}

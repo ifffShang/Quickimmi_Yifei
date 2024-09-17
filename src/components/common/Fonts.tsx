@@ -18,6 +18,7 @@ export interface TextProps {
     | "field-label"
     | "placeholder";
   color?: "primary" | "secondary" | "gray" | "dark" | "danger" | "warning" | "inherit";
+  colorHex?: string;
   margin?: "margin-bottom-20" | "margin-bottom-10" | "margin-5";
   noWrap?: boolean;
 }
@@ -29,7 +30,11 @@ export interface TextProps {
  */
 export function QText(props: TextProps) {
   const textClass = `text ${props.level || "normal"} ${props.color || "inherit"} ${props.margin || ""} ${props.noWrap ? "no-wrap" : ""}`;
-  return <div className={textClass}>{props.children}</div>;
+  return (
+    <div className={textClass} style={{ color: props.colorHex || "#" }}>
+      {props.children}
+    </div>
+  );
 }
 
 export interface SingleLineProps {
