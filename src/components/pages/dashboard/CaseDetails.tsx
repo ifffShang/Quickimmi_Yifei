@@ -11,6 +11,7 @@ import { updateCaseProfileAndProgress } from "../../../reducers/formSlice";
 import { buildPercentageObject } from "../../../utils/percentageUtils";
 import { CentralizedLoading } from "../../common/Loading";
 import { FormContainer } from "../../form/FormContainer";
+import { CaseSubType } from "../../../model/immigrationTypes";
 
 export function CaseDetails() {
   const dispatch = useAppDispatch();
@@ -20,7 +21,8 @@ export function CaseDetails() {
   const role = useAppSelector(state => state.auth.role);
 
   const caseType = useAppSelector(state => state.case.currentCaseType);
-  const caseSubType = useAppSelector(state => state.case.currentCaseSubType);
+  // const caseSubType = useAppSelector(state => state.case.currentCaseSubType);
+  const caseSubType = CaseSubType.DEFENSIVE;
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

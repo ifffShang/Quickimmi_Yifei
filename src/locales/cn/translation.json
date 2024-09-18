@@ -21,6 +21,8 @@
   "Automatically generate application documents based on provided information": "根据提供的信息自动生成申请文档",
   "RegeneratingDocButtonTooltip": "重新生成文档不会包含已替换的文档。如需重新生成已替换的文档，请使用重试按钮。",
   "Generate Merged Documents": "生成最终文件",
+  "Complete Review": "完成审核",
+  "Download All": "下载全部文件",
   "UploadDocument": "上传文件",
   "CaseDocument": "附属文件",
   "CaseId": "案件编号",

@@ -11,9 +11,10 @@ import {
   retryGetDocumentsApi,
   updateDocumentStatus,
   uploadFileToPresignUrl,
+  downloadDocuments,
 } from "../../../api/documentAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { GeneratedDocument } from "../../../model/apiModels";
+import { GeneratedDocument, GenerationType } from "../../../model/apiModels";
 import { convertToDocumentType, DocumentType } from "../../../model/commonModels";
 import { moveCaseProgressToNextStep } from "../../../utils/progressUtils";
 import { downloadDocument } from "../../../utils/utils";
@@ -198,6 +199,30 @@ export function MergedDocumentList() {
       "",
     );
   };
+
+  const handleDownloadClick = async () => {
+    try {
+      setLoading(true);
+      if (!caseId || !accessToken || !role) {
+        message.error("Missing required parameters for downloading documents.");
+        return;
+      }
+      const preSignedUrl = await downloadDocuments(caseId, accessToken, role, GenerationType.SYSTEM_MERGED);
+
+      // Triggering download
+      const link = document.createElement("a");
+      link.href = preSignedUrl;
+      link.setAttribute("download", "document"); // Optional: customize filename if needed
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Error downloading document:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const onReplaceFileUpload = (
     e: React.ChangeEvent<HTMLInputElement>,
     documentId: number,
@@ -341,6 +366,14 @@ export function MergedDocumentList() {
           disabled={!(canMerge && allMergeCompleted && mergedDocuments.length > 0)}
         >
           {t("Complete Review")}
+        </Button>
+        <Button
+          type="primary"
+          onClick={handleDownloadClick}
+          className="document-list-btn"
+          disabled={!(canMerge && allMergeCompleted && mergedDocuments.length > 0)}
+        >
+          {t("Download All")}
         </Button>
         <Table
           loading={loading || replaceLoading}

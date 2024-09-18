@@ -671,3 +671,11 @@ export interface GeneratedDocument {
   createdAt: number;
   updatedAt: number;
 }
+
+export enum GenerationType {
+  USER_UPLOADED = "USER_UPLOADED",
+  SYSTEM_AUTO_GENERATED = "SYSTEM_AUTO_GENERATED",
+  SYSTEM_MERGED = "SYSTEM_MERGED",
+  USER_SIGNED = "USER_SIGNED",
+  OTHER = "OTHER",
+}

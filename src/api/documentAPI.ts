@@ -5,6 +5,7 @@ import {
   GeneratePresignedUrlResponse,
   ParsePassportResponse,
   UploadedDocument,
+  GenerationType,
 } from "../model/apiModels";
 import { performApiRequest } from "./apiConfig";
 import {
@@ -307,4 +308,21 @@ export async function canMergeDocumentForCase(
     caseId,
   });
   return <EligibilityCheckResult>res.data;
+}
+
+export async function downloadDocuments(
+  caseId: number,
+  accessToken: string,
+  role: Role,
+  generationType: GenerationType,
+): Promise<string> {
+  const res = await performApiRequest({
+    endPoint: `api/document/downloadDocuments?caseId=${caseId}&generationType=${generationType}`,
+    method: "GET",
+    data: null,
+    accessToken,
+    role,
+    caseId,
+  });
+  return <string>res.data;
 }
