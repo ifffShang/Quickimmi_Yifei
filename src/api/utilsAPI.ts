@@ -53,13 +53,13 @@ export async function refineWithPromptApi(
   type: string,
   question: string,
   content: string,
-  prompt: string, 
-): Promise<RefineResponse> { 
+  prompt: string,
+): Promise<RefineResponse> {
   const requestDto = {
     type,
     question,
     content,
-    prompt, 
+    prompt,
   };
   const res = await performApiRequest({
     endPoint: `api/case/asylum/refineWithPrompt`,
@@ -68,9 +68,8 @@ export async function refineWithPromptApi(
     accessToken,
     role,
   });
-  return res.data; 
+  return res.data;
 }
-
 
 // Redis is not in used now. This is for development purposes only
 export async function flushRedisCache(accessToken: string, role: Role): Promise<boolean> {

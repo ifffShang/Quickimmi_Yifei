@@ -85,8 +85,7 @@ export type ControlType =
   | "percentage" // used only for percentage calculation
   | "multi_file_uploader_new"; // WIP!!! DON'T USE!!!;
 
-  export interface RefineResponse {
-    result: string;
-    tips: string[];
-  }
-  
+export interface RefineResponse {
+  result: string;
+  tips: string[];
+}

@@ -43,10 +43,10 @@
   padding: 0 10px;
   height: 20px;
   line-height: 20px;
-  color: var(--gray-color-3)
+  color: var(--gray-color-3);
 }
 .text-area-switch.selected {
-  color: var(--primary-color)
+  color: var(--primary-color);
 }
 .text-area-switch.border {
   border-left: 2px solid var(--gray-color-6);
@@ -94,7 +94,7 @@
   align-items: center;
   padding: 10px;
   z-index: 2;
-  right: 0
+  right: 0;
 }
 .text-area-prompt-input {
   display: flex;
@@ -108,7 +108,7 @@
   resize: none !important;
 }
 
-.text-area-prompt-input > .ant-input-suffix > span{
+.text-area-prompt-input > .ant-input-suffix > span {
   display: flex;
   justify-content: center;
   cursor: pointer;
@@ -167,5 +167,4 @@
 }
 
 .text-area-refined {
-  
 }
