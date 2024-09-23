@@ -36,6 +36,11 @@
   display: inline-block;
   width: 90%;
 }
+.small .signup-entry-text,
+.xsmall .signup-entry-text {
+  font-size: 45px;
+  font-weight: 750;
+}
 
 .signup-entry-text svg {
   position: absolute;

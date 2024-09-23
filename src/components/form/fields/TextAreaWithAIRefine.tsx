@@ -1,9 +1,18 @@
 import { QText } from "../../common/Fonts";
-import type { GetProps } from "antd";
-import { Button, Input, InputRef, Spin } from "antd";
-import Icon, { CheckOutlined, CloseCircleOutlined } from "@ant-design/icons";
+import type { GetProps, MenuProps } from "antd";
+import Icon, { CheckOutlined } from "@ant-design/icons";
+import { Button, Input, InputRef, Spin, Menu, Card } from "antd";
+import { refineApi, refineWithPromptApi } from "../../../api/utilsAPI";
+import {
+  AskAi,
+  SendIcon,
+  AiImprove,
+  AiMakeLonger,
+  AiMakeShorter,
+  AiFixGrammar,
+  AiTranslate,
+} from "../../icons/AiPrompt";
 import { useAppSelector } from "../../../app/hooks";
-import { refineApi } from "../../../api/utilsAPI";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import "./TextAreaWithAIRefine.css";
@@ -25,7 +34,10 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
   const [refineAreaValue, setRefineAreaValue] = useState("");
   const [showRefineArea, setShowRefineArea] = useState(false);
   const [isTextAreaEmpty, setIsTextAreaEmpty] = useState(!props.value);
+  const [currentText, setCurrentText] = useState(props.value);
+  const [tips, setTips] = useState<string[]>([]);
   const inputRef = useRef<InputRef>(null);
+  const promptInputRef = useRef<any>(null);
   const fieldkey = props.fieldKey;
   const label = props.label.split("_")[1];
 
@@ -67,12 +79,9 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
   const discardRefinedText = () => {
     setShowRefineArea(false);
     setRefineAreaValue("");
-    console.log("field key is: ", fieldkey);
-    console.log("label is: ", label);
-    console.log(t(label));
   };
 
-  const refineText = async () => {
+  const refineText = async (prompt: string) => {
     if (!accessToken) {
       console.error("Access token is not available");
       return;
@@ -80,10 +89,34 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
     try {
       setRefineAreaValue("");
       setShowRefineArea(true);
-      const refinedText = await refineApi(accessToken, role, "statement", label, props.value);
-      setRefineAreaValue(refinedText);
+      const refinedText = await refineWithPromptApi(accessToken, role, "statement", label, props.value, prompt);
+      setRefineAreaValue(refinedText.result);
+      setCurrentText(refinedText.result);
+      setTips(refinedText.tips);
     } catch (error) {
       console.error("Failed to refine text:", error);
+    }
+  };
+
+  const handleOriginalClick = () => {
+    setCurrentText(textAreaValue);
+  };
+  const handleImprovedClick = () => {
+    setCurrentText(refineAreaValue);
+  };
+  const handleInputPrompt = () => {
+    if (promptInputRef.current?.resizableTextArea?.textArea) {
+      const inputValue = promptInputRef.current.resizableTextArea.textArea.value.trim();
+      console.log("Input Value:", inputValue);
+      if (inputValue) {
+        refineText(inputValue);
+        promptInputRef.current.resizableTextArea.textArea.value = "";
+        setMenuState({ openKeys: [], selectedKeys: [] });
+      } else {
+        console.log("Input is empty");
+      }
+    } else {
+      console.log("Input ref not correctly set");
     }
   };
 
@@ -93,6 +126,7 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
     padding: 50,
   };
   const content = <div style={spinStyle} />;
+
   type CustomIconComponentProps = GetProps<typeof Icon>;
   const AiSvg = () => (
     <svg width="26" height="26" viewBox="0 0 26 26" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -102,55 +136,139 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
       </g>
     </svg>
   );
-
   const AiIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={AiSvg} {...props} />;
+
+  const [menuState, setMenuState] = useState<{ openKeys: string[]; selectedKeys: string[] }>({
+    openKeys: [],
+    selectedKeys: [],
+  });
+
+  type MenuItem = Required<MenuProps>["items"][number];
+  const items: MenuItem[] = [
+    {
+      key: "sub1",
+      icon: <AiIcon />,
+      label: "",
+      children: [
+        {
+          key: "sub1",
+          disabled: true,
+          label: (
+            <div className="text-area-prompt-input-container">
+              <span className="prefix-icon">
+                <AskAi />
+              </span>
+              <TextArea
+                ref={promptInputRef}
+                className="text-area-prompt-input"
+                placeholder="Ask AI to..."
+                autoSize={{ minRows: 1, maxRows: 10 }}
+                // onPressEnter={(e) => {
+                //   e.stopPropagation();
+                //   console.log("Enter pressed");
+                //   handleInputPrompt();
+                // }}
+              />
+              <span
+                className="suffix-icon"
+                onClick={() => {
+                  console.log("Send icon clicked");
+                  handleInputPrompt();
+                }}
+                style={{ cursor: "pointer" }}
+              >
+                <SendIcon />
+              </span>
+            </div>
+          ),
+        },
+        {
+          key: "sub2",
+          label: "Refine with AI",
+          type: "group",
+          children: [
+            { key: "AI Improve", label: "AI Improve", icon: <AiImprove /> },
+            { key: "Make it shorter", label: "Make it shorter", icon: <AiMakeShorter /> },
+            { key: "Make it longer", label: "Make it longer", icon: <AiMakeLonger /> },
+            { key: "Fix spelling and grammar", label: "Fix spelling and grammar", icon: <AiFixGrammar /> },
+            { key: "Translate into English", label: "Translate into English", icon: <AiTranslate /> },
+          ],
+        },
+      ],
+    },
+  ];
+
+  const onPromptClick: MenuProps["onClick"] = async e => {
+    if (!accessToken) {
+      console.error("Access token is not available");
+      return;
+    }
+    try {
+      setMenuState({ openKeys: [], selectedKeys: [] });
+      const prompt = e.key;
+      await refineText(prompt);
+    } catch (error) {
+      console.error("Failed to refine text:", error);
+    }
+  };
+
+  const onOpenChange = (keys: string[]) => {
+    setMenuState(prev => ({ ...prev, openKeys: keys }));
+  };
 
   return (
     <div>
       {showRefineArea ? (
         <div className="text-area-container">
           <div className="text-area-after">
-            <QText level="normal bold" margin="margin-5" color="gray">
-              {t("Original")}
-            </QText>
-            <TextArea
-              rows={8}
-              ref={inputRef}
-              className={"text-area-input"}
-              placeholder={props.placeholder}
-              value={textAreaValue}
-              onChange={onTextAreaChange}
-              variant="borderless"
-            />
-          </div>
-          <div className="text-area-after">
+            <div className="text-area-switch-group">
+              <Button
+                onClick={handleOriginalClick}
+                className={`text-area-switch ${currentText === textAreaValue ? "selected" : ""}`}
+                type="link"
+              >
+                Original
+              </Button>
+              <Button
+                onClick={handleImprovedClick}
+                className={`text-area-switch border ${currentText === refineAreaValue ? "selected" : ""}`}
+                type="link"
+              >
+                Improved
+              </Button>
+              <Button
+                type="primary"
+                onClick={replaceWithRefinedText}
+                className="text-area-btn"
+                icon={<CheckOutlined />}
+              >
+                {t("Use")}
+              </Button>
+              <Menu
+                className="text-area-AiMenu"
+                openKeys={menuState.openKeys}
+                selectedKeys={menuState.selectedKeys}
+                onOpenChange={onOpenChange}
+                onClick={onPromptClick}
+                mode="inline"
+                items={items}
+              />
+            </div>
             {refineAreaValue ? (
-              <div className="text-area-container-refined">
-                <div className="text-area-refined-buttons">
-                  <QText level="normal bold" margin="margin-5" color="gray">
-                    {t("Improved")}
-                  </QText>
-                  <Button
-                    type="primary"
-                    onClick={replaceWithRefinedText}
-                    className="text-area-button"
-                    icon={<CheckOutlined />}
-                  >
-                    {t("Use")}
-                  </Button>
-                  <Button type="primary" onClick={refineText} className="text-area-button" icon={<AiIcon />}>
-                    {t("Rewrite")}
-                  </Button>
-                  <CloseCircleOutlined onClick={discardRefinedText} className="text-area-button-discard" />
-                </div>
+              <div className="text-area-refined">
                 <TextArea
-                  rows={8}
+                  ref={inputRef}
                   className={"text-area-input"}
                   placeholder={props.placeholder}
-                  value={refineAreaValue}
-                  onChange={e => handleRefineAreaChange(e.target.value)}
+                  value={currentText}
+                  onChange={onTextAreaChange}
                   variant="borderless"
                 />
+                {/* <Card title="Tips" className="text-area-tips">
+                  {tips.map((tip, index) => (
+                    <QText key={index}>{tip}</QText>
+                  ))}
+                </Card> */}
               </div>
             ) : (
               <Spin tip="Rewriting">{content}</Spin>
@@ -160,17 +278,16 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
       ) : (
         <div className="text-area-container">
           <div className="text-area-before">
-            <Button
-              type="primary"
-              onClick={refineText}
-              disabled={!textAreaValue}
-              className="text-area-button"
-              icon={<AiIcon />}
-            >
-              {t("RefineWithAI")}
-            </Button>
+            <Menu
+              className="text-area-AiMenu"
+              openKeys={menuState.openKeys}
+              selectedKeys={menuState.selectedKeys}
+              onOpenChange={onOpenChange}
+              onClick={onPromptClick}
+              mode="inline"
+              items={items}
+            />
             <TextArea
-              rows={8}
               ref={inputRef}
               className="text-area-input"
               placeholder={props.placeholder}
