@@ -3,11 +3,10 @@ import { Button, Input, Pagination, Select, message } from "antd";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { createNewCaseApi, getCasesApi, queryCasesByLawyerApi } from "../../../api/caseAPI";
+import { getCasesApi, queryCasesByLawyerApi } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { Role } from "../../../consts/consts";
 import { Case } from "../../../model/apiModels";
-import { updateCases, updateCurrentCaseId } from "../../../reducers/caseSlice";
+import { updateCases } from "../../../reducers/caseSlice";
 import { equalsIgnoreCase } from "../../../utils/utils";
 import { QText } from "../../common/Fonts";
 import { Loading } from "../../common/Loading";
@@ -141,16 +140,6 @@ export function Dashboard() {
     setCurrentPage(1);
   };
 
-  const CreateNewApplication = async () => {
-    if (!accessToken || !userId) {
-      console.error(`Access token ${accessToken} or user id ${userId} is missing`);
-      return;
-    }
-    const caseId = await createNewCaseApi(accessToken, userId, "Asylum create reason", "AFFIRMATIVE", role);
-    dispatch(updateCurrentCaseId(caseId));
-    navigate("/case/" + caseId);
-  };
-
   const CreateNewCaseForLawyer = async () => {
     if (!isLawyer) {
       console.error("Only lawyer can create case from this page.");
@@ -185,7 +174,7 @@ export function Dashboard() {
         <QText level="normal" color="gray">
           {t("Dashboard.GreetingMessage")}
         </QText>
-        <Button type="primary" onClick={role === Role.LAWYER ? CreateNewCaseForLawyer : CreateNewApplication}>
+        <Button type="primary" onClick={CreateNewCaseForLawyer}>
           {t("Dashboard.CreateNewApplication")}
         </Button>
       </div>
@@ -197,15 +186,9 @@ export function Dashboard() {
         <h2>
           <QText level="large">{t("Dashboard.Dashboard")}</QText>
         </h2>
-        {role === Role.LAWYER ? (
-          <Button type="primary" onClick={CreateNewCaseForLawyer}>
-            {t("Dashboard.CreateNewApplication")}
-          </Button>
-        ) : (
-          <Button type="primary" onClick={CreateNewApplication}>
-            {t("Dashboard.CreateNewApplication")}
-          </Button>
-        )}
+        <Button type="primary" onClick={CreateNewCaseForLawyer}>
+          {t("Dashboard.CreateNewApplication")}
+        </Button>
       </div>
 
       <div className="dashboard-toolbar">

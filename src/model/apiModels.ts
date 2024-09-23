@@ -131,16 +131,13 @@ export interface Case {
   submittedAt: number;
   taskList: string;
   type: string;
+  subType: string;
   asylumType: string;
   updatedAt: number;
   uscisReceiptNumber: string;
   userId: number;
 }
 
-// export interface AsylumType {
-//   AFFIRMATIVE("AFFIRMATIVE"),
-//   DEFENSIVE("DEFENSIVE");
-// }
 export interface UpdateApplicationCaseData {
   id: number;
   userId?: number;
@@ -194,47 +191,45 @@ export interface CaseSummary {
   applicantName: string;
   caseType: string;
   caseName: string;
-  asylumType: string | null;
-  maritalStatus: string;
-  applyWithSpouse: boolean;
-  numberOfChildren: number;
-  numberOfApplyingChildren: number;
+  subType: string | null;
   currentStep: string;
   progress: Progress;
   desc: string | null;
   createdAt: number;
   updatedAt: number | null;
+
+  /** Asylum related params */
+  asylumType?: string | null;
+  maritalStatus?: string;
+  applyWithSpouse?: boolean;
+  numberOfChildren?: number;
+  numberOfApplyingChildren?: number;
+
+  /** Family based related params */
+  petitionFor?: string;
+  petitionIdentity?: string;
+  beneficiaryName?: string;
+  beneficiaryInUSA?: boolean;
 }
 
 export interface Progress {
-  steps: Step[];
+  steps: QStep[];
 }
 
-export interface Step {
+export interface QStep {
   name: string;
   status: string;
-  substeps: Substep[];
+  substeps: QSubstep[];
   startedAt: number;
   updatedAt: number;
 }
 
-export interface Substep {
+export interface QSubstep {
   name: string;
   status: string;
   metadata: string | null;
   startedAt: number;
   updatedAt: number;
-}
-
-export enum CaseType {
-  Asylum = "Asylum",
-  H1B = "H1b",
-  NIW = "Niw",
-}
-
-export enum AsylumType {
-  AFFIRMATIVE = "AFFIRMATIVE",
-  DEFENSIVE = "DEFENSIVE",
 }
 
 export interface Task {
@@ -675,4 +670,12 @@ export interface GeneratedDocument {
   presignUrl: string; // downloadable url
   createdAt: number;
   updatedAt: number;
+}
+
+export enum GenerationType {
+  USER_UPLOADED = "USER_UPLOADED",
+  SYSTEM_AUTO_GENERATED = "SYSTEM_AUTO_GENERATED",
+  SYSTEM_MERGED = "SYSTEM_MERGED",
+  USER_SIGNED = "USER_SIGNED",
+  OTHER = "OTHER",
 }

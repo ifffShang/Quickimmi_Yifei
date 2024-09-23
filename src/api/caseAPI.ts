@@ -1,27 +1,16 @@
 import { CacheStore } from "../cache/cache";
+import { InitialApplicationCase } from "../consts/caseConsts";
 import { Role } from "../consts/consts";
 import {
   CaseSummary,
-  EligibilityCheckResult,
-  GeneratePresignedUrlResponse,
   GetCaseProfileResponse,
   ListCase,
-  ParsePassportResponse,
   UpdateApplicationCaseData,
   UpdateProgressRequestDto,
-  UploadedDocument,
 } from "../model/apiModels";
-import {
-  GenerateDocumentResponse,
-  GetDocumentsAdditionalParams,
-  ParseMarriageCertificateResponse,
-} from "../model/apiReqResModels";
-import { DocumentCreatedBy, DocumentOperation, DocumentStatus, DocumentType, Identity } from "../model/commonModels";
+import { removePropertiesNotDefinedInModel } from "../utils/caseUtils";
 import { getProgressWithPercentage } from "../utils/percentageUtils";
 import { performApiRequest } from "./apiConfig";
-import { retryApi } from "./retry";
-import { removePropertiesNotDefinedInModel } from "../utils/caseUtils";
-import { InitialApplicationCase } from "../consts/caseConsts";
 
 // Create new application case by customer
 export async function createNewCaseApi(
@@ -43,38 +32,6 @@ export async function createNewCaseApi(
     role,
   });
 
-  return <string>res.data;
-}
-
-// Create new case by lawyer
-export async function createNewCaseByLawyerApi(
-  accessToken: string,
-  lawyerId: number,
-  caseName: string,
-  applicantName: string,
-  asylumType: string,
-  maritalStatus: string,
-  applyWithChildren: boolean,
-  numberOfChildren: number,
-  providedCustomerEmail: string,
-  role: Role,
-): Promise<string> {
-  const res = await performApiRequest({
-    endPoint: "api/case/asylum/createByLawyer",
-    method: "POST",
-    data: {
-      lawyerId,
-      caseName,
-      applicantName,
-      asylumType,
-      maritalStatus,
-      applyWithChildren,
-      numberOfChildren,
-      providedCustomerEmail,
-    },
-    accessToken,
-    role,
-  });
   return <string>res.data;
 }
 
@@ -205,18 +162,6 @@ export async function getCaseProfileAndProgressApi(
     profile: removePropertiesNotDefinedInModel(InitialApplicationCase.profile, responseData.profile),
     progress: responseData.progress,
   };
-}
-
-export async function getCaseSummaryApi(caseId: number, accessToken: string, role: Role): Promise<CaseSummary> {
-  const res = await performApiRequest({
-    endPoint: `api/case/asylum/getCaseSummary?id=${caseId}`,
-    method: "GET",
-    data: null,
-    accessToken,
-    role,
-    caseId,
-  });
-  return res.data as CaseSummary;
 }
 
 export async function updateApplicationCaseApi(

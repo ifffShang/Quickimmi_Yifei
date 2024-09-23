@@ -259,5 +259,3 @@ export type DocumentCreatedBy = "APPLICANT" | "LAWYER" | "SYSTEM";
 export type DocumentStatus = "UPLOADING" | "UPLOADED" | "FAILED" | "SUCCESS";
 
 export type DocumentOperation = "NEW" | "REPLACE";
-
-export type AsylumType = "AFFIRMATIVE" | "DEFENSIVE";

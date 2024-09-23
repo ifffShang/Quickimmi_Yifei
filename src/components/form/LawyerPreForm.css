@@ -29,21 +29,24 @@
   padding: 0;
 }
 
+.field-section {
+  padding: 30px;
+  margin: 0;
+}
 .field-section-name-preForm {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 30px 30px;
-  margin: 0;
   border-top: 2px solid var(--gray-color-4);
 }
 .field-section-type-preForm {
   display: flex;
   flex-direction: row;
   gap: 50px;
-  padding: 30px 30px;
-  margin: 0;
   border-top: 2px solid var(--gray-color-4);
+}
+.field-section-error-preForm {
+  padding: 0px 30px 30px;
 }
 .field-input-preForm {
   width: 250px;

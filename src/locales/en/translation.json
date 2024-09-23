@@ -19,6 +19,8 @@
   "Generate Documents": "Generate Documents",
   "Regenerate Documents": "Regenerate Documents",
   "Generate Merged Documents": "Generate Merged Documents",
+  "Complete Review": "Complete Review",
+  "Download All": "Download All",
   "Automatically generate application documents based on provided information": "Automatically generate application documents based on provided information",
   "RegeneratingDocButtonTooltip": "Regenerating documents will not include those already replaced. To regenerate a replaced document, please use the retry button.",
   "UploadDocument": "Upload Document",
@@ -220,6 +222,7 @@
   "ImmigrationReason": "Immigration Reason",
   "ImmigrationSubtype": "Immigration Subtype",
   "Tips": "Tips",
+  "ImmigrationTypeNotSupported": "Immigration type not yet supported",
 
   "CaseStatusMenuOverview": "Overview",
   "CaseStatusMenuDocuments": "Documents",

@@ -69,7 +69,7 @@ export function FormField(props: FormFieldProps) {
   const caseDetails = useAppSelector(state => state.form.applicationCase?.profile);
   const caseId = useAppSelector(state => state.form.caseId);
   const disabledFields = useAppSelector(state => state.form.disabledFields);
-  const asylumType = useAppSelector(state => state.form.asylumType);
+  const caseSubType = useAppSelector(state => state.case.currentCaseSubType);
 
   const placeholder = props.placeholder ? wt(props.placeholder) : "";
 
@@ -514,7 +514,7 @@ export function FormField(props: FormFieldProps) {
     }
     case "component_textbox_na":
       // TODO: This is a temporary solution for A-Number. Need to refactor this and move the control to JSON
-      if (asylumType === "DEFENSIVE" && props.fieldKey === "applicant.alienNumber") {
+      if (caseSubType === "DEFENSIVE" && props.fieldKey === "applicant.alienNumber") {
         return (
           <FormControlContainer fieldValue={fieldValue}>
             <QTextBox

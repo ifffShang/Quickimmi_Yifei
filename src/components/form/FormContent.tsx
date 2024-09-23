@@ -1,6 +1,6 @@
 import { Button } from "antd";
 import { useEffect } from "react";
-import { getFormFields } from "../../api/utilsAPI";
+import { getFormFields } from "../../api/formTemplateAPI";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useFormTranslation } from "../../hooks/commonHooks";
 import { decrementIndexLevel2, incrementIndexLevel2, updateFormFieldsMap } from "../../reducers/caseSlice";

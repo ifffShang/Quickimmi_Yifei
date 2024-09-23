@@ -30,7 +30,6 @@ import { ExcludedSectionsFromPercentage } from "../consts/consts";
 
 export interface FormState {
   caseId: number;
-  asylumType: "AFFIRMATIVE" | "DEFENSIVE";
   applicationCase: ApplicationCase;
   percentage: Percentage;
   saveTimes: number;
@@ -53,7 +52,6 @@ const initialState: FormState = {
   uploadedDocuments: [],
   generatedDocuments: [],
   mergedDocuments: [],
-  asylumType: "AFFIRMATIVE",
   highlightMissingFields: false,
   disabledFields: {},
 };
@@ -430,13 +428,12 @@ export const formSlice = createSlice({
     incrementSaveTimes: state => {
       state.saveTimes++;
     },
-    updateAsylumType: (state, action: PayloadAction<"AFFIRMATIVE" | "DEFENSIVE">) => {
-      state.asylumType = action.payload;
-    },
     updateHighlightMissingFields: (state, action: PayloadAction<boolean>) => {
       state.highlightMissingFields = action.payload;
     },
-    resetFormState: state => initialState,
+    resetFormState: state => {
+      state = initialState;
+    },
   },
 });
 
@@ -456,7 +453,6 @@ export const {
   updateUploadedDocuments,
   updateGeneratedDocuments,
   updateMergedDocuments,
-  updateAsylumType,
   updateHighlightMissingFields,
   incrementSaveTimes,
 } = formSlice.actions;
