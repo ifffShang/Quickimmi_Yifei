@@ -268,18 +268,20 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
                   onChange={onTextAreaChange}
                   variant="borderless"
                 />
-                <Card 
+                <Card
                   title={
-                  <>
-                    <TipsIcon /> Tips
-                  </>
-                  } 
+                    <>
+                      <TipsIcon /> Tips
+                    </>
+                  }
                   className={`text-area-tips ${tipHidden ? "hidden" : ""}`}
-                  extra={<CloseOutlined onClick={()=>setTipHidden(true)}/>}
+                  extra={<CloseOutlined onClick={() => setTipHidden(true)} />}
                 >
                   {tips.map((tip, index) => (
                     <>
-                      <QText level="xsmall" key={index}>{tip}</QText>
+                      <QText level="xsmall" key={index}>
+                        {tip}
+                      </QText>
                       <br />
                     </>
                   ))}
