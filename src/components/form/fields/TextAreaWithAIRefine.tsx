@@ -1,6 +1,6 @@
 import { QText } from "../../common/Fonts";
 import type { GetProps, MenuProps } from "antd";
-import Icon, { CheckOutlined } from "@ant-design/icons";
+import Icon, { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import { Button, Input, InputRef, Spin, Menu, Card } from "antd";
 import { refineApi, refineWithPromptApi } from "../../../api/utilsAPI";
 import {
@@ -11,6 +11,7 @@ import {
   AiMakeShorter,
   AiFixGrammar,
   AiTranslate,
+  TipsIcon,
 } from "../../icons/AiPrompt";
 import { useAppSelector } from "../../../app/hooks";
 import React, { useEffect, useRef, useState } from "react";
@@ -112,6 +113,7 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
         refineText(inputValue);
         promptInputRef.current.resizableTextArea.textArea.value = "";
         setMenuState({ openKeys: [], selectedKeys: [] });
+        setTipHidden(false);
       } else {
         console.log("Input is empty");
       }
@@ -142,6 +144,7 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
     openKeys: [],
     selectedKeys: [],
   });
+  const [tipHidden, setTipHidden] = useState(false);
 
   type MenuItem = Required<MenuProps>["items"][number];
   const items: MenuItem[] = [
@@ -205,6 +208,7 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
     }
     try {
       setMenuState({ openKeys: [], selectedKeys: [] });
+      setTipHidden(false);
       const prompt = e.key;
       await refineText(prompt);
     } catch (error) {
@@ -264,11 +268,22 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
                   onChange={onTextAreaChange}
                   variant="borderless"
                 />
-                {/* <Card title="Tips" className="text-area-tips">
+                <Card 
+                  title={
+                  <>
+                    <TipsIcon /> Tips
+                  </>
+                  } 
+                  className={`text-area-tips ${tipHidden ? "hidden" : ""}`}
+                  extra={<CloseOutlined onClick={()=>setTipHidden(true)}/>}
+                >
                   {tips.map((tip, index) => (
-                    <QText key={index}>{tip}</QText>
+                    <>
+                      <QText level="xsmall" key={index}>{tip}</QText>
+                      <br />
+                    </>
                   ))}
-                </Card> */}
+                </Card>
               </div>
             ) : (
               <Spin tip="Rewriting">{content}</Spin>
