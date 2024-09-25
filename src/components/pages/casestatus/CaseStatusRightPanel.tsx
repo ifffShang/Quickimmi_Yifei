@@ -51,7 +51,7 @@ function useFetchCaseSummary() {
             updateCurrentCaseInfo({
               caseId: data.id.toString(),
               caseType: currentCaseType,
-              caseSubType: (data.subType as CaseSubType) || null,
+              caseSubType: (data.subType as CaseSubType) || (data.asylumType as CaseSubType) || null,
             }),
           );
         } else {

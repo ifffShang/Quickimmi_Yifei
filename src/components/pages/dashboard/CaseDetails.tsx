@@ -21,8 +21,7 @@ export function CaseDetails() {
   const role = useAppSelector(state => state.auth.role);
 
   const caseType = useAppSelector(state => state.case.currentCaseType);
-  // const caseSubType = useAppSelector(state => state.case.currentCaseSubType);
-  const caseSubType = CaseSubType.DEFENSIVE;
+  const caseSubType = useAppSelector(state => state.case.currentCaseSubType);
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
