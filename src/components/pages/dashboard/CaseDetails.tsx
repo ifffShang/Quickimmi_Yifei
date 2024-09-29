@@ -1,7 +1,7 @@
-import { Alert, message } from "antd";
+import { Alert } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getCaseProfileAndProgressApi } from "../../../api/caseAPI";
+import { getCaseProfileAndProgressApi } from "../../../api/caseProfileAPI";
 import { getCaseSummaryApi } from "../../../api/caseSummaryAPI";
 import { getFormTemplate } from "../../../api/formTemplateAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
@@ -11,7 +11,6 @@ import { updateCaseProfileAndProgress } from "../../../reducers/formSlice";
 import { buildPercentageObject } from "../../../utils/percentageUtils";
 import { CentralizedLoading } from "../../common/Loading";
 import { FormContainer } from "../../form/FormContainer";
-import { CaseSubType } from "../../../model/immigrationTypes";
 
 export function CaseDetails() {
   const dispatch = useAppDispatch();
@@ -47,7 +46,7 @@ export function CaseDetails() {
         const form = await getFormTemplate(caseType, caseSubType);
         dispatch(updateForm(form));
 
-        const caseDetails = await getCaseProfileAndProgressApi(parseInt(id), accessToken, role);
+        const caseDetails = await getCaseProfileAndProgressApi(parseInt(id), accessToken, role, caseType);
         if (!caseDetails) {
           console.error(`Failed to get case details for case id ${id}`);
           return;
@@ -56,6 +55,7 @@ export function CaseDetails() {
         dispatch(
           updateCaseProfileAndProgress({
             caseId: parseInt(id),
+            caseType,
             profile: caseDetails.profile,
             progress: caseDetails.progress,
             percentage: currentPercentage,

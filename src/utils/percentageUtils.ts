@@ -1,5 +1,6 @@
 import { isArray, isObject } from "lodash";
-import { AsylumCaseProfile, Percentage, Progress } from "../model/apiModels";
+import { Percentage, Progress } from "../model/apiModels";
+import { CaseProfile } from "../model/commonApiModels";
 import { ControlType, IForm, IFormField } from "../model/formFlowModels";
 import { getCaseDetailValue, getFieldValue } from "./utils";
 
@@ -68,13 +69,13 @@ export function excludeForPercentageCalc(control: ControlType) {
 
 export function getPercentage(
   fields: IFormField[] | undefined,
-  profile: AsylumCaseProfile,
+  profile: CaseProfile | null,
   arrObj?: any,
   index?: number,
 ) {
   let total = 0,
     fulfilled = 0;
-  if (!fields) return { total, fulfilled };
+  if (!fields || !profile) return { total, fulfilled };
 
   let fieldValue: any;
   fields.forEach(field => {

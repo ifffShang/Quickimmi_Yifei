@@ -16,6 +16,7 @@ import { DefaultCaseProfile } from "../../../consts/caseProfile";
 import { ArrayFields } from "../../../reducers/formSlice";
 import { getKeys } from "../../../utils/visibilityUtils";
 import { useRef } from "react";
+import { getProfile } from "../../../utils/selectorUtils";
 
 export interface SectionProps {
   fieldKey: string;
@@ -36,15 +37,18 @@ export interface SectionProps {
 export function Section(props: SectionProps) {
   const dispatch = useAppDispatch();
   const { wt } = useFormTranslation();
-  const caseDetails = useAppSelector(state => state.form.applicationCase?.profile);
-  const isVisible = !!props.visibility && isSectionVisible(props.visibility, caseDetails, props.fieldIndex);
+  const caseType = useAppSelector(state => state.case.currentCaseType);
+  const applicationCase = useAppSelector(state => state.form.applicationCase);
+  const profile = getProfile(caseType, applicationCase);
+
+  const isVisible = !!props.visibility && isSectionVisible(props.visibility, profile, props.fieldIndex);
 
   // To track the visibility of each section, key is visibility key and value is boolean
   // We need this because isVisible is too generic and can't be used to track each section
   const visibilityList = useRef<KeyValues>({ [props.visibility ?? "default"]: isVisible });
 
   const fieldValue = getFieldValue(
-    caseDetails,
+    profile,
     props.fieldKey,
     props.control,
     props.options,
@@ -145,7 +149,7 @@ export function Section(props: SectionProps) {
 
   if (props.subFields && props.subFields.length > 0) {
     if (props.visibility) {
-      const isVisible = isSectionVisible(props.visibility, caseDetails, props.fieldIndex);
+      const isVisible = isSectionVisible(props.visibility, profile, props.fieldIndex);
       if (!isVisible) {
         return <></>;
       }

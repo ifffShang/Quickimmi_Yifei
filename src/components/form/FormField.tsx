@@ -44,6 +44,7 @@ import { SingleFileUploaderV2 } from "./fields/SingleFileUploaderV2";
 import { SortableSection } from "./fields/SortableSection";
 import { TextAreaWithAIRefine } from "./fields/TextAreaWithAIRefine";
 import { TextboxWithNA } from "./fields/TextboxWithNA";
+import { getProfile } from "../../utils/selectorUtils";
 
 export interface FormFieldProps {
   fieldKey: string;
@@ -66,15 +67,17 @@ export interface FormFieldProps {
 export function FormField(props: FormFieldProps) {
   const { wt, t } = useFormTranslation();
   const dispatch = useAppDispatch();
-  const caseDetails = useAppSelector(state => state.form.applicationCase?.profile);
   const caseId = useAppSelector(state => state.form.caseId);
   const disabledFields = useAppSelector(state => state.form.disabledFields);
+  const caseType = useAppSelector(state => state.case.currentCaseType);
   const caseSubType = useAppSelector(state => state.case.currentCaseSubType);
+  const applicationCase = useAppSelector(state => state.form.applicationCase);
+  const profile = getProfile(caseType, applicationCase);
 
   const placeholder = props.placeholder ? wt(props.placeholder) : "";
 
   const fieldValue = getFieldValue(
-    caseDetails,
+    profile,
     props.fieldKey,
     props.control,
     props.options,

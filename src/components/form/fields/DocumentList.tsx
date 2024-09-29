@@ -75,7 +75,7 @@ export function DocumentList() {
   const role = useAppSelector(state => state.auth.role);
 
   const caseId = useAppSelector(state => state.form.caseId);
-  const profile = useAppSelector(state => state.form.applicationCase.profile);
+  const asylumProfile = useAppSelector(state => state.form.applicationCase.asylumProfile);
   const progress = useAppSelector(state => state.form.applicationCase.progress);
   const percentage = useAppSelector(state => state.form.percentage);
 
@@ -152,7 +152,7 @@ export function DocumentList() {
     setLoading(true);
     setAllGenerationCompleted(false);
     try {
-      await updateApplicationCaseFunc(caseId, profile, progress, percentage, role, accessToken);
+      await updateApplicationCaseFunc(caseId, asylumProfile, progress, percentage, role, accessToken);
       await generateDocumentsByDocumentTypeApi(accessToken, caseId, convertToDocumentType(docType), role);
       await retryGetDocumentsApi(
         accessToken,

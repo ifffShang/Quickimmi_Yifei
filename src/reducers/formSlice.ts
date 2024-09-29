@@ -3,7 +3,7 @@ import _ from "lodash";
 import { CacheStore } from "../cache/cache";
 import {
   InitialAddressHistoryBeforeUS,
-  InitialApplicationCase,
+  InitialAsylumProfile,
   InitialChild,
   InitialEducationHistory,
   InitialEmploymentHistory,
@@ -12,9 +12,9 @@ import {
   InitialMember,
   InitialUSAddressHistoryPast5Y,
 } from "../consts/caseConsts";
+import { ExcludedSectionsFromPercentage, InitialApplicationCase } from "../consts/consts";
 import {
   ApplicationCase,
-  AsylumCaseProfile,
   AsylumCaseProfileOptional,
   GeneratedDocument,
   MarriageCertificate,
@@ -24,9 +24,11 @@ import {
   UploadedDocumentWithUrl,
 } from "../model/apiModels";
 import { ParseMarriageCertificateResponse } from "../model/apiReqResModels";
+import { CaseProfile } from "../model/commonApiModels";
 import { KeyValues } from "../model/commonModels";
+import { CaseType } from "../model/immigrationTypes";
 import { getUpdateProfileData } from "../utils/utils";
-import { ExcludedSectionsFromPercentage } from "../consts/consts";
+import { InitialFamilyBasedProfile } from "../consts/familyBasedConsts";
 
 export interface FormState {
   caseId: number;
@@ -71,7 +73,7 @@ function deepAssign(update: any, current: any, init: any) {
       } else if (value === null || value === undefined) {
         result[key] = current?.[key] || init?.[key] || null;
       } else if (typeof value === "object" && !Array.isArray(value)) {
-        result[key] = deepAssign(value, current[key], init[key]);
+        result[key] = deepAssign(value, current?.[key], init[key]);
       } else {
         result[key] = value;
       }
@@ -160,31 +162,45 @@ export const formSlice = createSlice({
   name: "form",
   initialState,
   reducers: {
-    // updateApplicationCase: (state, action: PayloadAction<ApplicationCase>) => {
-    //   const result = deepAssign(
-    //     action.payload,
-    //     state.applicationCase,
-    //     InitialApplicationCase,
-    //   );
-    //   Object.assign(state.applicationCase, result);
-    // },
     updateCaseProfileAndProgress: (
       state,
       action: PayloadAction<{
         caseId: number;
-        profile: AsylumCaseProfile;
+        caseType: string;
+        profile: CaseProfile;
         progress: Progress;
         percentage: Percentage;
       }>,
     ) => {
       state.caseId = action.payload.caseId;
-      const updatedProfile = deepAssign(
-        action.payload.profile,
-        state.applicationCase.profile,
-        InitialApplicationCase.profile,
-      );
-      Object.assign(state.applicationCase.profile, updatedProfile);
-      CacheStore.setProfile(updatedProfile, action.payload.caseId);
+
+      if (action.payload.caseType === CaseType.Asylum) {
+        const updatedProfile = deepAssign(
+          action.payload.profile,
+          state.applicationCase.asylumProfile,
+          InitialAsylumProfile,
+        );
+        if (!state.applicationCase.asylumProfile) {
+          state.applicationCase.asylumProfile = updatedProfile;
+        } else {
+          Object.assign(state.applicationCase.asylumProfile, updatedProfile);
+        }
+        CacheStore.setProfile(updatedProfile, action.payload.caseId);
+      }
+
+      if (action.payload.caseType === CaseType.FamilyBased) {
+        const updatedProfile = deepAssign(
+          action.payload.profile,
+          state.applicationCase.familyBasedProfile,
+          InitialFamilyBasedProfile,
+        );
+        if (!state.applicationCase.familyBasedProfile) {
+          state.applicationCase.familyBasedProfile = updatedProfile;
+        } else {
+          Object.assign(state.applicationCase.familyBasedProfile, updatedProfile);
+        }
+        CacheStore.setProfile(updatedProfile, action.payload.caseId);
+      }
 
       Object.assign(state.applicationCase.progress, action.payload.progress);
       CacheStore.setProgress(action.payload.progress, action.payload.caseId);
@@ -267,31 +283,31 @@ export const formSlice = createSlice({
       ArrayFields.forEach(item => {
         const { field, overwriteField } = item;
         if (action.payload[overwriteField]) {
-          _.set(state.applicationCase.profile, field, _.get(action.payload, field) ?? []);
+          _.set(state.applicationCase.asylumProfile, field, _.get(action.payload, field) ?? []);
           delete action.payload[overwriteField];
         }
       });
 
       let profile: any;
       if (action.payload.overwrite) {
-        profile = deepOverwrite(action.payload, state.applicationCase.profile);
+        profile = deepOverwrite(action.payload, state.applicationCase.asylumProfile);
       } else {
-        profile = _.merge(state.applicationCase.profile, action.payload);
+        profile = _.merge(state.applicationCase.asylumProfile, action.payload);
       }
 
       console.log("=====", original(profile.family));
 
-      state.applicationCase.profile = profile;
+      state.applicationCase.asylumProfile = profile;
 
       if (action.payload.supplementDocument) {
         Object.keys(action.payload.supplementDocument).forEach(key => {
           if (key.indexOf("SupportDocuments") > -1) {
-            state.applicationCase.profile.supplementDocument[key] = action.payload.supplementDocument![key];
+            state.applicationCase.asylumProfile.supplementDocument[key] = action.payload.supplementDocument![key];
           }
         });
       }
 
-      CacheStore.setProfile(state.applicationCase.profile, state.caseId);
+      CacheStore.setProfile(state.applicationCase.asylumProfile, state.caseId);
     },
     updatePassportInfo: (state, action: PayloadAction<ParsePassportResponse>) => {
       const fieldKey = action.payload.fieldKey.replace(".passportDocumentId", "");
@@ -314,8 +330,8 @@ export const formSlice = createSlice({
         };
       }
       const payloadToUpdate = getUpdateProfileData(fieldKey, payload, action.payload.fieldIndex);
-      const profile = _.merge(state.applicationCase.profile, payloadToUpdate);
-      Object.assign(state.applicationCase.profile, profile);
+      const profile = _.merge(state.applicationCase.asylumProfile, payloadToUpdate);
+      Object.assign(state.applicationCase.asylumProfile, profile);
     },
     updateIdCardInfo: (state, action: PayloadAction<ParsePassportResponse>) => {
       const fieldKey = action.payload.fieldKey.replace(".passportDocumentId", "");
@@ -330,8 +346,8 @@ export const formSlice = createSlice({
         cityAndCountryOfBirth: action.payload.birthPlace,
       };
       const payloadToUpdate = getUpdateProfileData(fieldKey, payload, action.payload.fieldIndex);
-      const profile = _.merge(state.applicationCase.profile, payloadToUpdate);
-      Object.assign(state.applicationCase.profile, profile);
+      const profile = _.merge(state.applicationCase.asylumProfile, payloadToUpdate);
+      Object.assign(state.applicationCase.asylumProfile, profile);
     },
     updateTravelDocumentInfo: (state, action: PayloadAction<ParsePassportResponse>) => {
       const fieldKey = action.payload.fieldKey.replace(".passportDocumentId", "");
@@ -353,11 +369,12 @@ export const formSlice = createSlice({
         };
       }
       const payloadToUpdate = getUpdateProfileData(fieldKey, payload, action.payload.fieldIndex);
-      const profile = _.merge(state.applicationCase.profile, payloadToUpdate);
-      Object.assign(state.applicationCase.profile, profile);
+      const profile = _.merge(state.applicationCase.asylumProfile, payloadToUpdate);
+      Object.assign(state.applicationCase.asylumProfile, profile);
     },
     updateMarriageLicenseInfo: (state, action: PayloadAction<ParseMarriageCertificateResponse>) => {
-      state.applicationCase.profile.supplementDocument.marriageCertificate = action.payload as MarriageCertificate;
+      state.applicationCase.asylumProfile.supplementDocument.marriageCertificate =
+        action.payload as MarriageCertificate;
     },
     syncUpMailingAndResidenceAddress: (state, action: PayloadAction<boolean>) => {
       const mailingAddressKeys = [
@@ -372,19 +389,21 @@ export const formSlice = createSlice({
       ];
 
       if (action.payload) {
-        state.applicationCase.profile.applicant.streetNumberAndNameOfMailingAddress =
-          state.applicationCase.profile.applicant.streetNumberAndName;
-        state.applicationCase.profile.applicant.aptNumberOfMailingAddress =
-          state.applicationCase.profile.applicant.aptNumber;
-        state.applicationCase.profile.applicant.cityOfMailingAddress = state.applicationCase.profile.applicant.city;
-        state.applicationCase.profile.applicant.stateOfMailingAddress = state.applicationCase.profile.applicant.state;
-        state.applicationCase.profile.applicant.zipCodeOfMailingAddress =
-          state.applicationCase.profile.applicant.zipCode;
-        state.applicationCase.profile.applicant.telePhoneAreaCodeOfMailingAddress =
-          state.applicationCase.profile.applicant.telePhoneAreaCode;
-        state.applicationCase.profile.applicant.telePhoneNumberOfMailingAddress =
-          state.applicationCase.profile.applicant.telePhoneNumber;
-        state.applicationCase.profile.applicant.inCareOf = "N/A";
+        state.applicationCase.asylumProfile.applicant.streetNumberAndNameOfMailingAddress =
+          state.applicationCase.asylumProfile.applicant.streetNumberAndName;
+        state.applicationCase.asylumProfile.applicant.aptNumberOfMailingAddress =
+          state.applicationCase.asylumProfile.applicant.aptNumber;
+        state.applicationCase.asylumProfile.applicant.cityOfMailingAddress =
+          state.applicationCase.asylumProfile.applicant.city;
+        state.applicationCase.asylumProfile.applicant.stateOfMailingAddress =
+          state.applicationCase.asylumProfile.applicant.state;
+        state.applicationCase.asylumProfile.applicant.zipCodeOfMailingAddress =
+          state.applicationCase.asylumProfile.applicant.zipCode;
+        state.applicationCase.asylumProfile.applicant.telePhoneAreaCodeOfMailingAddress =
+          state.applicationCase.asylumProfile.applicant.telePhoneAreaCode;
+        state.applicationCase.asylumProfile.applicant.telePhoneNumberOfMailingAddress =
+          state.applicationCase.asylumProfile.applicant.telePhoneNumber;
+        state.applicationCase.asylumProfile.applicant.inCareOf = "N/A";
 
         mailingAddressKeys.forEach(key => {
           state.disabledFields = {
@@ -393,14 +412,14 @@ export const formSlice = createSlice({
           };
         });
       } else {
-        state.applicationCase.profile.applicant.streetNumberAndNameOfMailingAddress = "";
-        state.applicationCase.profile.applicant.aptNumberOfMailingAddress = "";
-        state.applicationCase.profile.applicant.cityOfMailingAddress = "";
-        state.applicationCase.profile.applicant.stateOfMailingAddress = "";
-        state.applicationCase.profile.applicant.zipCodeOfMailingAddress = "";
-        state.applicationCase.profile.applicant.telePhoneAreaCodeOfMailingAddress = "";
-        state.applicationCase.profile.applicant.telePhoneNumberOfMailingAddress = "";
-        state.applicationCase.profile.applicant.inCareOf = "";
+        state.applicationCase.asylumProfile.applicant.streetNumberAndNameOfMailingAddress = "";
+        state.applicationCase.asylumProfile.applicant.aptNumberOfMailingAddress = "";
+        state.applicationCase.asylumProfile.applicant.cityOfMailingAddress = "";
+        state.applicationCase.asylumProfile.applicant.stateOfMailingAddress = "";
+        state.applicationCase.asylumProfile.applicant.zipCodeOfMailingAddress = "";
+        state.applicationCase.asylumProfile.applicant.telePhoneAreaCodeOfMailingAddress = "";
+        state.applicationCase.asylumProfile.applicant.telePhoneNumberOfMailingAddress = "";
+        state.applicationCase.asylumProfile.applicant.inCareOf = "";
 
         mailingAddressKeys.forEach(key => {
           state.disabledFields = {
@@ -433,6 +452,7 @@ export const formSlice = createSlice({
     },
     resetFormState: state => {
       state = initialState;
+      CacheStore.clear();
     },
   },
 });

@@ -1,15 +1,5 @@
-import { CacheStore } from "../cache/cache";
-import { InitialApplicationCase } from "../consts/caseConsts";
 import { Role } from "../consts/consts";
-import {
-  CaseSummary,
-  GetCaseProfileResponse,
-  ListCase,
-  UpdateApplicationCaseData,
-  UpdateProgressRequestDto,
-} from "../model/apiModels";
-import { removePropertiesNotDefinedInModel } from "../utils/caseUtils";
-import { getProgressWithPercentage } from "../utils/percentageUtils";
+import { ListCase, UpdateApplicationCaseData, UpdateProgressRequestDto } from "../model/apiModels";
 import { performApiRequest } from "./apiConfig";
 
 // Create new application case by customer
@@ -129,39 +119,6 @@ export async function updateCaseNameApi(
     caseId,
   });
   return res.data;
-}
-
-export async function getCaseProfileAndProgressApi(
-  caseId: number,
-  accessToken: string,
-  role: Role,
-): Promise<GetCaseProfileResponse> {
-  const cachedProfile = CacheStore.getProfile(caseId);
-  const cachedProgress = CacheStore.getProgress(caseId);
-  const cachedPercentage = CacheStore.getPercentage(caseId);
-  if (cachedProfile && cachedProgress && cachedPercentage) {
-    return {
-      profile: cachedProfile,
-      progress: getProgressWithPercentage(cachedProgress, cachedPercentage),
-    };
-  }
-  const res = await performApiRequest({
-    endPoint: `api/case/asylum/getCaseProfile?id=${caseId}`,
-    method: "GET",
-    data: null,
-    accessToken,
-    role,
-    caseId,
-  });
-  const responseData = res.data as GetCaseProfileResponse;
-  if (!responseData.profile) {
-    // For the newly created case, profile is null by default. Initiate the case profile here.
-    responseData.profile = InitialApplicationCase.profile;
-  }
-  return {
-    profile: removePropertiesNotDefinedInModel(InitialApplicationCase.profile, responseData.profile),
-    progress: responseData.progress,
-  };
 }
 
 export async function updateApplicationCaseApi(

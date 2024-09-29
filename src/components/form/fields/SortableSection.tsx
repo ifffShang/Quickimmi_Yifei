@@ -14,6 +14,7 @@ import {
 import { SectionHeader } from "../parts/SectionHeader";
 import { SectionSubFields } from "../parts/SectionSubFields";
 import "./SortableSection.css";
+import { getProfile } from "../../../utils/selectorUtils";
 
 export interface SortableSectionProps {
   fieldKey: string;
@@ -34,13 +35,15 @@ export interface SortableSectionProps {
 export function SortableSection(props: SortableSectionProps) {
   const dispatch = useAppDispatch();
   const { wt, t } = useFormTranslation();
-  const caseDetails = useAppSelector(state => state.form.applicationCase?.profile);
+  const caseType = useAppSelector(state => state.case.currentCaseType);
+  const applicationCase = useAppSelector(state => state.form.applicationCase);
+  const profile = getProfile(caseType, applicationCase);
   const modalType = useAppSelector(state => state.common.modalType);
 
   const sortableSectionRef = useRef<HTMLDivElement>(null);
 
   const fieldValue = getFieldValue(
-    caseDetails,
+    profile,
     props.fieldKey,
     props.control,
     props.options,
@@ -136,7 +139,7 @@ export function SortableSection(props: SortableSectionProps) {
 
   if (props.subFields && props.subFields.length > 0) {
     if (props.visibility) {
-      const isVisible = isSectionVisible(props.visibility, caseDetails, props.fieldIndex);
+      const isVisible = isSectionVisible(props.visibility, profile, props.fieldIndex);
       if (!isVisible) {
         innerComponent = <></>;
       }

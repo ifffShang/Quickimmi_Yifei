@@ -153,7 +153,7 @@ const FillingApplicationSection: React.FC<FillingApplicationSectionProps> = ({
         <>
           {metadataFields.map(({ field, title, sectionIndex }, index) => (
             <React.Fragment key={field}>
-              {renderProgressItem(title, metadata.percentage[field].avg, field.toUpperCase(), sectionIndex)}
+              {renderProgressItem(title, metadata.percentage[field]?.avg, field.toUpperCase(), sectionIndex)}
               {expandedStep === field.toUpperCase() && (
                 <div className="expanded-card-container">
                   <div className="progress-line extended-line"></div>

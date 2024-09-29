@@ -13,6 +13,7 @@ import {
 import { Identity, KeyValues, ScreenSize } from "../model/commonModels";
 import { ControlType, IFormOptions } from "../model/formFlowModels";
 import { ArrayFields, updateCaseFields } from "../reducers/formSlice";
+import { CaseProfile } from "../model/commonApiModels";
 
 export const handleResize = (dispatch?: React.Dispatch<any>, callback?: any) => {
   const width = window.innerWidth;
@@ -71,7 +72,7 @@ export function decodeId(encodedId: string) {
   return parseInt(encodedId, 36);
 }
 
-export function getCaseDetailValue(caseDetails: AsylumCaseProfile, key: string, fieldIndex?: number) {
+export function getCaseDetailValue(caseDetails: CaseProfile, key: string, fieldIndex?: number) {
   if (key.indexOf(".") > -1) {
     const keys = key.split(".");
     let result: any = caseDetails;
@@ -118,13 +119,17 @@ export function hasFormKey(control: ControlType) {
 }
 
 export function getFieldValue(
-  caseDetails: AsylumCaseProfile,
+  caseDetails: CaseProfile | null,
   key: string,
   control: ControlType,
   options?: IFormOptions[] | string,
   format?: string,
   fieldIndex?: number,
 ): any {
+  if (!caseDetails) {
+    return;
+  }
+
   // Sanity Check
   if (control === "group") {
     return;
@@ -280,7 +285,7 @@ export function getUpdateProfileData(key: string, profile: AsylumCaseProfileOpti
 export function getUpdateApplicationCaseData(applicationCase: ApplicationCase): UpdateApplicationCaseData {
   return {
     ...applicationCase,
-    profile: applicationCase.profile,
+    profile: applicationCase.asylumProfile,
   };
 }
 
@@ -508,7 +513,9 @@ export function isNullOrUndefined(value: any) {
   return value === null || value === undefined;
 }
 
-export function isSectionVisible(visibility: string, caseDetails: AsylumCaseProfile, fieldIndex?: number) {
+export function isSectionVisible(visibility: string, caseDetails: CaseProfile | null, fieldIndex?: number) {
+  if (!caseDetails) return false;
+
   let visibilityArray: string[];
   //| represents the "or" logic
   if (visibility.indexOf("|") > -1) {

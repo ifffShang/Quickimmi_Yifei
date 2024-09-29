@@ -12,6 +12,7 @@ import CaseStatusLayout from "../pages/casestatus/CaseStatusLayout";
 import "./FormContent.css";
 import { FormField } from "./FormField";
 import { ExcludedSectionsFromPercentage } from "../../consts/consts";
+import { getProfile } from "../../utils/selectorUtils";
 
 interface FormContentProps {
   sectionId: string;
@@ -26,13 +27,19 @@ export function FormContent(props: FormContentProps) {
   const formFieldsMap = useAppSelector(state => state.case.formFieldsMap);
   const isFirstStep = useAppSelector(state => state.case.isFirstStep);
   const isLastStep = useAppSelector(state => state.case.isLastStep);
-  const profile = useAppSelector(state => state.form.applicationCase.profile);
-  const percentage = useAppSelector(state => state.form.percentage);
 
+  const applicationCase = useAppSelector(state => state.form.applicationCase);
+  const caseType = useAppSelector(state => state.case.currentCaseType);
+  const profile = getProfile(caseType, applicationCase);
+
+  const percentage = useAppSelector(state => state.form.percentage);
   const formFields = formFieldsMap && props.referenceId ? formFieldsMap[props.referenceId] : null;
 
   useEffect(() => {
-    if (!props.referenceId) return;
+    if (!props.referenceId) {
+      console.error("Reference ID is missing.");
+      return;
+    }
     getFormFields(props.referenceId)
       .then(formFieldsRes => {
         dispatch(

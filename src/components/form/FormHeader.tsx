@@ -12,7 +12,7 @@ export function FormHeader() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const caseId = useAppSelector(state => state.form.caseId);
-  const profile = useAppSelector(state => state.form.applicationCase.profile);
+  const profile = useAppSelector(state => state.form.applicationCase.asylumProfile);
   const progress = useAppSelector(state => state.form.applicationCase.progress);
   const percentage = useAppSelector(state => state.form.percentage);
   const accessToken = useAppSelector(state => state.auth.accessToken);

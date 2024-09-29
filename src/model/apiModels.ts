@@ -1,4 +1,6 @@
+import { CaseProfile } from "./commonApiModels";
 import { Identity } from "./commonModels";
+import { FamilyBasedProfile } from "./familyBasedApiModels";
 
 export interface UserInfo {
   id: number;
@@ -146,7 +148,7 @@ export interface UpdateApplicationCaseData {
   currentStep?: string;
   status?: string;
   taskList?: Task[];
-  profile?: AsylumCaseProfile;
+  profile?: CaseProfile;
   submittedAt?: number;
   paid?: boolean;
   uscisReceiptNumber?: string;
@@ -170,7 +172,8 @@ export interface ApplicationCase {
   currentStep: string;
   status: string;
   taskList: Task[];
-  profile: AsylumCaseProfile;
+  asylumProfile: AsylumCaseProfile;
+  familyBasedProfile: FamilyBasedProfile;
   submittedAt: number;
   paid: boolean;
   uscisReceiptNumber: string;
@@ -242,11 +245,6 @@ export interface Task {
   completedAt: number;
   createdAt: number;
   updatedAt: number;
-}
-
-export interface GetCaseProfileResponse {
-  profile: AsylumCaseProfile;
-  progress: Progress;
 }
 
 export interface AsylumCaseProfileOptional {

@@ -4,11 +4,12 @@ import { getDocumentByIdApi } from "../api/documentAPI";
 import { Role } from "../consts/consts";
 import { AsylumCaseProfile, Percentage, Progress } from "../model/apiModels";
 import { getProgressWithPercentage } from "./percentageUtils";
+import { FamilyBasedProfile } from "../model/familyBasedApiModels";
 
 // !!!! This function should only be used by the form save !!!!
 export const updateApplicationCaseFunc = async (
   caseId: number,
-  profile: AsylumCaseProfile,
+  profile: AsylumCaseProfile | FamilyBasedProfile,
   progress: Progress,
   percentage: Percentage,
   role: Role,

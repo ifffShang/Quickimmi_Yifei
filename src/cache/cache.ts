@@ -1,4 +1,5 @@
 import { AsylumCaseProfile, Percentage, Progress } from "../model/apiModels";
+import { CaseProfile } from "../model/commonApiModels";
 
 export class CacheStore {
   public static I589ProfileKey = "I589-profile";
@@ -9,7 +10,7 @@ export class CacheStore {
     localStorage.setItem(this.generateKey(this.I589ProfileKey, caseId), JSON.stringify(value));
   }
 
-  public static getProfile(caseId: number): AsylumCaseProfile {
+  public static getProfile(caseId: number): CaseProfile {
     const strValue = localStorage.getItem(this.generateKey(this.I589ProfileKey, caseId));
     return strValue ? JSON.parse(strValue) : null;
   }

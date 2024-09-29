@@ -4,39 +4,21 @@
   "type": "form",
   "steps": [
     {
-      "label": "text_PersonalInformation",
-      "id": "personal_information",
+      "label": "text_Relationship",
+      "id": "part1",
       "type": "level1",
       "steps": [
         {
-          "label": "text_BasicInformation",
-          "id": "basic_information",
+          "label": "text_FillingInformation",
+          "id": "part1",
           "type": "level2",
-          "referenceId": "i589_fields_basic_information"
-        },
-        {
-          "label": "text_ContactInformation",
-          "id": "contact_information",
-          "type": "level2",
-          "referenceId": "i589_fields_contact_information"
-        },
-        {
-          "label": "text_ImmigrationInformation",
-          "id": "immigration_information",
-          "type": "level2",
-          "referenceId": "i589_fields_immigration_information"
-        },
-        {
-          "label": "text_NoticeOfAppearance",
-          "id": "notice_of_appearance_information",
-          "type": "level2",
-          "referenceId": "i589_fields_notice_of_appearance_information"
+          "referenceId": "familyBased/i130_fields_filling_information"
         }
       ]
     },
     {
-      "label": "text_FamilyInformation",
-      "id": "family_information",
+      "label": "text_Petitioner",
+      "id": "part2",
       "type": "level1",
       "steps": [
         {
@@ -66,8 +48,8 @@
       ]
     },
     {
-      "label": "text_BackgroundInformation",
-      "id": "background_information",
+      "label": "text_Biographic",
+      "id": "part3",
       "type": "level1",
       "steps": [
         {
@@ -97,8 +79,8 @@
       ]
     },
     {
-      "label": "text_ApplicationInformation",
-      "id": "application_information",
+      "label": "text_Beneficiary",
+      "id": "part4",
       "type": "level1",
       "steps": [
         {
@@ -116,8 +98,47 @@
       ]
     },
     {
-      "label": "text_Other",
+      "label": "text_BeneficiaryEligibility",
       "id": "personal_statement",
+      "type": "level1",
+      "steps": [
+        {
+          "label": "text_PersonalStatement",
+          "id": "personal_statement",
+          "type": "level2",
+          "referenceId": "i589_fields_personal_statement"
+        }
+      ]
+    },
+    {
+      "label": "text_PreviousPetition",
+      "id": "part5",
+      "type": "level1",
+      "steps": [
+        {
+          "label": "text_PersonalStatement",
+          "id": "personal_statement",
+          "type": "level2",
+          "referenceId": "i589_fields_personal_statement"
+        }
+      ]
+    },
+    {
+      "label": "text_PetitionerStatement",
+      "id": "part6",
+      "type": "level1",
+      "steps": [
+        {
+          "label": "text_PersonalStatement",
+          "id": "personal_statement",
+          "type": "level2",
+          "referenceId": "i589_fields_personal_statement"
+        }
+      ]
+    },
+    {
+      "label": "text_Interpreter",
+      "id": "part7",
       "type": "level1",
       "steps": [
         {
