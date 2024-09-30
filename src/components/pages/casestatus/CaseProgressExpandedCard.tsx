@@ -59,21 +59,21 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
   }, [substepMetadata?.documentId, accessToken, userRole]);
 
   const translationsMap: { [key: string]: string } = {
-    i589_fields_basic_information: "BasicInformation",
-    i589_fields_contact_information: "ContactInformation",
-    i589_fields_immigration_information: "ImmigrationInformation",
-    i589_fields_notice_of_appearance_information: "NoticeOfAppearance",
-    i589_fields_spouse_information: "SpouseInformation",
-    i589_fields_children_information: "ChildrenInformation",
-    i589_fields_parents_information: "ParentsInformation",
-    i589_fields_siblings_information: "SiblingsInformation",
-    i589_fields_address_before_usa: "AddressInformationI",
-    i589_fields_address_past_5y: "AddressInformationII",
-    i589_fields_education_information: "EducationInformation",
-    i589_fields_employment_information: "EmploymentInformation",
-    i589_fields_asylum_claim: "AsylumClaim",
-    i589_fields_additional_information: "AdditionalInformation",
-    i589_fields_personal_statement: "PersonalStatement",
+    "asylum/i589_fields_basic_information": "BasicInformation",
+    "asylum/i589_fields_contact_information": "ContactInformation",
+    "asylum/i589_fields_immigration_information": "ImmigrationInformation",
+    "asylum/i589_fields_notice_of_appearance_information": "NoticeOfAppearance",
+    "asylum/i589_fields_spouse_information": "SpouseInformation",
+    "asylum/i589_fields_children_information": "ChildrenInformation",
+    "asylum/i589_fields_parents_information": "ParentsInformation",
+    "asylum/i589_fields_siblings_information": "SiblingsInformation",
+    "asylum/i589_fields_address_before_usa": "AddressInformationI",
+    "asylum/i589_fields_address_past_5y": "AddressInformationII",
+    "asylum/i589_fields_education_information": "EducationInformation",
+    "asylum/i589_fields_employment_information": "EmploymentInformation",
+    "asylum/i589_fields_asylum_claim": "AsylumClaim",
+    "asylum/i589_fields_additional_information": "AdditionalInformation",
+    "asylum/i589_fields_personal_statement": "PersonalStatement",
   };
 
   const getTooltipText = (stepStatus: string | null, currentStepStatus: string) => {
