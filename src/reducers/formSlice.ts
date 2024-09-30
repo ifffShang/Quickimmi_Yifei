@@ -28,6 +28,7 @@ import { KeyValues } from "../model/commonModels";
 import { CaseType } from "../model/immigrationTypes";
 import { getUpdateProfileData } from "../utils/utils";
 import { InitialFamilyBasedProfile } from "../consts/familyBasedConsts";
+import { deepAssign } from "../utils/caseUtils";
 
 export interface FormState {
   caseId: number;
@@ -56,30 +57,6 @@ const initialState: FormState = {
   highlightMissingFields: false,
   disabledFields: {},
 };
-
-function deepAssign(update: any, current: any, init: any) {
-  const result: any = {};
-  if (typeof update !== "object") {
-    return result;
-  }
-  for (const key in update) {
-    if (Object.prototype.hasOwnProperty.call(update, key)) {
-      const value = update[key];
-      if (value === false || value === "false") {
-        result[key] = "false";
-      } else if (value === true || value === "true") {
-        result[key] = "true";
-      } else if (value === null || value === undefined) {
-        result[key] = current?.[key] || init?.[key] || null;
-      } else if (typeof value === "object" && !Array.isArray(value)) {
-        result[key] = deepAssign(value, current?.[key], init?.[key]);
-      } else {
-        result[key] = value;
-      }
-    }
-  }
-  return result;
-}
 
 /**
  * Deeply overwrite the target object with the update object, like array fields in the application case
