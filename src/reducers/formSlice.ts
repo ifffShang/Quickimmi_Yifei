@@ -263,9 +263,9 @@ export const formSlice = createSlice({
       if (action.payload.caseType === CaseType.Asylum) {
         ArrayFields.forEach(item => {
           const { field, overwriteField } = item;
-          if (action.payload[overwriteField]) {
-            _.set(state.applicationCase.asylumProfile, field, _.get(action.payload, field) ?? []);
-            delete action.payload[overwriteField];
+          if (action.payload.update[overwriteField]) {
+            _.set(state.applicationCase.asylumProfile, field, _.get(action.payload.update, field) ?? []);
+            delete action.payload.update[overwriteField];
           }
         });
 
@@ -273,7 +273,7 @@ export const formSlice = createSlice({
         if (action.payload.update.overwrite) {
           profile = deepOverwrite(action.payload.update, state.applicationCase.asylumProfile);
         } else {
-          profile = _.merge(state.applicationCase.asylumProfile, action.payload);
+          profile = _.merge(state.applicationCase.asylumProfile, action.payload.update);
         }
 
         state.applicationCase.asylumProfile = profile;
