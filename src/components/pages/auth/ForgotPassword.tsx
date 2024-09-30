@@ -1,6 +1,5 @@
 import { MailOutlined } from "@ant-design/icons";
 import { Button } from "antd";
-import Link from "antd/es/typography/Link";
 import { resetPassword } from "aws-amplify/auth";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -76,7 +75,9 @@ export function ForgotPassword() {
   const bottomTop = (
     <>
       <QText>{"Doesn't have account?"}</QText>
-      <Link onClick={() => navigate("/signup")}>Sign Up</Link>
+      <Button type="link" onClick={() => navigate("/signup")}>
+        Sign Up
+      </Button>
     </>
   );
 

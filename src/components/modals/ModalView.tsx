@@ -1,5 +1,4 @@
 import { CloseOutlined } from "@ant-design/icons";
-import Link from "antd/es/typography/Link";
 import { ReactNode, useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { closeModal } from "../../reducers/commonSlice";
@@ -14,6 +13,7 @@ import { TokenRefreshModal } from "./case/TokenRefreshModal";
 import { UploadOtherIdModal } from "./case/UploadOtherIdModal";
 import { UploadPassportModal } from "./case/UploadPassportModal";
 import { UploadSignedDocumentModal } from "./case/UploadSignedDocumentModal";
+import { Button } from "antd";
 
 interface ModalProps {
   children?: ReactNode;
@@ -31,9 +31,9 @@ function Modal({ children, closeButtonEnabled = true }: ModalProps) {
     <div className="modalview-container">
       <div className="modalview-popup">
         {closeButtonEnabled && (
-          <Link className="modalview-close" onClick={close}>
+          <Button type="link" className="modalview-close" onClick={close}>
             <CloseOutlined />
-          </Link>
+          </Button>
         )}
         <div className="modalview-content">{children}</div>
       </div>

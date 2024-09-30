@@ -22,11 +22,9 @@ export function buildPercentageObject(form: IForm, progress?: Progress) {
   return fillMissingPercentageProperties(percentage, form);
 }
 
-export function fillMissingPercentageProperties(percentage: Percentage, form: IForm): Percentage {
-  let newPercentage: Percentage = percentage;
-  if (!newPercentage) {
-    newPercentage = { overall: { avg: 0 } };
-  }
+export function fillMissingPercentageProperties(percentage: Percentage | null, form: IForm): Percentage {
+  const newPercentage: Percentage = percentage ? percentage : { overall: { avg: 0 } };
+
   form.steps.forEach(step => {
     if (step.standalone) return;
     if (!newPercentage[step.id]) {

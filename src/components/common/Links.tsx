@@ -1,6 +1,6 @@
-import Link from "antd/es/typography/Link";
 import { LeftOutlined } from "@ant-design/icons";
 import "./Links.css";
+import { Button } from "antd";
 
 export interface QLinkProps {
   onClick?: () => void;
@@ -15,9 +15,9 @@ export interface QLinkProps {
  */
 export function QLink(props: QLinkProps) {
   return (
-    <Link className={`qlink ${props.color || ""}`} onClick={props.onClick} disabled={props.disabled}>
+    <Button type="link" className={`qlink ${props.color || ""}`} onClick={props.onClick} disabled={props.disabled}>
       {props.children}
-    </Link>
+    </Button>
   );
 }
 

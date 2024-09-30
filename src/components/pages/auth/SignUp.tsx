@@ -1,6 +1,5 @@
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Button } from "antd";
-import Link from "antd/es/typography/Link";
 import { resendSignUpCode, signUp } from "aws-amplify/auth";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -137,7 +136,9 @@ export function SignUp() {
   const bottomTop = (
     <>
       <QText>Already a member?</QText>
-      <Link onClick={() => navigate("/signin")}>Login in</Link>
+      <Button type="link" onClick={() => navigate("/signin")}>
+        Login in
+      </Button>
     </>
   );
 

@@ -4,28 +4,11 @@ import { LocationObject, LocationSelectOption } from "../components/form/fields/
 import { PATH } from "../components/router/MainView";
 import { Regex } from "../consts/consts";
 import { ApplicationCase, AsylumCaseProfile, Progress, UpdateApplicationCaseData } from "../model/apiModels";
-import { Identity, KeyValues, ScreenSize } from "../model/commonModels";
+import { Identity, KeyValues } from "../model/commonModels";
 import { ControlType, IFormOptions } from "../model/formFlowModels";
 import { ArrayFields, updateCaseFields } from "../reducers/formSlice";
 import { CaseProfile, CaseProfileOptional } from "../model/commonApiModels";
 import { CaseType } from "../model/immigrationTypes";
-
-export const handleResize = (dispatch?: React.Dispatch<any>, callback?: any) => {
-  const width = window.innerWidth;
-  if (width < ScreenSize.xsmall) {
-    callback && dispatch && dispatch(callback(ScreenSize.xsmall));
-    return ScreenSize.xsmall;
-  } else if (width < ScreenSize.small) {
-    callback && dispatch && dispatch(callback(ScreenSize.small));
-    return ScreenSize.small;
-  } else if (width < ScreenSize.medium) {
-    callback && dispatch && dispatch(callback(ScreenSize.medium));
-    return ScreenSize.medium;
-  } else {
-    callback && dispatch && dispatch(callback(ScreenSize.large));
-    return ScreenSize.large;
-  }
-};
 
 export const equalsIgnoreCase = (str1: string, str2: string) => {
   if (str1 === undefined && str2 === undefined) return true;

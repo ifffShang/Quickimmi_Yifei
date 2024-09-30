@@ -257,6 +257,7 @@ export const formSlice = createSlice({
       }
       CacheStore.setPercentage(state.percentage, state.caseId);
     },
+
     updateCaseFields: (state, action: PayloadAction<{ update: CaseProfileOptional; caseType: CaseType }>) => {
       /** Asylum */
       if (action.payload.caseType === CaseType.Asylum) {
@@ -287,7 +288,6 @@ export const formSlice = createSlice({
         }
 
         CacheStore.setProfile(state.applicationCase.asylumProfile, state.caseId);
-
         /** Family based */
       } else if (action.payload.caseType === CaseType.FamilyBased) {
         let profile: any;

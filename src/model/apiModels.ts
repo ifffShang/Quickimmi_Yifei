@@ -185,7 +185,6 @@ export interface ApplicationCase {
 
 export interface Percentage {
   overall: { avg: number };
-
   [key: string]: { avg: number; [key: string]: number };
 }
 

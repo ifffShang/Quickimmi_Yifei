@@ -3,13 +3,12 @@ import { useEffect } from "react";
 import "./App.css";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { ModalView } from "./components/modals/ModalView";
-import { Navbar } from "./components/navbar/Navbar";
 import { ScreenSize } from "./model/commonModels";
 import { updateScreenSize } from "./reducers/commonSlice";
 import { MainView } from "./components/router/MainView";
 import "./styles/Common.css";
 import { getAntTheme } from "./utils/theme";
-import { handleResize } from "./utils/utils";
+import { handleResize } from "./utils/screenSizeUtil";
 import { signOutCurrentUser } from "./utils/authUtils";
 
 function App() {

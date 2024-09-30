@@ -6,7 +6,8 @@ import { useFormTranslation } from "../../../hooks/commonHooks";
 import { IFormOptions } from "../../../model/formFlowModels";
 import { ErrorMessage, QText } from "../../common/Fonts";
 import "./Controls.css";
-import TextArea from "antd/es/input/TextArea";
+
+const { TextArea } = Input;
 
 /** Form input (sign in, passport) ***********************************************/
 
