@@ -7,5 +7,9 @@
 }
 
 .mainview-content {
+  margin-top: 80px;
+}
+.small .mainview-content,
+.xsmall .mainview-content {
   margin-top: 70px;
 }

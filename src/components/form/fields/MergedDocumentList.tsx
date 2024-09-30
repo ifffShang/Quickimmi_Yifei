@@ -11,15 +11,16 @@ import {
   retryGetDocumentsApi,
   updateDocumentStatus,
   uploadFileToPresignUrl,
-} from "../../../api/caseAPI";
+  downloadDocuments,
+} from "../../../api/documentAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { GeneratedDocument } from "../../../model/apiModels";
+import { GeneratedDocument, GenerationType } from "../../../model/apiModels";
 import { convertToDocumentType, DocumentType } from "../../../model/commonModels";
 import { moveCaseProgressToNextStep } from "../../../utils/progressUtils";
 import { downloadDocument } from "../../../utils/utils";
 import { Status } from "../parts/Status";
 import "./DocumentList.css";
-import { updateGeneratedDocuments, updateMergedDocuments } from "../../../reducers/formSlice";
+import { updateMergedDocuments } from "../../../reducers/formSlice";
 
 interface DataType {
   key: number;
@@ -30,7 +31,7 @@ interface DataType {
   action: any;
 }
 
-const Columns: TableProps<DataType>["columns"] = [
+const mergedDocTableColumns: TableProps<DataType>["columns"] = [
   {
     title: "File Name",
     dataIndex: "filename",
@@ -66,46 +67,28 @@ const Columns: TableProps<DataType>["columns"] = [
 export function MergedDocumentList() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const caseId = useAppSelector(state => state.form.caseId);
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const role = useAppSelector(state => state.auth.role);
+
+  const caseId = useAppSelector(state => state.form.caseId);
   const progress = useAppSelector(state => state.form.applicationCase.progress);
-  const percentage = useAppSelector(state => state.form.percentage);
+
   const mergedDocuments = useAppSelector(state => state.form.mergedDocuments);
   const [loading, setLoading] = useState(false);
   const [replaceLoading, setReplaceLoading] = useState(false);
-  const replaceFileControl = useRef<HTMLInputElement | null>(null);
+  const [allMergeCompleted, setAllMergeCompleted] = useState(false);
   const [canMerge, setCanMerge] = useState(false);
   const [missingDocs, setMissingDocs] = useState<string[]>([]);
+  const replaceFileControl = useRef<HTMLInputElement | null>(null);
   const systemMergedDocumentType = { generationType: "SYSTEM_MERGED" };
-  const [allMergeCompleted, setAllMergeCompleted] = useState(false);
 
-  useEffect(() => {
+  console.log("------------------mergedDocuments", mergedDocuments);
+  const refreshTableContentAndMergeButton = () => {
     if (!accessToken || !caseId || caseId === 0) {
       console.error("Access token or case id is missing");
       return;
     }
-    if (replaceLoading || replaceLoading === undefined || replaceLoading === null) {
-      return;
-    }
-
     setLoading(true);
-
-    getDocumentsApi(accessToken, caseId, role, systemMergedDocumentType)
-      .then(documents => {
-        if (!documents) {
-          console.error("Failed to get documents");
-          return;
-        }
-        const allFinished = !documents.some(doc => doc.status === "In Progress");
-        setAllMergeCompleted(allFinished);
-        dispatch(updateMergedDocuments(documents));
-      })
-      .catch(error => {
-        setLoading(false);
-        console.error(error);
-      });
-
     canMergeDocumentForCase(caseId, accessToken, role)
       .then(result => {
         setCanMerge(result.status);
@@ -114,18 +97,31 @@ export function MergedDocumentList() {
         }
       })
       .catch(error => {
-        setLoading(false);
+        console.error(error);
+      });
+    getDocumentsApi(accessToken, caseId, role, systemMergedDocumentType)
+      .then(documents => {
+        if (!documents) {
+          message.error("Failed to get merged documents.");
+          console.error("Failed to get documents");
+          return;
+        }
+        dispatch(updateMergedDocuments(documents));
+        const allFinished = !documents.some(doc => doc.status === "In Progress");
+        setAllMergeCompleted(allFinished);
+      })
+      .catch(error => {
         console.error(error);
       });
     setLoading(false);
-  }, [caseId, accessToken, role]);
-
-  const onReplaceLinkClick = () => {
-    if (replaceFileControl.current) {
-      setReplaceLoading(true);
-      replaceFileControl.current.click();
-    }
   };
+
+  useEffect(() => {
+    if (replaceLoading || replaceLoading === undefined || replaceLoading === null) {
+      return;
+    }
+    refreshTableContentAndMergeButton();
+  }, [caseId, accessToken, role]);
 
   const onDownloadClick = async (doc: GeneratedDocument) => {
     if (!accessToken) {
@@ -133,7 +129,7 @@ export function MergedDocumentList() {
       return;
     }
     try {
-      const docWithPresignedUrl = await getDocumentByIdApi(accessToken, doc.id, role);
+      const docWithPresignedUrl = await getDocumentByIdApi(accessToken, doc.id, role, caseId);
       const response = await fetch(docWithPresignedUrl.presignUrl);
       if (!response.ok) {
         message.error("Failed to download document.");
@@ -151,7 +147,7 @@ export function MergedDocumentList() {
     }
   };
 
-  const generateDocument = async () => {
+  const mergeDocuments = async () => {
     if (!caseId || !accessToken) {
       console.error("Case ID or access token is not available");
       return;
@@ -160,7 +156,6 @@ export function MergedDocumentList() {
     setAllMergeCompleted(false);
     try {
       await defaultMergeApi(accessToken, caseId, role);
-
       await retryGetDocumentsApi(
         accessToken,
         caseId,
@@ -172,15 +167,17 @@ export function MergedDocumentList() {
           }
           setLoading(false);
           const documentsToUpdate = [...documents];
-          const allFinished = documentsToUpdate.every(doc => doc.status === "Success");
-          setAllMergeCompleted(allFinished);
-          dispatch(updateGeneratedDocuments(documentsToUpdate));
-          return allFinished;
+          dispatch(updateMergedDocuments(documentsToUpdate));
+          const allMergeTasksFinished = !documentsToUpdate.some(doc => doc.status === "In Progress");
+          setAllMergeCompleted(allMergeTasksFinished);
+          return allMergeTasksFinished;
         },
         systemMergedDocumentType,
       );
     } catch (error) {
+      message.error(`Error merging documents`);
       console.error("Error generating documents: ", error);
+      setAllMergeCompleted(true);
       setLoading(false);
     }
   };
@@ -202,6 +199,30 @@ export function MergedDocumentList() {
       "",
     );
   };
+
+  const handleDownloadClick = async () => {
+    try {
+      setLoading(true);
+      if (!caseId || !accessToken || !role) {
+        message.error("Missing required parameters for downloading documents.");
+        return;
+      }
+      const preSignedUrl = await downloadDocuments(caseId, accessToken, role, GenerationType.SYSTEM_MERGED);
+
+      // Triggering download
+      const link = document.createElement("a");
+      link.href = preSignedUrl;
+      link.setAttribute("download", "document"); // Optional: customize filename if needed
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Error downloading document:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const onReplaceFileUpload = (
     e: React.ChangeEvent<HTMLInputElement>,
     documentId: number,
@@ -228,7 +249,7 @@ export function MergedDocumentList() {
           file,
           (_percent: number) => {},
           () => {
-            updateDocumentStatus(role, documentId, true, "UPLOADED", accessToken).then(isSuccessful => {
+            updateDocumentStatus(role, documentId, true, "UPLOADED", accessToken, caseId).then(isSuccessful => {
               if (isSuccessful) {
                 setReplaceLoading(false);
                 console.log("File uploaded successfully");
@@ -236,7 +257,7 @@ export function MergedDocumentList() {
             });
           },
           (error: Error) => {
-            updateDocumentStatus(role, documentId, true, "FAILED", accessToken).then(isSuccessful => {
+            updateDocumentStatus(role, documentId, true, "FAILED", accessToken, caseId).then(isSuccessful => {
               if (isSuccessful) {
                 setReplaceLoading(false);
                 console.log("File error status updated successfully");
@@ -244,9 +265,15 @@ export function MergedDocumentList() {
             });
             console.error("Error uploading file: ", error);
           },
-        );
+        ).then(() => refreshTableContentAndMergeButton());
       });
     }
+  };
+  const calculateGeneratedDocStatus = (doc: GeneratedDocument) => {
+    if (doc.manualOverridden) {
+      return "Replaced";
+    }
+    return doc.status;
   };
 
   const uploadedDocumentsInTable = mergedDocuments
@@ -266,7 +293,7 @@ export function MergedDocumentList() {
                     return;
                   }
                   try {
-                    const document = await getDocumentByIdApi(accessToken, doc.id, role);
+                    const document = await getDocumentByIdApi(accessToken, doc.id, role, caseId);
                     const downloadedDocument = await downloadDocument(document.presignUrl, { ...document });
                     window.open(downloadedDocument.presignUrl, "_blank");
                   } catch (error) {
@@ -282,7 +309,7 @@ export function MergedDocumentList() {
             )}
           </div>
         ),
-        status: <Status status={doc.status} />,
+        status: <Status status={calculateGeneratedDocStatus(doc)} />,
         createdAt: doc.createdAt ? new Date(doc.createdAt).toLocaleString() : "-",
         updatedAt: doc.updatedAt ? new Date(doc.updatedAt).toLocaleString() : "-",
         action: (
@@ -323,11 +350,12 @@ export function MergedDocumentList() {
       return t("The button will only be available when all the docs in the previous steps are successfully generated.");
     }
   };
+
   return (
     <div className="document-list">
       <div className="document-list-inner">
         <Tooltip title={generateTooltipText()}>
-          <Button type="primary" onClick={generateDocument} className="document-list-btn" disabled={!canMerge}>
+          <Button type="primary" onClick={mergeDocuments} className="document-list-btn" disabled={!canMerge}>
             {t("Generate Merged Documents")}
           </Button>
         </Tooltip>
@@ -335,14 +363,22 @@ export function MergedDocumentList() {
           type="primary"
           onClick={markLawyerReviewAsCompleted}
           className="document-list-btn"
-          disabled={percentage?.["overall"]?.avg !== 100 || !allMergeCompleted}
+          disabled={!(canMerge && allMergeCompleted && mergedDocuments.length > 0)}
         >
           {t("Complete Review")}
+        </Button>
+        <Button
+          type="primary"
+          onClick={handleDownloadClick}
+          className="document-list-btn"
+          disabled={!(canMerge && allMergeCompleted && mergedDocuments.length > 0)}
+        >
+          {t("Download All")}
         </Button>
         <Table
           loading={loading || replaceLoading}
           bordered={false}
-          columns={Columns?.map(c => ({ ...c, title: t(c.title as string) }))}
+          columns={mergedDocTableColumns?.map(c => ({ ...c, title: t(c.title as string) }))}
           dataSource={uploadedDocumentsInTable}
         />
       </div>

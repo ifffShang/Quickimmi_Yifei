@@ -1,16 +1,16 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { Alert } from "antd";
-import { CaseSummary } from "../../../model/apiModels";
+import { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
+import { getCaseSummaryApi } from "../../../api/caseSummaryAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import CaseProgressCard from "./CaseProgressCard";
-import CaseSummaryCard from "./CaseSummaryCard";
-import "./CaseStatusRightPanel.css";
+import { CaseSummary } from "../../../model/apiModels";
+import { CaseSubType } from "../../../model/immigrationTypes";
+import { updateCurrentCaseInfo } from "../../../reducers/caseSlice";
 import { Loading } from "../../common/Loading";
-import { getCaseSummaryApi } from "../../../api/caseAPI";
-import { updateAsylumType } from "../../../reducers/formSlice";
-import { updateCurrentCaseId } from "../../../reducers/caseSlice";
+import CaseProgressCard from "./CaseProgressCard";
+import "./CaseStatusRightPanel.css";
+import CaseSummaryCard from "./CaseSummaryCard";
 
 function useFetchCaseSummary() {
   const { id } = useParams<{ id?: string }>();
@@ -18,6 +18,7 @@ function useFetchCaseSummary() {
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const userId = useAppSelector(state => state.auth.userId);
   const role = useAppSelector(state => state.auth.role);
+  const currentCaseType = useAppSelector(state => state.case.currentCaseType);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -33,17 +34,26 @@ function useFetchCaseSummary() {
 
     try {
       setLoading(true);
-      const data = await getCaseSummaryApi(parseInt(id), accessToken, role);
+
+      if (!currentCaseType) {
+        console.error("Current case type is missing.");
+        setError("Current case type is missing.");
+        setLoading(false);
+        return;
+      }
+
+      const data = await getCaseSummaryApi(accessToken, role, parseInt(id), currentCaseType);
 
       if (data) {
         setCaseSummary(data);
-        if (data.asylumType) {
-          dispatch(updateAsylumType(data.asylumType as "AFFIRMATIVE" | "DEFENSIVE"));
-        } else {
-          console.error("Asylum type is empty.");
-        }
         if (data.id) {
-          dispatch(updateCurrentCaseId(data.id.toString()));
+          dispatch(
+            updateCurrentCaseInfo({
+              caseId: data.id.toString(),
+              caseType: currentCaseType,
+              caseSubType: (data.subType as CaseSubType) || (data.asylumType as CaseSubType) || null,
+            }),
+          );
         } else {
           console.error("Case ID is missing in the case summary.");
         }
@@ -53,9 +63,13 @@ function useFetchCaseSummary() {
       }
 
       setLoading(false);
-    } catch (error) {
-      console.error("Failed to fetch case summary:", error);
-      setError("Failed to fetch case summary. Please try again later.");
+    } catch (error: any) {
+      console.error(error);
+      let errMsg = "Failed to fetch case summary. Please try again later.";
+      if (error?.message?.includes("403") || error?.status === 403) {
+        errMsg = "Forbidden: You do not have permission to access this resource.";
+      }
+      setError(errMsg);
       setLoading(false);
     }
   }, [accessToken, userId, id, role]);

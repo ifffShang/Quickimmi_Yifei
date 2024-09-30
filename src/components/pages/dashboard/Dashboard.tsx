@@ -1,18 +1,18 @@
+import { SearchOutlined, SwapOutlined } from "@ant-design/icons";
+import { Button, Input, Pagination, Select, message } from "antd";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useLocation } from "react-router-dom";
-import { Button, Pagination, message, Input, Select } from "antd";
-import { SwapOutlined, SearchOutlined } from "@ant-design/icons";
-import { createNewCaseApi, getCasesApi, getCasesByLawyerApi } from "../../../api/caseAPI";
+import { useNavigate } from "react-router-dom";
+import { getCasesApi, queryCasesByLawyerApi } from "../../../api/caseAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { updateCases, updateCurrentCaseId } from "../../../reducers/caseSlice";
+import { Case } from "../../../model/apiModels";
+import { updateCases } from "../../../reducers/caseSlice";
+import { equalsIgnoreCase } from "../../../utils/utils";
 import { QText } from "../../common/Fonts";
 import { Loading } from "../../common/Loading";
 import { NewApplicationIcon } from "../../icons/Dashboard";
 import { CaseCard } from "./CaseCard";
 import "./Dashboard.css";
-import { Role } from "../../../consts/consts";
-import { set } from "lodash";
 
 export function Dashboard() {
   const navigate = useNavigate();
@@ -48,7 +48,7 @@ export function Dashboard() {
     try {
       let allCases;
       if (isLawyer) {
-        const data = await getCasesByLawyerApi(userId!, 1, 1000, accessToken, role);
+        const data = await queryCasesByLawyerApi(userId!, 1, 1000, accessToken, role);
         allCases = data.cases;
       } else {
         const data = await getCasesApi(userId!, 1, 1000, accessToken, role);
@@ -65,13 +65,16 @@ export function Dashboard() {
     }
   };
 
-  const applySearchAndFilter = (cases, searchQuery, sortOption, sortOrder) => {
+  const applySearchAndFilter = (cases: Case[], searchQuery, sortOption, sortOrder) => {
     if (!cases || cases.length === 0) {
       return [];
     }
-    let filteredCases = cases.filter(
-      c => c.caseName.toLowerCase().includes(searchQuery.toLowerCase()) || c.id.toString() === searchQuery,
-    );
+
+    let filteredCases = [...cases];
+
+    if (searchQuery) {
+      filteredCases = cases.filter(c => equalsIgnoreCase(c.caseName, searchQuery) || c.id.toString() === searchQuery);
+    }
 
     filteredCases = filteredCases.sort((a, b) => {
       let result;
@@ -79,7 +82,7 @@ export function Dashboard() {
         result = new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
       } else if (sortOption === "id") {
         result = b.id - a.id;
-      } else {
+      } else if (a.caseName && b.caseName) {
         result = a.caseName.localeCompare(b.caseName);
       }
       return sortOrder === "asc" ? -result : result;
@@ -137,16 +140,6 @@ export function Dashboard() {
     setCurrentPage(1);
   };
 
-  const CreateNewApplication = async () => {
-    if (!accessToken || !userId) {
-      console.error(`Access token ${accessToken} or user id ${userId} is missing`);
-      return;
-    }
-    const caseId = await createNewCaseApi(accessToken, userId, "Asylum create reason", "AFFIRMATIVE", role);
-    dispatch(updateCurrentCaseId(caseId));
-    navigate("/case/" + caseId);
-  };
-
   const CreateNewCaseForLawyer = async () => {
     if (!isLawyer) {
       console.error("Only lawyer can create case from this page.");
@@ -178,10 +171,10 @@ export function Dashboard() {
       <div className="dashboard-panel no-application">
         <NewApplicationIcon />
         <QText level="large">{t("Dashboard.FirstApplication")}</QText>
-        <QText level="small" color="gray">
+        <QText level="normal" color="gray">
           {t("Dashboard.GreetingMessage")}
         </QText>
-        <Button type="primary" onClick={role === Role.LAWYER ? CreateNewCaseForLawyer : CreateNewApplication}>
+        <Button type="primary" onClick={CreateNewCaseForLawyer}>
           {t("Dashboard.CreateNewApplication")}
         </Button>
       </div>
@@ -193,15 +186,9 @@ export function Dashboard() {
         <h2>
           <QText level="large">{t("Dashboard.Dashboard")}</QText>
         </h2>
-        {role === Role.LAWYER ? (
-          <Button type="primary" onClick={CreateNewCaseForLawyer}>
-            {t("Dashboard.CreateNewApplication")}
-          </Button>
-        ) : (
-          <Button type="primary" onClick={CreateNewApplication}>
-            {t("Dashboard.CreateNewApplication")}
-          </Button>
-        )}
+        <Button type="primary" onClick={CreateNewCaseForLawyer}>
+          {t("Dashboard.CreateNewApplication")}
+        </Button>
       </div>
 
       <div className="dashboard-toolbar">

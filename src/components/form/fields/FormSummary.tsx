@@ -8,9 +8,11 @@ import "./FormSummary.css";
 
 export function FormSummary() {
   const { t } = useTranslation();
-  const profile: AsylumCaseProfile | undefined = useAppSelector(state => state.form.applicationCase.profile);
+  const asylumProfile: AsylumCaseProfile | undefined = useAppSelector(
+    state => state.form.applicationCase.asylumProfile,
+  );
 
-  if (!profile) {
+  if (!asylumProfile) {
     return <div>{t("No profile information available")}</div>;
   }
 
@@ -26,32 +28,32 @@ export function FormSummary() {
     {
       key: "1",
       label: t("ApplicantInformation"),
-      children: renderCards(profile.applicant),
+      children: renderCards(asylumProfile.applicant),
     },
     {
       key: "2",
       label: t("FamilyInformation"),
-      children: renderCards(profile.family),
+      children: renderCards(asylumProfile.family),
     },
     {
       key: "3",
       label: t("BackgroundInformation"),
-      children: renderCards(profile.background),
+      children: renderCards(asylumProfile.background),
     },
     {
       key: "4",
       label: t("ApplicationDetails"),
-      children: renderCards(profile.applicationDetails),
+      children: renderCards(asylumProfile.applicationDetails),
     },
     {
       key: "5",
       label: t("Signature"),
-      children: renderCards(profile.signature),
+      children: renderCards(asylumProfile.signature),
     },
     {
       key: "6",
       label: t("Declaration"),
-      children: renderCards(profile.declaration),
+      children: renderCards(asylumProfile.declaration),
     },
   ];
 

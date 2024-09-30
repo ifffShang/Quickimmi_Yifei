@@ -3,7 +3,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../../app/hooks";
-import { updateCurrentCaseId } from "../../../reducers/caseSlice";
+import { resetCaseState } from "../../../reducers/caseSlice";
 import { resetFormState } from "../../../reducers/formSlice";
 import { QReturnLink } from "../../common/Links";
 import CaseDocumentRightPanel from "./CaseDocumentRightPanel";
@@ -23,18 +23,18 @@ const CaseStatusLayout: React.FC<CaseStatusLayoutProps> = ({ menuItemSelected })
   const dispatch = useAppDispatch();
 
   const handleReturnClick = () => {
-    dispatch(updateCurrentCaseId(""));
+    dispatch(resetCaseState());
     dispatch(resetFormState());
     navigate(`/dashboard`);
   };
 
   return (
-    <Layout style={{ minHeight: "100vh" }}>
+    <Layout>
       <CaseStatusMenuSider />
       <Layout className="site-layout">
         <Content style={{ margin: "0 16px" }}>
-          <QReturnLink onClick={handleReturnClick} text={t("ReturnToDashboard")} margin="20px 0 15px 0" />
-          <div className="site-layout-background" style={{ minHeight: 360 }}>
+          <QReturnLink onClick={handleReturnClick} text={t("ReturnToDashboard")} padding="20px 0 15px 0" />
+          <div className="case-status-right-panel">
             {menuItemSelected === "caseOverview" && <CaseStatusRightPanel />}
             {menuItemSelected === "caseDocuments" && <CaseDocumentRightPanel />}
           </div>

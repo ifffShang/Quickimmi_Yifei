@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Regex } from "../../consts/consts";
 import { useFormTranslation } from "../../hooks/commonHooks";
 import { EntryRecord } from "../../model/apiModels";
-import { DocumentType, KeyValues, LanguageEnum } from "../../model/commonModels";
+import { DocumentType, Identity, KeyValues, LanguageEnum } from "../../model/commonModels";
 import { ControlType, IFormField, IFormOptions } from "../../model/formFlowModels";
 import {
   createKeyValuesForAddItem,
@@ -20,15 +20,18 @@ import {
   CheckBoxMultiOptions,
   QDatePicker,
   QDatePickerWithNA,
+  QFieldView,
   QMonthYearPicker,
   QTextArea,
   QTextBox,
   RadioSelect,
   SelectBox,
 } from "./fields/Controls";
+import { CoverLetter } from "./fields/CoverLetter";
 import { DocumentList } from "./fields/DocumentList";
 import { DraggerFileUploader } from "./fields/DraggerFileUploader";
 import { EntryRecords } from "./fields/EntryRecords";
+import { FormSummary } from "./fields/FormSummary";
 import { LocationDropdown } from "./fields/LocationDropdown";
 import { MergedDocumentList } from "./fields/MergedDocumentList";
 import { MultiFileUploader } from "./fields/MultiFileUploader";
@@ -36,11 +39,12 @@ import { MultipleTextboxesWithNA } from "./fields/MultipleTextboxesWithNA";
 import { PassportUploader } from "./fields/PassportUploader";
 import { PersonalStatement } from "./fields/PersonalStatement";
 import { SameAddressCheckbox } from "./fields/SameAddressCheckbox";
+import { Section } from "./fields/Section";
 import { SingleFileUploaderV2 } from "./fields/SingleFileUploaderV2";
+import { SortableSection } from "./fields/SortableSection";
 import { TextAreaWithAIRefine } from "./fields/TextAreaWithAIRefine";
 import { TextboxWithNA } from "./fields/TextboxWithNA";
-import { FormSummary } from "./fields/FormSummary";
-import { Section } from "./fields/Section";
+import { getProfile } from "../../utils/selectorUtils";
 
 export interface FormFieldProps {
   fieldKey: string;
@@ -56,19 +60,24 @@ export interface FormFieldProps {
   hideHeader?: boolean;
   fieldIndex?: number;
   documentType?: DocumentType;
+  identity?: string;
+  mode?: "view" | "edit";
 }
 
 export function FormField(props: FormFieldProps) {
   const { wt, t } = useFormTranslation();
   const dispatch = useAppDispatch();
-  const caseDetails = useAppSelector(state => state.form.applicationCase?.profile);
+  const caseId = useAppSelector(state => state.form.caseId);
   const disabledFields = useAppSelector(state => state.form.disabledFields);
-  const asylumType = useAppSelector(state => state.form.asylumType);
+  const caseType = useAppSelector(state => state.case.currentCaseType);
+  const caseSubType = useAppSelector(state => state.case.currentCaseSubType);
+  const applicationCase = useAppSelector(state => state.form.applicationCase);
+  const profile = getProfile(caseType, applicationCase);
 
   const placeholder = props.placeholder ? wt(props.placeholder) : "";
 
   const fieldValue = getFieldValue(
-    caseDetails,
+    profile,
     props.fieldKey,
     props.control,
     props.options,
@@ -76,15 +85,20 @@ export function FormField(props: FormFieldProps) {
     props.fieldIndex,
   );
 
-  /**
+  const identity =
+    props.identity === "Child" && typeof props.fieldIndex === "number"
+      ? props.identity + `_${props.fieldIndex + 1}`
+      : "Applicant";
+
+  /**  
   console.log(
     `Field key ${props.fieldKey},
     value: ${JSON.stringify(fieldValue)},
     control: ${props.control},
-    totalFields_fulfilled: ${fieldCount}
+    fieldIndex: ${props.fieldIndex},
     `,
   );
- */
+  */
 
   const onOptionChange = (value: string) => {
     if (props.options && Array.isArray(props.options)) {
@@ -97,10 +111,11 @@ export function FormField(props: FormFieldProps) {
           keys.forEach((key, index) => {
             keyValues[key] = values[index];
           });
-          dispatchFormValue(dispatch, keyValues, props.fieldIndex);
+          dispatchFormValue(dispatch, caseType, keyValues, props.fieldIndex);
         } else {
           dispatchFormValue(
             dispatch,
+            caseType,
             {
               [props.fieldKey]: option.keyValue,
             },
@@ -110,6 +125,7 @@ export function FormField(props: FormFieldProps) {
       } else {
         dispatchFormValue(
           dispatch,
+          caseType,
           {
             [props.fieldKey]: value,
           },
@@ -119,6 +135,7 @@ export function FormField(props: FormFieldProps) {
     } else {
       dispatchFormValue(
         dispatch,
+        caseType,
         {
           [props.fieldKey]: value,
         },
@@ -152,6 +169,7 @@ export function FormField(props: FormFieldProps) {
         const group2 = matches[2]; // "456-7890"
         dispatchFormValue(
           dispatch,
+          caseType,
           {
             [keys[0]]: group1,
             [keys[1]]: group2,
@@ -164,6 +182,7 @@ export function FormField(props: FormFieldProps) {
       props.fieldKey &&
         dispatchFormValue(
           dispatch,
+          caseType,
           {
             [props.fieldKey]: value,
           },
@@ -181,6 +200,7 @@ export function FormField(props: FormFieldProps) {
       const values = value.split(",");
       dispatchFormValue(
         dispatch,
+        caseType,
         {
           [keys[0]]: values[0],
           [keys[1]]: values[1],
@@ -191,6 +211,7 @@ export function FormField(props: FormFieldProps) {
     }
     dispatchFormValue(
       dispatch,
+      caseType,
       {
         [props.fieldKey]: value,
       },
@@ -208,11 +229,12 @@ export function FormField(props: FormFieldProps) {
       keys.forEach((key, index) => {
         keyValueObject[key] = values[index];
       });
-      dispatchFormValue(dispatch, keyValueObject, props.fieldIndex);
+      dispatchFormValue(dispatch, caseType, keyValueObject, props.fieldIndex);
       return;
     }
     dispatchFormValue(
       dispatch,
+      caseType,
       {
         [props.fieldKey]: value,
       },
@@ -224,6 +246,7 @@ export function FormField(props: FormFieldProps) {
     const locationStr = formatCityAndCountryStr(...params);
     dispatchFormValue(
       dispatch,
+      caseType,
       {
         [props.fieldKey]: locationStr,
       },
@@ -233,8 +256,16 @@ export function FormField(props: FormFieldProps) {
 
   const onAddItemClick = () => {
     const keyValues = createKeyValuesForAddItem(fieldValue);
-    dispatchFormValue(dispatch, keyValues, props.fieldIndex);
+    dispatchFormValue(dispatch, caseType, keyValues, props.fieldIndex);
   };
+
+  if (props.mode === "view") {
+    return (
+      <FormControlContainer fieldValue={fieldValue}>
+        <QFieldView label={wt(props.label)} value={fieldValue} />
+      </FormControlContainer>
+    );
+  }
 
   switch (props.control) {
     case "label":
@@ -266,12 +297,23 @@ export function FormField(props: FormFieldProps) {
             value={fieldValue}
             fieldKey={props.fieldKey}
             onChange={onTextChange}
+            caseId={caseId}
           />
         </FormControlContainer>
       );
     case "component_personal_statement":
       return (
         <PersonalStatement
+          placeholder={placeholder}
+          value={fieldValue}
+          fieldKey={props.fieldKey}
+          onChange={onTextChange}
+          originLanguage={LanguageEnum.CHINESE}
+        />
+      );
+    case "component_cover_letter":
+      return (
+        <CoverLetter
           placeholder={placeholder}
           value={fieldValue}
           fieldKey={props.fieldKey}
@@ -310,7 +352,7 @@ export function FormField(props: FormFieldProps) {
         <FormControlContainer fieldValue={fieldValue}>
           <SingleFileUploaderV2
             documentType={props.documentType || "SUPPORTING_DOCUMENT"}
-            identity={"Applicant"}
+            identity={identity as Identity}
             operation={"NEW"}
             description={props.fieldKey}
             documentId={fieldValue}
@@ -318,6 +360,7 @@ export function FormField(props: FormFieldProps) {
               props.fieldKey &&
                 dispatchFormValue(
                   dispatch,
+                  caseType,
                   {
                     [props.fieldKey]: documentId,
                   },
@@ -332,16 +375,19 @@ export function FormField(props: FormFieldProps) {
         <FormControlContainer fieldValue={fieldValue} fieldKey={props.fieldKey}>
           <MultiFileUploader
             documentType={props.documentType || "SUPPORTING_DOCUMENT"}
-            identity={"Applicant"}
+            identity={identity as Identity}
             operation={"NEW"}
             description={props.fieldKey}
             documentIds={fieldValue}
+            enableNACheckbox={identity !== "Applicant"}
             onChange={(documentIds: number[]) => {
               props.fieldKey &&
                 dispatchFormValue(
                   dispatch,
+                  caseType,
                   {
                     [props.fieldKey]: documentIds,
+                    ["overwrite"]: true,
                   },
                   props.fieldIndex,
                 );
@@ -354,7 +400,7 @@ export function FormField(props: FormFieldProps) {
         <FormControlContainer fieldValue={fieldValue}>
           <DraggerFileUploader
             documentType={props.documentType || "SUPPORTING_DOCUMENT"}
-            identity={"Applicant"}
+            identity={identity as Identity}
             operation={"NEW"}
             description={props.fieldKey}
             documentIds={fieldValue}
@@ -387,6 +433,7 @@ export function FormField(props: FormFieldProps) {
               props.fieldKey &&
                 dispatchFormValue(
                   dispatch,
+                  caseType,
                   {
                     [props.fieldKey]: value,
                   },
@@ -407,6 +454,7 @@ export function FormField(props: FormFieldProps) {
               props.fieldKey &&
                 dispatchFormValue(
                   dispatch,
+                  caseType,
                   {
                     [props.fieldKey]: value,
                   },
@@ -428,6 +476,7 @@ export function FormField(props: FormFieldProps) {
               props.fieldKey &&
                 dispatchFormValue(
                   dispatch,
+                  caseType,
                   {
                     [props.fieldKey]: value,
                   },
@@ -448,6 +497,30 @@ export function FormField(props: FormFieldProps) {
               props.fieldKey &&
                 dispatchFormValue(
                   dispatch,
+                  caseType,
+                  {
+                    [props.fieldKey]: value,
+                  },
+                  props.fieldIndex,
+                );
+            }}
+          />
+        </FormControlContainer>
+      );
+    }
+    case "component_passport_uploader_with_na": {
+      return (
+        <FormControlContainer fieldValue={fieldValue}>
+          <PassportUploader
+            documentId={fieldValue}
+            fieldKey={props.fieldKey}
+            fieldIndex={props.fieldIndex}
+            enableNACheckbox={true}
+            onChange={(value: any) => {
+              props.fieldKey &&
+                dispatchFormValue(
+                  dispatch,
+                  caseType,
                   {
                     [props.fieldKey]: value,
                   },
@@ -460,7 +533,7 @@ export function FormField(props: FormFieldProps) {
     }
     case "component_textbox_na":
       // TODO: This is a temporary solution for A-Number. Need to refactor this and move the control to JSON
-      if (asylumType === "DEFENSIVE" && props.fieldKey === "applicant.alienNumber") {
+      if (caseSubType === "DEFENSIVE" && props.fieldKey === "applicant.alienNumber") {
         return (
           <FormControlContainer fieldValue={fieldValue}>
             <QTextBox
@@ -518,6 +591,7 @@ export function FormField(props: FormFieldProps) {
               if (action === "Remove") {
                 dispatchFormValue(
                   dispatch,
+                  caseType,
                   {
                     [props.fieldKey]: value,
                     ["overwriteEntryRecords"]: true,
@@ -527,6 +601,7 @@ export function FormField(props: FormFieldProps) {
               } else {
                 dispatchFormValue(
                   dispatch,
+                  caseType,
                   {
                     [props.fieldKey]: value,
                   },
@@ -537,7 +612,6 @@ export function FormField(props: FormFieldProps) {
           />
         </FormControlContainer>
       );
-
     case "component_add_item":
       return <AddItemControl className={props.className} placeholder={placeholder} onClick={() => onAddItemClick()} />;
     case "group":
@@ -560,6 +634,7 @@ export function FormField(props: FormFieldProps) {
                   visibility={field.visibility}
                   fieldIndex={props.fieldIndex}
                   documentType={field.documentType}
+                  identity={field.identity}
                 />
               </div>
             ))}
@@ -569,6 +644,8 @@ export function FormField(props: FormFieldProps) {
     case "section":
     case "removable_section":
       return <Section {...props} />;
+    case "sortable_section":
+      return <SortableSection {...props} />;
     default:
       return <div>Control not found</div>;
   }

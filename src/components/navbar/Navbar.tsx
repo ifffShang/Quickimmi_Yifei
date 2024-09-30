@@ -34,7 +34,9 @@ export function Navbar(props: { currentPath: string }) {
   const [firstLetter, setFirstLetter] = useState("U");
 
   useEffect(() => {
-    fetchLawyerInfo();
+    if (isLoggedIn) {
+      fetchLawyerInfo();
+    }
   }, [accessToken, userId]);
 
   const fetchLawyerInfo = async () => {
@@ -86,11 +88,11 @@ export function Navbar(props: { currentPath: string }) {
       //   label: t("Dashboard.Dashboard"),
       //   onClick: goToDashboard,
       // },
-      // {
-      //   key: "profile",
-      //   label: t("Profile"),
-      //   onClick: goToProfile,
-      // },
+      {
+        key: "profile",
+        label: t("Profile"),
+        onClick: goToProfile,
+      },
       {
         key: "signout",
         label: t("SignOut"),

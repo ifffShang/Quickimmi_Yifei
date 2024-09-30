@@ -50,7 +50,8 @@
           "id": "spouse_passport_stamp_page_documents",
           "key": "family.spouse.passportStampPageDocumentIds",
           "control": "multi_file_uploader",
-          "documentType": "PASSPORT_STAMP_PAGES"
+          "documentType": "PASSPORT_STAMP_PAGES",
+          "identity": "Spouse"
         },
         {
           "label": "text_PassportOrOtherIDNumber",

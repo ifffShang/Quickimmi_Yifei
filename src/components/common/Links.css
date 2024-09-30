@@ -18,3 +18,8 @@
 .qlink-return:hover {
   color: var(--primary-color);
 }
+
+.qlink.ant-btn-link {
+  padding: 0;
+  font-weight: 400;
+}

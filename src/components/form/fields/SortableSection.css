@@ -1,0 +1,33 @@
+.sortable-section {
+  position: relative;
+}
+
+.section-tooltip {
+  opacity: 0;
+  position: absolute;
+  background-color: black;
+  color: white;
+  padding: 5px;
+  top: 0;
+  left: 0;
+  font-size: var(--font-size-p3);
+  z-index: 1;
+}
+
+.sortable-section:hover .section-tooltip {
+  opacity: 0.6;
+}
+
+.section-container.sortable > .section-view {
+  margin-bottom: 0;
+  margin-left: 20px;
+}
+
+.section-container.sortable > div:first-child,
+.section-container.sortable > div:last-child {
+  margin-bottom: 20px;
+}
+
+.section-container.sortable {
+  cursor: grab;
+}

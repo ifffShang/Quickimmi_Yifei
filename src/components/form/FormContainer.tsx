@@ -26,6 +26,7 @@ export function FormContainer() {
   const form = useAppSelector(state => state.case.form);
   const indexLevel1 = useAppSelector(state => state.case.indexLevel1);
   const indexLevel2 = useAppSelector(state => state.case.indexLevel2);
+  const caseType = useAppSelector(state => state.case.currentCaseType);
   const screenSize = useScreenSize();
   const isSmallScreen = screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall;
 
@@ -33,7 +34,7 @@ export function FormContainer() {
 
   const caseIdInt = caseId ? parseInt(caseId) : -1;
 
-  useAutoSaveApplicationCase(caseIdInt, accessToken, role, dispatch);
+  useAutoSaveApplicationCase(caseIdInt, accessToken, role, caseType, dispatch);
 
   useEffect(() => {
     const sectionIndex = searchParams.get("section");

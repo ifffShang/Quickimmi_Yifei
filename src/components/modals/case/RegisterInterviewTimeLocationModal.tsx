@@ -1,7 +1,7 @@
 import { InboxOutlined, LoadingOutlined } from "@ant-design/icons";
 import { Button, message, Upload, UploadProps } from "antd";
 import React, { useRef, useState } from "react";
-import { uploadFileToPresignUrl } from "../../../api/caseAPI";
+import { uploadFileToPresignUrl } from "../../../api/documentAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useFormTranslation } from "../../../hooks/commonHooks";
 import { GeneratePresignedUrlResponse } from "../../../model/apiModels";

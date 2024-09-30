@@ -53,9 +53,18 @@ export interface ApiRequestModel {
   accessToken: string;
   self?: boolean; // Self is true if we want to request data from the frontend server itself
   role?: Role;
+  caseId?: number;
 }
 
-export const performApiRequest = async ({ endPoint, method, data, accessToken, self, role }: ApiRequestModel) => {
+export const performApiRequest = async ({
+  endPoint,
+  method,
+  data,
+  accessToken,
+  self,
+  role,
+  caseId,
+}: ApiRequestModel) => {
   const additionalHeaders: any = { Authorization: `Bearer ${accessToken}` };
   const body = data ? JSON.stringify(data) : null;
 
@@ -65,6 +74,14 @@ export const performApiRequest = async ({ endPoint, method, data, accessToken, s
 
   if (!self) {
     additionalHeaders.Role = role;
+  }
+
+  if (caseId) {
+    additionalHeaders["Case-Id"] = caseId;
+  }
+
+  if (self) {
+    additionalHeaders["Cache-Control"] = "no-cache";
   }
 
   try {

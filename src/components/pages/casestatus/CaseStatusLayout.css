@@ -61,3 +61,8 @@
   border-top-right-radius: 12px;
   border-bottom-left-radius: 12px;
 }
+
+.case-status-right-panel {
+  max-height: calc(100vh - 200px);
+  overflow: auto;
+}

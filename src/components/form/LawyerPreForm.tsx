@@ -2,9 +2,10 @@ import { Button, Input, Modal, Select } from "antd";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { createNewCaseByLawyerApi } from "../../api/caseAPI";
+import { createNewCaseByLawyerApi } from "../../api/caseCreationAPI";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { resetCaseState, updateCurrentCaseId } from "../../reducers/caseSlice";
+import { CaseSubType, CaseType, ImmigrationCategories } from "../../model/immigrationTypes";
+import { resetCaseState, updateCurrentCaseInfo } from "../../reducers/caseSlice";
 import { validateEmail } from "../../utils/utils";
 import { QText } from "../common/Fonts";
 import { QReturnLink } from "../common/Links";
@@ -12,25 +13,6 @@ import { PriceLaywer } from "../icons/PriceArea";
 import "./LawyerPreForm.css";
 
 const { Option } = Select;
-
-const immigrationData = [
-  {
-    Type: "Asylum",
-    SubType: ["AFFIRMATIVE", "DEFENSIVE"],
-  },
-  {
-    Type: "Family-Based Immigration",
-    SubType: ["Immediate relatives of U.S. citizens", "Family preference categories"],
-  },
-  {
-    Type: "Employment-Based Immigration",
-    SubType: ["EB-1", "EB-2", "EB-5"],
-  },
-  {
-    Type: "Temporary Work Visas",
-    SubType: ["H-1B", "L-1", "O-1"],
-  },
-];
 
 export function LawyerPreForm() {
   const { t } = useTranslation();
@@ -43,26 +25,30 @@ export function LawyerPreForm() {
 
   const [applicantName, setApplicantName] = useState("");
   const [caseName, setCaseName] = useState("");
-  const [applicationType, setApplicationType] = useState("");
-  const [immigrationType, setImmigrationType] = useState("");
-  const [maritalStatus, setMaritalStatus] = useState("");
-  const [applyWithSpouse, setApplyWithSpouse] = useState(false);
-  const [applyWithChildren, setApplyWithChildren] = useState(false);
-  const [numberOfChildren, setNumberOfChildren] = useState(0);
+  const [immigrationType, setImmigrationType] = useState<CaseType>();
+  const [immigrationSubType, setImmigrationSubType] = useState<CaseSubType>();
+
   const [providedCustomerEmail, setProvidedCustomerEmail] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isSendButtonDisabled, setIsSendButtonDisabled] = useState(true);
   const [isEmailSendButtonDisabled, setIsEmailSendButtonDisabled] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    const isFormValid = applicantName && applicationType;
-    // applicationType &&
-    // maritalStatus &&
-    // (!applyWithChildren || (applyWithChildren && numberOfChildren));
+    if (immigrationType && immigrationType !== CaseType.Asylum && immigrationType !== CaseType.FamilyBased) {
+      setErrorMessage(t("ImmigrationTypeNotSupported"));
+    } else {
+      setErrorMessage("");
+    }
+
+    const isFormValid =
+      applicantName &&
+      immigrationSubType &&
+      (immigrationType === CaseType.Asylum || immigrationType === CaseType.FamilyBased);
     setIsSendButtonDisabled(!isFormValid);
     const isEmailValid = providedCustomerEmail && validateEmail(providedCustomerEmail);
     setIsEmailSendButtonDisabled(!isEmailValid);
-  }, [applicantName, applicationType, maritalStatus, applyWithChildren, numberOfChildren, providedCustomerEmail]);
+  }, [applicantName, immigrationType, immigrationSubType, providedCustomerEmail]);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -79,21 +65,37 @@ export function LawyerPreForm() {
       // TODO: pop up error message
       return;
     }
+
+    if (!immigrationType || !immigrationSubType) {
+      console.error("Immigration type or sub type is not selected");
+      return;
+    }
+
     try {
       const caseId = await createNewCaseByLawyerApi(
         accessToken,
         userId,
         caseName,
         applicantName,
-        applicationType,
-        maritalStatus,
-        applyWithChildren,
-        numberOfChildren,
         providedCustomerEmail,
         role,
+        immigrationType,
+        immigrationSubType,
       );
+
+      if (!caseId) {
+        console.error("Failed to create new case for lawyer");
+        return;
+      }
+
       dispatch(resetCaseState());
-      dispatch(updateCurrentCaseId(caseId));
+      dispatch(
+        updateCurrentCaseInfo({
+          caseId: caseId,
+          caseType: immigrationType,
+          caseSubType: immigrationSubType,
+        }),
+      );
       navigate("/casestatus/" + caseId);
     } catch (error) {
       console.error("Failed to create new case for lawyer:", error);
@@ -106,8 +108,8 @@ export function LawyerPreForm() {
   };
 
   const getSubtypeOptions = () => {
-    const selectedType = immigrationData.find(type => type.Type === immigrationType);
-    return selectedType ? selectedType.SubType : [];
+    const selectedCategory = ImmigrationCategories.find(category => category.Type.value === immigrationType);
+    return selectedCategory ? selectedCategory.SubType : [];
   };
 
   return (
@@ -116,12 +118,12 @@ export function LawyerPreForm() {
       <div className="form-content-container-preForm">
         <div className="form-content-header-preForm">
           <QText level="large">{t("NewCase")}</QText>
-          <QText level="small" color="gray">
+          <QText level="normal" color="gray">
             {t("CreateNewCaseForCustomer")}
           </QText>
         </div>
         <div className="form-content-form-preForm">
-          <div className="field-section-name-preForm">
+          <div className="field-section field-section-name-preForm">
             <div>
               <QText level="field-label">{t("ApplicantName")}</QText>
               <Input
@@ -141,18 +143,21 @@ export function LawyerPreForm() {
               />
             </div>
           </div>
-          <div className="field-section-type-preForm">
+          <div className="field-section field-section-type-preForm">
             <div>
               <QText level="field-label">{t("ImmigrationType")}</QText>
               <Select
                 className="field-input-preForm"
                 placeholder="Select immigration type"
                 value={immigrationType}
-                onChange={value => setImmigrationType(value)}
+                onChange={value => {
+                  setImmigrationType(value);
+                  setImmigrationSubType(undefined);
+                }}
               >
-                {immigrationData.map(type => (
-                  <Option key={type.Type} value={type.Type}>
-                    {type.Type}
+                {ImmigrationCategories.map(category => (
+                  <Option key={category.Type.value} value={category.Type.value}>
+                    {t(category.Type.text)}
                   </Option>
                 ))}
               </Select>
@@ -162,61 +167,25 @@ export function LawyerPreForm() {
               <Select
                 className="field-input-preForm"
                 placeholder="Select immigration subtype"
-                value={applicationType}
-                onChange={value => setApplicationType(value)}
+                value={immigrationSubType}
+                onChange={value => setImmigrationSubType(value)}
                 disabled={!immigrationType}
               >
                 {getSubtypeOptions().map(subtype => (
-                  <Option key={subtype} value={subtype}>
-                    {subtype}
+                  <Option key={subtype.value} value={subtype.value}>
+                    {t(subtype.text)}
                   </Option>
                 ))}
               </Select>
             </div>
           </div>
-          {/*<div className="field-section-preForm">*/}
-          {/*  <div>*/}
-          {/*    <QText level="field-label">{t("MaritalStatus")}</QText>*/}
-          {/*    <Select*/}
-          {/*      className="field-input-preForm"*/}
-          {/*      placeholder="Select marital status"*/}
-          {/*      value={maritalStatus}*/}
-          {/*      onChange={value => setMaritalStatus(value)}*/}
-          {/*    >*/}
-          {/*      <Option value="Single">{t("Single")}</Option>*/}
-          {/*      <Option value="Married">{t("Married")}</Option>*/}
-          {/*      <Option value="Divorced">{t("Divorced")}</Option>*/}
-          {/*      <Option value="Widowed">{t("Widowed")}</Option>*/}
-          {/*    </Select>*/}
-          {/*  </div>*/}
-          {/*  <Checkbox*/}
-          {/*    checked={applyWithSpouse}*/}
-          {/*    onChange={e => setApplyWithSpouse(e.target.checked)}*/}
-          {/*  >*/}
-          {/*    {t("ApplyWithMe")}*/}
-          {/*  </Checkbox>*/}
-          {/*</div>*/}
-          {/*<div className="field-section-preForm">*/}
-          {/*  <Checkbox*/}
-          {/*    checked={applyWithChildren}*/}
-          {/*    onChange={e => setApplyWithChildren(e.target.checked)}*/}
-          {/*  >*/}
-          {/*    {t("ChildApplyingWithMe")}*/}
-          {/*  </Checkbox>*/}
-          {/*  {applyWithChildren && (*/}
-          {/*    <div>*/}
-          {/*      <QText level="field-label">{t("NumberOfChildren")}</QText>*/}
-          {/*      <Input*/}
-          {/*        className="field-input-preForm"*/}
-          {/*        type="number"*/}
-          {/*        value={numberOfChildren}*/}
-          {/*        onChange={e =>*/}
-          {/*          setNumberOfChildren(Math.max(0, parseInt(e.target.value)))*/}
-          {/*        }*/}
-          {/*      />*/}
-          {/*    </div>*/}
-          {/*  )}*/}
-          {/*</div>*/}
+          <div className="field-section field-section-error-preForm">
+            {errorMessage && (
+              <QText level="xsmall" color="danger">
+                {errorMessage}
+              </QText>
+            )}
+          </div>
         </div>
       </div>
 
@@ -230,7 +199,7 @@ export function LawyerPreForm() {
         <div className="email-modal-preForm-container">
           <div>
             <QText level="large">{t("InputClientEmail")}</QText>
-            <QText level="small" color="gray">
+            <QText level="normal" color="gray">
               {t("InviteClientViaEmail")}
             </QText>
           </div>

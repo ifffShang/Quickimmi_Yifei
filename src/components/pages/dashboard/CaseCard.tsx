@@ -1,15 +1,15 @@
-import { useState, useEffect } from "react";
+import { CheckCircleTwoTone, CloseCircleTwoTone, EditTwoTone } from "@ant-design/icons";
 import { Button, Input } from "antd";
-import { EditTwoTone, CloseCircleTwoTone, CheckCircleTwoTone } from "@ant-design/icons";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { deleteCaseApi, updateCaseNameApi, getCaseSummaryApi } from "../../../api/caseAPI";
-import { useAppSelector } from "../../../app/hooks";
-import { CacheStore } from "../../../cache/cache";
-import { QText, SingleLine } from "../../common/Fonts";
-import { CaseIcon } from "../../icons/Dashboard";
-import { DeleteConfirmModal } from "../../modals/case/DeleteConfirmModal";
+import { deleteCaseApi, updateCaseNameApi } from "../../../api/caseAPI";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { CaseSubType, CaseType } from "../../../model/immigrationTypes";
+import { updateCurrentCaseInfo } from "../../../reducers/caseSlice";
 import { getCaseStatusAndColor } from "../../../utils/caseStatusUtils";
+import { QText, SingleLine } from "../../common/Fonts";
+import { DeleteConfirmModal } from "../../modals/case/DeleteConfirmModal";
 import "./CaseCard.css";
 
 export interface CaseCardProps {
@@ -21,6 +21,7 @@ export interface CaseCardProps {
     caseName: string | null;
     overallPercentage: number;
     type: string;
+    subType: string;
     asylumType: string;
     submittedAt: number;
     currentStep: string;
@@ -31,6 +32,7 @@ export interface CaseCardProps {
 export function CaseCard({ caseData, onDelete }: CaseCardProps) {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [CaseName, setCaseName] = useState(caseData.caseName || "");
@@ -43,6 +45,13 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
       console.error(`Access token ${accessToken} or case id ${caseData.id} is missing`);
       return;
     }
+    dispatch(
+      updateCurrentCaseInfo({
+        caseId: caseData.id.toString(),
+        caseType: caseData.type as CaseType,
+        caseSubType: caseData.subType as CaseSubType,
+      }),
+    );
     navigate("/casestatus/" + caseData.id);
   };
 
@@ -151,9 +160,11 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
             <div className="case-card-progress-inner" style={{ width: `${caseData.overallPercentage}%` }}></div>
             <div className="case-card-progress-text">
               <QText level="normal" color="gray">
-                {caseData.overallPercentage === 100
-                  ? t("LawyerReview")
-                  : `${t("Completion")}: ${caseData.overallPercentage}%`}
+                {caseData.overallPercentage === null
+                  ? `${t("Completion")}: 0%`
+                  : caseData.overallPercentage === 100
+                    ? t("LawyerReview")
+                    : `${t("Completion")}: ${caseData.overallPercentage}%`}
               </QText>
             </div>
           </div>

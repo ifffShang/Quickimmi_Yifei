@@ -7,25 +7,20 @@ import { EditForm } from "../icons/Form";
 import "./FormHeader.css";
 import { AutoSaveTag } from "./parts/AutoSaveTag";
 import { incrementSaveTimes } from "../../reducers/formSlice";
+import { getProfile } from "../../utils/selectorUtils";
 
 export function FormHeader() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const caseType = useAppSelector(state => state.case.currentCaseType);
   const caseId = useAppSelector(state => state.form.caseId);
-  const profile = useAppSelector(state => state.form.applicationCase.profile);
+  const applicationCase = useAppSelector(state => state.form.applicationCase);
   const progress = useAppSelector(state => state.form.applicationCase.progress);
   const percentage = useAppSelector(state => state.form.percentage);
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const role = useAppSelector(state => state.auth.role);
   const percentageNumber = percentage?.overall?.avg ?? 0;
-
-  // const generateDocument = () => {
-  //   if (!caseId || !accessToken) {
-  //     console.error("Case ID or access token is not available");
-  //     return;
-  //   }
-  //   generateDocumentsApi(accessToken, caseId, role);
-  // };
+  const profile = getProfile(caseType, applicationCase);
 
   return (
     <div className="form-header">
@@ -44,7 +39,11 @@ export function FormHeader() {
           className="form-header-save-btn"
           onClick={() => {
             try {
-              updateApplicationCaseFunc(caseId, profile, progress, percentage, role, accessToken);
+              if (!caseId || !accessToken || !caseType) {
+                console.error("Case ID, access token or case type is not available");
+                return;
+              }
+              updateApplicationCaseFunc(caseId, profile, progress, percentage, role, accessToken, caseType);
               dispatch(incrementSaveTimes());
             } catch (err) {
               console.error(err);

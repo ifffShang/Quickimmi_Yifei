@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { getDocumentByIdApiWithRetry, getDocumentsApi } from "../api/caseAPI";
+import { getDocumentByIdApiWithRetry, getDocumentsApi } from "../api/documentAPI";
 import { Role } from "../consts/consts";
 import { GetDocumentsAdditionalParams } from "../model/apiReqResModels";
 import { clearDocumentUrls } from "../reducers/formSlice";
@@ -80,10 +80,15 @@ export interface GetDocumentsOnLoadCallbackParams {
   setLoading: Dispatch<SetStateAction<boolean>>;
   onDocumentsReceived: (documents: any) => void;
   additionalParams?: GetDocumentsAdditionalParams;
+  skip?: boolean;
 }
 
 export function useDocumentsOnLoadCallback(params: GetDocumentsOnLoadCallbackParams) {
   useEffect(() => {
+    if (params.skip) {
+      return;
+    }
+
     if (!params.accessToken || !params.caseId || params.caseId === 0) {
       console.error("Access token or case id is missing");
       return;
@@ -111,6 +116,7 @@ export interface UseSingleDocParams {
   accessToken: string | undefined;
   role: Role;
   documentId: number;
+  caseId: number;
   setLoading: Dispatch<SetStateAction<boolean>>;
   onDocumentsReceived: (documents: UploadedDocument) => void;
 }
@@ -129,7 +135,7 @@ export function useLoadSingleDocument(params: UseSingleDocParams) {
       }
       return true;
     };
-    getDocumentByIdApiWithRetry(params.accessToken, params.documentId, params.role, retryOnError)
+    getDocumentByIdApiWithRetry(params.accessToken, params.documentId, params.caseId, params.role, retryOnError)
       .then(doc => {
         params.setLoading(false);
         params.onDocumentsReceived(doc);

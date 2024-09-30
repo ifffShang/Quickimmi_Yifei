@@ -8,14 +8,19 @@ import { Role } from "../consts/consts";
 import { startTokenExpirationTimer } from "../utils/authUtils";
 import { InMemoryCache } from "../cache/inMemoryCache";
 import { AppDispatch } from "../app/store";
+import { CaseType } from "../model/immigrationTypes";
 
 export function useAutoSaveApplicationCase(
   caseId: number,
   accessToken: string | undefined,
   role: Role,
+  caseType: CaseType | null,
   dispatch: Dispatch<any>,
 ) {
-  if (!accessToken) return;
+  if (!accessToken || !caseType) {
+    console.error("[Auto save] Access token or case type is not available.");
+    return;
+  }
 
   if (caseId === -1) {
     console.error("[Auto save] Case ID is not valid.");
@@ -42,7 +47,7 @@ export function useAutoSaveApplicationCase(
         const diff = ObjectUtils.diffUpdate(lastCaseProfileCached, caseProfileCached, true);
         try {
           console.log("Auto save profile, diff is ", diff);
-          updateApplicationCaseFunc(caseId, caseProfileCached, progress, percentage, role, accessToken);
+          updateApplicationCaseFunc(caseId, caseProfileCached, progress, percentage, role, accessToken, caseType);
           lastCaseProfileCached = caseProfileCached;
           dispatch(incrementSaveTimes());
         } catch (error) {
@@ -67,7 +72,7 @@ export function useAutoSaveApplicationCase(
         clearTimeout(timeId);
         return;
       }
-      updateApplicationCaseFunc(caseId, caseProfileCached, progress, percentage, role, accessToken);
+      updateApplicationCaseFunc(caseId, caseProfileCached, progress, percentage, role, accessToken, caseType);
       clearTimeout(timeId);
     };
   }, []);

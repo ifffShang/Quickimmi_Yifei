@@ -1,10 +1,10 @@
 {
-  "id": "i589_fields_address_before_usa",
+  "id": "i589_fields_address_past_5y",
   "version": "2024-04-01",
   "type": "fields",
   "fields": [
     {
-      "label": "text_AddressBeforeUS",
+      "label": "text_AddressPast5Years",
       "hideHeader": "true",
       "control": "label"
     },
@@ -12,46 +12,46 @@
       "label": "text_Address",
       "hideHeader": "true",
       "id": "address_berfore_us",
-      "key": "count-background.addressHistoriesBeforeUS",
-      "control": "removable_section",
+      "key": "count-background.usAddressHistoriesPast5Years",
+      "control": "sortable_section",
       "fields": [
         {
           "label": "text_NumberAndStreet",
-          "placeholder": "text_Street",
           "id": "background_street",
-          "key": "background.addressHistoriesBeforeUS[].numberAndStreet",
+          "key": "background.usAddressHistoriesPast5Years[].numberAndStreet",
           "control": "text"
         },
         {
           "label": "text_CityOrTown",
           "id": "background_city",
-          "key": "background.addressHistoriesBeforeUS[].city",
+          "key": "background.usAddressHistoriesPast5Years[].city",
           "control": "text"
         },
         {
           "label": "text_DepartmentOrStateOrProvince",
           "id": "background_province",
-          "key": "background.addressHistoriesBeforeUS[].province",
+          "key": "background.usAddressHistoriesPast5Years[].province",
           "control": "text"
         },
         {
           "label": "text_Country",
+          "placeholder": "text_Country",
           "id": "background_country",
-          "key": "background.addressHistoriesBeforeUS[].country",
+          "key": "background.usAddressHistoriesPast5Years[].country",
           "control": "text"
         },
         {
           "label": "text_StartDate",
           "placeholder": "text_MM/YYYY",
           "id": "background_start_date",
-          "key": "background.addressHistoriesBeforeUS[].startDate",
+          "key": "background.usAddressHistoriesPast5Years[].startDate",
           "control": "monthyearpicker"
         },
         {
           "label": "text_EndDate",
           "placeholder": "text_MM/YYYY",
           "id": "background_end_date",
-          "key": "background.addressHistoriesBeforeUS[].endDate",
+          "key": "background.usAddressHistoriesPast5Years[].endDate",
           "control": "monthyearpicker"
         }
       ]
@@ -63,8 +63,8 @@
     {
       "label": "",
       "placeholder": "text_AddAddress",
-      "id": "address_berfore_us",
-      "key": "count-background.addressHistoriesBeforeUS",
+      "id": "address_past_5y",
+      "key": "count-background.usAddressHistoriesPast5Years",
       "control": "component_add_item"
     }
   ]

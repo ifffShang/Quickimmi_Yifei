@@ -48,6 +48,10 @@
   font-size: var(--font-size-p1);
 }
 
+.text.normal {
+  font-size: var(--font-size-p2);
+}
+
 .text.small {
   font-size: var(--font-size-p2);
 }
@@ -56,13 +60,18 @@
   font-size: var(--font-size-p3);
 }
 
-.text.normal {
-  font-size: var(--font-size-p2);
+.text.upload {
+  font-size: var(--font-size-upload);
+  line-height: 18px;
 }
 
 .text.normal.bold {
   font-size: var(--font-size-p2);
   font-weight: 600;
+}
+
+.text.margin-bottom-20 {
+  margin-bottom: 20px;
 }
 
 .text.margin-bottom-10 {
@@ -91,6 +100,10 @@
 .text.placeholder {
   color: var(--gray-color-7);
   font-size: var(--inline-placeholder);
+}
+
+.text.no-wrap {
+  text-wrap: nowrap;
 }
 
 .qtag {

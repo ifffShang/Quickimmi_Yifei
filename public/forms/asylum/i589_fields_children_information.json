@@ -34,14 +34,15 @@
           "placeholder": "text_ChildUploadPassport",
           "id": "children_upload_passport",
           "key": "family.children[].passportDocumentId",
-          "control": "component_passport_uploader"
+          "control": "component_passport_uploader_with_na"
         },
         {
           "label": "text_UploadPassportStampPages",
           "id": "children_passport_stamp_page_documents",
           "key": "family.children[].passportStampPageDocumentIds",
           "control": "multi_file_uploader",
-          "documentType": "PASSPORT_STAMP_PAGES"
+          "documentType": "PASSPORT_STAMP_PAGES",
+          "identity": "Child"
         },
         {
           "label": "text_IdNumber",
@@ -190,12 +191,12 @@
           "control": "select",
           "options": [
             {
-              "value": "true",
+              "value": "yes",
               "label": "text_Yes",
               "keyValue": "true,false"
             },
             {
-              "value": "false",
+              "value": "no",
               "label": "text_No",
               "keyValue": "false,true"
             }

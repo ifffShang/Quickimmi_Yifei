@@ -1,7 +1,7 @@
 import { LoadingOutlined } from "@ant-design/icons";
 import { Button, Checkbox } from "antd";
 import { useRef, useState } from "react";
-import { parsePassportApi, uploadFileToPresignUrl } from "../../../api/caseAPI";
+import { parsePassportApi, uploadFileToPresignUrl } from "../../../api/documentAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useFormTranslation } from "../../../hooks/commonHooks";
 import { GeneratePresignedUrlResponse } from "../../../model/apiModels";
@@ -17,7 +17,7 @@ export function UploadPassportModal() {
   const dispatch = useAppDispatch();
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const role = useAppSelector(state => state.auth.role);
-
+  const caseId = useAppSelector(state => state.form.caseId);
   const [confirmDisabled, setConfirmDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
   const presignedUrlResRef = useRef<GeneratePresignedUrlResponse | null>(null);
@@ -47,7 +47,7 @@ export function UploadPassportModal() {
       if (!accessToken) {
         throw new Error(`Access token ${accessToken} is missing`);
       }
-      const passportInfo = await parsePassportApi(documentId, accessToken, role);
+      const passportInfo = await parsePassportApi(documentId, accessToken, role, caseId);
       if (!passportInfo) {
         throw new Error(`Failed to parse passport info for document id ${documentId}`);
       }

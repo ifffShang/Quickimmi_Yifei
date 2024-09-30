@@ -1,0 +1,36 @@
+{
+  "id": "fields_filling_information",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    {
+      "label": "text_FillingPetitionFor",
+      "id": "part1.1",
+      "key": "relationship.petitionForSpouseCheckbox,relationship.petitionForParentCheckbox,relationship.petitionForSiblingCheckbox,relationship.petitionForChildCheckbox",
+      "control": "select",
+      "initialValue": "",
+      "options": [
+        {
+          "value": "Spouse",
+          "label": "text_Spouse",
+          "keyValue": "true,false,false,false"
+        },
+        {
+          "value": "Parent",
+          "label": "text_Parent",
+          "keyValue": "false,true,false,false"
+        },
+        {
+          "value": "Sibling",
+          "label": "text_Sibling",
+          "keyValue": "false,false,true,false"
+        },
+        {
+          "value": "Child",
+          "label": "text_Child",
+          "keyValue": "false,false,false,true"
+        }
+      ]
+    }
+  ]
+}

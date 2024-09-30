@@ -9,12 +9,10 @@ body {
   display: flex;
   align-items: center;
   padding: 16px;
-  border: 1px solid #f0f0f0;
   border-radius: 4px;
-  background-color: #fafafa;
+  background-color: #f8f8f8;
   margin-top: 16px;
   overflow-y: auto;
-  max-height: 200px;
 }
 
 .progress-content {
@@ -30,6 +28,10 @@ body {
 }
 .ant-steps-item-title {
   line-height: 24px !important;
+}
+
+.progress-card-header {
+  padding: 20px 0;
 }
 
 .progress-header {
@@ -58,11 +60,6 @@ body {
 .progress-item {
   display: flex;
   align-items: center;
-  cursor: pointer;
-}
-
-.progress-title {
-  margin-left: 8px;
 }
 
 .progress-line {
@@ -94,7 +91,30 @@ body {
 
 .expanded-card .ant-card {
   background-color: #fff;
-  border: 1px solid #d9d9d9;
   border-radius: 8px;
   width: calc(100% - 28px);
+}
+
+.progress-card-steps {
+  margin: 40px 0;
+}
+
+.progress-card-step {
+  position: relative;
+}
+
+.progress-card-step .ant-steps-item-icon,
+.progress-card-step .ant-steps-item-content {
+  cursor: pointer;
+}
+
+.active-step-indicator {
+  position: absolute;
+  font-size: 60px;
+  bottom: -82px;
+  left: 24px;
+}
+
+.active-step-indicator svg {
+  fill: #f8f8f8;
 }

@@ -10,12 +10,13 @@ import {
 } from "../../../utils/utils";
 import { QText } from "../../common/Fonts";
 import { FormField } from "../FormField";
-import { RemovableSectionHeader } from "../parts/RemovableSectionHeader";
+import { SectionHeader } from "../parts/SectionHeader";
 import { DocumentType, KeyValues } from "../../../model/commonModels";
 import { DefaultCaseProfile } from "../../../consts/caseProfile";
 import { ArrayFields } from "../../../reducers/formSlice";
 import { getKeys } from "../../../utils/visibilityUtils";
 import { useRef } from "react";
+import { getProfile } from "../../../utils/selectorUtils";
 
 export interface SectionProps {
   fieldKey: string;
@@ -36,15 +37,18 @@ export interface SectionProps {
 export function Section(props: SectionProps) {
   const dispatch = useAppDispatch();
   const { wt } = useFormTranslation();
-  const caseDetails = useAppSelector(state => state.form.applicationCase?.profile);
-  const isVisible = !!props.visibility && isSectionVisible(props.visibility, caseDetails, props.fieldIndex);
+  const caseType = useAppSelector(state => state.case.currentCaseType);
+  const applicationCase = useAppSelector(state => state.form.applicationCase);
+  const profile = getProfile(caseType, applicationCase);
+
+  const isVisible = !!props.visibility && isSectionVisible(props.visibility, profile, props.fieldIndex);
 
   // To track the visibility of each section, key is visibility key and value is boolean
   // We need this because isVisible is too generic and can't be used to track each section
   const visibilityList = useRef<KeyValues>({ [props.visibility ?? "default"]: isVisible });
 
   const fieldValue = getFieldValue(
-    caseDetails,
+    profile,
     props.fieldKey,
     props.control,
     props.options,
@@ -72,6 +76,7 @@ export function Section(props: SectionProps) {
         textKeys.length > 0 &&
         dispatchFormValue(
           dispatch,
+          caseType,
           textKeys.reduce((obj, key) => ({ ...obj, [key]: "N/A" }), {}),
           props.fieldIndex,
         );
@@ -80,6 +85,7 @@ export function Section(props: SectionProps) {
         booleanKeys.length > 0 &&
         dispatchFormValue(
           dispatch,
+          caseType,
           booleanKeys.reduce((obj, key) => ({ ...obj, [key]: "false" }), {}),
           props.fieldIndex,
         );
@@ -88,6 +94,7 @@ export function Section(props: SectionProps) {
         selectKeys.length > 0 &&
         dispatchFormValue(
           dispatch,
+          caseType,
           selectKeys.reduce((obj, key) => ({ ...obj, [key]: "N/A" }), {}),
           props.fieldIndex,
         );
@@ -96,6 +103,7 @@ export function Section(props: SectionProps) {
         documentKeys.length > 0 &&
         dispatchFormValue(
           dispatch,
+          caseType,
           documentKeys.reduce((obj, key) => ({ ...obj, [key]: -1 }), {}),
           props.fieldIndex,
         );
@@ -104,6 +112,7 @@ export function Section(props: SectionProps) {
         documentListKeys.length > 0 &&
         dispatchFormValue(
           dispatch,
+          caseType,
           documentListKeys.reduce((obj, key) => ({ ...obj, [key]: [] }), {}),
           props.fieldIndex,
         );
@@ -115,6 +124,7 @@ export function Section(props: SectionProps) {
         const overwriteKey = ArrayFields.filter(field => field.field === key)[0].overwriteField;
         dispatchFormValue(
           dispatch,
+          caseType,
           {
             [key]: [],
             [overwriteKey]: true,
@@ -129,6 +139,7 @@ export function Section(props: SectionProps) {
         textKeys.length > 0 &&
         dispatchFormValue(
           dispatch,
+          caseType,
           textKeys.reduce((obj, key) => ({ ...obj, [key]: getCaseDetailValue(DefaultCaseProfile, key, 0) }), {}),
           props.fieldIndex,
         );
@@ -137,6 +148,7 @@ export function Section(props: SectionProps) {
         selectKeys.length > 0 &&
         dispatchFormValue(
           dispatch,
+          caseType,
           selectKeys.reduce((obj, key) => ({ ...obj, [key]: null }), {}),
           props.fieldIndex,
         );
@@ -145,7 +157,7 @@ export function Section(props: SectionProps) {
 
   if (props.subFields && props.subFields.length > 0) {
     if (props.visibility) {
-      const isVisible = isSectionVisible(props.visibility, caseDetails, props.fieldIndex);
+      const isVisible = isSectionVisible(props.visibility, profile, props.fieldIndex);
       if (!isVisible) {
         return <></>;
       }
@@ -156,7 +168,7 @@ export function Section(props: SectionProps) {
           {fieldValue.arr.map((_i, arrIndex) => (
             <div key={arrIndex} className="section-container">
               {props.control === "removable_section" && (
-                <RemovableSectionHeader
+                <SectionHeader
                   label={wt(props.label)}
                   fieldIndex={arrIndex}
                   onRemove={() => {
@@ -181,6 +193,7 @@ export function Section(props: SectionProps) {
                     visibility={field.visibility}
                     fieldIndex={arrIndex}
                     documentType={field.documentType}
+                    identity={field.identity}
                   />
                 </div>
               ))}
@@ -207,6 +220,7 @@ export function Section(props: SectionProps) {
               visibility={field.visibility}
               fieldIndex={props.fieldIndex}
               documentType={field.documentType}
+              identity={field.identity}
             />
           </div>
         ))}

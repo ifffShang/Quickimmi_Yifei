@@ -1,5 +1,6 @@
 import { isArray, isObject } from "lodash";
-import { AsylumCaseProfile, Percentage, Progress } from "../model/apiModels";
+import { Percentage, Progress } from "../model/apiModels";
+import { CaseProfile } from "../model/commonApiModels";
 import { ControlType, IForm, IFormField } from "../model/formFlowModels";
 import { getCaseDetailValue, getFieldValue } from "./utils";
 
@@ -21,11 +22,9 @@ export function buildPercentageObject(form: IForm, progress?: Progress) {
   return fillMissingPercentageProperties(percentage, form);
 }
 
-export function fillMissingPercentageProperties(percentage: Percentage, form: IForm): Percentage {
-  let newPercentage: Percentage = percentage;
-  if (!newPercentage) {
-    newPercentage = { overall: { avg: 0 } };
-  }
+export function fillMissingPercentageProperties(percentage: Percentage | null, form: IForm): Percentage {
+  const newPercentage: Percentage = percentage ? percentage : { overall: { avg: 0 } };
+
   form.steps.forEach(step => {
     if (step.standalone) return;
     if (!newPercentage[step.id]) {
@@ -68,13 +67,13 @@ export function excludeForPercentageCalc(control: ControlType) {
 
 export function getPercentage(
   fields: IFormField[] | undefined,
-  profile: AsylumCaseProfile,
+  profile: CaseProfile | null,
   arrObj?: any,
   index?: number,
 ) {
   let total = 0,
     fulfilled = 0;
-  if (!fields) return { total, fulfilled };
+  if (!fields || !profile) return { total, fulfilled };
 
   let fieldValue: any;
   fields.forEach(field => {

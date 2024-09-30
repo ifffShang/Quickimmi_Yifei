@@ -6,7 +6,8 @@ import { useFormTranslation } from "../../../hooks/commonHooks";
 import { IFormOptions } from "../../../model/formFlowModels";
 import { ErrorMessage, QText } from "../../common/Fonts";
 import "./Controls.css";
-import TextArea from "antd/es/input/TextArea";
+
+const { TextArea } = Input;
 
 /** Form input (sign in, passport) ***********************************************/
 
@@ -50,6 +51,32 @@ export function FormInput(props: FormInputProps) {
         {props.isRequired && <div className="input-required-mark">*</div>}
       </div>
       {props.showErrorMessage && errorMessage && <ErrorMessage>{t(errorMessage)}</ErrorMessage>}
+    </div>
+  );
+}
+
+/** TextBox View control ***************************************************/
+
+export interface QFieldViewProps {
+  label: string;
+  value: string;
+}
+
+export function QFieldView(props: QFieldViewProps) {
+  const [value, setValue] = useState(props.value);
+
+  useEffect(() => {
+    setValue(props.value);
+  }, [props.value]);
+
+  return (
+    <div className="field-view-container">
+      <QText level="normal bold" noWrap>
+        {props.label + ":"}
+      </QText>
+      <QText level="normal" color="dark">
+        {value}
+      </QText>
     </div>
   );
 }
@@ -282,6 +309,7 @@ export function QMonthYearPicker(props: QMonthYearPickerProps) {
         format="MM/YYYY"
         onChange={onMonthYearChange}
         disabled={props.disabled || false}
+        getPopupContainer={trigger => trigger.parentElement || document.body}
       />
       {value && (
         <div className="inline-placeholder">

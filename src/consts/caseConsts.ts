@@ -1,6 +1,7 @@
 import {
   AddressHistory,
   ApplicationCase,
+  AsylumCaseProfile,
   Child,
   EntryRecord,
   FamilyMember,
@@ -8,6 +9,7 @@ import {
   Spouse,
   SupplementDocument,
 } from "../model/apiModels";
+import { InitialFamilyBasedProfile } from "./familyBasedConsts";
 
 export const InitialApplicant = {
   passportDocumentId: 0,
@@ -232,6 +234,7 @@ export const InitialChild: Child = {
   immigrationCourtProceedingNoCheckbox: null,
   inThisApplicationYesCheckbox: null,
   inThisApplicationNoCheckbox: null,
+  passportStampPageDocumentIds: [],
 };
 
 export const InitialSpouse: Spouse = {
@@ -297,33 +300,6 @@ export const InitialFamily = {
   spouse: InitialSpouse,
 };
 
-export const InitialApplicationCase: ApplicationCase = {
-  id: 0,
-  userId: 0,
-  applicantName: "",
-  taskList: [],
-  type: "",
-  status: "",
-  submittedAt: 0,
-  updatedAt: 0,
-  createdAt: 0,
-  currentStep: "",
-  uscisReceiptNumber: "",
-  paid: false,
-  assignedLawyer: 0,
-  progress: { steps: [] },
-  profile: {
-    applyForWithholdingYesCheckbox: "",
-    applicant: InitialApplicant,
-    family: InitialFamily,
-    background: InitialBackground,
-    applicationDetails: InitialApplicationDetails,
-    signature: InitialSignature,
-    declaration: InitialDeclaration,
-    supplementDocument: InitialSupplementDocument,
-  },
-};
-
 export const InitialEntryRecord: EntryRecord = {
   date: "",
   city: "",
@@ -367,4 +343,15 @@ export const InitialEmploymentHistory = {
 export const InitialMember = {
   name: "",
   relationship: "",
+};
+
+export const InitialAsylumProfile: AsylumCaseProfile = {
+  applyForWithholdingYesCheckbox: "",
+  applicant: InitialApplicant,
+  family: InitialFamily,
+  background: InitialBackground,
+  applicationDetails: InitialApplicationDetails,
+  signature: InitialSignature,
+  declaration: InitialDeclaration,
+  supplementDocument: InitialSupplementDocument,
 };

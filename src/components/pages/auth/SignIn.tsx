@@ -1,6 +1,5 @@
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Switch } from "antd";
-import Link from "antd/es/typography/Link";
 import { Amplify } from "aws-amplify";
 import { fetchAuthSession, resendSignUpCode, signIn } from "aws-amplify/auth";
 import { useEffect, useState } from "react";
@@ -178,7 +177,9 @@ export function SignIn() {
 
   const actions = (
     <>
-      <Link onClick={() => navigate("/forgotpassword")}>{t("ForgotPassword")}</Link>
+      <Button type="link" onClick={() => navigate("/forgotpassword")}>
+        {t("ForgotPassword")}
+      </Button>
       <Button type="primary" onClick={loginUser} loading={isLoading}>
         {t("Login")}
       </Button>

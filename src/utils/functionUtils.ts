@@ -1,18 +1,26 @@
 import { message, UploadFile } from "antd";
-import { getDocumentByIdApi, updateApplicationCaseApi } from "../api/caseAPI";
+import { updateApplicationCaseApi } from "../api/caseProfileUpdateAPI";
+import { getDocumentByIdApi } from "../api/documentAPI";
 import { Role } from "../consts/consts";
-import { AsylumCaseProfile, Percentage, Progress } from "../model/apiModels";
+import { Percentage, Progress } from "../model/apiModels";
+import { CaseProfile } from "../model/commonApiModels";
+import { CaseType } from "../model/immigrationTypes";
 import { getProgressWithPercentage } from "./percentageUtils";
 
 // !!!! This function should only be used by the form save !!!!
 export const updateApplicationCaseFunc = async (
   caseId: number,
-  profile: AsylumCaseProfile,
+  profile: CaseProfile | null,
   progress: Progress,
   percentage: Percentage,
   role: Role,
-  accessToken?: string,
+  accessToken: string,
+  caseType: CaseType,
 ) => {
+  if (!caseId || !accessToken || !caseType || !profile) {
+    console.error("Case ID, access token or case type is not available");
+    return;
+  }
   // Form can only be updated when the case progress is at "Collect Information" or "Review and Sign" step.
   if (!formAllowedToBeEdit(progress)) {
     const errorMsg =
@@ -34,7 +42,7 @@ export const updateApplicationCaseFunc = async (
       currentStep = "REVIEW_AND_SIGN";
     }
 
-    updateApplicationCaseApi(
+    await updateApplicationCaseApi(
       {
         id: caseId,
         profile,
@@ -43,6 +51,8 @@ export const updateApplicationCaseFunc = async (
       },
       accessToken,
       role,
+      caseId,
+      caseType,
     );
   } catch (error) {
     console.error("Error updating application case: ", error);
@@ -52,7 +62,8 @@ export const updateApplicationCaseFunc = async (
 
 export const formAllowedToBeEdit = (progress: Progress): boolean => {
   if (!progress) {
-    throw new Error("Couldn't fetch case progress");
+    console.error("Couldn't fetch case progress");
+    return false;
   }
   // Define the steps where the form can be edited
   const editableSteps = ["FILLING_APPLICATION", "REVIEW_AND_SIGN"];
@@ -63,13 +74,13 @@ export const formAllowedToBeEdit = (progress: Progress): boolean => {
   );
 };
 
-export const handleFileDownload = async (file: UploadFile, accessToken: string, role: Role) => {
+export const handleFileDownload = async (file: UploadFile, accessToken: string, role: Role, caseId: number) => {
   if (!accessToken) {
     message.error("Access token is missing! Please login again.");
     return;
   }
   try {
-    const docWithPresignedUrl = await getDocumentByIdApi(accessToken, parseInt(file.uid), role);
+    const docWithPresignedUrl = await getDocumentByIdApi(accessToken, parseInt(file.uid), role, caseId);
     const response = await fetch(docWithPresignedUrl.presignUrl);
     if (!response.ok) {
       message.error("Failed to download document.");

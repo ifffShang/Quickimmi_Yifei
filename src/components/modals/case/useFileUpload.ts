@@ -1,6 +1,7 @@
 import { message, Upload } from "antd";
 import { useRef, useState } from "react";
-import { generateDocumentPresignedUrl, updateDocumentStatus, uploadFileToPresignUrl } from "../../../api/caseAPI";
+import { updateDocumentStatus, uploadFileToPresignUrl } from "../../../api/documentAPI";
+import { generateDocumentPresignedUrl } from "../../../api/documentAPI";
 import { useAppSelector } from "../../../app/hooks";
 import { DocumentStatus, DocumentType } from "../../../model/commonModels";
 
@@ -20,7 +21,7 @@ export const useFileUpload = () => {
         message.error("Access token is missing");
         return;
       }
-      await updateDocumentStatus(role, documentId, true, documentStatus, accessToken);
+      await updateDocumentStatus(role, documentId, true, documentStatus, accessToken, parseInt(caseId));
     } catch (error) {
       console.error(`Failed to update document status: ${error}`);
     }

@@ -26,8 +26,9 @@
   position: absolute;
   background-color: var(--white-color);
   box-shadow: var(--shadow);
-  border-radius: 5px;
+  border-radius: 10px;
   z-index: 999;
+  width: 225px;
 }
 
 .menu-popup.popup-position-bottom-left {
@@ -51,17 +52,17 @@
 }
 
 .menu-option {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 10px 5px;
+  padding: 15px 20px;
   cursor: pointer;
-  white-space: nowrap;
+  text-align: left;
 }
 
 .menu-option:hover {
   background-color: var(--gray-color-4);
+}
+
+.menu-popup .menu-option + .menu-option {
+  border-top: 1px solid var(--gray-color-3);
 }
 
 .menu-option.option-align-right {

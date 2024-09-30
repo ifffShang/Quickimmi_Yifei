@@ -3,6 +3,7 @@ import { CheckCircleOutlined, DownOutlined, ExclamationCircleOutlined, UpOutline
 import { Tag } from "antd";
 import CaseProgressExpandedCard from "./CaseProgressExpandedCard";
 import { useNavigate, useParams } from "react-router-dom";
+import { QText } from "../../common/Fonts";
 
 interface FillingApplicationSectionProps {
   currentStepDetails: any;
@@ -114,12 +115,18 @@ const FillingApplicationSection: React.FC<FillingApplicationSectionProps> = ({
 
   const renderProgressItem = (title: string, percentage: number, stepName: string, sectionIndex: number) => (
     <div className="progress-item" key={stepName}>
-      <div className="progress-item-content">
+      <div className="progress-item-content" onClick={() => handleToggleExpand(stepName)}>
         <div className="icon-container">{renderIconForFillingApplication(percentage)}</div>
-        <span className="progress-title">
-          {t(title)}
+        <div className="progress-title">
+          {expandedStep === stepName ? (
+            <QText level="normal bold">{t(title)}</QText>
+          ) : (
+            <QText level="normal" color="gray">
+              {t(title)}
+            </QText>
+          )}
           {renderPercentageTag(percentage)}
-        </span>
+        </div>
       </div>
       <div className="progress-item-actions">
         {percentage < 100 && (
@@ -139,12 +146,14 @@ const FillingApplicationSection: React.FC<FillingApplicationSectionProps> = ({
   );
   return (
     <div className="progress-section">
-      <h2>{t("fillingDetailsMessage")}:</h2>
+      <QText level="normal" color="gray" margin="margin-bottom-20">
+        {t("fillingDetailsMessage")}:
+      </QText>
       {metadata && (
         <>
           {metadataFields.map(({ field, title, sectionIndex }, index) => (
             <React.Fragment key={field}>
-              {renderProgressItem(title, metadata.percentage[field].avg, field.toUpperCase(), sectionIndex)}
+              {renderProgressItem(title, metadata.percentage[field]?.avg, field.toUpperCase(), sectionIndex)}
               {expandedStep === field.toUpperCase() && (
                 <div className="expanded-card-container">
                   <div className="progress-line extended-line"></div>

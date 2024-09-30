@@ -1,6 +1,7 @@
 import React from "react";
 import { CheckCircleOutlined, ExclamationCircleOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import CaseProgressExpandedCard from "./CaseProgressExpandedCard";
+import { QText } from "../../common/Fonts";
 
 interface OtherStepsSectionProps {
   currentStepDetails: any;
@@ -33,7 +34,11 @@ const OtherStepsSection: React.FC<OtherStepsSectionProps> = ({
               )}
               {substep.status === "NOT_START" && <MinusCircleOutlined style={{ color: "#d9d9d9", fontSize: "20px" }} />}
             </div>
-            <span className="progress-title">{t(substep.name)}</span>
+            <div className="progress-title">
+              <QText level="normal" color="gray">
+                {t(substep.name)}
+              </QText>
+            </div>
           </div>
           {expandedStep === substep.name && (
             <div className="expanded-card-container">

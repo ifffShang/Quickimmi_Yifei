@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { KeyValues, Language, ScreenSize } from "../model/commonModels";
-import { handleResize } from "../utils/utils";
+import { handleResize } from "../utils/screenSizeUtil";
 
 export type ModalType =
   | "uploadpassport"
@@ -12,6 +12,7 @@ export type ModalType =
   | "registerInterviewTimeLocation"
   | "registerApplicationFinalResultReceipt"
   | "tokenRefreshPopup"
+  | "sortableSectionAddModal"
   | "";
 
 export interface CommonState {

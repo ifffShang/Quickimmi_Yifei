@@ -1,6 +1,5 @@
 import { LockOutlined, SafetyOutlined } from "@ant-design/icons";
 import { Button } from "antd";
-import Link from "antd/es/typography/Link";
 import { confirmResetPassword, confirmSignUp, resendSignUpCode, resetPassword } from "aws-amplify/auth";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -115,7 +114,9 @@ export function ConfirmCode() {
       <>
         <div className="confirm-code-description">
           <QText color="secondary">{t("InputConfirmationCode") + auth.email}</QText>
-          <Link onClick={resendCode}>Resend code</Link>
+          <Button type="link" onClick={resendCode}>
+            Resend code
+          </Button>
         </div>
         <FormInput
           placeholder={t("VerificationCode")}
@@ -156,7 +157,9 @@ export function ConfirmCode() {
       <>
         <div className="confirm-code-description">
           <QText color="secondary">{t("InputConfirmationCode") + auth.email}</QText>
-          <Link onClick={resendCode}>Resend code</Link>
+          <Button type="link" onClick={resendCode}>
+            Resend code
+          </Button>
         </div>
         <FormInput
           placeholder={t("VerificationCode")}
@@ -184,7 +187,9 @@ export function ConfirmCode() {
   const bottomTop = (
     <>
       <QText>{"Doesn't have account?"}</QText>
-      <Link onClick={() => navigate("/signup")}>Sign Up</Link>
+      <Button type="link" onClick={() => navigate("/signup")}>
+        Sign Up
+      </Button>
     </>
   );
 

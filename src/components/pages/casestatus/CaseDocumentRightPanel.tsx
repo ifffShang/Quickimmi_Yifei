@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Button, Card, Input, message, Modal, Select, Space, Table, Tooltip, Upload, UploadProps } from "antd";
+import { Alert, Button, Card, Input, message, Modal, Select, Space, Table, Tooltip, Upload, UploadProps } from "antd";
 import { useTranslation } from "react-i18next";
 import { InboxOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -11,7 +11,7 @@ import {
   getDocumentTypesApi,
   updateDocumentStatus,
   uploadFileToPresignUrl,
-} from "../../../api/caseAPI";
+} from "../../../api/documentAPI";
 import { useAppSelector } from "../../../app/hooks";
 import { UploadedDocument, UploadedDocumentWithUrl } from "../../../model/apiModels";
 import { DocumentStatus, DocumentType } from "../../../model/commonModels";
@@ -30,6 +30,7 @@ function useFetchDocuments(setDocuments: (docs: UploadedDocumentWithUrl[]) => vo
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const userRole = useAppSelector(state => state.auth.role);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchDocuments = useCallback(async () => {
     if (!accessToken || !caseId || !userRole) {
@@ -41,15 +42,20 @@ function useFetchDocuments(setDocuments: (docs: UploadedDocumentWithUrl[]) => vo
     try {
       setLoading(true);
       const documentsStatusToInclude = ["Success", "uploaded"];
-      const documents: UploadedDocument[] = await getDocumentsApi(accessToken, Number(caseId), userRole);
+      const documents: UploadedDocument[] = await getDocumentsApi(accessToken, parseInt(caseId), userRole);
       const filteredDocuments = documents.filter(doc => documentsStatusToInclude.includes(doc.status));
       const documentsWithUrl: UploadedDocumentWithUrl[] = filteredDocuments.map(doc => ({
         ...doc,
         document: new Blob(),
       }));
       setDocuments(documentsWithUrl);
-    } catch (error) {
-      message.error("Error fetching documents");
+    } catch (error: any) {
+      console.error(error);
+      let errMsg = "Failed to fetch document. Please try again later.";
+      if (error?.message?.includes("403") || error?.status === 403) {
+        errMsg = "Forbidden: You do not have permission to access this resource.";
+      }
+      setError(errMsg);
     } finally {
       setLoading(false);
     }
@@ -59,7 +65,7 @@ function useFetchDocuments(setDocuments: (docs: UploadedDocumentWithUrl[]) => vo
     fetchDocuments();
   }, [accessToken]);
 
-  return { loading, fetchDocuments };
+  return { error, loading, fetchDocuments };
 }
 
 const CaseDocumentRightPanel: React.FC = () => {
@@ -72,7 +78,7 @@ const CaseDocumentRightPanel: React.FC = () => {
   const userRole = useAppSelector(state => state.auth.role);
   const [documents, setDocuments] = useState<UploadedDocumentWithUrl[]>([]);
   const [filteredDocuments, setFilteredDocuments] = useState<UploadedDocumentWithUrl[]>([]);
-  const { loading, fetchDocuments } = useFetchDocuments(setDocuments);
+  const { error, loading, fetchDocuments } = useFetchDocuments(setDocuments);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [currentFile, setCurrentFile] = useState<File | null>(null);
   const [selectedDocumentType, setSelectedDocumentType] = useState<DocumentType>("OTHER");
@@ -140,13 +146,13 @@ const CaseDocumentRightPanel: React.FC = () => {
   };
 
   const handleDelete = async () => {
-    if (!accessToken || documentToDelete === null) {
+    if (!accessToken || documentToDelete === null || !caseId) {
       message.error("Access token is missing or no document selected for deletion");
       return;
     }
     try {
       console.log("delete documentId", documentToDelete.id);
-      const successDelete = await deleteDocumentApi(userRole, documentToDelete.id, accessToken);
+      const successDelete = await deleteDocumentApi(userRole, documentToDelete.id, accessToken, parseInt(caseId));
       if (successDelete) {
         message.success("Document deleted successfully");
         fetchDocuments();
@@ -163,11 +169,11 @@ const CaseDocumentRightPanel: React.FC = () => {
 
   const updateStatus = async (documentId: number, documentStatus: DocumentStatus) => {
     try {
-      if (!accessToken) {
+      if (!accessToken || !caseId) {
         message.error("Access token is missing");
         return;
       }
-      await updateDocumentStatus(userRole, documentId, true, documentStatus, accessToken);
+      await updateDocumentStatus(userRole, documentId, true, documentStatus, accessToken, parseInt(caseId));
     } catch (error) {
       console.error(`Failed to update document status: ${error}`);
     }
@@ -304,12 +310,12 @@ const CaseDocumentRightPanel: React.FC = () => {
   }, [location.search, documents]);
 
   const handlePreview = async (documentId: number) => {
-    if (!accessToken) {
+    if (!accessToken || !caseId) {
       message.error("Access token is missing");
       return;
     }
     try {
-      const document = await getDocumentByIdApi(accessToken, documentId, userRole);
+      const document = await getDocumentByIdApi(accessToken, documentId, userRole, parseInt(caseId));
       if (!document.presignUrl) {
         message.error("Presigned URL is missing");
         return;
@@ -322,12 +328,12 @@ const CaseDocumentRightPanel: React.FC = () => {
   };
 
   const handleDownload = async (document: UploadedDocumentWithUrl) => {
-    if (!accessToken) {
+    if (!accessToken || !caseId) {
       message.error("Access token is missing! Please login again.");
       return;
     }
     try {
-      const docWithPresignedUrl = await getDocumentByIdApi(accessToken, document.id, userRole);
+      const docWithPresignedUrl = await getDocumentByIdApi(accessToken, document.id, userRole, parseInt(caseId));
       const response = await fetch(docWithPresignedUrl.presignUrl);
       if (!response.ok) {
         message.error("Failed to download document.");
@@ -432,6 +438,10 @@ const CaseDocumentRightPanel: React.FC = () => {
         <Loading />
       </div>
     );
+  }
+
+  if (error) {
+    return <Alert message="Error" description={error} type="error" showIcon />;
   }
 
   return (

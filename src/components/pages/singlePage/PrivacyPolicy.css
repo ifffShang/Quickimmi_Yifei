@@ -14,7 +14,7 @@
   fill: var(--primary-color);
 }
 
-table {
+.privacy-policy-table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
@@ -24,4 +24,8 @@ table {
 .privacy th {
   border: 1px solid var(--gray-color-3);
   padding: 8px;
+}
+
+.privacy-collapse > .ant-collapse-item > .ant-collapse-header {
+  color: var(--dark-gray-color);
 }

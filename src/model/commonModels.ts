@@ -73,8 +73,8 @@ export interface ChildrenOnlyProps {
 
 export enum ScreenSize {
   xsmall = 550,
-  small = 900,
-  medium = 1500,
+  small = 950,
+  medium = 1600,
   large = 2100,
 }
 
@@ -259,5 +259,3 @@ export type DocumentCreatedBy = "APPLICANT" | "LAWYER" | "SYSTEM";
 export type DocumentStatus = "UPLOADING" | "UPLOADED" | "FAILED" | "SUCCESS";
 
 export type DocumentOperation = "NEW" | "REPLACE";
-
-export type AsylumType = "AFFIRMATIVE" | "DEFENSIVE";

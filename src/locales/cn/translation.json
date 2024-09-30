@@ -17,7 +17,12 @@
   "Search": "筛选",
   "Cancel": "取消",
   "Generate Documents": "生成文件",
+  "Regenerate Documents": "重新生成文档",
+  "Automatically generate application documents based on provided information": "根据提供的信息自动生成申请文档",
+  "RegeneratingDocButtonTooltip": "重新生成文档不会包含已替换的文档。如需重新生成已替换的文档，请使用重试按钮。",
   "Generate Merged Documents": "生成最终文件",
+  "Complete Review": "完成审核",
+  "Download All": "下载全部文件",
   "UploadDocument": "上传文件",
   "CaseDocument": "附属文件",
   "CaseId": "案件编号",
@@ -28,9 +33,12 @@
   "Use": "使用",
   "Rewrite": "重写",
   "Write your Personal Statement with AI": "人工智能自动填写",
+  "Write your Cover Letter with AI": "人工智能自动填写",
   "Please complete the previous sections before using this feature": "此功能需要先完成填写前面的信息",
   "Translate the PS on the left panel into Original Language.": "将左边内容翻译成申请人主用语",
   "AI will generate the Personal Statement based on the information provided in the previous sections.": "人工智能会根据之前填写的内容自动生成个人陈述。",
+  "AI will generate the Cover Letter based on the information provided in the previous sections.": "人工智能会根据之前填写的内容自动生成申请信。",
+
   "Discard": "放弃",
 
   "Home": "首页",
@@ -200,6 +208,17 @@
     "SearchByCaseNameOrCaseId": "通过案件名称或案件编号搜索"
   },
 
+  "LawyerProfile": {
+    "LawyerProfile": "律师信息",
+    "NameEditMessage": "确保这和你ID上的名字一致。",
+    "PhoneEditMessage": "输入美国的电话或移动电话号码",
+    "FaxEditMessage": "请勿使用电话作为传真号码",
+    "LawFirmAddress": "律所地址",
+    "AddressEditMessage": "请填入可以收到邮件的永久地址.",
+    "AccountNumbersEditMessage": "填写您最新的USCIS线上账号与EOIR号码",
+    "EligibilityEditMessage": "请填正确填写并合适您的执照信息"
+  },
+
   "FindIncomplete": "找出未完成字段",
   "Complete Form": "资料完善",
   "Total Progress": "全部进度",
@@ -209,6 +228,7 @@
   "ImmigrationReason": "移民原因",
   "ImmigrationSubtype": "移民子类型",
   "Tips": "提示",
+  "ImmigrationTypeNotSupported": "移民类型还未支持",
 
   "DRAFT": "草稿",
   "REVIEW": "审核中",
@@ -338,6 +358,7 @@
   "ViewMergedDocuments": "查看最终文件",
   "PersonalStatement": "个人陈述",
   "PersonalStatementInOriginalLanguage": "个人陈述（原文）",
+  "CoverLetter": "申请信",
   "ViewFormSummary": "查看表单",
   "DisableDocDeleteButtonText": "系统生成的文件或用于系统生成的文件无法在此页面删除",
 
@@ -571,6 +592,7 @@
   "licensingAuthority": "授权机构",
   "dateofAccreditation": "授权日期",
   "Eligibility": "律师资格",
+  "EligibilityInformation": "律师资格信息",
   "AccountNumbers": "账号",
   "lawFirm": "律师事务所",
   "specialization": "从业领域",

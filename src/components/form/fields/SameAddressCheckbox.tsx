@@ -25,7 +25,7 @@ export function SameAddressCheckbox(props: SameAddressCheckboxProps) {
     zipCodeOfMailingAddress,
     telePhoneAreaCodeOfMailingAddress,
     telePhoneNumberOfMailingAddress,
-  } = applicationCase.profile.applicant;
+  } = applicationCase.asylumProfile.applicant;
 
   const [checked, setChecked] = useState(
     !!streetNumberAndName &&

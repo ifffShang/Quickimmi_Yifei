@@ -6,7 +6,7 @@ import { getFileIcon, getFileType } from "../../../utils/fileIconUtils";
 import { ModalType, openModal } from "../../../reducers/commonSlice";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { QText } from "../../common/Fonts";
-import { getDocumentByIdApi } from "../../../api/caseAPI";
+import { getDocumentByIdApi } from "../../../api/documentAPI";
 import { UploadedDocument } from "../../../model/apiModels";
 
 interface ExpandedCardProps {
@@ -41,10 +41,13 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
 
   useEffect(() => {
     const fetchDocument = async () => {
-      if (!accessToken || !userRole) return;
+      if (!accessToken || !userRole || !id) {
+        console.warn("accessToken, or userRole, or caseId cannot be null.");
+        return;
+      }
       if (substepMetadata?.documentIds) {
         try {
-          const document = await getDocumentByIdApi(accessToken, substepMetadata.documentIds, userRole);
+          const document = await getDocumentByIdApi(accessToken, substepMetadata.documentIds, userRole, parseInt(id));
           setSubStepDocument(document);
         } catch (error) {
           console.error("Failed to fetch document:", error);
@@ -56,18 +59,21 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
   }, [substepMetadata?.documentId, accessToken, userRole]);
 
   const translationsMap: { [key: string]: string } = {
-    i589_fields_basic_information: "BasicInformation",
-    i589_fields_contact_information: "ContactInformation",
-    i589_fields_immigration_information: "ImmigrationInformation",
-    i589_fields_spouse_information: "SpouseInformation",
-    i589_fields_children_information: "ChildrenInformation",
-    i589_fields_parents_information: "ParentsInformation",
-    i589_fields_siblings_information: "SiblingsInformation",
-    i589_fields_address_before_usa: "AddressInformationI",
-    i589_fields_address_past_5y: "AddressInformationII",
-    i589_fields_education_information: "EducationInformation",
-    i589_fields_employment_information: "EmploymentInformation",
-    i589_fields_asylum_claim: "AsylumClaim",
+    "asylum/i589_fields_basic_information": "BasicInformation",
+    "asylum/i589_fields_contact_information": "ContactInformation",
+    "asylum/i589_fields_immigration_information": "ImmigrationInformation",
+    "asylum/i589_fields_notice_of_appearance_information": "NoticeOfAppearance",
+    "asylum/i589_fields_spouse_information": "SpouseInformation",
+    "asylum/i589_fields_children_information": "ChildrenInformation",
+    "asylum/i589_fields_parents_information": "ParentsInformation",
+    "asylum/i589_fields_siblings_information": "SiblingsInformation",
+    "asylum/i589_fields_address_before_usa": "AddressInformationI",
+    "asylum/i589_fields_address_past_5y": "AddressInformationII",
+    "asylum/i589_fields_education_information": "EducationInformation",
+    "asylum/i589_fields_employment_information": "EmploymentInformation",
+    "asylum/i589_fields_asylum_claim": "AsylumClaim",
+    "asylum/i589_fields_additional_information": "AdditionalInformation",
+    "asylum/i589_fields_personal_statement": "PersonalStatement",
   };
 
   const getTooltipText = (stepStatus: string | null, currentStepStatus: string) => {
@@ -487,7 +493,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
     }
   };
 
-  return <Card className="custom-card">{renderContent()}</Card>;
+  return <Card className="case-progress-expanded-card">{renderContent()}</Card>;
 };
 
 export default CaseProgressExpandedCard;

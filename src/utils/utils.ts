@@ -3,35 +3,17 @@ import _ from "lodash";
 import { LocationObject, LocationSelectOption } from "../components/form/fields/LocationDropdown";
 import { PATH } from "../components/router/MainView";
 import { Regex } from "../consts/consts";
-import {
-  ApplicationCase,
-  AsylumCaseProfile,
-  AsylumCaseProfileOptional,
-  Progress,
-  UpdateApplicationCaseData,
-} from "../model/apiModels";
-import { Identity, KeyValues, ScreenSize } from "../model/commonModels";
+import { ApplicationCase, AsylumCaseProfile, Progress, UpdateApplicationCaseData } from "../model/apiModels";
+import { Identity, KeyValues } from "../model/commonModels";
 import { ControlType, IFormOptions } from "../model/formFlowModels";
 import { ArrayFields, updateCaseFields } from "../reducers/formSlice";
-
-export const handleResize = (dispatch?: React.Dispatch<any>, callback?: any) => {
-  const width = window.innerWidth;
-  if (width < ScreenSize.xsmall) {
-    callback && dispatch && dispatch(callback(ScreenSize.xsmall));
-    return ScreenSize.xsmall;
-  } else if (width < ScreenSize.small) {
-    callback && dispatch && dispatch(callback(ScreenSize.small));
-    return ScreenSize.small;
-  } else if (width < ScreenSize.medium) {
-    callback && dispatch && dispatch(callback(ScreenSize.medium));
-    return ScreenSize.medium;
-  } else {
-    callback && dispatch && dispatch(callback(ScreenSize.large));
-    return ScreenSize.large;
-  }
-};
+import { CaseProfile, CaseProfileOptional } from "../model/commonApiModels";
+import { CaseType } from "../model/immigrationTypes";
 
 export const equalsIgnoreCase = (str1: string, str2: string) => {
+  if (str1 === undefined && str2 === undefined) return true;
+  if (str1 === null && str2 === null) return true;
+  if (!str1 || !str2) return false;
   return str1.toLowerCase() === str2.toLowerCase();
 };
 
@@ -68,7 +50,7 @@ export function decodeId(encodedId: string) {
   return parseInt(encodedId, 36);
 }
 
-export function getCaseDetailValue(caseDetails: AsylumCaseProfile, key: string, fieldIndex?: number) {
+export function getCaseDetailValue(caseDetails: CaseProfile, key: string, fieldIndex?: number) {
   if (key.indexOf(".") > -1) {
     const keys = key.split(".");
     let result: any = caseDetails;
@@ -115,13 +97,17 @@ export function hasFormKey(control: ControlType) {
 }
 
 export function getFieldValue(
-  caseDetails: AsylumCaseProfile,
+  caseDetails: CaseProfile | null,
   key: string,
   control: ControlType,
   options?: IFormOptions[] | string,
   format?: string,
   fieldIndex?: number,
 ): any {
+  if (!caseDetails) {
+    return;
+  }
+
   // Sanity Check
   if (control === "group") {
     return;
@@ -235,7 +221,16 @@ function createNestedObject(keys: string[], value: any, fieldIndex?: number) {
   }, value);
 }
 
-export function dispatchFormValue(dispatch: React.Dispatch<any>, keyValues: KeyValues, fieldIndex?: number) {
+export function dispatchFormValue(
+  dispatch: React.Dispatch<any>,
+  caseType: CaseType | null,
+  keyValues: KeyValues,
+  fieldIndex?: number,
+) {
+  if (!caseType) {
+    console.error("Case type is missing for dispatchFormValue");
+    return;
+  }
   let caseFieldsToUpdate: any = {};
   for (const [key, value] of Object.entries(keyValues)) {
     let valueUsed = value;
@@ -262,10 +257,10 @@ export function dispatchFormValue(dispatch: React.Dispatch<any>, keyValues: KeyV
       caseFieldsToUpdate = _.merge(caseFieldsToUpdate, caseWithUpdatedField);
     }
   }
-  dispatch(updateCaseFields(caseFieldsToUpdate));
+  dispatch(updateCaseFields({ update: caseFieldsToUpdate, caseType: caseType }));
 }
 
-export function getUpdateProfileData(key: string, profile: AsylumCaseProfileOptional, fieldIndex?: number) {
+export function getUpdateProfileData(key: string, profile: CaseProfileOptional, fieldIndex?: number) {
   const keys = key.split(".");
   if (keys.length === 1) {
     return { [keys[0]]: profile };
@@ -277,7 +272,7 @@ export function getUpdateProfileData(key: string, profile: AsylumCaseProfileOpti
 export function getUpdateApplicationCaseData(applicationCase: ApplicationCase): UpdateApplicationCaseData {
   return {
     ...applicationCase,
-    profile: applicationCase.profile,
+    profile: applicationCase.asylumProfile,
   };
 }
 
@@ -435,7 +430,7 @@ export function createKeyValuesForAddItem(fieldValue: any) {
     keyValues[fieldValue.countKey] = parseInt(fieldValue.count) + 1;
   }
   if (fieldValue.arrKey) {
-    const arrayField = getArrayFieldInfo(fieldValue.arrKey);
+    const arrayField = getInitArrayFieldInfo(fieldValue.arrKey);
     keyValues[arrayField.overwriteField] = true;
     keyValues[fieldValue.arrKey] = [...fieldValue.arr, arrayField.default];
   }
@@ -450,14 +445,28 @@ export function createKeyValuesForRemoveItem(fieldValue: any, arrIndex: number) 
     keyValues[fieldValue.countKey] = fieldValue.count - 1;
   }
   if (fieldValue.arrKey) {
-    const arrayField = getArrayFieldInfo(fieldValue.arrKey);
+    const arrayField = getInitArrayFieldInfo(fieldValue.arrKey);
     keyValues[arrayField.overwriteField] = true;
     keyValues[fieldValue.arrKey] = newArr;
   }
   return keyValues;
 }
 
-export function getArrayFieldInfo(fieldKey: string) {
+export function createKeyValuesForSwapItems(fieldValue: any, startIndex: number, targetIndex: number) {
+  const newArr = [...fieldValue.arr];
+  const temp = newArr[startIndex];
+  newArr[startIndex] = newArr[targetIndex];
+  newArr[targetIndex] = temp;
+  const keyValues: any = {};
+  if (fieldValue.arrKey) {
+    const arrayField = getInitArrayFieldInfo(fieldValue.arrKey);
+    keyValues[arrayField.overwriteField] = true;
+    keyValues[fieldValue.arrKey] = newArr;
+  }
+  return keyValues;
+}
+
+export function getInitArrayFieldInfo(fieldKey: string) {
   const arrayField = ArrayFields.find(f => f.field === fieldKey);
   if (!arrayField) {
     console.error(`[getArrayFieldInfo] Array field is missing for key: ${fieldKey}`);
@@ -491,7 +500,9 @@ export function isNullOrUndefined(value: any) {
   return value === null || value === undefined;
 }
 
-export function isSectionVisible(visibility: string, caseDetails: AsylumCaseProfile, fieldIndex?: number) {
+export function isSectionVisible(visibility: string, caseDetails: CaseProfile | null, fieldIndex?: number) {
+  if (!caseDetails) return false;
+
   let visibilityArray: string[];
   //| represents the "or" logic
   if (visibility.indexOf("|") > -1) {

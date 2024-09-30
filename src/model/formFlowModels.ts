@@ -37,6 +37,7 @@ export interface IFormField {
   hideHeader?: boolean;
   fieldIndex?: number;
   documentType?: DocumentType;
+  identity?: string;
 }
 
 export interface IFormOptions {
@@ -64,7 +65,9 @@ export type ControlType =
   | "group"
   | "section"
   | "removable_section"
+  | "sortable_section"
   | "component_passport_uploader"
+  | "component_passport_uploader_with_na"
   | "component_multi_textboxes_na"
   | "component_textbox_na"
   | "component_location_dropdown"
@@ -77,6 +80,12 @@ export type ControlType =
   | "component_textarea_ai_refine"
   | "component_personal_statement"
   | "component_personal_statement_in_original_language"
+  | "component_cover_letter"
   | "component_view_application_form"
   | "percentage" // used only for percentage calculation
   | "multi_file_uploader_new"; // WIP!!! DON'T USE!!!;
+
+export interface RefineResponse {
+  result: string;
+  tips: string[];
+}

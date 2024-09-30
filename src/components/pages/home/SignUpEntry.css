@@ -26,7 +26,7 @@
 .xsmall .signup-entry-header,
 .small .signup-entry-header {
   font-size: var(--font-size-h3);
-  line-height: 40px;
+  line-height: 100px;
 }
 
 .signup-entry-text {
@@ -34,8 +34,12 @@
   font-weight: 600;
   position: relative;
   display: inline-block;
-  line-height: 30px;
   width: 90%;
+}
+.small .signup-entry-text,
+.xsmall .signup-entry-text {
+  font-size: 45px;
+  font-weight: 750;
 }
 
 .signup-entry-text svg {

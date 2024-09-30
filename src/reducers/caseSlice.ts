@@ -1,8 +1,9 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import _ from "lodash";
 import { Case } from "../model/apiModels";
 import { IForm, IFormFields, IFormStep } from "../model/formFlowModels";
+import { CaseSubType, CaseType } from "../model/immigrationTypes";
 import { getCorrectedIndexes } from "../utils/caseUtils";
-import _ from "lodash";
 
 export interface FormFieldsMap {
   [key: string]: IFormFields;
@@ -19,6 +20,8 @@ export interface CaseState {
   currentStep: IFormStep;
   formFieldsMap: FormFieldsMap;
   currentCaseId: string;
+  currentCaseType: CaseType | null;
+  currentCaseSubType: CaseSubType | null;
   cases: Case[];
 }
 
@@ -33,6 +36,8 @@ const initialState: CaseState = {
   currentStep: {} as IFormStep,
   formFieldsMap: {},
   currentCaseId: "",
+  currentCaseType: null,
+  currentCaseSubType: null,
   cases: [],
 };
 
@@ -60,7 +65,6 @@ export const caseSlice = createSlice({
         state.totalLevel1s = 0;
         state.currentStep = {} as IFormStep;
         state.formFieldsMap = {};
-        state.currentCaseId = "";
       }
 
       state.form = action.payload;
@@ -142,8 +146,13 @@ export const caseSlice = createSlice({
         [action.payload.referenceId]: action.payload.formFields,
       };
     },
-    updateCurrentCaseId: (state, action: PayloadAction<string>) => {
-      state.currentCaseId = action.payload;
+    updateCurrentCaseInfo: (
+      state,
+      action: PayloadAction<{ caseId: string; caseType: CaseType; caseSubType: CaseSubType }>,
+    ) => {
+      state.currentCaseId = action.payload.caseId;
+      state.currentCaseType = action.payload.caseType;
+      state.currentCaseSubType = action.payload.caseSubType;
     },
     updateCases: (state, action: PayloadAction<Case[]>) => {
       state.cases = action.payload;
@@ -159,6 +168,8 @@ export const caseSlice = createSlice({
       state.currentStep = {} as IFormStep;
       state.formFieldsMap = {};
       state.currentCaseId = "";
+      state.currentCaseType = null;
+      state.currentCaseSubType = null;
     },
     resetCaseState: state => {
       return initialState;
@@ -175,7 +186,7 @@ export const {
   setIndexLevel2,
   updateForm,
   updateFormFieldsMap,
-  updateCurrentCaseId,
+  updateCurrentCaseInfo,
   updateCases,
   resetForm,
   resetCaseState,
