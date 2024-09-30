@@ -1,7 +1,7 @@
 import { Alert } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getCaseProfileAndProgressApi } from "../../../api/caseProfileAPI";
+import { getCaseProfileAndProgressApi } from "../../../api/caseProfileGetAPI";
 import { getCaseSummaryApi } from "../../../api/caseSummaryAPI";
 import { getFormTemplate } from "../../../api/formTemplateAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
@@ -44,6 +44,7 @@ export function CaseDetails() {
           return;
         }
         const form = await getFormTemplate(caseType, caseSubType);
+        console.log("Form template", form);
         dispatch(updateForm(form));
 
         const caseDetails = await getCaseProfileAndProgressApi(parseInt(id), accessToken, role, caseType);

@@ -121,23 +121,6 @@ export async function updateCaseNameApi(
   return res.data;
 }
 
-export async function updateApplicationCaseApi(
-  data: UpdateApplicationCaseData,
-  accessToken: string,
-  role: Role,
-  caseId: number,
-): Promise<boolean> {
-  const res = await performApiRequest({
-    endPoint: `api/case/asylum/update`,
-    method: "POST",
-    data,
-    accessToken,
-    role,
-    caseId,
-  });
-  return <boolean>res.data;
-}
-
 export async function updateCaseProgressApi(
   data: UpdateProgressRequestDto,
   accessToken: string,

@@ -1,5 +1,5 @@
 {
-  "id": "i589_form_defensive_asylum",
+  "id": "form_family_based",
   "version": "2024-04-01",
   "type": "form",
   "steps": [
@@ -12,7 +12,7 @@
           "label": "text_FillingInformation",
           "id": "part1",
           "type": "level2",
-          "referenceId": "familyBased/i130_fields_filling_information"
+          "referenceId": "familyBased/fields_filling_information"
         }
       ]
     },
@@ -25,25 +25,25 @@
           "label": "text_SpouseInformation",
           "id": "spouse_information",
           "type": "level2",
-          "referenceId": "i589_fields_spouse_information"
+          "referenceId": "familyBased/fields_filling_information"
         },
         {
           "label": "text_ChildrenInformation",
           "id": "children_information",
           "type": "level2",
-          "referenceId": "i589_fields_children_information"
+          "referenceId": "familyBased/fields_filling_information"
         },
         {
           "label": "text_ParentsInformation",
           "id": "parents_information",
           "type": "level2",
-          "referenceId": "i589_fields_parents_information"
+          "referenceId": "familyBased/fields_filling_information"
         },
         {
           "label": "text_SiblingsInformation",
           "id": "siblings_information",
           "type": "level2",
-          "referenceId": "i589_fields_siblings_information"
+          "referenceId": "familyBased/fields_filling_information"
         }
       ]
     },

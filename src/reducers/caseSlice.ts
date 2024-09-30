@@ -174,7 +174,7 @@ export const caseSlice = createSlice({
       state.currentCaseSubType = null;
     },
     resetCaseState: state => {
-      state = initialState;
+      return initialState;
     },
   },
 });

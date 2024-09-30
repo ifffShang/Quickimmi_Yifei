@@ -80,6 +80,10 @@ export const performApiRequest = async ({
     additionalHeaders["Case-Id"] = caseId;
   }
 
+  if (self) {
+    additionalHeaders["Cache-Control"] = "no-cache";
+  }
+
   try {
     return await fetchFunction(endPoint, method, body, additionalHeaders, self ? "" : baseUrl);
   } catch (error) {

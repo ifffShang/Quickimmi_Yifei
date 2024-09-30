@@ -15,7 +15,6 @@ import {
 import { ExcludedSectionsFromPercentage, InitialApplicationCase } from "../consts/consts";
 import {
   ApplicationCase,
-  AsylumCaseProfileOptional,
   GeneratedDocument,
   MarriageCertificate,
   ParsePassportResponse,
@@ -24,7 +23,7 @@ import {
   UploadedDocumentWithUrl,
 } from "../model/apiModels";
 import { ParseMarriageCertificateResponse } from "../model/apiReqResModels";
-import { CaseProfile } from "../model/commonApiModels";
+import { CaseProfile, CaseProfileOptional } from "../model/commonApiModels";
 import { KeyValues } from "../model/commonModels";
 import { CaseType } from "../model/immigrationTypes";
 import { getUpdateProfileData } from "../utils/utils";
@@ -73,7 +72,7 @@ function deepAssign(update: any, current: any, init: any) {
       } else if (value === null || value === undefined) {
         result[key] = current?.[key] || init?.[key] || null;
       } else if (typeof value === "object" && !Array.isArray(value)) {
-        result[key] = deepAssign(value, current?.[key], init[key]);
+        result[key] = deepAssign(value, current?.[key], init?.[key]);
       } else {
         result[key] = value;
       }
@@ -202,6 +201,8 @@ export const formSlice = createSlice({
         CacheStore.setProfile(updatedProfile, action.payload.caseId);
       }
 
+      console.log("FamilyBasedProfile:", JSON.stringify(state.applicationCase.familyBasedProfile, null, 2));
+
       Object.assign(state.applicationCase.progress, action.payload.progress);
       CacheStore.setProgress(action.payload.progress, action.payload.caseId);
 
@@ -279,35 +280,50 @@ export const formSlice = createSlice({
       }
       CacheStore.setPercentage(state.percentage, state.caseId);
     },
-    updateCaseFields: (state, action: PayloadAction<AsylumCaseProfileOptional>) => {
-      ArrayFields.forEach(item => {
-        const { field, overwriteField } = item;
-        if (action.payload[overwriteField]) {
-          _.set(state.applicationCase.asylumProfile, field, _.get(action.payload, field) ?? []);
-          delete action.payload[overwriteField];
-        }
-      });
-
-      let profile: any;
-      if (action.payload.overwrite) {
-        profile = deepOverwrite(action.payload, state.applicationCase.asylumProfile);
-      } else {
-        profile = _.merge(state.applicationCase.asylumProfile, action.payload);
-      }
-
-      console.log("=====", original(profile.family));
-
-      state.applicationCase.asylumProfile = profile;
-
-      if (action.payload.supplementDocument) {
-        Object.keys(action.payload.supplementDocument).forEach(key => {
-          if (key.indexOf("SupportDocuments") > -1) {
-            state.applicationCase.asylumProfile.supplementDocument[key] = action.payload.supplementDocument![key];
+    updateCaseFields: (state, action: PayloadAction<{ update: CaseProfileOptional; caseType: CaseType }>) => {
+      /** Asylum */
+      if (action.payload.caseType === CaseType.Asylum) {
+        ArrayFields.forEach(item => {
+          const { field, overwriteField } = item;
+          if (action.payload[overwriteField]) {
+            _.set(state.applicationCase.asylumProfile, field, _.get(action.payload, field) ?? []);
+            delete action.payload[overwriteField];
           }
         });
-      }
 
-      CacheStore.setProfile(state.applicationCase.asylumProfile, state.caseId);
+        let profile: any;
+        if (action.payload.update.overwrite) {
+          profile = deepOverwrite(action.payload.update, state.applicationCase.asylumProfile);
+        } else {
+          profile = _.merge(state.applicationCase.asylumProfile, action.payload);
+        }
+
+        state.applicationCase.asylumProfile = profile;
+
+        if (action.payload.update.supplementDocument) {
+          Object.keys(action.payload.update.supplementDocument).forEach(key => {
+            if (key.indexOf("SupportDocuments") > -1) {
+              state.applicationCase.asylumProfile.supplementDocument[key] =
+                action.payload.update.supplementDocument![key];
+            }
+          });
+        }
+
+        CacheStore.setProfile(state.applicationCase.asylumProfile, state.caseId);
+
+        /** Family based */
+      } else if (action.payload.caseType === CaseType.FamilyBased) {
+        let profile: any;
+        if (action.payload.update.overwrite) {
+          profile = deepOverwrite(action.payload.update, state.applicationCase.familyBasedProfile);
+        } else {
+          profile = _.merge(state.applicationCase.familyBasedProfile, action.payload.update);
+        }
+        console.log("FamilyBasedProfile22:", JSON.stringify(state.applicationCase.familyBasedProfile, null, 2));
+
+        state.applicationCase.familyBasedProfile = profile;
+        CacheStore.setProfile(state.applicationCase.familyBasedProfile, state.caseId);
+      }
     },
     updatePassportInfo: (state, action: PayloadAction<ParsePassportResponse>) => {
       const fieldKey = action.payload.fieldKey.replace(".passportDocumentId", "");
@@ -451,8 +467,8 @@ export const formSlice = createSlice({
       state.highlightMissingFields = action.payload;
     },
     resetFormState: state => {
-      state = initialState;
       CacheStore.clear();
+      return initialState;
     },
   },
 });

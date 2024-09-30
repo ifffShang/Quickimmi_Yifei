@@ -51,7 +51,7 @@ export async function getAsylumCaseProfileAndProgressApi(
     responseData.profile = InitialAsylumProfile;
   }
   return {
-    profile: removePropertiesNotDefinedInModel(InitialApplicationCase.asylumProfile, responseData.profile),
+    profile: removePropertiesNotDefinedInModel(InitialAsylumProfile, responseData.profile),
     progress: responseData.progress,
   };
 }
@@ -84,7 +84,7 @@ export async function getFamilyBasedCaseProfileAndProgressApi(
     responseData.profile = InitialFamilyBasedProfile;
   }
   return {
-    profile: removePropertiesNotDefinedInModel(InitialApplicationCase.familyBasedProfile, responseData.profile),
+    profile: removePropertiesNotDefinedInModel(InitialFamilyBasedProfile, responseData.profile),
     progress: responseData.progress,
   };
 }

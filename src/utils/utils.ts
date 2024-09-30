@@ -3,17 +3,12 @@ import _ from "lodash";
 import { LocationObject, LocationSelectOption } from "../components/form/fields/LocationDropdown";
 import { PATH } from "../components/router/MainView";
 import { Regex } from "../consts/consts";
-import {
-  ApplicationCase,
-  AsylumCaseProfile,
-  AsylumCaseProfileOptional,
-  Progress,
-  UpdateApplicationCaseData,
-} from "../model/apiModels";
+import { ApplicationCase, AsylumCaseProfile, Progress, UpdateApplicationCaseData } from "../model/apiModels";
 import { Identity, KeyValues, ScreenSize } from "../model/commonModels";
 import { ControlType, IFormOptions } from "../model/formFlowModels";
 import { ArrayFields, updateCaseFields } from "../reducers/formSlice";
-import { CaseProfile } from "../model/commonApiModels";
+import { CaseProfile, CaseProfileOptional } from "../model/commonApiModels";
+import { CaseType } from "../model/immigrationTypes";
 
 export const handleResize = (dispatch?: React.Dispatch<any>, callback?: any) => {
   const width = window.innerWidth;
@@ -243,7 +238,16 @@ function createNestedObject(keys: string[], value: any, fieldIndex?: number) {
   }, value);
 }
 
-export function dispatchFormValue(dispatch: React.Dispatch<any>, keyValues: KeyValues, fieldIndex?: number) {
+export function dispatchFormValue(
+  dispatch: React.Dispatch<any>,
+  caseType: CaseType | null,
+  keyValues: KeyValues,
+  fieldIndex?: number,
+) {
+  if (!caseType) {
+    console.error("Case type is missing for dispatchFormValue");
+    return;
+  }
   let caseFieldsToUpdate: any = {};
   for (const [key, value] of Object.entries(keyValues)) {
     let valueUsed = value;
@@ -270,10 +274,10 @@ export function dispatchFormValue(dispatch: React.Dispatch<any>, keyValues: KeyV
       caseFieldsToUpdate = _.merge(caseFieldsToUpdate, caseWithUpdatedField);
     }
   }
-  dispatch(updateCaseFields(caseFieldsToUpdate));
+  dispatch(updateCaseFields({ update: caseFieldsToUpdate, caseType: caseType }));
 }
 
-export function getUpdateProfileData(key: string, profile: AsylumCaseProfileOptional, fieldIndex?: number) {
+export function getUpdateProfileData(key: string, profile: CaseProfileOptional, fieldIndex?: number) {
   const keys = key.split(".");
   if (keys.length === 1) {
     return { [keys[0]]: profile };

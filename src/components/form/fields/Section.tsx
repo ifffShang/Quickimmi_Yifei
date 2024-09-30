@@ -76,6 +76,7 @@ export function Section(props: SectionProps) {
         textKeys.length > 0 &&
         dispatchFormValue(
           dispatch,
+          caseType,
           textKeys.reduce((obj, key) => ({ ...obj, [key]: "N/A" }), {}),
           props.fieldIndex,
         );
@@ -84,6 +85,7 @@ export function Section(props: SectionProps) {
         booleanKeys.length > 0 &&
         dispatchFormValue(
           dispatch,
+          caseType,
           booleanKeys.reduce((obj, key) => ({ ...obj, [key]: "false" }), {}),
           props.fieldIndex,
         );
@@ -92,6 +94,7 @@ export function Section(props: SectionProps) {
         selectKeys.length > 0 &&
         dispatchFormValue(
           dispatch,
+          caseType,
           selectKeys.reduce((obj, key) => ({ ...obj, [key]: "N/A" }), {}),
           props.fieldIndex,
         );
@@ -100,6 +103,7 @@ export function Section(props: SectionProps) {
         documentKeys.length > 0 &&
         dispatchFormValue(
           dispatch,
+          caseType,
           documentKeys.reduce((obj, key) => ({ ...obj, [key]: -1 }), {}),
           props.fieldIndex,
         );
@@ -108,6 +112,7 @@ export function Section(props: SectionProps) {
         documentListKeys.length > 0 &&
         dispatchFormValue(
           dispatch,
+          caseType,
           documentListKeys.reduce((obj, key) => ({ ...obj, [key]: [] }), {}),
           props.fieldIndex,
         );
@@ -119,6 +124,7 @@ export function Section(props: SectionProps) {
         const overwriteKey = ArrayFields.filter(field => field.field === key)[0].overwriteField;
         dispatchFormValue(
           dispatch,
+          caseType,
           {
             [key]: [],
             [overwriteKey]: true,
@@ -133,6 +139,7 @@ export function Section(props: SectionProps) {
         textKeys.length > 0 &&
         dispatchFormValue(
           dispatch,
+          caseType,
           textKeys.reduce((obj, key) => ({ ...obj, [key]: getCaseDetailValue(DefaultCaseProfile, key, 0) }), {}),
           props.fieldIndex,
         );
@@ -141,6 +148,7 @@ export function Section(props: SectionProps) {
         selectKeys.length > 0 &&
         dispatchFormValue(
           dispatch,
+          caseType,
           selectKeys.reduce((obj, key) => ({ ...obj, [key]: null }), {}),
           props.fieldIndex,
         );

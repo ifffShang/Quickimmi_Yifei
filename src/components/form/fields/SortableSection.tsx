@@ -132,7 +132,7 @@ export function SortableSection(props: SortableSectionProps) {
     const targetIndex = index;
     if (startIndex === targetIndex) return;
     const keyValues = createKeyValuesForSwapItems(fieldValue, startIndex, targetIndex);
-    dispatchFormValue(dispatch, keyValues);
+    dispatchFormValue(dispatch, caseType, keyValues);
   };
 
   let innerComponent = <div>Empty content, please contact quickimmi.</div>;
@@ -171,7 +171,7 @@ export function SortableSection(props: SortableSectionProps) {
                   fieldIndex={arrIndex}
                   onRemove={() => {
                     const keyValues = createKeyValuesForRemoveItem(fieldValue, arrIndex);
-                    dispatchFormValue(dispatch, keyValues, arrIndex);
+                    dispatchFormValue(dispatch, caseType, keyValues, arrIndex);
                   }}
                   onEdit={() => {
                     dispatch(

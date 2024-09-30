@@ -22,7 +22,7 @@ export async function getFormTemplate(caseType: CaseType, caseSubType: CaseSubTy
         ? "asylum/i589_form_affirmative_asylum"
         : "asylum/i589_form_defensive_asylum";
   } else if (caseType === CaseType.FamilyBased) {
-    path = "familyBased/i130_form_family_based";
+    path = "familyBased/form_family_based";
   } else {
     console.error(`Case type ${caseType} is not supported.`);
   }

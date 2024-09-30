@@ -78,6 +78,7 @@ export function DocumentList() {
   const asylumProfile = useAppSelector(state => state.form.applicationCase.asylumProfile);
   const progress = useAppSelector(state => state.form.applicationCase.progress);
   const percentage = useAppSelector(state => state.form.percentage);
+  const caseType = useAppSelector(state => state.case.currentCaseType);
 
   const generatedDocuments = useAppSelector(state => state.form.generatedDocuments);
   const [loading, setLoading] = useState(false);
@@ -145,14 +146,14 @@ export function DocumentList() {
   };
 
   const handleDocumentGeneration = async (docType: string) => {
-    if (!caseId || !accessToken) {
+    if (!caseId || !accessToken || !caseType) {
       console.error("Case ID or access token is not available");
       return;
     }
     setLoading(true);
     setAllGenerationCompleted(false);
     try {
-      await updateApplicationCaseFunc(caseId, asylumProfile, progress, percentage, role, accessToken);
+      await updateApplicationCaseFunc(caseId, asylumProfile, progress, percentage, role, accessToken, caseType);
       await generateDocumentsByDocumentTypeApi(accessToken, caseId, convertToDocumentType(docType), role);
       await retryGetDocumentsApi(
         accessToken,

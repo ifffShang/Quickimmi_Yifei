@@ -111,10 +111,11 @@ export function FormField(props: FormFieldProps) {
           keys.forEach((key, index) => {
             keyValues[key] = values[index];
           });
-          dispatchFormValue(dispatch, keyValues, props.fieldIndex);
+          dispatchFormValue(dispatch, caseType, keyValues, props.fieldIndex);
         } else {
           dispatchFormValue(
             dispatch,
+            caseType,
             {
               [props.fieldKey]: option.keyValue,
             },
@@ -124,6 +125,7 @@ export function FormField(props: FormFieldProps) {
       } else {
         dispatchFormValue(
           dispatch,
+          caseType,
           {
             [props.fieldKey]: value,
           },
@@ -133,6 +135,7 @@ export function FormField(props: FormFieldProps) {
     } else {
       dispatchFormValue(
         dispatch,
+        caseType,
         {
           [props.fieldKey]: value,
         },
@@ -166,6 +169,7 @@ export function FormField(props: FormFieldProps) {
         const group2 = matches[2]; // "456-7890"
         dispatchFormValue(
           dispatch,
+          caseType,
           {
             [keys[0]]: group1,
             [keys[1]]: group2,
@@ -178,6 +182,7 @@ export function FormField(props: FormFieldProps) {
       props.fieldKey &&
         dispatchFormValue(
           dispatch,
+          caseType,
           {
             [props.fieldKey]: value,
           },
@@ -195,6 +200,7 @@ export function FormField(props: FormFieldProps) {
       const values = value.split(",");
       dispatchFormValue(
         dispatch,
+        caseType,
         {
           [keys[0]]: values[0],
           [keys[1]]: values[1],
@@ -205,6 +211,7 @@ export function FormField(props: FormFieldProps) {
     }
     dispatchFormValue(
       dispatch,
+      caseType,
       {
         [props.fieldKey]: value,
       },
@@ -222,11 +229,12 @@ export function FormField(props: FormFieldProps) {
       keys.forEach((key, index) => {
         keyValueObject[key] = values[index];
       });
-      dispatchFormValue(dispatch, keyValueObject, props.fieldIndex);
+      dispatchFormValue(dispatch, caseType, keyValueObject, props.fieldIndex);
       return;
     }
     dispatchFormValue(
       dispatch,
+      caseType,
       {
         [props.fieldKey]: value,
       },
@@ -238,6 +246,7 @@ export function FormField(props: FormFieldProps) {
     const locationStr = formatCityAndCountryStr(...params);
     dispatchFormValue(
       dispatch,
+      caseType,
       {
         [props.fieldKey]: locationStr,
       },
@@ -247,7 +256,7 @@ export function FormField(props: FormFieldProps) {
 
   const onAddItemClick = () => {
     const keyValues = createKeyValuesForAddItem(fieldValue);
-    dispatchFormValue(dispatch, keyValues, props.fieldIndex);
+    dispatchFormValue(dispatch, caseType, keyValues, props.fieldIndex);
   };
 
   if (props.mode === "view") {
@@ -351,6 +360,7 @@ export function FormField(props: FormFieldProps) {
               props.fieldKey &&
                 dispatchFormValue(
                   dispatch,
+                  caseType,
                   {
                     [props.fieldKey]: documentId,
                   },
@@ -374,6 +384,7 @@ export function FormField(props: FormFieldProps) {
               props.fieldKey &&
                 dispatchFormValue(
                   dispatch,
+                  caseType,
                   {
                     [props.fieldKey]: documentIds,
                     ["overwrite"]: true,
@@ -422,6 +433,7 @@ export function FormField(props: FormFieldProps) {
               props.fieldKey &&
                 dispatchFormValue(
                   dispatch,
+                  caseType,
                   {
                     [props.fieldKey]: value,
                   },
@@ -442,6 +454,7 @@ export function FormField(props: FormFieldProps) {
               props.fieldKey &&
                 dispatchFormValue(
                   dispatch,
+                  caseType,
                   {
                     [props.fieldKey]: value,
                   },
@@ -463,6 +476,7 @@ export function FormField(props: FormFieldProps) {
               props.fieldKey &&
                 dispatchFormValue(
                   dispatch,
+                  caseType,
                   {
                     [props.fieldKey]: value,
                   },
@@ -483,6 +497,7 @@ export function FormField(props: FormFieldProps) {
               props.fieldKey &&
                 dispatchFormValue(
                   dispatch,
+                  caseType,
                   {
                     [props.fieldKey]: value,
                   },
@@ -505,6 +520,7 @@ export function FormField(props: FormFieldProps) {
               props.fieldKey &&
                 dispatchFormValue(
                   dispatch,
+                  caseType,
                   {
                     [props.fieldKey]: value,
                   },
@@ -575,6 +591,7 @@ export function FormField(props: FormFieldProps) {
               if (action === "Remove") {
                 dispatchFormValue(
                   dispatch,
+                  caseType,
                   {
                     [props.fieldKey]: value,
                     ["overwriteEntryRecords"]: true,
@@ -584,6 +601,7 @@ export function FormField(props: FormFieldProps) {
               } else {
                 dispatchFormValue(
                   dispatch,
+                  caseType,
                   {
                     [props.fieldKey]: value,
                   },

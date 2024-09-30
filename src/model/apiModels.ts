@@ -247,22 +247,6 @@ export interface Task {
   updatedAt: number;
 }
 
-export interface AsylumCaseProfileOptional {
-  applyForWithholdingYesCheckbox?: string;
-  applicant?: Applicant;
-  family?: Family;
-  background?: Background;
-  applicationDetails?: ApplicationDetails;
-  signature?: YourSignature;
-  declaration?: Declaration;
-  supplementDocument?: SupplementDocument;
-  overwriteEntryRecords?: boolean;
-  overwriteChildren?: boolean;
-  overwriteSiblings?: boolean;
-  overwriteAddressHistoriesBeforeUS?: boolean;
-  overwriteUsAddressHistoriesPast5Years?: boolean;
-  overwrite?: boolean; // Overwrite a specific field like documentId array
-}
 export interface AsylumCaseProfile {
   applyForWithholdingYesCheckbox: string;
   applicant: Applicant;
