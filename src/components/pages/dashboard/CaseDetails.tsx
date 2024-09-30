@@ -44,7 +44,6 @@ export function CaseDetails() {
           return;
         }
         const form = await getFormTemplate(caseType, caseSubType);
-        console.log("Form template", form);
         dispatch(updateForm(form));
 
         const caseDetails = await getCaseProfileAndProgressApi(parseInt(id), accessToken, role, caseType);

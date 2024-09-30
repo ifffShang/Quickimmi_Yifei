@@ -65,8 +65,6 @@ export const caseSlice = createSlice({
         state.totalLevel1s = 0;
         state.currentStep = {} as IFormStep;
         state.formFieldsMap = {};
-        state.currentCaseId = "";
-        state.currentCaseType = null;
       }
 
       state.form = action.payload;
