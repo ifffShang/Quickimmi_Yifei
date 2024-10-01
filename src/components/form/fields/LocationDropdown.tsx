@@ -96,6 +96,7 @@ export function LocationDropdown(props: LocationDropdownProps) {
         onChange={onCountryChange}
         value={country}
         notFoundContent="Not found"
+        getPopupContainer={trigger => trigger.parentElement || document.body}
       >
         {countries.map(item => (
           <Select.Option key={item.isoCode} value={item.name}>{`${item.flag} ${item.name}`}</Select.Option>
@@ -110,6 +111,7 @@ export function LocationDropdown(props: LocationDropdownProps) {
           onChange={onStateChange}
           value={state}
           notFoundContent="Not found"
+          getPopupContainer={trigger => trigger.parentElement || document.body}
         >
           {stateData.map(item => (
             <Select.Option key={item.isoCode} value={item.name}>
@@ -127,6 +129,7 @@ export function LocationDropdown(props: LocationDropdownProps) {
           onChange={onCityChange}
           value={city}
           notFoundContent="Not found"
+          getPopupContainer={trigger => trigger.parentElement || document.body}
         >
           {cityData.map(item => (
             <Select.Option key={item.name} value={item.name}>

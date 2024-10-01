@@ -64,3 +64,38 @@ export function deepAssign(update: any, current: any, init: any) {
   }
   return result;
 }
+
+/**
+ * Deeply overwrite the target object with the update object, like array fields in the application case
+ * @param update
+ * @param target
+ * @returns
+ */
+export function deepOverwrite(update: any, target: any) {
+  for (const key in update) {
+    if (Object.prototype.hasOwnProperty.call(target, key)) {
+      const value = update[key];
+      if (Array.isArray(value)) {
+        if (value.length === 0) {
+          target[key] = [];
+        } else {
+          for (let i = 0; i < value.length; i++) {
+            if (typeof value[i] === "object") {
+              target[key][i] = deepOverwrite(value[i], target[key][i]);
+            } else {
+              target[key] = value;
+              break;
+            }
+          }
+        }
+      } else if (value !== null && typeof value === "object") {
+        target[key] = deepOverwrite(value, target[key]);
+      } else {
+        target[key] = value;
+      }
+    } else {
+      target[key] = update[key];
+    }
+  }
+  return target;
+}

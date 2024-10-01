@@ -13,8 +13,8 @@
     {
       "label": "text_UploadI94Document",
       "id": "i94_document",
-      "key": "applicant.i94DocumentIds",
-      "control": "multi_file_uploader",
+      "key": "supplementDocument.i94Document",
+      "control": "single_file_uploader",
       "documentType": "I94"
     },
     {

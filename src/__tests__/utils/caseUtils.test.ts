@@ -1,4 +1,4 @@
-import { deepAssign } from "../../utils/caseUtils";
+import { deepAssign, deepOverwrite } from "../../utils/caseUtils";
 
 describe("Test deepAssign util", () => {
   it("should return an empty object if update is not an object", () => {
@@ -68,5 +68,78 @@ describe("Test deepAssign util", () => {
     const result = deepAssign(update, current, init);
     // Assert
     expect(result).toEqual({ a: 3, b: 2 });
+  });
+});
+
+describe("Test deepOverwrite util", () => {
+  it("should overwrite primitive values correctly", () => {
+    // Arrange
+    const update = { a: 1, b: "test" };
+    const target = { a: 2, b: "old", c: true };
+    // Act
+    const result = deepOverwrite(update, target);
+    // Assert
+    expect(result).toEqual({ a: 1, b: "test", c: true });
+  });
+
+  it("should overwrite nested objects correctly", () => {
+    // Arrange
+    const update = { a: { b: 2 } };
+    const target = { a: { b: 1, c: 3 } };
+    // Act
+    const result = deepOverwrite(update, target);
+    // Assert
+    expect(result).toEqual({ a: { b: 2, c: 3 } });
+  });
+
+  it("should overwrite arrays correctly", () => {
+    // Arrange
+    const update = { a: [1, 2, 3] };
+    const target = { a: [4, 5, 6] };
+    // Act
+    const result = deepOverwrite(update, target);
+    // Assert
+    expect(result).toEqual({ a: [1, 2, 3] });
+  });
+
+  it("should handle empty arrays correctly", () => {
+    // Arrange
+    const update = { a: [] };
+    const target = { a: [1, 2, 3] };
+    // Act
+    const result = deepOverwrite(update, target);
+    // Assert
+    expect(result).toEqual({ a: [] });
+  });
+
+  it("should overwrite nested arrays correctly", () => {
+    // Arrange
+    const update = { a: [{ b: 2 }] };
+    const target = { a: [{ b: 1, c: 3 }] };
+    // Act
+    const result = deepOverwrite(update, target);
+    // Assert
+    expect(result).toEqual({ a: [{ b: 2, c: 3 }] });
+  });
+
+  it("should not modify the original update object", () => {
+    // Arrange
+    const update = { a: 1, c: "new" };
+    const target = { b: true, c: "old" };
+    // Act
+    const result = deepOverwrite(update, target);
+    // Assert
+    expect(result).toEqual({ a: 1, b: true, c: "new" });
+    expect(update).toEqual({ a: 1, c: "new" });
+  });
+
+  it("should handle undefined and null values correctly", () => {
+    // Arrange
+    const update = { a: undefined, b: null };
+    const target = { a: 1, b: 2, c: 3 };
+    // Act
+    const result = deepOverwrite(update, target);
+    // Assert
+    expect(result).toEqual({ a: undefined, b: null, c: 3 });
   });
 });

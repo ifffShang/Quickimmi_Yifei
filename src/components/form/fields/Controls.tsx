@@ -359,6 +359,7 @@ export function SelectBox(props: SelectBoxProps) {
         disabled={props.disabled || false}
         placeholder={props.placeholder || "Select an option"}
         value={value}
+        getPopupContainer={trigger => trigger.parentElement || document.body}
       />
       {value && (
         <div className="inline-placeholder">
