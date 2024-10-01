@@ -28,7 +28,7 @@ import { KeyValues } from "../model/commonModels";
 import { CaseType } from "../model/immigrationTypes";
 import { getUpdateProfileData } from "../utils/utils";
 import { InitialFamilyBasedProfile } from "../consts/familyBasedConsts";
-import { deepAssign } from "../utils/caseUtils";
+import { deepAssign, deepOverwrite } from "../utils/caseUtils";
 
 export interface FormState {
   caseId: number;
@@ -57,39 +57,6 @@ const initialState: FormState = {
   highlightMissingFields: false,
   disabledFields: {},
 };
-
-/**
- * Deeply overwrite the target object with the update object, like array fields in the application case
- * @param update
- * @param target
- * @returns
- */
-function deepOverwrite(update: any, target: any) {
-  for (const key in update) {
-    if (Object.prototype.hasOwnProperty.call(target, key)) {
-      const value = update[key];
-      if (Array.isArray(value)) {
-        if (value.length === 0) {
-          target[key] = [];
-        } else {
-          for (let i = 0; i < value.length; i++) {
-            if (typeof value[i] === "object") {
-              target[key][i] = deepOverwrite(value[i], target[key][i]);
-            } else {
-              target[key] = value;
-              break;
-            }
-          }
-        }
-      } else if (typeof value === "object") {
-        target[key] = deepOverwrite(value, target[key]);
-      } else {
-        target[key] = value;
-      }
-    }
-  }
-  return target;
-}
 
 export const ArrayFields = [
   {
@@ -263,9 +230,9 @@ export const formSlice = createSlice({
       if (action.payload.caseType === CaseType.Asylum) {
         ArrayFields.forEach(item => {
           const { field, overwriteField } = item;
-          if (action.payload[overwriteField]) {
-            _.set(state.applicationCase.asylumProfile, field, _.get(action.payload, field) ?? []);
-            delete action.payload[overwriteField];
+          if (action.payload.update[overwriteField]) {
+            _.set(state.applicationCase.asylumProfile, field, _.get(action.payload.update, field) ?? []);
+            delete action.payload.update[overwriteField];
           }
         });
 
@@ -273,7 +240,7 @@ export const formSlice = createSlice({
         if (action.payload.update.overwrite) {
           profile = deepOverwrite(action.payload.update, state.applicationCase.asylumProfile);
         } else {
-          profile = _.merge(state.applicationCase.asylumProfile, action.payload);
+          profile = _.merge(state.applicationCase.asylumProfile, action.payload.update);
         }
 
         state.applicationCase.asylumProfile = profile;
