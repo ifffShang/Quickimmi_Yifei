@@ -1,3 +1,5 @@
+/* Navbar.css */
+
 .navbar-container {
   position: fixed;
   box-sizing: border-box;
@@ -8,8 +10,19 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 40px;
+  padding: 0 40px;
 }
+
+.navbar-logo,
+.navbar-links,
+.navbar-button,
+.navbar-profile {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+}
+
 .navbar-container-homepage {
   background-color: var(--white-color);
 }
@@ -37,8 +50,8 @@
   margin-right: auto;
 }
 .navbar-group.right {
-  width: 300px;
   justify-content: flex-end;
+  align-items: center;
 }
 
 .xsmall .navbar-group,
@@ -66,13 +79,16 @@
 }
 .navbar-link {
   color: var(--dark-color);
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 1rem;
+  font-weight: 400;
+  padding: 0 15px;
+}
+.navbar-link:hover {
+  background-color: #f0f0f0; /* Light grey background on hover */
+  border-radius: 4px;
 }
 .large .navbar-link {
-  font-size: 24px;
-  padding: 0 20px;
-  margin-bottom: 5px;
+  font-size: 1rem;
 }
 
 .navbar-logo-link {
@@ -84,27 +100,29 @@
   align-items: center;
   height: 20px;
   padding: 0 5px;
-  border-left: 1px solid var(--gray-color-3);
-  border-right: 1px solid var(--gray-color-3);
+  /* Removed borders to match design */
 }
 .nav-link-login {
   color: var(--dark-color);
   font-weight: 400;
-  width: 60px;
-  padding: 0;
+  padding: 0 15px;
+}
+.nav-link-login:hover {
+  background-color: #f0f0f0; /* Light grey background on hover */
+  border-radius: 4px;
 }
 .small .nav-link-login,
 .xsmall .nav-link-login {
   font-size: 14px;
   font-weight: 500;
-  width: 45px;
 }
 .large .nav-link-login {
-  font-size: 20px;
+  font-size: 1rem;
   font-weight: 500;
 }
 .nav-btn-demo {
   margin: 0 10px;
+  border: 1px solid transparent;
 }
 .small .nav-btn-demo,
 .xsmall .nav-btn-demo {
@@ -114,6 +132,8 @@
 .nav-btn-demo:hover {
   color: var(--primary-color) !important;
   background: var(--primary-color-background) !important;
+  border: 1px solid var(--gray-color-3) !important;
+  box-shadow: 0 4px 6px rgba(5, 105, 7, 0.1);
 }
 .nav-btn-dashboard {
   margin: 0 5px;
@@ -128,4 +148,112 @@
   border-radius: 50px;
   padding: 0 5px;
   margin-left: 10px;
+}
+
+.navbar-divider {
+  width: 1px;
+  height: 40px;
+  background-color: var(--gray-color-3);
+  margin: 0 20px;
+}
+
+.small .navbar-divider,
+.xsmall .navbar-divider {
+  display: none;
+}
+
+/* Hide elements for small screens */
+.small .navbar-group.mid,
+.xsmall .navbar-group.mid,
+.small .navbar-button,
+.xsmall .navbar-button,
+.small .navbar-profile,
+.xsmall .navbar-profile {
+  display: none;
+}
+
+/* Adjust the language selector */
+.navbar-language {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-global-button {
+  color: var(--dark-color);
+  padding: 0 5px;
+  border: none;
+  background: none;
+}
+
+.navbar-global-button .navbar-global-icon {
+  font-size: 20px; /* Adjust the size of the global icon */
+  color: var(--dark-color);
+  cursor: pointer;
+  padding: 0 15px;
+}
+
+/* Vertical separator between icons */
+.navbar-separator {
+  width: 1px;
+  height: 24px;
+  background-color: var(--gray-color-3);
+}
+
+/* Show the hamburger icon for small screens */
+.navbar-hamburger-icon {
+  font-size: 20px; /* Changed icon size to 20px */
+  color: var(--dark-color);
+  cursor: pointer;
+  margin-left: 0;
+  padding-left: 20px;
+}
+
+/* Drawer styles */
+.navbar-drawer .ant-drawer-body {
+  padding: 0;
+}
+
+.drawer-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.drawer-links,
+.drawer-buttons {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.drawer-link,
+.drawer-button {
+  margin-bottom: 10px;
+  font-size: 16px;
+  text-align: left;
+  max-width: 170px; /* Fixed max length of the menu text */
+  padding: 0 15px; /* Added extra 15px padding */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.drawer-link:hover,
+.drawer-button:hover {
+  background-color: #f0f0f0; /* Light grey background on hover */
+}
+
+.drawer-button,
+.drawer-link {
+  width: 100%;
+}
+
+.navbar-drawer .ant-drawer-content-wrapper {
+  width: 200px !important; /* Ensures the drawer width is 200px */
+}
+
+.drawer-divider {
+  width: 100%;
+  height: 1px;
+  background-color: var(--gray-color-3);
+  margin: 10px 0;
 }

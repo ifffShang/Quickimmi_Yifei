@@ -7,15 +7,15 @@ import { showFormNavigation } from "../../utils/utils";
 import { FormNavigation } from "../form/FormNavigation";
 import { getLawyerInfoApi } from "../../api/authAPI";
 import { ScreenSize } from "../../model/commonModels";
-import LanguageSelector from "./LanguageSelector";
-import { Menu } from "../common/Menu";
+import { MenuOutlined, DownOutlined, GlobalOutlined } from "@ant-design/icons";
+import { Drawer, Button, Dropdown } from "antd";
+import type { MenuProps } from "antd";
 import { Logo } from "../icons/Logo";
-import { Button, message } from "antd";
 import "./Navbar.css";
 
 export function Navbar(props: { currentPath: string }) {
   const dispatch = useAppDispatch();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const screenSize = useAppSelector(state => state.common.screenSize);
   const isSmallScreen = screenSize === ScreenSize.small || screenSize === ScreenSize.xsmall;
@@ -29,9 +29,12 @@ export function Navbar(props: { currentPath: string }) {
 
   const currentPath = props.currentPath;
   const onHomepage = currentPath === "/";
-  const containerCss = `${isSmallScreen && showFormNav ? "navbar-container form-nav" : "navbar-container"}${onHomepage ? " navbar-container-homepage" : ""}`;
+  const containerCss = `${
+    isSmallScreen && showFormNav ? "navbar-container form-nav" : "navbar-container"
+  }${onHomepage ? " navbar-container-homepage" : ""}`;
 
   const [firstLetter, setFirstLetter] = useState("U");
+  const [drawerVisible, setDrawerVisible] = useState(false);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -46,9 +49,8 @@ export function Navbar(props: { currentPath: string }) {
     try {
       const data = await getLawyerInfoApi(email, accessToken, role);
       if (data) {
-        const firstName = data.firstName[0];
+        const firstName = data.firstName;
         setFirstLetter(firstName ? firstName[0] : "U");
-        console.log("lawyerFirstName", firstName);
       }
     } catch (err) {
       console.error(err);
@@ -73,129 +75,250 @@ export function Navbar(props: { currentPath: string }) {
     navigate("/profile");
   };
 
-  let menuItems = [
+  const signOut = async () => {
+    await signOutCurrentUser(dispatch);
+    navigate("/");
+  };
+
+  // Menu items for profile dropdown
+  const menuItems: MenuProps["items"] = isLoggedIn
+    ? [
+        {
+          key: "profile",
+          label: t("Profile"),
+        },
+        {
+          key: "signout",
+          label: t("SignOut"),
+        },
+      ]
+    : [
+        {
+          key: "login",
+          label: t("Login"),
+        },
+      ];
+
+  const profileMenu = {
+    items: menuItems,
+    onClick: ({ key }) => {
+      if (key === "profile") {
+        goToProfile();
+      } else if (key === "signout") {
+        signOut();
+      } else if (key === "login") {
+        login();
+      }
+    },
+  };
+
+  // Menu items for language selector
+  const languageMenuItems: MenuProps["items"] = [
     {
-      key: "login",
-      label: t("Login"),
-      onClick: login,
+      key: "en",
+      label: "English",
+    },
+    {
+      key: "cn",
+      label: "简体中文",
     },
   ];
 
-  if (isLoggedIn) {
-    menuItems = [
-      // {
-      //   key: "dashboard",
-      //   label: t("Dashboard.Dashboard"),
-      //   onClick: goToDashboard,
-      // },
-      {
-        key: "profile",
-        label: t("Profile"),
-        onClick: goToProfile,
-      },
-      {
-        key: "signout",
-        label: t("SignOut"),
-        onClick: async () => await signOutCurrentUser(dispatch),
-      },
-    ];
-  }
+  const languageMenu = {
+    items: languageMenuItems,
+    onClick: ({ key }) => {
+      i18n.changeLanguage(key);
+    },
+  };
 
-  let navLinks: { key: string; label: string; onClick: () => void }[] = [];
-  if (onHomepage) {
-    navLinks = [
-      {
-        key: "about",
-        label: t("About"),
-        onClick: () => {
-          navigate("/contactus");
+  const navLinks: { key: string; label: string; onClick: () => void }[] = onHomepage
+    ? [
+        {
+          key: "about",
+          label: t("About"),
+          onClick: () => navigate("/contactus"),
         },
-      },
-      {
-        key: "solutions",
-        label: t("Solutions"),
-        onClick: () => {
-          navigate("/");
-          setTimeout(() => handleScrollToSection("solutions"), 500);
+        {
+          key: "solutions",
+          label: t("Solutions"),
+          onClick: () => {
+            navigate("/");
+            setTimeout(() => handleScrollToSection("solutions"), 500);
+          },
         },
-      },
-      {
-        key: "features",
-        label: t("Features"),
-        onClick: () => {
-          navigate("/");
-          setTimeout(() => handleScrollToSection("features"), 500);
+        {
+          key: "features",
+          label: t("Features"),
+          onClick: () => {
+            navigate("/");
+            setTimeout(() => handleScrollToSection("features"), 500);
+          },
         },
-      },
-      {
-        key: "services",
-        label: t("Services"),
-        onClick: () => {
-          navigate("/");
-          setTimeout(() => handleScrollToSection("services"), 500);
+        {
+          key: "services",
+          label: t("Services"),
+          onClick: () => {
+            navigate("/");
+            setTimeout(() => handleScrollToSection("services"), 500);
+          },
         },
-      },
-      {
-        key: "contact",
-        label: t("Contact"),
-        onClick: () => {
-          navigate("/contactus");
+        {
+          key: "contact",
+          label: t("Contact"),
+          onClick: () => navigate("/contactus"),
         },
-      },
-    ];
-  }
+      ]
+    : [];
 
   return (
     <div className={containerCss}>
       <div className="navbar-group left">
         {isSmallScreen && showFormNav && <FormNavigation />}
         <div className="navbar-logo">
-          <Link className="navbar-logo-link" to={"/"}>
+          <Link className="navbar-logo-link" to="/">
             <Logo />
           </Link>
         </div>
       </div>
-      <div className="navbar-group mid">
-        <div className="navbar-links">
-          {navLinks.map(link => (
-            <Button key={link.key} type="link" onClick={link.onClick} className="navbar-link">
-              {link.label}
-            </Button>
-          ))}
+      {!isSmallScreen && (
+        <div className="navbar-group mid">
+          <div className="navbar-links">
+            {navLinks.map(link => (
+              <Button key={link.key} type="link" onClick={link.onClick} className="navbar-link">
+                {link.label}
+              </Button>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
       <div className="navbar-group right">
         <div className="navbar-language">
-          <LanguageSelector />
-        </div>
-        <div className="navbar-button">
-          {isLoggedIn ? (
-            <Button type="primary" onClick={goToDashboard} className="nav-btn-dashboard">
-              {t("Dashboard.Dashboard")}
+          <Dropdown menu={languageMenu} trigger={["click"]} placement="bottomRight">
+            <Button type="link" className="navbar-global-button">
+              <GlobalOutlined className="navbar-global-icon" />
             </Button>
-          ) : (
-            <Button type="link" onClick={login} className="nav-link-login">
-              {t("Login")}
-            </Button>
-          )}
+          </Dropdown>
         </div>
-        <div className="navbar-profile">
-          {isLoggedIn ? (
-            <div className="navbar-profile-button">
-              <Button type="primary" shape="circle" onClick={goToProfile} className="nav-btn-profile">
-                {firstLetter}
-              </Button>
-              <Menu items={menuItems} popupPosition="bottom-left" />
+        {/* Vertical separator */}
+        <div className="navbar-separator" />
+        {isSmallScreen ? (
+          <MenuOutlined className="navbar-hamburger-icon" onClick={() => setDrawerVisible(true)} />
+        ) : (
+          <>
+            <div className="navbar-button">
+              {isLoggedIn ? (
+                <Button type="primary" onClick={goToDashboard} className="nav-btn-dashboard">
+                  {t("Dashboard.Dashboard")}
+                </Button>
+              ) : (
+                <Button type="link" onClick={login} className="nav-link-login">
+                  {t("Login")}
+                </Button>
+              )}
             </div>
-          ) : (
-            <a href="https://forms.gle/7i85vwVHMbsBSe3a8" target="_blank" rel="noopener noreferrer">
-              <Button type="primary" className="nav-btn-demo">
-                {t("LandingPage.RequestDemo")}
-              </Button>
-            </a>
-          )}
-        </div>
+            <div className="navbar-separator" />
+            <div className="navbar-profile">
+              {isLoggedIn ? (
+                <div className="navbar-profile-button">
+                  <Dropdown menu={profileMenu} trigger={["click"]}>
+                    <Button type="primary" shape="circle" className="nav-btn-profile">
+                      {firstLetter} <DownOutlined />
+                    </Button>
+                  </Dropdown>
+                </div>
+              ) : (
+                <a href="https://forms.gle/7i85vwVHMbsBSe3a8" target="_blank" rel="noopener noreferrer">
+                  <Button type="primary" className="nav-btn-demo">
+                    {t("LandingPage.RequestDemo")}
+                  </Button>
+                </a>
+              )}
+            </div>
+          </>
+        )}
       </div>
+      {/* Drawer for small screens */}
+      <Drawer
+        title=""
+        placement="right"
+        onClose={() => setDrawerVisible(false)}
+        open={drawerVisible}
+        className="navbar-drawer"
+        width={200}
+      >
+        <div className="drawer-content">
+          <div className="drawer-links">
+            {navLinks.map(link => (
+              <Button
+                key={link.key}
+                type="link"
+                onClick={() => {
+                  link.onClick();
+                  setDrawerVisible(false);
+                }}
+                className="drawer-link"
+              >
+                {link.label}
+              </Button>
+            ))}
+          </div>
+          <div className="drawer-divider" />
+          <div className="drawer-buttons">
+            {isLoggedIn ? (
+              <>
+                <Button
+                  type="link"
+                  onClick={() => {
+                    goToDashboard();
+                    setDrawerVisible(false);
+                  }}
+                  className="drawer-button"
+                >
+                  {t("Dashboard.Dashboard")}
+                </Button>
+                <Button
+                  type="link"
+                  onClick={() => {
+                    goToProfile();
+                    setDrawerVisible(false);
+                  }}
+                  className="drawer-button"
+                >
+                  {t("Profile")}
+                </Button>
+                <Button
+                  type="link"
+                  onClick={async () => {
+                    await signOut();
+                    setDrawerVisible(false);
+                  }}
+                  className="drawer-button"
+                >
+                  {t("SignOut")}
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  type="link"
+                  onClick={() => {
+                    login();
+                    setDrawerVisible(false);
+                  }}
+                  className="drawer-button"
+                >
+                  {t("Login")}
+                </Button>
+                <a href="https://forms.gle/7i85vwVHMbsBSe3a8" target="_blank" rel="noopener noreferrer">
+                  <Button type="primary" className="drawer-button" onClick={() => setDrawerVisible(false)}>
+                    {t("LandingPage.RequestDemo")}
+                  </Button>
+                </a>
+              </>
+            )}
+          </div>
+        </div>
+      </Drawer>
     </div>
   );
 }
