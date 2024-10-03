@@ -295,7 +295,7 @@ export function LawyerProfilePage() {
           <div className="lawyer-profile-section">
             <div className="lawyer-profile-display">
               <QText level="normal" color="gray">
-                {isEditing === "contact" ? t("LawyerProfile.ContactEditMessage") : (lawyerInfo.email ?? "Not Provided")}
+                {isEditing === "contact" ? t("LawyerProfile.ContactEditMessage") : lawyerInfo.email ?? "Not Provided"}
               </QText>
               {/* <QTextBox
                       placeholder={t("Email")}
