@@ -15,6 +15,7 @@ import { Loading } from "../../common/Loading";
 import CaseProgressCard from "./CaseProgressCard";
 import "./CaseStatusRightPanel.css";
 import CaseSummaryCard from "./CaseSummaryCard";
+import { updateApplicationCaseFunc } from "../../../utils/functionUtils";
 
 function useFetchCaseSummary() {
   const { id } = useParams<{ id?: string }>();
@@ -72,6 +73,17 @@ function useFetchCaseSummary() {
           }
           const currentPercentage = getFormPercentage(allFormStepAndFields, caseDetails.profile);
           dispatch(updatePercentage(currentPercentage));
+
+          // Save the updated percentage to the db to refresh the dashboard percentage
+          updateApplicationCaseFunc(
+            data.id,
+            caseDetails.profile,
+            caseDetails.progress,
+            currentPercentage,
+            role,
+            accessToken,
+            currentCaseType,
+          );
           /** END: Calculate the percentage from case profile */
         } else {
           console.error("Case ID is missing in the case summary.");
@@ -101,8 +113,7 @@ function useFetchCaseSummary() {
 }
 
 export function CaseStatusRightPanel() {
-  const { loading, error, caseSummary, setCaseSummary, fetchCaseSummary } = useFetchCaseSummary();
-  const { t } = useTranslation();
+  const { loading, error, caseSummary, fetchCaseSummary } = useFetchCaseSummary();
 
   const handleCaseSummaryUpdate = () => {
     fetchCaseSummary();
