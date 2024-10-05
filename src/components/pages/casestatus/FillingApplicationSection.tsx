@@ -130,7 +130,7 @@ const FillingApplicationSection: React.FC<FillingApplicationSectionProps> = ({
                     </div>
                   </div>
                 )}
-                {index < Object.keys(percentage).length - 1 && (
+                {index < Object.keys(percentage).length - 2 && (
                   <div className="expanded-card-container">
                     <div className="progress-line"></div>
                   </div>

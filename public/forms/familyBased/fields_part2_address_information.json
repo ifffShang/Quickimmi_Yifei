@@ -4,33 +4,54 @@
   "type": "fields",
   "fields": [
     {
-      "label": "text_Name",
-      "id": "name",
+      "label": "text_ResidentialAddressInUs",
+      "id": "residential_address_in_us",
       "control": "group",
       "maxChildPerRow": "3",
       "fields": [
         {
-          "label": "text_FirstName",
-          "placeholder": "text_FirstName",
-          "id": "first_name",
-          "key": "applicant.firstName",
+          "label": "text_Street",
+          "placeholder": "text_Street",
+          "id": "street",
+          "key": "petitioner.streetNumberAndName",
           "control": "text"
         },
         {
-          "label": "text_MiddleName",
-          "placeholder": "text_MiddleName",
-          "id": "middle_name",
-          "key": "applicant.middleName",
-          "control": "component_textbox_na"
+          "label": "text_ApartmentNumber(Add check to apt/ste/flr)",
+          "placeholder": "text_ApartmentNumber",
+          "id": "apartment_number",
+          "key": "petitioner.aptSteFlrNumber",
+          "control": "label"
         },
         {
-          "label": "text_LastName",
-          "placeholder": "text_LastName",
-          "id": "last_name",
-          "key": "applicant.lastName",
+          "label": "text_City",
+          "placeholder": "text_City",
+          "id": "city",
+          "key": "petitioner.cityOrTown",
+          "control": "text"
+        },
+        {
+          "label": "text_State",
+          "placeholder": "text_State",
+          "id": "state",
+          "key": "petitioner.state",
+          "control": "text"
+        },
+        {
+          "label": "text_ZipCode",
+          "placeholder": "text_ZipCode",
+          "id": "zip_code",
+          "key": "petitioner.zipCode",
           "control": "text"
         }
       ]
+    },
+    {
+      "label": "text_MailingAddressSameAsResidentialAddress",
+      "hideHeader": "true",
+      "key": "petitioner.mailingAddressSameAsPhysicalAddressYesCheckbox,petitioner.mailingAddressSameAsPhysicalAddressNoCheckbox",
+      "id": "mailing_address_same_as_residential_address",
+      "control": "component_mailing_same_as_residential"
     }
   ]
 }
