@@ -90,8 +90,13 @@ export interface RefineResponse {
   tips: string[];
 }
 
-export interface IFormStepAndFormFields {
+export interface IFormStepAndFieldsRecord {
   step: IFormStep;
   subStep: IFormStep;
   fields: IFormFields;
+}
+
+export interface IFormStructure {
+  formStepsAndFormFieldsList: IFormStepAndFieldsRecord[];
+  form: IForm;
 }

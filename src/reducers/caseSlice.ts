@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import _ from "lodash";
 import { Case } from "../model/apiModels";
-import { IForm, IFormFields, IFormStep } from "../model/formFlowModels";
+import { IForm, IFormFields, IFormStep, IFormStepAndFieldsRecord, IFormStructure } from "../model/formFlowModels";
 import { CaseSubType, CaseType } from "../model/immigrationTypes";
 import { getCorrectedIndexes } from "../utils/caseUtils";
 
@@ -54,8 +54,8 @@ export const caseSlice = createSlice({
   name: "case",
   initialState,
   reducers: {
-    updateForm: (state, action: PayloadAction<IForm>) => {
-      if (!_.isEqual(state.form, action.payload)) {
+    updateForm: (state, action: PayloadAction<IFormStructure>) => {
+      if (!_.isEqual(state.form, action.payload.form)) {
         state.isFirstStep = true;
         state.isLastStep = false;
         state.isStandAlone = false;
@@ -67,9 +67,19 @@ export const caseSlice = createSlice({
         state.formFieldsMap = {};
       }
 
-      state.form = action.payload;
-      state.totalLevel1s = action.payload.steps.length;
-      state.currentStep = action.payload.steps[state.indexLevel1].steps[state.indexLevel2];
+      state.form = action.payload.form;
+      state.totalLevel1s = action.payload.form.steps.length;
+      state.currentStep = action.payload.form.steps[state.indexLevel1].steps[state.indexLevel2];
+
+      state.formFieldsMap = action.payload.formStepsAndFormFieldsList.reduce(
+        (acc: FormFieldsMap, { subStep, fields }: IFormStepAndFieldsRecord) => {
+          return {
+            ...acc,
+            [subStep.referenceId!]: fields,
+          };
+        },
+        {},
+      );
     },
     incrementIndexLevel1: state => {
       if (state.indexLevel1 < state.totalLevel1s - 1) state.indexLevel1++;
@@ -141,6 +151,8 @@ export const caseSlice = createSlice({
       state.isLastStep = isLastStep;
     },
     updateFormFieldsMap: (state, action: PayloadAction<{ referenceId: string; formFields: IFormFields }>) => {
+      delete state.formFieldsMap[action.payload.referenceId];
+
       state.formFieldsMap = {
         ...state.formFieldsMap,
         [action.payload.referenceId]: action.payload.formFields,
@@ -172,6 +184,9 @@ export const caseSlice = createSlice({
       state.currentCaseSubType = null;
     },
     resetCaseState: state => {
+      Object.keys(state.formFieldsMap).forEach(key => {
+        delete state.formFieldsMap[key];
+      });
       return initialState;
     },
   },

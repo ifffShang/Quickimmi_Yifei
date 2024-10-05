@@ -1,11 +1,11 @@
 import { isArray, isObject } from "lodash";
 import { Percentage, Progress } from "../model/apiModels";
 import { CaseProfile } from "../model/commonApiModels";
-import { ControlType, IForm, IFormField, IFormStepAndFormFields } from "../model/formFlowModels";
+import { ControlType, IForm, IFormField, IFormStepAndFieldsRecord } from "../model/formFlowModels";
 import { getCaseDetailValue, getFieldValue } from "./utils";
 
 export function getFormPercentage(
-  allFormStepAndFields: IFormStepAndFormFields[],
+  allFormStepAndFields: IFormStepAndFieldsRecord[],
   profile: CaseProfile | null,
 ): Percentage {
   if (!allFormStepAndFields || !profile) {

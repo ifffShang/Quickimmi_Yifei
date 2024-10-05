@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import { getCaseProfileAndProgressApi } from "../../../api/caseProfileGetAPI";
 import { getCaseSummaryApi } from "../../../api/caseSummaryAPI";
-import { getAllFormStepsAndFormFields } from "../../../api/formTemplateAPI";
+import { fetchCompleteFormDetails } from "../../../api/formTemplateAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { CaseSummary } from "../../../model/apiModels";
 import { CaseSubType } from "../../../model/immigrationTypes";
@@ -62,7 +62,7 @@ function useFetchCaseSummary() {
 
           /** START: Calculate the percentage from case profile */
           /** We don't rely on the percentage saved in the db since it might be stale */
-          const allFormStepAndFields = await getAllFormStepsAndFormFields(
+          const { formStepsAndFormFieldsList } = await fetchCompleteFormDetails(
             currentCaseType,
             (data.subType as CaseSubType) || (data.asylumType as CaseSubType) || null,
           );
@@ -71,7 +71,7 @@ function useFetchCaseSummary() {
             console.error(`Failed to get case details for case id ${id}`);
             return;
           }
-          const currentPercentage = getFormPercentage(allFormStepAndFields, caseDetails.profile);
+          const currentPercentage = getFormPercentage(formStepsAndFormFieldsList, caseDetails.profile);
           dispatch(updatePercentage(currentPercentage));
 
           // Save the updated percentage to the db to refresh the dashboard percentage

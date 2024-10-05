@@ -31,6 +31,73 @@
           "keyValue": "false,false,false,true"
         }
       ]
+    },
+    {
+      "label": "text_DescribeYourRelationship",
+      "id": "part1.2",
+      "key": "relationship.petitionForChildBornInWedlockCheckbox,relationship.petitionForStepchildAndStepparentCheckbox,relationship.petitionForChildNotBornInWedlockCheckbox,relationship.petitionForChildAdoptedCheckbox",
+      "control": "select",
+      "initialValue": "",
+      "options": [
+        {
+          "value": "ChildBornInWedlock",
+          "label": "text_ChildBornInWedlock",
+          "keyValue": "true,false,false,false"
+        },
+        {
+          "value": "StepchildAndStepparent",
+          "label": "text_StepchildAndStepparent",
+          "keyValue": "false,true,false,false"
+        },
+        {
+          "value": "ChildNotBornInWedlock",
+          "label": "text_ChildNotBornInWedlock",
+          "keyValue": "false,false,true,false"
+        },
+        {
+          "value": "ChildAdopted",
+          "label": "text_ChildAdopted",
+          "keyValue": "false,false,false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_SiblingRelationship",
+      "id": "part1.3",
+      "key": "relationship.siblingAdoptionRelationYesCheckbox,relationship.siblingAdoptionRelationNoCheckbox",
+      "control": "select",
+      "initialValue": "",
+      "options": [
+        {
+          "value": "SiblingAdoptionRelationYes",
+          "label": "text_SiblingAdoptionRelationYes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "SiblingAdoptionRelationNo",
+          "label": "text_SiblingAdoptionRelationNo",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_GainedLegalStatusThroughAdoption",
+      "id": "part1.4",
+      "key": "relationship.gainedStatusThroughAdoptionYesCheckbox,relationship.gainedStatusThroughAdoptionNoCheckbox",
+      "control": "select",
+      "initialValue": "",
+      "options": [
+        {
+          "value": "GainedStatusThroughAdoptionYes",
+          "label": "text_GainedStatusThroughAdoptionYes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "GainedStatusThroughAdoptionNo",
+          "label": "text_GainedStatusThroughAdoptionNo",
+          "keyValue": "false,true"
+        }
+      ]
     }
   ]
 }

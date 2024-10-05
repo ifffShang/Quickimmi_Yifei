@@ -1,4 +1,4 @@
-import { IForm, IFormFields, IFormStep, IFormStepAndFormFields } from "../model/formFlowModels";
+import { IForm, IFormFields, IFormStepAndFieldsRecord, IFormStructure } from "../model/formFlowModels";
 import { CaseSubType, CaseType } from "../model/immigrationTypes";
 import { convertBooleans } from "../utils/utils";
 import { performApiRequest } from "./apiConfig";
@@ -14,13 +14,10 @@ export async function getFormFields(referenceId: string): Promise<IFormFields> {
   return convertBooleans(<IFormFields>response);
 }
 
-export async function getAllFormStepsAndFormFields(
-  caseType: CaseType,
-  caseSubType: CaseSubType,
-): Promise<IFormStepAndFormFields[]> {
+export async function fetchCompleteFormDetails(caseType: CaseType, caseSubType: CaseSubType): Promise<IFormStructure> {
   const form = await getFormTemplate(caseType, caseSubType);
   const steps = form.steps;
-  const allFormStepAndFormFields: IFormStepAndFormFields[] = [];
+  const allFormStepAndFormFields: IFormStepAndFieldsRecord[] = [];
   for (const step of steps) {
     for (const subStep of step.steps) {
       if (!subStep.referenceId) {
@@ -35,7 +32,10 @@ export async function getAllFormStepsAndFormFields(
       });
     }
   }
-  return allFormStepAndFormFields;
+  return {
+    formStepsAndFormFieldsList: allFormStepAndFormFields,
+    form,
+  };
 }
 
 export async function getFormTemplate(caseType: CaseType, caseSubType: CaseSubType): Promise<IForm> {

@@ -1,7 +1,7 @@
 import { DefaultCaseProfile } from "../../consts/caseProfile";
-import { IFormStepAndFormFields } from "../../model/formFlowModels";
+import { IFormStepAndFieldsRecord } from "../../model/formFlowModels";
 
-export const AllFormStepAndFields_1: IFormStepAndFormFields[] = [
+export const AllFormStepAndFields_1: IFormStepAndFieldsRecord[] = [
   {
     step: { id: "step1", type: "level1", label: "step1", standalone: false, steps: [] },
     subStep: { id: "substep1", type: "level2", label: "substep1", standalone: false, steps: [] },

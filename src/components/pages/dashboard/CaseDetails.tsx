@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getCaseProfileAndProgressApi } from "../../../api/caseProfileGetAPI";
 import { getCaseSummaryApi } from "../../../api/caseSummaryAPI";
-import { getAllFormStepsAndFormFields, getFormTemplate } from "../../../api/formTemplateAPI";
+import { fetchCompleteFormDetails } from "../../../api/formTemplateAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import useRenderingTrace from "../../../hooks/renderHooks";
 import { updateForm } from "../../../reducers/caseSlice";
-import { updateCaseProfileAndProgress, updatePercentage } from "../../../reducers/formSlice";
-import { buildPercentageObject, getFormPercentage } from "../../../utils/percentageUtils";
+import { updateCaseProfileAndProgress } from "../../../reducers/formSlice";
+import { getFormPercentage } from "../../../utils/percentageUtils";
 import { CentralizedLoading } from "../../common/Loading";
 import { FormContainer } from "../../form/FormContainer";
 
@@ -43,8 +43,9 @@ export function CaseDetails() {
           console.error(`Failed to get case summary for case id ${id}`);
           return;
         }
-        const form = await getFormTemplate(caseType, caseSubType);
-        dispatch(updateForm(form));
+
+        const formStructure = await fetchCompleteFormDetails(caseType, caseSubType);
+        dispatch(updateForm(formStructure));
 
         const caseDetails = await getCaseProfileAndProgressApi(parseInt(id), accessToken, role, caseType);
         if (!caseDetails) {
@@ -52,8 +53,7 @@ export function CaseDetails() {
           return;
         }
         /** We don't rely on the percentage saved in the db since it might be stale */
-        const allFormStepAndFields = await getAllFormStepsAndFormFields(caseType, caseSubType);
-        const currentPercentage = getFormPercentage(allFormStepAndFields, caseDetails.profile);
+        const currentPercentage = getFormPercentage(formStructure.formStepsAndFormFieldsList, caseDetails.profile);
         dispatch(
           updateCaseProfileAndProgress({
             caseId: parseInt(id),
