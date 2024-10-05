@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getCaseProfileAndProgressApi } from "../../../api/caseProfileGetAPI";
 import { getCaseSummaryApi } from "../../../api/caseSummaryAPI";
-import { getFormTemplate } from "../../../api/formTemplateAPI";
+import { getAllFormStepsAndFormFields, getFormTemplate } from "../../../api/formTemplateAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import useRenderingTrace from "../../../hooks/renderHooks";
 import { updateForm } from "../../../reducers/caseSlice";
-import { updateCaseProfileAndProgress } from "../../../reducers/formSlice";
-import { buildPercentageObject } from "../../../utils/percentageUtils";
+import { updateCaseProfileAndProgress, updatePercentage } from "../../../reducers/formSlice";
+import { buildPercentageObject, getFormPercentage } from "../../../utils/percentageUtils";
 import { CentralizedLoading } from "../../common/Loading";
 import { FormContainer } from "../../form/FormContainer";
 
@@ -51,7 +51,9 @@ export function CaseDetails() {
           console.error(`Failed to get case details for case id ${id}`);
           return;
         }
-        const currentPercentage = buildPercentageObject(form, caseDetails.progress);
+        /** We don't rely on the percentage saved in the db since it might be stale */
+        const allFormStepAndFields = await getAllFormStepsAndFormFields(caseType, caseSubType);
+        const currentPercentage = getFormPercentage(allFormStepAndFields, caseDetails.profile);
         dispatch(
           updateCaseProfileAndProgress({
             caseId: parseInt(id),

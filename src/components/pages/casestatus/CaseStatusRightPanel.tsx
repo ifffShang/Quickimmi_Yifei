@@ -2,11 +2,15 @@ import { Alert } from "antd";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
+import { getCaseProfileAndProgressApi } from "../../../api/caseProfileGetAPI";
 import { getCaseSummaryApi } from "../../../api/caseSummaryAPI";
+import { getAllFormStepsAndFormFields } from "../../../api/formTemplateAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { CaseSummary } from "../../../model/apiModels";
 import { CaseSubType } from "../../../model/immigrationTypes";
 import { updateCurrentCaseInfo } from "../../../reducers/caseSlice";
+import { updatePercentage } from "../../../reducers/formSlice";
+import { getFormPercentage } from "../../../utils/percentageUtils";
 import { Loading } from "../../common/Loading";
 import CaseProgressCard from "./CaseProgressCard";
 import "./CaseStatusRightPanel.css";
@@ -54,6 +58,21 @@ function useFetchCaseSummary() {
               caseSubType: (data.subType as CaseSubType) || (data.asylumType as CaseSubType) || null,
             }),
           );
+
+          /** START: Calculate the percentage from case profile */
+          /** We don't rely on the percentage saved in the db since it might be stale */
+          const allFormStepAndFields = await getAllFormStepsAndFormFields(
+            currentCaseType,
+            (data.subType as CaseSubType) || (data.asylumType as CaseSubType) || null,
+          );
+          const caseDetails = await getCaseProfileAndProgressApi(parseInt(id), accessToken, role, currentCaseType);
+          if (!caseDetails) {
+            console.error(`Failed to get case details for case id ${id}`);
+            return;
+          }
+          const currentPercentage = getFormPercentage(allFormStepAndFields, caseDetails.profile);
+          dispatch(updatePercentage(currentPercentage));
+          /** END: Calculate the percentage from case profile */
         } else {
           console.error("Case ID is missing in the case summary.");
         }

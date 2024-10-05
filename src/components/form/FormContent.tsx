@@ -15,7 +15,8 @@ import { ExcludedSectionsFromPercentage } from "../../consts/consts";
 import { getProfile } from "../../utils/selectorUtils";
 
 interface FormContentProps {
-  sectionId: string;
+  sectionLabel: string;
+  subSectionLabel: string;
   referenceId: string;
   isLawyer?: boolean;
 }
@@ -67,17 +68,17 @@ export function FormContent(props: FormContentProps) {
     } else {
       currentPercentage = Math.round((fulfilled / total) * 100);
     }
-    const lastPrecentage = percentage?.[props.sectionId]?.[props.referenceId] ?? -1;
+    const lastPrecentage = percentage?.[props.sectionLabel]?.[props.subSectionLabel] ?? -1;
     if (currentPercentage !== lastPrecentage) {
       dispatch(
         updateOnePercentage({
-          sectionId: props.sectionId,
-          referenceId: props.referenceId,
+          section: props.sectionLabel,
+          subSection: props.subSectionLabel,
           value: currentPercentage,
         }),
       );
     }
-  }, [props.referenceId, props.sectionId, profile, formFields, percentage]);
+  }, [props.referenceId, props.sectionLabel, props.subSectionLabel, profile, formFields, percentage]);
 
   if (!formFields || !currentStep) {
     return (

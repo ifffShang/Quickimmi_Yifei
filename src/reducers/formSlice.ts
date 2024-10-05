@@ -29,6 +29,7 @@ import { CaseType } from "../model/immigrationTypes";
 import { getUpdateProfileData } from "../utils/utils";
 import { InitialFamilyBasedProfile } from "../consts/familyBasedConsts";
 import { deepAssign, deepOverwrite } from "../utils/caseUtils";
+import { getAvgPercentageForSection, getOverallAvgPercentage } from "../utils/percentageUtils";
 
 export interface FormState {
   caseId: number;
@@ -169,47 +170,25 @@ export const formSlice = createSlice({
     updateOnePercentage: (
       state,
       action: PayloadAction<{
-        sectionId: string;
-        referenceId: string;
+        section: string;
+        subSection: string;
         value: number;
       }>,
     ) => {
-      const { sectionId, referenceId, value } = action.payload;
-      if (!state.percentage[sectionId]) {
+      const { section, subSection, value } = action.payload;
+      if (!state.percentage[section]) {
         console.log("Skip percentage update before form is loaded");
         return;
       }
 
       const updatedPercentage = { ...state.percentage };
-      updatedPercentage[sectionId][referenceId] = value;
+      updatedPercentage[section][subSection] = value;
 
-      // Calculate section avg percentage
-      let sum = 0;
-      let count = 0;
-      Object.entries(state.percentage[sectionId]).forEach(([key, value]) => {
-        if (key !== "avg") {
-          if (value === -1) {
-            return;
-          }
-          sum += value;
-          count++;
-        }
-      });
-      updatedPercentage[sectionId]["avg"] = Math.round(sum / count);
+      updatedPercentage[section]["avg"] = getAvgPercentageForSection(state.percentage, section);
+      updatedPercentage.overall.avg = getOverallAvgPercentage(state.percentage);
 
-      // Calculate overall avg percentage
-      sum = 0;
-      count = 0;
-      Object.entries(state.percentage).forEach(([key, value]) => {
-        if (key !== "overall") {
-          sum += value.avg;
-          count++;
-        }
-      });
-      updatedPercentage.overall.avg = Math.round(sum / count);
-
-      ExcludedSectionsFromPercentage.forEach(referenceId => {
-        delete updatedPercentage[sectionId][referenceId];
+      ExcludedSectionsFromPercentage.forEach(subSection => {
+        delete updatedPercentage[section][subSection];
       });
 
       state.percentage = updatedPercentage;

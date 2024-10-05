@@ -1,0 +1,36 @@
+{
+  "id": "fields_part4_address_information",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    {
+      "label": "text_Name",
+      "id": "name",
+      "control": "group",
+      "maxChildPerRow": "3",
+      "fields": [
+        {
+          "label": "text_FirstName",
+          "placeholder": "text_FirstName",
+          "id": "first_name",
+          "key": "applicant.firstName",
+          "control": "text"
+        },
+        {
+          "label": "text_MiddleName",
+          "placeholder": "text_MiddleName",
+          "id": "middle_name",
+          "key": "applicant.middleName",
+          "control": "component_textbox_na"
+        },
+        {
+          "label": "text_LastName",
+          "placeholder": "text_LastName",
+          "id": "last_name",
+          "key": "applicant.lastName",
+          "control": "text"
+        }
+      ]
+    }
+  ]
+}

@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { Card, Button, Tooltip, Spin, message } from "antd";
-import { useTranslation } from "react-i18next";
+import { Button, Card, Tooltip, message } from "antd";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getFileIcon, getFileType } from "../../../utils/fileIconUtils";
-import { ModalType, openModal } from "../../../reducers/commonSlice";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { QText } from "../../common/Fonts";
 import { getDocumentByIdApi } from "../../../api/documentAPI";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { useFormTranslation } from "../../../hooks/commonHooks";
 import { UploadedDocument } from "../../../model/apiModels";
+import { ModalType, openModal } from "../../../reducers/commonSlice";
+import { getFileIcon } from "../../../utils/fileIconUtils";
+import { QText } from "../../common/Fonts";
 
 interface ExpandedCardProps {
   isLawyer: boolean;
@@ -31,7 +31,7 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
   onCaseSummaryUpdate,
 }) => {
   const dispatch = useAppDispatch();
-  const { t } = useTranslation();
+  const { wt, t } = useFormTranslation();
   const navigate = useNavigate();
   const { id } = useParams<{ id?: string }>();
 
@@ -57,24 +57,6 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
 
     fetchDocument();
   }, [substepMetadata?.documentId, accessToken, userRole]);
-
-  const translationsMap: { [key: string]: string } = {
-    "asylum/i589_fields_basic_information": "BasicInformation",
-    "asylum/i589_fields_contact_information": "ContactInformation",
-    "asylum/i589_fields_immigration_information": "ImmigrationInformation",
-    "asylum/i589_fields_notice_of_appearance_information": "NoticeOfAppearance",
-    "asylum/i589_fields_spouse_information": "SpouseInformation",
-    "asylum/i589_fields_children_information": "ChildrenInformation",
-    "asylum/i589_fields_parents_information": "ParentsInformation",
-    "asylum/i589_fields_siblings_information": "SiblingsInformation",
-    "asylum/i589_fields_address_before_usa": "AddressInformationI",
-    "asylum/i589_fields_address_past_5y": "AddressInformationII",
-    "asylum/i589_fields_education_information": "EducationInformation",
-    "asylum/i589_fields_employment_information": "EmploymentInformation",
-    "asylum/i589_fields_asylum_claim": "AsylumClaim",
-    "asylum/i589_fields_additional_information": "AdditionalInformation",
-    "asylum/i589_fields_personal_statement": "PersonalStatement",
-  };
 
   const getTooltipText = (stepStatus: string | null, currentStepStatus: string) => {
     if (stepStatus === "COMPLETED") {
@@ -133,11 +115,10 @@ const CaseProgressExpandedCard: React.FC<ExpandedCardProps> = ({
     const content: JSX.Element[] = [];
     for (const [key, value] of Object.entries(metadata)) {
       if (key !== "avg") {
-        const translationKey = translationsMap[key] || key;
         const valueColor = value === 100 ? "#27ae60" : "#FF9900";
         content.push(
-          <div key={translationKey} className="metadata-item">
-            <span className="metadata-key">{t(translationKey)}</span>
+          <div key={key} className="metadata-item">
+            <span className="metadata-key">{wt(key)}</span>
             <span className="metadata-value" style={{ color: valueColor }}>{`${value}%`}</span>
           </div>,
         );
