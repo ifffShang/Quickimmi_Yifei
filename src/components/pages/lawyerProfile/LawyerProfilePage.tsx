@@ -90,6 +90,39 @@ export function LawyerProfilePage() {
     updatedAt: Date.now(),
   };
 
+  const aptSteFlrOptions = [
+    { label: t("Apartment"), value: "apt" },
+    { label: t("Suite"), value: "ste" },
+    { label: t("Floor"), value: "flr" },
+  ];
+
+  const getAptSteFlrValue = () => {
+    const basicInfo = lawyerInfo?.profile?.basicInfo;
+    if (basicInfo?.aptCheckbox) return "apt";
+    if (basicInfo?.steCheckbox) return "ste";
+    if (basicInfo?.flrCheckbox) return "flr";
+    return undefined;
+  };
+
+  const handleAptSteFlrChange = value => {
+    setLawyerInfo(prevLawyerInfo => {
+      const newLawyerInfo = { ...prevLawyerInfo };
+      const basicInfo = newLawyerInfo.profile.basicInfo;
+
+      // Reset all checkboxes to false
+      basicInfo.aptCheckbox = false;
+      basicInfo.steCheckbox = false;
+      basicInfo.flrCheckbox = false;
+
+      // Set the selected checkbox to true
+      if (value === "apt") basicInfo.aptCheckbox = true;
+      else if (value === "ste") basicInfo.steCheckbox = true;
+      else if (value === "flr") basicInfo.flrCheckbox = true;
+
+      return newLawyerInfo;
+    });
+  };
+
   const [lawyerInfo, setLawyerInfo] = useState(defaultLawyerInfo);
   useEffect(() => {
     fetchLawyerInfo();
@@ -382,6 +415,22 @@ export function LawyerProfilePage() {
                 {isEditing === "address"
                   ? t("LawyerProfile.AddressEditMessage")
                   : `${lawyerInfo?.profile?.basicInfo?.streetNumberAndName || "Street Not Provided"}, ` +
+                    `${
+                      (lawyerInfo?.profile?.basicInfo?.aptCheckbox ||
+                        lawyerInfo?.profile?.basicInfo?.steCheckbox ||
+                        lawyerInfo?.profile?.basicInfo?.flrCheckbox) &&
+                      lawyerInfo?.profile?.basicInfo?.aptSteFlrNumber
+                        ? ` ${
+                            lawyerInfo?.profile?.basicInfo?.aptCheckbox
+                              ? t("Apt")
+                              : lawyerInfo?.profile?.basicInfo?.steCheckbox
+                                ? t("Ste")
+                                : lawyerInfo?.profile?.basicInfo?.flrCheckbox
+                                  ? t("Flr")
+                                  : ""
+                          } ${lawyerInfo?.profile?.basicInfo?.aptSteFlrNumber}`
+                        : ""
+                    }, ` +
                     `${lawyerInfo?.profile?.basicInfo?.city || "City Not Provided"}, ` +
                     `${lawyerInfo?.profile?.basicInfo?.stateDropdown || "State Not Provided"}, ` +
                     `${lawyerInfo?.profile?.basicInfo?.zipCode || "Postal Code Not Provided"}`}
@@ -400,8 +449,15 @@ export function LawyerProfilePage() {
                 <QTextBox
                   placeholder={t("Street")}
                   value={lawyerInfo?.profile?.basicInfo?.streetNumberAndName ?? ""}
-                  fieldKey={"lawyerInfo.email"}
+                  fieldKey={"profile.basicInfo.aptSteFlrNumber"}
                   onChange={getOnChangeHandler(["profile.basicInfo.streetNumberAndName"])}
+                />
+                <Select
+                  placeholder={t("Select Apt/Ste/Flr")}
+                  value={getAptSteFlrValue()}
+                  onChange={handleAptSteFlrChange}
+                  options={aptSteFlrOptions}
+                  style={{ width: 150 }} // Adjust the width as needed
                 />
                 <QTextBox
                   placeholder={t("ApartmentNumber")}
