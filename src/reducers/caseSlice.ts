@@ -184,9 +184,6 @@ export const caseSlice = createSlice({
       state.currentCaseSubType = null;
     },
     resetCaseState: state => {
-      Object.keys(state.formFieldsMap).forEach(key => {
-        delete state.formFieldsMap[key];
-      });
       return initialState;
     },
   },
