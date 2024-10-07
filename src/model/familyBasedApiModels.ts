@@ -59,9 +59,9 @@ export interface EmploymentHistory {
   nameOfEmployer: string;
   streetNumberAndName: string;
 
-  aptCheckbox: string;
-  steCheckbox: string;
-  flrCheckbox: string;
+  aptCheckbox: string | undefined;
+  steCheckbox: string | undefined;
+  flrCheckbox: string | undefined;
   aptSteFlrNumber: string;
 
   city: string;
@@ -220,6 +220,8 @@ export interface Petitioner {
   gainedStatusThroughMarriageNoCheckbox: string | undefined;
 
   employmentHistory: EmploymentHistory[];
+
+  biographic: Biographic;
 }
 
 export interface Biographic {
@@ -1015,7 +1017,6 @@ export interface Interpreter {
 export interface FamilyBasedProfile {
   relationship: Relationship;
   petitioner: Petitioner;
-  biographic: Biographic;
   beneficiary: Beneficiary;
   beneficiaryEligibility: Eligibility;
   previousPetition: PreviousPetition;

@@ -222,7 +222,7 @@ export function Navbar(props: { currentPath: string }) {
                 <div className="navbar-profile-button">
                   <Dropdown menu={profileMenu} trigger={["click"]}>
                     <Button type="primary" shape="circle" className="nav-btn-profile">
-                      {firstLetter} <DownOutlined />
+                      {firstLetter}
                     </Button>
                   </Dropdown>
                 </div>

@@ -1,4 +1,5 @@
 import {
+  AddressHistory,
   Beneficiary,
   Biographic,
   Eligibility,
@@ -77,6 +78,43 @@ export const InitialParents: Parents = {
   countryOfResidence: "",
 };
 
+export const InitialBiographic: Biographic = {
+  ethnicityHispanicCheckbox: undefined,
+  ethnicityNotHispanicCheckbox: undefined,
+
+  raceWhiteCheckbox: undefined,
+  raceAsianCheckbox: undefined,
+  raceBlackCheckbox: undefined,
+  raceAmericanIndianCheckbox: undefined,
+  raceNativeHawaiianCheckbox: undefined,
+
+  heightFeet: "",
+  heightInches: "",
+  weightPounds1: "",
+  weightPounds2: "",
+  weightPounds3: "",
+
+  eyeColorBlackCheckbox: undefined,
+  eyeColorBlueCheckbox: undefined,
+  eyeColorBrownCheckbox: undefined,
+  eyeColorGrayCheckbox: undefined,
+  eyeColorGreenCheckbox: undefined,
+  eyeColorHazelCheckbox: undefined,
+  eyeColorMaroonCheckbox: undefined,
+  eyeColorPinkCheckbox: undefined,
+  eyeColorUnknownCheckbox: undefined,
+
+  hairColorBaldCheckbox: undefined,
+  hairColorBlackCheckbox: undefined,
+  hairColorBlondCheckbox: undefined,
+  hairColorBrownCheckbox: undefined,
+  hairColorGrayCheckbox: undefined,
+  hairColorRedCheckbox: undefined,
+  hairColorSandyCheckbox: undefined,
+  hairColorWhiteCheckbox: undefined,
+  hairColorUnknownCheckbox: undefined,
+};
+
 export const InitialPetitioner: Petitioner = {
   alienNumber: "",
   uSCISOnlineAccountNumber: "",
@@ -137,43 +175,7 @@ export const InitialPetitioner: Petitioner = {
   gainedStatusThroughMarriageYesCheckbox: undefined,
   gainedStatusThroughMarriageNoCheckbox: undefined,
   employmentHistory: [],
-};
-
-export const InitialBiographic: Biographic = {
-  ethnicityHispanicCheckbox: undefined,
-  ethnicityNotHispanicCheckbox: undefined,
-
-  raceWhiteCheckbox: undefined,
-  raceAsianCheckbox: undefined,
-  raceBlackCheckbox: undefined,
-  raceAmericanIndianCheckbox: undefined,
-  raceNativeHawaiianCheckbox: undefined,
-
-  heightFeet: "",
-  heightInches: "",
-  weightPounds1: "",
-  weightPounds2: "",
-  weightPounds3: "",
-
-  eyeColorBlackCheckbox: undefined,
-  eyeColorBlueCheckbox: undefined,
-  eyeColorBrownCheckbox: undefined,
-  eyeColorGrayCheckbox: undefined,
-  eyeColorGreenCheckbox: undefined,
-  eyeColorHazelCheckbox: undefined,
-  eyeColorMaroonCheckbox: undefined,
-  eyeColorPinkCheckbox: undefined,
-  eyeColorUnknownCheckbox: undefined,
-
-  hairColorBaldCheckbox: undefined,
-  hairColorBlackCheckbox: undefined,
-  hairColorBlondCheckbox: undefined,
-  hairColorBrownCheckbox: undefined,
-  hairColorGrayCheckbox: undefined,
-  hairColorRedCheckbox: undefined,
-  hairColorSandyCheckbox: undefined,
-  hairColorWhiteCheckbox: undefined,
-  hairColorUnknownCheckbox: undefined,
+  biographic: InitialBiographic,
 };
 
 export const InitialEntryInformation: EntryInformation = {
@@ -644,10 +646,26 @@ export const InitialInterpreter: Interpreter = {
 export const InitialFamilyBasedProfile: FamilyBasedProfile = {
   relationship: InitialRelationship,
   petitioner: InitialPetitioner,
-  biographic: InitialBiographic,
   beneficiary: InitialBeneficiary,
   beneficiaryEligibility: InitialEligibility,
   previousPetition: InitialPreviousPetition,
   petitionerStatement: InitialPetitionerStatement,
   interpreter: InitialInterpreter,
+};
+
+export const InitialAddressHistory: AddressHistory = {
+  streetNumberAndName: "",
+  aptCheckbox: undefined,
+  steCheckbox: undefined,
+  flrCheckbox: undefined,
+  aptSteFlrNumber: "",
+
+  cityOrTown: "",
+  state: "",
+  zipCode: "",
+  province: "",
+  postalCode: "",
+  country: "",
+  dateFrom: "",
+  dateTo: "",
 };

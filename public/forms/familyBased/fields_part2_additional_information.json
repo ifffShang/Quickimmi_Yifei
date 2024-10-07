@@ -1,0 +1,164 @@
+{
+  "id": "fields_part2_additional_information",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    {
+      "label": "text_IAmA",
+      "placeholder": "text_IAmA",
+      "id": "gender",
+      "key": "petitioner.iAmUsCitizenCheckbox,petitioner.iAmLawfulPermanentResidentCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "USCitizen",
+          "label": "text_USCitizen",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "LawfulPermanentResident",
+          "label": "text_LawfulPermanentResident",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "Part2.37",
+      "visibility": "petitioner.iAmUsCitizenCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_CitizenshipThrough",
+          "placeholder": "text_CitizenshipThrough",
+          "id": "part2.37",
+          "key": "petitioner.citizenshipAcquiredByBirthCheckbox,petitioner.citizenshipAcquiredByNaturalizationCheckbox,petitioner.citizenshipAcquiredThroughParentsCheckbox",
+          "control": "select",
+          "options": [
+            {
+              "value": "BirthInUS",
+              "label": "text_BirthInUS",
+              "keyValue": "true,false,false"
+            },
+            {
+              "value": "Natualization",
+              "label": "text_Natualization",
+              "keyValue": "false,true,false"
+            },
+            {
+              "value": "Parents",
+              "label": "text_Parents",
+              "keyValue": "false,false,true"
+            }
+          ]
+        },
+        {
+          "label": "text_ObtainedCertificate",
+          "placeholder": "text_ObtainedCertificate",
+          "id": "part2.38",
+          "key": "petitioner.obtainedNaturalizationCertificateYesCheckbox,petitioner.obtainedNaturalizationCertificateNoCheckbox",
+          "control": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "label": "text_Yes",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "No",
+              "label": "text_No",
+              "keyValue": "false,true"
+            }
+          ]
+        },
+        {
+          "label": "",
+          "hideHeader": "true",
+          "id": "Part2.37",
+          "visibility": "petitioner.obtainedNaturalizationCertificateYesCheckbox=true",
+          "control": "section",
+          "fields": [
+            {
+              "label": "text_CertificationNumber",
+              "placeholder": "text_CertificationNumber",
+              "id": "39.a",
+              "key": "petitioner.certificateNumber",
+              "control": "text"
+            },
+            {
+              "label": "text_PlaceOfIssuance",
+              "placeholder": "text_PlaceOfIssuance",
+              "id": "39.b",
+              "key": "petitioner.placeOfIssuance",
+              "control": "text"
+            },
+            {
+              "label": "text_DateOfIssuance",
+              "placeholder": "text_DateOfIssuance",
+              "id": "39.b",
+              "key": "petitioner.dateOfIssuance",
+              "control": "datepicker"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "Part2.37",
+      "visibility": "petitioner.iAmLawfulPermanentResidentCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ClassOfAdmission",
+          "placeholder": "text_ClassOfAdmission",
+          "id": "39.a",
+          "key": "petitioner.classOfAdmission",
+          "control": "text"
+        },
+        {
+          "label": "text_DateOfAdmission",
+          "placeholder": "text_DateOfAdmission",
+          "id": "40.b",
+          "key": "petitioner.dateOfAdmission",
+          "control": "datepicker"
+        },
+        {
+          "label": "text_PlaceOfAdmissionCity",
+          "placeholder": "text_PlaceOfAdmissionCity",
+          "id": "39.a",
+          "key": "petitioner.placeOfAdmissionCity",
+          "control": "text"
+        },
+        {
+          "label": "text_PlaceOfAdmissionState",
+          "placeholder": "text_PlaceOfAdmissionState",
+          "id": "39.a",
+          "key": "petitioner.placeOfAdmissionState",
+          "control": "text"
+        },
+        {
+          "label": "text_GainedStatusThroughMarriage",
+          "placeholder": "text_GainedStatusThroughMarriage",
+          "id": "41",
+          "key": "petitioner.gainedStatusThroughMarriageYesCheckbox,petitioner.gainedStatusThroughMarriageNoCheckbox",
+          "control": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "label": "text_Yes",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "No",
+              "label": "text_No",
+              "keyValue": "false,true"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

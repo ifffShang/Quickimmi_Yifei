@@ -1,0 +1,58 @@
+{
+  "id": "fields_part4_employment_information",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    {
+      "label": "text_MostRecentEmployment",
+      "hideHeader": "true",
+      "control": "label"
+    },
+    {
+      "label": "text_Employment",
+      "hideHeader": "true",
+      "id": "employment_information",
+      "key": "count-petitioner.employmentHistory",
+      "control": "sortable_section",
+      "fields": [
+        {
+          "label": "text_NameAndAddressOfEmployer",
+          "id": "name_and_address",
+          "key": "petitioner.employmentHistory[].nameAndAddress",
+          "control": "text"
+        },
+        {
+          "label": "text_Occupation",
+          "id": "occupation",
+          "key": "petitioner.employmentHistory[].occupation",
+          "control": "text"
+        },
+        {
+          "label": "text_StartDate",
+          "placeholder": "text_MM/YYYY",
+          "id": "employment_start_date",
+          "key": "petitioner.employmentHistory[].startDate",
+          "control": "monthyearpicker"
+        },
+        {
+          "label": "text_EndDate",
+          "placeholder": "text_MM/YYYY",
+          "id": "employment_end_date",
+          "key": "petitioner.employmentHistory[].endDate",
+          "control": "monthyearpicker"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "control": "divider"
+    },
+    {
+      "label": "",
+      "placeholder": "text_AddEmployment",
+      "id": "employment_information",
+      "key": "count-petitioner.employmentHistory",
+      "control": "component_add_item"
+    }
+  ]
+}

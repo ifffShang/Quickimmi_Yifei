@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getCaseProfileAndProgressApi } from "../../../api/caseProfileGetAPI";
 import { getCaseSummaryApi } from "../../../api/caseSummaryAPI";
-import { getFormTemplate } from "../../../api/formTemplateAPI";
+import { fetchCompleteFormDetails } from "../../../api/formTemplateAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import useRenderingTrace from "../../../hooks/renderHooks";
 import { updateForm } from "../../../reducers/caseSlice";
 import { updateCaseProfileAndProgress } from "../../../reducers/formSlice";
-import { buildPercentageObject } from "../../../utils/percentageUtils";
+import { getFormPercentage } from "../../../utils/percentageUtils";
 import { CentralizedLoading } from "../../common/Loading";
 import { FormContainer } from "../../form/FormContainer";
 
@@ -43,15 +43,17 @@ export function CaseDetails() {
           console.error(`Failed to get case summary for case id ${id}`);
           return;
         }
-        const form = await getFormTemplate(caseType, caseSubType);
-        dispatch(updateForm(form));
+
+        const formStructure = await fetchCompleteFormDetails(caseType, caseSubType);
+        dispatch(updateForm(formStructure));
 
         const caseDetails = await getCaseProfileAndProgressApi(parseInt(id), accessToken, role, caseType);
         if (!caseDetails) {
           console.error(`Failed to get case details for case id ${id}`);
           return;
         }
-        const currentPercentage = buildPercentageObject(form, caseDetails.progress);
+        /** We don't rely on the percentage saved in the db since it might be stale */
+        const currentPercentage = getFormPercentage(formStructure.formStepsAndFormFieldsList, caseDetails.profile);
         dispatch(
           updateCaseProfileAndProgress({
             caseId: parseInt(id),

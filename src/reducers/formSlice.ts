@@ -27,8 +27,9 @@ import { CaseProfile, CaseProfileOptional } from "../model/commonApiModels";
 import { KeyValues } from "../model/commonModels";
 import { CaseType } from "../model/immigrationTypes";
 import { getUpdateProfileData } from "../utils/utils";
-import { InitialFamilyBasedProfile } from "../consts/familyBasedConsts";
+import { InitialAddressHistory, InitialFamilyBasedProfile } from "../consts/familyBasedConsts";
 import { deepAssign, deepOverwrite } from "../utils/caseUtils";
+import { getAvgPercentageForSection, getOverallAvgPercentage } from "../utils/percentageUtils";
 
 export interface FormState {
   caseId: number;
@@ -59,6 +60,7 @@ const initialState: FormState = {
 };
 
 export const ArrayFields = [
+  /** Asylum form */
   {
     field: "applicant.entryRecords",
     overwriteField: "overwriteEntryRecords",
@@ -98,6 +100,18 @@ export const ArrayFields = [
     field: "signature.members",
     overwriteField: "overwriteMembers",
     default: InitialMember,
+  },
+
+  /** Family-based form */
+  {
+    field: "petitioner.addressHistory",
+    overwriteField: "overwrite",
+    default: InitialAddressHistory,
+  },
+  {
+    field: "petitioner.employmentHistory",
+    overwriteField: "overwrite",
+    default: InitialEmploymentHistory,
   },
 ];
 
@@ -169,47 +183,25 @@ export const formSlice = createSlice({
     updateOnePercentage: (
       state,
       action: PayloadAction<{
-        sectionId: string;
-        referenceId: string;
+        section: string;
+        subSection: string;
         value: number;
       }>,
     ) => {
-      const { sectionId, referenceId, value } = action.payload;
-      if (!state.percentage[sectionId]) {
+      const { section, subSection, value } = action.payload;
+      if (!state.percentage[section]) {
         console.log("Skip percentage update before form is loaded");
         return;
       }
 
       const updatedPercentage = { ...state.percentage };
-      updatedPercentage[sectionId][referenceId] = value;
+      updatedPercentage[section][subSection] = value;
 
-      // Calculate section avg percentage
-      let sum = 0;
-      let count = 0;
-      Object.entries(state.percentage[sectionId]).forEach(([key, value]) => {
-        if (key !== "avg") {
-          if (value === -1) {
-            return;
-          }
-          sum += value;
-          count++;
-        }
-      });
-      updatedPercentage[sectionId]["avg"] = Math.round(sum / count);
+      updatedPercentage[section]["avg"] = getAvgPercentageForSection(state.percentage, section);
+      updatedPercentage.overall.avg = getOverallAvgPercentage(state.percentage);
 
-      // Calculate overall avg percentage
-      sum = 0;
-      count = 0;
-      Object.entries(state.percentage).forEach(([key, value]) => {
-        if (key !== "overall") {
-          sum += value.avg;
-          count++;
-        }
-      });
-      updatedPercentage.overall.avg = Math.round(sum / count);
-
-      ExcludedSectionsFromPercentage.forEach(referenceId => {
-        delete updatedPercentage[sectionId][referenceId];
+      ExcludedSectionsFromPercentage.forEach(subSection => {
+        delete updatedPercentage[section][subSection];
       });
 
       state.percentage = updatedPercentage;
@@ -257,13 +249,20 @@ export const formSlice = createSlice({
         CacheStore.setProfile(state.applicationCase.asylumProfile, state.caseId);
         /** Family based */
       } else if (action.payload.caseType === CaseType.FamilyBased) {
+        ArrayFields.forEach(item => {
+          const { field, overwriteField } = item;
+          if (action.payload.update[overwriteField]) {
+            _.set(state.applicationCase.familyBasedProfile, field, _.get(action.payload.update, field) ?? []);
+            delete action.payload.update[overwriteField];
+          }
+        });
+
         let profile: any;
         if (action.payload.update.overwrite) {
           profile = deepOverwrite(action.payload.update, state.applicationCase.familyBasedProfile);
         } else {
           profile = _.merge(state.applicationCase.familyBasedProfile, action.payload.update);
         }
-        console.log("FamilyBasedProfile22:", JSON.stringify(state.applicationCase.familyBasedProfile, null, 2));
 
         state.applicationCase.familyBasedProfile = profile;
         CacheStore.setProfile(state.applicationCase.familyBasedProfile, state.caseId);

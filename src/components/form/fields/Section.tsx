@@ -173,7 +173,7 @@ export function Section(props: SectionProps) {
                   fieldIndex={arrIndex}
                   onRemove={() => {
                     const keyValues = createKeyValuesForRemoveItem(fieldValue, arrIndex);
-                    dispatchFormValue(dispatch, keyValues, arrIndex);
+                    dispatchFormValue(dispatch, caseType, keyValues, arrIndex);
                   }}
                 />
               )}

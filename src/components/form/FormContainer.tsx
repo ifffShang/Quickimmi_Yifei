@@ -89,10 +89,11 @@ export function FormContainer() {
     );
   }
 
-  const sectionId = form.steps[indexLevel1]?.id;
+  const sectionLabel = form.steps[indexLevel1]?.label;
+  const subSectionLabel = form.steps[indexLevel1]?.steps?.[indexLevel2]?.label;
   const referenceId = form.steps[indexLevel1]?.steps?.[indexLevel2]?.referenceId;
 
-  if (!sectionId || !referenceId) {
+  if (!referenceId || !sectionLabel || !subSectionLabel) {
     return (
       <div className="form-flow">
         <Loading />
@@ -115,7 +116,7 @@ export function FormContainer() {
       <div className="form-flow-content">
         {!isSmallScreen && <FormNavigation />}
         {form && indexLevel1 !== -1 && indexLevel2 !== -1 ? (
-          <FormContent sectionId={sectionId} referenceId={referenceId!} />
+          <FormContent sectionLabel={sectionLabel} subSectionLabel={subSectionLabel} referenceId={referenceId!} />
         ) : (
           <div>
             <Loading />

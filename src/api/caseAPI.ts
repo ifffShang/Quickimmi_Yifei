@@ -1,5 +1,5 @@
 import { Role } from "../consts/consts";
-import { ListCase, UpdateApplicationCaseData, UpdateProgressRequestDto } from "../model/apiModels";
+import { ListCase, UpdateProgressRequestDto } from "../model/apiModels";
 import { performApiRequest } from "./apiConfig";
 
 // Create new application case by customer

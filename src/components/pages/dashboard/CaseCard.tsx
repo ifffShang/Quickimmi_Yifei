@@ -115,12 +115,6 @@ export function CaseCard({ caseData, onDelete }: CaseCardProps) {
       <p className="case-card-status" style={{ color, backgroundColor, width }}>
         {t(status)}
       </p>
-      {/* <p className="case-card-id" >
-          <QText level="normal bold" color="gray">{caseData.id}</QText>
-        </p> */}
-      {/*<div className="case-card-icon-background">*/}
-      {/*  <CaseIcon />*/}
-      {/*</div>*/}
       <div className="case-card-content">
         <div className="case-card-title">
           {isEditing ? (

@@ -1,8 +1,64 @@
 import { isArray, isObject } from "lodash";
 import { Percentage, Progress } from "../model/apiModels";
 import { CaseProfile } from "../model/commonApiModels";
-import { ControlType, IForm, IFormField } from "../model/formFlowModels";
+import { ControlType, IForm, IFormField, IFormStepAndFieldsRecord } from "../model/formFlowModels";
 import { getCaseDetailValue, getFieldValue } from "./utils";
+
+export function getFormPercentage(
+  allFormStepAndFields: IFormStepAndFieldsRecord[],
+  profile: CaseProfile | null,
+): Percentage {
+  if (!allFormStepAndFields || !profile) {
+    console.error("Either allFormStepAndFields or profile is missing.");
+    return { overall: { avg: 0 } };
+  }
+  const percentage: Percentage = { overall: { avg: 0 } };
+  allFormStepAndFields.forEach(({ step, subStep, fields }) => {
+    if (step.standalone || subStep.standalone) return;
+    const { total, fulfilled } = getPercentage(fields.fields, profile);
+    let currentPercentage = 0;
+    if (total === 0) {
+      currentPercentage = 100;
+    } else {
+      currentPercentage = Math.round((fulfilled / total) * 100);
+    }
+    if (!percentage[step.label]) {
+      percentage[step.label] = { avg: 0 };
+    }
+    percentage[step.label][subStep.label] = currentPercentage;
+    percentage[step.label].avg = getAvgPercentageForSection(percentage, step.label);
+  });
+  percentage.overall.avg = getOverallAvgPercentage(percentage);
+  return percentage;
+}
+
+export function getAvgPercentageForSection(percentage: Percentage, section: string) {
+  let sum = 0;
+  let count = 0;
+  Object.entries(percentage[section]).forEach(([key, value]) => {
+    if (key !== "avg") {
+      if (value === -1) {
+        return;
+      }
+      sum += value;
+      count++;
+    }
+  });
+  return count === 0 ? 0 : Math.round(sum / count);
+}
+
+export function getOverallAvgPercentage(percentage: Percentage) {
+  let sum = 0;
+  let count = 0;
+  Object.entries(percentage).forEach(([key, value]) => {
+    if (key !== "overall") {
+      const avg = getAvgPercentageForSection(percentage, key);
+      sum += avg;
+      count++;
+    }
+  });
+  return count === 0 ? 0 : Math.round(sum / count);
+}
 
 export function extractPercentageFromMetadata(progress?: Progress) {
   if (!progress) return null;
@@ -17,7 +73,7 @@ export function extractPercentageFromMetadata(progress?: Progress) {
   return null;
 }
 
-export function buildPercentageObject(form: IForm, progress?: Progress) {
+export function buildPercentageObject(form: IForm, progress?: Progress): Percentage {
   const percentage = extractPercentageFromMetadata(progress);
   return fillMissingPercentageProperties(percentage, form);
 }
@@ -27,26 +83,35 @@ export function fillMissingPercentageProperties(percentage: Percentage | null, f
 
   form.steps.forEach(step => {
     if (step.standalone) return;
-    if (!newPercentage[step.id]) {
-      newPercentage[step.id] = { avg: 0 } as any;
-    } else if (!newPercentage[step.id].avg) {
-      newPercentage[step.id].avg = 0;
+    if (!newPercentage[step.label]) {
+      newPercentage[step.label] = { avg: 0 } as any;
+    } else if (!newPercentage[step.label].avg) {
+      newPercentage[step.label].avg = 0;
     }
     step.steps.forEach(subStep => {
-      if (!subStep.referenceId) return;
-      if (!newPercentage[step.id][subStep.referenceId]) {
-        newPercentage[step.id][subStep.referenceId] = 0;
+      if (!subStep.label) return;
+      if (!newPercentage[step.label][subStep.label]) {
+        newPercentage[step.label][subStep.label] = 0;
       }
     });
 
     // Remove the substeps that are not in the form, for example, i94 is only in the form for affirmative asylum, we should not have it in defensive asylum case
-    Object.keys(newPercentage[step.id]).forEach(subStepId => {
-      if (subStepId === "avg") return;
-      if (!step.steps.find(subStep => subStep.referenceId === subStepId)) {
-        delete newPercentage[step.id][subStepId];
+    Object.keys(newPercentage[step.label]).forEach(subStepLabel => {
+      if (subStepLabel === "avg") return;
+      if (!step.steps.find(subStep => subStep.label === subStepLabel)) {
+        delete newPercentage[step.label][subStepLabel];
       }
     });
   });
+
+  // Remvoe the steps that are not in the form
+  Object.keys(newPercentage).forEach(label => {
+    if (label === "overall") return;
+    if (!form.steps.find(step => step.label === label)) {
+      delete newPercentage[label];
+    }
+  });
+
   return newPercentage;
 }
 

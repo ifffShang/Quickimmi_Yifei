@@ -47,8 +47,8 @@ export function FormNavigation() {
           <div className="nav-l1-label">
             <QText level="normal bold">{wt(steps[l1].label)}</QText>
             <QTag>
-              {percentage && percentage[steps[l1].id] && percentage[steps[l1].id].avg !== 100 ? (
-                <QTag>{percentage[steps[l1].id].avg + "%"}</QTag>
+              {percentage && percentage[steps[l1].label] && percentage[steps[l1].label].avg !== 100 ? (
+                <QTag>{percentage[steps[l1].label].avg + "%"}</QTag>
               ) : (
                 <CheckCircleFilled />
               )}
@@ -87,8 +87,8 @@ export function FormNavigation() {
             <QText level="normal bold" color={indexLevel1 === l1Index ? "dark" : "gray"}>
               {wt(level1.label)}
             </QText>
-            {percentage && percentage[level1.id] && percentage[level1.id].avg !== 100 ? (
-              <QTag>{percentage[level1.id].avg + "%"}</QTag>
+            {percentage && percentage[level1.label] && percentage[level1.label].avg !== 100 ? (
+              <QTag>{percentage[level1.label].avg + "%"}</QTag>
             ) : (
               <CheckCircleFilled />
             )}
@@ -116,8 +116,8 @@ export function FormNavigation() {
                   <QText>{wt(level2.label)}</QText>
                   {highlightMissingFields &&
                     percentage &&
-                    percentage[level1.id] &&
-                    percentage[level1.id][level2.referenceId!] !== 100 && (
+                    percentage[level1.label] &&
+                    percentage[level1.label][level2.label!] !== 100 && (
                       <ExclamationCircleOutlined className="nav-exclamation-icon" />
                     )}
                 </div>

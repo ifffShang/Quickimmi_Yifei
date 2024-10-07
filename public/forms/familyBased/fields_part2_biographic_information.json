@@ -1,0 +1,189 @@
+{
+  "id": "fields_part2_biographic_information",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    {
+      "label": "text_EthinicitySelectOne",
+      "placeholder": "text_EthinicitySelectOne",
+      "id": "part3.1",
+      "key": "petitioner.biographic.ethnicityHispanicCheckbox,petitioner.biographic.ethnicityNotHispanicCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "HispanicOrLatino",
+          "label": "text_HispanicOrLatino",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "NotHispanicOrLatino",
+          "label": "text_NotHispanicOrLatino",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_Race",
+      "placeholder": "text_Race",
+      "id": "part3.2",
+      "key": "petitioner.biographic.raceWhiteCheckbox,petitioner.biographic.raceAsianCheckbox,petitioner.biographic.raceBlackCheckbox,petitioner.biographic.raceAmericanIndianCheckbox,petitioner.biographic.raceNativeHawaiianCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "White",
+          "label": "text_White",
+          "keyValue": "true,false,false,false,false"
+        },
+        {
+          "value": "Asian",
+          "label": "text_Asian",
+          "keyValue": "false,true,false,false,false"
+        },
+        {
+          "value": "Black",
+          "label": "text_Black",
+          "keyValue": "false,false,true,false,false"
+        },
+        {
+          "value": "AmericanIndian",
+          "label": "text_AmericanIndian",
+          "keyValue": "false,false,false,true,false"
+        },
+        {
+          "value": "NativeHawaiian",
+          "label": "text_NativeHawaiian",
+          "keyValue": "false,false,false,false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_HeightFeet",
+      "placeholder": "text_HeightFeet",
+      "id": "part3.3",
+      "key": "petitioner.biographic.heightFeet",
+      "control": "text"
+    },
+    {
+      "label": "text_HeightInches",
+      "placeholder": "text_HeightInches",
+      "id": "part3.3",
+      "key": "petitioner.biographic.heightInches",
+      "control": "text"
+    },
+    {
+      "label": "text_WeightPounds(Need to update with three digits)",
+      "placeholder": "text_HeightInches",
+      "id": "part3.4",
+      "key": "petitioner.biographic.weightPounds1",
+      "control": "text"
+    },
+    {
+      "label": "text_EyeColor",
+      "placeholder": "text_EyeColor",
+      "id": "part3.3",
+      "key": "petitioner.biographic.eyeColorBlackCheckbox,petitioner.biographic.eyeColorBlueCheckbox,petitioner.biographic.eyeColorBrownCheckbox,petitioner.biographic.eyeColorGrayCheckbox,petitioner.biographic.eyeColorGreenCheckbox,petitioner.biographic.eyeColorHazelCheckbox,petitioner.biographic.eyeColorMaroonCheckbox,petitioner.biographic.eyeColorPinkCheckbox,petitioner.biographic.eyeColorUnknownCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "Black",
+          "label": "text_Black",
+          "keyValue": "true,false,false,false,false,false,false,false,false"
+        },
+        {
+          "value": "Blue",
+          "label": "text_Blue",
+          "keyValue": "false,true,false,false,false,false,false,false,false"
+        },
+        {
+          "value": "Brown",
+          "label": "text_Brown",
+          "keyValue": "false,false,true,false,false,false,false,false,false"
+        },
+        {
+          "value": "Gray",
+          "label": "text_Gray",
+          "keyValue": "false,false,false,true,false,false,false,false,false"
+        },
+        {
+          "value": "Green",
+          "label": "text_Green",
+          "keyValue": "false,false,false,false,true,false,false,false,false"
+        },
+        {
+          "value": "Hazel",
+          "label": "text_Hazel",
+          "keyValue": "false,false,false,false,false,true,false,false,false"
+        },
+        {
+          "value": "Maroon",
+          "label": "text_Maroon",
+          "keyValue": "false,false,false,false,false,false,true,false,false"
+        },
+        {
+          "value": "Pink",
+          "label": "text_Pink",
+          "keyValue": "false,false,false,false,false,false,false,true,false"
+        },
+        {
+          "value": "Unknown",
+          "label": "text_Unknown",
+          "keyValue": "false,false,false,false,false,false,false,false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_HairColor",
+      "placeholder": "text_HairColor",
+      "id": "part3.4",
+      "key": "petitioner.biographic.hairColorBaldCheckbox,petitioner.biographic.hairColorBlackCheckbox,petitioner.biographic.hairColorBlondeCheckbox,petitioner.biographic.hairColorBrownCheckbox,petitioner.biographic.hairColorGrayCheckbox,petitioner.biographic.hairColorRedCheckbox,petitioner.biographic.hairColorSandyCheckbox,petitioner.biographic.hairColorWhiteCheckbox,petitioner.biographic.hairColorUnknownCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "Bald",
+          "label": "text_Bald",
+          "keyValue": "true,false,false,false,false,false,false,false,false"
+        },
+        {
+          "value": "Black",
+          "label": "text_Black",
+          "keyValue": "false,true,false,false,false,false,false,false,false"
+        },
+        {
+          "value": "Blonde",
+          "label": "text_Blonde",
+          "keyValue": "false,false,true,false,false,false,false,false,false"
+        },
+        {
+          "value": "Brown",
+          "label": "text_Brown",
+          "keyValue": "false,false,false,true,false,false,false,false,false"
+        },
+        {
+          "value": "Gray",
+          "label": "text_Gray",
+          "keyValue": "false,false,false,false,true,false,false,false,false"
+        },
+        {
+          "value": "Red",
+          "label": "text_Red",
+          "keyValue": "false,false,false,false,false,true,false,false,false"
+        },
+        {
+          "value": "Sandy",
+          "label": "text_Sandy",
+          "keyValue": "false,false,false,false,false,false,true,false,false"
+        },
+        {
+          "value": "White",
+          "label": "text_White",
+          "keyValue": "false,false,false,false,false,false,false,true,false"
+        },
+        {
+          "value": "Unknown",
+          "label": "text_Unknown",
+          "keyValue": "false,false,false,false,false,false,false,false,true"
+        }
+      ]
+    }
+  ]
+}
