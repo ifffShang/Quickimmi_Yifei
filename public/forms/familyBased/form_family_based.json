@@ -56,19 +56,12 @@
           "id": "part2",
           "type": "level2",
           "referenceId": "familyBased/fields_part2_additional_information"
-        }
-      ]
-    },
-    {
-      "label": "text_Biographic",
-      "id": "part3",
-      "type": "level1",
-      "steps": [
+        },
         {
-          "label": "text_Petitioner",
-          "id": "part3",
+          "label": "text_BiographicInformation",
+          "id": "part2",
           "type": "level2",
-          "referenceId": "familyBased/fields_part3_petitioner_information"
+          "referenceId": "familyBased/fields_part2_biographic_information"
         }
       ]
     },

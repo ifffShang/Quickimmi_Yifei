@@ -47,11 +47,74 @@
       ]
     },
     {
-      "label": "text_MailingAddressSameAsResidentialAddress",
+      "label": "text_MailingAddressSameAsResidentialAddress(Need update to include family based)",
       "hideHeader": "true",
       "key": "petitioner.mailingAddressSameAsPhysicalAddressYesCheckbox,petitioner.mailingAddressSameAsPhysicalAddressNoCheckbox",
       "id": "mailing_address_same_as_residential_address",
       "control": "component_mailing_same_as_residential"
+    },
+    {
+      "label": "text_AddressHistory",
+      "hideHeader": "true",
+      "control": "label"
+    },
+    {
+      "label": "text_Address",
+      "hideHeader": "true",
+      "id": "10.a-10.i",
+      "key": "count-petitioner.addressHistory",
+      "control": "sortable_section",
+      "fields": [
+        {
+          "label": "text_NumberAndStreet",
+          "id": "background_street",
+          "key": "petitioner.addressHistory[].numberAndStreet",
+          "control": "text"
+        },
+        {
+          "label": "text_CityOrTown",
+          "id": "background_city",
+          "key": "petitioner.addressHistory[].city",
+          "control": "text"
+        },
+        {
+          "label": "text_DepartmentOrStateOrProvince",
+          "id": "background_province",
+          "key": "petitioner.addressHistory[].province",
+          "control": "text"
+        },
+        {
+          "label": "text_Country",
+          "id": "background_country",
+          "key": "petitioner.addressHistory[].country",
+          "control": "text"
+        },
+        {
+          "label": "text_StartDate",
+          "placeholder": "text_MM/YYYY",
+          "id": "background_start_date",
+          "key": "petitioner.addressHistory[].startDate",
+          "control": "monthyearpicker"
+        },
+        {
+          "label": "text_EndDate",
+          "placeholder": "text_MM/YYYY",
+          "id": "background_end_date",
+          "key": "petitioner.addressHistory[].endDate",
+          "control": "monthyearpicker"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "control": "divider"
+    },
+    {
+      "label": "",
+      "placeholder": "text_AddAddress",
+      "id": "address_berfore_us",
+      "key": "count-petitioner.addressHistory",
+      "control": "component_add_item"
     }
   ]
 }

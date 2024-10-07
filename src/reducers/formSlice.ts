@@ -27,7 +27,7 @@ import { CaseProfile, CaseProfileOptional } from "../model/commonApiModels";
 import { KeyValues } from "../model/commonModels";
 import { CaseType } from "../model/immigrationTypes";
 import { getUpdateProfileData } from "../utils/utils";
-import { InitialFamilyBasedProfile } from "../consts/familyBasedConsts";
+import { InitialAddressHistory, InitialFamilyBasedProfile } from "../consts/familyBasedConsts";
 import { deepAssign, deepOverwrite } from "../utils/caseUtils";
 import { getAvgPercentageForSection, getOverallAvgPercentage } from "../utils/percentageUtils";
 
@@ -60,6 +60,7 @@ const initialState: FormState = {
 };
 
 export const ArrayFields = [
+  /** Asylum form */
   {
     field: "applicant.entryRecords",
     overwriteField: "overwriteEntryRecords",
@@ -99,6 +100,18 @@ export const ArrayFields = [
     field: "signature.members",
     overwriteField: "overwriteMembers",
     default: InitialMember,
+  },
+
+  /** Family-based form */
+  {
+    field: "petitioner.addressHistory",
+    overwriteField: "overwrite",
+    default: InitialAddressHistory,
+  },
+  {
+    field: "petitioner.employmentHistory",
+    overwriteField: "overwrite",
+    default: InitialEmploymentHistory,
   },
 ];
 
@@ -236,13 +249,20 @@ export const formSlice = createSlice({
         CacheStore.setProfile(state.applicationCase.asylumProfile, state.caseId);
         /** Family based */
       } else if (action.payload.caseType === CaseType.FamilyBased) {
+        ArrayFields.forEach(item => {
+          const { field, overwriteField } = item;
+          if (action.payload.update[overwriteField]) {
+            _.set(state.applicationCase.familyBasedProfile, field, _.get(action.payload.update, field) ?? []);
+            delete action.payload.update[overwriteField];
+          }
+        });
+
         let profile: any;
         if (action.payload.update.overwrite) {
           profile = deepOverwrite(action.payload.update, state.applicationCase.familyBasedProfile);
         } else {
           profile = _.merge(state.applicationCase.familyBasedProfile, action.payload.update);
         }
-        console.log("FamilyBasedProfile22:", JSON.stringify(state.applicationCase.familyBasedProfile, null, 2));
 
         state.applicationCase.familyBasedProfile = profile;
         CacheStore.setProfile(state.applicationCase.familyBasedProfile, state.caseId);

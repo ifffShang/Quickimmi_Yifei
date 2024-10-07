@@ -180,12 +180,12 @@
           "control": "checkbox",
           "options": [
             {
-              "value": "true",
+              "value": "Yes",
               "label": "text_Yes",
               "keyValue": "true,false"
             },
             {
-              "value": "false",
+              "value": "No",
               "label": "text_No",
               "keyValue": "false,true"
             }
