@@ -1,6 +1,6 @@
 import { CaseProfile } from "./commonApiModels";
 import { Identity } from "./commonModels";
-import { FamilyBasedProfile } from "./familyBasedApiModels";
+import { FamilyBasedProfile } from "./familyBased/familyBasedProfile";
 
 export interface UserInfo {
   id: number;

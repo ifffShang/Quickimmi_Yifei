@@ -9,17 +9,15 @@ import {
   SupplementDocument,
   YourSignature,
 } from "./apiModels";
-import {
-  Beneficiary,
-  Biographic,
-  Eligibility,
-  FamilyBasedProfile,
-  Interpreter,
-  Petitioner,
-  PetitionerStatement,
-  PreviousPetition,
-  Relationship,
-} from "./familyBasedApiModels";
+import { FamilyBasedProfile } from "./familyBased/familyBasedProfile";
+import { Relationship } from "./familyBased/relationship";
+import { Petitioner } from "./familyBased/pertitioner";
+import { Beneficiary } from "./familyBased/beneficiary";
+import { Eligibility } from "./familyBased/eligibility";
+import { PreviousPetition } from "./familyBased/previousPetition";
+import { PetitionerStatement } from "./familyBased/petitionStatement";
+import { Interpreter } from "./familyBased/intepreter";
+import { Sponsor } from "./familyBased/sponsor";
 
 export type CaseProfile = AsylumCaseProfile | FamilyBasedProfile;
 
@@ -48,10 +46,10 @@ export interface CaseProfileOptional {
   /** Family Based */
   relationship?: Relationship;
   petitioner?: Petitioner;
-  biographic?: Biographic;
   beneficiary?: Beneficiary;
   beneficiaryEligibility?: Eligibility;
   previousPetition?: PreviousPetition;
   petitionerStatement?: PetitionerStatement;
+  sponsorList?: Sponsor[];
   interpreter?: Interpreter;
 }

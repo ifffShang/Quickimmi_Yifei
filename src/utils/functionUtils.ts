@@ -6,6 +6,9 @@ import { Percentage, Progress } from "../model/apiModels";
 import { CaseProfile } from "../model/commonApiModels";
 import { CaseType } from "../model/immigrationTypes";
 import { getProgressWithPercentage } from "./percentageUtils";
+import { ObjectUtils } from "./diffUtils";
+import { InitialAsylumProfile } from "../consts/caseConsts";
+import { InitialFamilyBasedProfile } from "../consts/familyBasedConsts";
 
 // !!!! This function should only be used by the form save !!!!
 export const updateApplicationCaseFunc = async (
@@ -21,6 +24,12 @@ export const updateApplicationCaseFunc = async (
     console.error("Case ID, access token or case type is not available");
     return;
   }
+
+  const asylumDiff = ObjectUtils.diffUpdate(InitialAsylumProfile, profile, true);
+  const familyBasedDiff = ObjectUtils.diffUpdate(InitialFamilyBasedProfile, profile, true);
+  console.log("Asylum diff is ", asylumDiff);
+  console.log("Family based diff is ", familyBasedDiff);
+
   // Form can only be updated when the case progress is at "Collect Information" or "Review and Sign" step.
   if (!formAllowedToBeEdit(progress)) {
     const errorMsg =

@@ -195,7 +195,7 @@ export function getFieldValue(
         .replace(filterRegex, "");
       return raw.replace(regex, output);
     } else {
-      console.error("Options are missing for multi key field");
+      console.error("Options are missing for multi key field", key);
     }
   }
 
