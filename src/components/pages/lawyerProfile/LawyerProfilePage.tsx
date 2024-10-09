@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 import { Button, message, Select } from "antd";
 import { updateLawyerInfoApi } from "../../../api/userAPI";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { useAppSelector } from "../../../app/hooks";
 import { QText } from "../../common/Fonts";
 import { Loading } from "../../common/Loading";
 import { QTextBox } from "../../form/fields/Controls";
@@ -24,10 +23,7 @@ export function LawyerProfilePage() {
   const accessToken = useAppSelector(state => state.auth.accessToken);
   const userId = useAppSelector(state => state.auth.userId);
   const email = useAppSelector(state => state.auth.email);
-  const isLawyer = useAppSelector(state => state.auth.isLawyer);
   const role = useAppSelector(state => state.auth.role);
-  const allCases = useAppSelector(state => state.case.cases);
-  const { Option } = Select;
 
   const defaultBasicInfo: LawyerBasicInfo = {
     uscisOnlineAccountNumber: "",
@@ -53,7 +49,7 @@ export function LawyerProfilePage() {
   };
 
   const defaultEligibility: LawyerEligibility = {
-    eligibleAttorneyCheckbox: false,
+    eligibleAttorneyCheckbox: true,
     licensingAuthority: "",
     barNumber: "",
     amNotCheckbox: "",
@@ -124,9 +120,11 @@ export function LawyerProfilePage() {
   };
 
   const [lawyerInfo, setLawyerInfo] = useState(defaultLawyerInfo);
+
   useEffect(() => {
     fetchLawyerInfo();
   }, [accessToken, userId]);
+
   const fetchLawyerInfo = async () => {
     if (!accessToken || !userId || !email) {
       console.error(`Access token ${accessToken} or user id ${userId} is missing`);
@@ -295,7 +293,7 @@ export function LawyerProfilePage() {
           <div className="lawyer-profile-section">
             <div className="lawyer-profile-display">
               <QText level="normal" color="gray">
-                {isEditing === "contact" ? t("LawyerProfile.ContactEditMessage") : lawyerInfo.email ?? "Not Provided"}
+                {isEditing === "contact" ? t("LawyerProfile.ContactEditMessage") : (lawyerInfo.email ?? "Not Provided")}
               </QText>
               {/* <QTextBox
                       placeholder={t("Email")}
@@ -484,6 +482,12 @@ export function LawyerProfilePage() {
                   value={lawyerInfo?.profile?.basicInfo?.zipCode ?? ""}
                   fieldKey={"lawyerInfo.phoneNumber"}
                   onChange={getOnChangeHandler(["profile.basicInfo.zipCode", "profile.basicInfo.postalCode"])}
+                />
+                <QTextBox
+                  placeholder={t("Country")}
+                  value={lawyerInfo?.profile?.basicInfo?.country ?? "U.S.A"}
+                  fieldKey={"lawyerInfo.profile.basicInfo.country"}
+                  onChange={getOnChangeHandler(["lawyerInfo.profile.basicInfo.country"])}
                 />
               </div>
               <Button type="primary" className="lawyer-profile-edit-save" onClick={handleSaveClick}>
