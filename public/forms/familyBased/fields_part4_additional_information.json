@@ -206,6 +206,75 @@
       "id": "currentImmigrationStatus",
       "key": "beneficiary.lastArrivalInformation.currentImmigrationStatus",
       "control": "text"
+    },
+    {
+      "label": "text_ImmigrationProceedings",
+      "placeholder": "text_ImmigrationProceedings",
+      "id": "part3.1",
+      "key": "beneficiary.beneficiaryInImmigrationProceedingsYesCheckbox,beneficiary.beneficiaryInImmigrationProceedingsNoCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_TypeOfProceedings",
+      "placeholder": "text_TypeOfProceedings",
+      "id": "part3.1",
+      "key": "beneficiary.removalCheckbox,beneficiary.exclusionCheckbox,beneficiary.rescissionCheckbox,beneficiary.otherJudicialProceedingsCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "Removal",
+          "label": "text_Removal",
+          "keyValue": "true,false,false,false"
+        },
+        {
+          "value": "Exclusion/Deportation",
+          "label": "text_Exclusion/Deportation",
+          "keyValue": "false,true,false,false"
+        },
+        {
+          "value": "Rescission",
+          "label": "text_Rescission",
+          "keyValue": "false,false,true,false"
+        },
+        {
+          "value": "OtherJudicialProceedings",
+          "label": "text_OtherJudicialProceedings",
+          "keyValue": "false,false,false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_CityOrTown",
+      "placeholder": "text_CityOrTown",
+      "id": "55.a",
+      "key": "beneficiary.cityOfProceedings",
+      "control": "text"
+    },
+    {
+      "label": "text_State",
+      "placeholder": "text_State",
+      "id": "55.b",
+      "key": "beneficiary.stateOfProceedings",
+      "control": "text"
+    },
+    {
+      "label": "text_Date(mm/dd/yyyy)",
+      "placeholder": "text_Date(mm/dd/yyyy)",
+      "id": "55.a",
+      "key": "beneficiary.dateOfProceedings",
+      "control": "datepicker"
     }
   ]
 }

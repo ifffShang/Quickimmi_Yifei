@@ -1,20 +1,25 @@
+import { AdditionalRelative } from "../model/familyBased/additionalRelative";
 import { Address } from "../model/familyBased/address";
 import { Beneficiary } from "../model/familyBased/beneficiary";
+import { Benefit } from "../model/familyBased/benefit";
 import { Biographic } from "../model/familyBased/biographic";
 import { Eligibility } from "../model/familyBased/eligibility";
 import { EmploymentHistory } from "../model/familyBased/employmentHistory";
 import { EntryInformation } from "../model/familyBased/entryInformation";
 import { Family } from "../model/familyBased/family";
 import { FamilyBasedProfile } from "../model/familyBased/familyBasedProfile";
+import { Institutionalization } from "../model/familyBased/institutionalization";
 import { Interpreter } from "../model/familyBased/intepreter";
 import { LastArrivalInformation } from "../model/familyBased/lastArrivalInformation";
 import { CurrentSpouseInfo, MaritalInfo, PreviousSpouseInfo } from "../model/familyBased/maritalInfo";
+import { Organization } from "../model/familyBased/organization";
 import { Parent } from "../model/familyBased/parent";
 import { Petitioner } from "../model/familyBased/pertitioner";
 import { PetitionerOtherName } from "../model/familyBased/pertitionerOtherName";
 import { PetitionerStatement } from "../model/familyBased/petitionStatement";
 import { PreviousPetition } from "../model/familyBased/previousPetition";
 import { Relationship } from "../model/familyBased/relationship";
+import { Sponsor } from "../model/familyBased/sponsor";
 
 export const InitialRelationship: Relationship = {
   petitionForSpouseCheckbox: undefined,
@@ -363,6 +368,36 @@ export const InitialBeneficiary: Beneficiary = {
   isFluentEnglish: undefined,
 };
 
+export const InitialOrganization: Organization = {
+  orgName: "",
+  cityTown: "",
+  state: "",
+  country: "",
+  natureOfGroup: "",
+  dateFrom: "",
+  dateTo: "",
+};
+
+export const InitialBenefitRecord: Benefit = {
+  pageNumber: "",
+  partNumber: "",
+  itemNumber: "",
+  benefitReceived: "",
+  startDate: "",
+  endDate: "",
+  dollarAmount: "",
+};
+
+export const InitialInstitutionalizationRecord: Institutionalization = {
+  pageNumber: "",
+  partNumber: "",
+  itemNumber: "",
+  institutionNameCityState: "",
+  dateFrom: "",
+  dateTo: "",
+  reason: "",
+};
+
 export const InitialEligibility: Eligibility = {
   associatedWithOrganizationYesCheckbox: undefined,
   associatedWithOrganizationNoCheckbox: undefined,
@@ -681,6 +716,13 @@ export const InitialEligibility: Eligibility = {
   nationalityOrStatusBeforeEvadingMilitaryService: "",
 };
 
+export const InitialAdditionalRelative: AdditionalRelative = {
+  lastName: "",
+  firstName: "",
+  middleName: "",
+  relationship: "",
+};
+
 export const InitialPreviousPetition: PreviousPetition = {
   filedPetitionYesCheckbox: undefined,
   filedPetitionNoCheckbox: undefined,
@@ -726,6 +768,56 @@ export const InitialInterpreter: Interpreter = {
   mobileTelephoneNumber: "",
   emailAddress: "",
   fluentInEnglish: "",
+};
+
+export const InitialSponsor: Sponsor = {
+  basicInfo: {
+    isPetitionerCheckbox: false,
+    filedAlienWorkerPetitionCheckbox: false,
+    relationshipToImmigrant: "",
+    ownershipInterest5PercentCheckbox: false,
+    ownershipInterestDescription: "",
+    ownershipRelationshipToImmigrant: "",
+    onlyJointSponsorCheckbox: false,
+    notOnlyJointSponsorCheckbox: false,
+    firstJointSponsorCheckbox: false,
+    secondJointSponsorCheckbox: false,
+    substituteSponsorCheckbox: false,
+    substituteSponsorRelationship: "",
+  },
+  sponsorDetails: {
+    lastName: "",
+    firstName: "",
+    middleName: "",
+    inCareOfName: "",
+    mailAddress: InitialAddress,
+    mailingAddressSameAsPhysicalYesCheckbox: false,
+    mailingAddressSameAsPhysicalNoCheckbox: false,
+    physicalAddress: InitialAddress,
+    countryOfDomicile: "",
+    dateOfBirth: "",
+    cityOfBirth: "",
+    stateOrProvinceOfBirth: "",
+    countryOfBirth: "",
+    ssn: "",
+    isUsCitizenCheckbox: false,
+    isUsNationalCheckbox: false,
+    isLawfulPermanentResidentCheckbox: false,
+    sponsorANumber: "",
+    uSCISOnlineAccountNumber: "",
+    militaryServiceActiveDutyYesCheckbox: false,
+    militaryServiceActiveDutyNoCheckbox: false,
+  },
+  householdSize: {
+    part3Item29: "",
+    yourself: "",
+    spouse: "",
+    dependentChildren: "",
+    otherDependents: "",
+    sponsoredOtherPersons: "",
+    optionalSiblingsParentsAdultChildren: "",
+    householdSize: "",
+  },
 };
 
 export const InitialFamilyBasedProfile: FamilyBasedProfile = {

@@ -1,0 +1,116 @@
+{
+  "id": "fields_previous_petition_part1",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    {
+      "label": "text_PreviousPetitionDescription",
+      "hideHeader": "true",
+      "control": "label"
+    },
+    {
+      "label": "text_FiledPetition",
+      "id": "filed_petition",
+      "key": "previousPetition.filedPetitionYesCheckbox,previousPetition.filedPetitionNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_LastName",
+      "id": "last_name",
+      "key": "previousPetition.lastName",
+      "control": "text"
+    },
+    {
+      "label": "text_FirstName",
+      "id": "first_name",
+      "key": "previousPetition.firstName",
+      "control": "text"
+    },
+    {
+      "label": "text_MiddleName",
+      "id": "middle_name",
+      "key": "previousPetition.middleName",
+      "control": "text"
+    },
+    {
+      "label": "text_City",
+      "id": "city",
+      "key": "previousPetition.city",
+      "control": "text"
+    },
+    {
+      "label": "text_State",
+      "id": "state",
+      "key": "previousPetition.state",
+      "control": "text"
+    },
+    {
+      "label": "text_Date",
+      "id": "date",
+      "key": "previousPetition.date",
+      "control": "datepicker"
+    },
+    {
+      "label": "text_Result",
+      "id": "result",
+      "key": "previousPetition.result",
+      "control": "text"
+    },
+    {
+      "label": "text_AdditionalRelatives",
+      "hideHeader": "true",
+      "id": "additional_relatives_information",
+      "key": "count-previousPetition.additionalRelatives",
+      "control": "sortable_section",
+      "fields": [
+        {
+          "label": "text_LastName",
+          "id": "",
+          "key": "previousPetition.additionalRelatives[].lastName",
+          "control": "text"
+        },
+        {
+          "label": "text_FirstName",
+          "id": "",
+          "key": "previousPetition.additionalRelatives[].firstName",
+          "control": "text"
+        },
+        {
+          "label": "text_MiddleName",
+          "id": "",
+          "key": "previousPetition.additionalRelatives[].middleName",
+          "control": "text"
+        },
+        {
+          "label": "text_Relationship",
+          "id": "relationship",
+          "key": "previousPetition.additionalRelatives[].relationship",
+          "control": "text"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "control": "divider"
+    },
+    {
+      "label": "",
+      "placeholder": "text_AddRelative",
+      "id": "",
+      "key": "count-previousPetition.additionalRelatives",
+      "control": "component_add_item"
+    }
+  ]
+}

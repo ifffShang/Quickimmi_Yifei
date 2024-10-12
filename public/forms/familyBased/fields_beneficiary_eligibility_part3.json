@@ -1,0 +1,403 @@
+{
+  "id": "fields_beneficiary_eligibility_part3",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    {
+      "label": "text_ReceivedMilitaryOrWeaponsTraining",
+      "id": "",
+      "key": "beneficiaryEligibility.receivedMilitaryOrWeaponsTrainingYesCheckbox,beneficiaryEligibility.receivedMilitaryOrWeaponsTrainingNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_IntendToEngageInSeriousActivities",
+      "id": "",
+      "key": "beneficiaryEligibility.intendToEngageInSeriousActivitiesYesCheckbox,beneficiaryEligibility.intendToEngageInSeriousActivitiesNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_SpouseOrChildCommittedSeriousCrime",
+      "id": "",
+      "key": "beneficiaryEligibility.spouseOrChildCommittedSeriousCrimeYesCheckbox,beneficiaryEligibility.spouseOrChildCommittedSeriousCrimeNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_SpouseOrChildMemberOfGroup",
+      "id": "",
+      "key": "beneficiaryEligibility.spouseOrChildMemberOfGroupYesCheckbox,beneficiaryEligibility.spouseOrChildMemberOfGroupNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_SpouseOrChildRecruitedForGroup",
+      "id": "",
+      "key": "beneficiaryEligibility.spouseOrChildRecruitedForGroupYesCheckbox,beneficiaryEligibility.spouseOrChildRecruitedForGroupNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_SpouseOrChildProvidedSupport",
+      "id": "",
+      "key": "beneficiaryEligibility.spouseOrChildProvidedSupportYesCheckbox,beneficiaryEligibility.spouseOrChildProvidedSupportNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_SpouseOrChildProvidedSupportForIndividualOrGroup",
+      "id": "",
+      "key": "beneficiaryEligibility.spouseOrChildProvidedSupportForIndividualOrGroupYesCheckbox,beneficiaryEligibility.spouseOrChildProvidedSupportForIndividualOrGroupNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_SpouseOrChildReceivedTraining",
+      "id": "",
+      "key": "beneficiaryEligibility.spouseOrChildReceivedTrainingYesCheckbox,beneficiaryEligibility.spouseOrChildReceivedTrainingNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_AssistedInWeaponsActivities",
+      "id": "",
+      "key": "beneficiaryEligibility.assistedInWeaponsActivitiesYesCheckbox,beneficiaryEligibility.assistedInWeaponsActivitiesNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_WorkedOrVolunteeredInDetentionFacility",
+      "id": "",
+      "key": "beneficiaryEligibility.workedOrVolunteeredInDetentionFacilityYesCheckbox,beneficiaryEligibility.workedOrVolunteeredInDetentionFacilityNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_ParticipatedInGroupUsingWeapons",
+      "id": "",
+      "key": "beneficiaryEligibility.participatedInGroupUsingWeaponsYesCheckbox,beneficiaryEligibility.participatedInGroupUsingWeaponsNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_ServedInMilitaryOrArmedGroup",
+      "id": "",
+      "key": "beneficiaryEligibility.servedInMilitaryOrArmedGroupYesCheckbox,beneficiaryEligibility.servedInMilitaryOrArmedGroupNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_AffiliatedWithCommunistOrTotalitarianParty",
+      "id": "",
+      "key": "beneficiaryEligibility.affiliatedWithCommunistOrTotalitarianPartyYesCheckbox,beneficiaryEligibility.affiliatedWithCommunistOrTotalitarianPartyNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_ParticipatedInNaziPersecution",
+      "id": "",
+      "key": "beneficiaryEligibility.participatedInNaziPersecutionYesCheckbox,beneficiaryEligibility.participatedInNaziPersecutionNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_InvolvedInTortureOrGenocide",
+      "id": "",
+      "key": "beneficiaryEligibility.involvedInTortureOrGenocideYesCheckbox,beneficiaryEligibility.involvedInTortureOrGenocideNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_KilledAnyPerson",
+      "id": "",
+      "key": "beneficiaryEligibility.killedAnyPersonYesCheckbox,beneficiaryEligibility.killedAnyPersonNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_SeverelyInjuredAnyPerson",
+      "id": "",
+      "key": "beneficiaryEligibility.severelyInjuredAnyPersonYesCheckbox,beneficiaryEligibility.severelyInjuredAnyPersonNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_EngagedInNonConsensualSexualContact",
+      "id": "",
+      "key": "beneficiaryEligibility.engagedInNonConsensualSexualContactYesCheckbox,beneficiaryEligibility.engagedInNonConsensualSexualContactNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_LimitedReligiousBeliefs",
+      "id": "",
+      "key": "beneficiaryEligibility.limitedReligiousBeliefsYesCheckbox,beneficiaryEligibility.limitedReligiousBeliefsNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_RecruitedChildSoldiers",
+      "id": "",
+      "key": "beneficiaryEligibility.recruitedChildSoldiersYesCheckbox,beneficiaryEligibility.recruitedChildSoldiersNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_UsedChildSoldiersInCombat",
+      "id": "",
+      "key": "beneficiaryEligibility.usedChildSoldiersInCombatYesCheckbox,beneficiaryEligibility.usedChildSoldiersInCombatNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_SubjectToPublicCharge",
+      "id": "",
+      "key": "beneficiaryEligibility.subjectToPublicChargeYesCheckbox,beneficiaryEligibility.subjectToPublicChargeNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    }
+  ]
+}

@@ -3,7 +3,6 @@ import { Button, message, Table, Tooltip } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
-  generateDocumentsByDocumentTypeApi,
   generatePresignedUrlByDocumentId,
   getDocumentByIdApi,
   getDocumentsApi,
@@ -21,6 +20,8 @@ import { Status } from "../parts/Status";
 import "./DocumentList.css";
 import { updateApplicationCaseFunc } from "../../../utils/functionUtils";
 import { getProfile } from "../../../utils/selectorUtils";
+import { generateDocumentsByDocumentTypeApi } from "../../../api/documentGenerationAPI";
+import { CaseType } from "../../../model/immigrationTypes";
 
 interface DataType {
   key: number;
@@ -114,7 +115,10 @@ export function DocumentList() {
         setLoading(false);
         console.error(error);
       });
-    setCanGenerateDoc(percentage?.["overall"]?.avg == 100);
+
+    // For debugging purpose, enable the document generation button for non asylum cases
+    // TODO: Remove the asylum check after family based case is onboarded
+    caseType === CaseType.Asylum ? setCanGenerateDoc(percentage?.["overall"]?.avg == 100) : setCanGenerateDoc(true);
   };
 
   useEffect(() => {
@@ -157,7 +161,7 @@ export function DocumentList() {
     setAllGenerationCompleted(false);
     try {
       await updateApplicationCaseFunc(caseId, profile, progress, percentage, role, accessToken, caseType);
-      await generateDocumentsByDocumentTypeApi(accessToken, caseId, convertToDocumentType(docType), role);
+      await generateDocumentsByDocumentTypeApi(accessToken, caseId, convertToDocumentType(docType), role, caseType);
       await retryGetDocumentsApi(
         accessToken,
         caseId,

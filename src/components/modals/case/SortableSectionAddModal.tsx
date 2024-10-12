@@ -15,7 +15,7 @@ export function SortableSectionAddModal() {
 
   if (!modalData.content || !React.isValidElement(modalData.content)) {
     console.error("SortableSectionAddModal: modalData.content is not a valid React element", modalData.content);
-    return <div className="sortable-section-add-modal">Oops, omething went wrong</div>;
+    return <div className="sortable-section-add-modal">Oops, something went wrong</div>;
   }
 
   return (

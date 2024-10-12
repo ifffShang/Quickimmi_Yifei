@@ -1,0 +1,419 @@
+{
+  "id": "fields_sponsor_list",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    {
+      "label": "text_Organizations",
+      "hideHeader": "true",
+      "id": "employment_information",
+      "key": "count-sponsorList",
+      "control": "sortable_section",
+      "fields": [
+        {
+          "label": "Is Petitioner",
+          "key": "isPetitionerCheckbox",
+          "control": "checkbox",
+          "options": [
+            {
+              "value": "Yes",
+              "label": "text_Yes",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "No",
+              "label": "text_No",
+              "keyValue": "false,true"
+            }
+          ]
+        },
+        {
+          "label": "text_FiledAlienWorkerPetition",
+          "key": "sponsorList[].basicInfo.filedAlienWorkerPetitionCheckbox",
+          "control": "checkbox",
+          "options": [
+            {
+              "value": "Yes",
+              "label": "text_Yes",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "No",
+              "label": "text_No",
+              "keyValue": "false,true"
+            }
+          ]
+        },
+        {
+          "label": "text_RelationshipToImmigrant",
+          "key": "sponsorList[].basicInfo.relationshipToImmigrant",
+          "control": "text"
+        },
+        {
+          "label": "text_OwnershipInterest5Percent",
+          "key": "sponsorList[].basicInfo.ownershipInterest5PercentCheckbox",
+          "control": "checkbox",
+          "options": [
+            {
+              "value": "Yes",
+              "label": "text_Yes",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "No",
+              "label": "text_No",
+              "keyValue": "false,true"
+            }
+          ]
+        },
+        {
+          "label": "text_OwnershipInterestDescription",
+          "key": "sponsorList[].basicInfo.ownershipInterestDescription",
+          "control": "text"
+        },
+        {
+          "label": "text_OwnershipRelationshipToImmigrant",
+          "key": "sponsorList[].basicInfo.ownershipRelationshipToImmigrant",
+          "control": "text"
+        },
+        {
+          "label": "text_OnlyJointSponsor",
+          "key": "sponsorList[].basicInfo.onlyJointSponsorCheckbox",
+          "control": "checkbox",
+          "options": [
+            {
+              "value": "Yes",
+              "label": "text_Yes",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "No",
+              "label": "text_No",
+              "keyValue": "false,true"
+            }
+          ]
+        },
+        {
+          "label": "text_NotOnlyJointSponsor",
+          "key": "sponsorList[].basicInfo.notOnlyJointSponsorCheckbox",
+          "control": "checkbox",
+          "options": [
+            {
+              "value": "Yes",
+              "label": "text_Yes",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "No",
+              "label": "text_No",
+              "keyValue": "false,true"
+            }
+          ]
+        },
+        {
+          "label": "text_FirstJointSponsor",
+          "key": "sponsorList[].basicInfo.firstJointSponsorCheckbox",
+          "control": "checkbox",
+          "options": [
+            {
+              "value": "Yes",
+              "label": "text_Yes",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "No",
+              "label": "text_No",
+              "keyValue": "false,true"
+            }
+          ]
+        },
+        {
+          "label": "text_SecondJointSponsor",
+          "key": "sponsorList[].basicInfo.secondJointSponsorCheckbox",
+          "control": "checkbox",
+          "options": [
+            {
+              "value": "Yes",
+              "label": "text_Yes",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "No",
+              "label": "text_No",
+              "keyValue": "false,true"
+            }
+          ]
+        },
+        {
+          "label": "text_SubstituteSponsor",
+          "key": "sponsorList[].basicInfo.substituteSponsorCheckbox",
+          "control": "checkbox",
+          "options": [
+            {
+              "value": "Yes",
+              "label": "text_Yes",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "No",
+              "label": "text_No",
+              "keyValue": "false,true"
+            }
+          ]
+        },
+        {
+          "label": "text_SubstituteSponsorRelationship",
+          "key": "sponsorList[].basicInfo.substituteSponsorRelationship",
+          "control": "text"
+        },
+        {
+          "label": "text_LastName",
+          "key": "sponsorList[].sponsorDetails.lastName",
+          "control": "text"
+        },
+        {
+          "label": "text_FirstName",
+          "key": "sponsorList[].sponsorDetails.firstName",
+          "control": "text"
+        },
+        {
+          "label": "text_MiddleName",
+          "key": "sponsorList[].sponsorDetails.middleName",
+          "control": "text"
+        },
+        {
+          "label": "text_InCareOfName",
+          "key": "sponsorList[].sponsorDetails.inCareOfName",
+          "control": "text"
+        },
+        {
+          "label": "text_MailAddress",
+          "key": "sponsorList[].sponsorDetails.mailAddress",
+          "control": "address"
+        },
+        {
+          "label": "text_MailingAddressSameAsPhysicalYes",
+          "key": "sponsorList[].sponsorDetails.mailingAddressSameAsPhysicalYesCheckbox",
+          "control": "checkbox",
+          "options": [
+            {
+              "value": "Yes",
+              "label": "text_Yes",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "No",
+              "label": "text_No",
+              "keyValue": "false,true"
+            }
+          ]
+        },
+        {
+          "label": "text_MailingAddressSameAsPhysicalNo",
+          "key": "sponsorList[].sponsorDetails.mailingAddressSameAsPhysicalNoCheckbox",
+          "control": "checkbox",
+          "options": [
+            {
+              "value": "Yes",
+              "label": "text_Yes",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "No",
+              "label": "text_No",
+              "keyValue": "false,true"
+            }
+          ]
+        },
+        {
+          "label": "text_PhysicalAddress",
+          "key": "sponsorList[].sponsorDetails.physicalAddress",
+          "control": "address"
+        },
+        {
+          "label": "text_CountryOfDomicile",
+          "key": "sponsorList[].sponsorDetails.countryOfDomicile",
+          "control": "text"
+        },
+        {
+          "label": "text_DateOfBirth",
+          "key": "sponsorList[].sponsorDetails.dateOfBirth",
+          "control": "date"
+        },
+        {
+          "label": "text_CityOfBirth",
+          "key": "sponsorList[].sponsorDetails.cityOfBirth",
+          "control": "text"
+        },
+        {
+          "label": "text_StateOrProvinceOfBirth",
+          "key": "sponsorList[].sponsorDetails.stateOrProvinceOfBirth",
+          "control": "text"
+        },
+        {
+          "label": "text_CountryOfBirth",
+          "key": "sponsorList[].sponsorDetails.countryOfBirth",
+          "control": "text"
+        },
+        {
+          "label": "text_SSN",
+          "key": "sponsorList[].sponsorDetails.ssn",
+          "control": "text"
+        },
+        {
+          "label": "text_IsUsCitizen",
+          "key": "sponsorList[].sponsorDetails.isUsCitizenCheckbox",
+          "control": "checkbox",
+          "options": [
+            {
+              "value": "Yes",
+              "label": "text_Yes",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "No",
+              "label": "text_No",
+              "keyValue": "false,true"
+            }
+          ]
+        },
+        {
+          "label": "text_IsUsNational",
+          "key": "sponsorList[].sponsorDetails.isUsNationalCheckbox",
+          "control": "checkbox",
+          "options": [
+            {
+              "value": "Yes",
+              "label": "text_Yes",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "No",
+              "label": "text_No",
+              "keyValue": "false,true"
+            }
+          ]
+        },
+        {
+          "label": "text_IsLawfulPermanentResident",
+          "key": "sponsorList[].sponsorDetails.isLawfulPermanentResidentCheckbox",
+          "control": "checkbox",
+          "options": [
+            {
+              "value": "Yes",
+              "label": "text_Yes",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "No",
+              "label": "text_No",
+              "keyValue": "false,true"
+            }
+          ]
+        },
+        {
+          "label": "text_SponsorANumber",
+          "key": "sponsorList[].sponsorDetails.sponsorANumber",
+          "control": "text"
+        },
+        {
+          "label": "text_USCISOnlineAccountNumber",
+          "key": "sponsorList[].sponsorDetails.uSCISOnlineAccountNumber",
+          "control": "text"
+        },
+        {
+          "label": "text_MilitaryServiceActiveDutyYes",
+          "key": "sponsorList[].sponsorDetails.militaryServiceActiveDutyYesCheckbox",
+          "control": "checkbox",
+          "options": [
+            {
+              "value": "Yes",
+              "label": "text_Yes",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "No",
+              "label": "text_No",
+              "keyValue": "false,true"
+            }
+          ]
+        },
+        {
+          "label": "text_MilitaryServiceActiveDutyNo",
+          "key": "sponsorList[].sponsorDetails.militaryServiceActiveDutyNoCheckbox",
+          "control": "checkbox",
+          "options": [
+            {
+              "value": "Yes",
+              "label": "text_Yes",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "No",
+              "label": "text_No",
+              "keyValue": "false,true"
+            }
+          ]
+        },
+        {
+          "label": "text_HouseholdSize",
+          "key": "sponsorList[].householdSize",
+          "control": "group",
+          "fields": [
+            {
+              "label": "text_Part3Item29",
+              "key": "sponsorList[].householdSize.part3Item29",
+              "control": "text"
+            },
+            {
+              "label": "text_Yourself",
+              "key": "sponsorList[].householdSize.yourself",
+              "control": "text"
+            },
+            {
+              "label": "text_Spouse",
+              "key": "sponsorList[].householdSize.spouse",
+              "control": "text"
+            },
+            {
+              "label": "text_DependentChildren",
+              "key": "sponsorList[].householdSize.dependentChildren",
+              "control": "text"
+            },
+            {
+              "label": "text_OtherDependents",
+              "key": "sponsorList[].householdSize.otherDependents",
+              "control": "text"
+            },
+            {
+              "label": "text_SponsoredOtherPersons",
+              "key": "sponsorList[].householdSize.sponsoredOtherPersons",
+              "control": "text"
+            },
+            {
+              "label": "text_OptionalSiblingsParentsAdultChildren",
+              "key": "sponsorList[].householdSize.optionalSiblingsParentsAdultChildren",
+              "control": "text"
+            },
+            {
+              "label": "text_HouseholdSize",
+              "key": "sponsorList[].householdSize.householdSize",
+              "control": "text"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "",
+      "control": "divider"
+    },
+    {
+      "label": "",
+      "placeholder": "text_AddOrganization",
+      "id": "",
+      "key": "count-sponsorList",
+      "control": "component_add_item"
+    }
+  ]
+}

@@ -1,0 +1,166 @@
+{
+  "id": "fields_part4_additional_information_2",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    {
+      "label": "text_LastNameUsedNativeLanguage",
+      "placeholder": "text_LastNameUsedNativeLanguage",
+      "id": "15",
+      "key": "beneficiary.lastNameUsedNativeLanguage",
+      "control": "text"
+    },
+    {
+      "label": "text_FirstNameUsedNativeLanguage",
+      "placeholder": "text_FirstNameUsedNativeLanguage",
+      "id": "15",
+      "key": "beneficiary.firstNameUsedNativeLanguage",
+      "control": "text"
+    },
+    {
+      "label": "text_MiddleNameUsedNativeLanguage",
+      "placeholder": "text_MiddleNameUsedNativeLanguage",
+      "id": "15",
+      "key": "beneficiary.middleNameUsedNativeLanguage",
+      "control": "text"
+    },
+    {
+      "label": "text_AddressInNativeLanguage",
+      "id": "3.11",
+      "control": "group",
+      "maxChildPerRow": "3",
+      "fields": [
+        {
+          "label": "text_Street",
+          "placeholder": "text_Street",
+          "id": "street",
+          "key": "beneficiary.addressNativeLanguage.streetNumberAndName",
+          "control": "text"
+        },
+        {
+          "label": "text_ApartmentNumber(Add check to apt/ste/flr)",
+          "placeholder": "text_ApartmentNumber",
+          "id": "apartment_number",
+          "key": "beneficiary.addressNativeLanguage.aptSteFlrNumber",
+          "control": "label"
+        },
+        {
+          "label": "text_City",
+          "placeholder": "text_City",
+          "id": "city",
+          "key": "beneficiary.addressNativeLanguage.cityOrTown",
+          "control": "text"
+        },
+        {
+          "label": "text_State",
+          "placeholder": "text_State",
+          "id": "state",
+          "key": "beneficiary.addressNativeLanguage.state",
+          "control": "text"
+        },
+        {
+          "label": "text_ZipCode",
+          "placeholder": "text_ZipCode",
+          "id": "zip_code",
+          "key": "beneficiary.addressNativeLanguage.zipCode",
+          "control": "text"
+        }
+      ]
+    },
+    {
+      "label": "text_LastAddressLivedTogether",
+      "id": "3.11",
+      "control": "group",
+      "maxChildPerRow": "3",
+      "fields": [
+        {
+          "label": "text_Street",
+          "placeholder": "text_Street",
+          "id": "street",
+          "key": "beneficiary.lastAddressLivedTogether.streetNumberAndName",
+          "control": "text"
+        },
+        {
+          "label": "text_ApartmentNumber(Add check to apt/ste/flr)",
+          "placeholder": "text_ApartmentNumber",
+          "id": "apartment_number",
+          "key": "beneficiary.lastAddressLivedTogether.aptSteFlrNumber",
+          "control": "label"
+        },
+        {
+          "label": "text_City",
+          "placeholder": "text_City",
+          "id": "city",
+          "key": "beneficiary.lastAddressLivedTogether.cityOrTown",
+          "control": "text"
+        },
+        {
+          "label": "text_State",
+          "placeholder": "text_State",
+          "id": "state",
+          "key": "beneficiary.lastAddressLivedTogether.state",
+          "control": "text"
+        },
+        {
+          "label": "text_ZipCode",
+          "placeholder": "text_ZipCode",
+          "id": "zip_code",
+          "key": "beneficiary.lastAddressLivedTogether.zipCode",
+          "control": "text"
+        }
+      ]
+    },
+    {
+      "label": "text_AdjustmentOfStatusCity",
+      "placeholder": "text_AdjustmentOfStatusCity",
+      "id": "zip_code",
+      "key": "beneficiary.adjustmentOfStatusCity",
+      "control": "text"
+    },
+    {
+      "label": "text_AdjustmentOfStatusState",
+      "placeholder": "text_AdjustmentOfStatusState",
+      "id": "zip_code",
+      "key": "beneficiary.adjustmentOfStatusState",
+      "control": "text"
+    },
+    {
+      "label": "text_HasSocialSecurityCard",
+      "placeholder": "text_HasSocialSecurityCard",
+      "id": "part3.1",
+      "key": "beneficiary.hasSocialSecurityCardYesCheckbox,beneficiary.hasSocialSecurityCardNoCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_AppliedForImmigrantVisa",
+      "placeholder": "text_AppliedForImmigrantVisa",
+      "id": "part3.1",
+      "key": "beneficiary.appliedForImmigrantVisaYesCheckbox,beneficiary.appliedForImmigrantVisaNoCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    }
+  ]
+}

@@ -232,23 +232,6 @@ export async function retryGetDocumentsApi(
   return result;
 }
 
-export async function generateDocumentsByDocumentTypeApi(
-  accessToken: string,
-  caseId: number,
-  documentType: DocumentType,
-  role: Role,
-): Promise<GenerateDocumentResponse[]> {
-  const res = await performApiRequest({
-    endPoint: `api/case/asylum/generateDocumentsByDocumentType?id=${caseId}&documentType=${documentType}`,
-    method: "GET",
-    data: null,
-    accessToken,
-    role,
-    caseId,
-  });
-  return <GenerateDocumentResponse[]>res.data;
-}
-
 export async function defaultMergeApi(
   accessToken: string,
   caseId: number,

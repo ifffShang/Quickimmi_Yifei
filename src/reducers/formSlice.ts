@@ -110,6 +110,26 @@ export const ArrayFields = [
     overwriteField: "overwrite",
     default: FamilyBasedConsts.InitialEmploymentHistory,
   },
+  {
+    field: "beneficiary.maritalInfo.previousSpouseInfos",
+    overwriteField: "overwrite",
+    default: FamilyBasedConsts.InitialPreviousSpouseInfo,
+  },
+  {
+    field: "beneficiaryEligibility.organizations",
+    overwriteField: "overwrite",
+    default: FamilyBasedConsts.InitialOrganization,
+  },
+  {
+    field: "beneficiaryEligibility.benefitRecords",
+    overwriteField: "overwrite",
+    default: FamilyBasedConsts.InitialBenefitRecord,
+  },
+  {
+    field: "beneficiaryEligibility.institutionalizationRecords",
+    overwriteField: "overwrite",
+    default: FamilyBasedConsts.InitialInstitutionalizationRecord,
+  },
 ];
 
 export const formSlice = createSlice({

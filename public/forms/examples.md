@@ -1,0 +1,135 @@
+{
+  "id": "examples",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    // Select with options
+    {
+      "label": "text_Select",
+      "id": "1",
+      "key": "example.exampleYesCheckbox,example.exampleNoCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        },
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        }
+      ]
+    },
+    // Section with visibility
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "2",
+      "visibility": "example.exampleYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_Ai",
+          "id": "PartC.1",
+          "key": "example.explainAppliedBeforeYes",
+          "control": "component_textarea_ai_refine"
+        },
+        {
+          "label": "text_UploadSupportingDocuments",
+          "id": "PartC.1",
+          "key": "example.explainAppliedBeforeYesSupportDocuments",
+          "control": "multi_file_uploader",
+          "documentType": "SUPPORTING_DOCUMENT"
+        }
+      ]
+    },
+    // Checkbox with options
+    {
+      "label": "text_AssociatedWithOrganization",
+      "hideHeader": "true",
+      "id": "",
+      "key": "beneficiary.associatedWithOrganizationYesCheckbox,beneficiary.associatedWithOrganizationNoCheckbox",
+      "control": "checkbox",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    // Removable list of sections
+    {
+      "label": "text_Organizations",
+      "hideHeader": "true",
+      "id": "employment_information",
+      "key": "count-beneficiary.organizations",
+      "control": "sortable_section",
+      "fields": [
+        {
+          "label": "text_OrgName",
+          "hideHeader": "true",
+          "id": "",
+          "key": "beneficiary.organizations[].orgName",
+          "control": "text"
+        },
+        {
+          "label": "text_CityTown",
+          "id": "name_and_address",
+          "key": "beneficiary.organizations[].cityTown",
+          "control": "text"
+        },
+        {
+          "label": "text_State",
+          "id": "name_and_address",
+          "key": "beneficiary.organizations[].state",
+          "control": "text"
+        },
+        {
+          "label": "text_Country",
+          "id": "name_and_address",
+          "key": "beneficiary.organizations[].country",
+          "control": "text"
+        },
+        {
+          "label": "text_NatureOfGroup",
+          "id": "name_and_address",
+          "key": "beneficiary.organizations[].natureOfGroup",
+          "control": "text"
+        },
+        {
+          "label": "text_StartDate",
+          "placeholder": "text_MM/YYYY",
+          "id": "employment_start_date",
+          "key": "beneficiary.organizations[].dateFrom",
+          "control": "monthyearpicker"
+        },
+        {
+          "label": "text_EndDate",
+          "placeholder": "text_MM/YYYY",
+          "id": "employment_end_date",
+          "key": "beneficiary.organizations[].dateTo",
+          "control": "monthyearpicker"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "control": "divider"
+    },
+    {
+      "label": "",
+      "placeholder": "text_AddOrganization",
+      "id": "",
+      "key": "count-beneficiary.organizations",
+      "control": "component_add_item"
+    }
+  ]
+}

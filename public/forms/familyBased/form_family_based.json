@@ -105,6 +105,43 @@
           "id": "part4",
           "type": "level2",
           "referenceId": "familyBased/fields_part4_additional_information"
+        },
+        {
+          "label": "text_AdditionalInformation2",
+          "id": "part4",
+          "type": "level2",
+          "referenceId": "familyBased/fields_part4_additional_information_2"
+        }
+      ]
+    },
+    {
+      "label": "text_BeneficiaryEligibility",
+      "id": "part4",
+      "type": "level1",
+      "steps": [
+        {
+          "label": "text_Organization",
+          "id": "part4",
+          "type": "level2",
+          "referenceId": "familyBased/fields_beneficiary_eligibility_organization"
+        },
+        {
+          "label": "text_Part2",
+          "id": "part4",
+          "type": "level2",
+          "referenceId": "familyBased/fields_beneficiary_eligibility_part2"
+        },
+        {
+          "label": "text_Part3",
+          "id": "part4",
+          "type": "level2",
+          "referenceId": "familyBased/fields_beneficiary_eligibility_part3"
+        },
+        {
+          "label": "text_Part4",
+          "id": "part4",
+          "type": "level2",
+          "referenceId": "familyBased/fields_beneficiary_eligibility_part4"
         }
       ]
     },
@@ -117,7 +154,7 @@
           "label": "text_RelativesInformation",
           "id": "part5",
           "type": "level2",
-          "referenceId": "familyBased/fields_part5_petition_relatives"
+          "referenceId": "familyBased/fields_previous_petition_part1"
         }
       ]
     },
@@ -130,7 +167,20 @@
           "label": "text_Statement",
           "id": "part6",
           "type": "level2",
-          "referenceId": "familyBased/fields_part6_petitioner_statement"
+          "referenceId": "familyBased/fields_petitioner_statement_part1"
+        }
+      ]
+    },
+    {
+      "label": "text_SponsorList",
+      "id": "part7",
+      "type": "level1",
+      "steps": [
+        {
+          "label": "text_SponsorList",
+          "id": "part7",
+          "type": "level2",
+          "referenceId": "familyBased/fields_sponsor_list"
         }
       ]
     },

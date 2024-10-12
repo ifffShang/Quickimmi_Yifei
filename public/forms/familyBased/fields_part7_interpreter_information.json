@@ -4,31 +4,122 @@
   "type": "fields",
   "fields": [
     {
-      "label": "text_Name",
-      "id": "name",
-      "control": "group",
-      "maxChildPerRow": "3",
-      "fields": [
+      "label": "text_LastName",
+      "id": "",
+      "key": "interpreter.lastname",
+      "control": "text"
+    },
+    {
+      "label": "text_FirstName",
+      "id": "",
+      "key": "interpreter.firstname",
+      "control": "text"
+    },
+    {
+      "label": "text_BusinessName",
+      "id": "",
+      "key": "interpreter.businessname",
+      "control": "text"
+    },
+    {
+      "label": "text_StreetNumberAndName",
+      "id": "",
+      "key": "interpreter.streetnumberandname",
+      "control": "text"
+    },
+    {
+      "label": "text_AptCheckbox",
+      "id": "",
+      "key": "interpreter.aptcheckbox",
+      "control": "text"
+    },
+    {
+      "label": "text_SteCheckbox",
+      "id": "",
+      "key": "interpreter.stecheckbox",
+      "control": "text"
+    },
+    {
+      "label": "text_FlrCheckbox",
+      "id": "",
+      "key": "interpreter.flrcheckbox",
+      "control": "text"
+    },
+    {
+      "label": "text_AptSteFlrNumber",
+      "id": "",
+      "key": "interpreter.aptsteflrnumber",
+      "control": "text"
+    },
+    {
+      "label": "text_City",
+      "id": "",
+      "key": "interpreter.city",
+      "control": "text"
+    },
+    {
+      "label": "text_State",
+      "id": "",
+      "key": "interpreter.state",
+      "control": "text"
+    },
+    {
+      "label": "text_ZipCode",
+      "id": "",
+      "key": "interpreter.zipcode",
+      "control": "text"
+    },
+    {
+      "label": "text_Province",
+      "id": "",
+      "key": "interpreter.province",
+      "control": "text"
+    },
+    {
+      "label": "text_PostalCode",
+      "id": "",
+      "key": "interpreter.postalcode",
+      "control": "text"
+    },
+    {
+      "label": "text_Country",
+      "id": "",
+      "key": "interpreter.country",
+      "control": "text"
+    },
+    {
+      "label": "text_DaytimeTelephoneNumber",
+      "id": "",
+      "key": "interpreter.daytimetelephonenumber",
+      "control": "text"
+    },
+    {
+      "label": "text_MobileTelephoneNumber",
+      "id": "",
+      "key": "interpreter.mobiletelephonenumber",
+      "control": "text"
+    },
+    {
+      "label": "text_EmailAddress",
+      "id": "",
+      "key": "interpreter.emailaddress",
+      "control": "text"
+    },
+    {
+      "label": "text_FluentInEnglish",
+      "id": "",
+      "key": "interpreter.fluentinenglish",
+      "control": "checkbox",
+      "options": [
         {
-          "label": "text_FirstName",
-          "placeholder": "text_FirstName",
-          "id": "first_name",
-          "key": "applicant.firstName",
-          "control": "text"
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true"
         },
         {
-          "label": "text_MiddleName",
-          "placeholder": "text_MiddleName",
-          "id": "middle_name",
-          "key": "applicant.middleName",
-          "control": "component_textbox_na"
-        },
-        {
-          "label": "text_LastName",
-          "placeholder": "text_LastName",
-          "id": "last_name",
-          "key": "applicant.lastName",
-          "control": "text"
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false"
         }
       ]
     }
