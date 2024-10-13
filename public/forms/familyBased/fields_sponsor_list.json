@@ -11,7 +11,7 @@
       "control": "sortable_section",
       "fields": [
         {
-          "label": "Is Petitioner",
+          "label": "test_IsPetitioner",
           "key": "isPetitionerCheckbox",
           "control": "checkbox",
           "options": [

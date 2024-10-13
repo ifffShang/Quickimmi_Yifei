@@ -4,11 +4,6 @@
   "type": "fields",
   "fields": [
     {
-      "label": "text_MostRecentEmployment",
-      "hideHeader": "true",
-      "control": "label"
-    },
-    {
       "label": "text_AssociatedWithOrganization",
       "hideHeader": "true",
       "id": "",

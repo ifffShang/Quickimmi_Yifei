@@ -130,6 +130,11 @@ export const ArrayFields = [
     overwriteField: "overwrite",
     default: FamilyBasedConsts.InitialInstitutionalizationRecord,
   },
+  {
+    field: "sponsorList",
+    overwriteField: "overwrite",
+    default: FamilyBasedConsts.InitialSponsor,
+  },
 ];
 
 export const formSlice = createSlice({
