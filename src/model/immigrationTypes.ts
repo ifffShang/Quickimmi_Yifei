@@ -6,11 +6,33 @@ export enum CaseType {
 }
 
 export enum CaseSubType {
+  // Asylum
   AFFIRMATIVE = "AFFIRMATIVE",
   DEFENSIVE = "DEFENSIVE",
+  // FamilyBased
   IMMEDIATE_RELATIVES = "IMMEDIATE_RELATIVES",
   FAMILY_PREFERENCE = "FAMILY_PREFERENCE",
+  // EmploymentBased
+  EB_1 = "EB_1",
+  EB_2 = "EB_2",
+  EB_2_NIW = "EB_2_NIW",
+  EB_3 = "EB_3",
+  EB_5 = "EB_5",
+  // TemporaryWorkVisas
+  H1B = "H1B",
+  L1 = "L1",
+  O1 = "O1",
 }
+
+export const EnabledCaseSubTypes = [
+  CaseSubType.AFFIRMATIVE,
+  CaseSubType.DEFENSIVE,
+  CaseSubType.IMMEDIATE_RELATIVES,
+  CaseSubType.FAMILY_PREFERENCE,
+  CaseSubType.EB_2_NIW,
+  CaseSubType.EB_1,
+  CaseSubType.O1,
+];
 
 export const ImmigrationCategories = [
   {
@@ -53,15 +75,23 @@ export const ImmigrationCategories = [
     SubType: [
       {
         text: "EB-1",
-        value: "EB-1",
+        value: CaseSubType.EB_1,
       },
       {
         text: "EB-2",
-        value: "EB-2",
+        value: CaseSubType.EB_2,
+      },
+      {
+        text: "NIW",
+        value: CaseSubType.EB_2_NIW,
+      },
+      {
+        text: "EB-3",
+        value: CaseSubType.EB_3,
       },
       {
         text: "EB-5",
-        value: "EB-5",
+        value: CaseSubType.EB_5,
       },
     ],
   },
@@ -73,15 +103,15 @@ export const ImmigrationCategories = [
     SubType: [
       {
         text: "H-1B",
-        value: "H-1B",
+        value: CaseSubType.H1B,
       },
       {
         text: "L-1",
-        value: "L-1",
+        value: CaseSubType.L1,
       },
       {
         text: "O-1",
-        value: "O-1",
+        value: CaseSubType.O1,
       },
     ],
   },
