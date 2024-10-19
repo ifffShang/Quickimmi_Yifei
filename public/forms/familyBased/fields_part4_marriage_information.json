@@ -270,6 +270,34 @@
           "keyValue": "false,true"
         }
       ]
+    },
+    {
+      "label": "nativeLanguage",
+      "placeholder": "",
+      "id": "",
+      "key": "beneficiary.nativeLanguage",
+      "control": "label"
+    },
+    {
+      "label": "nativeLanguage",
+      "placeholder": "",
+      "id": "",
+      "key": "beneficiary.disabilityAccommodation",
+      "control": "label"
+    },
+    {
+      "label": "appliedImmigrationVisaBefore",
+      "placeholder": "",
+      "id": "",
+      "key": "beneficiary.appliedImmigrationVisaBefore",
+      "control": "label"
+    },
+    {
+      "label": "usEmbassies",
+      "placeholder": "",
+      "id": "",
+      "key": "beneficiary.usEmbassies",
+      "control": "label"
     }
   ]
 }

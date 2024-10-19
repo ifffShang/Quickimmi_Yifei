@@ -13,8 +13,4 @@ export interface PetitionerStatement {
   mobileTelephoneNumber: string;
   // 470
   petitionerEmailAddress: string;
-  // 482
-  petitionerSignature: string;
-  // 481
-  dateOfSignature: string;
 }

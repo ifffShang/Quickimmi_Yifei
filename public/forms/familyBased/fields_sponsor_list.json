@@ -4,16 +4,15 @@
   "type": "fields",
   "fields": [
     {
-      "label": "text_Organizations",
-      "hideHeader": "true",
+      "label": "text_SponsorList",
       "id": "employment_information",
       "key": "count-sponsorList",
       "control": "sortable_section",
       "fields": [
         {
-          "label": "test_IsPetitioner",
-          "key": "isPetitionerCheckbox",
-          "control": "checkbox",
+          "label": "text_IsPetitioner",
+          "key": "sponsorList[].basicInfo.isPetitionerCheckbox",
+          "control": "radio",
           "options": [
             {
               "value": "Yes",
@@ -30,7 +29,7 @@
         {
           "label": "text_FiledAlienWorkerPetition",
           "key": "sponsorList[].basicInfo.filedAlienWorkerPetitionCheckbox",
-          "control": "checkbox",
+          "control": "radio",
           "options": [
             {
               "value": "Yes",
@@ -52,7 +51,7 @@
         {
           "label": "text_OwnershipInterest5Percent",
           "key": "sponsorList[].basicInfo.ownershipInterest5PercentCheckbox",
-          "control": "checkbox",
+          "control": "radio",
           "options": [
             {
               "value": "Yes",
@@ -79,7 +78,7 @@
         {
           "label": "text_OnlyJointSponsor",
           "key": "sponsorList[].basicInfo.onlyJointSponsorCheckbox",
-          "control": "checkbox",
+          "control": "radio",
           "options": [
             {
               "value": "Yes",
@@ -96,7 +95,7 @@
         {
           "label": "text_NotOnlyJointSponsor",
           "key": "sponsorList[].basicInfo.notOnlyJointSponsorCheckbox",
-          "control": "checkbox",
+          "control": "radio",
           "options": [
             {
               "value": "Yes",
@@ -113,7 +112,7 @@
         {
           "label": "text_FirstJointSponsor",
           "key": "sponsorList[].basicInfo.firstJointSponsorCheckbox",
-          "control": "checkbox",
+          "control": "radio",
           "options": [
             {
               "value": "Yes",
@@ -130,7 +129,7 @@
         {
           "label": "text_SecondJointSponsor",
           "key": "sponsorList[].basicInfo.secondJointSponsorCheckbox",
-          "control": "checkbox",
+          "control": "radio",
           "options": [
             {
               "value": "Yes",
@@ -147,7 +146,7 @@
         {
           "label": "text_SubstituteSponsor",
           "key": "sponsorList[].basicInfo.substituteSponsorCheckbox",
-          "control": "checkbox",
+          "control": "radio",
           "options": [
             {
               "value": "Yes",
@@ -188,13 +187,51 @@
         },
         {
           "label": "text_MailAddress",
-          "key": "sponsorList[].sponsorDetails.mailAddress",
-          "control": "address"
+          "id": "3.11",
+          "control": "group",
+          "maxChildPerRow": "3",
+          "fields": [
+            {
+              "label": "text_Street",
+              "placeholder": "text_Street",
+              "id": "street",
+              "key": "sponsorList[].sponsorDetails.mailAddress.streetNumberAndName",
+              "control": "text"
+            },
+            {
+              "label": "text_ApartmentNumber(Add check to apt/ste/flr)",
+              "placeholder": "text_ApartmentNumber",
+              "id": "apartment_number",
+              "key": "sponsorList[].sponsorDetails.mailAddress.aptSteFlrNumber",
+              "control": "text"
+            },
+            {
+              "label": "text_City",
+              "placeholder": "text_City",
+              "id": "city",
+              "key": "sponsorList[].sponsorDetails.mailAddress.cityOrTown",
+              "control": "text"
+            },
+            {
+              "label": "text_State",
+              "placeholder": "text_State",
+              "id": "state",
+              "key": "sponsorList[].sponsorDetails.mailAddress.state",
+              "control": "text"
+            },
+            {
+              "label": "text_ZipCode",
+              "placeholder": "text_ZipCode",
+              "id": "zip_code",
+              "key": "sponsorList[].sponsorDetails.mailAddress.zipCode",
+              "control": "text"
+            }
+          ]
         },
         {
           "label": "text_MailingAddressSameAsPhysicalYes",
           "key": "sponsorList[].sponsorDetails.mailingAddressSameAsPhysicalYesCheckbox",
-          "control": "checkbox",
+          "control": "radio",
           "options": [
             {
               "value": "Yes",
@@ -211,7 +248,7 @@
         {
           "label": "text_MailingAddressSameAsPhysicalNo",
           "key": "sponsorList[].sponsorDetails.mailingAddressSameAsPhysicalNoCheckbox",
-          "control": "checkbox",
+          "control": "radio",
           "options": [
             {
               "value": "Yes",
@@ -226,9 +263,47 @@
           ]
         },
         {
-          "label": "text_PhysicalAddress",
-          "key": "sponsorList[].sponsorDetails.physicalAddress",
-          "control": "address"
+          "label": "text_MailAddress",
+          "id": "3.11",
+          "control": "group",
+          "maxChildPerRow": "3",
+          "fields": [
+            {
+              "label": "text_Street",
+              "placeholder": "text_Street",
+              "id": "street",
+              "key": "sponsorList[].sponsorDetails.physicalAddress.streetNumberAndName",
+              "control": "text"
+            },
+            {
+              "label": "text_ApartmentNumber(Add check to apt/ste/flr)",
+              "placeholder": "text_ApartmentNumber",
+              "id": "apartment_number",
+              "key": "sponsorList[].sponsorDetails.physicalAddress.aptSteFlrNumber",
+              "control": "text"
+            },
+            {
+              "label": "text_City",
+              "placeholder": "text_City",
+              "id": "city",
+              "key": "sponsorList[].sponsorDetails.physicalAddress.cityOrTown",
+              "control": "text"
+            },
+            {
+              "label": "text_State",
+              "placeholder": "text_State",
+              "id": "state",
+              "key": "sponsorList[].sponsorDetails.physicalAddress.state",
+              "control": "text"
+            },
+            {
+              "label": "text_ZipCode",
+              "placeholder": "text_ZipCode",
+              "id": "zip_code",
+              "key": "sponsorList[].sponsorDetails.physicalAddress.zipCode",
+              "control": "text"
+            }
+          ]
         },
         {
           "label": "text_CountryOfDomicile",
@@ -238,7 +313,7 @@
         {
           "label": "text_DateOfBirth",
           "key": "sponsorList[].sponsorDetails.dateOfBirth",
-          "control": "date"
+          "control": "datepicker"
         },
         {
           "label": "text_CityOfBirth",
@@ -263,7 +338,7 @@
         {
           "label": "text_IsUsCitizen",
           "key": "sponsorList[].sponsorDetails.isUsCitizenCheckbox",
-          "control": "checkbox",
+          "control": "radio",
           "options": [
             {
               "value": "Yes",
@@ -280,7 +355,7 @@
         {
           "label": "text_IsUsNational",
           "key": "sponsorList[].sponsorDetails.isUsNationalCheckbox",
-          "control": "checkbox",
+          "control": "radio",
           "options": [
             {
               "value": "Yes",
@@ -297,7 +372,7 @@
         {
           "label": "text_IsLawfulPermanentResident",
           "key": "sponsorList[].sponsorDetails.isLawfulPermanentResidentCheckbox",
-          "control": "checkbox",
+          "control": "radio",
           "options": [
             {
               "value": "Yes",
@@ -324,7 +399,7 @@
         {
           "label": "text_MilitaryServiceActiveDutyYes",
           "key": "sponsorList[].sponsorDetails.militaryServiceActiveDutyYesCheckbox",
-          "control": "checkbox",
+          "control": "radio",
           "options": [
             {
               "value": "Yes",
@@ -341,7 +416,7 @@
         {
           "label": "text_MilitaryServiceActiveDutyNo",
           "key": "sponsorList[].sponsorDetails.militaryServiceActiveDutyNoCheckbox",
-          "control": "checkbox",
+          "control": "radio",
           "options": [
             {
               "value": "Yes",
@@ -361,42 +436,44 @@
           "control": "group",
           "fields": [
             {
-              "label": "text_Part3Item29",
-              "key": "sponsorList[].householdSize.part3Item29",
-              "control": "text"
-            },
-            {
               "label": "text_Yourself",
+              "placeholder": "text_Yourself",
               "key": "sponsorList[].householdSize.yourself",
               "control": "text"
             },
             {
               "label": "text_Spouse",
+              "placeholder": "text_Spouse",
               "key": "sponsorList[].householdSize.spouse",
               "control": "text"
             },
             {
               "label": "text_DependentChildren",
+              "placeholder": "text_DependentChildren",
               "key": "sponsorList[].householdSize.dependentChildren",
               "control": "text"
             },
             {
               "label": "text_OtherDependents",
+              "placeholder": "text_OtherDependents",
               "key": "sponsorList[].householdSize.otherDependents",
               "control": "text"
             },
             {
               "label": "text_SponsoredOtherPersons",
+              "placeholder": "text_SponsoredOtherPersons",
               "key": "sponsorList[].householdSize.sponsoredOtherPersons",
               "control": "text"
             },
             {
               "label": "text_OptionalSiblingsParentsAdultChildren",
+              "placeholder": "text_OptionalSiblingsParentsAdultChildren",
               "key": "sponsorList[].householdSize.optionalSiblingsParentsAdultChildren",
               "control": "text"
             },
             {
               "label": "text_HouseholdSize",
+              "placeholder": "text_HouseholdSize",
               "key": "sponsorList[].householdSize.householdSize",
               "control": "text"
             }

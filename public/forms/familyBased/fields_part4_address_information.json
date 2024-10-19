@@ -140,6 +140,18 @@
       ]
     },
     {
+      "label": "text_outsideUsAddress",
+      "hideHeader": "true",
+      "key": "beneficiary.outsideUsAddress",
+      "control": "label"
+    },
+    {
+      "label": "text_mostRecentOutSideUsAddressBefore5YearsAgo",
+      "hideHeader": "true",
+      "key": "beneficiary.mostRecentOutSideUsAddressBefore5YearsAgo",
+      "control": "label"
+    },
+    {
       "label": "text_AddressHistory",
       "hideHeader": "true",
       "control": "label"

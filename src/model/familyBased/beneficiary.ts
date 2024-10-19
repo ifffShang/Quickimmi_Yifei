@@ -1,9 +1,11 @@
 import { Address } from "./address";
 import { Biographic } from "./biographic";
+import { DisabilityAccommodation } from "./disabilityAccommodation";
 import { EmploymentHistory } from "./employmentHistory";
 import { Family } from "./family";
 import { LastArrivalInformation } from "./lastArrivalInformation";
 import { MaritalInfo } from "./maritalInfo";
+import { UsEmbassy } from "./usEmbassy";
 
 export interface BeneficiaryOtherName {
   pageNumber: string;
@@ -32,6 +34,8 @@ export interface Beneficiary {
   middleName: string;
   // 292 - 294
   beneficiaryOtherNames: BeneficiaryOtherName[];
+  beneficiaryNationalities: string[];
+
   // Page2-Question18
   passportNum: string;
 
@@ -77,8 +81,14 @@ export interface Beneficiary {
   // the address is the same, type or print "SAME" in Item Number
   intendToLiveUsAddress: Address;
 
+  outsideUsAddress: Address;
+
+  mostRecentOutSideUsAddressBefore5YearsAgo: Address;
+
   lastArrivalInformation: LastArrivalInformation;
   employmentHistories: EmploymentHistory[];
+
+  mostRecentOutSideUsEmploymentHistory5YearsAgo: EmploymentHistory;
 
   // Part 4-53
   beneficiaryInImmigrationProceedingsYesCheckbox: string | undefined;
@@ -132,4 +142,9 @@ export interface Beneficiary {
   family: Family;
   maritalInfo: MaritalInfo;
   isFluentEnglish: string | undefined;
+  nativeLanguage: string;
+
+  disabilityAccommodation: DisabilityAccommodation;
+  appliedImmigrationVisaBefore: boolean;
+  usEmbassies: UsEmbassy[];
 }

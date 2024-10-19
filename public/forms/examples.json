@@ -3,7 +3,12 @@
   "version": "2024-04-01",
   "type": "fields",
   "fields": [
-    // Select with options
+    { "example": "////////////////////// Divider" },
+    {
+      "label": "",
+      "control": "divider"
+    },
+    { "example": "////////////////////// Select with options" },
     {
       "label": "text_Select",
       "id": "1",
@@ -22,7 +27,7 @@
         }
       ]
     },
-    // Section with visibility
+    { "example": "////////////////////// Section with visibility" },
     {
       "label": "",
       "hideHeader": "true",
@@ -45,7 +50,7 @@
         }
       ]
     },
-    // Checkbox with options
+    { "example": "////////////////////// Checkbox with options" },
     {
       "label": "text_AssociatedWithOrganization",
       "hideHeader": "true",
@@ -65,7 +70,7 @@
         }
       ]
     },
-    // Removable list of sections
+    { "example": "////////////////////// Removable list of sections" },
     {
       "label": "text_Organizations",
       "hideHeader": "true",

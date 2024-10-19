@@ -115,7 +115,7 @@
       ]
     },
     {
-      "label": "text_BeneficiaryEligibility",
+      "label": "text_Eligibility",
       "id": "part4",
       "type": "level1",
       "steps": [
@@ -146,12 +146,12 @@
       ]
     },
     {
-      "label": "text_PreviousPetition",
+      "label": "text_PriorPetition",
       "id": "part5",
       "type": "level1",
       "steps": [
         {
-          "label": "text_RelativesInformation",
+          "label": "text_Relatives",
           "id": "part5",
           "type": "level2",
           "referenceId": "familyBased/fields_previous_petition_part1"
@@ -159,7 +159,7 @@
       ]
     },
     {
-      "label": "text_PetitionerStatement",
+      "label": "text_Statement",
       "id": "part6",
       "type": "level1",
       "steps": [

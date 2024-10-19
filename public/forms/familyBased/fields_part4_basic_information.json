@@ -56,7 +56,15 @@
       "hideHeader": "true",
       "placeholder": "text_NamesUsedBefore",
       "id": "part3.5.abc",
-      "key": "beneficiary.petitionerOtherNames",
+      "key": "beneficiary.beneficiaryOtherNames",
+      "control": "label"
+    },
+    {
+      "label": "text_NamesUsedBeforeLabel(Pending due to data type changed to array)",
+      "hideHeader": "true",
+      "placeholder": "text_NamesUsedBefore",
+      "id": "part3.5.abc",
+      "key": "beneficiary.beneficiaryNationalities",
       "control": "label"
     },
     {

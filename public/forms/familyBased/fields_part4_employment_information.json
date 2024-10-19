@@ -9,6 +9,12 @@
       "control": "label"
     },
     {
+      "label": "text_mostRecentOutSideUsEmploymentHistory5YearsAgo",
+      "hideHeader": "true",
+      "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo",
+      "control": "label"
+    },
+    {
       "label": "text_Employment",
       "hideHeader": "true",
       "id": "employment_information",

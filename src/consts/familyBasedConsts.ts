@@ -3,6 +3,7 @@ import { Address } from "../model/familyBased/address";
 import { Beneficiary } from "../model/familyBased/beneficiary";
 import { Benefit } from "../model/familyBased/benefit";
 import { Biographic } from "../model/familyBased/biographic";
+import { DisabilityAccommodation } from "../model/familyBased/disabilityAccommodation";
 import { Eligibility } from "../model/familyBased/eligibility";
 import { EmploymentHistory } from "../model/familyBased/employmentHistory";
 import { EntryInformation } from "../model/familyBased/entryInformation";
@@ -20,6 +21,7 @@ import { PetitionerStatement } from "../model/familyBased/petitionStatement";
 import { PreviousPetition } from "../model/familyBased/previousPetition";
 import { Relationship } from "../model/familyBased/relationship";
 import { Sponsor } from "../model/familyBased/sponsor";
+import { UsEmbassy } from "../model/familyBased/usEmbassy";
 
 export const InitialRelationship: Relationship = {
   petitionForSpouseCheckbox: undefined,
@@ -312,6 +314,30 @@ export const InitialMaritalInfo: MaritalInfo = {
   previousSpouseInfos: [],
 };
 
+export const InitialDisabilityAccommodation: DisabilityAccommodation = {
+  requestingAccommodationYesCheckbox: undefined,
+  requestingAccommodationNoCheckbox: undefined,
+
+  deafOrHardOfHearingYesCheckbox: undefined,
+  deafOrHardOfHearingAccommodationDetails: "",
+
+  blindOrLowVisionYesCheckbox: undefined,
+  blindOrLowVisionAccommodationDetails: "",
+
+  otherDisabilityOrImpairmentYesCheckbox: undefined,
+  otherDisabilityOrImpairmentAccommodationDetails: "",
+};
+
+export const InitialUsEmbassy: UsEmbassy = {
+  pageNumber: "4",
+  partNumber: "3",
+  itemNumber: "2-4",
+  city: "",
+  country: "",
+  visaDecision: "",
+  visaDecisionDate: "",
+};
+
 export const InitialBeneficiary: Beneficiary = {
   alienNumber: "",
   uSCISOnlineAccountNumber: "",
@@ -319,6 +345,7 @@ export const InitialBeneficiary: Beneficiary = {
   firstName: "",
   middleName: "",
   beneficiaryOtherNames: [],
+  beneficiaryNationalities: [],
   passportNum: "",
   travelDocNum: "",
   passportOrTravelDocExpDate: "",
@@ -339,8 +366,11 @@ export const InitialBeneficiary: Beneficiary = {
   previousPetitionFiledNoCheckbox: undefined,
   previousPetitionFiledUnknownCheckbox: undefined,
   intendToLiveUsAddress: InitialAddress,
+  outsideUsAddress: InitialAddress,
+  mostRecentOutSideUsAddressBefore5YearsAgo: InitialAddress,
   lastArrivalInformation: InitialLastArrivalInformation,
   employmentHistories: [],
+  mostRecentOutSideUsEmploymentHistory5YearsAgo: InitialEmploymentHistory,
   beneficiaryInImmigrationProceedingsYesCheckbox: undefined,
   beneficiaryInImmigrationProceedingsNoCheckbox: undefined,
   removalCheckbox: undefined,
@@ -366,6 +396,10 @@ export const InitialBeneficiary: Beneficiary = {
   family: InitialFamily,
   maritalInfo: InitialMaritalInfo,
   isFluentEnglish: undefined,
+  nativeLanguage: "",
+  disabilityAccommodation: InitialDisabilityAccommodation,
+  appliedImmigrationVisaBefore: false,
+  usEmbassies: [],
 };
 
 export const InitialOrganization: Organization = {
@@ -745,8 +779,6 @@ export const InitialPetitionerStatement: PetitionerStatement = {
   daytimeTelephoneNumber: "",
   mobileTelephoneNumber: "",
   petitionerEmailAddress: "",
-  petitionerSignature: "",
-  dateOfSignature: "",
 };
 
 export const InitialInterpreter: Interpreter = {
@@ -772,17 +804,17 @@ export const InitialInterpreter: Interpreter = {
 
 export const InitialSponsor: Sponsor = {
   basicInfo: {
-    isPetitionerCheckbox: false,
-    filedAlienWorkerPetitionCheckbox: false,
+    isPetitionerCheckbox: undefined,
+    filedAlienWorkerPetitionCheckbox: undefined,
     relationshipToImmigrant: "",
-    ownershipInterest5PercentCheckbox: false,
+    ownershipInterest5PercentCheckbox: undefined,
     ownershipInterestDescription: "",
     ownershipRelationshipToImmigrant: "",
-    onlyJointSponsorCheckbox: false,
-    notOnlyJointSponsorCheckbox: false,
-    firstJointSponsorCheckbox: false,
-    secondJointSponsorCheckbox: false,
-    substituteSponsorCheckbox: false,
+    onlyJointSponsorCheckbox: undefined,
+    notOnlyJointSponsorCheckbox: undefined,
+    firstJointSponsorCheckbox: undefined,
+    secondJointSponsorCheckbox: undefined,
+    substituteSponsorCheckbox: undefined,
     substituteSponsorRelationship: "",
   },
   sponsorDetails: {
@@ -791,8 +823,8 @@ export const InitialSponsor: Sponsor = {
     middleName: "",
     inCareOfName: "",
     mailAddress: InitialAddress,
-    mailingAddressSameAsPhysicalYesCheckbox: false,
-    mailingAddressSameAsPhysicalNoCheckbox: false,
+    mailingAddressSameAsPhysicalYesCheckbox: undefined,
+    mailingAddressSameAsPhysicalNoCheckbox: undefined,
     physicalAddress: InitialAddress,
     countryOfDomicile: "",
     dateOfBirth: "",
@@ -800,13 +832,13 @@ export const InitialSponsor: Sponsor = {
     stateOrProvinceOfBirth: "",
     countryOfBirth: "",
     ssn: "",
-    isUsCitizenCheckbox: false,
-    isUsNationalCheckbox: false,
-    isLawfulPermanentResidentCheckbox: false,
+    isUsCitizenCheckbox: undefined,
+    isUsNationalCheckbox: undefined,
+    isLawfulPermanentResidentCheckbox: undefined,
     sponsorANumber: "",
     uSCISOnlineAccountNumber: "",
-    militaryServiceActiveDutyYesCheckbox: false,
-    militaryServiceActiveDutyNoCheckbox: false,
+    militaryServiceActiveDutyYesCheckbox: undefined,
+    militaryServiceActiveDutyNoCheckbox: undefined,
   },
   householdSize: {
     part3Item29: "",
@@ -817,6 +849,59 @@ export const InitialSponsor: Sponsor = {
     sponsoredOtherPersons: "",
     optionalSiblingsParentsAdultChildren: "",
     householdSize: "",
+  },
+  employmentAndIncome: {
+    employedAsCheckbox: undefined,
+    employedOccupation: "",
+    employer1Name: "",
+    employer2Name: "",
+    selfEmployedCheckbox: undefined,
+    selfEmployedOccupation: "",
+    retiredCheckbox: undefined,
+    retiredSince: "",
+    unemployedCheckbox: undefined,
+    unemployedSince: "",
+    individualAnnualIncome: "",
+    incomeFromOtherHouseholdMember: [],
+    totalAnnualHouseholdIncome: "",
+    peopleCompletedFormI864ACheckbox: undefined,
+    intendingImmigrantCheckbox: undefined,
+    intendingImmigrantName: "",
+    filedFederalTaxReturnYesCheckbox: undefined,
+    filedFederalTaxReturnNoCheckbox: undefined,
+    attachedTaxReturnsCheckbox: undefined,
+    mostRecentTaxYear: "",
+    mostRecentTaxYearIncome: "",
+    secondMostRecentTaxYear: "",
+    secondMostRecentTaxYearIncome: "",
+    thirdMostRecentTaxYear: "",
+    thirdMostRecentTaxYearIncome: "",
+    notRequiredToFileTaxReturnCheckbox: undefined,
+  },
+  assetsSupplementIncome: {
+    balanceSavingsCheckingAccounts: "",
+    netRealEstateHoldings: "",
+    netStocksBondsAssets: "",
+    totalAssets: "",
+    nameOfRelative: "",
+    householdMemberAssets: "",
+    principalImmigrantSavingsCheckingBalance: "",
+    principalImmigrantRealEstateHoldings: "",
+    principalImmigrantStocksBondsAssets: "",
+    totalPrincipalImmigrantAssets: "",
+    totalValueOfAssets: "",
+  },
+  sponsorContract: {
+    canReadUnderstandEnglishCheckbox: undefined,
+    interpreterHelpedCheckbox: undefined,
+    fluentLanguage: "",
+    preparerCheckbox: undefined,
+    preparerInformationProvided: "",
+    daytimeTelephoneNumber: "",
+    mobileTelephoneNumber: "",
+    emailAddress: "",
+    sponsorSignature: "",
+    dateOfSignature: "",
   },
 };
 

@@ -58,20 +58,6 @@
       "id": "petitioner_email_address",
       "key": "petitionerStatement.petitionerEmailAddress",
       "control": "text"
-    },
-    {
-      "label": "text_PetitionerSignature",
-      "placeholder": "petitionerSignature",
-      "id": "petitioner_signature",
-      "key": "petitionerStatement.petitionerSignature",
-      "control": "text"
-    },
-    {
-      "label": "text_DateOfSignature",
-      "placeholder": "dateOfSignature",
-      "id": "date_of_signature",
-      "key": "petitionerStatement.dateOfSignature",
-      "control": "datepicker"
     }
   ]
 }
