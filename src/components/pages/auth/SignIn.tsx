@@ -54,7 +54,7 @@ export function SignIn() {
   const loginUser = async () => {
     try {
       setIsLoading(true);
-      if (validateEmail(email) !== "" || validatePassword(password) !== "") {
+      if (validateEmail(email) !== "") {
         setShowFormInputErrorMessage(true);
         setIsLoading(false);
         return;
