@@ -1,11 +1,27 @@
 import { QText } from "../../common/Fonts";
-import type { GetProps } from "antd";
-import { Button, Input, InputRef, message, Spin, Tooltip } from "antd";
-import Icon, { TranslationOutlined } from "@ant-design/icons";
+import type { GetProps, MenuProps } from "antd";
+import { Button, Input, InputRef, message, Spin, Tooltip, Card, Menu } from "antd";
+import Icon, { TranslationOutlined, ArrowRightOutlined } from "@ant-design/icons";
+import {
+  AskAi,
+  SendIcon,
+  AiImprove,
+  AiMakeLonger,
+  AiMakeShorter,
+  AiFixGrammar,
+  AiTranslate,
+  TipsIcon,
+} from "../../icons/AiPrompt";
 import { useAppSelector } from "../../../app/hooks";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { generatePersonalStatementApi, translatePersonalStatementToOriginalLanguageApi } from "../../../api/caseAPI";
+import {
+  generatePersonalStatementApi,
+  generatePSWithAIForCaseApi,
+  translatePersonalStatementToOriginalLanguageApi,
+  translatePersonalStatementToEnglishAndOriginalLanguageApi,
+  refinePSWithPromptApi,
+} from "../../../api/caseAPI";
 import { LanguageEnum } from "../../../model/commonModels";
 import "./PersonalStatement.css";
 
@@ -26,17 +42,18 @@ export function PersonalStatement(props: PersonalStatementProps) {
   const progress = useAppSelector(state => state.form.applicationCase.progress);
   const percentage = useAppSelector(state => state.form.percentage);
   const accessToken = useAppSelector(state => state.auth.accessToken);
-  const [isOriginalLoading, setIsOriginalLoading] = useState(false);
+  const [isEnglishLoading, setIsEnglishLoading] = useState(false);
   const [isTranslatedLoading, setIsTranslatedLoading] = useState(false);
   const [showTranslatedArea, setShowTranslatedArea] = useState(false);
   const [value, setValue] = useState("");
   const [translatedValue, setTranslatedValue] = useState("");
+  const [userOwnPS, setUserOwnPS] = useState("");
+  const [showUserOwnPSInput, setShowUserOwnPSInput] = useState(false);
+  const [promptInputValue, setPromptInputValue] = useState("");
   const [isAllPreviousSectionComplete, setIsAllPreviousSectionComplete] = useState(false);
 
   // Check if all sections before personal statement are 100% complete
   const checkIfPreviousSectionsComplete = () => {
-    // console.log("-------percentage", JSON.stringify({"percentage": percentage}));
-    // console.log("-------progress", progress.steps.find(step => step.name == 'FILLING_APPLICATION')?.substeps.find(subStep => subStep.name == 'FILLING_DETAILS')?.metadata);
     for (const key in percentage) {
       if (key !== "personal_statement" && key !== "cover_letter" && key !== "overall") {
         if (percentage[key]?.avg !== 100) {
@@ -53,10 +70,14 @@ export function PersonalStatement(props: PersonalStatementProps) {
       setValue("");
     } else {
       try {
-        const { englishPS, translatedPS } = parseCombinedPersonalStatements(props.value);
-        setValue(englishPS);
-        setTranslatedValue(translatedPS);
-        setShowTranslatedArea(translatedPS !== "");
+        setShowTranslatedArea(true);
+        const { englishPS, originalLanguagePS } = parseCombinedPersonalStatements(props.value);
+        if (englishPS !== "" && originalLanguagePS !== "") {
+          setValue(englishPS);
+          setTranslatedValue(originalLanguagePS);
+        } else {
+          setShowTranslatedArea(false);
+        }
       } catch (error) {
         setValue("");
         setTranslatedValue("");
@@ -88,6 +109,7 @@ export function PersonalStatement(props: PersonalStatementProps) {
 
   const savePersonalStatement = (englishPS, translatedPS) => {
     const combinedPS = combinePersonalStatements(englishPS, translatedPS, props.originLanguage);
+    console.log("$$$$$$$$$$$$$$$$$$$$$$$CombinedPS:", combinedPS);
     props.onChange(combinedPS);
   };
 
@@ -107,21 +129,65 @@ export function PersonalStatement(props: PersonalStatementProps) {
     return JSON.stringify(combinedPS);
   };
 
+  const parseCombinedPersonalStatements = combinedPSString => {
+    const combinedPS = JSON.parse(combinedPSString);
+    const englishPS = combinedPS.personalStatements.find(
+      ps => ps.language === LanguageEnum.ENGLISH.toUpperCase(),
+    ).content;
+    const originalLanguagePS = combinedPS.personalStatements.find(
+      ps => ps.language === props.originLanguage.toUpperCase(),
+    ).content;
+    return { englishPS, originalLanguagePS };
+  };
+
   const generatePersonalStatement = async () => {
     if (!accessToken) {
       console.error("Access token is not available");
       return;
     }
     try {
-      setIsOriginalLoading(true);
-      const ps = await generatePersonalStatementApi(accessToken, role, caseId, LanguageEnum.ENGLISH.toUpperCase());
-
-      setValue(ps);
-      setIsOriginalLoading(false);
-      savePersonalStatement(ps, translatedValue);
+      setIsEnglishLoading(true);
+      setIsTranslatedLoading(true);
+      setShowTranslatedArea(true);
+      console.log("ShowTranslatedArea:", showTranslatedArea);
+      const refinedPS = await generatePSWithAIForCaseApi(accessToken, role, caseId, LanguageEnum.CHINESE.toUpperCase());
+      console.log("RefinedPS:", refinedPS);
+      setValue(refinedPS.englishPS);
+      setTranslatedValue(refinedPS.originalLanguagePS);
+      console.log("TranslatedValue:", translatedValue);
+      setIsEnglishLoading(false);
+      setIsTranslatedLoading(false);
+      savePersonalStatement(refinedPS.englishPS, refinedPS.originalLanguagePS);
     } catch (error) {
-      setIsOriginalLoading(false);
+      setIsEnglishLoading(false);
       message.error("Failed to generate personal statement. Please try again.");
+    }
+  };
+
+  const refinePersonalStatement = async (prompt: string) => {
+    if (!accessToken) {
+      console.error("Access token is not available");
+      return;
+    }
+    try {
+      setIsEnglishLoading(true);
+      setIsTranslatedLoading(true);
+      setShowTranslatedArea(true);
+      const refinedPS = await refinePSWithPromptApi(
+        accessToken,
+        role,
+        LanguageEnum.CHINESE.toUpperCase(),
+        value,
+        translatedValue,
+        prompt,
+      );
+      setValue(refinedPS.englishPS);
+      setTranslatedValue(refinedPS.originalLanguagePS);
+      setIsEnglishLoading(false);
+      setIsTranslatedLoading(false);
+      savePersonalStatement(refinedPS.englishPS, refinedPS.originalLanguagePS);
+    } catch (error) {
+      console.error("Failed to refine text:", error);
     }
   };
 
@@ -131,34 +197,34 @@ export function PersonalStatement(props: PersonalStatementProps) {
       return;
     }
     try {
-      setShowTranslatedArea(true);
+      setIsEnglishLoading(true);
       setIsTranslatedLoading(true);
-      const translatedPs = await translatePersonalStatementToOriginalLanguageApi(
+      setShowTranslatedArea(true);
+      const translatedPS = await translatePersonalStatementToEnglishAndOriginalLanguageApi(
         accessToken,
         role,
         caseId,
-        value,
-        props.originLanguage.toUpperCase(),
+        userOwnPS,
+        LanguageEnum.CHINESE.toUpperCase(),
       );
-
-      setTranslatedValue(translatedPs);
-      savePersonalStatement(value, translatedPs);
+      setValue(translatedPS.englishPS);
+      setTranslatedValue(translatedPS.originalLanguagePS);
+      setIsEnglishLoading(false);
       setIsTranslatedLoading(false);
+      savePersonalStatement(translatedPS.englishPS, translatedPS.originalLanguagePS);
     } catch (error) {
-      setIsTranslatedLoading(false);
-      message.error("Failed to translate personal statement. Please try again.");
+      console.error("Failed to refine text:", error);
     }
   };
 
-  const parseCombinedPersonalStatements = combinedPSString => {
-    const combinedPS = JSON.parse(combinedPSString);
-    const englishPS = combinedPS.personalStatements.find(
-      ps => ps.language === LanguageEnum.ENGLISH.toUpperCase(),
-    ).content;
-    const translatedPS = combinedPS.personalStatements.find(
-      ps => ps.language === props.originLanguage.toUpperCase(),
-    ).content;
-    return { englishPS, translatedPS };
+  const handlePSInputPrompt = () => {
+    if (promptInputValue.trim()) {
+      refinePersonalStatement(promptInputValue);
+      setPromptInputValue("");
+      setMenuState({ openKeys: [], selectedKeys: [] });
+    } else {
+      console.log("Input is empty");
+    }
   };
 
   const { TextArea } = Input;
@@ -178,164 +244,175 @@ export function PersonalStatement(props: PersonalStatementProps) {
   );
 
   const AiIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={AiSvg} {...props} />;
+
+  const psPromptInputRef = useRef<any>(null);
+  const [menuState, setMenuState] = useState<{ openKeys: string[]; selectedKeys: string[] }>({
+    openKeys: [],
+    selectedKeys: [],
+  });
+  type MenuItem = Required<MenuProps>["items"][number];
+  const items: MenuItem[] = [
+    {
+      key: "sub1",
+      icon: <AiIcon />,
+      label: "",
+      children: [
+        {
+          key: "sub1",
+          disabled: true,
+          label: (
+            <div className="text-area-prompt-input-container">
+              <span className="prefix-icon">
+                <AskAi />
+              </span>
+              <TextArea
+                ref={psPromptInputRef}
+                className="text-area-prompt-input"
+                placeholder="Ask AI to..."
+                value={promptInputValue}
+                onChange={e => setPromptInputValue(e.target.value)}
+                autoSize={{ minRows: 1, maxRows: 10 }}
+              />
+              <span
+                className="suffix-icon"
+                onClick={() => {
+                  handlePSInputPrompt();
+                }}
+              >
+                <SendIcon />
+              </span>
+            </div>
+          ),
+        },
+        {
+          key: "sub2",
+          label: "Refine with AI",
+          type: "group",
+          children: [
+            { key: "AI Improve", label: "AI Improve", icon: <AiImprove /> },
+            { key: "Make it shorter", label: "Make it shorter", icon: <AiMakeShorter /> },
+            { key: "Make it longer", label: "Make it longer", icon: <AiMakeLonger /> },
+            { key: "Fix spelling and grammar", label: "Fix spelling and grammar", icon: <AiFixGrammar /> },
+          ],
+        },
+      ],
+    },
+  ];
+
+  const onPromptClick: MenuProps["onClick"] = async e => {
+    if (!accessToken) {
+      console.error("Access token is not available");
+      return;
+    }
+    try {
+      setMenuState({ openKeys: [], selectedKeys: [] });
+      const prompt = e.key;
+      await refinePersonalStatement(prompt);
+    } catch (error) {
+      console.error("Failed to refine text:", error);
+    }
+  };
+
+  const onOpenChange = (keys: string[]) => {
+    setMenuState(prev => ({ ...prev, openKeys: keys }));
+  };
+
   return (
     <div>
       {showTranslatedArea ? (
         <div className="ps-text-area-container">
-          <div className="ps-text-area-after">
-            <div className="ps-text-area-refined-buttons">
+          <Menu
+            className="text-area-AiMenu"
+            openKeys={menuState.openKeys}
+            selectedKeys={menuState.selectedKeys}
+            onOpenChange={onOpenChange}
+            onClick={onPromptClick}
+            mode="inline"
+            items={items}
+          />
+          <div className="ps-text-area">
+            <div className="ps-text-area-after">
               <QText level="normal bold" margin="margin-5" color="gray">
                 {t("EnglishVersion")}
               </QText>
-              <Tooltip
-                title={
-                  !isAllPreviousSectionComplete
-                    ? t("Please complete the previous sections before using this feature")
-                    : t(
-                        "AI will generate the Personal Statement based on the information provided in the previous sections.",
-                      )
-                }
-              >
-                <Button
-                  type="primary"
-                  onClick={generatePersonalStatement}
-                  className="ps-text-area-button"
-                  disabled={!isAllPreviousSectionComplete || isOriginalLoading}
-                  icon={<AiIcon />}
-                >
-                  {t("Rewrite")}
-                </Button>
-              </Tooltip>
+              {isEnglishLoading ? (
+                <Spin tip="Rewriting" style={{ height: 600 }}>
+                  {content}
+                </Spin>
+              ) : (
+                <TextArea
+                  rows={10}
+                  ref={inputRef}
+                  className="ps-text-area-input"
+                  placeholder={props.placeholder}
+                  value={value}
+                  onChange={e => onTextAreaChange(e, true)}
+                  disabled={props.disabled || false}
+                  variant="borderless"
+                />
+              )}
             </div>
-            {isOriginalLoading ? (
-              <Spin tip="Rewriting" style={{ height: 600 }}>
-                {content}
-              </Spin>
-            ) : (
-              <TextArea
-                rows={10}
-                ref={inputRef}
-                className="ps-text-area-input"
-                placeholder={props.placeholder}
-                value={value}
-                onChange={e => onTextAreaChange(e, true)}
-                disabled={props.disabled || false}
-                variant="borderless"
-              />
-            )}
-          </div>
-          <div className="ps-text-area-after">
-            <div className="ps-text-area-refined-buttons">
+
+            <div className="ps-text-area-after">
               <QText level="normal bold" margin="margin-5" color="gray">
                 {t("OriginalLanguageVersion")}
               </QText>
-              <Tooltip title={t("Translate the PS on the left panel into Original Language.")}>
-                <Button
-                  type="primary"
-                  onClick={translatePersonalStatement}
-                  className="ps-text-area-button"
-                  disabled={isTranslatedLoading}
-                  icon={<TranslationOutlined />}
-                >
-                  {t("ReTranslate")}
-                </Button>
-              </Tooltip>
+              {isTranslatedLoading ? (
+                <Spin tip="Translating" style={{ height: 600 }}>
+                  {content}
+                </Spin>
+              ) : (
+                <TextArea
+                  rows={10}
+                  ref={inputRef}
+                  className="ps-text-area-input"
+                  placeholder={props.placeholder}
+                  value={translatedValue}
+                  onChange={e => onTextAreaChange(e, false)}
+                  disabled={props.disabled || false}
+                  variant="borderless"
+                />
+              )}
             </div>
-            {isTranslatedLoading ? (
-              <Spin tip="Translating" style={{ height: 600 }}>
-                {content}
-              </Spin>
-            ) : (
-              <TextArea
-                rows={10}
-                ref={inputRef}
-                className="ps-text-area-input"
-                placeholder={props.placeholder}
-                value={translatedValue.replace(/\\n/g, "\n")}
-                onChange={e => onTextAreaChange(e, false)}
-                disabled={props.disabled || false}
-                variant="borderless"
-              />
-            )}
           </div>
         </div>
       ) : (
         <div className="ps-text-area-container">
-          <div className="ps-text-area-before">
-            {value ? (
-              <div className="ps-text-area-refined-buttons">
-                <QText level="normal bold" margin="margin-5" color="gray">
-                  {t("EnglishVersion")}
-                </QText>
-                <Tooltip
-                  title={
-                    !isAllPreviousSectionComplete
-                      ? t("Please complete the previous sections before using this feature")
-                      : t(
-                          "AI will generate the Personal Statement based on the information provided in the previous sections.",
-                        )
-                  }
-                >
-                  <Button
-                    type="primary"
-                    onClick={generatePersonalStatement}
-                    className="ps-text-area-button"
-                    disabled={!isAllPreviousSectionComplete || isOriginalLoading}
-                    icon={<AiIcon />}
-                  >
-                    {t("Rewrite")}
-                  </Button>
-                </Tooltip>
-                <Tooltip title={t("Translate the PS on the left panel into Original Language.")}>
-                  <Button
-                    type="primary"
-                    onClick={translatePersonalStatement}
-                    className="ps-text-area-button"
-                    disabled={isOriginalLoading}
-                    icon={<TranslationOutlined style={{ fontSize: 20 }} />}
-                  >
-                    {t("TranslateToOriginalLanguage")}
-                  </Button>
-                </Tooltip>
-              </div>
-            ) : (
-              <Tooltip
-                title={
-                  !isAllPreviousSectionComplete
-                    ? t("Please complete the previous sections before using this feature")
-                    : t(
-                        "AI will generate the Personal Statement based on the information provided in the previous sections.",
-                      )
-                }
-              >
-                <Button
-                  type="primary"
-                  onClick={generatePersonalStatement}
-                  className="ps-text-area-button"
-                  disabled={!isAllPreviousSectionComplete || isOriginalLoading}
-                  icon={<AiIcon />}
-                >
-                  {t("Write your Personal Statement with AI")}
-                </Button>
-              </Tooltip>
-            )}
-            {isOriginalLoading ? (
-              <Spin tip="AI Writing" style={{ height: 600 }}>
-                {content}
-              </Spin>
-            ) : (
+          {showUserOwnPSInput ? (
+            <div className="ps-text-area-subtitle">
+              <QText level="normal bold" margin="margin-5" color="gray">
+                Add the personal statement you would like to use
+              </QText>
               <TextArea
-                rows={10}
-                ref={inputRef}
-                className="ps-text-area-input"
+                className="ps-user-own-input"
                 placeholder={props.placeholder}
-                value={value}
-                onChange={e => onTextAreaChange(e, true)}
-                disabled={props.disabled || false}
+                value={userOwnPS}
+                onChange={e => setUserOwnPS(e.target.value)}
                 variant="borderless"
               />
-            )}
-          </div>
+              <Button className="ps-user-own-button" type="text" onClick={translatePersonalStatement}>
+                Continue
+                <ArrowRightOutlined />
+              </Button>
+            </div>
+          ) : (
+            <div className="ps-select-cards">
+              <Card className="ps-select-card" title="Generate with AI">
+                Let our AI create a personalized statement based on your information.
+                <Button className="ps-select-card-button" type="text" onClick={generatePersonalStatement}>
+                  Continue
+                  <ArrowRightOutlined />
+                </Button>
+              </Card>
+              <Card className="ps-select-card" title="Use Your Own PS">
+                Paste your own personal statement for editing and refinement.
+                <Button className="ps-select-card-button" type="text" onClick={() => setShowUserOwnPSInput(true)}>
+                  Continue
+                  <ArrowRightOutlined />
+                </Button>
+              </Card>
+            </div>
+          )}
         </div>
       )}
     </div>

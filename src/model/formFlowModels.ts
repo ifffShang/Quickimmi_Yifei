@@ -90,6 +90,11 @@ export interface RefineResponse {
   tips: string[];
 }
 
+export interface RefinePSResponse {
+  englishPS: string;
+  originalLanguagePS: string;
+}
+
 export interface IFormStepAndFieldsRecord {
   step: IFormStep;
   subStep: IFormStep;
