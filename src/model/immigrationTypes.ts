@@ -36,6 +36,13 @@ export const EnabledCaseSubTypes = [
   CaseSubType.O1,
 ];
 
+export const CaseSubTypesSupportingApplicationForm = [
+  CaseSubType.AFFIRMATIVE,
+  CaseSubType.DEFENSIVE,
+  CaseSubType.IMMEDIATE_RELATIVES,
+  CaseSubType.FAMILY_PREFERENCE,
+];
+
 export const ImmigrationCategories = [
   {
     Type: {

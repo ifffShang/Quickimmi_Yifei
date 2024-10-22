@@ -41,10 +41,7 @@ export function LawyerPreForm() {
       setErrorMessage("");
     }
 
-    const isFormValid =
-      applicantName &&
-      immigrationSubType &&
-      (immigrationType === CaseType.Asylum || immigrationType === CaseType.FamilyBased);
+    const isFormValid = applicantName && immigrationSubType && EnabledCaseSubTypes.includes(immigrationSubType);
     setIsSendButtonDisabled(!isFormValid);
     const isEmailValid = providedCustomerEmail && validateEmail(providedCustomerEmail);
     setIsEmailSendButtonDisabled(!isEmailValid);
