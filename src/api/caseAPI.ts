@@ -105,6 +105,27 @@ export async function queryCasesByLawyerApi(
   return <ListCase>res.data;
 }
 
+export async function queryCasesByCustomerApi(
+  customerId: number,
+  pageNumber: number,
+  pageSize: number,
+  accessToken: string,
+  role: Role,
+): Promise<ListCase> {
+  const res = await performApiRequest({
+    endPoint: "api/case/queryByCustomer",
+    method: "POST",
+    data: {
+      customerId,
+      pageNumber,
+      pageSize,
+    },
+    accessToken,
+    role,
+  });
+  return <ListCase>res.data;
+}
+
 export async function updateCaseNameApi(
   caseId: number,
   caseName: string,
