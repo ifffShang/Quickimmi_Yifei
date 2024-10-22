@@ -106,7 +106,7 @@ export async function queryCasesByLawyerApi(
 }
 
 export async function queryCasesByCustomerApi(
-  customerId: number,
+  lawyerId: number,
   pageNumber: number,
   pageSize: number,
   accessToken: string,
@@ -116,7 +116,7 @@ export async function queryCasesByCustomerApi(
     endPoint: "api/case/queryByCustomer",
     method: "POST",
     data: {
-      customerId,
+      lawyerId,
       pageNumber,
       pageSize,
     },
