@@ -35,10 +35,14 @@ export async function createNewCaseByLawyerApi(
 
     if (caseType === CaseType.Asylum) {
       return await createNewAsylumCaseByLawyerApi(accessToken, role, base, caseSubType);
-    }
-
-    if (caseType === CaseType.FamilyBased) {
+    } else if (caseType === CaseType.FamilyBased) {
       return await createNewFamilyBasedCaseByLawyerApi(accessToken, role, base, caseSubType);
+    } else if (caseType === CaseType.EmploymentBased) {
+      return await createNewEmploymentBasedCaseByLawyerApi(accessToken, role, base, caseSubType);
+    } else if (caseType === CaseType.NonImmigrantVisas) {
+      return await createNewNonImmigrantVisasCaseByLawyerApi(accessToken, role, base, caseSubType);
+    } else {
+      console.error("CaseType not supported.");
     }
   } catch (error) {
     console.error("Failed to create new case for lawyer:", error);
@@ -84,6 +88,44 @@ async function createNewFamilyBasedCaseByLawyerApi(
     data: {
       ...base,
       familyBasedType,
+    },
+    accessToken,
+    role,
+  });
+  return <string>res.data;
+}
+
+async function createNewEmploymentBasedCaseByLawyerApi(
+  accessToken: string,
+  role: Role,
+  base: CaseCreationBaseParams,
+  employmentBasedType: CaseSubType,
+): Promise<string> {
+  const res = await performApiRequest({
+    endPoint: "api/case/employment-based/createByLawyer",
+    method: "POST",
+    data: {
+      ...base,
+      employmentBasedType,
+    },
+    accessToken,
+    role,
+  });
+  return <string>res.data;
+}
+
+async function createNewNonImmigrantVisasCaseByLawyerApi(
+  accessToken: string,
+  role: Role,
+  base: CaseCreationBaseParams,
+  nonImmigrantVisasType: CaseSubType,
+): Promise<string> {
+  const res = await performApiRequest({
+    endPoint: "api/case/non-immigrant-visas/createByLawyer",
+    method: "POST",
+    data: {
+      ...base,
+      nonImmigrantVisasType,
     },
     accessToken,
     role,
