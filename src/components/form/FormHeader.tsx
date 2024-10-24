@@ -39,7 +39,7 @@ export function FormHeader() {
           className="form-header-save-btn"
           onClick={() => {
             try {
-              if (!caseId || !accessToken || !caseType) {
+              if (!caseId || !accessToken || !caseType || !profile) {
                 console.error("Case ID, access token or case type is not available");
                 return;
               }

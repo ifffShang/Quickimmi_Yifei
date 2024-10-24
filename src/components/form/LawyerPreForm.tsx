@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { createNewCaseByLawyerApi } from "../../api/caseCreationAPI";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { CaseSubType, CaseType, ImmigrationCategories } from "../../model/immigrationTypes";
+import { CaseSubType, CaseType, EnabledCaseSubTypes, ImmigrationCategories } from "../../model/immigrationTypes";
 import { resetCaseState, updateCurrentCaseInfo } from "../../reducers/caseSlice";
 import { validateEmail } from "../../utils/utils";
 import { QText } from "../common/Fonts";
@@ -35,16 +35,13 @@ export function LawyerPreForm() {
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    if (immigrationType && immigrationType !== CaseType.Asylum && immigrationType !== CaseType.FamilyBased) {
+    if (immigrationSubType && !EnabledCaseSubTypes.includes(immigrationSubType)) {
       setErrorMessage(t("ImmigrationTypeNotSupported"));
     } else {
       setErrorMessage("");
     }
 
-    const isFormValid =
-      applicantName &&
-      immigrationSubType &&
-      (immigrationType === CaseType.Asylum || immigrationType === CaseType.FamilyBased);
+    const isFormValid = applicantName && immigrationSubType && EnabledCaseSubTypes.includes(immigrationSubType);
     setIsSendButtonDisabled(!isFormValid);
     const isEmailValid = providedCustomerEmail && validateEmail(providedCustomerEmail);
     setIsEmailSendButtonDisabled(!isEmailValid);

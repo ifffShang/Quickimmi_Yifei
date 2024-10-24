@@ -1,19 +1,27 @@
-import {
-  AddressHistory,
-  Beneficiary,
-  Biographic,
-  Eligibility,
-  EmploymentHistory,
-  EntryInformation,
-  FamilyBasedProfile,
-  Interpreter,
-  Parents,
-  Petitioner,
-  PetitionerOtherName,
-  PetitionerStatement,
-  PreviousPetition,
-  Relationship,
-} from "../model/familyBasedApiModels";
+import { AdditionalRelative } from "../model/familyBased/additionalRelative";
+import { Address } from "../model/familyBased/address";
+import { Beneficiary } from "../model/familyBased/beneficiary";
+import { Benefit } from "../model/familyBased/benefit";
+import { Biographic } from "../model/familyBased/biographic";
+import { DisabilityAccommodation } from "../model/familyBased/disabilityAccommodation";
+import { Eligibility } from "../model/familyBased/eligibility";
+import { EmploymentHistory } from "../model/familyBased/employmentHistory";
+import { EntryInformation } from "../model/familyBased/entryInformation";
+import { Family } from "../model/familyBased/family";
+import { FamilyBasedProfile } from "../model/familyBased/familyBasedProfile";
+import { Institutionalization } from "../model/familyBased/institutionalization";
+import { Interpreter } from "../model/familyBased/intepreter";
+import { LastArrivalInformation } from "../model/familyBased/lastArrivalInformation";
+import { CurrentSpouseInfo, MaritalInfo, PreviousSpouseInfo } from "../model/familyBased/maritalInfo";
+import { Organization } from "../model/familyBased/organization";
+import { Parent } from "../model/familyBased/parent";
+import { Petitioner } from "../model/familyBased/pertitioner";
+import { PetitionerOtherName } from "../model/familyBased/pertitionerOtherName";
+import { PetitionerStatement } from "../model/familyBased/petitionStatement";
+import { PreviousPetition } from "../model/familyBased/previousPetition";
+import { Relationship } from "../model/familyBased/relationship";
+import { Sponsor } from "../model/familyBased/sponsor";
+import { UsEmbassy } from "../model/familyBased/usEmbassy";
 
 export const InitialRelationship: Relationship = {
   petitionForSpouseCheckbox: undefined,
@@ -64,18 +72,24 @@ export const InitialEmploymentHistory: EmploymentHistory = {
   dateTo: "",
 };
 
-export const InitialParents: Parents = {
-  part: "",
-  question: "",
+export const InitialParents: Parent = {
   lastName: "",
   firstName: "",
   middleName: "",
+
+  birthLastName: "",
+  birthFirstName: "",
+  birthMiddleName: "",
+
   dateOfBirth: "",
-  sexOfMaleCheckbox: "",
-  sexOfFemaleCheckbox: "",
+  cityOfBirth: "",
   countryOfBirth: "",
-  cityOfResidence: "",
-  countryOfResidence: "",
+
+  currentCityOfResidence: "",
+  currentCountryOfResidence: "",
+
+  femaleCheckbox: undefined,
+  maleCheckbox: undefined,
 };
 
 export const InitialBiographic: Biographic = {
@@ -123,9 +137,11 @@ export const InitialPetitioner: Petitioner = {
   firstName: "",
   middleName: "",
   petitionerOtherNames: [],
+
   cityOfBirth: "",
   countryOfBirth: "",
   dateOfBirth: "",
+
   sexMaleCheckbox: undefined,
   sexFemaleCheckbox: undefined,
   inCareOf: "",
@@ -142,7 +158,9 @@ export const InitialPetitioner: Petitioner = {
   country: "",
   mailingAddressSameAsPhysicalAddressYesCheckbox: undefined,
   mailingAddressSameAsPhysicalAddressNoCheckbox: undefined,
+
   addressHistory: [],
+
   timesMarried: "",
   currentMartialStatusSingleCheckbox: undefined,
   currentMartialStatusMarriedCheckbox: undefined,
@@ -155,25 +173,32 @@ export const InitialPetitioner: Petitioner = {
   stateOfCurrentMarriage: "",
   provinceOfCurrentMarriage: "",
   countryOfCurrentMarriage: "",
+
   spouses: [],
   mother: InitialParents,
   father: InitialParents,
+
   iAmUsCitizenCheckbox: undefined,
   iAmLawfulPermanentResidentCheckbox: undefined,
+
   citizenshipAcquiredByBirthCheckbox: undefined,
   citizenshipAcquiredByNaturalizationCheckbox: undefined,
   citizenshipAcquiredThroughParentsCheckbox: undefined,
+
   obtainedNaturalizationCertificateYesCheckbox: undefined,
   obtainedNaturalizationCertificateNoCheckbox: undefined,
+
   certificateNumber: "",
   placeOfIssuance: "",
   dateOfIssuance: "",
+
   classOfAdmission: "",
   dateOfAdmission: "",
   placeOfAdmissionCity: "",
   placeOfAdmissionState: "",
   gainedStatusThroughMarriageYesCheckbox: undefined,
   gainedStatusThroughMarriageNoCheckbox: undefined,
+
   employmentHistory: [],
   biographic: InitialBiographic,
 };
@@ -191,52 +216,161 @@ export const InitialEntryInformation: EntryInformation = {
   expirationDateForPassport: "",
 };
 
+export const InitialAddress: Address = {
+  inCareOf: "",
+  streetNumberAndName: "",
+  aptCheckbox: undefined,
+  steCheckbox: undefined,
+  flrCheckbox: undefined,
+  aptSteFlrNumber: "",
+  cityOrTown: "",
+  state: "",
+  zipCode: "",
+  province: "",
+  postalCode: "",
+  country: "",
+  dateFrom: "",
+  dateTo: "",
+};
+
+export const InitialLastArrivalInformation: LastArrivalInformation = {
+  beneficiaryEverInUSYesCheckbox: undefined,
+  beneficiaryEverInUSNoCheckbox: undefined,
+  arrivedAsAdmission: "",
+  admittedAtPortOfEntryCheckbox: undefined,
+  admissionEntryDetail: "",
+  paroledAtPortOfEntryCheckbox: undefined,
+  paroleEntranceDetail: "",
+  enteredWithoutAdmissionCheckbox: undefined,
+  otherEntryMethodCheckbox: undefined,
+  otherEntryDetail: "",
+  i94Number: "",
+  i94Status: "",
+  dateOfArrival: "",
+  authorizedStayExpirationDate: "",
+  passportNumber: "",
+  travelDocumentNumber: "",
+  passportIssueCountry: "",
+  expirationDateForPassport: "",
+  visaNumber: "",
+  arrivalCity: "",
+  arrivalState: "",
+  currentImmigrationStatus: "",
+};
+
+export const InitialFamily: Family = {
+  father: InitialParents,
+  mother: InitialParents,
+  totalNumberOfChildren: "",
+  children: [],
+};
+
+export const InitialCurrentSpouseInfo: CurrentSpouseInfo = {
+  lastName: "",
+  firstName: "",
+  middleName: "",
+  alienNumber: "",
+  dateOfBirth: "",
+  dateOfMarriage: "",
+  cityOfBirth: "",
+  stateOfBirth: "",
+  countryOfBirth: "",
+  placeOfMarriageCity: "",
+  placeOfMarriageState: "",
+  placeOfMarriageCountry: "",
+  currentSpouseApplyingNoCheckbox: undefined,
+  currentSpouseApplyingYesCheckbox: undefined,
+};
+
+export const InitialPreviousSpouseInfo: PreviousSpouseInfo = {
+  lastName: "",
+  firstName: "",
+  middleName: "",
+  dateOfBirth: "",
+  dateOfMarriage: "",
+  placeOfMarriageCity: "",
+  placeOfMarriageState: "",
+  placeOfMarriageCountry: "",
+  dateMarriageLegallyEnded: "",
+  placeMarriageLegallyEndedCity: "",
+  placeMarriageLegallyEndedState: "",
+  placeMarriageLegallyEndedCountry: "",
+};
+
+export const InitialMaritalInfo: MaritalInfo = {
+  maritalStatusSingleCheckbox: undefined,
+  maritalStatusMarriedCheckbox: undefined,
+  maritalStatusDivorcedCheckbox: undefined,
+  maritalStatusWidowedCheckbox: undefined,
+  maritalStatusAnnulledCheckbox: undefined,
+  maritalStatusSeparatedCheckbox: undefined,
+
+  spouseMilitaryStatusNACheckbox: undefined,
+  spouseMilitaryStatusYesCheckbox: undefined,
+  spouseMilitaryStatusNoCheckbox: undefined,
+
+  numberOfMarriages: "",
+  currentSpouse: InitialCurrentSpouseInfo,
+  previousSpouseInfos: [],
+};
+
+export const InitialDisabilityAccommodation: DisabilityAccommodation = {
+  requestingAccommodationYesCheckbox: undefined,
+  requestingAccommodationNoCheckbox: undefined,
+
+  deafOrHardOfHearingYesCheckbox: undefined,
+  deafOrHardOfHearingAccommodationDetails: "",
+
+  blindOrLowVisionYesCheckbox: undefined,
+  blindOrLowVisionAccommodationDetails: "",
+
+  otherDisabilityOrImpairmentYesCheckbox: undefined,
+  otherDisabilityOrImpairmentAccommodationDetails: "",
+};
+
+export const InitialUsEmbassy: UsEmbassy = {
+  pageNumber: "4",
+  partNumber: "3",
+  itemNumber: "2-4",
+  city: "",
+  country: "",
+  visaDecision: "",
+  visaDecisionDate: "",
+};
+
 export const InitialBeneficiary: Beneficiary = {
   alienNumber: "",
   uSCISOnlineAccountNumber: "",
-  ssn: "",
   lastName: "",
   firstName: "",
   middleName: "",
   beneficiaryOtherNames: [],
+  beneficiaryNationalities: [],
+  passportNum: "",
+  travelDocNum: "",
+  passportOrTravelDocExpDate: "",
+  passportIssuingCountry: "",
+  currentStatus: "",
   cityOfBirth: "",
   countryOfBirth: "",
   dateOfBirth: "",
   sexMaleCheckbox: undefined,
   sexFemaleCheckbox: undefined,
-  previousPetitionFiledYesCheckbox: undefined,
-  previousPetitionFiledNoCheckbox: undefined,
-  previousPetitionFiledUnknownCheckbox: undefined,
+  physicalAddress: InitialAddress,
+  mailingAddress: InitialAddress,
   addressHistories: [],
-  aptOutsideUsCheckbox: undefined,
-  steOutsideUsCheckbox: undefined,
-  flrOutsideUsCheckbox: undefined,
-  aptSteFlrNumberOutsideUs: "",
-  cityOrTownOutsideUs: "",
-  provinceOutsideUs: "",
-  postalCodeOutsideUs: "",
-  countryOtherAddress: "",
-  dateFromOutsideUs: "",
-  dateToOutsideUs: "",
   daytimePhoneNumber: "",
   mobilePhoneNumber: "",
   emailAddress: "",
-  timesBeneficiaryMarried: "",
-  currentMaritalStatusSingleCheckbox: undefined,
-  currentMaritalStatusMarriedCheckbox: undefined,
-  currentMaritalStatusDivorcedCheckbox: undefined,
-  currentMaritalStatusWidowedCheckbox: undefined,
-  currentMaritalStatusSeparatedCheckbox: undefined,
-  currentMaritalStatusAnnulledCheckbox: undefined,
-  currentMarriageDate: "",
-  currentMarriageCity: "",
-  currentMarriageState: "",
-  currentMarriageProvince: "",
-  currentMarriageCountry: "",
-  beneficiarySpouses: [],
-  beneficiaryFamilies: [],
-  entryInformation: InitialEntryInformation,
+  previousPetitionFiledYesCheckbox: undefined,
+  previousPetitionFiledNoCheckbox: undefined,
+  previousPetitionFiledUnknownCheckbox: undefined,
+  intendToLiveUsAddress: InitialAddress,
+  outsideUsAddress: InitialAddress,
+  mostRecentOutSideUsAddressBefore5YearsAgo: InitialAddress,
+  lastArrivalInformation: InitialLastArrivalInformation,
   employmentHistories: [],
+  mostRecentOutSideUsEmploymentHistory5YearsAgo: InitialEmploymentHistory,
   beneficiaryInImmigrationProceedingsYesCheckbox: undefined,
   beneficiaryInImmigrationProceedingsNoCheckbox: undefined,
   removalCheckbox: undefined,
@@ -249,33 +383,53 @@ export const InitialBeneficiary: Beneficiary = {
   lastNameUsedNativeLanguage: "",
   firstNameUsedNativeLanguage: "",
   middleNameUsedNativeLanguage: "",
-  streetNumberAndNameOutsideUsUsedNativeLanguage: "",
-  aptUsedNativeLanguageCheckbox: undefined,
-  steUsedNativeLanguageCheckbox: undefined,
-  flrUsedNativeLanguageCheckbox: undefined,
-  NativeLanguageAptSteFlrNumber: "",
-  cityOrTownUsedNativeLanguage: "",
-  provinceUsedNativeLanguage: "",
-  postalCodeUsedNativeLanguage: "",
-  countryUsedNativeLanguage: "",
-  streetOfLastAddressLivedTogether: "",
-  aptLastAddressLivedTogetherCheckbox: undefined,
-  steLastAddressLivedTogetherCheckbox: undefined,
-  flrLastAddressLivedTogetherCheckbox: undefined,
-  lastAddressLivedTogetherAptSteFlrNumber: "",
-  cityOrTownLastAddressLivedTogether: "",
-  stateLastAddressLivedTogether: "",
-  zipCodeLastAddressLivedTogether: "",
-  provinceLastAddressLivedTogether: "",
-  postalCodeLastAddressLivedTogether: "",
-  countryLastAddressLivedTogether: "",
-  dateFromLastAddressLivedTogether: "",
-  dateToLastAddressLivedTogether: "",
+  addressNativeLanguage: InitialAddress,
+  lastAddressLivedTogether: InitialAddress,
   adjustmentOfStatusCity: "",
   adjustmentOfStatusState: "",
-  immigrantVisaCity: "",
-  immigrantVisaProvince: "",
-  immigrantVisaCountry: "",
+  hasSocialSecurityCardNoCheckbox: undefined,
+  hasSocialSecurityCardYesCheckbox: undefined,
+  ssn: "",
+  appliedForImmigrantVisaNoCheckbox: undefined,
+  appliedForImmigrantVisaYesCheckbox: undefined,
+  biographicInfo: InitialBiographic,
+  family: InitialFamily,
+  maritalInfo: InitialMaritalInfo,
+  isFluentEnglish: undefined,
+  nativeLanguage: "",
+  disabilityAccommodation: InitialDisabilityAccommodation,
+  appliedImmigrationVisaBefore: false,
+  usEmbassies: [],
+};
+
+export const InitialOrganization: Organization = {
+  orgName: "",
+  cityTown: "",
+  state: "",
+  country: "",
+  natureOfGroup: "",
+  dateFrom: "",
+  dateTo: "",
+};
+
+export const InitialBenefitRecord: Benefit = {
+  pageNumber: "",
+  partNumber: "",
+  itemNumber: "",
+  benefitReceived: "",
+  startDate: "",
+  endDate: "",
+  dollarAmount: "",
+};
+
+export const InitialInstitutionalizationRecord: Institutionalization = {
+  pageNumber: "",
+  partNumber: "",
+  itemNumber: "",
+  institutionNameCityState: "",
+  dateFrom: "",
+  dateTo: "",
+  reason: "",
 };
 
 export const InitialEligibility: Eligibility = {
@@ -596,6 +750,13 @@ export const InitialEligibility: Eligibility = {
   nationalityOrStatusBeforeEvadingMilitaryService: "",
 };
 
+export const InitialAdditionalRelative: AdditionalRelative = {
+  lastName: "",
+  firstName: "",
+  middleName: "",
+  relationship: "",
+};
+
 export const InitialPreviousPetition: PreviousPetition = {
   filedPetitionYesCheckbox: undefined,
   filedPetitionNoCheckbox: undefined,
@@ -618,8 +779,6 @@ export const InitialPetitionerStatement: PetitionerStatement = {
   daytimeTelephoneNumber: "",
   mobileTelephoneNumber: "",
   petitionerEmailAddress: "",
-  petitionerSignature: "",
-  dateOfSignature: "",
 };
 
 export const InitialInterpreter: Interpreter = {
@@ -643,6 +802,109 @@ export const InitialInterpreter: Interpreter = {
   fluentInEnglish: "",
 };
 
+export const InitialSponsor: Sponsor = {
+  basicInfo: {
+    isPetitionerCheckbox: undefined,
+    filedAlienWorkerPetitionCheckbox: undefined,
+    relationshipToImmigrant: "",
+    ownershipInterest5PercentCheckbox: undefined,
+    ownershipInterestDescription: "",
+    ownershipRelationshipToImmigrant: "",
+    onlyJointSponsorCheckbox: undefined,
+    notOnlyJointSponsorCheckbox: undefined,
+    firstJointSponsorCheckbox: undefined,
+    secondJointSponsorCheckbox: undefined,
+    substituteSponsorCheckbox: undefined,
+    substituteSponsorRelationship: "",
+  },
+  sponsorDetails: {
+    lastName: "",
+    firstName: "",
+    middleName: "",
+    inCareOfName: "",
+    mailAddress: InitialAddress,
+    mailingAddressSameAsPhysicalYesCheckbox: undefined,
+    mailingAddressSameAsPhysicalNoCheckbox: undefined,
+    physicalAddress: InitialAddress,
+    countryOfDomicile: "",
+    dateOfBirth: "",
+    cityOfBirth: "",
+    stateOrProvinceOfBirth: "",
+    countryOfBirth: "",
+    ssn: "",
+    isUsCitizenCheckbox: undefined,
+    isUsNationalCheckbox: undefined,
+    isLawfulPermanentResidentCheckbox: undefined,
+    sponsorANumber: "",
+    uSCISOnlineAccountNumber: "",
+    militaryServiceActiveDutyYesCheckbox: undefined,
+    militaryServiceActiveDutyNoCheckbox: undefined,
+  },
+  householdSize: {
+    part3Item29: "",
+    yourself: "",
+    spouse: "",
+    dependentChildren: "",
+    otherDependents: "",
+    sponsoredOtherPersons: "",
+    optionalSiblingsParentsAdultChildren: "",
+    householdSize: "",
+  },
+  employmentAndIncome: {
+    employedAsCheckbox: undefined,
+    employedOccupation: "",
+    employer1Name: "",
+    employer2Name: "",
+    selfEmployedCheckbox: undefined,
+    selfEmployedOccupation: "",
+    retiredCheckbox: undefined,
+    retiredSince: "",
+    unemployedCheckbox: undefined,
+    unemployedSince: "",
+    individualAnnualIncome: "",
+    incomeFromOtherHouseholdMember: [],
+    totalAnnualHouseholdIncome: "",
+    peopleCompletedFormI864ACheckbox: undefined,
+    intendingImmigrantCheckbox: undefined,
+    intendingImmigrantName: "",
+    filedFederalTaxReturnYesCheckbox: undefined,
+    filedFederalTaxReturnNoCheckbox: undefined,
+    attachedTaxReturnsCheckbox: undefined,
+    mostRecentTaxYear: "",
+    mostRecentTaxYearIncome: "",
+    secondMostRecentTaxYear: "",
+    secondMostRecentTaxYearIncome: "",
+    thirdMostRecentTaxYear: "",
+    thirdMostRecentTaxYearIncome: "",
+    notRequiredToFileTaxReturnCheckbox: undefined,
+  },
+  assetsSupplementIncome: {
+    balanceSavingsCheckingAccounts: "",
+    netRealEstateHoldings: "",
+    netStocksBondsAssets: "",
+    totalAssets: "",
+    nameOfRelative: "",
+    householdMemberAssets: "",
+    principalImmigrantSavingsCheckingBalance: "",
+    principalImmigrantRealEstateHoldings: "",
+    principalImmigrantStocksBondsAssets: "",
+    totalPrincipalImmigrantAssets: "",
+    totalValueOfAssets: "",
+  },
+  sponsorContract: {
+    canReadUnderstandEnglishCheckbox: undefined,
+    interpreterHelpedCheckbox: undefined,
+    fluentLanguage: "",
+    preparerCheckbox: undefined,
+    preparerInformationProvided: "",
+    daytimeTelephoneNumber: "",
+    mobileTelephoneNumber: "",
+    emailAddress: "",
+    sponsorSignature: "",
+    dateOfSignature: "",
+  },
+};
+
 export const InitialFamilyBasedProfile: FamilyBasedProfile = {
   relationship: InitialRelationship,
   petitioner: InitialPetitioner,
@@ -650,22 +912,6 @@ export const InitialFamilyBasedProfile: FamilyBasedProfile = {
   beneficiaryEligibility: InitialEligibility,
   previousPetition: InitialPreviousPetition,
   petitionerStatement: InitialPetitionerStatement,
+  sponsorList: [],
   interpreter: InitialInterpreter,
-};
-
-export const InitialAddressHistory: AddressHistory = {
-  streetNumberAndName: "",
-  aptCheckbox: undefined,
-  steCheckbox: undefined,
-  flrCheckbox: undefined,
-  aptSteFlrNumber: "",
-
-  cityOrTown: "",
-  state: "",
-  zipCode: "",
-  province: "",
-  postalCode: "",
-  country: "",
-  dateFrom: "",
-  dateTo: "",
 };

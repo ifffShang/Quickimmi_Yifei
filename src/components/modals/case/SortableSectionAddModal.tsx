@@ -4,6 +4,7 @@ import { QText } from "../../common/Fonts";
 import "./SortableSectionAddModal.css";
 import { useTranslation } from "react-i18next";
 import { closeModal } from "../../../reducers/commonSlice";
+import React from "react";
 
 export function SortableSectionAddModal() {
   const { t } = useTranslation();
@@ -11,6 +12,11 @@ export function SortableSectionAddModal() {
   const modalData = useAppSelector(state => state.common.modalData);
 
   if (!modalData) return null;
+
+  if (!modalData.content || !React.isValidElement(modalData.content)) {
+    console.error("SortableSectionAddModal: modalData.content is not a valid React element", modalData.content);
+    return <div className="sortable-section-add-modal">Oops, something went wrong</div>;
+  }
 
   return (
     <div className="sortable-section-add-modal">

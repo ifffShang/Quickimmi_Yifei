@@ -3,7 +3,6 @@ import { Button, message, Table, Tooltip } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
-  generateDocumentsByDocumentTypeApi,
   generatePresignedUrlByDocumentId,
   getDocumentByIdApi,
   getDocumentsApi,
@@ -20,6 +19,9 @@ import { downloadDocument } from "../../../utils/utils";
 import { Status } from "../parts/Status";
 import "./DocumentList.css";
 import { updateApplicationCaseFunc } from "../../../utils/functionUtils";
+import { getProfile } from "../../../utils/selectorUtils";
+import { generateDocumentsByDocumentTypeApi } from "../../../api/documentGenerationAPI";
+import { CaseType } from "../../../model/immigrationTypes";
 
 interface DataType {
   key: number;
@@ -75,10 +77,12 @@ export function DocumentList() {
   const role = useAppSelector(state => state.auth.role);
 
   const caseId = useAppSelector(state => state.form.caseId);
-  const asylumProfile = useAppSelector(state => state.form.applicationCase.asylumProfile);
-  const progress = useAppSelector(state => state.form.applicationCase.progress);
   const percentage = useAppSelector(state => state.form.percentage);
   const caseType = useAppSelector(state => state.case.currentCaseType);
+
+  const applicationCase = useAppSelector(state => state.form.applicationCase);
+  const progress = applicationCase.progress;
+  const profile = getProfile(caseType, applicationCase);
 
   const generatedDocuments = useAppSelector(state => state.form.generatedDocuments);
   const [loading, setLoading] = useState(false);
@@ -111,7 +115,10 @@ export function DocumentList() {
         setLoading(false);
         console.error(error);
       });
-    setCanGenerateDoc(percentage?.["overall"]?.avg == 100);
+
+    // For debugging purpose, enable the document generation button for non asylum cases
+    // TODO: Remove the asylum check after family based case is onboarded
+    caseType === CaseType.Asylum ? setCanGenerateDoc(percentage?.["overall"]?.avg == 100) : setCanGenerateDoc(true);
   };
 
   useEffect(() => {
@@ -153,8 +160,8 @@ export function DocumentList() {
     setLoading(true);
     setAllGenerationCompleted(false);
     try {
-      await updateApplicationCaseFunc(caseId, asylumProfile, progress, percentage, role, accessToken, caseType);
-      await generateDocumentsByDocumentTypeApi(accessToken, caseId, convertToDocumentType(docType), role);
+      await updateApplicationCaseFunc(caseId, profile, progress, percentage, role, accessToken, caseType);
+      await generateDocumentsByDocumentTypeApi(accessToken, caseId, convertToDocumentType(docType), role, caseType);
       await retryGetDocumentsApi(
         accessToken,
         caseId,

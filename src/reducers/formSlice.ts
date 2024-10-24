@@ -1,18 +1,10 @@
-import { PayloadAction, createSlice, original } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import _ from "lodash";
 import { CacheStore } from "../cache/cache";
-import {
-  InitialAddressHistoryBeforeUS,
-  InitialAsylumProfile,
-  InitialChild,
-  InitialEducationHistory,
-  InitialEmploymentHistory,
-  InitialEntryRecord,
-  InitialFamilyMember,
-  InitialMember,
-  InitialUSAddressHistoryPast5Y,
-} from "../consts/caseConsts";
+import * as AsylumConsts from "../consts/caseConsts";
+import * as FamilyBasedConsts from "../consts/familyBasedConsts";
 import { ExcludedSectionsFromPercentage, InitialApplicationCase } from "../consts/consts";
+import { InitialAddress, InitialFamilyBasedProfile } from "../consts/familyBasedConsts";
 import {
   ApplicationCase,
   GeneratedDocument,
@@ -26,10 +18,10 @@ import { ParseMarriageCertificateResponse } from "../model/apiReqResModels";
 import { CaseProfile, CaseProfileOptional } from "../model/commonApiModels";
 import { KeyValues } from "../model/commonModels";
 import { CaseType } from "../model/immigrationTypes";
-import { getUpdateProfileData } from "../utils/utils";
-import { InitialAddressHistory, InitialFamilyBasedProfile } from "../consts/familyBasedConsts";
 import { deepAssign, deepOverwrite } from "../utils/caseUtils";
 import { getAvgPercentageForSection, getOverallAvgPercentage } from "../utils/percentageUtils";
+import { getUpdateProfileData } from "../utils/utils";
+import { getObjectPath } from "../utils/getObjectPathUtil";
 
 export interface FormState {
   caseId: number;
@@ -64,54 +56,84 @@ export const ArrayFields = [
   {
     field: "applicant.entryRecords",
     overwriteField: "overwriteEntryRecords",
-    default: InitialEntryRecord,
+    default: AsylumConsts.InitialEntryRecord,
   },
   {
     field: "family.children",
     overwriteField: "overwriteChildren",
-    default: InitialChild,
+    default: AsylumConsts.InitialChild,
   },
   {
     field: "family.siblings",
     overwriteField: "overwriteSiblings",
-    default: InitialFamilyMember,
+    default: AsylumConsts.InitialFamilyMember,
   },
   {
     field: "background.addressHistoriesBeforeUS",
     overwriteField: "overwriteAddressHistoriesBeforeUS",
-    default: InitialAddressHistoryBeforeUS,
+    default: AsylumConsts.InitialAddressHistoryBeforeUS,
   },
   {
     field: "background.usAddressHistoriesPast5Years",
     overwriteField: "overwriteUsAddressHistoriesPast5Years",
-    default: InitialUSAddressHistoryPast5Y,
+    default: AsylumConsts.InitialUSAddressHistoryPast5Y,
   },
   {
     field: "background.educationHistories",
     overwriteField: "overwriteEducationHistories",
-    default: InitialEducationHistory,
+    default: AsylumConsts.InitialEducationHistory,
   },
   {
     field: "background.employmentHistories",
     overwriteField: "overwriteEmploymentHistories",
-    default: InitialEmploymentHistory,
+    default: AsylumConsts.InitialEmploymentHistory,
   },
   {
     field: "signature.members",
     overwriteField: "overwriteMembers",
-    default: InitialMember,
+    default: AsylumConsts.InitialMember,
   },
 
   /** Family-based form */
   {
     field: "petitioner.addressHistory",
     overwriteField: "overwrite",
-    default: InitialAddressHistory,
+    default: InitialAddress,
   },
   {
     field: "petitioner.employmentHistory",
     overwriteField: "overwrite",
-    default: InitialEmploymentHistory,
+    default: FamilyBasedConsts.InitialEmploymentHistory,
+  },
+  {
+    field: "beneficiary.employmentHistories",
+    overwriteField: "overwrite",
+    default: FamilyBasedConsts.InitialEmploymentHistory,
+  },
+  {
+    field: "beneficiary.maritalInfo.previousSpouseInfos",
+    overwriteField: "overwrite",
+    default: FamilyBasedConsts.InitialPreviousSpouseInfo,
+  },
+  {
+    field: "beneficiaryEligibility.organizations",
+    overwriteField: "overwrite",
+    default: FamilyBasedConsts.InitialOrganization,
+  },
+  {
+    field: "beneficiaryEligibility.benefitRecords",
+    overwriteField: "overwrite",
+    default: FamilyBasedConsts.InitialBenefitRecord,
+  },
+  {
+    field: "beneficiaryEligibility.institutionalizationRecords",
+    overwriteField: "overwrite",
+    default: FamilyBasedConsts.InitialInstitutionalizationRecord,
+  },
+  {
+    field: "sponsorList",
+    overwriteField: "overwrite",
+    default: FamilyBasedConsts.InitialSponsor,
   },
 ];
 
@@ -135,7 +157,7 @@ export const formSlice = createSlice({
         const updatedProfile = deepAssign(
           action.payload.profile,
           state.applicationCase.asylumProfile,
-          InitialAsylumProfile,
+          AsylumConsts.InitialAsylumProfile,
         );
         if (!state.applicationCase.asylumProfile) {
           state.applicationCase.asylumProfile = updatedProfile;
@@ -158,8 +180,6 @@ export const formSlice = createSlice({
         }
         CacheStore.setProfile(updatedProfile, action.payload.caseId);
       }
-
-      console.log("FamilyBasedProfile:", JSON.stringify(state.applicationCase.familyBasedProfile, null, 2));
 
       Object.assign(state.applicationCase.progress, action.payload.progress);
       CacheStore.setProgress(action.payload.progress, action.payload.caseId);
@@ -251,7 +271,9 @@ export const formSlice = createSlice({
       } else if (action.payload.caseType === CaseType.FamilyBased) {
         ArrayFields.forEach(item => {
           const { field, overwriteField } = item;
-          if (action.payload.update[overwriteField]) {
+          const updateWithoutOverwriteField = { ...action.payload.update };
+          delete updateWithoutOverwriteField.overwrite;
+          if (action.payload.update[overwriteField] && getObjectPath(updateWithoutOverwriteField) === field) {
             _.set(state.applicationCase.familyBasedProfile, field, _.get(action.payload.update, field) ?? []);
             delete action.payload.update[overwriteField];
           }

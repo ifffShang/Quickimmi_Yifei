@@ -244,14 +244,6 @@ describe("getOverallAvgPercentage", () => {
 });
 
 describe("getFormPercentage", () => {
-  beforeAll(() => {
-    console.error = jest.fn();
-  });
-
-  afterAll(() => {
-    jest.restoreAllMocks();
-  });
-
   it("should return overall percentage as 0 if allFormStepAndFields or profile is missing", () => {
     const result = getFormPercentage([], null);
     expect(result).toEqual({ overall: { avg: 0 } });

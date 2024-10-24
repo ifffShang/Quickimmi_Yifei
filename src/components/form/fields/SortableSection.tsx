@@ -51,11 +51,15 @@ export function SortableSection(props: SortableSectionProps) {
     props.fieldIndex,
   );
 
-  const previousArrLength = useRef(fieldValue.arr.length);
+  const previousArrLength = useRef(fieldValue.arr?.length ?? 0);
   const previousArrKey = useRef(fieldValue.arrKey);
 
   useEffect(() => {
-    console.log("testing sortable section", fieldValue);
+    if (!fieldValue.arr) {
+      console.error("SortableSection: fieldValue.arr is not defined");
+      return;
+    }
+
     if (fieldValue.arr.length > previousArrLength.current && fieldValue.arrKey === previousArrKey.current) {
       dispatch(
         openModal({

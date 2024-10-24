@@ -4,33 +4,277 @@
   "type": "fields",
   "fields": [
     {
-      "label": "text_Name",
-      "id": "name",
-      "control": "group",
-      "maxChildPerRow": "3",
-      "fields": [
+      "label": "text_DaytimePhoneNumber",
+      "placeholder": "text_DaytimePhoneNumber",
+      "id": "15",
+      "key": "beneficiary.daytimePhoneNumber",
+      "control": "text"
+    },
+    {
+      "label": "text_MobilePhoneNumber",
+      "placeholder": "text_MobilePhoneNumber",
+      "id": "15",
+      "key": "beneficiary.mobilePhoneNumber",
+      "control": "text"
+    },
+    {
+      "label": "text_EmailAddress",
+      "placeholder": "text_EmailAddress",
+      "id": "15",
+      "key": "beneficiary.emailAddress",
+      "control": "text"
+    },
+    {
+      "label": "text_EthinicitySelectOne",
+      "placeholder": "text_EthinicitySelectOne",
+      "id": "part3.1",
+      "key": "beneficiary.previousPetitionFiledYesCheckbox,beneficiary.previousPetitionFiledNoCheckbox,beneficiary.previousPetitionFiledUnknownCheckbox",
+      "control": "select",
+      "options": [
         {
-          "label": "text_FirstName",
-          "placeholder": "text_FirstName",
-          "id": "first_name",
-          "key": "applicant.firstName",
-          "control": "text"
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false,false"
         },
         {
-          "label": "text_MiddleName",
-          "placeholder": "text_MiddleName",
-          "id": "middle_name",
-          "key": "applicant.middleName",
-          "control": "component_textbox_na"
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true,false"
         },
         {
-          "label": "text_LastName",
-          "placeholder": "text_LastName",
-          "id": "last_name",
-          "key": "applicant.lastName",
-          "control": "text"
+          "value": "Unknown",
+          "label": "text_Unknown",
+          "keyValue": "false,false,true"
         }
       ]
+    },
+    {
+      "label": "text_BeneficiaryEverInUS",
+      "placeholder": "text_BeneficiaryEverInUS",
+      "id": "part4.45",
+      "key": "beneficiary.lastArrivalInformation.beneficiaryEverInUSYesCheckbox,beneficiary.lastArrivalInformation.beneficiaryEverInUSNoCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_ArrivedAsAdmission",
+      "placeholder": "text_ArrivedAsAdmission",
+      "id": "397",
+      "key": "beneficiary.lastArrivalInformation.arrivedAsAdmission",
+      "control": "text"
+    },
+    {
+      "label": "text_AdmittedAtPortOfEntry",
+      "placeholder": "text_AdmittedAtPortOfEntry",
+      "id": "485.25",
+      "key": "beneficiary.lastArrivalInformation.admittedAtPortOfEntryCheckbox",
+      "control": "checkbox"
+    },
+    {
+      "label": "text_AdmissionEntryDetail",
+      "placeholder": "text_AdmissionEntryDetail",
+      "id": "485.25.detail",
+      "key": "beneficiary.lastArrivalInformation.admissionEntryDetail",
+      "control": "text"
+    },
+    {
+      "label": "text_ParoledAtPortOfEntry",
+      "placeholder": "text_ParoledAtPortOfEntry",
+      "id": "485.25.parole",
+      "key": "beneficiary.lastArrivalInformation.paroledAtPortOfEntryCheckbox",
+      "control": "checkbox"
+    },
+    {
+      "label": "text_ParoleEntranceDetail",
+      "placeholder": "text_ParoleEntranceDetail",
+      "id": "485.25.parole.detail",
+      "key": "beneficiary.lastArrivalInformation.paroleEntranceDetail",
+      "control": "text"
+    },
+    {
+      "label": "text_EnteredWithoutAdmission",
+      "placeholder": "text_EnteredWithoutAdmission",
+      "id": "485.25.noAdmission",
+      "key": "beneficiary.lastArrivalInformation.enteredWithoutAdmissionCheckbox",
+      "control": "checkbox"
+    },
+    {
+      "label": "text_OtherEntryMethod",
+      "placeholder": "text_OtherEntryMethod",
+      "id": "485.25.other",
+      "key": "beneficiary.lastArrivalInformation.otherEntryMethodCheckbox",
+      "control": "checkbox"
+    },
+    {
+      "label": "text_OtherEntryDetail",
+      "placeholder": "text_OtherEntryDetail",
+      "id": "485.25.other.detail",
+      "key": "beneficiary.lastArrivalInformation.otherEntryDetail",
+      "control": "text"
+    },
+    {
+      "label": "text_I94Number",
+      "placeholder": "text_I94Number",
+      "id": "398",
+      "key": "beneficiary.lastArrivalInformation.i94Number",
+      "control": "text"
+    },
+    {
+      "label": "text_I94Status",
+      "placeholder": "text_I94Status",
+      "id": "398.status",
+      "key": "beneficiary.lastArrivalInformation.i94Status",
+      "control": "text"
+    },
+    {
+      "label": "text_DateOfArrival",
+      "placeholder": "text_DateOfArrival",
+      "id": "399",
+      "key": "beneficiary.lastArrivalInformation.dateOfArrival",
+      "control": "date"
+    },
+    {
+      "label": "text_AuthorizedStayExpirationDate",
+      "placeholder": "text_AuthorizedStayExpirationDate",
+      "id": "396",
+      "key": "beneficiary.lastArrivalInformation.authorizedStayExpirationDate",
+      "control": "date"
+    },
+    {
+      "label": "text_PassportNumber",
+      "placeholder": "text_PassportNumber",
+      "id": "400",
+      "key": "beneficiary.lastArrivalInformation.passportNumber",
+      "control": "text"
+    },
+    {
+      "label": "text_TravelDocumentNumber",
+      "placeholder": "text_TravelDocumentNumber",
+      "id": "401",
+      "key": "beneficiary.lastArrivalInformation.travelDocumentNumber",
+      "control": "text"
+    },
+    {
+      "label": "text_PassportIssueCountry",
+      "placeholder": "text_PassportIssueCountry",
+      "id": "402",
+      "key": "beneficiary.lastArrivalInformation.passportIssueCountry",
+      "control": "text"
+    },
+    {
+      "label": "text_ExpirationDateForPassport",
+      "placeholder": "text_ExpirationDateForPassport",
+      "id": "403",
+      "key": "beneficiary.lastArrivalInformation.expirationDateForPassport",
+      "control": "date"
+    },
+    {
+      "label": "text_VisaNumber",
+      "placeholder": "text_VisaNumber",
+      "id": "visaNumber",
+      "key": "beneficiary.lastArrivalInformation.visaNumber",
+      "control": "text"
+    },
+    {
+      "label": "text_ArrivalCity",
+      "placeholder": "text_ArrivalCity",
+      "id": "arrivalCity",
+      "key": "beneficiary.lastArrivalInformation.arrivalCity",
+      "control": "text"
+    },
+    {
+      "label": "text_ArrivalState",
+      "placeholder": "text_ArrivalState",
+      "id": "arrivalState",
+      "key": "beneficiary.lastArrivalInformation.arrivalState",
+      "control": "text"
+    },
+    {
+      "label": "text_CurrentImmigrationStatus",
+      "placeholder": "text_CurrentImmigrationStatus",
+      "id": "currentImmigrationStatus",
+      "key": "beneficiary.lastArrivalInformation.currentImmigrationStatus",
+      "control": "text"
+    },
+    {
+      "label": "text_ImmigrationProceedings",
+      "placeholder": "text_ImmigrationProceedings",
+      "id": "part3.1",
+      "key": "beneficiary.beneficiaryInImmigrationProceedingsYesCheckbox,beneficiary.beneficiaryInImmigrationProceedingsNoCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_TypeOfProceedings",
+      "placeholder": "text_TypeOfProceedings",
+      "id": "part3.1",
+      "key": "beneficiary.removalCheckbox,beneficiary.exclusionCheckbox,beneficiary.rescissionCheckbox,beneficiary.otherJudicialProceedingsCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "Removal",
+          "label": "text_Removal",
+          "keyValue": "true,false,false,false"
+        },
+        {
+          "value": "Exclusion/Deportation",
+          "label": "text_Exclusion/Deportation",
+          "keyValue": "false,true,false,false"
+        },
+        {
+          "value": "Rescission",
+          "label": "text_Rescission",
+          "keyValue": "false,false,true,false"
+        },
+        {
+          "value": "OtherJudicialProceedings",
+          "label": "text_OtherJudicialProceedings",
+          "keyValue": "false,false,false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_CityOrTown",
+      "placeholder": "text_CityOrTown",
+      "id": "55.a",
+      "key": "beneficiary.cityOfProceedings",
+      "control": "text"
+    },
+    {
+      "label": "text_State",
+      "placeholder": "text_State",
+      "id": "55.b",
+      "key": "beneficiary.stateOfProceedings",
+      "control": "text"
+    },
+    {
+      "label": "text_Date(mm/dd/yyyy)",
+      "placeholder": "text_Date(mm/dd/yyyy)",
+      "id": "55.a",
+      "key": "beneficiary.dateOfProceedings",
+      "control": "datepicker"
     }
   ]
 }

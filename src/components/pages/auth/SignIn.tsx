@@ -1,6 +1,7 @@
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Switch } from "antd";
 import { Amplify } from "aws-amplify";
+import { confirmSignIn } from "aws-amplify/auth";
 import { fetchAuthSession, resendSignUpCode, signIn } from "aws-amplify/auth";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -26,6 +27,8 @@ export function SignIn() {
   const [showFormInputErrorMessage, setShowFormInputErrorMessage] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [role, setRole] = useState<Role>(Role.LAWYER);
+  const [isNewPasswordRequired, setIsNewPasswordRequired] = useState(false); // State for new password requirement
+  const [newPassword, setNewPassword] = useState(""); // Add state for new password
 
   useEffect(() => {
     setShowFormInputErrorMessage(false);
@@ -54,7 +57,7 @@ export function SignIn() {
   const loginUser = async () => {
     try {
       setIsLoading(true);
-      if (validateEmail(email) !== "" || validatePassword(password) !== "") {
+      if (validateEmail(email) !== "") {
         setShowFormInputErrorMessage(true);
         setIsLoading(false);
         return;
@@ -66,10 +69,14 @@ export function SignIn() {
         console.log("User already signed in.");
         await signOutCurrentUser(dispatch);
       }
+      console.log("password for log in is: ", password);
+      const { isSignedIn, nextStep } = await signIn({ username: email, password: password });
 
-      const { isSignedIn, nextStep } = await signIn({ username: email, password });
+      console.log("Sign in result: ", isSignedIn);
+      console.log("Next step: ", nextStep);
 
       if (isSignedIn) {
+        console.log("User signed in successfully");
         const session = await fetchAuthSession();
         if (
           !session?.tokens?.accessToken?.payload ||
@@ -102,6 +109,8 @@ export function SignIn() {
           }
         }
 
+        console.log("User info: ", userInfo);
+
         dispatch(
           updateAuthState({
             userId: userInfo?.id || undefined,
@@ -113,7 +122,11 @@ export function SignIn() {
           }),
         );
 
+        console.log("Starting token expiration timer");
+
         startTokenExpirationTimer(dispatch, true);
+
+        console.log("Navigating to dashboard");
 
         navigate("/dashboard");
       } else if (nextStep?.signInStep === "CONFIRM_SIGN_UP") {
@@ -125,6 +138,16 @@ export function SignIn() {
           }),
         );
         navigate("/signup");
+      } else if (nextStep?.signInStep === "CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED") {
+        // Automatically set the new password to a default value
+        console.log("User needs to set a new password.");
+        setPassword(""); // Clear the password
+        // const newPassword = "NewSecurePassword123!"; // Default password
+        setIsNewPasswordRequired(true);
+
+        // Call confirmSignIn with the new password
+        // const signInResult = await confirmSignIn({ challengeResponse: newPassword });
+        // loginUser(); // Retry sign-in after setting the new password
       }
     } catch (error: any) {
       if (error?.message === "Incorrect username or password.") {
@@ -203,8 +226,41 @@ export function SignIn() {
       </QText>
     </>
   );
+  const confirmNewPassword = async () => {
+    try {
+      await confirmSignIn({ challengeResponse: password });
+      // setIsNewPasswordRequired(false);
+      setPassword(newPassword); // Set the password to the new password
+      console.log("New password confirmed successfully");
+      console.log("newPassword is: ", newPassword);
+      console.log("set password is: ", password);
+      await loginUser(); // Retry the sign-in after setting a new password
+    } catch (error: any) {
+      console.error("Error confirming new password: ", error);
+      setErrorMessage(t("ErrorMessage.ErrorConfirmingNewPassword"));
+    }
+  };
+  const newPasswordForm = (
+    <>
+      <FormInput
+        placeholder={t("NewPassword")}
+        value={password}
+        onChange={setPassword}
+        validate={validatePassword}
+        showErrorMessage={showFormInputErrorMessage}
+        isPassword={true}
+        autoComplete="new-password"
+        icon={<LockOutlined className="site-form-item-icon" />}
+      />
+      <Button type="primary" onClick={confirmNewPassword}>
+        {t("Set New Password")}
+      </Button>
+    </>
+  );
 
-  return (
+  return isNewPasswordRequired ? (
+    newPasswordForm
+  ) : (
     <AuthComponent
       formHeader={t("Login")}
       form={form}

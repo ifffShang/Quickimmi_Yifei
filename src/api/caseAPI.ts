@@ -1,5 +1,6 @@
 import { Role } from "../consts/consts";
 import { ListCase, UpdateProgressRequestDto } from "../model/apiModels";
+import { RefinePSResponse } from "../model/formFlowModels";
 import { performApiRequest } from "./apiConfig";
 
 // Create new application case by customer
@@ -104,6 +105,27 @@ export async function queryCasesByLawyerApi(
   return <ListCase>res.data;
 }
 
+export async function queryCasesByCustomerApi(
+  lawyerId: number,
+  pageNumber: number,
+  pageSize: number,
+  accessToken: string,
+  role: Role,
+): Promise<ListCase> {
+  const res = await performApiRequest({
+    endPoint: "api/case/queryByCustomer",
+    method: "POST",
+    data: {
+      lawyerId,
+      pageNumber,
+      pageSize,
+    },
+    accessToken,
+    role,
+  });
+  return <ListCase>res.data;
+}
+
 export async function updateCaseNameApi(
   caseId: number,
   caseName: string,
@@ -153,6 +175,69 @@ export async function generatePersonalStatementApi(
     caseId,
   });
   return <string>res.data;
+}
+
+export async function generatePSWithAIForCaseApi(
+  accessToken: string,
+  role: Role,
+  caseId: number,
+  language: string,
+): Promise<RefinePSResponse> {
+  const res = await performApiRequest({
+    endPoint: `api/case/asylum/generatePSWithAIForCase?caseId=${caseId}&language=${language}`,
+    method: "GET",
+    data: null,
+    accessToken,
+    role,
+    caseId,
+  });
+  return <RefinePSResponse>res.data;
+}
+
+export async function refinePSWithPromptApi(
+  accessToken: string,
+  role: Role,
+  originalLanguage: string,
+  englishPS: string,
+  originalPS: string,
+  prompt: string,
+): Promise<RefinePSResponse> {
+  const res = await performApiRequest({
+    endPoint: `api/case/asylum/RefinePSWithPrompt`,
+    method: "POST",
+    data: {
+      originalLanguage,
+      englishPS,
+      originalPS,
+      prompt,
+    },
+    accessToken,
+    role,
+  });
+  return <RefinePSResponse>res.data;
+}
+
+export async function translatePersonalStatementToEnglishAndOriginalLanguageApi(
+  accessToken: string,
+  role: Role,
+  caseId: number,
+  content: string,
+  originalLanguage: string,
+): Promise<RefinePSResponse> {
+  const requestDto = {
+    caseId,
+    content,
+    originalLanguage,
+  };
+  const res = await performApiRequest({
+    endPoint: `api/case/asylum/translatePersonalStatementToEnglishAndOriginalLanguage`,
+    method: "POST",
+    data: requestDto,
+    accessToken,
+    role,
+    caseId,
+  });
+  return <RefinePSResponse>res.data;
 }
 
 export async function generateCoverLetterApi(accessToken: string, role: Role, caseId: number): Promise<string> {

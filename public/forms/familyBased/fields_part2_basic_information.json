@@ -11,7 +11,7 @@
       "control": "text"
     },
     {
-      "label": "text_USCISOnlineAccountNumber",
+      "label": "text_UscisOnlineAccountNumber",
       "id": "part2.2",
       "key": "petitioner.uSCISOnlineAccountNumber",
       "control": "text"

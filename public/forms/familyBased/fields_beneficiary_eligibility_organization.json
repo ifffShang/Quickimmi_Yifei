@@ -1,0 +1,91 @@
+{
+  "id": "fields_beneficiary_eligibility_organization",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    {
+      "label": "text_AssociatedWithOrganization",
+      "hideHeader": "true",
+      "id": "",
+      "key": "beneficiaryEligibility.associatedWithOrganizationYesCheckbox,beneficiaryEligibility.associatedWithOrganizationNoCheckbox",
+      "control": "checkbox",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_Organizations",
+      "hideHeader": "true",
+      "id": "employment_information",
+      "key": "count-beneficiaryEligibility.organizations",
+      "control": "sortable_section",
+      "fields": [
+        {
+          "label": "text_OrgName",
+          "hideHeader": "true",
+          "id": "",
+          "key": "beneficiaryEligibility.organizations[].orgName",
+          "control": "text"
+        },
+        {
+          "label": "text_CityTown",
+          "id": "name_and_address",
+          "key": "beneficiaryEligibility.organizations[].cityTown",
+          "control": "text"
+        },
+        {
+          "label": "text_State",
+          "id": "name_and_address",
+          "key": "beneficiaryEligibility.organizations[].state",
+          "control": "text"
+        },
+        {
+          "label": "text_Country",
+          "id": "name_and_address",
+          "key": "beneficiaryEligibility.organizations[].country",
+          "control": "text"
+        },
+        {
+          "label": "text_NatureOfGroup",
+          "id": "name_and_address",
+          "key": "beneficiaryEligibility.organizations[].natureOfGroup",
+          "control": "text"
+        },
+        {
+          "label": "text_StartDate",
+          "placeholder": "text_MM/YYYY",
+          "id": "employment_start_date",
+          "key": "beneficiaryEligibility.organizations[].dateFrom",
+          "control": "monthyearpicker"
+        },
+        {
+          "label": "text_EndDate",
+          "placeholder": "text_MM/YYYY",
+          "id": "employment_end_date",
+          "key": "beneficiaryEligibility.organizations[].dateTo",
+          "control": "monthyearpicker"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "control": "divider"
+    },
+    {
+      "label": "",
+      "placeholder": "text_AddOrganization",
+      "id": "",
+      "key": "count-beneficiaryEligibility.organizations",
+      "control": "component_add_item"
+    }
+  ]
+}

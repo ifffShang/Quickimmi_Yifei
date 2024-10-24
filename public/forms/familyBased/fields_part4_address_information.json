@@ -4,33 +4,215 @@
   "type": "fields",
   "fields": [
     {
-      "label": "text_Name",
-      "id": "name",
+      "label": "text_PhysicalAddress",
+      "id": "3.11",
       "control": "group",
       "maxChildPerRow": "3",
       "fields": [
         {
-          "label": "text_FirstName",
-          "placeholder": "text_FirstName",
-          "id": "first_name",
-          "key": "applicant.firstName",
+          "label": "text_Street",
+          "placeholder": "text_Street",
+          "id": "street",
+          "key": "beneficiary.physicalAddress.streetNumberAndName",
           "control": "text"
         },
         {
-          "label": "text_MiddleName",
-          "placeholder": "text_MiddleName",
-          "id": "middle_name",
-          "key": "applicant.middleName",
-          "control": "component_textbox_na"
+          "label": "text_ApartmentNumber(Add check to apt/ste/flr)",
+          "placeholder": "text_ApartmentNumber",
+          "id": "apartment_number",
+          "key": "beneficiary.physicalAddress.aptSteFlrNumber",
+          "control": "label"
         },
         {
-          "label": "text_LastName",
-          "placeholder": "text_LastName",
-          "id": "last_name",
-          "key": "applicant.lastName",
+          "label": "text_City",
+          "placeholder": "text_City",
+          "id": "city",
+          "key": "beneficiary.physicalAddress.cityOrTown",
+          "control": "text"
+        },
+        {
+          "label": "text_State",
+          "placeholder": "text_State",
+          "id": "state",
+          "key": "beneficiary.physicalAddress.state",
+          "control": "text"
+        },
+        {
+          "label": "text_ZipCode",
+          "placeholder": "text_ZipCode",
+          "id": "zip_code",
+          "key": "beneficiary.physicalAddress.zipCode",
           "control": "text"
         }
       ]
+    },
+    {
+      "label": "text_MailingAddressSameAsResidentialAddress(Need update to include family based)",
+      "hideHeader": "true",
+      "key": "beneficiary.mailingAddressSameAsPhysicalAddressYesCheckbox,beneficiary.mailingAddressSameAsPhysicalAddressNoCheckbox",
+      "id": "mailing_address_same_as_residential_address",
+      "control": "component_mailing_same_as_residential"
+    },
+    {
+      "label": "text_MailingAddress",
+      "id": "3.11",
+      "control": "group",
+      "maxChildPerRow": "3",
+      "fields": [
+        {
+          "label": "text_Street",
+          "placeholder": "text_Street",
+          "id": "street",
+          "key": "beneficiary.mailingAddress.streetNumberAndName",
+          "control": "text"
+        },
+        {
+          "label": "text_ApartmentNumber(Add check to apt/ste/flr)",
+          "placeholder": "text_ApartmentNumber",
+          "id": "apartment_number",
+          "key": "beneficiary.mailingAddress.aptSteFlrNumber",
+          "control": "label"
+        },
+        {
+          "label": "text_City",
+          "placeholder": "text_City",
+          "id": "city",
+          "key": "beneficiary.mailingAddress.cityOrTown",
+          "control": "text"
+        },
+        {
+          "label": "text_State",
+          "placeholder": "text_State",
+          "id": "state",
+          "key": "beneficiary.mailingAddress.state",
+          "control": "text"
+        },
+        {
+          "label": "text_ZipCode",
+          "placeholder": "text_ZipCode",
+          "id": "zip_code",
+          "key": "beneficiary.mailingAddress.zipCode",
+          "control": "text"
+        }
+      ]
+    },
+    {
+      "label": "text_IntendToLiveUsAddress",
+      "id": "3.11",
+      "control": "group",
+      "maxChildPerRow": "3",
+      "fields": [
+        {
+          "label": "text_Street",
+          "placeholder": "text_Street",
+          "id": "street",
+          "key": "beneficiary.intendToLiveUsAddress.streetNumberAndName",
+          "control": "text"
+        },
+        {
+          "label": "text_ApartmentNumber(Add check to apt/ste/flr)",
+          "placeholder": "text_ApartmentNumber",
+          "id": "apartment_number",
+          "key": "beneficiary.intendToLiveUsAddress.aptSteFlrNumber",
+          "control": "label"
+        },
+        {
+          "label": "text_City",
+          "placeholder": "text_City",
+          "id": "city",
+          "key": "beneficiary.intendToLiveUsAddress.cityOrTown",
+          "control": "text"
+        },
+        {
+          "label": "text_State",
+          "placeholder": "text_State",
+          "id": "state",
+          "key": "beneficiary.intendToLiveUsAddress.state",
+          "control": "text"
+        },
+        {
+          "label": "text_ZipCode",
+          "placeholder": "text_ZipCode",
+          "id": "zip_code",
+          "key": "beneficiary.intendToLiveUsAddress.zipCode",
+          "control": "text"
+        }
+      ]
+    },
+    {
+      "label": "text_outsideUsAddress",
+      "hideHeader": "true",
+      "key": "beneficiary.outsideUsAddress",
+      "control": "label"
+    },
+    {
+      "label": "text_mostRecentOutSideUsAddressBefore5YearsAgo",
+      "hideHeader": "true",
+      "key": "beneficiary.mostRecentOutSideUsAddressBefore5YearsAgo",
+      "control": "label"
+    },
+    {
+      "label": "text_AddressHistory",
+      "hideHeader": "true",
+      "control": "label"
+    },
+    {
+      "label": "text_Address",
+      "hideHeader": "true",
+      "id": "10.a-10.i",
+      "key": "count-beneficiary.addressHistories",
+      "control": "sortable_section",
+      "fields": [
+        {
+          "label": "text_NumberAndStreet",
+          "id": "background_street",
+          "key": "beneficiary.addressHistories[].numberAndStreet",
+          "control": "text"
+        },
+        {
+          "label": "text_CityOrTown",
+          "id": "background_city",
+          "key": "beneficiary.addressHistories[].city",
+          "control": "text"
+        },
+        {
+          "label": "text_DepartmentOrStateOrProvince",
+          "id": "background_province",
+          "key": "beneficiary.addressHistories[].province",
+          "control": "text"
+        },
+        {
+          "label": "text_Country",
+          "id": "background_country",
+          "key": "beneficiary.addressHistories[].country",
+          "control": "text"
+        },
+        {
+          "label": "text_StartDate",
+          "placeholder": "text_MM/YYYY",
+          "id": "background_start_date",
+          "key": "beneficiary.addressHistories[].startDate",
+          "control": "monthyearpicker"
+        },
+        {
+          "label": "text_EndDate",
+          "placeholder": "text_MM/YYYY",
+          "id": "background_end_date",
+          "key": "beneficiary.addressHistories[].endDate",
+          "control": "monthyearpicker"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "control": "divider"
+    },
+    {
+      "label": "",
+      "placeholder": "text_AddAddress",
+      "id": "address_berfore_us",
+      "key": "count-beneficiary.addressHistory",
+      "control": "component_add_item"
     }
   ]
 }

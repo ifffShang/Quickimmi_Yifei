@@ -15,30 +15,32 @@ export function SectionSubFields(props: SectionSubFieldsProps) {
   if (!props.subFields) return <>{t("Oops! Something went wrong while fetching data.")}</>;
 
   return (
-    <>
-      {props.subFields.map((field, index) => (
-        <div key={index} className={props.className}>
-          {field.label && field.hideHeader !== true && props.mode !== "view" && (
-            <QText level="normal bold">{wt(field.label)}</QText>
-          )}
-          <FormField
-            fieldKey={field.key}
-            control={field.control}
-            label={field.label}
-            options={field.options}
-            placeholder={field.placeholder}
-            className={field.className}
-            maxChildPerRow={field.maxChildPerRow}
-            subFields={field.fields}
-            format={field.format}
-            visibility={field.visibility}
-            fieldIndex={props.fieldIndex}
-            documentType={field.documentType}
-            identity={field.identity}
-            mode={props.mode}
-          />
-        </div>
-      ))}
-    </>
+    <div>
+      {props.subFields.map((field, index) => {
+        return (
+          <div key={index} className={props.className}>
+            {field.label && field.hideHeader !== true && props.mode !== "view" && (
+              <QText level="normal bold">{wt(field.label)}</QText>
+            )}
+            <FormField
+              fieldKey={field.key}
+              control={field.control}
+              label={field.label}
+              options={field.options}
+              placeholder={field.placeholder}
+              className={field.className}
+              maxChildPerRow={field.maxChildPerRow}
+              subFields={field.fields}
+              format={field.format}
+              visibility={field.visibility}
+              fieldIndex={props.fieldIndex}
+              documentType={field.documentType}
+              identity={field.identity}
+              mode={props.mode}
+            />
+          </div>
+        );
+      })}
+    </div>
   );
 }

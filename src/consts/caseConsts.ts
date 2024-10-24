@@ -1,6 +1,5 @@
 import {
   AddressHistory,
-  ApplicationCase,
   AsylumCaseProfile,
   Child,
   EntryRecord,
@@ -9,7 +8,6 @@ import {
   Spouse,
   SupplementDocument,
 } from "../model/apiModels";
-import { InitialFamilyBasedProfile } from "./familyBasedConsts";
 
 export const InitialApplicant = {
   passportDocumentId: 0,

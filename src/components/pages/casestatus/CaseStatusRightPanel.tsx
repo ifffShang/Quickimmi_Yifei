@@ -1,13 +1,12 @@
 import { Alert } from "antd";
 import { useCallback, useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import { getCaseProfileAndProgressApi } from "../../../api/caseProfileGetAPI";
 import { getCaseSummaryApi } from "../../../api/caseSummaryAPI";
 import { fetchCompleteFormDetails } from "../../../api/formTemplateAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { CaseSummary } from "../../../model/apiModels";
-import { CaseSubType } from "../../../model/immigrationTypes";
+import { CaseSubType, SupportingApplicationFormCaseSubTypes } from "../../../model/immigrationTypes";
 import { updateCurrentCaseInfo } from "../../../reducers/caseSlice";
 import { updatePercentage } from "../../../reducers/formSlice";
 import { getFormPercentage } from "../../../utils/percentageUtils";
@@ -24,6 +23,7 @@ function useFetchCaseSummary() {
   const userId = useAppSelector(state => state.auth.userId);
   const role = useAppSelector(state => state.auth.role);
   const currentCaseType = useAppSelector(state => state.case.currentCaseType);
+  const currentCaseSubType = useAppSelector(state => state.case.currentCaseSubType);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -48,7 +48,6 @@ function useFetchCaseSummary() {
       }
 
       const data = await getCaseSummaryApi(accessToken, role, parseInt(id), currentCaseType);
-
       if (data) {
         setCaseSummary(data);
         if (data.id) {
@@ -59,32 +58,33 @@ function useFetchCaseSummary() {
               caseSubType: (data.subType as CaseSubType) || (data.asylumType as CaseSubType) || null,
             }),
           );
+          if (currentCaseSubType && SupportingApplicationFormCaseSubTypes.includes(currentCaseSubType)) {
+            /** START: Calculate the percentage from case profile */
+            /** We don't rely on the percentage saved in the db since it might be stale */
+            const { formStepsAndFormFieldsList } = await fetchCompleteFormDetails(
+              currentCaseType,
+              (data.subType as CaseSubType) || (data.asylumType as CaseSubType) || null,
+            );
+            const caseDetails = await getCaseProfileAndProgressApi(parseInt(id), accessToken, role, currentCaseType);
+            if (!caseDetails) {
+              console.error(`Failed to get case details for case id ${id}`);
+              return;
+            }
+            const currentPercentage = getFormPercentage(formStepsAndFormFieldsList, caseDetails.profile);
+            dispatch(updatePercentage(currentPercentage));
 
-          /** START: Calculate the percentage from case profile */
-          /** We don't rely on the percentage saved in the db since it might be stale */
-          const { formStepsAndFormFieldsList } = await fetchCompleteFormDetails(
-            currentCaseType,
-            (data.subType as CaseSubType) || (data.asylumType as CaseSubType) || null,
-          );
-          const caseDetails = await getCaseProfileAndProgressApi(parseInt(id), accessToken, role, currentCaseType);
-          if (!caseDetails) {
-            console.error(`Failed to get case details for case id ${id}`);
-            return;
+            // Save the updated percentage to the db to refresh the dashboard percentage
+            updateApplicationCaseFunc(
+              data.id,
+              caseDetails.profile,
+              caseDetails.progress,
+              currentPercentage,
+              role,
+              accessToken,
+              currentCaseType,
+            );
+            /** END: Calculate the percentage from case profile */
           }
-          const currentPercentage = getFormPercentage(formStepsAndFormFieldsList, caseDetails.profile);
-          dispatch(updatePercentage(currentPercentage));
-
-          // Save the updated percentage to the db to refresh the dashboard percentage
-          updateApplicationCaseFunc(
-            data.id,
-            caseDetails.profile,
-            caseDetails.progress,
-            currentPercentage,
-            role,
-            accessToken,
-            currentCaseType,
-          );
-          /** END: Calculate the percentage from case profile */
         } else {
           console.error("Case ID is missing in the case summary.");
         }
@@ -118,15 +118,12 @@ export function CaseStatusRightPanel() {
   const handleCaseSummaryUpdate = () => {
     fetchCaseSummary();
   };
-
   if (loading) {
     return <Loading />;
   }
-
   if (error) {
     return <Alert message="Error" description={error} type="error" showIcon />;
   }
-
   if (!caseSummary) {
     return null;
   }
