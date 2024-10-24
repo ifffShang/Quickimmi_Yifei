@@ -6,7 +6,7 @@ import { getCaseSummaryApi } from "../../../api/caseSummaryAPI";
 import { fetchCompleteFormDetails } from "../../../api/formTemplateAPI";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { CaseSummary } from "../../../model/apiModels";
-import { CaseSubType, CaseSubTypesSupportingApplicationForm } from "../../../model/immigrationTypes";
+import { CaseSubType, SupportingApplicationFormCaseSubTypes } from "../../../model/immigrationTypes";
 import { updateCurrentCaseInfo } from "../../../reducers/caseSlice";
 import { updatePercentage } from "../../../reducers/formSlice";
 import { getFormPercentage } from "../../../utils/percentageUtils";
@@ -58,7 +58,7 @@ function useFetchCaseSummary() {
               caseSubType: (data.subType as CaseSubType) || (data.asylumType as CaseSubType) || null,
             }),
           );
-          if (currentCaseSubType && CaseSubTypesSupportingApplicationForm.includes(currentCaseSubType)) {
+          if (currentCaseSubType && SupportingApplicationFormCaseSubTypes.includes(currentCaseSubType)) {
             /** START: Calculate the percentage from case profile */
             /** We don't rely on the percentage saved in the db since it might be stale */
             const { formStepsAndFormFieldsList } = await fetchCompleteFormDetails(

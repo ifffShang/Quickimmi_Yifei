@@ -89,7 +89,7 @@
 
 .dashboard-panel.has-application > div {
   background-color: var(--white-color);
-  flex: 0 0 35%;
+  flex: 0 0 32%;
   border-radius: 12px;
 }
 

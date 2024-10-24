@@ -36,7 +36,7 @@ export const EnabledCaseSubTypes = [
   CaseSubType.O1,
 ];
 
-export const CaseSubTypesSupportingApplicationForm = [
+export const SupportingApplicationFormCaseSubTypes = [
   CaseSubType.AFFIRMATIVE,
   CaseSubType.DEFENSIVE,
   CaseSubType.IMMEDIATE_RELATIVES,
