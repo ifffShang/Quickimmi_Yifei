@@ -69,6 +69,7 @@ export type ControlType =
   | "component_passport_uploader"
   | "component_passport_uploader_with_na"
   | "component_multi_textboxes_na"
+  | "component_multi_names_na"
   | "component_textbox_na"
   | "component_location_dropdown"
   | "component_telephone_text"

@@ -45,6 +45,7 @@ import { SortableSection } from "./fields/SortableSection";
 import { TextAreaWithAIRefine } from "./fields/TextAreaWithAIRefine";
 import { TextboxWithNA } from "./fields/TextboxWithNA";
 import { getProfile } from "../../utils/selectorUtils";
+import { MultipleNamesWithNA } from "./fields/MultipleNamesWithNA";
 
 export interface FormFieldProps {
   fieldKey: string;
@@ -562,6 +563,33 @@ export function FormField(props: FormFieldProps) {
             placeholder={placeholder}
             value={fieldValue}
             onChange={onTextChange}
+            notApplicableText={t("NotApplicableText")}
+          />
+        </FormControlContainer>
+      );
+    case "component_multi_names_na":
+      return (
+        <FormControlContainer fieldValue={fieldValue}>
+          <MultipleNamesWithNA
+            placeholder={placeholder}
+            value={fieldValue}
+            onChange={nameList => {
+              const nameListWithoutId = nameList.map(name => ({
+                firstName: name.firstName,
+                middleName: name.middleName,
+                lastName: name.lastName,
+              }));
+              props.fieldKey &&
+                dispatchFormValue(
+                  dispatch,
+                  caseType,
+                  {
+                    [props.fieldKey]: nameListWithoutId,
+                    overwrite: true,
+                  },
+                  props.fieldIndex,
+                );
+            }}
             notApplicableText={t("NotApplicableText")}
           />
         </FormControlContainer>

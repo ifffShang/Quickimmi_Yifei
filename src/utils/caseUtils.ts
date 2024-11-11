@@ -80,7 +80,7 @@ export function deepOverwrite(update: any, target: any) {
           target[key] = [];
         } else {
           for (let i = 0; i < value.length; i++) {
-            if (typeof value[i] === "object") {
+            if (typeof value[i] === "object" && target[key][i] !== null && typeof target[key][i] === "object") {
               target[key][i] = deepOverwrite(value[i], target[key][i]);
             } else {
               target[key] = value;

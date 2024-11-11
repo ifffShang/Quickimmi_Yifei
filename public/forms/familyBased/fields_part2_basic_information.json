@@ -14,13 +14,13 @@
       "label": "text_UscisOnlineAccountNumber",
       "id": "part2.2",
       "key": "petitioner.uSCISOnlineAccountNumber",
-      "control": "text"
+      "control": "component_textbox_na"
     },
     {
       "label": "text_SocialSecurityNumber",
       "id": "part2.3",
       "key": "petitioner.ssn",
-      "control": "text"
+      "control": "component_textbox_na"
     },
     {
       "label": "text_Name",
@@ -57,7 +57,7 @@
       "placeholder": "text_NamesUsedBefore",
       "id": "part2.5.abc",
       "key": "petitioner.petitionerOtherNames",
-      "control": "label"
+      "control": "component_multi_names_na"
     },
     {
       "label": "text_CityOfBirth",
