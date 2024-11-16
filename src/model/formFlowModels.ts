@@ -31,6 +31,7 @@ export interface IFormField {
   placeholder?: string;
   fields?: IFormField[];
   options?: IFormOptions[] | string;
+  linkage?: string;
   format?: string;
   className?: string;
   visibility?: string;
@@ -72,6 +73,7 @@ export type ControlType =
   | "component_multi_names_na"
   | "component_textbox_na"
   | "component_location_dropdown"
+  | "componet_location_dropdown_splitted"
   | "component_telephone_text"
   | "component_list_documents"
   | "component_list_merged_documents"

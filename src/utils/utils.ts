@@ -103,6 +103,7 @@ export function getFieldValue(
   options?: IFormOptions[] | string,
   format?: string,
   fieldIndex?: number,
+  linkage?: string,
 ): any {
   if (!caseDetails) {
     return;
@@ -194,6 +195,12 @@ export function getFieldValue(
         .join("")
         .replace(filterRegex, "");
       return raw.replace(regex, output);
+    } else if (linkage) {
+      if (linkage == "MultiInOneLinkage") {
+        const raws = keys.map(k => getCaseDetailValue(caseDetails, k, fieldIndex));
+        const locationStr = formatCityAndCountryStr(...raws);
+        return locationStr;
+      }
     } else {
       console.error("Options are missing for multi key field", key);
     }

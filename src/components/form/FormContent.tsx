@@ -112,6 +112,7 @@ export function FormContent(props: FormContentProps) {
                 maxChildPerRow={field.maxChildPerRow}
                 subFields={field.fields}
                 options={field.options}
+                linkage={field.linkage}
                 placeholder={field.placeholder}
                 format={field.format}
                 className={field.className}

@@ -56,6 +56,7 @@ export interface FormFieldProps {
   options?: IFormOptions[] | string;
   placeholder?: string;
   format?: string;
+  linkage?: string;
   className?: string;
   visibility?: string;
   hideHeader?: boolean;
@@ -84,6 +85,7 @@ export function FormField(props: FormFieldProps) {
     props.options,
     props.format,
     props.fieldIndex,
+    props.linkage,
   );
 
   const identity =
@@ -245,6 +247,37 @@ export function FormField(props: FormFieldProps) {
 
   const onLocationChange = (...params: any[]) => {
     const locationStr = formatCityAndCountryStr(...params);
+    dispatchFormValue(
+      dispatch,
+      caseType,
+      {
+        [props.fieldKey]: locationStr,
+      },
+      props.fieldIndex,
+    );
+  };
+
+  const onLocationSplittedChange = (...params: any) => {
+    const locationStr = formatCityAndCountryStr(...params);
+    if (!props.fieldKey) return;
+    const country = params[0];
+    const state = params[1];
+    const city = params[2];
+
+    if (props.fieldKey.indexOf(",") > -1 && (country || state || city)) {
+      const keys = props.fieldKey.split(",");
+      dispatchFormValue(
+        dispatch,
+        caseType,
+        {
+          [keys[0]]: country ? country : null,
+          [keys[1]]: state ? state : null,
+          [keys[2]]: city ? city : null,
+        },
+        props.fieldIndex,
+      );
+      return;
+    }
     dispatchFormValue(
       dispatch,
       caseType,
@@ -600,6 +633,12 @@ export function FormField(props: FormFieldProps) {
           <LocationDropdown prefillStr={fieldValue} onLocationChange={onLocationChange} />
         </FormControlContainer>
       );
+    case "componet_location_dropdown_splitted":
+      return (
+        <FormControlContainer fieldValue={fieldValue}>
+          <LocationDropdown prefillStr={fieldValue} onLocationChange={onLocationSplittedChange} />
+        </FormControlContainer>
+      );
     case "component_list_documents":
       return <DocumentList />;
     case "component_list_merged_documents":
@@ -654,6 +693,7 @@ export function FormField(props: FormFieldProps) {
                   control={field.control}
                   label={field.label}
                   options={field.options}
+                  linkage={field.linkage}
                   placeholder={field.placeholder}
                   className={field.className}
                   maxChildPerRow={field.maxChildPerRow}
