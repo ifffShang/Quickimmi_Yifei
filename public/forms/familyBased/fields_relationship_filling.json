@@ -7,7 +7,7 @@
       "label": "text_FillingPetitionFor",
       "id": "part1.1",
       "key": "relationship.petitionForSpouseCheckbox,relationship.petitionForParentCheckbox,relationship.petitionForSiblingCheckbox,relationship.petitionForChildCheckbox",
-      "control": "select",
+      "control": "radio",
       "initialValue": "",
       "options": [
         {
@@ -36,7 +36,7 @@
       "label": "text_DescribeYourRelationship",
       "id": "part1.2",
       "key": "relationship.petitionForChildBornInWedlockCheckbox,relationship.petitionForStepchildAndStepparentCheckbox,relationship.petitionForChildNotBornInWedlockCheckbox,relationship.petitionForChildAdoptedCheckbox",
-      "control": "select",
+      "control": "radio",
       "initialValue": "",
       "options": [
         {
@@ -65,7 +65,7 @@
       "label": "text_SiblingRelationship",
       "id": "part1.3",
       "key": "relationship.siblingAdoptionRelationYesCheckbox,relationship.siblingAdoptionRelationNoCheckbox",
-      "control": "select",
+      "control": "radio",
       "initialValue": "",
       "options": [
         {
@@ -84,7 +84,7 @@
       "label": "text_GainedLegalStatusThroughAdoption",
       "id": "part1.4",
       "key": "relationship.gainedStatusThroughAdoptionYesCheckbox,relationship.gainedStatusThroughAdoptionNoCheckbox",
-      "control": "select",
+      "control": "radio",
       "initialValue": "",
       "options": [
         {
