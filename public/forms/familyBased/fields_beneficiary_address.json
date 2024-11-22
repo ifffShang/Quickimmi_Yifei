@@ -17,11 +17,35 @@
           "control": "text"
         },
         {
-          "label": "text_ApartmentNumber(Add check to apt/ste/flr)",
-          "placeholder": "text_ApartmentNumber",
+          "label": "",
+          "id": "apartment_number",
+          "key": "beneficiary.physicalAddress.aptCheckbox,beneficiary.physicalAddress.steCheckbox,beneficiary.physicalAddress.flrCheckbox",
+          "control": "radio",
+          "className": "apt-ste-flr-checkbox",
+          "options": [
+            {
+              "label": "text_Apartment",
+              "value": "aptCheckbox",
+              "keyValue": "true,false,false"
+            },
+            {
+              "label": "text_Ste",
+              "value": "steCheckbox",
+              "keyValue": "false,true,false"
+            },
+            {
+              "label": "text_Flr",
+              "value": "flrCheckbox",
+              "keyValue": "false,false,true"
+            }
+          ]
+        },
+        {
+          "label": "",
+          "placeholder": "text_Apt/Ste/FlrNumber",
           "id": "apartment_number",
           "key": "beneficiary.physicalAddress.aptSteFlrNumber",
-          "control": "label"
+          "control": "text"
         },
         {
           "label": "text_City",
@@ -67,11 +91,35 @@
           "control": "text"
         },
         {
-          "label": "text_ApartmentNumber(Add check to apt/ste/flr)",
-          "placeholder": "text_ApartmentNumber",
+          "label": "",
+          "id": "apartment_number",
+          "key": "beneficiary.mailingAddress.aptCheckbox,beneficiary.mailingAddress.steCheckbox,beneficiary.mailingAddress.flrCheckbox",
+          "control": "radio",
+          "className": "apt-ste-flr-checkbox",
+          "options": [
+            {
+              "label": "text_Apartment",
+              "value": "aptCheckbox",
+              "keyValue": "true,false,false"
+            },
+            {
+              "label": "text_Ste",
+              "value": "steCheckbox",
+              "keyValue": "false,true,false"
+            },
+            {
+              "label": "text_Flr",
+              "value": "flrCheckbox",
+              "keyValue": "false,false,true"
+            }
+          ]
+        },
+        {
+          "label": "",
+          "placeholder": "text_Apt/Ste/FlrNumber",
           "id": "apartment_number",
           "key": "beneficiary.mailingAddress.aptSteFlrNumber",
-          "control": "label"
+          "control": "text"
         },
         {
           "label": "text_City",
@@ -110,11 +158,35 @@
           "control": "text"
         },
         {
-          "label": "text_ApartmentNumber(Add check to apt/ste/flr)",
-          "placeholder": "text_ApartmentNumber",
+          "label": "",
+          "id": "apartment_number",
+          "key": "beneficiary.intendToLiveUsAddress.aptCheckbox,beneficiary.intendToLiveUsAddress.steCheckbox,beneficiary.intendToLiveUsAddress.flrCheckbox",
+          "control": "radio",
+          "className": "apt-ste-flr-checkbox",
+          "options": [
+            {
+              "label": "text_Apartment",
+              "value": "aptCheckbox",
+              "keyValue": "true,false,false"
+            },
+            {
+              "label": "text_Ste",
+              "value": "steCheckbox",
+              "keyValue": "false,true,false"
+            },
+            {
+              "label": "text_Flr",
+              "value": "flrCheckbox",
+              "keyValue": "false,false,true"
+            }
+          ]
+        },
+        {
+          "label": "",
+          "placeholder": "text_Apt/Ste/FlrNumber",
           "id": "apartment_number",
           "key": "beneficiary.intendToLiveUsAddress.aptSteFlrNumber",
-          "control": "label"
+          "control": "text"
         },
         {
           "label": "text_City",
