@@ -393,6 +393,7 @@
   "Religion": "Religion",
 
   "Nationality": "Nationality",
+  "Nationalities": "Nationalities",
   "PresentNationality": "Present Nationality",
   "NationalityAtBirth": "Nationality at Birth",
 
@@ -519,6 +520,8 @@
   "ImmigrationCourtPast": "I am not now in Immigration Court proceedings, but I have been in the past",
 
   "MailingAddressSameAsResidentialAddress": "Mailing Address is the same as Residential Address",
+  "MailingAddressSameAsResidentialAddress(Need update to include family based)": "Mailing Address is the same as Residential Address(Need update to include family based)",
+  "IntendToLiveUsAddress": "Intend to live US address" ,
 
   "I94": "I-94",
   "NoticeOfAppearance": "Notice Of Appearance",
@@ -648,6 +651,7 @@
   "MailingAddress": "MailingAddress",
   "InCareOfNameofMailingAddress": "In Care Of Name",
   "StreetNumberAndName": "Street Number and Name",
+  "ApartmentNumber(Add check to apt/ste/flr)": "Apartment Number(Apt/Ste/Flr)",
   "ApartmentNumber(Add check to apt/ste/flr)Apt": "Apt",
   "ApartmentNumber(Add check to apt/ste/flr)Ste": "Ste",
   "ApartmentNumber(Add check to apt/ste/flr)Flr": "Flr",
@@ -665,10 +669,13 @@
 
   "AddressHistory": "AddressHistory",
   "PgysicalAddressHistory": "Provide your physical addresses for the last five years, whether inside or outside the United States. Provide your current address first if it is different from your mailing address in Item Numbers 10.a. - 10.i.",
+  "PhysicalAddress": "Physical Address",
   "PhysicalAddress1": "Physical Address 1",
   "DateFrom": "Date From (mm/dd/yyyy)",
   "DateTo": "Date To (mm/dd/yyyy)",
   "Physical Address 2": "Physical Address 2",
+  "outsideUsAddress": "Outside Us Address",
+  "mostRecentOutSideUsAddressBefore5YearsAgo":"Provide the most recent beneficiary's address outside the Us 5 years ago",
 
   "MaritalInformation": "Your Marital Information",
   "HowManyTimesHaveYouBeenMarried": "How many times have you been married?",

@@ -11,7 +11,7 @@
       "control": "component_textbox_na"
     },
     {
-      "label": "text_USCISOnlineAccountNumber",
+      "label": "text_UscisOnlineAccountNumber",
       "id": "part3.2",
       "key": "beneficiary.uSCISOnlineAccountNumber",
       "control": "component_textbox_na"
@@ -51,16 +51,17 @@
         }
       ]
     },
+    { "label": "text_NamesUsedBeforeLabel(Pending due to data type changed to array)", "hideHeader": "true", "control": "label" },
     {
       "label": "text_NamesUsedBeforeLabel(Pending due to data type changed to array)",
       "hideHeader": "true",
       "placeholder": "text_NamesUsedBefore",
       "id": "part3.5.abc",
       "key": "beneficiary.beneficiaryOtherNames",
-      "control": "label"
+      "control": "component_multi_names_na"
     },
     {
-      "label": "text_NamesUsedBeforeLabel(Pending due to data type changed to array)",
+      "label": "text_Nationalities",
       "hideHeader": "true",
       "placeholder": "text_NamesUsedBefore",
       "id": "part3.5.abc",
@@ -70,12 +71,14 @@
     {
       "label": "text_CityOfBirth",
       "id": "part3.6",
+      "placeholder": "text_CityOfBirth",
       "key": "beneficiary.cityOfBirth",
       "control": "text"
     },
     {
       "label": "text_CountryOfBirth",
       "id": "part3.7",
+      "placeholder": "text_CountryOfBirth",
       "key": "beneficiary.countryOfBirth",
       "control": "text"
     },

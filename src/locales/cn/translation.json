@@ -390,6 +390,7 @@
   "Religion": "宗教",
 
   "Nationality": "国籍",
+  "Nationalities": "国籍",
   "NationalityAtBirth": "出生时国籍",
   "PresentNationality": "现在的国籍",
 
@@ -516,6 +517,8 @@
   "ImmigrationCourtPast": "我现在不在移民法庭程序中，但我过去曾经参加过。",
 
   "MailingAddressSameAsResidentialAddress": "邮寄地址与居住地址相同",
+  "MailingAddressSameAsResidentialAddress(Need update to include family based)": "邮寄地址与居住地址相同（同步家庭地址）",
+  "IntendToLiveUsAddress": "打算居住地" ,
 
   "I94": "I-94",
   "NoticeOfAppearance": "出庭通知",
@@ -644,6 +647,7 @@
   "MailingAddress": "邮寄地址",
   "InCareOfNameofMailingAddress": "收件人姓名",
   "StreetNumberAndName": "街道号码和名称",
+  "ApartmentNumber(Add check to apt/ste/flr)": "公寓号(公寓/套房/楼层)",
   "ApartmentNumber(Add check to apt/ste/flr)Apt": "公寓",
   "ApartmentNumber(Add check to apt/ste/flr)Ste": "套房",
   "ApartmentNumber(Add check to apt/ste/flr)Flr": "楼层",
@@ -661,10 +665,13 @@
 
   "AddressHistory": "地址历史",
   "PgysicalAddressHistory": "提供您过去五年的实际地址，无论是在美国境内还是境外。首先提供您的当前地址，如果它与第10.a. - 10.i.项中的邮寄地址不同。",
+  "PhysicalAddress": "实际地址",
   "PhysicalAddress1": "实际地址1",
   "DateFrom": "起始日期（mm/dd/yyyy）",
   "DateTo": "结束日期（mm/dd/yyyy）",
   "Physical Address 2": "实际地址2",
+  "outsideUsAddress": "境外地址",
+  "mostRecentOutSideUsAddressBefore5YearsAgo":"Provide the most recent beneficiary's address outside the Us 5 years ago",
 
   "MaritalInformation": "您的婚姻信息",
   "HowManyTimesHaveYouBeenMarried": "您结过几次婚？",

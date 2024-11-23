@@ -141,9 +141,46 @@
     },
     {
       "label": "text_outsideUsAddress",
-      "hideHeader": "true",
-      "key": "beneficiary.outsideUsAddress",
-      "control": "label"
+      "id": "3.11",
+      "control": "group",
+      "maxChildPerRow": "3",
+      "fields": [
+        {
+          "label": "text_Street",
+          "placeholder": "text_Street",
+          "id": "street",
+          "key": "beneficiary.outsideUsAddress.streetNumberAndName",
+          "control": "text"
+        },
+        {
+          "label": "text_ApartmentNumber(Add check to apt/ste/flr)",
+          "placeholder": "text_ApartmentNumber",
+          "id": "apartment_number",
+          "key": "beneficiary.outsideUsAddress.aptSteFlrNumber",
+          "control": "label"
+        },
+        {
+          "label": "text_City",
+          "placeholder": "text_City",
+          "id": "city",
+          "key": "beneficiary.outsideUsAddress.cityOrTown",
+          "control": "text"
+        },
+        {
+          "label": "text_State",
+          "placeholder": "text_State",
+          "id": "state",
+          "key": "beneficiary.outsideUsAddress.state",
+          "control": "text"
+        },
+        {
+          "label": "text_ZipCode",
+          "placeholder": "text_ZipCode",
+          "id": "zip_code",
+          "key": "beneficiary.outsideUsAddress.zipCode",
+          "control": "text"
+        }
+      ]
     },
     {
       "label": "text_mostRecentOutSideUsAddressBefore5YearsAgo",
