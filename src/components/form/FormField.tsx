@@ -358,7 +358,12 @@ export function FormField(props: FormFieldProps) {
     case "radio":
       return (
         <FormControlContainer fieldValue={fieldValue}>
-          <RadioSelect onChange={onOptionChange} options={props.options || ""} value={fieldValue} />
+          <RadioSelect
+            className={props.className}
+            onChange={onOptionChange}
+            options={props.options || ""}
+            value={fieldValue}
+          />
         </FormControlContainer>
       );
     case "checkbox":

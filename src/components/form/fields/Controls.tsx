@@ -507,6 +507,7 @@ export interface RadioSelectProps {
   onChange: (value: string) => void;
   value?: any;
   disabled?: boolean;
+  className?: string;
 }
 
 export function RadioSelect(props: RadioSelectProps) {
@@ -528,9 +529,12 @@ export function RadioSelect(props: RadioSelectProps) {
     setValue(value);
     props.onChange(value);
   };
+
+  const direction = props.className === "apt-ste-flr-checkbox" ? "horizontal" : "vertical";
+
   return (
-    <Radio.Group onChange={e => onValueChange(e.target.value)} value={value}>
-      <Space direction="vertical">
+    <Radio.Group className={props.className ?? ""} onChange={e => onValueChange(e.target.value)} value={value}>
+      <Space direction={direction}>
         {options.map(option => (
           <Radio key={option.value} value={option.value}>
             {option.label}
