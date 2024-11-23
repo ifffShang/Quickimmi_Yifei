@@ -518,7 +518,7 @@
 
   "MailingAddressSameAsResidentialAddress": "邮寄地址与居住地址相同",
   "MailingAddressSameAsResidentialAddress(Need update to include family based)": "邮寄地址与居住地址相同（同步家庭地址）",
-  "IntendToLiveUsAddress": "打算居住地" ,
+  "IntendToLiveUsAddress": "打算居住地",
 
   "I94": "I-94",
   "NoticeOfAppearance": "出庭通知",
@@ -671,7 +671,7 @@
   "DateTo": "结束日期（mm/dd/yyyy）",
   "Physical Address 2": "实际地址2",
   "outsideUsAddress": "境外地址",
-  "mostRecentOutSideUsAddressBefore5YearsAgo":"Provide the most recent beneficiary's address outside the Us 5 years ago",
+  "mostRecentOutSideUsAddressBefore5YearsAgo": "Provide the most recent beneficiary's address outside the Us 5 years ago",
 
   "MaritalInformation": "您的婚姻信息",
   "HowManyTimesHaveYouBeenMarried": "您结过几次婚？",

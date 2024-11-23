@@ -521,7 +521,7 @@
 
   "MailingAddressSameAsResidentialAddress": "Mailing Address is the same as Residential Address",
   "MailingAddressSameAsResidentialAddress(Need update to include family based)": "Mailing Address is the same as Residential Address(Need update to include family based)",
-  "IntendToLiveUsAddress": "Intend to live US address" ,
+  "IntendToLiveUsAddress": "Intend to live US address",
 
   "I94": "I-94",
   "NoticeOfAppearance": "Notice Of Appearance",
@@ -675,7 +675,7 @@
   "DateTo": "Date To (mm/dd/yyyy)",
   "Physical Address 2": "Physical Address 2",
   "outsideUsAddress": "Outside Us Address",
-  "mostRecentOutSideUsAddressBefore5YearsAgo":"Provide the most recent beneficiary's address outside the Us 5 years ago",
+  "mostRecentOutSideUsAddressBefore5YearsAgo": "Provide the most recent beneficiary's address outside the Us 5 years ago",
 
   "MaritalInformation": "Your Marital Information",
   "HowManyTimesHaveYouBeenMarried": "How many times have you been married?",

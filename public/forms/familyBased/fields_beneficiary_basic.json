@@ -51,7 +51,11 @@
         }
       ]
     },
-    { "label": "text_NamesUsedBeforeLabel(Pending due to data type changed to array)", "hideHeader": "true", "control": "label" },
+    {
+      "label": "text_NamesUsedBeforeLabel(Pending due to data type changed to array)",
+      "hideHeader": "true",
+      "control": "label"
+    },
     {
       "label": "text_NamesUsedBeforeLabel(Pending due to data type changed to array)",
       "hideHeader": "true",
