@@ -256,9 +256,46 @@
     },
     {
       "label": "text_mostRecentOutSideUsAddressBefore5YearsAgo",
-      "hideHeader": "true",
-      "key": "beneficiary.mostRecentOutSideUsAddressBefore5YearsAgo",
-      "control": "label"
+      "id": "3.11",
+      "control": "group",
+      "maxChildPerRow": "3",
+      "fields": [
+        {
+          "label": "text_Street",
+          "placeholder": "text_Street",
+          "id": "street",
+          "key": "beneficiary.mostRecentOutSideUsAddressBefore5YearsAgo.streetNumberAndName",
+          "control": "text"
+        },
+        {
+          "label": "text_ApartmentNumber(Add check to apt/ste/flr)",
+          "placeholder": "text_ApartmentNumber",
+          "id": "apartment_number",
+          "key": "beneficiary.mostRecentOutSideUsAddressBefore5YearsAgo.aptSteFlrNumber",
+          "control": "label"
+        },
+        {
+          "label": "text_City",
+          "placeholder": "text_City",
+          "id": "city",
+          "key": "beneficiary.mostRecentOutSideUsAddressBefore5YearsAgo.cityOrTown",
+          "control": "text"
+        },
+        {
+          "label": "text_State",
+          "placeholder": "text_State",
+          "id": "state",
+          "key": "beneficiary.mostRecentOutSideUsAddressBefore5YearsAgo.state",
+          "control": "text"
+        },
+        {
+          "label": "text_ZipCode",
+          "placeholder": "text_ZipCode",
+          "id": "zip_code",
+          "key": "beneficiary.mostRecentOutSideUsAddressBefore5YearsAgo.zipCode",
+          "control": "text"
+        }
+      ]
     },
     {
       "label": "text_AddressHistory",
@@ -320,7 +357,7 @@
       "label": "",
       "placeholder": "text_AddAddress",
       "id": "address_berfore_us",
-      "key": "count-beneficiary.addressHistory",
+      "key": "count-beneficiary.addressHistories",
       "control": "component_add_item"
     }
   ]

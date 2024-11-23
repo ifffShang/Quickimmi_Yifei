@@ -671,7 +671,7 @@
   "DateTo": "结束日期（mm/dd/yyyy）",
   "Physical Address 2": "实际地址2",
   "outsideUsAddress": "境外地址",
-  "mostRecentOutSideUsAddressBefore5YearsAgo": "Provide the most recent beneficiary's address outside the Us 5 years ago",
+  "mostRecentOutSideUsAddressBefore5YearsAgo": "提供5年前最近的境外地址",
 
   "MaritalInformation": "您的婚姻信息",
   "HowManyTimesHaveYouBeenMarried": "您结过几次婚？",
