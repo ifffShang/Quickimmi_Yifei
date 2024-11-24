@@ -74,88 +74,68 @@
       "control": "text"
     },
     {
-      "label": "text_CurrentSpouseLastName",
-      "placeholder": "text_EnterCurrentSpouseLastName",
-      "id": "currentSpouseLastName",
-      "key": "beneficiary.maritalInfo.currentSpouse.lastName",
-      "control": "text"
-    },
-    {
-      "label": "text_CurrentSpouseFirstName",
-      "placeholder": "text_EnterCurrentSpouseFirstName",
-      "id": "currentSpouseFirstName",
-      "key": "beneficiary.maritalInfo.currentSpouse.firstName",
-      "control": "text"
-    },
-    {
-      "label": "text_CurrentSpouseMiddleName",
-      "placeholder": "text_EnterCurrentSpouseMiddleName",
-      "id": "currentSpouseMiddleName",
-      "key": "beneficiary.maritalInfo.currentSpouse.middleName",
-      "control": "text"
+      "label": "text_CurrentSpouseName",
+      "id": "currentSpouseName",
+      "control": "group",
+      "maxChildPerRow": "3",
+      "fields": [
+        {
+          "label": "text_FirstName",
+          "placeholder": "text_FirstName",
+          "id": "4.a",
+          "key": "beneficiary.maritalInfo.currentSpouse.firstName",
+          "control": "text"
+        },
+        {
+          "label": "text_MiddleName",
+          "placeholder": "text_MiddleName",
+          "id": "4.b",
+          "key": "beneficiary.maritalInfo.currentSpouse.middleName",
+          "control": "component_textbox_na"
+        },
+        {
+          "label": "text_LastName",
+          "placeholder": "text_LastName",
+          "id": "4.c",
+          "key": "beneficiary.maritalInfo.currentSpouse.lastName",
+          "control": "text"
+        }
+      ]
     },
     {
       "label": "text_CurrentSpouseAlienNumber",
-      "placeholder": "text_EnterCurrentSpouseAlienNumber",
+      "placeholder": "text_CurrentSpouseAlienNumber",
       "id": "currentSpouseAlienNumber",
       "key": "beneficiary.maritalInfo.currentSpouse.alienNumber",
       "control": "text"
     },
     {
       "label": "text_CurrentSpouseDateOfBirth",
-      "placeholder": "text_EnterCurrentSpouseDateOfBirth",
+      "placeholder": "text_CurrentSpouseDateOfBirth",
       "id": "currentSpouseDateOfBirth",
       "key": "beneficiary.maritalInfo.currentSpouse.dateOfBirth",
-      "control": "text"
+      "control": "datepicker"
     },
     {
       "label": "text_CurrentSpouseDateOfMarriage",
       "placeholder": "text_EnterCurrentSpouseDateOfMarriage",
       "id": "currentSpouseDateOfMarriage",
       "key": "beneficiary.maritalInfo.currentSpouse.dateOfMarriage",
-      "control": "text"
+      "control": "datepicker"
     },
     {
-      "label": "text_CurrentSpouseCityOfBirth",
-      "placeholder": "text_EnterCurrentSpouseCityOfBirth",
-      "id": "currentSpouseCityOfBirth",
-      "key": "beneficiary.maritalInfo.currentSpouse.cityOfBirth",
-      "control": "text"
+      "label": "text_CurrentSpousePlaceOfBirth",
+      "id": "CurrentSpousePlaceOfBirth",
+      "key": "beneficiary.maritalInfo.currentSpouse.countryOfBirth,beneficiary.maritalInfo.currentSpouse.stateOfBirth,beneficiary.maritalInfo.currentSpouse.cityOfBirth",
+      "linkage": "MultiInOneLinkage",
+      "control": "componet_location_dropdown_splitted"
     },
     {
-      "label": "text_CurrentSpouseStateOfBirth",
-      "placeholder": "text_EnterCurrentSpouseStateOfBirth",
-      "id": "currentSpouseStateOfBirth",
-      "key": "beneficiary.maritalInfo.currentSpouse.stateOfBirth",
-      "control": "text"
-    },
-    {
-      "label": "text_CurrentSpouseCountryOfBirth",
-      "placeholder": "text_EnterCurrentSpouseCountryOfBirth",
-      "id": "currentSpouseCountryOfBirth",
-      "key": "beneficiary.maritalInfo.currentSpouse.countryOfBirth",
-      "control": "text"
-    },
-    {
-      "label": "text_CurrentSpousePlaceOfMarriageCity",
-      "placeholder": "text_EnterCurrentSpousePlaceOfMarriageCity",
-      "id": "currentSpousePlaceOfMarriageCity",
-      "key": "beneficiary.maritalInfo.currentSpouse.placeOfMarriageCity",
-      "control": "text"
-    },
-    {
-      "label": "text_CurrentSpousePlaceOfMarriageState",
-      "placeholder": "text_EnterCurrentSpousePlaceOfMarriageState",
-      "id": "currentSpousePlaceOfMarriageState",
-      "key": "beneficiary.maritalInfo.currentSpouse.placeOfMarriageState",
-      "control": "text"
-    },
-    {
-      "label": "text_CurrentSpousePlaceOfMarriageCountry",
-      "placeholder": "text_EnterCurrentSpousePlaceOfMarriageCountry",
-      "id": "currentSpousePlaceOfMarriageCountry",
-      "key": "beneficiary.maritalInfo.currentSpouse.placeOfMarriageCountry",
-      "control": "text"
+      "label": "text_CurrentSpousePlaceOfMarriage",
+      "id": "CurrentSpousePlaceOfMarriage",
+      "key": "beneficiary.maritalInfo.currentSpouse.placeOfMarriageCountry,beneficiary.maritalInfo.currentSpouse.placeOfMarriageState,beneficiary.maritalInfo.currentSpouse.placeOfMarriageCity",
+      "linkage": "MultiInOneLinkage",
+      "control": "componet_location_dropdown_splitted"
     },
     {
       "label": "text_CurrentSpouseApplying",
@@ -179,65 +159,59 @@
     {
       "label": "text_PreviousSpouseInformation",
       "hideHeader": "true",
-      "id": "employment_information",
+      "id": "PreviousSpouse_information",
       "key": "count-beneficiary.maritalInfo.previousSpouseInfos",
       "control": "sortable_section",
       "fields": [
         {
-          "label": "text_PreviousSpouseLastName",
-          "placeholder": "text_EnterPreviousSpouseLastName",
-          "id": "currentSpouseLastName",
-          "key": "beneficiary.maritalInfo.previousSpouseInfos[].lastName",
-          "control": "text"
-        },
-        {
-          "label": "text_PreviousSpouseFirstName",
-          "placeholder": "text_EnterPreviousSpouseFirstName",
-          "id": "currentSpouseFirstName",
-          "key": "beneficiary.maritalInfo.previousSpouseInfos[].firstName",
-          "control": "text"
-        },
-        {
-          "label": "text_PreviousSpouseMiddleName",
-          "placeholder": "text_EnterPreviousSpouseMiddleName",
-          "id": "currentSpouseMiddleName",
-          "key": "beneficiary.maritalInfo.previousSpouseInfos[].middleName",
-          "control": "text"
+          "label": "text_PreviousSpouseName",
+          "id": "previousSpouseName",
+          "control": "group",
+          "maxChildPerRow": "3",
+          "fields": [
+            {
+              "label": "text_FirstName",
+              "placeholder": "text_FirstName",
+              "id": "previousSpouseFirstName",
+              "key": "beneficiary.maritalInfo.previousSpouseInfos[].firstName",
+              "control": "text"
+            },
+            {
+              "label": "text_MiddleName",
+              "placeholder": "text_MiddleName",
+              "id": "previousSpouseMiddleName",
+              "key": "beneficiary.maritalInfo.previousSpouseInfos[].middleName",
+              "control": "component_textbox_na"
+            },
+            {
+              "label": "text_LastName",
+              "placeholder": "text_LastName",
+              "id": "previousSpouseLastName",
+              "key": "beneficiary.maritalInfo.previousSpouseInfos[].lastName",
+              "control": "text"
+            }
+          ]
         },
         {
           "label": "text_PreviousSpouseDateOfBirth",
-          "placeholder": "text_EnterPreviousSpouseDateOfBirth",
+          "placeholder": "text_PreviousSpouseDateOfBirth",
           "id": "currentSpouseDateOfBirth",
           "key": "beneficiary.maritalInfo.previousSpouseInfos[].dateOfBirth",
-          "control": "text"
+          "control": "datepicker"
         },
         {
           "label": "text_PreviousSpouseDateOfMarriage",
-          "placeholder": "text_EnterPreviousSpouseDateOfMarriage",
+          "placeholder": "text_PreviousSpouseDateOfMarriage",
           "id": "currentSpouseDateOfMarriage",
           "key": "beneficiary.maritalInfo.previousSpouseInfos[].dateOfMarriage",
-          "control": "text"
+          "control": "datepicker"
         },
         {
-          "label": "text_PreviousSpousePlaceOfMarriageCity",
-          "placeholder": "text_EnterPreviousSpousePlaceOfMarriageCity",
-          "id": "previousSpousePlaceOfMarriageCity",
-          "key": "beneficiary.maritalInfo.previousSpouseInfos[].placeOfMarriageCity",
-          "control": "text"
-        },
-        {
-          "label": "text_PreviousSpousePlaceOfMarriageState",
-          "placeholder": "text_EnterPreviousSpousePlaceOfMarriageState",
-          "id": "previousSpousePlaceOfMarriageState",
-          "key": "beneficiary.maritalInfo.previousSpouseInfos[].placeOfMarriageState",
-          "control": "text"
-        },
-        {
-          "label": "text_PreviousSpousePlaceOfMarriageCountry",
-          "placeholder": "text_EnterPreviousSpousePlaceOfMarriageCountry",
-          "id": "previousSpousePlaceOfMarriageCountry",
-          "key": "beneficiary.maritalInfo.previousSpouseInfos[].placeOfMarriageCountry",
-          "control": "text"
+          "label": "text_PreviousSpousePlaceOfMarriage",
+          "id": "PreviousSpousePlaceOfMarriage",
+          "key": "beneficiary.maritalInfo.previousSpouseInfos[].placeOfMarriageCountry,beneficiary.maritalInfo.previousSpouseInfos[].placeOfMarriageState,beneficiary.maritalInfo.previousSpouseInfos[].placeOfMarriageCity",
+          "linkage": "MultiInOneLinkage",
+          "control": "componet_location_dropdown_splitted"
         }
       ]
     },
@@ -248,14 +222,15 @@
     {
       "label": "",
       "placeholder": "text_AddAnotherPreviousSpouse",
-      "id": "employment_information",
+      "id": "AddAnotherPreviousSpouse",
       "key": "count-beneficiary.maritalInfo.previousSpouseInfos",
       "control": "component_add_item"
     },
     {
-      "label": "",
+      "label": "text_IsFluentInEnglish",
       "placeholder": "text_IsFluentInEnglish",
-      "id": "employment_information",
+      "hideHeader": "true",
+      "id": "IsFluentInEnglish",
       "key": "beneficiary.isFluentEnglish",
       "control": "checkbox",
       "options": [
@@ -272,32 +247,86 @@
       ]
     },
     {
-      "label": "nativeLanguage",
-      "placeholder": "",
-      "id": "",
+      "label": "text_NativeLanguage",
+      "placeholder": "text_NativeLanguage",
+      "id": "nativeLanguage",
       "key": "beneficiary.nativeLanguage",
-      "control": "label"
+      "control": "text"
     },
     {
-      "label": "nativeLanguage",
+      "label": "disabilityAccommodation",
       "placeholder": "",
       "id": "",
       "key": "beneficiary.disabilityAccommodation",
       "control": "label"
     },
     {
-      "label": "appliedImmigrationVisaBefore",
-      "placeholder": "",
-      "id": "",
+      "label": "text_appliedImmigrationVisaBefore",
+      "hideHeader": "true",
+      "placeholder": "text_appliedImmigrationVisaBefore",
+      "id": "appliedImmigrationVisaBefore",
       "key": "beneficiary.appliedImmigrationVisaBefore",
-      "control": "label"
+      "control": "checkbox",
+      "options": [
+        {
+          "value": "true",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "false",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
     },
     {
-      "label": "usEmbassies",
-      "placeholder": "",
-      "id": "",
-      "key": "beneficiary.usEmbassies",
-      "control": "label"
+      "label": "text_UsEmbassies",
+      "id": "usEmbassies",
+      "key": "count-beneficiary.usEmbassies",
+      "control": "sortable_section",
+      "fields": [
+        {
+          "label": "text_Country",
+          "id": "UsEmbassies_Country",
+          "placeholder": "text_usEmbassies_country",
+          "key": "beneficiary.usEmbassies[].country",
+          "control": "text"
+        },
+        {
+          "label": "text_City",
+          "id": "UsEmbassies_City",
+          "placeholder": "text_City",
+          "key": "beneficiary.usEmbassies[].city",
+          "control": "text"
+        },
+        {
+          "label": "text_VisaDecision",
+          "id": "UsEmbassies_VisaDecision",
+          "placeholder": "tex_usEmbassies_VisaDecision",
+          "key": "beneficiary.usEmbassies[].visaDecision",
+          "control": "text"
+        },
+        {
+          "label": "text_visaDecisionDate",
+          "id": "UsEmbassies_visaDecisionDate",
+          "placeholder": "text_usEmbassies_visaDecisionDate",
+          "key": "beneficiary.usEmbassies[].visaDecisionDate",
+          "control": "datepicker"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "control": "divider"
+    },
+    {
+      "label": "",
+      "placeholder": "text_AddAnotherPreviousSpouse",
+      "id": "AddAnotherPreviousSpouse",
+      "key": "count-beneficiary.usEmbassies",
+      "control": "component_add_item"
     }
+    
   ]
 }
