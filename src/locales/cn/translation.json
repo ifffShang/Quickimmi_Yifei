@@ -926,6 +926,21 @@
   "PartNumber": "部分号码",
   "ItemNumber": "项目号码",
 
+  "DeniedAdmission": "您曾经被拒绝入境美国吗？",
+  "DeniedVisa": "您曾经被拒签美国签证吗？",
+  "WorkedWithoutAuthorization": "您曾经在美国未经授权工作过吗？",
+  "ViolatedNonimmigrantStatus": "您曾经违反非移民身份的条款或条件吗？",
+  "RemovalProceedings": "您现在或曾经被进行过遣返、排除、撤销或驱逐程序吗？",
+  "FinalOrderOfRemoval": "您曾经收到过排除、驱逐或遣返的最终命令吗？",
+  "PriorFinalOrderReinstated": "您曾经有排除、驱逐或遣返的最终命令被重新执行吗？",
+  "LPRStatusRescinded": "您曾经获得过合法永久居民身份，但随后被撤销了吗？",
+  "VoluntaryDepartureFailed": "您曾经获得移民官员或移民法官批准的自愿离境，但未能在规定时间内离境吗？",
+  "AppliedForReliefFromRemoval": "您曾经申请过任何形式的遣返、排除或驱逐的保护或救济吗？",
+  "JVisaForeignResidenceRequirement": "您曾经是受两年居住国要求限制的J类非移民交流访问者吗？",
+  "AnswerYesToItem24a": "如果您对项目24.a的回答为“是”，请填写项目24.b和24.c。如果您的回答为“否”，请跳到项目25。",
+  "CompliedWithForeignResidence": "您是否已符合居住国的居住要求？",
+  "GrantedWaiverOrRecommendation": "您是否获得了豁免或国务院为您签发了有利的豁免推荐信？",
+
   "RaceOptions": [
     "美洲印第安人或阿拉斯加土著",
     "亚洲人",
