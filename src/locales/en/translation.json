@@ -903,6 +903,21 @@
   "PartNumber": "Part Number",
   "ItemNumber": "Item Number",
 
+  "DeniedAdmission": "Have you EVER been denied admission to the United States?",
+  "DeniedVisa": "Have you EVER been denied a visa to the United States?",
+  "WorkedWithoutAuthorization": "Have you EVER worked in the United States without authorization?",
+  "ViolatedNonimmigrantStatus": "Have you EVER violated the terms or conditions of your nonimmigrant status?",
+  "RemovalProceedings": "Are you presently or have you EVER been in removal, exclusion, rescission, or deportation proceedings?",
+  "FinalOrderOfRemoval": "Have you EVER been issued a final order of exclusion, deportation, or removal?",
+  "PriorFinalOrderReinstated": "Have you EVER had a prior final order of exclusion, deportation, or removal reinstated?",
+  "LPRStatusRescinded": "Have you EVER held lawful permanent resident status which was later rescinded?",
+  "VoluntaryDepartureFailed": "Have you EVER been granted voluntary departure by an immigration officer or an immigration judge but failed to depart within the allotted time?",
+  "AppliedForReliefFromRemoval": "Have you EVER applied for any kind of relief or protection from removal, exclusion, or deportation?",
+  "JVisaForeignResidenceRequirement": "Have you EVER been a J nonimmigrant exchange visitor who was subject to the two-year foreign residence requirement?",
+  "AnswerYesToItem24a": "If you answered \"Yes\" to Item Number 24.a., complete Item Numbers 24.b. - 24.c. If you answered \"No\" to Item Number 24.a., skip to Item Number 25.",
+  "CompliedWithForeignResidence": "Have you complied with the foreign residence requirement?",
+  "GrantedWaiverOrRecommendation": "Have you been granted a waiver or has Department of State issued a favorable waiver recommendation letter for you?",
+
   "RaceOptions": [
     "American Indian or Alaska Native",
     "Asian",
