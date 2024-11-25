@@ -1,5 +1,5 @@
 {
-  "id": "fields_part2_employment_information",
+  "id": "fields_beneficiary_employment",
   "version": "2024-04-01",
   "type": "fields",
   "fields": [
@@ -9,16 +9,23 @@
       "control": "label"
     },
     {
+      "label": "text_mostRecentOutSideUsEmploymentHistory5YearsAgo",
+      "hideHeader": "true",
+      "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo",
+      "control": "label"
+    },
+    {
       "label": "text_Employment",
       "hideHeader": "true",
       "id": "employment_information",
-      "key": "count-petitioner.employmentHistory",
+      "key": "count-beneficiary.employmentHistories",
       "control": "sortable_section",
       "fields": [
         {
           "label": "text_InUSA",
+          "hideHeader": "true",
           "id": "",
-          "key": "petitioner.inUSA",
+          "key": "beneficiary.employmentHistories[].inUSA",
           "control": "checkbox",
           "options": [
             {
@@ -36,20 +43,20 @@
         {
           "label": "text_NameOfEmployer",
           "id": "name_and_address",
-          "key": "petitioner.employmentHistory[].nameOfEmployer",
+          "key": "beneficiary.employmentHistories[].nameOfEmployer",
           "control": "text"
         },
         {
           "label": "text_StreetNumberAndNameOfEmployer",
           "id": "name_and_address",
-          "key": "petitioner.employmentHistory[].streetNumberAndName",
+          "key": "beneficiary.employmentHistories[].streetNumberAndName",
           "control": "text"
         },
         {
           "label": "text_AptSuiteFloor",
           "id": "",
-          "key": "petitioner.aptCheckbox,petitioner.steCheckbox,petitioner.flrCheckbox",
-          "control": "checkbox",
+          "key": "beneficiary.employmentHistories[].aptCheckbox,beneficiary.employmentHistories[].steCheckbox,beneficiary.employmentHistories[].flrCheckbox",
+          "control": "radio",
           "options": [
             {
               "value": "Apt",
@@ -71,63 +78,63 @@
         {
           "label": "text_AptSteFlrNumber",
           "id": "43.b",
-          "key": "petitioner.employmentHistory[].aptSteFlrNumber",
+          "key": "beneficiary.employmentHistories[].aptSteFlrNumber",
           "control": "text"
         },
         {
           "label": "text_City",
           "id": "43.c",
-          "key": "petitioner.employmentHistory[].city",
+          "key": "beneficiary.employmentHistories[].city",
           "control": "text"
         },
         {
           "label": "text_State",
           "id": "name_and_address",
-          "key": "petitioner.employmentHistory[].state",
+          "key": "beneficiary.employmentHistories[].state",
           "control": "text"
         },
         {
           "label": "text_ZipCode",
           "id": "name_and_address",
-          "key": "petitioner.employmentHistory[].zipCode",
+          "key": "beneficiary.employmentHistories[].zipCode",
           "control": "text"
         },
         {
           "label": "text_Province",
           "id": "name_and_address",
-          "key": "petitioner.employmentHistory[].province",
+          "key": "beneficiary.employmentHistories[].province",
           "control": "text"
         },
         {
           "label": "text_PostalCode",
           "id": "name_and_address",
-          "key": "petitioner.employmentHistory[].postalCode",
+          "key": "beneficiary.employmentHistories[].postalCode",
           "control": "text"
         },
         {
           "label": "text_Country",
           "id": "name_and_address",
-          "key": "petitioner.employmentHistory[].country",
+          "key": "beneficiary.employmentHistories[].country",
           "control": "text"
         },
         {
           "label": "text_Occupation",
           "id": "occupation",
-          "key": "petitioner.employmentHistory[].occupation",
+          "key": "beneficiary.employmentHistories[].occupation",
           "control": "text"
         },
         {
           "label": "text_StartDate",
           "placeholder": "text_MM/YYYY",
           "id": "employment_start_date",
-          "key": "petitioner.employmentHistory[].dateFrom",
+          "key": "beneficiary.employmentHistories[].dateFrom",
           "control": "monthyearpicker"
         },
         {
           "label": "text_EndDate",
           "placeholder": "text_MM/YYYY",
           "id": "employment_end_date",
-          "key": "petitioner.employmentHistory[].dateTo",
+          "key": "beneficiary.employmentHistories[].dateTo",
           "control": "monthyearpicker"
         }
       ]
@@ -140,7 +147,7 @@
       "label": "",
       "placeholder": "text_AddEmployment",
       "id": "employment_information",
-      "key": "count-petitioner.employmentHistory",
+      "key": "count-beneficiary.employmentHistories",
       "control": "component_add_item"
     }
   ]

@@ -138,7 +138,7 @@ export const documentTypeMap: Record<string, DocumentType> = {
   interview_receipt: "INTERVIEW_RECEIPT",
   final_result_receipt: "FINAL_RESULT_RECEIPT",
   "i-130": "I130",
-  "i-130a": "I130A",
+  "i-130a": "I130a",
   "i-131": "I131",
   "i-864": "I864",
   "i-485": "I485",
@@ -217,7 +217,7 @@ export type DocumentType =
   | "INTERVIEW_RECEIPT"
   | "FINAL_RESULT_RECEIPT"
   | "I130"
-  | "I130A"
+  | "I130a"
   | "I131"
   | "I864"
   | "I485"

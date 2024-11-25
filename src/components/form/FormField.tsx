@@ -45,6 +45,7 @@ import { SortableSection } from "./fields/SortableSection";
 import { TextAreaWithAIRefine } from "./fields/TextAreaWithAIRefine";
 import { TextboxWithNA } from "./fields/TextboxWithNA";
 import { getProfile } from "../../utils/selectorUtils";
+import { MultipleNamesWithNA } from "./fields/MultipleNamesWithNA";
 
 export interface FormFieldProps {
   fieldKey: string;
@@ -55,6 +56,7 @@ export interface FormFieldProps {
   options?: IFormOptions[] | string;
   placeholder?: string;
   format?: string;
+  linkage?: string;
   className?: string;
   visibility?: string;
   hideHeader?: boolean;
@@ -83,6 +85,7 @@ export function FormField(props: FormFieldProps) {
     props.options,
     props.format,
     props.fieldIndex,
+    props.linkage,
   );
 
   const identity =
@@ -254,6 +257,37 @@ export function FormField(props: FormFieldProps) {
     );
   };
 
+  const onLocationSplittedChange = (...params: any) => {
+    const locationStr = formatCityAndCountryStr(...params);
+    if (!props.fieldKey) return;
+    const country = params[0];
+    const state = params[1];
+    const city = params[2];
+
+    if (props.fieldKey.indexOf(",") > -1 && (country || state || city)) {
+      const keys = props.fieldKey.split(",");
+      dispatchFormValue(
+        dispatch,
+        caseType,
+        {
+          [keys[0]]: country ? country : null,
+          [keys[1]]: state ? state : null,
+          [keys[2]]: city ? city : null,
+        },
+        props.fieldIndex,
+      );
+      return;
+    }
+    dispatchFormValue(
+      dispatch,
+      caseType,
+      {
+        [props.fieldKey]: locationStr,
+      },
+      props.fieldIndex,
+    );
+  };
+
   const onAddItemClick = () => {
     const keyValues = createKeyValuesForAddItem(fieldValue);
     dispatchFormValue(dispatch, caseType, keyValues, props.fieldIndex);
@@ -324,7 +358,12 @@ export function FormField(props: FormFieldProps) {
     case "radio":
       return (
         <FormControlContainer fieldValue={fieldValue}>
-          <RadioSelect onChange={onOptionChange} options={props.options || ""} value={fieldValue} />
+          <RadioSelect
+            className={props.className}
+            onChange={onOptionChange}
+            options={props.options || ""}
+            value={fieldValue}
+          />
         </FormControlContainer>
       );
     case "checkbox":
@@ -566,10 +605,43 @@ export function FormField(props: FormFieldProps) {
           />
         </FormControlContainer>
       );
+    case "component_multi_names_na":
+      return (
+        <FormControlContainer fieldValue={fieldValue}>
+          <MultipleNamesWithNA
+            placeholder={placeholder}
+            value={fieldValue}
+            onChange={nameList => {
+              const nameListWithoutId = nameList.map(name => ({
+                firstName: name.firstName,
+                middleName: name.middleName,
+                lastName: name.lastName,
+              }));
+              props.fieldKey &&
+                dispatchFormValue(
+                  dispatch,
+                  caseType,
+                  {
+                    [props.fieldKey]: nameListWithoutId,
+                    overwrite: true,
+                  },
+                  props.fieldIndex,
+                );
+            }}
+            notApplicableText={t("NotApplicableText")}
+          />
+        </FormControlContainer>
+      );
     case "component_location_dropdown":
       return (
         <FormControlContainer fieldValue={fieldValue}>
           <LocationDropdown prefillStr={fieldValue} onLocationChange={onLocationChange} />
+        </FormControlContainer>
+      );
+    case "componet_location_dropdown_splitted":
+      return (
+        <FormControlContainer fieldValue={fieldValue}>
+          <LocationDropdown prefillStr={fieldValue} onLocationChange={onLocationSplittedChange} />
         </FormControlContainer>
       );
     case "component_list_documents":
@@ -626,6 +698,7 @@ export function FormField(props: FormFieldProps) {
                   control={field.control}
                   label={field.label}
                   options={field.options}
+                  linkage={field.linkage}
                   placeholder={field.placeholder}
                   className={field.className}
                   maxChildPerRow={field.maxChildPerRow}

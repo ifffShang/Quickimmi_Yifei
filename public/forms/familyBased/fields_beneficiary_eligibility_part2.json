@@ -7,7 +7,7 @@
       "label": "text_DeniedAdmission",
       "id": "",
       "key": "beneficiaryEligibility.deniedAdmissionYesCheckbox,beneficiaryEligibility.deniedAdmissionNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -25,7 +25,7 @@
       "label": "text_DeniedVisa",
       "id": "",
       "key": "beneficiaryEligibility.deniedVisaYesCheckbox,beneficiaryEligibility.deniedVisaNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -43,7 +43,7 @@
       "label": "text_WorkedWithoutAuthorization",
       "id": "",
       "key": "beneficiaryEligibility.workedWithoutAuthorizationYesCheckbox,beneficiaryEligibility.workedWithoutAuthorizationNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -61,7 +61,7 @@
       "label": "text_ViolatedNonimmigrantStatus",
       "id": "",
       "key": "beneficiaryEligibility.violatedNonimmigrantStatusYesCheckbox,beneficiaryEligibility.violatedNonimmigrantStatusNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -79,7 +79,7 @@
       "label": "text_RemovalProceedings",
       "id": "",
       "key": "beneficiaryEligibility.removalProceedingsYesCheckbox,beneficiaryEligibility.removalProceedingsNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -97,7 +97,7 @@
       "label": "text_FinalOrderOfRemoval",
       "id": "",
       "key": "beneficiaryEligibility.finalOrderOfRemovalYesCheckbox,beneficiaryEligibility.finalOrderOfRemovalNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -115,7 +115,7 @@
       "label": "text_PriorFinalOrderReinstated",
       "id": "",
       "key": "beneficiaryEligibility.priorFinalOrderReinstatedYesCheckbox,beneficiaryEligibility.priorFinalOrderReinstatedNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -133,7 +133,7 @@
       "label": "text_LPRStatusRescinded",
       "id": "",
       "key": "beneficiaryEligibility.lprStatusRescindedYesCheckbox,beneficiaryEligibility.lprStatusRescindedNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -151,7 +151,7 @@
       "label": "text_VoluntaryDepartureFailed",
       "id": "",
       "key": "beneficiaryEligibility.voluntaryDepartureFailedYesCheckbox,beneficiaryEligibility.voluntaryDepartureFailedNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -169,7 +169,7 @@
       "label": "text_AppliedForReliefFromRemoval",
       "id": "",
       "key": "beneficiaryEligibility.appliedForReliefFromRemovalYesCheckbox,beneficiaryEligibility.appliedForReliefFromRemovalNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -187,7 +187,7 @@
       "label": "text_JVisaForeignResidenceRequirement",
       "id": "",
       "key": "beneficiaryEligibility.jVisaForeignResidenceRequirementYesCheckbox,beneficiaryEligibility.jVisaForeignResidenceRequirementNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -202,38 +202,55 @@
       ]
     },
     {
-      "label": "text_CompliedWithForeignResidence",
+      "label": "",
       "id": "",
-      "key": "beneficiaryEligibility.compliedWithForeignResidenceYesCheckbox,beneficiaryEligibility.compliedWithForeignResidenceNoCheckbox",
-      "control": "checkbox",
-      "options": [
+      "visibility": "beneficiaryEligibility.jVisaForeignResidenceRequirementYesCheckbox=true",
+      "control": "section",
+      "fields": [
         {
-          "value": "Yes",
-          "label": "text_Yes",
-          "keyValue": "true,false"
-        },
-        {
-          "value": "No",
-          "label": "text_No",
-          "keyValue": "false,true"
+          "label": "text_CompliedWithForeignResidence",
+          "id": "",
+          "visibility": "beneficiaryEligibility.jVisaForeignResidenceRequirementYesCheckbox=true",
+          "key": "beneficiaryEligibility.compliedWithForeignResidenceYesCheckbox,beneficiaryEligibility.compliedWithForeignResidenceNoCheckbox",
+          "control": "radio",
+          "options": [
+            {
+              "value": "Yes",
+              "label": "text_Yes",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "No",
+              "label": "text_No",
+              "keyValue": "false,true"
+            }
+          ]
         }
       ]
     },
     {
-      "label": "text_GrantedWaiverOrRecommendation",
+      "label": "",
       "id": "",
-      "key": "beneficiaryEligibility.grantedWaiverOrRecommendationYesCheckbox,beneficiaryEligibility.grantedWaiverOrRecommendationNoCheckbox",
-      "control": "checkbox",
-      "options": [
+      "visibility": "beneficiaryEligibility.jVisaForeignResidenceRequirementYesCheckbox=true",
+      "control": "section",
+      "fields": [
         {
-          "value": "Yes",
-          "label": "text_Yes",
-          "keyValue": "true,false"
-        },
-        {
-          "value": "No",
-          "label": "text_No",
-          "keyValue": "false,true"
+          "label": "text_GrantedWaiverOrRecommendation",
+          "id": "",
+          "key": "beneficiaryEligibility.grantedWaiverOrRecommendationYesCheckbox,beneficiaryEligibility.grantedWaiverOrRecommendationNoCheckbox",
+          "control": "radio",
+          "options": [
+            {
+              "value": "Yes",
+              "label": "text_Yes",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "No",
+              "label": "text_No",
+              "keyValue": "false,true"
+            }
+          ]
         }
       ]
     },

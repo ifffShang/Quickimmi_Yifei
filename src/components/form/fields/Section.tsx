@@ -212,6 +212,7 @@ export function Section(props: SectionProps) {
               control={field.control}
               label={field.label}
               options={field.options}
+              linkage={field.linkage}
               placeholder={field.placeholder}
               className={field.className}
               maxChildPerRow={field.maxChildPerRow}

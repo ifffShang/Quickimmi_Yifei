@@ -1,30 +1,30 @@
 {
-  "id": "fields_part4_basic_information",
+  "id": "fields_petitioner_basic",
   "version": "2024-04-01",
   "type": "fields",
   "fields": [
-    { "label": "text_InformationAboutBeneficiary", "hideHeader": "true", "control": "label" },
+    { "label": "text_AboutYou", "hideHeader": "true", "control": "label" },
     {
       "label": "text_AlienRegistrationNumber",
-      "id": "part3.1",
-      "key": "beneficiary.alienNumber",
-      "control": "component_textbox_na"
+      "id": "part2.1",
+      "key": "petitioner.alienNumber",
+      "control": "text"
     },
     {
-      "label": "text_USCISOnlineAccountNumber",
-      "id": "part3.2",
-      "key": "beneficiary.uSCISOnlineAccountNumber",
+      "label": "text_UscisOnlineAccountNumber",
+      "id": "part2.2",
+      "key": "petitioner.uSCISOnlineAccountNumber",
       "control": "component_textbox_na"
     },
     {
       "label": "text_SocialSecurityNumber",
-      "id": "part3.3",
-      "key": "beneficiary.ssn",
+      "id": "part2.3",
+      "key": "petitioner.ssn",
       "control": "component_textbox_na"
     },
     {
       "label": "text_Name",
-      "id": "part3",
+      "id": "part2",
       "control": "group",
       "maxChildPerRow": "3",
       "fields": [
@@ -32,21 +32,21 @@
           "label": "text_FirstName",
           "placeholder": "text_FirstName",
           "id": "4.a",
-          "key": "beneficiary.firstName",
+          "key": "petitioner.firstName",
           "control": "text"
         },
         {
           "label": "text_MiddleName",
           "placeholder": "text_MiddleName",
           "id": "4.b",
-          "key": "beneficiary.middleName",
+          "key": "petitioner.middleName",
           "control": "component_textbox_na"
         },
         {
           "label": "text_LastName",
           "placeholder": "text_LastName",
           "id": "4.c",
-          "key": "beneficiary.lastName",
+          "key": "petitioner.lastName",
           "control": "text"
         }
       ]
@@ -55,41 +55,33 @@
       "label": "text_NamesUsedBeforeLabel(Pending due to data type changed to array)",
       "hideHeader": "true",
       "placeholder": "text_NamesUsedBefore",
-      "id": "part3.5.abc",
-      "key": "beneficiary.beneficiaryOtherNames",
-      "control": "label"
-    },
-    {
-      "label": "text_NamesUsedBeforeLabel(Pending due to data type changed to array)",
-      "hideHeader": "true",
-      "placeholder": "text_NamesUsedBefore",
-      "id": "part3.5.abc",
-      "key": "beneficiary.beneficiaryNationalities",
-      "control": "label"
+      "id": "part2.5.abc",
+      "key": "petitioner.petitionerOtherNames",
+      "control": "component_multi_names_na"
     },
     {
       "label": "text_CityOfBirth",
-      "id": "part3.6",
-      "key": "beneficiary.cityOfBirth",
+      "id": "part2.6",
+      "key": "petitioner.cityOfBirth",
       "control": "text"
     },
     {
       "label": "text_CountryOfBirth",
-      "id": "part3.7",
-      "key": "beneficiary.countryOfBirth",
+      "id": "part2.7",
+      "key": "petitioner.countryOfBirth",
       "control": "text"
     },
     {
       "label": "text_BirthDate",
-      "id": "part3.8",
-      "key": "beneficiary.dateOfBirth",
+      "id": "part2.8",
+      "key": "petitioner.dateOfBirth",
       "control": "datepicker"
     },
     {
       "label": "text_Gender",
       "placeholder": "text_Gender",
       "id": "gender",
-      "key": "beneficiary.sexMaleCheckbox,beneficiary.sexFemaleCheckbox",
+      "key": "petitioner.sexMaleCheckbox,petitioner.sexFemaleCheckbox",
       "control": "select",
       "options": [
         {
