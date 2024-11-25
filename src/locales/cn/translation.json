@@ -1167,5 +1167,12 @@
   ],
   "CaseStatusMenuOverview": "简介",
   "CaseStatusMenuDocuments": "相关文件",
-  "CaseStatusMenuApplicationForm": "申请表格"
+  "CaseStatusMenuApplicationForm": "申请表格",
+
+  "Organizations": "组织",
+  "AssociatedWithOrganization": "您是否曾经是任何组织、协会、基金会、基金、党派、俱乐部、社团或类似团体的成员、参与者，或以任何方式与其有联系，无论是在美国还是世界其他地方，包括任何军事服务？",
+  "AddOrganization": "添加组织",
+  "OrgName": "组织名称",
+  "NatureOfGroup": "团体性质",
+  "CityTown": "城市或城镇"
 }

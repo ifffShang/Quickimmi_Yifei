@@ -1178,5 +1178,13 @@
     "VISA EXTENSION",
     "CHANGE OF STATUS",
     "OTHER"
-  ]
+  ],
+
+  "Organizations": "Organizations",
+  "AssociatedWithOrganization": "Have you EVER been a member of, involved in, or in any way associated with any organization, association, fund, foundation, party, club, society, or similar group in the United States or in any other location in the world including any military service?",
+  "AddOrganization": "Add Organization",
+  "OrgName": "Name of Organization",
+  "NatureOfGroup": "Nature of Group",
+  "CityTown": "City or Town"
 }
+
