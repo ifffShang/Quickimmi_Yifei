@@ -4,11 +4,6 @@
   "type": "fields",
   "fields": [
     {
-      "label": "text_MostRecentEmployment",
-      "hideHeader": "true",
-      "control": "label"
-    },
-    {
       "label": "text_mostRecentOutSideUsEmploymentHistory5YearsAgo",
       "hideHeader": "true",
       "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo",
@@ -42,13 +37,13 @@
         },
         {
           "label": "text_NameOfEmployer",
-          "id": "name_and_address",
+          "id": "NameOfEmployer",
           "key": "beneficiary.employmentHistories[].nameOfEmployer",
           "control": "text"
         },
         {
           "label": "text_StreetNumberAndNameOfEmployer",
-          "id": "name_and_address",
+          "id": "text_StreetNumberAndNameOfEmployer",
           "key": "beneficiary.employmentHistories[].streetNumberAndName",
           "control": "text"
         },
@@ -89,31 +84,31 @@
         },
         {
           "label": "text_State",
-          "id": "name_and_address",
+          "id": "Employment_State",
           "key": "beneficiary.employmentHistories[].state",
           "control": "text"
         },
         {
           "label": "text_ZipCode",
-          "id": "name_and_address",
+          "id": "Employment_ZipCode",
           "key": "beneficiary.employmentHistories[].zipCode",
           "control": "text"
         },
         {
           "label": "text_Province",
-          "id": "name_and_address",
+          "id": "Employment_Province",
           "key": "beneficiary.employmentHistories[].province",
           "control": "text"
         },
         {
-          "label": "text_PostalCode",
-          "id": "name_and_address",
+          "label": "text_MailingPostalCode",
+          "id": "Employment_MailingPostalCode",
           "key": "beneficiary.employmentHistories[].postalCode",
           "control": "text"
         },
         {
           "label": "text_Country",
-          "id": "name_and_address",
+          "id": "Employment_Country",
           "key": "beneficiary.employmentHistories[].country",
           "control": "text"
         },

@@ -441,6 +441,13 @@
   "DateOfPreviousArrival": "如果之前在美国，请提供上次抵达的日期",
   "IsSpouseIncludedInApplication": "您的配偶是否包含在此申请中？",
   "SpecifyLocation": "请填写当前地址。",
+  "AdmittedAtPortOfEntry": "在入境口岸入境",
+  "AdmissionEntryDetail": "入境详情",
+  "ParoledAtPortOfEntry": "入境时假释",
+  "ParoleEntranceDetail": "假释入境详情",
+  "EnteredWithoutAdmission": "入境时没有被允许",
+  "OtherEntryMethod": "其他入境方式",
+  "OtherEntryDetail": "其他入境时详情",
 
   "HaveChildren": "您是否有子女？",
   "Child": "子女",
@@ -477,6 +484,7 @@
   "City": "城市",
   "State": "州",
   "ZipCode": "邮政编码",
+  "Province": "省",
   "TelephoneNumberOfMailingInUs": "美国邮寄地址电话号码",
   "InCareOfName": "收件人姓名",
   "MailingAddressInUs": "美国邮寄地址",
@@ -495,11 +503,16 @@
 
   "Employment": "就业",
   "AddEmployment": "添加就业",
-  "MostRecentEmployment": "请提供过去5年的就业情况。首先列出您目前的就业情况。",
   "NameAndAddressOfEmployer": "雇主名称和地址",
   "Occupation": "您的职业",
   "StartDate": "开始日期",
   "EndDate": "结束日期",
+  "MostRecentEmployment": "请提供过去5年的就业情况。首先列出您目前的就业情况。",
+  "mostRecentOutSideUsEmploymentHistory5YearsAgo": "请提供过去5年的境外就业情况中，其中最近的一次",
+  "InUSA": "在美国?",
+  "DaytimePhoneNumber": "日间联系电话",
+  "MobilePhoneNumber": "手机号",
+
 
   "Address": "地址",
   "AddAddress": "添加地址",
@@ -747,6 +760,7 @@
   "Employer1": "雇主1",
   "NameOfEmployer": "雇主/公司名称",
   "Employer2": "雇主2",
+  "StreetNumberAndNameOfEmployer": "雇主/公司的街道名和街道号",
 
   "BiographicInformation": "传记信息",
   "BiographicInformationNote": "注意：提供关于您的传记信息，申请人。",
