@@ -5,10 +5,9 @@
   "fields": [
     {
       "label": "text_AssociatedWithOrganization",
-      "hideHeader": "true",
       "id": "",
       "key": "beneficiaryEligibility.associatedWithOrganizationYesCheckbox,beneficiaryEligibility.associatedWithOrganizationNoCheckbox",
-      "control": "checkbox",
+      "control": "select",
       "options": [
         {
           "value": "Yes",
@@ -31,7 +30,6 @@
       "fields": [
         {
           "label": "text_OrgName",
-          "hideHeader": "true",
           "id": "",
           "key": "beneficiaryEligibility.organizations[].orgName",
           "control": "text"
@@ -82,10 +80,20 @@
     },
     {
       "label": "",
-      "placeholder": "text_AddOrganization",
+      "hideHeader": "true",
       "id": "",
-      "key": "count-beneficiaryEligibility.organizations",
-      "control": "component_add_item"
+      "visibility": "beneficiaryEligibility.associatedWithOrganizationYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "hideHeader": "true",
+          "placeholder": "text_AddOrganization",
+          "id": "",
+          "key": "count-beneficiaryEligibility.organizations",
+          "control": "component_add_item"
+        }
+      ]
     }
   ]
 }

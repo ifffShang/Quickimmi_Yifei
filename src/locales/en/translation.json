@@ -1234,5 +1234,35 @@
     "VISA EXTENSION",
     "CHANGE OF STATUS",
     "OTHER"
-  ]
+  ],
+
+  "Organizations": "Organizations",
+  "AssociatedWithOrganization": "Have you EVER been a member of, involved in, or in any way associated with any organization, association, fund, foundation, party, club, society, or similar group in the United States or in any other location in the world including any military service?",
+  "AddOrganization": "Add Organization",
+  "OrgName": "Name of Organization",
+  "NatureOfGroup": "Nature of Group",
+  "CityTown": "City or Town",
+
+  "ReceivedMilitaryOrWeaponsTraining": "Have you EVER received any type of military, paramilitary, or weapons training?",
+  "IntendToEngageInSeriousActivities": "Do you intend to engage in any unlawful activity?",
+  "SpouseOrChildCommittedSeriousCrime": "Are you the spouse or child of an individual who EVER: Committed, threatened to commit, attempted to commit, conspired to commit, incited, endorsed, advocated, planned, or prepared any of the following: hijacking, sabotage, kidnapping, political assassination, or use of a weapon or explosive to harm another individual or cause substantial damage to property?",
+  "SpouseOrChildMemberOfGroup": "Are you the spouse or child of an individual who EVER: Participated in, or been a member or a representative of a group or organization that did any of the activities described in previous question?",
+  "SpouseOrChildRecruitedForGroup": "Are you the spouse or child of an individual who EVER: Recruited members, or asked for money or things of value, for a group or organization that did any of the activities described in previous question?",
+  "SpouseOrChildProvidedSupport":"Are you the spouse or child of an individual who EVER: Provided money, a thing of value, services or labor, or any other assistance or support for any of the activities described in previous question?",
+  "SpouseOrChildProvidedSupportForIndividualOrGroup": "Are you the spouse or child of an individual who EVER: Provided money, a thing of value, services or labor, or any other assistance or support to an individual, group, or organization who did any of the activities described in previous question?",
+  "SpouseOrChildReceivedTraining": "Are you the spouse or child of an individual who EVER: Received any type of military, paramilitary, or weapons training from a group or organization that did any of the activities described in previous question?",
+  "AssistedInWeaponsActivities": "Have you EVER assisted or participated in selling, providing, or transporting weapons to any person who, to your knowledge, used them against another person?",
+  "WorkedOrVolunteeredInDetentionFacility": "Have you EVER worked, volunteered, or otherwise served in any prison, jail, prison camp, detention facility, labor camp, or any other situation that involved detaining persons?",
+  "ParticipatedInGroupUsingWeapons": "Have you EVER been a member of, assisted, or participated in any group, unit, or organization of any kind in which you or other persons used any type of weapon against any person or threatened to do so?",
+  "ServedInMilitaryOrArmedGroup": "Have you EVER served in, been a member of, assisted, or participated in any military unit, paramilitary unit, police unit, self-defense unit, vigilante unit, rebel group, guerrilla group, militia, insurgent organization, or any other armed group?",
+  "AffiliatedWithCommunistOrTotalitarianParty": "Have you EVER been a member of, or in any way affiliated with, the Communist Party or any other totalitarian party (in the United States or abroad)?",
+  "ParticipatedInNaziPersecution": "During the period from March 23, 1933 to May 8, 1945, did you ever order, incite, assist, or otherwise participate in the persecution of any person because of race, religion, national origin, or political opinion, in association with either the Nazi government of Germany or any organization or government associated or allied with the Nazi government of Germany?",
+  "InvolvedInTortureOrGenocide": "Have you EVER ordered, incited, called for, committed, assisted, helped with, or otherwise participated in acts involving torture or genocide?",
+  "KilledAnyPerson": "Have you EVER ordered, incited, called for, committed, assisted, helped with, or otherwise participated in killing any person?",
+  "SeverelyInjuredAnyPerson": "Have you EVER ordered, incited, called for, committed, assisted, helped with, or otherwise participated in intentionally and severely injuring any person?",
+  "EngagedInNonConsensualSexualContact": "Have you EVER ordered, incited, called for, committed, assisted, helped with, or otherwise participated in engaging in any kind of sexual contact or relations with any person who did not consent or was unable to consent, or was being forced or threatened?",
+  "LimitedReligiousBeliefs": "Have you EVER ordered, incited, called for, committed, assisted, helped with, or otherwise participated in limiting or denying any person's ability to exercise religious beliefs?",
+  "text_RecruitedChildSoldiers": "Have you EVER recruited, enlisted, conscripted, or used any person under 15 years of age to serve in or help an armed force or group?",
+  "UsedChildSoldiersInCombat": "Have you EVER used any person under 15 years of age to take part in hostilities, or to help or provide services to people in combat?",
+  "SubjectToPublicCharge": "Are you subject to the public charge ground of inadmissibility under INA section 212(a)(4)?"
 }
