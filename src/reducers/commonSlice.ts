@@ -24,6 +24,7 @@ export interface CommonState {
   selectedLanguage: Language;
   screenSize: ScreenSize;
   showNavbar: boolean;
+  onModalCloseCallback?: () => void;
 }
 
 const initialState: CommonState = {
@@ -48,12 +49,18 @@ export const commonSlice = createSlice({
     },
     openModal: (
       state,
-      action: PayloadAction<{ modalType: ModalType; modalData: KeyValues; closeModalButtonEnabled?: boolean }>,
+      action: PayloadAction<{
+        modalType: ModalType;
+        modalData: KeyValues;
+        closeModalButtonEnabled?: boolean;
+        onModalCloseCallback?: () => void;
+      }>,
     ) => {
       state.showModal = true;
       state.modalType = action.payload.modalType;
       state.modalData = action.payload.modalData;
       state.closeModalButtonEnabled = action.payload.closeModalButtonEnabled ?? true;
+      state.onModalCloseCallback = action.payload.onModalCloseCallback;
     },
     changeModalType: (state, action: PayloadAction<ModalType>) => {
       state.modalType = action.payload;
@@ -66,6 +73,8 @@ export const commonSlice = createSlice({
       state.modalType = "";
       state.tmpImageUrl = "";
       state.modalData = {};
+      state.closeModalButtonEnabled = true;
+      state.onModalCloseCallback = undefined;
     },
   },
 });

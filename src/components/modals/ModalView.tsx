@@ -22,10 +22,12 @@ interface ModalProps {
 
 function Modal({ children, closeButtonEnabled = true }: ModalProps) {
   const dispatch = useAppDispatch();
+  const onModalCloseCallback = useAppSelector(state => state.common.onModalCloseCallback);
 
-  const close = useCallback(() => {
+  const close = () => {
+    onModalCloseCallback && onModalCloseCallback();
     dispatch(closeModal());
-  }, [dispatch]);
+  };
 
   return (
     <div className="modalview-container">
