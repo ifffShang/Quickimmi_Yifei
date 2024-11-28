@@ -52,8 +52,8 @@
       "!**/__tests__/__mocks__/**"
     ],
     "collectCoverageFrom": [
-      "**/__tests__/**/*.test.{js,jsx,ts,tsx}",
-      "!/node_modules/"
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/setupTests.{js,ts}"
     ],
     "coverageThreshold": {
       "global": {

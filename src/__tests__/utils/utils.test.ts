@@ -1,3 +1,4 @@
+import { InitialSponsor } from "../../consts/familyBasedConsts";
 import { CaseType } from "../../model/immigrationTypes";
 import { updateCaseFields } from "../../reducers/formSlice";
 import { dispatchFormValue } from "../../utils/utils";
@@ -28,6 +29,22 @@ describe("dispatchFormValue", () => {
     expect(dispatch).toHaveBeenCalledWith(
       updateCaseFields({
         update: { family: { spouse: { firstName: "Jane Doe" } } },
+        caseType: caseType,
+      }),
+    );
+  });
+
+  it("should  dispatch updateCaseFields action with correct payload for array", () => {
+    const dispatch = jest.fn();
+    const caseType: CaseType = CaseType.Asylum;
+    const keyValues = { "sponsorList[]": InitialSponsor };
+    const fieldIndex = 0;
+
+    dispatchFormValue(dispatch, caseType, keyValues, fieldIndex);
+
+    expect(dispatch).toHaveBeenCalledWith(
+      updateCaseFields({
+        update: { sponsorList: [InitialSponsor] },
         caseType: caseType,
       }),
     );

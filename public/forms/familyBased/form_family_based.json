@@ -159,15 +159,33 @@
       ]
     },
     {
-      "label": "text_Statement",
+      "label": "text_Declaration",
       "id": "part6",
       "type": "level1",
       "steps": [
         {
-          "label": "text_Statement",
+          "label": "text_Statement1",
           "id": "part6",
           "type": "level2",
-          "referenceId": "familyBased/fields_statement_petitioner"
+          "referenceId": "familyBased/fields_statement_statement1"
+        },
+        {
+          "label": "text_Interpreter",
+          "id": "part6",
+          "type": "level2",
+          "referenceId": "familyBased/fields_statement_interpreter_details"
+        },
+        {
+          "label": "text_Statement2",
+          "id": "part6",
+          "type": "level2",
+          "referenceId": "familyBased/fields_statement_statement2"
+        },
+        {
+          "label": "text_Preparer",
+          "id": "part6",
+          "type": "level2",
+          "referenceId": "familyBased/fields_statement_preparer_details"
         }
       ]
     },
@@ -181,19 +199,6 @@
           "id": "part7",
           "type": "level2",
           "referenceId": "familyBased/fields_sponsor_list"
-        }
-      ]
-    },
-    {
-      "label": "text_Interpreter",
-      "id": "part7",
-      "type": "level1",
-      "steps": [
-        {
-          "label": "text_Interpreter",
-          "id": "part7",
-          "type": "level2",
-          "referenceId": "familyBased/fields_interpreter_information"
         }
       ]
     },

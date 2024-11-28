@@ -1,0 +1,179 @@
+{
+  "id": "fields_statement_interpreter_details",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    {
+      "label": "text_InterpreterFamilyNameAndGivenName",
+      "id": "5.1",
+      "control": "group",
+      "maxChildPerRow": "3",
+      "fields": [
+        {
+          "label": "text_LastName",
+          "placeholder": "text_LastName",
+          "id": "5.1.a",
+          "key": "interpreter.lastname",
+          "control": "text"
+        },
+        {
+          "label": "text_FirstName",
+          "placeholder": "text_FirstName",
+          "id": "5.1.b",
+          "key": "interpreter.firstname",
+          "control": "text"
+        }
+      ]
+    },
+    {
+      "label": "text_InterpreterBusinessName",
+      "placeholder": "text_EnterIfApplicable",
+      "id": "",
+      "key": "interpreter.businessname",
+      "control": "text"
+    },
+    {
+      "label": "text_InterpreterMailingAddress",
+      "id": "5.3",
+      "control": "group",
+      "maxChildPerRow": "3",
+      "fields": [
+        {
+          "label": "text_Street",
+          "placeholder": "text_Street",
+          "id": "street",
+          "key": "interpreter.streetnumberandname",
+          "control": "text"
+        },
+        {
+          "label": "",
+          "id": "apartment_number",
+          "key": "interpreter.aptcheckbox,interpreter.stecheckbox,interpreter.flrCheckbox",
+          "control": "radio",
+          "className": "apt-ste-flr-checkbox",
+          "options": [
+            {
+              "label": "text_Apartment",
+              "value": "aptCheckbox",
+              "keyValue": "true,false,false"
+            },
+            {
+              "label": "text_Ste",
+              "value": "steCheckbox",
+              "keyValue": "false,true,false"
+            },
+            {
+              "label": "text_Flr",
+              "value": "flrCheckbox",
+              "keyValue": "false,false,true"
+            }
+          ]
+        },
+        {
+          "label": "",
+          "placeholder": "text_Apt/Ste/FlrNumber",
+          "id": "apartment_number",
+          "key": "interpreter.aptsteflrnumber",
+          "control": "text"
+        },
+        {
+          "label": "text_City",
+          "placeholder": "text_City",
+          "id": "city",
+          "key": "interpreter.city",
+          "control": "text"
+        },
+        {
+          "label": "text_State",
+          "placeholder": "text_State",
+          "id": "state",
+          "key": "interpreter.state",
+          "control": "text"
+        },
+        {
+          "label": "text_ZipCode",
+          "placeholder": "text_ZipCode",
+          "id": "zip_code",
+          "key": "interpreter.zipcode",
+          "control": "text"
+        },
+        {
+          "label": "text_Province",
+          "placeholder": "text_Province",
+          "id": "",
+          "key": "interpreter.province",
+          "control": "text"
+        },
+        {
+          "label": "text_PostalCode",
+          "placeholder": "text_PostalCode",
+          "id": "",
+          "key": "interpreter.postalcode",
+          "control": "text"
+        },
+        {
+          "label": "text_Country",
+          "placeholder": "text_Country",
+          "id": "",
+          "key": "interpreter.country",
+          "control": "text"
+        }
+      ]
+    },
+    {
+      "label": "text_InterpreterContactInformation",
+      "hideHeader": "true",
+      "control": "label",
+      "className": "form-field-sub-header"
+    },
+    {
+      "label": "text_InterpreterDaytimeTelephoneNumber",
+      "id": "",
+      "key": "interpreter.daytimetelephonenumber",
+      "control": "text"
+    },
+    {
+      "label": "text_InterpreterMobileTelephoneNumber",
+      "id": "",
+      "key": "interpreter.mobiletelephonenumber",
+      "control": "text"
+    },
+    {
+      "label": "text_InterpreterEmailAddress",
+      "id": "",
+      "key": "interpreter.emailaddress",
+      "control": "text"
+    },
+    {
+      "label": "text_InterpreterCertification",
+      "hideHeader": "true",
+      "control": "label",
+      "className": "form-field-sub-header"
+    },
+    {
+      "label": "text_InterpreterFluentInEnglishAndTranslatedLanguage",
+      "hideHeader": "true",
+      "control": "label",
+      "className": "form-field-regular-text"
+    },
+    {
+      "label": "text_EnterTranslatedLanguage",
+      "placeholder": "",
+      "id": "6",
+      "key": "interpreter.fluentinenglish",
+      "control": "text",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false"
+        }
+      ]
+    }
+  ]
+}

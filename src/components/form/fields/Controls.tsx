@@ -392,7 +392,15 @@ export function CheckBox(props: CheckBoxProps) {
   const handleChange = (e: any) => {
     setChecked(e.target.checked);
     if (props.options && Array.isArray(props.options)) {
-      const keyValue = props.options.find(option => option.value === e.target.checked)?.keyValue;
+      const keyValue = props.options.find(option => {
+        if (typeof option.keyValue === "string") {
+          // example: option.keyValue is "true,false"
+          return option.keyValue.split(",")[0] === e.target.checked.toString();
+        } else {
+          // example: option.keyValue is true or false
+          return option.keyValue === e.target.checked;
+        }
+      })?.keyValue;
       props.onChange(keyValue || "");
     } else {
       props.onChange(e.target.checked);
