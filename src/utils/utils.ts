@@ -258,7 +258,7 @@ export function dispatchFormValue(
         array[fieldIndex] = value;
         valueUsed = array;
       }
-      caseFieldsToUpdate[key] = valueUsed;
+      caseFieldsToUpdate[subKey] = valueUsed;
     } else {
       const caseWithUpdatedField = createNestedObject(keys, valueUsed, fieldIndex);
       caseFieldsToUpdate = _.merge(caseFieldsToUpdate, caseWithUpdatedField);

@@ -1,0 +1,13 @@
+{
+  "id": "fields_statement_preparer_details",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    {
+      "label": "text_TODO (Backend model is not ready for preparer)",
+      "hideHeader": "true",
+      "placeholder": "",
+      "control": "label"
+    }
+  ]
+}

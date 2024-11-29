@@ -303,7 +303,11 @@ export function FormField(props: FormFieldProps) {
 
   switch (props.control) {
     case "label":
-      return <QText level="normal bold">{wt(props.label)}</QText>;
+      return (
+        <QText level="normal" className={props.className}>
+          {wt(props.label)}
+        </QText>
+      );
     case "text":
       return (
         <FormControlContainer fieldValue={fieldValue}>

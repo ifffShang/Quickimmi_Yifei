@@ -1,3 +1,32 @@
 .section-container > div {
   margin-bottom: 40px;
 }
+
+.form-field-sub-header {
+  background-color: var(--gray-color-4);
+  color: var(--gray-color-1);
+  padding: 10px 10px;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.form-field-regular-text,
+.text.normal.form-field-regular-text {
+  font-size: var(--font-size-p3);
+}
+
+.form-field-instruction,
+.text.normal.form-field-instruction {
+  font-size: var(--font-size-p3);
+  color: var(--info-color);
+  background-color: var(--info-color-background);
+  padding: 10px 10px;
+}
+
+.form-field-instruction-passive,
+.text.normal.form-field-instruction-passive {
+  font-size: var(--font-size-p3);
+  color: var(--gray-color-2);
+  background-color: var(--gray-color-4);
+  padding: 10px 10px;
+}
