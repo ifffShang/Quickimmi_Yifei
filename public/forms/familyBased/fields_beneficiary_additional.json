@@ -177,7 +177,7 @@
       "placeholder": "text_ExpirationDateForPassport",
       "id": "403",
       "key": "beneficiary.lastArrivalInformation.expirationDateForPassport",
-      "control": "date"
+      "control": "datepicker"
     },
     {
       "label": "text_VisaNumber",
@@ -256,22 +256,22 @@
       ]
     },
     {
-      "label": "text_CityOrTown",
+      "label": "text_CityOrTownOfProceedings",
       "placeholder": "text_CityOrTown",
       "id": "55.a",
       "key": "beneficiary.cityOfProceedings",
       "control": "text"
     },
     {
-      "label": "text_State",
-      "placeholder": "text_State",
+      "label": "text_StateOfProceedings",
+      "placeholder": "text_StateOfProceedings",
       "id": "55.b",
       "key": "beneficiary.stateOfProceedings",
       "control": "text"
     },
     {
-      "label": "text_Date(mm/dd/yyyy)",
-      "placeholder": "text_Date(mm/dd/yyyy)",
+      "label": "text_DateOfProceedings",
+      "placeholder": "text_DateOfProceedings",
       "id": "55.a",
       "key": "beneficiary.dateOfProceedings",
       "control": "datepicker"
