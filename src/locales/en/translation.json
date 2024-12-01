@@ -977,8 +977,10 @@
   "CompliedWithForeignResidence": "Have you complied with the foreign residence requirement?",
   "GrantedWaiverOrRecommendation": "Have you been granted a waiver or has Department of State issued a favorable waiver recommendation letter for you?",
 
-  "Statement1": "Statement 1",
-  "Statement2": "Statement 2",
+  "Apartment": "Apartment",
+  "Ste": "Ste",
+  "Flr": "Flr",
+  "Statement": "Statement",
   "SpouseBeneficiaryStatementDescription": "Select the box that describes the beneficiary's statement",
   "CanReadAndUnderstandEnglishCheckbox": "I can read and understand English, and I have read and understand every question and instruction on this form and my answer to every question.",
   "InterpreterReadAndTranslatedCheckbox": "The interpreter read to me every question and instruction on this form and my answer to every question ina language in which I am fluent, and I understood everything.",
@@ -999,6 +1001,23 @@
   "EnterTranslatedLanguage": "Please enter the language you translated to the beneficiary",
   "CompletePreparerInformationNextSection": "Please fill out the preparer information in the next section as you used a preparer to complete this form.",
   "SkipPreparerInformationNextSection": "Since you did not use a preparer to complete this form, you can skip the preparer information form in the next section.",
+
+  "IAmSponsor": "I am the sponsor submitting this affidavit of support because (Select one option below)",
+  "IsPetitioner": "I am the petitioner. I filed or am filing for the immigration of my relative.",
+  "FiledAlienWorkerPetition": "I filed an alien worker petition on behalf of the intending immigrant.",
+  "OwnershipInterest5Percent": "I have an ownership interest of at least 5 percent in the entity which filed an alien worker petition on behalf of the intending immigrant.",
+  "OnlyJointSponsor": "I am the only joint sponsor.",
+  "NotOnlyJointSponsor": "I am not the only joint sponsor.",
+  "SubstituteSponsor": "The original petitioner is deceased. I am the substitute sponsor.",
+  "RelationshipToImmigrant": "You selected the option that you filed an alien worker petition on behalf of the intending immigrant, who is related to me as my",
+  "OwnershipInterestDescription": "You selected the option that you have an ownership interest of at least 5 percent in",
+  "OwnershipRelationshipToImmigrant": "The intending immigrant is related to me as my",
+  "FirstOrSecondJointSponsor": "You selected the option that you are not the only joint sponsor. You are the",
+  "FirstOfTwoJointSponsors": "First of two joint sponsors",
+  "SecondOfTwoJointSponsors": "Second of two joint sponsors",
+  "SubstituteSponsorRelationship": "You selected the option that you are the substitute sponsor. You are the intending immigrant's",
+
+  "NameOfPrincipalImmigrant": "Name of the Principal Immigrant",
 
   "RaceOptions": [
     "American Indian or Alaska Native",
