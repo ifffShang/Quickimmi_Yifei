@@ -5,180 +5,145 @@
   "fields": [
     {
       "label": "text_SponsorList",
-      "id": "employment_information",
+      "id": "i864-part1",
       "key": "count-sponsorList",
       "control": "sortable_section",
       "fields": [
         {
-          "label": "text_IsPetitioner",
-          "key": "sponsorList[].basicInfo.isPetitionerCheckbox",
+          "label": "text_IAmSponsor",
+          "key": "sponsorList[].basicInfo.isPetitionerCheckbox,sponsorList[].basicInfo.filedAlienWorkerPetitionCheckbox,sponsorList[].basicInfo.ownershipInterest5PercentCheckbox,sponsorList[].basicInfo.onlyJointSponsorCheckbox,sponsorList[].basicInfo.notOnlyJointSponsorCheckbox,sponsorList[].basicInfo.substituteSponsorCheckbox",
           "control": "radio",
           "options": [
             {
-              "value": "Yes",
-              "label": "text_Yes",
-              "keyValue": "true,false"
+              "value": "IsPetitioner",
+              "label": "text_IsPetitioner",
+              "keyValue": "true,false,false,false,false,false"
             },
             {
-              "value": "No",
-              "label": "text_No",
-              "keyValue": "false,true"
-            }
-          ]
-        },
-        {
-          "label": "text_FiledAlienWorkerPetition",
-          "key": "sponsorList[].basicInfo.filedAlienWorkerPetitionCheckbox",
-          "control": "radio",
-          "options": [
-            {
-              "value": "Yes",
-              "label": "text_Yes",
-              "keyValue": "true,false"
+              "value": "FiledAlienWorkerPetition",
+              "label": "text_FiledAlienWorkerPetition",
+              "keyValue": "false,true,false,false,false,false"
             },
             {
-              "value": "No",
-              "label": "text_No",
-              "keyValue": "false,true"
+              "value": "OwnershipInterest5Percent",
+              "label": "text_OwnershipInterest5Percent",
+              "keyValue": "false,false,true,false,false,false"
+            },
+            {
+              "value": "OnlyJointSponsor",
+              "label": "text_OnlyJointSponsor",
+              "keyValue": "false,false,false,true,false,false"
+            },
+            {
+              "value": "NotOnlyJointSponsor",
+              "label": "text_NotOnlyJointSponsor",
+              "keyValue": "false,false,false,false,true,false"
+            },
+            {
+              "value": "SubstituteSponsor",
+              "label": "text_SubstituteSponsor",
+              "keyValue": "false,false,false,false,false,true"
             }
           ]
         },
         {
           "label": "text_RelationshipToImmigrant",
-          "key": "sponsorList[].basicInfo.relationshipToImmigrant",
-          "control": "text"
-        },
-        {
-          "label": "text_OwnershipInterest5Percent",
-          "key": "sponsorList[].basicInfo.ownershipInterest5PercentCheckbox",
-          "control": "radio",
-          "options": [
+          "hideHeader": "true",
+          "id": "i864-part1.1b",
+          "visibility": "sponsorList[].basicInfo.filedAlienWorkerPetitionCheckbox=true",
+          "control": "section",
+          "fields": [
             {
-              "value": "Yes",
-              "label": "text_Yes",
-              "keyValue": "true,false"
-            },
-            {
-              "value": "No",
-              "label": "text_No",
-              "keyValue": "false,true"
+              "label": "text_RelationshipToImmigrant",
+              "key": "sponsorList[].basicInfo.relationshipToImmigrant",
+              "control": "text"
             }
           ]
         },
         {
           "label": "text_OwnershipInterestDescription",
-          "key": "sponsorList[].basicInfo.ownershipInterestDescription",
-          "control": "text"
-        },
-        {
-          "label": "text_OwnershipRelationshipToImmigrant",
-          "key": "sponsorList[].basicInfo.ownershipRelationshipToImmigrant",
-          "control": "text"
-        },
-        {
-          "label": "text_OnlyJointSponsor",
-          "key": "sponsorList[].basicInfo.onlyJointSponsorCheckbox",
-          "control": "radio",
-          "options": [
+          "hideHeader": "true",
+          "id": "i864-part1.1c",
+          "visibility": "sponsorList[].basicInfo.ownershipInterest5PercentCheckbox=true",
+          "control": "section",
+          "fields": [
             {
-              "value": "Yes",
-              "label": "text_Yes",
-              "keyValue": "true,false"
+              "label": "text_OwnershipInterestDescription",
+              "key": "sponsorList[].basicInfo.ownershipInterestDescription",
+              "control": "text"
             },
             {
-              "value": "No",
-              "label": "text_No",
-              "keyValue": "false,true"
+              "label": "text_OwnershipRelationshipToImmigrant",
+              "key": "sponsorList[].basicInfo.ownershipRelationshipToImmigrant",
+              "control": "text"
             }
           ]
         },
         {
-          "label": "text_NotOnlyJointSponsor",
-          "key": "sponsorList[].basicInfo.notOnlyJointSponsorCheckbox",
-          "control": "radio",
-          "options": [
+          "label": "text_FirstOrSecondJointSponsor",
+          "hideHeader": "true",
+          "id": "i864-part1.1e",
+          "visibility": "sponsorList[].basicInfo.notOnlyJointSponsorCheckbox=true",
+          "control": "section",
+          "fields": [
             {
-              "value": "Yes",
-              "label": "text_Yes",
-              "keyValue": "true,false"
-            },
-            {
-              "value": "No",
-              "label": "text_No",
-              "keyValue": "false,true"
-            }
-          ]
-        },
-        {
-          "label": "text_FirstJointSponsor",
-          "key": "sponsorList[].basicInfo.firstJointSponsorCheckbox",
-          "control": "radio",
-          "options": [
-            {
-              "value": "Yes",
-              "label": "text_Yes",
-              "keyValue": "true,false"
-            },
-            {
-              "value": "No",
-              "label": "text_No",
-              "keyValue": "false,true"
-            }
-          ]
-        },
-        {
-          "label": "text_SecondJointSponsor",
-          "key": "sponsorList[].basicInfo.secondJointSponsorCheckbox",
-          "control": "radio",
-          "options": [
-            {
-              "value": "Yes",
-              "label": "text_Yes",
-              "keyValue": "true,false"
-            },
-            {
-              "value": "No",
-              "label": "text_No",
-              "keyValue": "false,true"
-            }
-          ]
-        },
-        {
-          "label": "text_SubstituteSponsor",
-          "key": "sponsorList[].basicInfo.substituteSponsorCheckbox",
-          "control": "radio",
-          "options": [
-            {
-              "value": "Yes",
-              "label": "text_Yes",
-              "keyValue": "true,false"
-            },
-            {
-              "value": "No",
-              "label": "text_No",
-              "keyValue": "false,true"
+              "label": "text_FirstOrSecondJointSponsor",
+              "key": "sponsorList[].basicInfo.firstJointSponsorCheckbox,sponsorList[].basicInfo.secondJointSponsorCheckbox",
+              "control": "radio",
+              "options": [
+                {
+                  "value": "FirstOfTwoJointSponsors",
+                  "label": "text_FirstOfTwoJointSponsors",
+                  "keyValue": "true,false"
+                },
+                {
+                  "value": "SecondOfTwoJointSponsors",
+                  "label": "text_SecondOfTwoJointSponsors",
+                  "keyValue": "false,true"
+                }
+              ]
             }
           ]
         },
         {
           "label": "text_SubstituteSponsorRelationship",
-          "key": "sponsorList[].basicInfo.substituteSponsorRelationship",
-          "control": "text"
+          "hideHeader": "true",
+          "id": "i864-part1.1f",
+          "visibility": "sponsorList[].basicInfo.substituteSponsorCheckbox=true",
+          "control": "section",
+          "fields": [
+            {
+              "label": "text_SubstituteSponsorRelationship",
+              "key": "sponsorList[].basicInfo.substituteSponsorRelationship",
+              "control": "text"
+            }
+          ]
         },
         {
-          "label": "text_LastName",
-          "key": "sponsorList[].sponsorDetails.lastName",
-          "control": "text"
-        },
-        {
-          "label": "text_FirstName",
-          "key": "sponsorList[].sponsorDetails.firstName",
-          "control": "text"
-        },
-        {
-          "label": "text_MiddleName",
-          "key": "sponsorList[].sponsorDetails.middleName",
-          "control": "text"
+          "label": "text_NameOfPrincipalImmigrant",
+          "id": "i864-part2",
+          "control": "group",
+          "maxChildPerRow": "3",
+          "fields": [
+            {
+              "label": "text_FirstName",
+              "placeholder": "text_FirstName",
+              "key": "sponsorList[].sponsorDetails.firstName",
+              "control": "text"
+            },
+            {
+              "label": "text_MiddleName",
+              "placeholder": "text_MiddleName",
+              "key": "sponsorList[].sponsorDetails.middleName",
+              "control": "text"
+            },
+            {
+              "label": "text_LastName",
+              "placeholder": "text_LastName",
+              "key": "sponsorList[].sponsorDetails.lastName",
+              "control": "text"
+            }
+          ]
         },
         {
           "label": "text_InCareOfName",
