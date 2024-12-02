@@ -1249,7 +1249,9 @@
   "SeverelyInjuredAnyPerson": "Have you EVER ordered, incited, called for, committed, assisted, helped with, or otherwise participated in intentionally and severely injuring any person?",
   "EngagedInNonConsensualSexualContact": "Have you EVER ordered, incited, called for, committed, assisted, helped with, or otherwise participated in engaging in any kind of sexual contact or relations with any person who did not consent or was unable to consent, or was being forced or threatened?",
   "LimitedReligiousBeliefs": "Have you EVER ordered, incited, called for, committed, assisted, helped with, or otherwise participated in limiting or denying any person's ability to exercise religious beliefs?",
-  "text_RecruitedChildSoldiers": "Have you EVER recruited, enlisted, conscripted, or used any person under 15 years of age to serve in or help an armed force or group?",
+  "RecruitedChildSoldiers": "Have you EVER recruited, enlisted, conscripted, or used any person under 15 years of age to serve in or help an armed force or group?",
   "UsedChildSoldiersInCombat": "Have you EVER used any person under 15 years of age to take part in hostilities, or to help or provide services to people in combat?",
-  "SubjectToPublicCharge": "Are you subject to the public charge ground of inadmissibility under INA section 212(a)(4)?"
+  "SubjectToPublicCharge": "Are you subject to the public charge ground of inadmissibility under INA section 212(a)(4)?",
+  "SeriousActivitiesExplanation": "Please explain the circumstances, including dates and locations:",
+  "SpouseOrChildSeriousActivitiesExplanation": "Please explain the relationship and what occurred, including the dates and location of the circumstances:"
 }
