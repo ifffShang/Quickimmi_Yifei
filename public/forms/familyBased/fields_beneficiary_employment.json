@@ -10,9 +10,129 @@
       "control": "label"
     },
     {
-      "label": "text_Employment",
+      "label": "text_InUSA",
       "hideHeader": "true",
-      "id": "employment_information",
+      "id": "",
+      "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.inUSA",
+      "control": "checkbox",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false"
+        }
+      ]
+    },
+    {
+      "label": "text_NameOfEmployer",
+      "id": "NameOfEmployer",
+      "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.nameOfEmployer",
+      "control": "text"
+    },
+    {
+      "label": "text_StreetNumberAndNameOfEmployer",
+      "id": "text_StreetNumberAndNameOfEmployer",
+      "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.streetNumberAndName",
+      "control": "text"
+    },
+    {
+      "label": "text_AptSuiteFloor",
+      "id": "",
+      "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.aptCheckbox,beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.steCheckbox,beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.flrCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Apt",
+          "label": "text_Apt",
+          "keyValue": "true,false,false"
+        },
+        {
+          "value": "Ste",
+          "label": "text_Ste",
+          "keyValue": "false,true,false"
+        },
+        {
+          "value": "Flr",
+          "label": "text_Flr",
+          "keyValue": "false,false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_AptSteFlrNumber",
+      "id": "43.b",
+      "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.aptSteFlrNumber",
+      "control": "text"
+    },
+    {
+      "label": "text_City",
+      "id": "43.c",
+      "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.city",
+      "control": "text"
+    },
+    {
+      "label": "text_State",
+      "id": "Employment_State",
+      "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.state",
+      "control": "text"
+    },
+    {
+      "label": "text_ZipCode",
+      "id": "Employment_ZipCode",
+      "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.zipCode",
+      "control": "text"
+    },
+    {
+      "label": "text_Province",
+      "id": "Employment_Province",
+      "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.province",
+      "control": "text"
+    },
+    {
+      "label": "text_MailingPostalCode",
+      "id": "Employment_MailingPostalCode",
+      "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.postalCode",
+      "control": "text"
+    },
+    {
+      "label": "text_Country",
+      "id": "Employment_Country",
+      "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.country",
+      "control": "text"
+    },
+    {
+      "label": "text_Occupation",
+      "id": "occupation",
+      "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.occupation",
+      "control": "text"
+    },
+    {
+      "label": "text_StartDate",
+      "placeholder": "text_MM/YYYY",
+      "id": "employment_start_date",
+      "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.dateFrom",
+      "control": "monthyearpicker"
+    },
+    {
+      "label": "text_EndDate",
+      "placeholder": "text_MM/YYYY",
+      "id": "employment_end_date",
+      "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.dateTo",
+      "control": "monthyearpicker"
+    },
+    {
+      "label": "",
+      "control": "divider"
+    },
+    {
+      "label": "text_MostRecentEmployment",
+      "hideHeader": "true",
+      "id": "MostRecentEmployment",
       "key": "count-beneficiary.employmentHistories",
       "control": "sortable_section",
       "fields": [

@@ -25,9 +25,9 @@
       "control": "text"
     },
     {
-      "label": "text_EthinicitySelectOne",
-      "placeholder": "text_EthinicitySelectOne",
-      "id": "part3.1",
+      "label": "text_HasAnyoneElseEverfiled",
+      "placeholder": "text_HasAnyoneElseEverfiled",
+      "id": "part4.10",
       "key": "beneficiary.previousPetitionFiledYesCheckbox,beneficiary.previousPetitionFiledNoCheckbox,beneficiary.previousPetitionFiledUnknownCheckbox",
       "control": "select",
       "options": [

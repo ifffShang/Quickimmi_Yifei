@@ -372,6 +372,81 @@ export function SelectBox(props: SelectBoxProps) {
   );
 }
 
+/** Select multi-options control ***************************************************/
+
+export interface SelectMultiOptionsProps {
+  options: IFormOptions[] | string;
+  onChange: (value: string[]) => void;
+  placeholder?: string;
+  selectedValues?: any;
+  disabled?: boolean;
+  
+}
+
+export function SelectMultiOptions(props: SelectMultiOptionsProps) {
+  const { wa, wt } = useFormTranslation();
+  const options = Array.isArray(props.options)
+    ? props.options.map(option => ({
+        label: wt(option.label),
+        value: option.value,
+      }))
+    : wa(props.options);
+
+  const [selectedValues, setSelectedValues] = useState(props.selectedValues || []);
+
+  useEffect(() => {
+    setSelectedValues(props.selectedValues || []);
+  }, [props.selectedValues]);
+
+  const handleChange = (selectedValues: string[]) => {
+    if (!props.options || !Array.isArray(props.options) || props.options.length === 0) {
+      console.error("Options are required for select multi-options control");
+      return;
+    }
+    setSelectedValues(selectedValues);
+    props.onChange(selectedValues);
+  };
+
+  if (!props.options || !Array.isArray(props.options) || props.options.length === 0) {
+    return <>Options are required for checkbox multi-options control</>;
+  }
+
+  return (
+    <div className="select-multi-box">
+      <Select
+        showSearch
+        mode="multiple"  allowClear
+        placeholder={props.placeholder || "Select an option"}
+        onChange={handleChange}
+        disabled={props.disabled || false}
+        options={options}
+        value={selectedValues}
+        getPopupContainer={trigger => trigger.parentElement || document.body}
+      />
+      {selectedValues && (
+        <div className="inline-placeholder">
+          <QText level="placeholder">{props.placeholder}</QText>
+        </div>
+      )}
+    </div>
+
+    // <Checkbox.Group
+    //   className="select-multi-options-container"
+    //   onChange={handleChange}
+    //   disabled={props.disabled}
+    //   value={checkedValues}
+    // >
+    //   {props.options.map(option => (
+    //     <div key={option.value} className="checkbox-multi-option">
+    //       <Checkbox value={option.value}>
+    //         <QText level="normal">{wt(option.label)}</QText>
+    //       </Checkbox>
+    //     </div>
+    //   ))}
+    // </Checkbox.Group>
+  );
+}
+
 /** Checkbox control ***************************************************/
 
 export interface CheckBoxProps {

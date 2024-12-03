@@ -89,10 +89,10 @@
           "referenceId": "familyBased/fields_beneficiary_marriage"
         },
         {
-          "label": "text_Parents",
+          "label": "text_Family",
           "id": "part4",
           "type": "level2",
-          "referenceId": "familyBased/fields_beneficiary_parents"
+          "referenceId": "familyBased/fields_beneficiary_family"
         },
         {
           "label": "text_Employment",

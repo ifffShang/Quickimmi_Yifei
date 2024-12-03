@@ -26,7 +26,7 @@
           "id": "background_address",
           "key": "background.usAddressHistoriesPast5Years[].country,background.usAddressHistoriesPast5Years[].province,background.usAddressHistoriesPast5Years[].city",
           "linkage": "MultiInOneLinkage",
-          "control": "componet_location_dropdown_splitted"
+          "control": "component_location_dropdown_splitted"
         },
         {
           "label": "text_StartDate",
