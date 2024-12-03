@@ -22,6 +22,21 @@
       ]
     },
     {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.receivedMilitaryOrWeaponsTrainingYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_SeriousActivitiesExplanation",
+          "id": "",
+          "key": "eligibility.militaryTrainingExplanation",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_IntendToEngageInSeriousActivities",
       "id": "",
       "key": "beneficiaryEligibility.intendToEngageInSeriousActivitiesYesCheckbox,beneficiaryEligibility.intendToEngageInSeriousActivitiesNoCheckbox",
@@ -36,6 +51,21 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.intendToEngageInSeriousActivitiesYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_SeriousActivitiesExplanation",
+          "id": "",
+          "key": "eligibility.seriousActivitiesExplanation",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -58,6 +88,21 @@
       ]
     },
     {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.spouseOrChildCommittedSeriousCrimeYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_SpouseOrChildSeriousActivitiesExplanation",
+          "id": "",
+          "key": "",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_SpouseOrChildMemberOfGroup",
       "id": "",
       "key": "beneficiaryEligibility.spouseOrChildMemberOfGroupYesCheckbox,beneficiaryEligibility.spouseOrChildMemberOfGroupNoCheckbox",
@@ -72,6 +117,21 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.spouseOrChildMemberOfGroupYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_SpouseOrChildSeriousActivitiesExplanation",
+          "id": "",
+          "key": "",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -94,6 +154,21 @@
       ]
     },
     {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.spouseOrChildRecruitedForGroupYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_SpouseOrChildSeriousActivitiesExplanation",
+          "id": "",
+          "key": "",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_SpouseOrChildProvidedSupport",
       "id": "",
       "key": "beneficiaryEligibility.spouseOrChildProvidedSupportYesCheckbox,beneficiaryEligibility.spouseOrChildProvidedSupportNoCheckbox",
@@ -108,6 +183,21 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.spouseOrChildProvidedSupportYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_SpouseOrChildSeriousActivitiesExplanation",
+          "id": "",
+          "key": "",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -130,6 +220,21 @@
       ]
     },
     {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.spouseOrChildProvidedSupportForIndividualOrGroupYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_SpouseOrChildSeriousActivitiesExplanation",
+          "id": "",
+          "key": "",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_SpouseOrChildReceivedTraining",
       "id": "",
       "key": "beneficiaryEligibility.spouseOrChildReceivedTrainingYesCheckbox,beneficiaryEligibility.spouseOrChildReceivedTrainingNoCheckbox",
@@ -144,6 +249,21 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.spouseOrChildReceivedTrainingYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_SpouseOrChildSeriousActivitiesExplanation",
+          "id": "",
+          "key": "",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -166,6 +286,21 @@
       ]
     },
     {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.assistedInWeaponsActivitiesYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_SeriousActivitiesExplanation",
+          "id": "",
+          "key": "",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_WorkedOrVolunteeredInDetentionFacility",
       "id": "",
       "key": "beneficiaryEligibility.workedOrVolunteeredInDetentionFacilityYesCheckbox,beneficiaryEligibility.workedOrVolunteeredInDetentionFacilityNoCheckbox",
@@ -180,6 +315,21 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.workedOrVolunteeredInDetentionFacilityYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_SeriousActivitiesExplanation",
+          "id": "",
+          "key": "",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -202,6 +352,21 @@
       ]
     },
     {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.participatedInGroupUsingWeaponsYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_SeriousActivitiesExplanation",
+          "id": "",
+          "key": "",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_ServedInMilitaryOrArmedGroup",
       "id": "",
       "key": "beneficiaryEligibility.servedInMilitaryOrArmedGroupYesCheckbox,beneficiaryEligibility.servedInMilitaryOrArmedGroupNoCheckbox",
@@ -216,6 +381,21 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.servedInMilitaryOrArmedGroupYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_SeriousActivitiesExplanation",
+          "id": "",
+          "key": "",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -238,6 +418,21 @@
       ]
     },
     {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.affiliatedWithCommunistOrTotalitarianPartyYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_SeriousActivitiesExplanation",
+          "id": "",
+          "key": "",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_ParticipatedInNaziPersecution",
       "id": "",
       "key": "beneficiaryEligibility.participatedInNaziPersecutionYesCheckbox,beneficiaryEligibility.participatedInNaziPersecutionNoCheckbox",
@@ -252,6 +447,21 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.participatedInNaziPersecutionYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_SeriousActivitiesExplanation",
+          "id": "",
+          "key": "",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -274,6 +484,21 @@
       ]
     },
     {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.involvedInTortureOrGenocideYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_SeriousActivitiesExplanation",
+          "id": "",
+          "key": "",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_KilledAnyPerson",
       "id": "",
       "key": "beneficiaryEligibility.killedAnyPersonYesCheckbox,beneficiaryEligibility.killedAnyPersonNoCheckbox",
@@ -288,6 +513,21 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.killedAnyPersonYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_SeriousActivitiesExplanation",
+          "id": "",
+          "key": "",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -310,6 +550,21 @@
       ]
     },
     {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.severelyInjuredAnyPersonYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_SeriousActivitiesExplanation",
+          "id": "",
+          "key": "",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_EngagedInNonConsensualSexualContact",
       "id": "",
       "key": "beneficiaryEligibility.engagedInNonConsensualSexualContactYesCheckbox,beneficiaryEligibility.engagedInNonConsensualSexualContactNoCheckbox",
@@ -324,6 +579,21 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.engagedInNonConsensualSexualContactYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_SeriousActivitiesExplanation",
+          "id": "",
+          "key": "",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -346,6 +616,21 @@
       ]
     },
     {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.limitedReligiousBeliefsYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_SeriousActivitiesExplanation",
+          "id": "",
+          "key": "",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_RecruitedChildSoldiers",
       "id": "",
       "key": "beneficiaryEligibility.recruitedChildSoldiersYesCheckbox,beneficiaryEligibility.recruitedChildSoldiersNoCheckbox",
@@ -360,6 +645,21 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.recruitedChildSoldiersYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_SeriousActivitiesExplanation",
+          "id": "",
+          "key": "",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -382,6 +682,21 @@
       ]
     },
     {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.usedChildSoldiersInCombatYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_SeriousActivitiesExplanation",
+          "id": "",
+          "key": "",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_SubjectToPublicCharge",
       "id": "",
       "key": "beneficiaryEligibility.subjectToPublicChargeYesCheckbox,beneficiaryEligibility.subjectToPublicChargeNoCheckbox",
@@ -396,6 +711,21 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.subjectToPublicChargeYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_SeriousActivitiesExplanation",
+          "id": "",
+          "key": "",
+          "control": "component_textarea_ai_refine"
         }
       ]
     }

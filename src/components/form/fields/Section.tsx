@@ -12,11 +12,13 @@ import { QText } from "../../common/Fonts";
 import { FormField } from "../FormField";
 import { SectionHeader } from "../parts/SectionHeader";
 import { DocumentType, KeyValues } from "../../../model/commonModels";
-import { DefaultCaseProfile } from "../../../consts/caseProfile";
+import { DefaultAsylumCaseProfile } from "../../../consts/caseProfile";
 import { ArrayFields } from "../../../reducers/formSlice";
 import { getKeys } from "../../../utils/visibilityUtils";
 import { useRef } from "react";
 import { getProfile } from "../../../utils/selectorUtils";
+import { CaseType } from "../../../model/immigrationTypes";
+import { InitialFamilyBasedProfile } from "../../../consts/familyBasedConsts";
 
 export interface SectionProps {
   fieldKey: string;
@@ -140,7 +142,17 @@ export function Section(props: SectionProps) {
         dispatchFormValue(
           dispatch,
           caseType,
-          textKeys.reduce((obj, key) => ({ ...obj, [key]: getCaseDetailValue(DefaultCaseProfile, key, 0) }), {}),
+          textKeys.reduce(
+            (obj, key) => ({
+              ...obj,
+              [key]: getCaseDetailValue(
+                caseType === CaseType.Asylum ? DefaultAsylumCaseProfile : InitialFamilyBasedProfile,
+                key,
+                0,
+              ),
+            }),
+            {},
+          ),
           props.fieldIndex,
         );
 
