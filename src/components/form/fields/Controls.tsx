@@ -380,7 +380,6 @@ export interface SelectMultiOptionsProps {
   placeholder?: string;
   selectedValues?: any;
   disabled?: boolean;
-  
 }
 
 export function SelectMultiOptions(props: SelectMultiOptionsProps) {
@@ -415,7 +414,8 @@ export function SelectMultiOptions(props: SelectMultiOptionsProps) {
     <div className="select-multi-box">
       <Select
         showSearch
-        mode="multiple"  allowClear
+        mode="multiple"
+        allowClear
         placeholder={props.placeholder || "Select an option"}
         onChange={handleChange}
         disabled={props.disabled || false}

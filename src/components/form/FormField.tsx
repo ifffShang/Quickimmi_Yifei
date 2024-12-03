@@ -26,7 +26,7 @@ import {
   QTextBox,
   RadioSelect,
   SelectBox,
-  SelectMultiOptions
+  SelectMultiOptions,
 } from "./fields/Controls";
 import { CoverLetter } from "./fields/CoverLetter";
 import { DocumentList } from "./fields/DocumentList";
@@ -462,17 +462,17 @@ export function FormField(props: FormFieldProps) {
           />
         </FormControlContainer>
       );
-      case "select_multioptions":
-        return (
-          <FormControlContainer fieldValue={fieldValue}>
-            <SelectBox
-              placeholder={placeholder}
-              onChange={onOptionChange}
-              options={props.options || ""}
-              value={fieldValue}
-            />
-          </FormControlContainer>
-        );
+    case "select_multioptions":
+      return (
+        <FormControlContainer fieldValue={fieldValue}>
+          <SelectBox
+            placeholder={placeholder}
+            onChange={onOptionChange}
+            options={props.options || ""}
+            value={fieldValue}
+          />
+        </FormControlContainer>
+      );
     case "divider":
       return <Divider />;
     case "tips":
