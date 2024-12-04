@@ -55,7 +55,7 @@ export function FormInput(props: FormInputProps) {
   );
 }
 
-/** TextBox View control ***************************************************/
+/** Field View control ***************************************************/
 
 export interface QFieldViewProps {
   label: string;
@@ -541,7 +541,12 @@ export function RadioSelect(props: RadioSelectProps) {
   const direction = props.className === "apt-ste-flr-checkbox" ? "horizontal" : "vertical";
 
   return (
-    <Radio.Group className={props.className ?? ""} onChange={e => onValueChange(e.target.value)} value={value}>
+    <Radio.Group
+      className={props.className ?? ""}
+      onChange={e => onValueChange(e.target.value)}
+      value={value}
+      disabled={props.disabled || false}
+    >
       <Space direction={direction}>
         {options.map(option => (
           <Radio key={option.value} value={option.value}>

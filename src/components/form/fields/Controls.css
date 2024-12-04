@@ -118,3 +118,8 @@
   display: flex;
   gap: 10px;
 }
+
+.apt-ste-flr-checkbox {
+  max-width: 250px;
+  width: 100%;
+}
