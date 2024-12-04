@@ -258,7 +258,7 @@
       "label": "text_ArrestedOrDetained",
       "id": "",
       "key": "beneficiaryEligibility.arrestedOrDetainedYesCheckbox,beneficiaryEligibility.arrestedOrDetainedNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -276,7 +276,7 @@
       "label": "text_CommittedCrime",
       "id": "",
       "key": "beneficiaryEligibility.committedCrimeYesCheckbox,beneficiaryEligibility.committedCrimeNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -294,7 +294,7 @@
       "label": "text_PledGuiltyOrConvicted",
       "id": "",
       "key": "beneficiaryEligibility.pledGuiltyOrConvictedYesCheckbox,beneficiaryEligibility.pledGuiltyOrConvictedNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -312,7 +312,7 @@
       "label": "text_OrderedPunishedByJudge",
       "id": "",
       "key": "beneficiaryEligibility.orderedPunishedByJudgeYesCheckbox,beneficiaryEligibility.orderedPunishedByJudgeNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -330,7 +330,7 @@
       "label": "text_DefendantInCriminalProceeding",
       "id": "",
       "key": "beneficiaryEligibility.defendantInCriminalProceedingYesCheckbox,beneficiaryEligibility.defendantInCriminalProceedingNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -348,7 +348,7 @@
       "label": "text_ViolatedControlledSubstanceLaw",
       "id": "",
       "key": "beneficiaryEligibility.violatedControlledSubstanceLawYesCheckbox,beneficiaryEligibility.violatedControlledSubstanceLawNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -366,7 +366,7 @@
       "label": "text_ConvictedOfMultipleOffenses",
       "id": "",
       "key": "beneficiaryEligibility.convictedOfMultipleOffensesYesCheckbox,beneficiaryEligibility.convictedOfMultipleOffensesNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -384,7 +384,7 @@
       "label": "text_IllicitlyTraffickedControlledSubstances",
       "id": "",
       "key": "beneficiaryEligibility.illicitlyTraffickedControlledSubstancesYesCheckbox,beneficiaryEligibility.illicitlyTraffickedControlledSubstancesNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -402,7 +402,7 @@
       "label": "text_AidedInIllicitTrafficking",
       "id": "",
       "key": "beneficiaryEligibility.aidedInIllicitTraffickingYesCheckbox,beneficiaryEligibility.aidedInIllicitTraffickingNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -420,7 +420,7 @@
       "label": "text_RelatedToIllicitTrafficker",
       "id": "",
       "key": "beneficiaryEligibility.relatedToIllicitTraffickerYesCheckbox,beneficiaryEligibility.relatedToIllicitTraffickerNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -438,7 +438,7 @@
       "label": "text_EngagedInProstitution",
       "id": "",
       "key": "beneficiaryEligibility.engagedInProstitutionYesCheckbox,beneficiaryEligibility.engagedInProstitutionNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -456,7 +456,7 @@
       "label": "text_ProcuredProstitutes",
       "id": "",
       "key": "beneficiaryEligibility.procuredProstitutesYesCheckbox,beneficiaryEligibility.procuredProstitutesNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -474,7 +474,7 @@
       "label": "text_ReceivedProceedsFromProstitutionNoCheckbox",
       "id": "",
       "key": "beneficiaryEligibility.receivedProceedsFromProstitutionYesCheckbox,beneficiaryEligibility.receivedProceedsFromProstitutionNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -492,7 +492,7 @@
       "label": "text_IntentToEngageInIllegalGambling",
       "id": "",
       "key": "beneficiaryEligibility.intentToEngageInIllegalGamblingYesCheckbox,beneficiaryEligibility.intentToEngageInIllegalGamblingNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -510,7 +510,7 @@
       "label": "text_ExercisedImmunityFromProsecution",
       "id": "",
       "key": "beneficiaryEligibility.exercisedImmunityFromProsecutionYesCheckbox,beneficiaryEligibility.exercisedImmunityFromProsecutionNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -528,7 +528,7 @@
       "label": "text_ResponsibleForReligiousViolations",
       "id": "",
       "key": "beneficiaryEligibility.responsibleForReligiousViolationsYesCheckbox,beneficiaryEligibility.responsibleForReligiousViolationsNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -546,7 +546,7 @@
       "label": "text_InducedTraffickingForSex",
       "id": "",
       "key": "beneficiaryEligibility.inducedTraffickingForSexYesCheckbox,beneficiaryEligibility.inducedTraffickingForSexNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -564,7 +564,7 @@
       "label": "text_TraffickedIntoSlavery",
       "id": "",
       "key": "beneficiaryEligibility.traffickedIntoSlaveryYesCheckbox,beneficiaryEligibility.traffickedIntoSlaveryNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -582,7 +582,7 @@
       "label": "text_AidedTraffickingForSexOrSlavery",
       "id": "",
       "key": "beneficiaryEligibility.aidedTraffickingForSexOrSlaveryYesCheckbox,beneficiaryEligibility.aidedTraffickingForSexOrSlaveryNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -600,7 +600,7 @@
       "label": "text_RelatedToTraffickerAndBenefited",
       "id": "",
       "key": "beneficiaryEligibility.relatedToTraffickerAndBenefitedYesCheckbox,beneficiaryEligibility.relatedToTraffickerAndBenefitedNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -618,7 +618,7 @@
       "label": "text_EngagedInMoneyLaundering",
       "id": "",
       "key": "beneficiaryEligibility.engagedInMoneyLaunderingYesCheckbox,beneficiaryEligibility.engagedInMoneyLaunderingNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -636,7 +636,7 @@
       "label": "text_EngageInEspionageOrSabotage",
       "id": "",
       "key": "beneficiaryEligibility.engageInEspionageOrSabotageYesCheckbox,beneficiaryEligibility.engageInEspionageOrSabotageNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -654,7 +654,7 @@
       "label": "text_EngageInIllegalExport",
       "id": "",
       "key": "beneficiaryEligibility.engageInIllegalExportYesCheckbox,beneficiaryEligibility.engageInIllegalExportNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -672,7 +672,7 @@
       "label": "text_EngageInOverthrowingGovernment",
       "id": "",
       "key": "beneficiaryEligibility.engageInOverthrowingGovernmentYesCheckbox,beneficiaryEligibility.engageInOverthrowingGovernmentNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -690,7 +690,7 @@
       "label": "text_EngageInEndangeringUS",
       "id": "",
       "key": "beneficiaryEligibility.engageInEndangeringUSYesCheckbox,beneficiaryEligibility.engageInEndangeringUSNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -708,7 +708,7 @@
       "label": "text_EngageInUnlawfulActivity",
       "id": "",
       "key": "beneficiaryEligibility.engageInUnlawfulActivityYesCheckbox,beneficiaryEligibility.engageInUnlawfulActivityNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -726,7 +726,7 @@
       "label": "text_EngageInAdverseForeignPolicy",
       "id": "",
       "key": "beneficiaryEligibility.engageInAdverseForeignPolicyYesCheckbox,beneficiaryEligibility.engageInAdverseForeignPolicyNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -744,7 +744,7 @@
       "label": "text_CommittedOrPlannedSeriousCrime",
       "id": "",
       "key": "beneficiaryEligibility.committedOrPlannedSeriousCrimeYesCheckbox,beneficiaryEligibility.committedOrPlannedSeriousCrimeNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -762,7 +762,7 @@
       "label": "text_MemberOfGroupInvolvedInSeriousCrime",
       "id": "",
       "key": "beneficiaryEligibility.memberOfGroupInvolvedInSeriousCrimeYesCheckbox,beneficiaryEligibility.memberOfGroupInvolvedInSeriousCrimeNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -780,7 +780,7 @@
       "label": "text_RecruitedForGroupInvolvedInSeriousCrime",
       "id": "",
       "key": "beneficiaryEligibility.recruitedForGroupInvolvedInSeriousCrimeYesCheckbox,beneficiaryEligibility.recruitedForGroupInvolvedInSeriousCrimeNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -798,7 +798,7 @@
       "label": "text_ProvidedSupportForGroupInvolvedInSeriousCrime",
       "id": "",
       "key": "beneficiaryEligibility.providedSupportForGroupInvolvedInSeriousCrimeYesCheckbox,beneficiaryEligibility.providedSupportForGroupInvolvedInSeriousCrimeNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -816,7 +816,7 @@
       "label": "text_ProvidedSupportForIndividualOrGroup",
       "id": "",
       "key": "beneficiaryEligibility.providedSupportForIndividualOrGroupYesCheckbox,beneficiaryEligibility.providedSupportForIndividualOrGroupNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
