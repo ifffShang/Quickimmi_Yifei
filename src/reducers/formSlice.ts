@@ -238,8 +238,13 @@ export const formSlice = createSlice({
     },
 
     updateCaseFields: (state, action: PayloadAction<{ update: CaseProfileOptional; caseType: CaseType }>) => {
-      /** Asylum */
+      if (action.payload.update.disabledFields) {
+        state.disabledFields = action.payload.update.disabledFields;
+        delete action.payload.update.disabledFields;
+      }
+
       if (action.payload.caseType === CaseType.Asylum) {
+        /** Asylum */
         ArrayFields.forEach(item => {
           const { field, overwriteField } = item;
           if (action.payload.update[overwriteField]) {

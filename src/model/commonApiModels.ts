@@ -52,4 +52,7 @@ export interface CaseProfileOptional {
   petitionerStatement?: PetitionerStatement;
   sponsorList?: Sponsor[];
   interpreter?: Interpreter;
+
+  /** Common */
+  disabledFields?: { [key: string]: string };
 }

@@ -4,7 +4,7 @@ import { Regex } from "../../consts/consts";
 import { useFormTranslation } from "../../hooks/commonHooks";
 import { EntryRecord } from "../../model/apiModels";
 import { DocumentType, Identity, KeyValues, LanguageEnum } from "../../model/commonModels";
-import { ControlType, IFormField, IFormOptions } from "../../model/formFlowModels";
+import { ControlType, IFormField, IFormOptions, ISyncFields } from "../../model/formFlowModels";
 import {
   createKeyValuesForAddItem,
   dispatchFormValue,
@@ -46,6 +46,8 @@ import { TextAreaWithAIRefine } from "./fields/TextAreaWithAIRefine";
 import { TextboxWithNA } from "./fields/TextboxWithNA";
 import { getProfile } from "../../utils/selectorUtils";
 import { MultipleNamesWithNA } from "./fields/MultipleNamesWithNA";
+import { AddressUS } from "./fields/AddressUS";
+import { SameAddressCheckboxV2 } from "./fields/SameAddressCheckboxV2";
 
 export interface FormFieldProps {
   fieldKey: string;
@@ -64,6 +66,8 @@ export interface FormFieldProps {
   documentType?: DocumentType;
   identity?: string;
   mode?: "view" | "edit";
+  fieldKeyObject?: any;
+  syncFields?: ISyncFields;
 }
 
 export function FormField(props: FormFieldProps) {
@@ -86,6 +90,7 @@ export function FormField(props: FormFieldProps) {
     props.format,
     props.fieldIndex,
     props.linkage,
+    props.fieldKeyObject,
   );
 
   const identity =
@@ -103,12 +108,14 @@ export function FormField(props: FormFieldProps) {
   );
   */
 
-  const onOptionChange = (value: string) => {
-    if (props.options && Array.isArray(props.options)) {
-      const option = props.options.find(option => option.value === value);
+  const onOptionChange = (value: string, fieldKey?: string, options?: IFormOptions[]) => {
+    const targetFieldKey = fieldKey || props.fieldKey;
+    const targetOptions = options || props.options;
+    if (targetOptions && Array.isArray(targetOptions)) {
+      const option = targetOptions.find(option => option.value === value);
       if (option && option.keyValue) {
-        if (option.keyValue?.indexOf(",") > -1 && props.fieldKey?.indexOf(",") > -1) {
-          const keys = props.fieldKey.split(",");
+        if (option.keyValue?.indexOf(",") > -1 && targetFieldKey?.indexOf(",") > -1) {
+          const keys = targetFieldKey.split(",");
           const values = option.keyValue.split(",");
           const keyValues = {} as KeyValues;
           keys.forEach((key, index) => {
@@ -120,7 +127,7 @@ export function FormField(props: FormFieldProps) {
             dispatch,
             caseType,
             {
-              [props.fieldKey]: option.keyValue,
+              [targetFieldKey]: option.keyValue,
             },
             props.fieldIndex,
           );
@@ -130,7 +137,7 @@ export function FormField(props: FormFieldProps) {
           dispatch,
           caseType,
           {
-            [props.fieldKey]: value,
+            [targetFieldKey]: value,
           },
           props.fieldIndex,
         );
@@ -140,15 +147,16 @@ export function FormField(props: FormFieldProps) {
         dispatch,
         caseType,
         {
-          [props.fieldKey]: value,
+          [targetFieldKey]: value,
         },
         props.fieldIndex,
       );
     }
   };
 
-  const onTextChange = (value: string): string => {
-    if (props.fieldKey && props.fieldKey.indexOf(",") > -1 && props.format) {
+  const onTextChange = (value: string, fieldKey?: string): string => {
+    const targetFieldKey = fieldKey || props.fieldKey;
+    if (targetFieldKey && targetFieldKey.indexOf(",") > -1 && props.format) {
       // Currently this branch only handle phone number
       const formatRegex = Regex[props.format]["FormatRegex"];
       const formatOutput = Regex[props.format]["FormatOutput"];
@@ -164,7 +172,7 @@ export function FormField(props: FormFieldProps) {
       const returnValue = digits.replace(formatRegex, formatOutput);
 
       const extractRegex = Regex[props.format]["ExtractRegex"];
-      const keys = props.fieldKey.split(",");
+      const keys = targetFieldKey.split(",");
       // Example: (123)456-7890 -> ["(123)456-7890", "123", "456-7890"]
       const matches = returnValue.match(extractRegex);
       if (matches) {
@@ -182,12 +190,12 @@ export function FormField(props: FormFieldProps) {
       }
       return returnValue;
     } else {
-      props.fieldKey &&
+      targetFieldKey &&
         dispatchFormValue(
           dispatch,
           caseType,
           {
-            [props.fieldKey]: value,
+            [targetFieldKey]: value,
           },
           props.fieldIndex,
         );
@@ -648,12 +656,34 @@ export function FormField(props: FormFieldProps) {
           <LocationDropdown prefillStr={fieldValue} onLocationChange={onLocationSplittedChange} />
         </FormControlContainer>
       );
+    case "component_address_us":
+      return (
+        <AddressUS
+          fieldValue={fieldValue}
+          onTextChange={onTextChange}
+          onOptionChange={onOptionChange}
+          disabledFields={disabledFields}
+        />
+      );
     case "component_list_documents":
       return <DocumentList />;
     case "component_list_merged_documents":
       return <MergedDocumentList />;
     case "component_mailing_same_as_residential":
       return <SameAddressCheckbox label={wt(props.label)} />;
+    case "component_same_address_checkbox":
+      return (
+        <SameAddressCheckboxV2
+          label={wt(props.label)}
+          onOptionChange={onOptionChange}
+          fieldValue={fieldValue}
+          fieldIndex={props.fieldIndex}
+          caseDetails={profile}
+          caseType={caseType}
+          options={props.options}
+          syncFields={props.syncFields}
+        />
+      );
     case "component_view_application_form":
       return <FormSummary />;
     case "component_entry_records":
