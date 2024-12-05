@@ -506,7 +506,7 @@
   "TelephoneNumberOfMailingInUs": "美国邮寄地址电话号码",
   "InCareOfName": "收件人姓名",
   "MailingAddressInUs": "美国邮寄地址",
-
+  "MailingAddress": "邮寄地址",
   "EnterIfApplicable": "如适用，请填写",
 
   "School": "学校",
@@ -746,9 +746,15 @@
   "Parent 2": "父母2的信息",
   "Full Name of Parent 2": "父母2的全名",
 
+  "SponsorCitizenshipOrResidency": "担保人公民身份或永久居留权",
+  "SponsorANumber": "担保人ANumber",
+  "USCISOnlineAccountNumber": "担保人USCIS账号",
+  "MilitaryServiceActiveDutyYes": "担保人目前正在美国武装部队或美国海岸警卫队服役",
+
   "AdditionalInformationAboutPetitioner": "关于您（申请人）的其他信息",
   "IAmA": "我是（仅选择一个框）：",
   "USCitizen": "美国公民",
+  "USNational": "美国国民",
   "LawfulPermanentResident": "合法永久居民",
   "IfU.S.CitizenCompleteItemNumber37.": "如果您是美国公民，请完成第37项。",
   "CitizenshipThrough": "我的公民身份通过以下方式获得（仅选择一个框）：",

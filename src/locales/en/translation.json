@@ -509,7 +509,7 @@
   "TelephoneNumberOfMailingInUs": "Telephone Number of Mailing Address in U.S.",
   "InCareOfName": "Recipient name",
   "MailingAddressInUs": "Mailing Address in U.S.",
-
+  "MailingAddress": "Mailing Address",
   "EnterIfApplicable": "Enter if applicable",
 
   "School": "School",
@@ -750,10 +750,16 @@
   "Parent 2": "Parent 2's Information",
   "Full Name of Parent 2": "Full Name of Parent 2",
 
+  "SponsorCitizenshipOrResidency": "Sponsor Citizenship Or Residency",
+  "SponsorANumber": "Sponsor ANumber",
+  "USCISOnlineAccountNumber": "USCIS Online Account Number",
+  "MilitaryServiceActiveDutyYes": "Sponsor is currently on active duty in the U.S. Armed Forces or U.S. Coast Guard",
+
   "AdditionalInformationAboutPetitioner": "Additional Information About You (Petitioner)",
   "IAmA": "I am a (Select only one box):",
   "USCitizen": "U.S. Citizen",
-  "LawfulPermanentResident": "LawfulPermanentResident",
+  "USNational": "U.S. National",
+  "LawfulPermanentResident": "Lawful Permanent Resident",
   "IfU.S.CitizenCompleteItemNumber37.": "If you are a U.S. citizen, complete Item Number 37.",
   "CitizenshipThrough": "My citizenship was acquired through (Select only one box):",
   "BirthInUS": "Birth in the United States",
