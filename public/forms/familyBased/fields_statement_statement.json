@@ -1,0 +1,64 @@
+{
+  "id": "fields_statement_statement",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    {
+      "label": "text_SpouseBeneficiaryStatementDescription",
+      "placeholder": "",
+      "id": "4.1",
+      "key": "petitionerStatement.canReadAndUnderstandEnglishCheckbox,petitionerStatement.interpreterReadAndTranslatedCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "label": "text_CanReadAndUnderstandEnglishCheckbox",
+          "value": "canReadAndUnderstandEnglish",
+          "keyValue": "true,false"
+        },
+        {
+          "label": "text_InterpreterReadAndTranslatedCheckbox",
+          "value": "interpreterReadAndTranslated",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "4.1b",
+      "visibility": "petitionerStatement.canReadAndUnderstandEnglishCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_SkipInterpreterInformationNextSection",
+          "hideHeader": "true",
+          "id": "4.2",
+          "control": "label",
+          "className": "form-field-instruction-passive"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "4.1b",
+      "visibility": "petitionerStatement.interpreterReadAndTranslatedCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_EnterLanguageInterpreterReadAndTranslated",
+          "id": "4.1b",
+          "key": "petitionerStatement.languageInterpreterReadAndTranslated",
+          "control": "text"
+        },
+        {
+          "label": "text_CompleteInterpreterInformationNextSection",
+          "hideHeader": "true",
+          "id": "4.2",
+          "control": "label",
+          "className": "form-field-instruction"
+        }
+      ]
+    }
+  ]
+}

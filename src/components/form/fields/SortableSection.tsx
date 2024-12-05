@@ -74,6 +74,10 @@ export function SortableSection(props: SortableSectionProps) {
               />
             ),
           },
+          onModalCloseCallback: () => {
+            const keyValues = createKeyValuesForRemoveItem(fieldValue, fieldValue.arr.length - 1);
+            dispatchFormValue(dispatch, caseType, keyValues);
+          },
         }),
       );
     }

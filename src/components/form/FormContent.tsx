@@ -107,11 +107,13 @@ export function FormContent(props: FormContentProps) {
               {!field.hideHeader && field.label && <QText level="field-label">{wt(field.label)}</QText>}
               <FormField
                 fieldKey={field.key}
+                fieldKeyObject={field.keyObject}
                 control={field.control}
                 label={field.label}
                 maxChildPerRow={field.maxChildPerRow}
                 subFields={field.fields}
                 options={field.options}
+                linkage={field.linkage}
                 placeholder={field.placeholder}
                 format={field.format}
                 className={field.className}
@@ -120,6 +122,7 @@ export function FormContent(props: FormContentProps) {
                 fieldIndex={field.fieldIndex}
                 documentType={field.documentType}
                 identity={field.identity}
+                syncFields={field.syncFields}
               />
             </div>
           ))}

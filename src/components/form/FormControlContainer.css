@@ -6,3 +6,6 @@
   position: relative;
   border: none;
 }
+.section-popup .form-control-container {
+  margin-bottom: 40px;
+}

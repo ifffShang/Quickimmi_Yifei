@@ -244,7 +244,7 @@
           "fields": [
             {
               "label": "text_BenefitReceived",
-              "hideHeader": "true",
+              "hideHeader": "false",
               "id": "",
               "key": "beneficiaryEligibility.benefitRecords[].benefitReceived",
               "control": "text"

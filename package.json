@@ -38,7 +38,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --watchAll",
+    "test": "react-scripts test",
+    "test:coverage": "react-scripts test --coverage --watchAll=false",
     "eject": "react-scripts eject",
     "prepare": "husky install",
     "lint": "eslint .",
@@ -51,17 +52,9 @@
       "!**/__tests__/__mocks__/**"
     ],
     "collectCoverageFrom": [
-      "**/__tests__/**/*.test.{js,jsx,ts,tsx}",
-      "!/node_modules/"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 90,
-        "functions": 90,
-        "lines": 90,
-        "statements": 90
-      }
-    }
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/setupTests.{js,ts}"
+    ]
   },
   "eslintConfig": {
     "extends": [

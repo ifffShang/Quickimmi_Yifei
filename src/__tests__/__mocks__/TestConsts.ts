@@ -1,4 +1,4 @@
-import { DefaultCaseProfile } from "../../consts/caseProfile";
+import { DefaultAsylumCaseProfile } from "../../consts/caseProfile";
 import { IFormStepAndFieldsRecord } from "../../model/formFlowModels";
 
 export const AllFormStepAndFields_1: IFormStepAndFieldsRecord[] = [
@@ -54,7 +54,7 @@ export const AllFormStepAndFields_1: IFormStepAndFieldsRecord[] = [
   },
 ];
 
-const CaseProfile_1 = DefaultCaseProfile;
+const CaseProfile_1 = DefaultAsylumCaseProfile;
 CaseProfile_1.applicant.passportNumber = "123456";
 CaseProfile_1.applicant.firstName = "John";
 CaseProfile_1.applicant.nationality = "USA";

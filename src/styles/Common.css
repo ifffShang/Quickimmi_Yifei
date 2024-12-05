@@ -10,7 +10,8 @@
   --success-color: #28a745;
   --danger-color: #dc3545;
   --warning-color: #f2994a;
-  --info-color: #17a2b8;
+  --info-color: #4e745e;
+  --info-color-background: #f6f9f4;
   --line-color: #231f20;
   --white-color: #ffffff;
   --white-color-transparent-1: rgba(255, 255, 255, 0.2);

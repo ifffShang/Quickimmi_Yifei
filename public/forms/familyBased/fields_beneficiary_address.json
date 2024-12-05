@@ -1,0 +1,377 @@
+{
+  "id": "fields_beneficiary_address",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    {
+      "label": "text_PhysicalAddress",
+      "id": "3.11",
+      "control": "component_address_us",
+      "keyObject": {
+        "street": {
+          "key": "beneficiary.physicalAddress.streetNumberAndName",
+          "placeholder": "text_Street"
+        },
+        "aptSteFlr": {
+          "key": "beneficiary.physicalAddress.aptCheckbox,beneficiary.physicalAddress.steCheckbox,beneficiary.physicalAddress.flrCheckbox",
+          "className": "apt-ste-flr-checkbox",
+          "options": [
+            {
+              "value": "aptCheckbox",
+              "label": "text_Apartment",
+              "keyValue": "true,false,false"
+            },
+            {
+              "value": "steCheckbox",
+              "label": "text_Ste",
+              "keyValue": "false,true,false"
+            },
+            {
+              "value": "flrCheckbox",
+              "label": "text_Flr",
+              "keyValue": "false,false,true"
+            }
+          ]
+        },
+        "aptSteFlrNumber": {
+          "key": "beneficiary.physicalAddress.aptSteFlrNumber",
+          "placeholder": "text_AptSteFlrNumber"
+        },
+        "cityOrTown": {
+          "key": "beneficiary.physicalAddress.cityOrTown",
+          "placeholder": "text_City"
+        },
+        "state": {
+          "key": "beneficiary.physicalAddress.state",
+          "placeholder": "text_State",
+          "options": "StateOptions"
+        },
+        "zipCode": {
+          "key": "beneficiary.physicalAddress.zipCode",
+          "placeholder": "text_ZipCode"
+        }
+      }
+    },
+    {
+      "label": "text_MailingAddressSameAsResidentialAddress",
+      "hideHeader": "true",
+      "key": "beneficiary.mailingAddressSameAsPhysicalAddressYesCheckbox,beneficiary.mailingAddressSameAsPhysicalAddressNoCheckbox",
+      "id": "",
+      "control": "component_same_address_checkbox",
+      "options": [
+        {
+          "value": "AddressAreSame",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "AddressAreDifferent",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ],
+      "syncFields": {
+        "condition": "beneficiary.mailingAddressSameAsPhysicalAddressYesCheckbox=true",
+        "mappings": [
+          {
+            "source": "beneficiary.physicalAddress.streetNumberAndName",
+            "destination": "beneficiary.mailingAddress.streetNumberAndName"
+          },
+          {
+            "source": "beneficiary.physicalAddress.aptCheckbox",
+            "destination": "beneficiary.mailingAddress.aptCheckbox"
+          },
+          {
+            "source": "beneficiary.physicalAddress.steCheckbox",
+            "destination": "beneficiary.mailingAddress.steCheckbox"
+          },
+          {
+            "source": "beneficiary.physicalAddress.flrCheckbox",
+            "destination": "beneficiary.mailingAddress.flrCheckbox"
+          },
+          {
+            "source": "beneficiary.physicalAddress.aptSteFlrNumber",
+            "destination": "beneficiary.mailingAddress.aptSteFlrNumber"
+          },
+          {
+            "source": "beneficiary.physicalAddress.cityOrTown",
+            "destination": "beneficiary.mailingAddress.cityOrTown"
+          },
+          {
+            "source": "beneficiary.physicalAddress.state",
+            "destination": "beneficiary.mailingAddress.state"
+          },
+          {
+            "source": "beneficiary.physicalAddress.zipCode",
+            "destination": "beneficiary.mailingAddress.zipCode"
+          }
+        ]
+      }
+    },
+    {
+      "label": "text_MailingAddress",
+      "id": "3.11",
+      "control": "component_address_us",
+      "keyObject": {
+        "street": {
+          "key": "beneficiary.mailingAddress.streetNumberAndName",
+          "placeholder": "text_Street"
+        },
+        "aptSteFlr": {
+          "key": "beneficiary.mailingAddress.aptCheckbox,beneficiary.mailingAddress.steCheckbox,beneficiary.mailingAddress.flrCheckbox",
+          "className": "apt-ste-flr-checkbox",
+          "options": [
+            {
+              "value": "aptCheckbox",
+              "label": "text_Apartment",
+              "keyValue": "true,false,false"
+            },
+            {
+              "value": "steCheckbox",
+              "label": "text_Ste",
+              "keyValue": "false,true,false"
+            },
+            {
+              "value": "flrCheckbox",
+              "label": "text_Flr",
+              "keyValue": "false,false,true"
+            }
+          ]
+        },
+        "aptSteFlrNumber": {
+          "key": "beneficiary.mailingAddress.aptSteFlrNumber",
+          "placeholder": "text_AptSteFlrNumber"
+        },
+        "cityOrTown": {
+          "key": "beneficiary.mailingAddress.cityOrTown",
+          "placeholder": "text_City"
+        },
+        "state": {
+          "key": "beneficiary.mailingAddress.state",
+          "placeholder": "text_State",
+          "options": "StateOptions"
+        },
+        "zipCode": {
+          "key": "beneficiary.mailingAddress.zipCode",
+          "placeholder": "text_ZipCode"
+        }
+      }
+    },
+    {
+      "label": "text_IntendToLiveUsAddress",
+      "id": "3.11",
+      "control": "group",
+      "maxChildPerRow": "3",
+      "fields": [
+        {
+          "label": "text_Street",
+          "placeholder": "text_Street",
+          "id": "street",
+          "key": "beneficiary.intendToLiveUsAddress.streetNumberAndName",
+          "control": "text"
+        },
+        {
+          "label": "",
+          "id": "apartment_number",
+          "key": "beneficiary.intendToLiveUsAddress.aptCheckbox,beneficiary.intendToLiveUsAddress.steCheckbox,beneficiary.intendToLiveUsAddress.flrCheckbox",
+          "control": "radio",
+          "className": "apt-ste-flr-checkbox",
+          "options": [
+            {
+              "label": "text_Apartment",
+              "value": "aptCheckbox",
+              "keyValue": "true,false,false"
+            },
+            {
+              "label": "text_Ste",
+              "value": "steCheckbox",
+              "keyValue": "false,true,false"
+            },
+            {
+              "label": "text_Flr",
+              "value": "flrCheckbox",
+              "keyValue": "false,false,true"
+            }
+          ]
+        },
+        {
+          "label": "",
+          "placeholder": "text_Apt/Ste/FlrNumber",
+          "id": "apartment_number",
+          "key": "beneficiary.intendToLiveUsAddress.aptSteFlrNumber",
+          "control": "text"
+        },
+        {
+          "label": "text_City",
+          "placeholder": "text_City",
+          "id": "city",
+          "key": "beneficiary.intendToLiveUsAddress.cityOrTown",
+          "control": "text"
+        },
+        {
+          "label": "text_State",
+          "placeholder": "text_State",
+          "id": "state",
+          "key": "beneficiary.intendToLiveUsAddress.state",
+          "control": "text"
+        },
+        {
+          "label": "text_ZipCode",
+          "placeholder": "text_ZipCode",
+          "id": "zip_code",
+          "key": "beneficiary.intendToLiveUsAddress.zipCode",
+          "control": "text"
+        }
+      ]
+    },
+    {
+      "label": "text_outsideUsAddress",
+      "id": "3.11",
+      "control": "group",
+      "maxChildPerRow": "3",
+      "fields": [
+        {
+          "label": "text_Street",
+          "placeholder": "text_Street",
+          "id": "street",
+          "key": "beneficiary.outsideUsAddress.streetNumberAndName",
+          "control": "text"
+        },
+        {
+          "label": "text_ApartmentNumber(Add check to apt/ste/flr)",
+          "placeholder": "text_ApartmentNumber",
+          "id": "apartment_number",
+          "key": "beneficiary.outsideUsAddress.aptSteFlrNumber",
+          "control": "label"
+        },
+        {
+          "label": "text_City",
+          "placeholder": "text_City",
+          "id": "city",
+          "key": "beneficiary.outsideUsAddress.cityOrTown",
+          "control": "text"
+        },
+        {
+          "label": "text_State",
+          "placeholder": "text_State",
+          "id": "state",
+          "key": "beneficiary.outsideUsAddress.state",
+          "control": "text"
+        },
+        {
+          "label": "text_ZipCode",
+          "placeholder": "text_ZipCode",
+          "id": "zip_code",
+          "key": "beneficiary.outsideUsAddress.zipCode",
+          "control": "text"
+        }
+      ]
+    },
+    {
+      "label": "text_mostRecentOutSideUsAddressBefore5YearsAgo",
+      "id": "3.11",
+      "control": "group",
+      "maxChildPerRow": "3",
+      "fields": [
+        {
+          "label": "text_Street",
+          "placeholder": "text_Street",
+          "id": "street",
+          "key": "beneficiary.mostRecentOutSideUsAddressBefore5YearsAgo.streetNumberAndName",
+          "control": "text"
+        },
+        {
+          "label": "text_ApartmentNumber(Add check to apt/ste/flr)",
+          "placeholder": "text_ApartmentNumber",
+          "id": "apartment_number",
+          "key": "beneficiary.mostRecentOutSideUsAddressBefore5YearsAgo.aptSteFlrNumber",
+          "control": "label"
+        },
+        {
+          "label": "text_City",
+          "placeholder": "text_City",
+          "id": "city",
+          "key": "beneficiary.mostRecentOutSideUsAddressBefore5YearsAgo.cityOrTown",
+          "control": "text"
+        },
+        {
+          "label": "text_State",
+          "placeholder": "text_State",
+          "id": "state",
+          "key": "beneficiary.mostRecentOutSideUsAddressBefore5YearsAgo.state",
+          "control": "text"
+        },
+        {
+          "label": "text_ZipCode",
+          "placeholder": "text_ZipCode",
+          "id": "zip_code",
+          "key": "beneficiary.mostRecentOutSideUsAddressBefore5YearsAgo.zipCode",
+          "control": "text"
+        }
+      ]
+    },
+    {
+      "label": "text_AddressHistory",
+      "hideHeader": "true",
+      "control": "label"
+    },
+    {
+      "label": "text_Address",
+      "hideHeader": "true",
+      "id": "10.a-10.i",
+      "key": "count-beneficiary.addressHistories",
+      "control": "sortable_section",
+      "fields": [
+        {
+          "label": "text_NumberAndStreet",
+          "id": "background_street",
+          "key": "beneficiary.addressHistories[].numberAndStreet",
+          "control": "text"
+        },
+        {
+          "label": "text_CityOrTown",
+          "id": "background_city",
+          "key": "beneficiary.addressHistories[].city",
+          "control": "text"
+        },
+        {
+          "label": "text_DepartmentOrStateOrProvince",
+          "id": "background_province",
+          "key": "beneficiary.addressHistories[].province",
+          "control": "text"
+        },
+        {
+          "label": "text_Country",
+          "id": "background_country",
+          "key": "beneficiary.addressHistories[].country",
+          "control": "text"
+        },
+        {
+          "label": "text_StartDate",
+          "placeholder": "text_MM/YYYY",
+          "id": "background_start_date",
+          "key": "beneficiary.addressHistories[].startDate",
+          "control": "monthyearpicker"
+        },
+        {
+          "label": "text_EndDate",
+          "placeholder": "text_MM/YYYY",
+          "id": "background_end_date",
+          "key": "beneficiary.addressHistories[].endDate",
+          "control": "monthyearpicker"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "control": "divider"
+    },
+    {
+      "label": "",
+      "placeholder": "text_AddAddress",
+      "id": "address_berfore_us",
+      "key": "count-beneficiary.addressHistories",
+      "control": "component_add_item"
+    }
+  ]
+}

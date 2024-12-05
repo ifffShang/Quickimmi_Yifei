@@ -25,12 +25,14 @@ export interface IFormFields {
 export interface IFormField {
   id: string;
   key: string;
+  keyObject?: IFormKeyObject;
   label: string;
   control: ControlType;
   maxChildPerRow: number;
   placeholder?: string;
   fields?: IFormField[];
   options?: IFormOptions[] | string;
+  linkage?: string;
   format?: string;
   className?: string;
   visibility?: string;
@@ -38,12 +40,32 @@ export interface IFormField {
   fieldIndex?: number;
   documentType?: DocumentType;
   identity?: string;
+  syncFields?: ISyncFields;
+}
+
+export interface IFormKeyObject {
+  [key: string]: IFormKeyValueObject;
+}
+
+export interface IFormKeyValueObject {
+  key: string;
+  [key: string]: any;
 }
 
 export interface IFormOptions {
   value: string;
   label: string;
   keyValue: string;
+}
+
+export interface ISyncMapping {
+  source: string;
+  destination: string;
+}
+
+export interface ISyncFields {
+  condition: string;
+  mappings: ISyncMapping[];
 }
 
 export type ControlType =
@@ -69,12 +91,15 @@ export type ControlType =
   | "component_passport_uploader"
   | "component_passport_uploader_with_na"
   | "component_multi_textboxes_na"
+  | "component_multi_names_na"
   | "component_textbox_na"
   | "component_location_dropdown"
+  | "componet_location_dropdown_splitted"
   | "component_telephone_text"
   | "component_list_documents"
   | "component_list_merged_documents"
   | "component_mailing_same_as_residential"
+  | "component_same_address_checkbox"
   | "component_entry_records"
   | "component_add_item"
   | "component_textarea_ai_refine"
@@ -82,6 +107,7 @@ export type ControlType =
   | "component_personal_statement_in_original_language"
   | "component_cover_letter"
   | "component_view_application_form"
+  | "component_address_us"
   | "percentage" // used only for percentage calculation
   | "multi_file_uploader_new"; // WIP!!! DON'T USE!!!;
 
