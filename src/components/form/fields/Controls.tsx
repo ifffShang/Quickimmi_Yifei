@@ -55,7 +55,7 @@ export function FormInput(props: FormInputProps) {
   );
 }
 
-/** TextBox View control ***************************************************/
+/** Field View control ***************************************************/
 
 export interface QFieldViewProps {
   label: string;
@@ -392,7 +392,15 @@ export function CheckBox(props: CheckBoxProps) {
   const handleChange = (e: any) => {
     setChecked(e.target.checked);
     if (props.options && Array.isArray(props.options)) {
-      const keyValue = props.options.find(option => option.value === e.target.checked)?.keyValue;
+      const keyValue = props.options.find(option => {
+        if (typeof option.keyValue === "string") {
+          // example: option.keyValue is "true,false"
+          return option.keyValue.split(",")[0] === e.target.checked.toString();
+        } else {
+          // example: option.keyValue is true or false
+          return option.keyValue === e.target.checked;
+        }
+      })?.keyValue;
       props.onChange(keyValue || "");
     } else {
       props.onChange(e.target.checked);
@@ -533,7 +541,12 @@ export function RadioSelect(props: RadioSelectProps) {
   const direction = props.className === "apt-ste-flr-checkbox" ? "horizontal" : "vertical";
 
   return (
-    <Radio.Group className={props.className ?? ""} onChange={e => onValueChange(e.target.value)} value={value}>
+    <Radio.Group
+      className={props.className ?? ""}
+      onChange={e => onValueChange(e.target.value)}
+      value={value}
+      disabled={props.disabled || false}
+    >
       <Space direction={direction}>
         {options.map(option => (
           <Radio key={option.value} value={option.value}>
@@ -613,7 +626,6 @@ export function MonthYearPickerWithOption(props: MonthYearPickerWithOptionProps)
     }
   };
 
-
   const handleOptionChange = (checked: boolean) => {
     if (checked) {
       setIsOptionSelected(true);
@@ -634,11 +646,7 @@ export function MonthYearPickerWithOption(props: MonthYearPickerWithOptionProps)
           disabled={isOptionSelected || props.disabled}
         />
       </div>
-      <PureCheckBox
-        checked={isOptionSelected}
-        label={props.notApplicableText}
-        onChange={handleOptionChange}
-      />
+      <PureCheckBox checked={isOptionSelected} label={props.notApplicableText} onChange={handleOptionChange} />
     </div>
   );
 }

@@ -234,6 +234,7 @@ export const InitialAddress: Address = {
 };
 
 export const InitialLastArrivalInformation: LastArrivalInformation = {
+  i94DocumentId: 0,
   beneficiaryEverInUSYesCheckbox: undefined,
   beneficiaryEverInUSNoCheckbox: undefined,
   arrivedAsAdmission: "",

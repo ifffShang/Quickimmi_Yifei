@@ -5,7 +5,7 @@ import { PATH } from "../components/router/MainView";
 import { Regex } from "../consts/consts";
 import { ApplicationCase, AsylumCaseProfile, Progress, UpdateApplicationCaseData } from "../model/apiModels";
 import { Identity, KeyValues } from "../model/commonModels";
-import { ControlType, IFormOptions } from "../model/formFlowModels";
+import { ControlType, IFormKeyObject, IFormOptions } from "../model/formFlowModels";
 import { ArrayFields, updateCaseFields } from "../reducers/formSlice";
 import { CaseProfile, CaseProfileOptional } from "../model/commonApiModels";
 import { CaseType } from "../model/immigrationTypes";
@@ -96,35 +96,17 @@ export function hasFormKey(control: ControlType) {
   );
 }
 
-export function getFieldValue(
+export function getFieldValueByKey(
   caseDetails: CaseProfile | null,
   key: string,
-  control: ControlType,
   options?: IFormOptions[] | string,
   format?: string,
   fieldIndex?: number,
   linkage?: string,
-): any {
+) {
   if (!caseDetails) {
     return;
   }
-
-  // Sanity Check
-  if (control === "group") {
-    return;
-  }
-
-  if (!caseDetails) {
-    console.info("Case profile is missing");
-    return;
-  }
-  if (!key) {
-    if (hasFormKey(control)) {
-      console.error("Key is missing for control type: ", control);
-    }
-    return;
-  }
-
   /*
    * count-array pair
    * Example:
@@ -210,6 +192,60 @@ export function getFieldValue(
   return getCaseDetailValue(caseDetails, key, fieldIndex);
 }
 
+export function getFieldValue(
+  caseDetails: CaseProfile | null,
+  key: string,
+  control: ControlType,
+  options?: IFormOptions[] | string,
+  format?: string,
+  fieldIndex?: number,
+  linkage?: string,
+  keyObject?: IFormKeyObject,
+): any {
+  if (!caseDetails) {
+    return;
+  }
+
+  // Sanity Check
+  if (control === "group") {
+    return;
+  }
+
+  if (!caseDetails) {
+    console.info("Case profile is missing");
+    return;
+  }
+
+  if (!key && !keyObject) {
+    if (hasFormKey(control)) {
+      console.error("Key is missing for control type: ", control);
+    }
+    return;
+  }
+
+  if (keyObject) {
+    const fieldValue = {};
+    Object.keys(keyObject).forEach(k => {
+      if (typeof keyObject[k] === "object" && keyObject[k] !== null) {
+        fieldValue[k] = {
+          ...keyObject[k],
+          value: getFieldValueByKey(
+            caseDetails,
+            keyObject[k]["key"],
+            keyObject[k]["options"],
+            format,
+            fieldIndex,
+            linkage,
+          ),
+        };
+      }
+    });
+    return fieldValue;
+  }
+
+  return getFieldValueByKey(caseDetails, key, options, format, fieldIndex, linkage);
+}
+
 function createNestedObject(keys: string[], value: any, fieldIndex?: number) {
   return keys.reduceRight((result, key, i) => {
     if (key.indexOf("[]") > -1) {
@@ -258,7 +294,7 @@ export function dispatchFormValue(
         array[fieldIndex] = value;
         valueUsed = array;
       }
-      caseFieldsToUpdate[key] = valueUsed;
+      caseFieldsToUpdate[subKey] = valueUsed;
     } else {
       const caseWithUpdatedField = createNestedObject(keys, valueUsed, fieldIndex);
       caseFieldsToUpdate = _.merge(caseFieldsToUpdate, caseWithUpdatedField);

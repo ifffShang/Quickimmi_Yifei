@@ -4,25 +4,33 @@
   "type": "fields",
   "fields": [
     {
-      "label": "text_LastNameUsedNativeLanguage",
-      "placeholder": "text_LastNameUsedNativeLanguage",
-      "id": "15",
-      "key": "beneficiary.lastNameUsedNativeLanguage",
-      "control": "text"
-    },
-    {
-      "label": "text_FirstNameUsedNativeLanguage",
-      "placeholder": "text_FirstNameUsedNativeLanguage",
-      "id": "15",
-      "key": "beneficiary.firstNameUsedNativeLanguage",
-      "control": "text"
-    },
-    {
-      "label": "text_MiddleNameUsedNativeLanguage",
-      "placeholder": "text_MiddleNameUsedNativeLanguage",
-      "id": "15",
-      "key": "beneficiary.middleNameUsedNativeLanguage",
-      "control": "text"
+      "label": "text_NameUsedNativeLanguage",
+      "id": "NameUsedNativeLanguage",
+      "control": "group",
+      "maxChildPerRow": "3",
+      "fields": [
+        {
+          "label": "text_FirstName",
+          "placeholder": "text_FirstName",
+          "id": "4.a",
+          "key": "beneficiary.firstNameUsedNativeLanguage",
+          "control": "text"
+        },
+        {
+          "label": "text_MiddleName",
+          "placeholder": "text_MiddleName",
+          "id": "4.b",
+          "key": "beneficiary.middleNameUsedNativeLanguage",
+          "control": "component_textbox_na"
+        },
+        {
+          "label": "text_LastName",
+          "placeholder": "text_LastName",
+          "id": "4.c",
+          "key": "beneficiary.lastNameUsedNativeLanguage",
+          "control": "text"
+        }
+      ]
     },
     {
       "label": "text_AddressInNativeLanguage",
@@ -113,14 +121,14 @@
     {
       "label": "text_AdjustmentOfStatusCity",
       "placeholder": "text_AdjustmentOfStatusCity",
-      "id": "zip_code",
+      "id": "AdjustmentOfStatusCity",
       "key": "beneficiary.adjustmentOfStatusCity",
       "control": "text"
     },
     {
       "label": "text_AdjustmentOfStatusState",
       "placeholder": "text_AdjustmentOfStatusState",
-      "id": "zip_code",
+      "id": "AdjustmentOfStatusState",
       "key": "beneficiary.adjustmentOfStatusState",
       "control": "text"
     },

@@ -12,6 +12,7 @@ import { SortableSectionAddModal } from "./case/SortableSectionAddModal";
 import { TokenRefreshModal } from "./case/TokenRefreshModal";
 import { UploadOtherIdModal } from "./case/UploadOtherIdModal";
 import { UploadPassportModal } from "./case/UploadPassportModal";
+import { UploadI94Modal } from "./case/UploadI94Modal";
 import { UploadSignedDocumentModal } from "./case/UploadSignedDocumentModal";
 import { Button } from "antd";
 
@@ -22,10 +23,12 @@ interface ModalProps {
 
 function Modal({ children, closeButtonEnabled = true }: ModalProps) {
   const dispatch = useAppDispatch();
+  const onModalCloseCallback = useAppSelector(state => state.common.onModalCloseCallback);
 
-  const close = useCallback(() => {
+  const close = () => {
+    onModalCloseCallback && onModalCloseCallback();
     dispatch(closeModal());
-  }, [dispatch]);
+  };
 
   return (
     <div className="modalview-container">
@@ -52,6 +55,9 @@ export function ModalView() {
   switch (common.modalType) {
     case "uploadpassport":
       innerModal = <UploadPassportModal />;
+      break;
+    case "uploadi94":
+      innerModal = <UploadI94Modal />;
       break;
     case "uploadotherid":
       innerModal = <UploadOtherIdModal />;

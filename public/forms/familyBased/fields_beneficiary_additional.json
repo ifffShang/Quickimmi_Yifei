@@ -6,7 +6,7 @@
     {
       "label": "text_DaytimePhoneNumber",
       "placeholder": "text_DaytimePhoneNumber",
-      "id": "15",
+      "id": "DaytimePhoneNumber",
       "key": "beneficiary.daytimePhoneNumber",
       "control": "text"
     },
@@ -20,7 +20,7 @@
     {
       "label": "text_EmailAddress",
       "placeholder": "text_EmailAddress",
-      "id": "15",
+      "id": "EmailAddress",
       "key": "beneficiary.emailAddress",
       "control": "text"
     },
@@ -49,8 +49,8 @@
       ]
     },
     {
-      "label": "text_BeneficiaryEverInUS",
-      "placeholder": "text_BeneficiaryEverInUS",
+      "label": "text_WasBeneficiaryEVERInUS",
+      "placeholder": "text_WasBeneficiaryEVERInUS",
       "id": "part4.45",
       "key": "beneficiary.lastArrivalInformation.beneficiaryEverInUSYesCheckbox,beneficiary.lastArrivalInformation.beneficiaryEverInUSNoCheckbox",
       "control": "select",
@@ -124,6 +124,13 @@
       "control": "text"
     },
     {
+      "label": "text_UploadI94",
+      "placeholder": "text_UploadI94",
+      "id": "upload_i94",
+      "key": "beneficiary.lastArrivalInformation.i94DocumentId",
+      "control": "component_i94_uploader"
+    },
+    {
       "label": "text_I94Number",
       "placeholder": "text_I94Number",
       "id": "398",
@@ -142,14 +149,14 @@
       "placeholder": "text_DateOfArrival",
       "id": "399",
       "key": "beneficiary.lastArrivalInformation.dateOfArrival",
-      "control": "date"
+      "control": "datepicker"
     },
     {
       "label": "text_AuthorizedStayExpirationDate",
       "placeholder": "text_AuthorizedStayExpirationDate",
       "id": "396",
       "key": "beneficiary.lastArrivalInformation.authorizedStayExpirationDate",
-      "control": "date"
+      "control": "datepicker"
     },
     {
       "label": "text_PassportNumber",
@@ -177,7 +184,7 @@
       "placeholder": "text_ExpirationDateForPassport",
       "id": "403",
       "key": "beneficiary.lastArrivalInformation.expirationDateForPassport",
-      "control": "date"
+      "control": "datepicker"
     },
     {
       "label": "text_VisaNumber",
@@ -256,22 +263,22 @@
       ]
     },
     {
-      "label": "text_CityOrTown",
+      "label": "text_CityOrTownOfProceedings",
       "placeholder": "text_CityOrTown",
       "id": "55.a",
       "key": "beneficiary.cityOfProceedings",
       "control": "text"
     },
     {
-      "label": "text_State",
-      "placeholder": "text_State",
+      "label": "text_StateOfProceedings",
+      "placeholder": "text_StateOfProceedings",
       "id": "55.b",
       "key": "beneficiary.stateOfProceedings",
       "control": "text"
     },
     {
-      "label": "text_Date(mm/dd/yyyy)",
-      "placeholder": "text_Date(mm/dd/yyyy)",
+      "label": "text_DateOfProceedings",
+      "placeholder": "text_DateOfProceedings",
       "id": "55.a",
       "key": "beneficiary.dateOfProceedings",
       "control": "datepicker"

@@ -295,7 +295,7 @@ export const DefaultDeclaration = {
   attorneyUscisOnlineAccountNumber: "",
 };
 
-export const DefaultCaseProfile: AsylumCaseProfile = {
+export const DefaultAsylumCaseProfile: AsylumCaseProfile = {
   applyForWithholdingYesCheckbox: "",
   applicant: DefaultApplicant,
   family: DefaultFamily,
