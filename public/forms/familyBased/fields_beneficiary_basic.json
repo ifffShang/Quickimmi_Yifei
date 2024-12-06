@@ -6,46 +6,46 @@
     { "label": "text_InformationAboutBeneficiary", "hideHeader": "true", "control": "label" },
     {
       "label": "text_AlienRegistrationNumber",
-      "id": "part3.1",
+      "id": "part4.1",
       "key": "beneficiary.alienNumber",
       "control": "component_textbox_na"
     },
     {
       "label": "text_UscisOnlineAccountNumber",
-      "id": "part3.2",
+      "id": "part4.2",
       "key": "beneficiary.uSCISOnlineAccountNumber",
       "control": "component_textbox_na"
     },
     {
       "label": "text_SocialSecurityNumber",
-      "id": "part3.3",
+      "id": "part4.3",
       "key": "beneficiary.ssn",
       "control": "component_textbox_na"
     },
     {
       "label": "text_Name",
-      "id": "part3",
+      "id": "part4.4.abc",
       "control": "group",
       "maxChildPerRow": "3",
       "fields": [
         {
           "label": "text_FirstName",
           "placeholder": "text_FirstName",
-          "id": "4.a",
+          "id": "part4.4.b",
           "key": "beneficiary.firstName",
           "control": "text"
         },
         {
           "label": "text_MiddleName",
           "placeholder": "text_MiddleName",
-          "id": "4.b",
+          "id": "part4.4.c",
           "key": "beneficiary.middleName",
           "control": "component_textbox_na"
         },
         {
           "label": "text_LastName",
           "placeholder": "text_LastName",
-          "id": "4.c",
+          "id": "part4.4.a",
           "key": "beneficiary.lastName",
           "control": "text"
         }
@@ -53,35 +53,29 @@
     },
     {
       "label": "text_NamesUsedBeforeLabel(Pending due to data type changed to array)",
-      "hideHeader": "true",
-      "control": "label"
-    },
-    {
-      "label": "text_NamesUsedBeforeLabel(Pending due to data type changed to array)",
-      "hideHeader": "true",
       "placeholder": "text_NamesUsedBefore",
-      "id": "part3.5.abc",
+      "id": "part4.5.abc",
       "key": "beneficiary.beneficiaryOtherNames",
       "control": "component_multi_names_na"
     },
     {
       "label": "text_Nationalities",
-      "hideHeader": "true",
-      "placeholder": "text_NamesUsedBefore",
-      "id": "part3.5.abc",
+      "placeholder": "text_Nationalities",
+      "id": "part4.Nationalities",
       "key": "beneficiary.beneficiaryNationalities",
-      "control": "label"
+      "control": "select",
+      "options": "NationalityOptions"
     },
     {
       "label": "text_CityOfBirth",
-      "id": "part3.6",
+      "id": "part4.6",
       "placeholder": "text_CityOfBirth",
       "key": "beneficiary.cityOfBirth",
       "control": "text"
     },
     {
       "label": "text_CountryOfBirth",
-      "id": "part3.7",
+      "id": "part4.7",
       "placeholder": "text_CountryOfBirth",
       "key": "beneficiary.countryOfBirth",
       "control": "text"
@@ -95,7 +89,7 @@
     {
       "label": "text_Gender",
       "placeholder": "text_Gender",
-      "id": "gender",
+      "id": "part3.9_gender",
       "key": "beneficiary.sexMaleCheckbox,beneficiary.sexFemaleCheckbox",
       "control": "select",
       "options": [

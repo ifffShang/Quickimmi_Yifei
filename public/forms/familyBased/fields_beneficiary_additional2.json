@@ -46,11 +46,35 @@
           "control": "text"
         },
         {
-          "label": "text_ApartmentNumber(Add check to apt/ste/flr)",
-          "placeholder": "text_ApartmentNumber",
+          "label": "",
+          "id": "apartment_number",
+          "key": "beneficiary.addressNativeLanguage.aptCheckbox,beneficiary.addressNativeLanguage.steCheckbox,beneficiary.addressNativeLanguage.flrCheckbox",
+          "control": "radio",
+          "className": "apt-ste-flr-checkbox",
+          "options": [
+            {
+              "label": "text_Apartment",
+              "value": "aptCheckbox",
+              "keyValue": "true,false,false"
+            },
+            {
+              "label": "text_Ste",
+              "value": "steCheckbox",
+              "keyValue": "false,true,false"
+            },
+            {
+              "label": "text_Flr",
+              "value": "flrCheckbox",
+              "keyValue": "false,false,true"
+            }
+          ]
+        },
+        {
+          "label": "",
+          "placeholder": "text_Apt/Ste/FlrNumber",
           "id": "apartment_number",
           "key": "beneficiary.addressNativeLanguage.aptSteFlrNumber",
-          "control": "label"
+          "control": "text"
         },
         {
           "label": "text_City",
@@ -89,11 +113,35 @@
           "control": "text"
         },
         {
-          "label": "text_ApartmentNumber(Add check to apt/ste/flr)",
-          "placeholder": "text_ApartmentNumber",
+          "label": "",
+          "id": "apartment_number",
+          "key": "beneficiary.lastAddressLivedTogether.aptCheckbox,beneficiary.lastAddressLivedTogether.steCheckbox,beneficiary.lastAddressLivedTogether.flrCheckbox",
+          "control": "radio",
+          "className": "apt-ste-flr-checkbox",
+          "options": [
+            {
+              "label": "text_Apartment",
+              "value": "aptCheckbox",
+              "keyValue": "true,false,false"
+            },
+            {
+              "label": "text_Ste",
+              "value": "steCheckbox",
+              "keyValue": "false,true,false"
+            },
+            {
+              "label": "text_Flr",
+              "value": "flrCheckbox",
+              "keyValue": "false,false,true"
+            }
+          ]
+        },
+        {
+          "label": "",
+          "placeholder": "text_Apt/Ste/FlrNumber",
           "id": "apartment_number",
           "key": "beneficiary.lastAddressLivedTogether.aptSteFlrNumber",
-          "control": "label"
+          "control": "text"
         },
         {
           "label": "text_City",

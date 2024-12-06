@@ -406,6 +406,8 @@
   "NameUsedNativeLanguage": "Name Used Native Language",
   "AddressInNativeLanguage": "Address In Native Language",
   "LastAddressLivedTogether": "Last Address Lived Together",
+  "AdjustmentOfStatusCity": "City Or Town Where Apply For Adjustment Of Status Of Lawful Permanent Resident",
+  "AdjustmentOfStatusState": "State Where Apply For Adjustment Of Status Of Lawful Permanent Resident",
   "HasSocialSecurityCard": "Has Social Security Card?",
   "AppliedForImmigrantVisa": "Applied For Immigrant Visa?",
 
@@ -864,6 +866,7 @@
   "StatusOfDateAuthorizedStay": "Date authorized stay expired, or will expire, as shown on Form I-94 or Form I-95 (mm/dd/yyyy) or type or print \"D/S\" for Duration of Status",
   "CountryOfIssuanceForPassportOrTravelDocument": "Country of Issuance for Passport or Travel Document",
   "ExpirationDateForPassportOrTravelDocument": "Expiration Date for Passport or Travel Document(mm/dd/yyyy)",
+  "HasAnyoneElseEverfiled": "Has Anyone Else Ever filed?",
 
   "Beneficiary'sEmployment": "Beneficiary's Employment Information",
   "ProvideBeneficiary'sCurrentEmploymentInformation": "Provide the beneficiary's current employment information (if applicable), even if they are employed outside of the United States. If the beneficiary is currently unemployed, type or print \"Unemployed\" in Item Number 51.a.",
@@ -879,6 +882,7 @@
   "DateInImmigrationProceedings": "Date (mm/dd/yyyy)",
   "appliedImmigrationVisaBefore": "applied Immigration Visa Before",
   "usEmbassies": "us embassies",
+  "AddUsEmbassies": "Add Us Embassies",
 
   "Beneficiary'sNativeWrittenLanguageDoesNotUseRomanLetters": "If the beneficiary's native written language does not use Roman letters, type or print his or her name and foreign address in their native written language.",
   "FilingForSpouse": "If filing for your spouse, provide the last address at which you physically lived together. If you never lived together, type or print, \"Never lived together\" in Item Number 59.a.",

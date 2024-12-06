@@ -6,7 +6,7 @@
     {
       "label": "text_MaritalStatus",
       "placeholder": "text_SelectMaritalStatus",
-      "id": "maritalStatus",
+      "id": "part4.18.maritalStatus",
       "key": "beneficiary.maritalInfo.maritalStatusSingleCheckbox,beneficiary.maritalInfo.maritalStatusMarriedCheckbox,beneficiary.maritalInfo.maritalStatusDivorcedCheckbox,beneficiary.maritalInfo.maritalStatusWidowedCheckbox,beneficiary.maritalInfo.maritalStatusAnnulledCheckbox,beneficiary.maritalInfo.maritalStatusSeparatedCheckbox",
       "control": "select",
       "options": [
@@ -75,7 +75,7 @@
     },
     {
       "label": "text_CurrentSpouseName",
-      "id": "currentSpouseName",
+      "id": "part4.21.abc_currentSpouseName",
       "control": "group",
       "maxChildPerRow": "3",
       "fields": [
@@ -128,14 +128,14 @@
       "id": "CurrentSpousePlaceOfBirth",
       "key": "beneficiary.maritalInfo.currentSpouse.countryOfBirth,beneficiary.maritalInfo.currentSpouse.stateOfBirth,beneficiary.maritalInfo.currentSpouse.cityOfBirth",
       "linkage": "MultiInOneLinkage",
-      "control": "componet_location_dropdown_splitted"
+      "control": "component_location_dropdown_splitted"
     },
     {
       "label": "text_CurrentSpousePlaceOfMarriage",
       "id": "CurrentSpousePlaceOfMarriage",
       "key": "beneficiary.maritalInfo.currentSpouse.placeOfMarriageCountry,beneficiary.maritalInfo.currentSpouse.placeOfMarriageState,beneficiary.maritalInfo.currentSpouse.placeOfMarriageCity",
       "linkage": "MultiInOneLinkage",
-      "control": "componet_location_dropdown_splitted"
+      "control": "component_location_dropdown_splitted"
     },
     {
       "label": "text_CurrentSpouseApplying",
@@ -211,7 +211,7 @@
           "id": "PreviousSpousePlaceOfMarriage",
           "key": "beneficiary.maritalInfo.previousSpouseInfos[].placeOfMarriageCountry,beneficiary.maritalInfo.previousSpouseInfos[].placeOfMarriageState,beneficiary.maritalInfo.previousSpouseInfos[].placeOfMarriageCity",
           "linkage": "MultiInOneLinkage",
-          "control": "componet_location_dropdown_splitted"
+          "control": "component_location_dropdown_splitted"
         }
       ]
     },
@@ -322,8 +322,8 @@
     },
     {
       "label": "",
-      "placeholder": "text_AddAnotherPreviousSpouse",
-      "id": "AddAnotherPreviousSpouse",
+      "placeholder": "text_AddUsEmbassies",
+      "id": "AddUsEmbassies",
       "key": "count-beneficiary.usEmbassies",
       "control": "component_add_item"
     }
