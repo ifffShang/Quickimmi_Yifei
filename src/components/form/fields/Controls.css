@@ -118,3 +118,14 @@
   display: flex;
   gap: 10px;
 }
+
+.monthyearpicker-with-option {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.monthyearpicker-with-option-picker {
+  display: flex;
+  gap: 10px;
+}
