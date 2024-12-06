@@ -124,6 +124,13 @@
       "control": "text"
     },
     {
+      "label": "text_UploadI94",
+      "placeholder": "text_UploadI94",
+      "id": "upload_i94",
+      "key": "beneficiary.lastArrivalInformation.i94DocumentId",
+      "control": "component_i94_uploader"
+    },
+    {
       "label": "text_I94Number",
       "placeholder": "text_I94Number",
       "id": "398",

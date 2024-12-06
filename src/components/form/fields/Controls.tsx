@@ -55,7 +55,7 @@ export function FormInput(props: FormInputProps) {
   );
 }
 
-/** TextBox View control ***************************************************/
+/** Field View control ***************************************************/
 
 export interface QFieldViewProps {
   label: string;
@@ -616,7 +616,12 @@ export function RadioSelect(props: RadioSelectProps) {
   const direction = props.className === "apt-ste-flr-checkbox" ? "horizontal" : "vertical";
 
   return (
-    <Radio.Group className={props.className ?? ""} onChange={e => onValueChange(e.target.value)} value={value}>
+    <Radio.Group
+      className={props.className ?? ""}
+      onChange={e => onValueChange(e.target.value)}
+      value={value}
+      disabled={props.disabled || false}
+    >
       <Space direction={direction}>
         {options.map(option => (
           <Radio key={option.value} value={option.value}>
@@ -669,6 +674,54 @@ export function QDatePickerWithNA(props: QDatePickerWithNAProps) {
         />
       </div>
       <PureCheckBox checked={isNA} label={props.notApplicableText} onChange={handleNAChange} />
+    </div>
+  );
+}
+
+/** MonthYearPickerWithOption control ***************************************************/
+// Month and year picker with support for multiple options (e.g., present, N/A) by adding corresponding controls in FormField.tsx
+export interface MonthYearPickerWithOptionProps extends Omit<QMonthYearPickerProps, "value" | "onChange"> {
+  value?: string;
+  onChange: (value: string) => void;
+  notApplicableText: string;
+  optionValue: string;
+}
+
+export function MonthYearPickerWithOption(props: MonthYearPickerWithOptionProps) {
+  const { optionValue } = props;
+  const [isOptionSelected, setIsOptionSelected] = useState(props.value === optionValue);
+
+  useEffect(() => {
+    setIsOptionSelected(props.value === optionValue);
+  }, [props.value, optionValue]);
+
+  const handleDateChange = (value: string) => {
+    if (!isOptionSelected) {
+      props.onChange(value);
+    }
+  };
+
+  const handleOptionChange = (checked: boolean) => {
+    if (checked) {
+      setIsOptionSelected(true);
+      props.onChange(optionValue);
+    } else {
+      setIsOptionSelected(false);
+      props.onChange("");
+    }
+  };
+
+  return (
+    <div className="monthyearpicker-with-option">
+      <div className="monthyearpicker-with-option-picker">
+        <QMonthYearPicker
+          {...props}
+          value={isOptionSelected ? "" : props.value}
+          onChange={handleDateChange}
+          disabled={isOptionSelected || props.disabled}
+        />
+      </div>
+      <PureCheckBox checked={isOptionSelected} label={props.notApplicableText} onChange={handleOptionChange} />
     </div>
   );
 }

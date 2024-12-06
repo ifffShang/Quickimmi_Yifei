@@ -125,7 +125,7 @@
           "placeholder": "text_MM/YYYY",
           "id": "background_end_date",
           "key": "petitioner.addressHistory[].endDate",
-          "control": "monthyearpicker"
+          "control": "component_monthyearpicker_present"
         }
       ]
     },

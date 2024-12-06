@@ -6,6 +6,7 @@ import {
   ParsePassportResponse,
   UploadedDocument,
   GenerationType,
+  ParseI94Response,
 } from "../model/apiModels";
 import { performApiRequest } from "./apiConfig";
 import {
@@ -143,6 +144,23 @@ export async function parsePassportApi(
     caseId,
   });
   return <ParsePassportResponse>res.data;
+}
+
+export async function parseI94Api(
+  documentId: number,
+  accessToken: string,
+  role: Role,
+  caseId: number,
+): Promise<ParseI94Response> {
+  const res = await performApiRequest({
+    endPoint: `api/document/parse/i94?documentId=${documentId}`,
+    method: "POST",
+    data: null,
+    accessToken,
+    role,
+    caseId,
+  });
+  return <ParseI94Response>res.data;
 }
 
 export async function parseMarriageCertificateApi(

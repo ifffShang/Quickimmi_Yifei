@@ -151,7 +151,7 @@
           "control": "text"
         },
         {
-          "label": "text_MailAddress",
+          "label": "text_Address",
           "id": "3.11",
           "control": "group",
           "maxChildPerRow": "3",
@@ -194,7 +194,7 @@
           ]
         },
         {
-          "label": "text_MailingAddressSameAsPhysicalYes",
+          "label": "text_MailingAddressSameAsPhysicalAddress",
           "key": "sponsorList[].sponsorDetails.mailingAddressSameAsPhysicalYesCheckbox",
           "control": "radio",
           "options": [
@@ -211,24 +211,7 @@
           ]
         },
         {
-          "label": "text_MailingAddressSameAsPhysicalNo",
-          "key": "sponsorList[].sponsorDetails.mailingAddressSameAsPhysicalNoCheckbox",
-          "control": "radio",
-          "options": [
-            {
-              "value": "Yes",
-              "label": "text_Yes",
-              "keyValue": "true,false"
-            },
-            {
-              "value": "No",
-              "label": "text_No",
-              "keyValue": "false,true"
-            }
-          ]
-        },
-        {
-          "label": "text_MailAddress",
+          "label": "text_MailingAddress",
           "id": "3.11",
           "control": "group",
           "maxChildPerRow": "3",
@@ -301,53 +284,25 @@
           "control": "text"
         },
         {
-          "label": "text_IsUsCitizen",
-          "key": "sponsorList[].sponsorDetails.isUsCitizenCheckbox",
+          "label": "text_SponsorCitizenshipOrResidency",
+          "id": "sponsor_citizenship_or_residency",
+          "key": "sponsorList[].sponsorDetails.isUsCitizenCheckbox, sponsorList[].sponsorDetails.isUsNationalCheckbox, sponsorList[].sponsorDetails.isLawfulPermanentResidentCheckbox",
           "control": "radio",
           "options": [
             {
-              "value": "Yes",
-              "label": "text_Yes",
-              "keyValue": "true,false"
+              "value": "UsCitizen",
+              "label": "text_USCitizen",
+              "keyValue": "true,false,false"
             },
             {
-              "value": "No",
-              "label": "text_No",
-              "keyValue": "false,true"
-            }
-          ]
-        },
-        {
-          "label": "text_IsUsNational",
-          "key": "sponsorList[].sponsorDetails.isUsNationalCheckbox",
-          "control": "radio",
-          "options": [
-            {
-              "value": "Yes",
-              "label": "text_Yes",
-              "keyValue": "true,false"
+              "value": "UsNational",
+              "label": "text_USNational",
+              "keyValue": "false,true,false"
             },
             {
-              "value": "No",
-              "label": "text_No",
-              "keyValue": "false,true"
-            }
-          ]
-        },
-        {
-          "label": "text_IsLawfulPermanentResident",
-          "key": "sponsorList[].sponsorDetails.isLawfulPermanentResidentCheckbox",
-          "control": "radio",
-          "options": [
-            {
-              "value": "Yes",
-              "label": "text_Yes",
-              "keyValue": "true,false"
-            },
-            {
-              "value": "No",
-              "label": "text_No",
-              "keyValue": "false,true"
+              "value": "PermanentResident",
+              "label": "text_LawfulPermanentResident",
+              "keyValue": "false,false,true"
             }
           ]
         },
@@ -363,24 +318,7 @@
         },
         {
           "label": "text_MilitaryServiceActiveDutyYes",
-          "key": "sponsorList[].sponsorDetails.militaryServiceActiveDutyYesCheckbox",
-          "control": "radio",
-          "options": [
-            {
-              "value": "Yes",
-              "label": "text_Yes",
-              "keyValue": "true,false"
-            },
-            {
-              "value": "No",
-              "label": "text_No",
-              "keyValue": "false,true"
-            }
-          ]
-        },
-        {
-          "label": "text_MilitaryServiceActiveDutyNo",
-          "key": "sponsorList[].sponsorDetails.militaryServiceActiveDutyNoCheckbox",
+          "key": "sponsorList[].sponsorDetails.militaryServiceActiveDutyYesCheckbox, sponsorList[].sponsorDetails.militaryServiceActiveDutyNoCheckbox",
           "control": "radio",
           "options": [
             {

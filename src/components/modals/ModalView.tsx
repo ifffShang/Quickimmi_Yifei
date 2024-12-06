@@ -12,6 +12,7 @@ import { SortableSectionAddModal } from "./case/SortableSectionAddModal";
 import { TokenRefreshModal } from "./case/TokenRefreshModal";
 import { UploadOtherIdModal } from "./case/UploadOtherIdModal";
 import { UploadPassportModal } from "./case/UploadPassportModal";
+import { UploadI94Modal } from "./case/UploadI94Modal";
 import { UploadSignedDocumentModal } from "./case/UploadSignedDocumentModal";
 import { Button } from "antd";
 
@@ -54,6 +55,9 @@ export function ModalView() {
   switch (common.modalType) {
     case "uploadpassport":
       innerModal = <UploadPassportModal />;
+      break;
+    case "uploadi94":
+      innerModal = <UploadI94Modal />;
       break;
     case "uploadotherid":
       innerModal = <UploadOtherIdModal />;

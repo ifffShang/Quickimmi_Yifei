@@ -52,16 +52,16 @@
           "referenceId": "familyBased/fields_petitioner_employment"
         },
         {
-          "label": "text_Additional",
-          "id": "part2",
-          "type": "level2",
-          "referenceId": "familyBased/fields_petitioner_additional"
-        },
-        {
           "label": "text_Biographic",
           "id": "part3",
           "type": "level2",
           "referenceId": "familyBased/fields_petitioner_biographic"
+        },
+        {
+          "label": "text_Additional",
+          "id": "part2",
+          "type": "level2",
+          "referenceId": "familyBased/fields_petitioner_additional"
         }
       ]
     },
