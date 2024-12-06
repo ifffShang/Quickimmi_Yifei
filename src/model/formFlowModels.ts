@@ -110,7 +110,8 @@ export type ControlType =
   | "component_view_application_form"
   | "component_address_us"
   | "percentage" // used only for percentage calculation
-  | "multi_file_uploader_new"; // WIP!!! DON'T USE!!!;
+  | "multi_file_uploader_new" // WIP!!! DON'T USE!!!;
+  | "component_monthyearpicker_present";
 
 export interface RefineResponse {
   result: string;

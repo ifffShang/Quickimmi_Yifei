@@ -20,6 +20,7 @@ import {
   CheckBoxMultiOptions,
   QDatePicker,
   QDatePickerWithNA,
+  MonthYearPickerWithOption,
   QFieldView,
   QMonthYearPicker,
   QTextArea,
@@ -776,6 +777,18 @@ export function FormField(props: FormFieldProps) {
       return <Section {...props} />;
     case "sortable_section":
       return <SortableSection {...props} />;
+    case "component_monthyearpicker_present":
+      return (
+        <MonthYearPickerWithOption
+          placeholder={placeholder}
+          value={fieldValue}
+          onChange={(value: string) => {
+            dispatchFormValue(dispatch, caseType, { [props.fieldKey]: value }, props.fieldIndex);
+          }}
+          notApplicableText={t("Present")}
+          optionValue="Present"
+        />
+      );
     default:
       return <div>Control not found</div>;
   }
