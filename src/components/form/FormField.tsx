@@ -48,6 +48,7 @@ import { getProfile } from "../../utils/selectorUtils";
 import { MultipleNamesWithNA } from "./fields/MultipleNamesWithNA";
 import { AddressUS } from "./fields/AddressUS";
 import { SameAddressCheckboxV2 } from "./fields/SameAddressCheckboxV2";
+import { I94Uploader } from "./fields/I94Uploader";
 
 export interface FormFieldProps {
   fieldKey: string;
@@ -541,6 +542,28 @@ export function FormField(props: FormFieldProps) {
       return (
         <FormControlContainer fieldValue={fieldValue}>
           <PassportUploader
+            documentId={fieldValue}
+            fieldKey={props.fieldKey}
+            fieldIndex={props.fieldIndex}
+            onChange={(value: any) => {
+              props.fieldKey &&
+                dispatchFormValue(
+                  dispatch,
+                  caseType,
+                  {
+                    [props.fieldKey]: value,
+                  },
+                  props.fieldIndex,
+                );
+            }}
+          />
+        </FormControlContainer>
+      );
+    }
+    case "component_i94_uploader": {
+      return (
+        <FormControlContainer fieldValue={fieldValue}>
+          <I94Uploader
             documentId={fieldValue}
             fieldKey={props.fieldKey}
             fieldIndex={props.fieldIndex}
