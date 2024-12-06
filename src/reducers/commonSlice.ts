@@ -4,6 +4,7 @@ import { handleResize } from "../utils/screenSizeUtil";
 
 export type ModalType =
   | "uploadpassport"
+  | "uploadi94"
   | "uploadotherid"
   | "uploadSignedDocument"
   | "registerTrackingNumber"

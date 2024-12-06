@@ -9,6 +9,7 @@ import {
   ApplicationCase,
   GeneratedDocument,
   MarriageCertificate,
+  ParseI94Response,
   ParsePassportResponse,
   Percentage,
   Progress,
@@ -296,6 +297,7 @@ export const formSlice = createSlice({
       }
     },
     updatePassportInfo: (state, action: PayloadAction<ParsePassportResponse>) => {
+      console.log("Print Passport field key", action.payload.fieldKey)
       const fieldKey = action.payload.fieldKey.replace(".passportDocumentId", "");
       let payload: any = {
         passportNumber: action.payload.idNumber,
@@ -319,6 +321,28 @@ export const formSlice = createSlice({
       const profile = _.merge(state.applicationCase.asylumProfile, payloadToUpdate);
       Object.assign(state.applicationCase.asylumProfile, profile);
     },
+    updateI94Info: (state, action: PayloadAction<ParseI94Response>) => {
+      const fieldKey = action.payload.fieldKey.replace(".i94DocumentId", "");
+
+      const payload: any = {
+        i94Number: action.payload.recordNumber,
+        dateOfArrival: action.payload.mostRecentEntryDate,
+        i94Status: action.payload.admissionClass,
+        authorizedStayExpirationDate: action.payload.admitUntilDate,
+        lastName: action.payload.lastName,
+        firstName: action.payload.firstName,
+        birthDate: action.payload.birthDate,
+        travelDocumentNumber: action.payload.documentNumber,
+        passportIssueCountry: action.payload.citizenship,
+        countryCode: action.payload.countryCode,
+      };
+
+      const payloadToUpdate = getUpdateProfileData(fieldKey, payload, action.payload.fieldIndex);
+      console.log("Print payloadToUpdate", payloadToUpdate)
+      const profile = _.merge(state.applicationCase.familyBasedProfile, payloadToUpdate);
+      Object.assign(state.applicationCase.familyBasedProfile, profile);
+    },
+
     updateIdCardInfo: (state, action: PayloadAction<ParsePassportResponse>) => {
       const fieldKey = action.payload.fieldKey.replace(".passportDocumentId", "");
       const payload: any = {
@@ -450,6 +474,7 @@ export const {
   updateOnePercentage,
   updateCaseFields,
   updatePassportInfo,
+  updateI94Info,
   updateIdCardInfo,
   updateTravelDocumentInfo,
   updateMarriageLicenseInfo,

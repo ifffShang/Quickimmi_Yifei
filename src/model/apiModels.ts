@@ -653,6 +653,23 @@ export interface GeneratedDocument {
   updatedAt: number;
 }
 
+export interface ParseI94Response {
+  fieldKey: string;
+  fieldIndex?: number;
+  recordNumber: string;
+  mostRecentEntryDate: string;
+  admissionClass: string;
+  admitUntilDate: string;
+  lastName: string; // format is mm/dd/yyyy
+  firstName: string;
+  birthDate: string;
+  documentNumber: string;
+  citizenship: string;
+  countryCode: string;
+  //todo add the travel history?
+  travelHistory: string[];
+}
+
 export enum GenerationType {
   USER_UPLOADED = "USER_UPLOADED",
   SYSTEM_AUTO_GENERATED = "SYSTEM_AUTO_GENERATED",

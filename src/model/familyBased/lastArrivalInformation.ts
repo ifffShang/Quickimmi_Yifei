@@ -15,6 +15,8 @@ export interface LastArrivalInformation {
   otherEntryMethodCheckbox: string | undefined;
   otherEntryDetail: string;
 
+  i94DocumentId: number;
+
   // 398
   i94Number: string;
 

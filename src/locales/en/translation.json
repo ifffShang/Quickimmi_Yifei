@@ -548,6 +548,7 @@
   "UscisOnlineAccountNumber": "USCIS Online Account Number",
   "eoirNumber": "EOIR Number",
   "I94Number": "I-94 Number",
+  "NoI94": "No I94",
   "SSN": "Social Security Number",
   "ImmigrationCourt": "Immigration Court",
   "ImmigrationCourtNever": "I have never been in Immigration Court proceedings.",
