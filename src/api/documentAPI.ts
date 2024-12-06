@@ -5,7 +5,8 @@ import {
   GeneratePresignedUrlResponse,
   ParsePassportResponse,
   UploadedDocument,
-  GenerationType, ParseI94Response,
+  GenerationType,
+  ParseI94Response,
 } from "../model/apiModels";
 import { performApiRequest } from "./apiConfig";
 import {
@@ -38,7 +39,6 @@ export async function generateDocumentPresignedUrl(
   accessToken: string,
   role: Role,
 ): Promise<GeneratePresignedUrlResponse> {
-  console.log("===RUN HERE")
   const res = await performApiRequest({
     endPoint: "api/document/generatePresignedUrl/put",
     method: "POST",
@@ -147,10 +147,10 @@ export async function parsePassportApi(
 }
 
 export async function parseI94Api(
-    documentId: number,
-    accessToken: string,
-    role: Role,
-    caseId: number,
+  documentId: number,
+  accessToken: string,
+  role: Role,
+  caseId: number,
 ): Promise<ParseI94Response> {
   const res = await performApiRequest({
     endPoint: `api/document/parse/i94?documentId=${documentId}`,

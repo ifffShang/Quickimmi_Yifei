@@ -37,7 +37,6 @@ export function UploadI94Modal() {
 
   const onI94ImageUrlReceived = (imageUrl: string) => {
     // Update the image URL in the parent. This is optional if you need a preview.
-    console.log("onI94ImageUrlReceived", imageUrl);
     modalData?.updateI94ImageUrl?.(imageUrl);
   };
 
@@ -57,15 +56,14 @@ export function UploadI94Modal() {
       if (!i94Info) {
         throw new Error(`Failed to parse I-94 info for document id ${documentId}`);
       }
-      console.log(i94Info)
+      console.log(i94Info);
       dispatch(
-          updateI94Info({
-            ...i94Info,
-            fieldKey: modalData.fieldKey,
-            fieldIndex: modalData.fieldIndex,
-          }),
+        updateI94Info({
+          ...i94Info,
+          fieldKey: modalData.fieldKey,
+          fieldIndex: modalData.fieldIndex,
+        }),
       );
-      console.log(documentId)
       dispatch(closeModal());
     } catch (err) {
       console.error(err);
@@ -97,41 +95,35 @@ export function UploadI94Modal() {
       }
       setConfirmDisabled(true);
       setLoading(true);
-      uploadFileToPresignUrl(
-          presignedUrlResRef.current.presignedUrl,
-          fileRef.current,
-          onProgress,
-          onSuccess,
-          onError
-      );
+      uploadFileToPresignUrl(presignedUrlResRef.current.presignedUrl, fileRef.current, onProgress, onSuccess, onError);
     } catch (err) {
       console.error(err);
     }
   };
 
   return (
-      <div className="upload-passport">
-        {/* You can rename these text entries or add new ones to match I-94 */}
-        <QText level="large">{wt("UploadI94Document")}</QText>
-        <div className="upload-passport-uploader">
-          <Uploader
-              documentType="I94"
-              documentName="i94-document"
-              onImageUrlReceived={onI94ImageUrlReceived}
-              onPresignedUrlReceived={onPresignedUrlReceived}
-              identity={identity}
-          />
-        </div>
-        <QText level="xsmall" color="gray">
-          {wt("UploadI94Document")}
-        </QText>
-        <div className="upload-i94-controls">
-          <Button type="primary" size="large" onClick={onConfirmButtonClick} disabled={confirmDisabled}>
-            {confirmDisabled ? (loading ? <LoadingOutlined /> : wt("Confirm")) : wt("Confirm")}
-          </Button>
-          {/* If needed, a fallback option similar to "NoPassport" can be added */}
-          <Checkbox onClick={() => dispatch(changeModalType("uploadotherid"))}>{wt("NoI94")}</Checkbox>
-        </div>
+    <div className="upload-passport">
+      {/* You can rename these text entries or add new ones to match I-94 */}
+      <QText level="large">{wt("UploadI94Document")}</QText>
+      <div className="upload-passport-uploader">
+        <Uploader
+          documentType="I94"
+          documentName="i94-document"
+          onImageUrlReceived={onI94ImageUrlReceived}
+          onPresignedUrlReceived={onPresignedUrlReceived}
+          identity={identity}
+        />
       </div>
+      <QText level="xsmall" color="gray">
+        {wt("UploadI94Document")}
+      </QText>
+      <div className="upload-i94-controls">
+        <Button type="primary" size="large" onClick={onConfirmButtonClick} disabled={confirmDisabled}>
+          {confirmDisabled ? loading ? <LoadingOutlined /> : wt("Confirm") : wt("Confirm")}
+        </Button>
+        {/* If needed, a fallback option similar to "NoPassport" can be added */}
+        <Checkbox onClick={() => dispatch(changeModalType("uploadotherid"))}>{wt("NoI94")}</Checkbox>
+      </div>
+    </div>
   );
 }

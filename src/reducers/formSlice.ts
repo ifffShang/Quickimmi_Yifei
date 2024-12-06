@@ -297,7 +297,6 @@ export const formSlice = createSlice({
       }
     },
     updatePassportInfo: (state, action: PayloadAction<ParsePassportResponse>) => {
-      console.log("Print Passport field key", action.payload.fieldKey)
       const fieldKey = action.payload.fieldKey.replace(".passportDocumentId", "");
       let payload: any = {
         passportNumber: action.payload.idNumber,
@@ -338,7 +337,6 @@ export const formSlice = createSlice({
       };
 
       const payloadToUpdate = getUpdateProfileData(fieldKey, payload, action.payload.fieldIndex);
-      console.log("Print payloadToUpdate", payloadToUpdate)
       const profile = _.merge(state.applicationCase.familyBasedProfile, payloadToUpdate);
       Object.assign(state.applicationCase.familyBasedProfile, profile);
     },
