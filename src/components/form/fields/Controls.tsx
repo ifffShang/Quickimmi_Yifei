@@ -262,6 +262,7 @@ export function QDatePicker(props: QDatePickerProps) {
         format={["MM/DD/YYYY", "MM/DD/YY", "MM-DD-YYYY", "MM-DD-YY"]}
         onChange={onDateChange}
         disabled={props.disabled || false}
+        popupStyle={{ zIndex: 1200 }}
       />
       {value && (
         <div className="inline-placeholder">
