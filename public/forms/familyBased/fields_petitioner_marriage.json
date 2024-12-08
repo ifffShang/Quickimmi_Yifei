@@ -85,34 +85,34 @@
       "key": "count-petitioner.spouses",
       "control": "sortable_section",
       "fields": [
-          {
-            "label": "text_FirstName",
-            "placeholder": "text_FirstName",
-            "id": "first_name",
-            "key": "petitioner.spouses[].firstName",
-            "control": "text"
-          },
-          {
-            "label": "text_MiddleName",
-            "placeholder": "text_MiddleName",
-            "id": "middle_name",
-            "key": "petitioner.spouses[].middleName",
-            "control": "component_textbox_na"
-          },
-          {
-            "label": "text_LastName",
-            "placeholder": "text_LastName",
-            "id": "last_name",
-            "key": "petitioner.spouses[].lastName",
-            "control": "text"
-          },
-          {
-            "label": "text_DateMarriageEnded",
-            "placeholder": "text_MM/YYYY",
-            "id": "20",
-            "key": "petitioner.spouses[].dateMarriageEnded",
-            "control": "datepicker"
-          }
+        {
+          "label": "text_FirstName",
+          "placeholder": "text_FirstName",
+          "id": "first_name",
+          "key": "petitioner.spouses[].firstName",
+          "control": "text"
+        },
+        {
+          "label": "text_MiddleName",
+          "placeholder": "text_MiddleName",
+          "id": "middle_name",
+          "key": "petitioner.spouses[].middleName",
+          "control": "component_textbox_na"
+        },
+        {
+          "label": "text_LastName",
+          "placeholder": "text_LastName",
+          "id": "last_name",
+          "key": "petitioner.spouses[].lastName",
+          "control": "text"
+        },
+        {
+          "label": "text_DateMarriageEnded",
+          "placeholder": "text_MM/YYYY",
+          "id": "20",
+          "key": "petitioner.spouses[].dateMarriageEnded",
+          "control": "datepicker"
+        }
       ]
     },
     {
