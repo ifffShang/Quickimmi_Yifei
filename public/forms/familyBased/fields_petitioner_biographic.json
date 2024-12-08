@@ -57,22 +57,30 @@
       ]
     },
     {
-      "label": "text_HeightFeet",
-      "placeholder": "text_HeightFeet",
+      "label": "text_Height",
       "id": "part3.3",
-      "key": "petitioner.biographic.heightFeet",
-      "control": "text"
+      "control": "group",
+      "maxChildPerRow": "3",
+      "fields": [
+        {
+          "label": "text_HeightFeet",
+          "placeholder": "text_HeightFeet",
+          "id": "part3.3",
+          "key": "petitioner.biographic.heightFeet",
+          "control": "text"
+        },
+        {
+          "label": "text_HeightInches",
+          "placeholder": "text_HeightInches",
+          "id": "part3.3",
+          "key": "petitioner.biographic.heightInches",
+          "control": "text"
+        }
+      ]
     },
     {
-      "label": "text_HeightInches",
-      "placeholder": "text_HeightInches",
-      "id": "part3.3",
-      "key": "petitioner.biographic.heightInches",
-      "control": "text"
-    },
-    {
-      "label": "text_WeightPounds(Need to update with three digits)",
-      "placeholder": "text_HeightInches",
+      "label": "text_Weight",
+      "placeholder": "text_WeightPounds(Need to update with three digits)",
       "id": "part3.4",
       "key": "petitioner.biographic.weightPounds1",
       "control": "text"

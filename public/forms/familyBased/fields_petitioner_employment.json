@@ -11,14 +11,14 @@
     {
       "label": "text_Employment",
       "hideHeader": "true",
-      "id": "employment_information",
+      "id": "part2.42-49_employment_information",
       "key": "count-petitioner.employmentHistory",
       "control": "sortable_section",
       "fields": [
         {
           "label": "text_InUSA",
           "id": "",
-          "key": "petitioner.inUSA",
+          "key": "petitioner.employmentHistory[].inUSA",
           "control": "checkbox",
           "options": [
             {
@@ -40,7 +40,7 @@
           "control": "text"
         },
         {
-          "label": "text_StreetNumberAndNameOfEmployer",
+          "label": "text_StreetNumberAndName",
           "id": "name_and_address",
           "key": "petitioner.employmentHistory[].streetNumberAndName",
           "control": "text"
@@ -48,8 +48,9 @@
         {
           "label": "text_AptSuiteFloor",
           "id": "",
-          "key": "petitioner.aptCheckbox,petitioner.steCheckbox,petitioner.flrCheckbox",
-          "control": "checkbox",
+          "key": "petitioner.employmentHistory[].aptCheckbox,petitioner.employmentHistory[].steCheckbox,petitioner.employmentHistory[].flrCheckbox",
+          "control": "radio",
+          "className": "apt-ste-flr-checkbox",
           "options": [
             {
               "value": "Apt",

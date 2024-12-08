@@ -6,13 +6,13 @@
     {
       "label": "text_HowManyTimesHaveYouBeenMarried",
       "placeholder": "text_HowManyTimesHaveYouBeenMarried",
-      "id": "16",
+      "id": "part2.16_HowManyTimesHaveYouBeenMarried",
       "key": "petitioner.timesMarried",
       "control": "text"
     },
     {
       "label": "text_MaritalStatus",
-      "id": "maritalStatus",
+      "id": "part2.17_MaritalStatus",
       "key": "petitioner.currentMartialStatusSingleCheckbox,petitioner.currentMartialStatusMarriedCheckbox,petitioner.currentMartialStatusDivorcedCheckbox,petitioner.currentMartialStatusWidowedCheckbox,petitioner.currentMartialStatusSeparatedCheckbox,petitioner.currentMartialStatusAnnulledCheckbox",
       "control": "select",
       "options": [
@@ -52,7 +52,7 @@
       "label": "text_DateOfCurrentMarriage",
       "id": "16",
       "key": "petitioner.dateOfCurrentMarriage",
-      "control": "text"
+      "control": "datepicker"
     },
     {
       "label": "text_CityOfCurrentMarriage",
@@ -86,29 +86,32 @@
       "control": "sortable_section",
       "fields": [
         {
-          "label": "text_NumberAndStreet",
-          "id": "background_street",
-          "key": "petitioner.spouses[].lastName",
-          "control": "text"
-        },
-        {
-          "label": "text_CityOrTown",
-          "id": "background_city",
-          "key": "petitioner.spouses[].middleName",
-          "control": "text"
-        },
-        {
-          "label": "text_DepartmentOrStateOrProvince",
-          "id": "background_province",
+          "label": "text_FirstName",
+          "placeholder": "text_FirstName",
+          "id": "first_name",
           "key": "petitioner.spouses[].firstName",
           "control": "text"
         },
         {
-          "label": "text_StartDate",
+          "label": "text_MiddleName",
+          "placeholder": "text_MiddleName",
+          "id": "middle_name",
+          "key": "petitioner.spouses[].middleName",
+          "control": "component_textbox_na"
+        },
+        {
+          "label": "text_LastName",
+          "placeholder": "text_LastName",
+          "id": "last_name",
+          "key": "petitioner.spouses[].lastName",
+          "control": "text"
+        },
+        {
+          "label": "text_DateMarriageEnded",
           "placeholder": "text_MM/YYYY",
           "id": "20",
           "key": "petitioner.spouses[].dateMarriageEnded",
-          "control": "monthyearpicker"
+          "control": "datepicker"
         }
       ]
     },
@@ -120,7 +123,7 @@
       "label": "",
       "placeholder": "text_AddAddress",
       "id": "address_berfore_us",
-      "key": "count-petitioner.addressHistory",
+      "key": "count-petitioner.spouses",
       "control": "component_add_item"
     }
   ]

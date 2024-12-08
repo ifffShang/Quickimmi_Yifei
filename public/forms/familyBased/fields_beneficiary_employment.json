@@ -35,8 +35,8 @@
       "control": "text"
     },
     {
-      "label": "text_StreetNumberAndNameOfEmployer",
-      "id": "text_StreetNumberAndNameOfEmployer",
+      "label": "text_StreetNumberAndName",
+      "id": "text_StreetNumberAndName",
       "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.streetNumberAndName",
       "control": "text"
     },
@@ -162,8 +162,8 @@
           "control": "text"
         },
         {
-          "label": "text_StreetNumberAndNameOfEmployer",
-          "id": "text_StreetNumberAndNameOfEmployer",
+          "label": "text_StreetNumberAndName",
+          "id": "text_StreetNumberAndName",
           "key": "beneficiary.employmentHistories[].streetNumberAndName",
           "control": "text"
         },
