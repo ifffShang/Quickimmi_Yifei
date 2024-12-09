@@ -5,10 +5,10 @@
   "fields": [
     {
       "label": "text_DeniedAdmission",
-      "hideHeader": "true",
+      "hideHeader": "false",
       "id": "",
       "key": "beneficiaryEligibility.deniedAdmissionYesCheckbox,beneficiaryEligibility.deniedAdmissionNoCheckbox",
-      "control": "checkbox",
+      "control": "radio",
       "options": [
         {
           "value": "Yes",
@@ -223,110 +223,127 @@
       ]
     },
     {
-      "label": "text_BenefitRecordsDescription",
-      "hideHeader": "true",
+      "label": "",
       "id": "",
-      "control": "label"
-    },
-    {
-      "label": "text_BenefitRecords",
-      "hideHeader": "true",
-      "id": "employment_information",
-      "key": "count-beneficiaryEligibility.benefitRecords",
-      "control": "sortable_section",
+      "visibility": "beneficiaryEligibility.receivedSSIOrTANFYesCheckbox=true",
+      "control": "section",
       "fields": [
         {
-          "label": "text_BenefitReceived",
+          "label": "text_BenefitRecordsDescription",
           "hideHeader": "true",
           "id": "",
-          "key": "beneficiaryEligibility.benefitRecords[].benefitReceived",
-          "control": "text"
+          "control": "label"
         },
         {
-          "label": "text_StartDate",
-          "placeholder": "text_MM/YYYY",
-          "id": "employment_start_date",
-          "key": "beneficiaryEligibility.benefitRecords[].startDate",
-          "control": "monthyearpicker"
+          "label": "text_BenefitRecords",
+          "hideHeader": "true",
+          "id": "employment_information",
+          "key": "count-beneficiaryEligibility.benefitRecords",
+          "control": "sortable_section",
+
+          "fields": [
+            {
+              "label": "text_BenefitReceived",
+              "hideHeader": "false",
+              "id": "",
+              "key": "beneficiaryEligibility.benefitRecords[].benefitReceived",
+              "control": "text"
+            },
+            {
+              "label": "text_StartDate",
+              "placeholder": "text_MM/YYYY",
+              "id": "employment_start_date",
+              "key": "beneficiaryEligibility.benefitRecords[].startDate",
+              "control": "monthyearpicker"
+            },
+            {
+              "label": "text_EndDate",
+              "placeholder": "text_MM/YYYY",
+              "id": "employment_end_date",
+              "key": "beneficiaryEligibility.benefitRecords[].endDate",
+              "control": "monthyearpicker"
+            },
+            {
+              "label": "text_DollarAmount",
+              "id": "name_and_address",
+              "key": "beneficiaryEligibility.benefitRecords[].dollarAmount",
+              "control": "text"
+            }
+          ]
         },
         {
-          "label": "text_EndDate",
-          "placeholder": "text_MM/YYYY",
-          "id": "employment_end_date",
-          "key": "beneficiaryEligibility.benefitRecords[].endDate",
-          "control": "monthyearpicker"
+          "label": "",
+          "control": "divider"
         },
         {
-          "label": "text_DollarAmount",
-          "id": "name_and_address",
-          "key": "beneficiaryEligibility.benefitRecords[].dollarAmount",
-          "control": "text"
+          "label": "",
+          "placeholder": "text_AddBenefitRecord",
+          "id": "",
+          "key": "count-beneficiaryEligibility.benefitRecords",
+          "control": "component_add_item"
         }
       ]
     },
     {
       "label": "",
-      "control": "divider"
-    },
-    {
-      "label": "",
-      "placeholder": "text_AddBenefitRecord",
       "id": "",
-      "key": "count-beneficiaryEligibility.benefitRecords",
-      "control": "component_add_item"
-    },
-    {
-      "label": "text_InstitutionalizationRecordsDescription",
-      "hideHeader": "true",
-      "id": "",
-      "control": "label"
-    },
-    {
-      "label": "text_InstitutionalizationRecords",
-      "hideHeader": "true",
-      "id": "employment_information",
-      "key": "count-beneficiaryEligibility.institutionalizationRecords",
-      "control": "sortable_section",
+      "visibility":"beneficiaryEligibility.receivedInstitutionalizationYesCheckbox=true",
+      "control": "section",
       "fields": [
         {
-          "label": "text_InstitutionNameCityState",
+          "label": "text_InstitutionalizationRecordsDescription",
           "hideHeader": "true",
           "id": "",
-          "key": "beneficiaryEligibility.institutionalizationRecords[].institutionNameCityState",
-          "control": "text"
+          "control": "label"
         },
         {
-          "label": "text_StartDate",
-          "placeholder": "text_MM/YYYY",
-          "id": "employment_start_date",
-          "key": "beneficiaryEligibility.institutionalizationRecords[].dateFrom",
-          "control": "monthyearpicker"
+          "label": "text_InstitutionalizationRecords",
+          "hideHeader": "true",
+          "id": "employment_information",
+          "key": "count-beneficiaryEligibility.institutionalizationRecords",
+          "control": "sortable_section",
+          "fields": [
+            {
+              "label": "text_InstitutionNameCityState",
+              "hideHeader": "true",
+              "id": "",
+              "key": "beneficiaryEligibility.institutionalizationRecords[].institutionNameCityState",
+              "control": "text"
+            },
+            {
+              "label": "text_StartDate",
+              "placeholder": "text_MM/YYYY",
+              "id": "employment_start_date",
+              "key": "beneficiaryEligibility.institutionalizationRecords[].dateFrom",
+              "control": "monthyearpicker"
+            },
+            {
+              "label": "text_EndDate",
+              "placeholder": "text_MM/YYYY",
+              "id": "employment_end_date",
+              "key": "beneficiaryEligibility.institutionalizationRecords[].dateTo",
+              "control": "monthyearpicker"
+            },
+            {
+              "label": "text_Reason",
+              "id": "name_and_address",
+              "key": "beneficiaryEligibility.institutionalizationRecords[].reason",
+              "control": "text"
+            }
+          ]
         },
         {
-          "label": "text_EndDate",
-          "placeholder": "text_MM/YYYY",
-          "id": "employment_end_date",
-          "key": "beneficiaryEligibility.institutionalizationRecords[].dateTo",
-          "control": "monthyearpicker"
+          "label": "",
+          "control": "divider"
         },
         {
-          "label": "text_Reason",
-          "id": "name_and_address",
-          "key": "beneficiaryEligibility.institutionalizationRecords[].reason",
-          "control": "text"
+          "label": "",
+          "placeholder": "text_AddInstitutionalizationRecords",
+          "id": "",
+          "key": "count-beneficiaryEligibility.institutionalizationRecords",
+          "control": "component_add_item"
         }
       ]
-    },
-    {
-      "label": "",
-      "control": "divider"
-    },
-    {
-      "label": "",
-      "placeholder": "text_AddInstitutionalizationRecords",
-      "id": "",
-      "key": "count-beneficiaryEligibility.institutionalizationRecords",
-      "control": "component_add_item"
     },
     {
       "label": "text_FailedToAttendRemovalProceeding",
@@ -347,20 +364,28 @@
       ]
     },
     {
-      "label": "text_BelieveHadReasonableCause",
+      "label": "",
       "id": "",
-      "key": "beneficiaryEligibility.believeHadReasonableCauseYesCheckbox,beneficiaryEligibility.believeHadReasonableCauseNoCheckbox",
-      "control": "radio",
-      "options": [
+      "visibility": "beneficiaryEligibility.failedToAttendRemovalProceedingYesCheckbox=true",
+      "control": "section",
+      "fields": [
         {
-          "value": "Yes",
-          "label": "text_Yes",
-          "keyValue": "true,false"
-        },
-        {
-          "value": "No",
-          "label": "text_No",
-          "keyValue": "false,true"
+          "label": "text_BelieveHadReasonableCause",
+          "id": "",
+          "key": "beneficiaryEligibility.believeHadReasonableCauseYesCheckbox,beneficiaryEligibility.believeHadReasonableCauseNoCheckbox",
+          "control": "radio",
+          "options": [
+            {
+              "value": "Yes",
+              "label": "text_Yes",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "No",
+              "label": "text_No",
+              "keyValue": "false,true"
+            }
+          ]
         }
       ]
     },
@@ -743,10 +768,19 @@
       ]
     },
     {
-      "label": "text_NationalityOrStatusBeforeEvadingMilitaryService",
+      "label": "",
       "id": "",
-      "key": "beneficiary.organizations.nationalityOrStatusBeforeEvadingMilitaryService",
-      "control": "text"
+      "visibility": "beneficiaryEligibility.evadedMilitaryServiceDuringWarYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_NationalityOrStatusBeforeEvadingMilitaryService",
+          "id": "",
+          "key": "beneficiary.organizations.nationalityOrStatusBeforeEvadingMilitaryService",
+          "control": "text"
+
+        }
+      ]
     }
   ]
 }
