@@ -27,7 +27,6 @@ import {
   QTextBox,
   RadioSelect,
   SelectBox,
-  SelectMultiOptions,
 } from "./fields/Controls";
 import { CoverLetter } from "./fields/CoverLetter";
 import { DocumentList } from "./fields/DocumentList";
@@ -51,6 +50,7 @@ import { MultipleNamesWithNA } from "./fields/MultipleNamesWithNA";
 import { AddressUS } from "./fields/AddressUS";
 import { SameAddressCheckboxV2 } from "./fields/SameAddressCheckboxV2";
 import { I94Uploader } from "./fields/I94Uploader";
+import { Address } from "./fields/Address";
 
 export interface FormFieldProps {
   fieldKey: string;
@@ -691,6 +691,15 @@ export function FormField(props: FormFieldProps) {
         <FormControlContainer fieldValue={fieldValue}>
           <LocationDropdown prefillStr={fieldValue} onLocationChange={onLocationSplittedChange} />
         </FormControlContainer>
+      );
+    case "component_address":
+      return (
+        <Address
+          fieldValue={fieldValue}
+          onTextChange={onTextChange}
+          onOptionChange={onOptionChange}
+          disabledFields={disabledFields}
+        />
       );
     case "component_address_us":
       return (

@@ -109,6 +109,7 @@ export type ControlType =
   | "component_personal_statement_in_original_language"
   | "component_cover_letter"
   | "component_view_application_form"
+  | "component_address"
   | "component_address_us"
   | "percentage" // used only for percentage calculation
   | "multi_file_uploader_new" // WIP!!! DON'T USE!!!;

@@ -4,11 +4,6 @@
   "type": "fields",
   "fields": [
     {
-      "label": "text_PreviousPetitionDescription",
-      "hideHeader": "true",
-      "control": "label"
-    },
-    {
       "label": "text_FiledPetition",
       "id": "filed_petition",
       "key": "previousPetition.filedPetitionYesCheckbox,previousPetition.filedPetitionNoCheckbox",
@@ -27,22 +22,33 @@
       ]
     },
     {
-      "label": "text_LastName",
-      "id": "last_name",
-      "key": "previousPetition.lastName",
-      "control": "text"
-    },
-    {
-      "label": "text_FirstName",
-      "id": "first_name",
-      "key": "previousPetition.firstName",
-      "control": "text"
-    },
-    {
-      "label": "text_MiddleName",
-      "id": "middle_name",
-      "key": "previousPetition.middleName",
-      "control": "text"
+      "label": "text_Name",
+      "id": "name_group",
+      "control": "group",
+      "maxChildPerRow": "3",
+      "fields": [
+        {
+          "label": "text_FirstName",
+          "placeholder": "text_FirstName",
+          "id": "first_name",
+          "key": "previousPetition.firstName",
+          "control": "text"
+        },
+        {
+          "label": "text_MiddleName",
+          "placeholder": "text_MiddleName",
+          "id": "middle_name",
+          "key": "previousPetition.middleName",
+          "control": "component_textbox_na"
+        },
+        {
+          "label": "text_LastName",
+          "placeholder": "text_LastName",
+          "id": "last_name",
+          "key": "previousPetition.lastName",
+          "control": "text"
+        }
+      ]
     },
     {
       "label": "text_City",
