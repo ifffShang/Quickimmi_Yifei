@@ -35,136 +35,100 @@
     {
       "label": "text_AddressInNativeLanguage",
       "id": "3.11",
-      "control": "group",
-      "maxChildPerRow": "3",
-      "fields": [
-        {
-          "label": "text_Street",
-          "placeholder": "text_Street",
-          "id": "street",
+      "control": "component_address_us",
+      "keyObject": {
+        "street": {
           "key": "beneficiary.addressNativeLanguage.streetNumberAndName",
-          "control": "text"
+          "placeholder": "text_Street"
         },
-        {
-          "label": "",
-          "id": "apartment_number",
+        "aptSteFlr": {
           "key": "beneficiary.addressNativeLanguage.aptCheckbox,beneficiary.addressNativeLanguage.steCheckbox,beneficiary.addressNativeLanguage.flrCheckbox",
-          "control": "radio",
           "className": "apt-ste-flr-checkbox",
           "options": [
             {
-              "label": "text_Apartment",
               "value": "aptCheckbox",
+              "label": "text_Apartment",
               "keyValue": "true,false,false"
             },
             {
-              "label": "text_Ste",
               "value": "steCheckbox",
+              "label": "text_Ste",
               "keyValue": "false,true,false"
             },
             {
-              "label": "text_Flr",
               "value": "flrCheckbox",
+              "label": "text_Flr",
               "keyValue": "false,false,true"
             }
           ]
         },
-        {
-          "label": "",
-          "placeholder": "text_Apt/Ste/FlrNumber",
-          "id": "apartment_number",
+        "aptSteFlrNumber": {
           "key": "beneficiary.addressNativeLanguage.aptSteFlrNumber",
-          "control": "text"
+          "placeholder": "text_Apt/Ste/FlrNumber"
         },
-        {
-          "label": "text_City",
-          "placeholder": "text_City",
-          "id": "city",
+        "cityOrTown": {
           "key": "beneficiary.addressNativeLanguage.cityOrTown",
-          "control": "text"
+          "placeholder": "text_City"
         },
-        {
-          "label": "text_State",
-          "placeholder": "text_State",
-          "id": "state",
+        "state": {
           "key": "beneficiary.addressNativeLanguage.state",
-          "control": "text"
+          "placeholder": "text_State",
+          "options": "StateOptions"
         },
-        {
-          "label": "text_ZipCode",
-          "placeholder": "text_ZipCode",
-          "id": "zip_code",
+        "zipCode": {
           "key": "beneficiary.addressNativeLanguage.zipCode",
-          "control": "text"
+          "placeholder": "text_ZipCode"
         }
-      ]
+      }
     },
     {
       "label": "text_LastAddressLivedTogether",
       "id": "3.11",
-      "control": "group",
-      "maxChildPerRow": "3",
-      "fields": [
-        {
-          "label": "text_Street",
-          "placeholder": "text_Street",
-          "id": "street",
+      "control": "component_address_us",
+      "keyObject": {
+        "street": {
           "key": "beneficiary.lastAddressLivedTogether.streetNumberAndName",
-          "control": "text"
+          "placeholder": "text_Street"
         },
-        {
-          "label": "",
-          "id": "apartment_number",
+        "aptSteFlr": {
           "key": "beneficiary.lastAddressLivedTogether.aptCheckbox,beneficiary.lastAddressLivedTogether.steCheckbox,beneficiary.lastAddressLivedTogether.flrCheckbox",
-          "control": "radio",
           "className": "apt-ste-flr-checkbox",
           "options": [
             {
-              "label": "text_Apartment",
               "value": "aptCheckbox",
+              "label": "text_Apartment",
               "keyValue": "true,false,false"
             },
             {
-              "label": "text_Ste",
               "value": "steCheckbox",
+              "label": "text_Ste",
               "keyValue": "false,true,false"
             },
             {
-              "label": "text_Flr",
               "value": "flrCheckbox",
+              "label": "text_Flr",
               "keyValue": "false,false,true"
             }
           ]
         },
-        {
-          "label": "",
-          "placeholder": "text_Apt/Ste/FlrNumber",
-          "id": "apartment_number",
+        "aptSteFlrNumber": {
           "key": "beneficiary.lastAddressLivedTogether.aptSteFlrNumber",
-          "control": "text"
+          "placeholder": "text_Apt/Ste/FlrNumber"
         },
-        {
-          "label": "text_City",
-          "placeholder": "text_City",
-          "id": "city",
+        "cityOrTown": {
           "key": "beneficiary.lastAddressLivedTogether.cityOrTown",
-          "control": "text"
+          "placeholder": "text_City"
         },
-        {
-          "label": "text_State",
-          "placeholder": "text_State",
-          "id": "state",
+        "state": {
           "key": "beneficiary.lastAddressLivedTogether.state",
-          "control": "text"
+          "placeholder": "text_State",
+          "options": "StateOptions"
         },
-        {
-          "label": "text_ZipCode",
-          "placeholder": "text_ZipCode",
-          "id": "zip_code",
+        "zipCode": {
           "key": "beneficiary.lastAddressLivedTogether.zipCode",
-          "control": "text"
+          "placeholder": "text_ZipCode"
         }
-      ]
+      }
     },
     {
       "label": "text_AdjustmentOfStatusCity",

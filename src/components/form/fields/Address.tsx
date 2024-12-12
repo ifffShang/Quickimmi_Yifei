@@ -68,11 +68,12 @@ export function Address(props: AddressUSProps) {
           />
         </div>
         <div className="sub-field">
-          <QTextBox
+          <SelectBox
             placeholder={wt(country.placeholder)}
+            onChange={value => props.onOptionChange(value, country.key, country.options)}
+            options={country.options || ""}
             value={country.value}
-            onChange={value => props.onTextChange(value, country.key)}
-            disabled={props.disabledFields?.[country.key] === "false"}
+            disabled={props.disabledFields?.[country.key.split(",")[0]] === "false"}
           />
         </div>
         <div className="sub-field">

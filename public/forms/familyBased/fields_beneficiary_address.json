@@ -250,7 +250,8 @@
         },
         "country": {
           "key": "beneficiary.outsideUsAddress.country",
-          "placeholder": "text_country"
+          "placeholder": "text_country",
+          "options": "CountryOptions"
         },
         "zipCode": {
           "key": "beneficiary.outsideUsAddress.zipCode",
@@ -302,7 +303,8 @@
         },
         "country": {
           "key": "beneficiary.mostRecentOutSideUsAddressBefore5YearsAgo.country",
-          "placeholder": "text_country"
+          "placeholder": "text_country",
+          "options": "CountryOptions"
         },
         "zipCode": {
           "key": "beneficiary.mostRecentOutSideUsAddressBefore5YearsAgo.zipCode",
