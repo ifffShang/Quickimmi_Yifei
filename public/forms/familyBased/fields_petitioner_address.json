@@ -9,11 +9,11 @@
       "control": "component_address_us",
       "keyObject": {
         "street": {
-          "key": "petitioner.streetNumberAndName",
+          "key": "petitioner.physicalAddress.streetNumberAndName",
           "placeholder": "text_Street"
         },
         "aptSteFlr": {
-          "key": "petitioner.aptCheckbox,petitioner.steCheckbox,petitioner.flrCheckbox",
+          "key": "petitioner.physicalAddress.aptCheckbox,petitioner.physicalAddress.steCheckbox,petitioner.physicalAddress.flrCheckbox",
           "className": "apt-ste-flr-checkbox",
           "options": [
             {
@@ -34,20 +34,20 @@
           ]
         },
         "aptSteFlrNumber": {
-          "key": "petitioner.aptSteFlrNumber",
+          "key": "petitioner.physicalAddress.aptSteFlrNumber",
           "placeholder": "text_AptSteFlrNumber"
         },
         "cityOrTown": {
-          "key": "petitioner.cityOrTown",
+          "key": "petitioner.physicalAddress.cityOrTown",
           "placeholder": "text_City"
         },
         "state": {
-          "key": "petitioner.state",
+          "key": "petitioner.physicalAddress.state",
           "placeholder": "text_State",
           "options": "StateOptions"
         },
         "zipCode": {
-          "key": "petitioner.zipCode",
+          "key": "petitioner.physicalAddress.zipCode",
           "placeholder": "text_ZipCode"
         }
       }
