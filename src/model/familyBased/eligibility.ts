@@ -142,54 +142,67 @@ export interface Eligibility {
   // Page 12, Question 46a - Engage in Espionage or Sabotage
   engageInEspionageOrSabotageYesCheckbox: string | undefined;
   engageInEspionageOrSabotageNoCheckbox: string | undefined;
+  engageInEspionageOrSabotageYesSupplement: string | undefined;
 
   // Page 12, Question 46b - Engage in Illegal Export
   engageInIllegalExportYesCheckbox: string | undefined;
   engageInIllegalExportNoCheckbox: string | undefined;
+  engageInIllegalExportYesSupplement: string | undefined;
 
   // Page 12, Question 46c - Engage in Overthrowing Government
   engageInOverthrowingGovernmentYesCheckbox: string | undefined;
   engageInOverthrowingGovernmentNoCheckbox: string | undefined;
+  engageInOverthrowingGovernmentYesSupplement: string | undefined;
 
   // Page 12, Question 46d - Engage in Endangering US
   engageInEndangeringUSYesCheckbox: string | undefined;
   engageInEndangeringUSNoCheckbox: string | undefined;
+  engageInEndangeringUSYesSupplement: string | undefined;
 
   // Page 12, Question 46e - Engage in Unlawful Activity
   engageInUnlawfulActivityYesCheckbox: string | undefined;
   engageInUnlawfulActivityNoCheckbox: string | undefined;
+  engageInUnlawfulActivityYesSupplement: string | undefined;
 
   // Page 12, Question 47 - Engage in Adverse Foreign Policy
   engageInAdverseForeignPolicyYesCheckbox: string | undefined;
   engageInAdverseForeignPolicyNoCheckbox: string | undefined;
+  engageInAdverseForeignPolicyYesSupplement: string | undefined;
 
   // Page 12, Question 48a - Committed or Planned Serious Crime
   committedOrPlannedSeriousCrimeYesCheckbox: string | undefined;
   committedOrPlannedSeriousCrimeNoCheckbox: string | undefined;
+  committedOrPlannedSeriousCrimeYesSupplement: string | undefined;
 
   // Page 12, Question 48b - Member of a Group Involved in Serious Crime
   memberOfGroupInvolvedInSeriousCrimeYesCheckbox: string | undefined;
   memberOfGroupInvolvedInSeriousCrimeNoCheckbox: string | undefined;
+  memberOfGroupInvolvedInSeriousCrimeYesSupplement: string | undefined;
 
   // Page 12, Question 48c - Recruited for a Group Involved in Serious Crime
   recruitedForGroupInvolvedInSeriousCrimeYesCheckbox: string | undefined;
   recruitedForGroupInvolvedInSeriousCrimeNoCheckbox: string | undefined;
+  recruitedForGroupInvolvedInSeriousCrimeYesSupplement: string | undefined;
 
   // Page 12, Question 48d - Provided Support for a Group Involved in Serious Crime
   providedSupportForGroupInvolvedInSeriousCrimeYesCheckbox: string | undefined;
   providedSupportForGroupInvolvedInSeriousCrimeNoCheckbox: string | undefined;
+  providedSupportForGroupInvolvedInSeriousCrimeYesSupplement: string | undefined;
 
   // Page 12, Question 48e - Provided Support for an Individual or Group
   providedSupportForIndividualOrGroupYesCheckbox: string | undefined;
   providedSupportForIndividualOrGroupNoCheckbox: string | undefined;
+  providedSupportForIndividualOrGroupYesSupplement: string | undefined;
 
   // Page 12, Question 49 - Received Military or Weapons Training
   receivedMilitaryOrWeaponsTrainingYesCheckbox: string | undefined;
   receivedMilitaryOrWeaponsTrainingNoCheckbox: string | undefined;
+  receivedMilitaryOrWeaponsTrainingYesSupplement: string | undefined;
 
   // Page 12, Question 50 - Intent to Engage in Serious Activities
   intendToEngageInSeriousActivitiesYesCheckbox: string | undefined;
   intendToEngageInSeriousActivitiesNoCheckbox: string | undefined;
+  intendToEngageInSeriousActivitiesYesSupplement: string | undefined;
 
   // Page 12, Question 51a - Spouse or Child Committed Serious Crime
   spouseOrChildCommittedSeriousCrimeYesCheckbox: string | undefined;
