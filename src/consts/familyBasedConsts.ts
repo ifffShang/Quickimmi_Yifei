@@ -540,42 +540,55 @@ export const InitialEligibility: Eligibility = {
 
   engageInEspionageOrSabotageYesCheckbox: undefined,
   engageInEspionageOrSabotageNoCheckbox: undefined,
+  engageInEspionageOrSabotageYesSupplement: undefined,
 
   engageInIllegalExportYesCheckbox: undefined,
   engageInIllegalExportNoCheckbox: undefined,
+  engageInIllegalExportYesSupplement: undefined,
 
   engageInOverthrowingGovernmentYesCheckbox: undefined,
   engageInOverthrowingGovernmentNoCheckbox: undefined,
+  engageInOverthrowingGovernmentYesSupplement: undefined,
 
   engageInEndangeringUSYesCheckbox: undefined,
   engageInEndangeringUSNoCheckbox: undefined,
+  engageInEndangeringUSYesSupplement: undefined,
 
   engageInUnlawfulActivityYesCheckbox: undefined,
   engageInUnlawfulActivityNoCheckbox: undefined,
+  engageInUnlawfulActivityYesSupplement: undefined,
 
   engageInAdverseForeignPolicyYesCheckbox: undefined,
   engageInAdverseForeignPolicyNoCheckbox: undefined,
+  engageInAdverseForeignPolicyYesSupplement: undefined,
 
   committedOrPlannedSeriousCrimeYesCheckbox: undefined,
   committedOrPlannedSeriousCrimeNoCheckbox: undefined,
+  committedOrPlannedSeriousCrimeYesSupplement: undefined,
 
   memberOfGroupInvolvedInSeriousCrimeYesCheckbox: undefined,
   memberOfGroupInvolvedInSeriousCrimeNoCheckbox: undefined,
+  memberOfGroupInvolvedInSeriousCrimeYesSupplement: undefined,
 
   recruitedForGroupInvolvedInSeriousCrimeYesCheckbox: undefined,
   recruitedForGroupInvolvedInSeriousCrimeNoCheckbox: undefined,
+  recruitedForGroupInvolvedInSeriousCrimeYesSupplement: undefined,
 
   providedSupportForGroupInvolvedInSeriousCrimeYesCheckbox: undefined,
   providedSupportForGroupInvolvedInSeriousCrimeNoCheckbox: undefined,
+  providedSupportForGroupInvolvedInSeriousCrimeYesSupplement: undefined,
 
   providedSupportForIndividualOrGroupYesCheckbox: undefined,
   providedSupportForIndividualOrGroupNoCheckbox: undefined,
+  providedSupportForIndividualOrGroupYesSupplement: undefined,
 
   receivedMilitaryOrWeaponsTrainingYesCheckbox: undefined,
   receivedMilitaryOrWeaponsTrainingNoCheckbox: undefined,
+  receivedMilitaryOrWeaponsTrainingYesSupplement: undefined,
 
   intendToEngageInSeriousActivitiesYesCheckbox: undefined,
   intendToEngageInSeriousActivitiesNoCheckbox: undefined,
+  intendToEngageInSeriousActivitiesYesSupplement: undefined,
 
   spouseOrChildCommittedSeriousCrimeYesCheckbox: undefined,
   spouseOrChildCommittedSeriousCrimeNoCheckbox: undefined,

@@ -651,6 +651,21 @@
       ]
     },
     {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.engageInEspionageOrSabotageYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ProvideDetailedInformation",
+          "id": "",
+          "key": "beneficiaryEligibility.engageInEspionageOrSabotageYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+
+    },
+    {
       "label": "text_EngageInIllegalExport",
       "id": "",
       "key": "beneficiaryEligibility.engageInIllegalExportYesCheckbox,beneficiaryEligibility.engageInIllegalExportNoCheckbox",
@@ -667,6 +682,21 @@
           "keyValue": "false,true"
         }
       ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.engageInIllegalExportYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ProvideDetailedInformation",
+          "id": "",
+          "key": "beneficiaryEligibility.engageInIllegalExportYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+
     },
     {
       "label": "text_EngageInOverthrowingGovernment",
@@ -687,6 +717,21 @@
       ]
     },
     {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.engageInOverthrowingGovernmentYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ProvideDetailedInformation",
+          "id": "",
+          "key": "beneficiaryEligibility.engageInOverthrowingGovernmentYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+
+    },
+    {
       "label": "text_EngageInEndangeringUS",
       "id": "",
       "key": "beneficiaryEligibility.engageInEndangeringUSYesCheckbox,beneficiaryEligibility.engageInEndangeringUSNoCheckbox",
@@ -701,6 +746,20 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.engageInEndangeringUSYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ProvideDetailedInformation",
+          "id": "",
+          "key": "beneficiaryEligibility.engageInEndangeringUSYesSupplement",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -723,6 +782,20 @@
       ]
     },
     {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.engageInUnlawfulActivityYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ProvideDetailedInformation",
+          "id": "",
+          "key": "beneficiaryEligibility.engageInUnlawfulActivityYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_EngageInAdverseForeignPolicy",
       "id": "",
       "key": "beneficiaryEligibility.engageInAdverseForeignPolicyYesCheckbox,beneficiaryEligibility.engageInAdverseForeignPolicyNoCheckbox",
@@ -737,6 +810,20 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.engageInAdverseForeignPolicyYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ProvideDetailedInformation",
+          "id": "",
+          "key": "beneficiaryEligibility.engageInAdverseForeignPolicyYesSupplement",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -759,6 +846,20 @@
       ]
     },
     {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.committedOrPlannedSeriousCrimeYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ProvideDetailedInformation",
+          "id": "",
+          "key": "beneficiaryEligibility.committedOrPlannedSeriousCrimeYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_MemberOfGroupInvolvedInSeriousCrime",
       "id": "",
       "key": "beneficiaryEligibility.memberOfGroupInvolvedInSeriousCrimeYesCheckbox,beneficiaryEligibility.memberOfGroupInvolvedInSeriousCrimeNoCheckbox",
@@ -773,6 +874,20 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.memberOfGroupInvolvedInSeriousCrimeYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ProvideDetailedInformation",
+          "id": "",
+          "key": "beneficiaryEligibility.memberOfGroupInvolvedInSeriousCrimeYesSupplement",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -795,6 +910,20 @@
       ]
     },
     {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.recruitedForGroupInvolvedInSeriousCrimeYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ProvideDetailedInformation",
+          "id": "",
+          "key": "beneficiaryEligibility.recruitedForGroupInvolvedInSeriousCrimeYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_ProvidedSupportForGroupInvolvedInSeriousCrime",
       "id": "",
       "key": "beneficiaryEligibility.providedSupportForGroupInvolvedInSeriousCrimeYesCheckbox,beneficiaryEligibility.providedSupportForGroupInvolvedInSeriousCrimeNoCheckbox",
@@ -813,6 +942,20 @@
       ]
     },
     {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.providedSupportForGroupInvolvedInSeriousCrimeYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ProvideDetailedInformation",
+          "id": "",
+          "key": "beneficiaryEligibility.providedSupportForGroupInvolvedInSeriousCrimeYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_ProvidedSupportForIndividualOrGroup",
       "id": "",
       "key": "beneficiaryEligibility.providedSupportForIndividualOrGroupYesCheckbox,beneficiaryEligibility.providedSupportForIndividualOrGroupNoCheckbox",
@@ -827,6 +970,20 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.providedSupportForIndividualOrGroupYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ProvideDetailedInformation",
+          "id": "",
+          "key": "beneficiaryEligibility.providedSupportForIndividualOrGroupYesSupplement",
+          "control": "component_textarea_ai_refine"
         }
       ]
     }
