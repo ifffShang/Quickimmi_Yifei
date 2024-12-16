@@ -65,25 +65,25 @@ export interface QFieldViewProps {
 export function QFieldView(props: QFieldViewProps) {
   let fieldValue = "";
   if (props.value && typeof props.value === "object") {
-    if (props.value["street"]) {
+    if (props.value["street"] && props.value["street"]["value"]) {
       fieldValue += props.value["street"]["value"];
     }
-    if (props.value["aptSteFlr"]) {
+    if (props.value["aptSteFlr"] && props.value["aptSteFlr"]["value"]) {
       fieldValue += ", " + props.value["aptSteFlr"]["value"];
     }
-    if (props.value["aptSteFlrNumber"]) {
+    if (props.value["aptSteFlrNumber"] && props.value["aptSteFlrNumber"]["value"]) {
       fieldValue += " " + props.value["aptSteFlrNumber"]["value"];
     }
-    if (props.value["cityOrTown"]) {
+    if (props.value["cityOrTown"] && props.value["cityOrTown"]["value"]) {
       fieldValue += ", " + props.value["cityOrTown"]["value"];
     }
-    if (props.value["state"]) {
+    if (props.value["state"] && props.value["state"]["value"]) {
       fieldValue += ", " + props.value["state"]["value"];
     }
-    if (props.value["zipCode"]) {
+    if (props.value["zipCode"] && props.value["zipCode"]["value"]) {
       fieldValue += ", " + props.value["zipCode"]["value"];
     }
-    if (props.value["country"]) {
+    if (props.value["country"] && props.value["country"]["value"]) {
       fieldValue += ", " + props.value["country"]["value"];
     }
   } else {
