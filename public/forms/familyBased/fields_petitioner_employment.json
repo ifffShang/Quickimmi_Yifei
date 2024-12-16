@@ -40,76 +40,66 @@
           "control": "text"
         },
         {
-          "label": "text_StreetNumberAndName",
+          "label": "text_NameAndAddress",
           "id": "name_and_address",
-          "key": "petitioner.employmentHistory[].streetNumberAndName",
-          "control": "text"
-        },
-        {
-          "label": "text_AptSuiteFloor",
-          "id": "",
-          "key": "petitioner.employmentHistory[].aptCheckbox,petitioner.employmentHistory[].steCheckbox,petitioner.employmentHistory[].flrCheckbox",
-          "control": "radio",
-          "className": "apt-ste-flr-checkbox",
-          "options": [
-            {
-              "value": "Apt",
-              "label": "text_Apt",
-              "keyValue": "true,false,false"
+          "control": "component_address",
+          "keyObject": {
+            "street": {
+              "key": "petitioner.employmentHistory[].streetNumberAndName",
+              "placeholder": "text_StreetNumberAndName"
             },
-            {
-              "value": "Ste",
-              "label": "text_Ste",
-              "keyValue": "false,true,false"
+            "aptSteFlr": {
+              "key": "petitioner.employmentHistory[].aptCheckbox,petitioner.employmentHistory[].steCheckbox,petitioner.employmentHistory[].flrCheckbox",
+              "className": "apt-ste-flr-checkbox",
+              "control": "radio",
+              "options": [
+                {
+                  "value": "Apt",
+                  "label": "text_Apt",
+                  "keyValue": "true,false,false"
+                },
+                {
+                  "value": "Ste",
+                  "label": "text_Ste",
+                  "keyValue": "false,true,false"
+                },
+                {
+                  "value": "Flr",
+                  "label": "text_Flr",
+                  "keyValue": "false,false,true"
+                }
+              ]
             },
-            {
-              "value": "Flr",
-              "label": "text_Flr",
-              "keyValue": "false,false,true"
+            "aptSteFlrNumber": {
+              "key": "petitioner.employmentHistory[].aptSteFlrNumber",
+              "placeholder": "text_AptSteFlrNumber"
+            },
+            "cityOrTown": {
+              "key": "petitioner.employmentHistory[].city",
+              "placeholder": "text_City"
+            },
+            "state": {
+              "key": "petitioner.employmentHistory[].state",
+              "placeholder": "text_State"
+            },
+            "zipCode": {
+              "key": "petitioner.employmentHistory[].zipCode",
+              "placeholder": "text_ZipCode"
+            },
+            "province": {
+              "key": "petitioner.employmentHistory[].province",
+              "placeholder": "text_Province"
+            },
+            "postalCode": {
+              "key": "petitioner.employmentHistory[].postalCode",
+              "placeholder": "text_PostalCode"
+            },
+            "country": {
+              "key": "petitioner.employmentHistory[].country",
+              "placeholder": "text_Country",
+              "options": "CountryOptions"
             }
-          ]
-        },
-        {
-          "label": "text_AptSteFlrNumber",
-          "id": "43.b",
-          "key": "petitioner.employmentHistory[].aptSteFlrNumber",
-          "control": "text"
-        },
-        {
-          "label": "text_City",
-          "id": "43.c",
-          "key": "petitioner.employmentHistory[].city",
-          "control": "text"
-        },
-        {
-          "label": "text_State",
-          "id": "name_and_address",
-          "key": "petitioner.employmentHistory[].state",
-          "control": "text"
-        },
-        {
-          "label": "text_ZipCode",
-          "id": "name_and_address",
-          "key": "petitioner.employmentHistory[].zipCode",
-          "control": "text"
-        },
-        {
-          "label": "text_Province",
-          "id": "name_and_address",
-          "key": "petitioner.employmentHistory[].province",
-          "control": "text"
-        },
-        {
-          "label": "text_PostalCode",
-          "id": "name_and_address",
-          "key": "petitioner.employmentHistory[].postalCode",
-          "control": "text"
-        },
-        {
-          "label": "text_Country",
-          "id": "name_and_address",
-          "key": "petitioner.employmentHistory[].country",
-          "control": "text"
+          }
         },
         {
           "label": "text_Occupation",

@@ -76,7 +76,8 @@
       "label": "text_CountryOfCurrentMarriage",
       "id": "16",
       "key": "petitioner.countryOfCurrentMarriage",
-      "control": "text"
+      "control": "select",
+      "options": "CountryOptions"
     },
     {
       "label": "text_Spouse",
@@ -121,7 +122,7 @@
     },
     {
       "label": "",
-      "placeholder": "text_AddAddress",
+      "placeholder": "text_AddASpouse",
       "id": "address_berfore_us",
       "key": "count-petitioner.spouses",
       "control": "component_add_item"

@@ -50,7 +50,8 @@
           "label": "text_Country",
           "id": "name_and_address",
           "key": "beneficiaryEligibility.organizations[].country",
-          "control": "text"
+          "control": "select",
+          "options": "CountryOptions"
         },
         {
           "label": "text_NatureOfGroup",
