@@ -12,7 +12,8 @@ export interface SectionSubFieldsProps {
 export function SectionSubFields(props: SectionSubFieldsProps) {
   const { wt, t } = useFormTranslation();
 
-  if (!props.subFields) return <>{t("Oops! Something went wrong while fetching data.")}</>;
+  if (!props.subFields || !Array.isArray(props.subFields))
+    return <>{t("Oops! Something went wrong while fetching data.")}</>;
 
   return (
     <div>
@@ -24,6 +25,7 @@ export function SectionSubFields(props: SectionSubFieldsProps) {
             )}
             <FormField
               fieldKey={field.key}
+              fieldKeyObject={field.keyObject}
               control={field.control}
               label={field.label}
               options={field.options}
