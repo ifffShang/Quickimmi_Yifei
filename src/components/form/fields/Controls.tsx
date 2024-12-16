@@ -59,15 +59,41 @@ export function FormInput(props: FormInputProps) {
 
 export interface QFieldViewProps {
   label: string;
-  value: string;
+  value: string | { [key: string]: { value: string } };
 }
 
 export function QFieldView(props: QFieldViewProps) {
-  const [value, setValue] = useState(props.value);
+  let fieldValue = "";
+  if (props.value && typeof props.value === "object") {
+    if (props.value["street"]) {
+      fieldValue += props.value["street"]["value"];
+    }
+    if (props.value["aptSteFlr"]) {
+      fieldValue += ", " + props.value["aptSteFlr"]["value"];
+    }
+    if (props.value["aptSteFlrNumber"]) {
+      fieldValue += " " + props.value["aptSteFlrNumber"]["value"];
+    }
+    if (props.value["cityOrTown"]) {
+      fieldValue += ", " + props.value["cityOrTown"]["value"];
+    }
+    if (props.value["state"]) {
+      fieldValue += ", " + props.value["state"]["value"];
+    }
+    if (props.value["zipCode"]) {
+      fieldValue += ", " + props.value["zipCode"]["value"];
+    }
+    if (props.value["country"]) {
+      fieldValue += ", " + props.value["country"]["value"];
+    }
+  } else {
+    fieldValue = props.value;
+  }
+  const [value, setValue] = useState(fieldValue);
 
   useEffect(() => {
-    setValue(props.value);
-  }, [props.value]);
+    setValue(fieldValue);
+  }, [fieldValue]);
 
   return (
     <div className="field-view-container">

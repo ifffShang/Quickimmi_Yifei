@@ -663,7 +663,6 @@
           "control": "component_textarea_ai_refine"
         }
       ]
-
     },
     {
       "label": "text_EngageInIllegalExport",
@@ -696,7 +695,6 @@
           "control": "component_textarea_ai_refine"
         }
       ]
-
     },
     {
       "label": "text_EngageInOverthrowingGovernment",
@@ -729,7 +727,6 @@
           "control": "component_textarea_ai_refine"
         }
       ]
-
     },
     {
       "label": "text_EngageInEndangeringUS",

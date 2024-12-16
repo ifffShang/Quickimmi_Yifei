@@ -51,6 +51,8 @@ export function SortableSection(props: SortableSectionProps) {
     props.fieldIndex,
   );
 
+  console.log("SortableSection: fieldValue", fieldValue);
+
   const previousArrLength = useRef(fieldValue.arr?.length ?? 0);
   const previousArrKey = useRef(fieldValue.arrKey);
 
