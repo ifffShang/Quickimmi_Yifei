@@ -264,12 +264,130 @@
       "control": "text"
     },
     {
-      "label": "disabilityAccommodation",
-      "placeholder": "",
-      "id": "",
-      "key": "beneficiary.disabilityAccommodation",
-      "control": "label"
+      "label": "text_disabilityAccommodation",
+      "placeholder": "text_disabilityAccommodation",
+      "id": "PartC.2.B",
+      "key": "beneficiary.disabilityAccommodation.requestingAccommodationYesCheckbox,beneficiary.disabilityAccommodation.requestingAccommodationNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
     },
+    {
+      "label": "text_disabilityAccommodation",
+      "hideHeader": "true",
+      "id": "PartC.2.B",
+      "visibility": "beneficiary.disabilityAccommodation.requestingAccommodationYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_deafOrHardOfHearingYesCheckbox",
+          "id": "",
+          "key": "beneficiary.disabilityAccommodation.deafOrHardOfHearingYesCheckbox,beneficiary.disabilityAccommodation.deafOrHardOfHearingYesCheckbox",
+          "control": "radio",
+          "options": [
+            {
+              "value": "Yes",
+              "label": "text_Yes",
+              "keyValue": "true,true"
+            },
+            {
+              "value": "No",
+              "label": "text_No",
+              "keyValue": "false,false"
+            }
+          ]
+        },
+        {
+          "label": "",
+          "id": "",
+          "visibility": "beneficiary.disabilityAccommodation.deafOrHardOfHearingYesCheckbox=true",
+          "control": "section",
+          "fields": [
+            {
+              "label": "text_deafOrHardOfHearingAccommodationDetails",
+              "id": "",
+              "key": "beneficiary.disabilityAccommodation.deafOrHardOfHearingAccommodationDetails",
+              "control": "component_textarea_ai_refine"
+            }
+          ]
+        },
+        {
+          "label": "text_blindOrLowVisionYesCheckbox",
+          "id": "",
+          "key": "beneficiary.disabilityAccommodation.blindOrLowVisionYesCheckbox,beneficiary.disabilityAccommodation.blindOrLowVisionYesCheckbox",
+          "control": "radio",
+          "options": [
+            {
+              "value": "Yes",
+              "label": "text_Yes",
+              "keyValue": "true,true"
+            },
+            {
+              "value": "No",
+              "label": "text_No",
+              "keyValue": "false,false"
+            }
+          ]
+        },
+        {
+          "label": "",
+          "id": "",
+          "visibility": "beneficiary.disabilityAccommodation.blindOrLowVisionYesCheckbox=true",
+          "control": "section",
+          "fields": [
+            {
+              "label": "text_blindOrLowVisionAccommodationDetails",
+              "id": "",
+              "key": "beneficiary.disabilityAccommodation.blindOrLowVisionAccommodationDetails",
+              "control": "component_textarea_ai_refine"
+            }
+          ]
+        },
+        {
+          "label": "text_otherDisabilityOrImpairmentYesCheckbox",
+          "id": "",
+          "key": "beneficiary.disabilityAccommodation.otherDisabilityOrImpairmentYesCheckbox,beneficiary.disabilityAccommodation.otherDisabilityOrImpairmentYesCheckbox",
+          "control": "radio",
+          "options": [
+            {
+              "value": "Yes",
+              "label": "text_Yes",
+              "keyValue": "true,true"
+            },
+            {
+              "value": "No",
+              "label": "text_No",
+              "keyValue": "false,false"
+            }
+          ]
+        },
+        {
+          "label": "",
+          "id": "",
+          "visibility": "beneficiary.disabilityAccommodation.otherDisabilityOrImpairmentYesCheckbox=true",
+          "control": "section",
+          "fields": [
+            {
+              "label": "text_otherDisabilityOrImpairmentAccommodationDetails",
+              "id": "",
+              "key": "beneficiary.disabilityAccommodation.otherDisabilityOrImpairmentAccommodationDetails",
+              "control": "component_textarea_ai_refine"
+            }
+          ]
+        }
+      ]
+    },
+
     {
       "label": "text_appliedImmigrationVisaBefore",
       "hideHeader": "true",
