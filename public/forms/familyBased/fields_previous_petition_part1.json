@@ -60,7 +60,8 @@
       "label": "text_State",
       "id": "state",
       "key": "previousPetition.state",
-      "control": "text"
+      "control": "select",
+      "options": "StateOptions"
     },
     {
       "label": "text_Date",

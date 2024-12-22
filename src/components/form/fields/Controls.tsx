@@ -59,15 +59,41 @@ export function FormInput(props: FormInputProps) {
 
 export interface QFieldViewProps {
   label: string;
-  value: string;
+  value: string | { [key: string]: { value: string } };
 }
 
 export function QFieldView(props: QFieldViewProps) {
-  const [value, setValue] = useState(props.value);
+  let fieldValue = "";
+  if (props.value && typeof props.value === "object") {
+    if (props.value["street"] && props.value["street"]["value"]) {
+      fieldValue += props.value["street"]["value"];
+    }
+    if (props.value["aptSteFlr"] && props.value["aptSteFlr"]["value"]) {
+      fieldValue += ", " + props.value["aptSteFlr"]["value"];
+    }
+    if (props.value["aptSteFlrNumber"] && props.value["aptSteFlrNumber"]["value"]) {
+      fieldValue += " " + props.value["aptSteFlrNumber"]["value"];
+    }
+    if (props.value["cityOrTown"] && props.value["cityOrTown"]["value"]) {
+      fieldValue += ", " + props.value["cityOrTown"]["value"];
+    }
+    if (props.value["state"] && props.value["state"]["value"]) {
+      fieldValue += ", " + props.value["state"]["value"];
+    }
+    if (props.value["zipCode"] && props.value["zipCode"]["value"]) {
+      fieldValue += ", " + props.value["zipCode"]["value"];
+    }
+    if (props.value["country"] && props.value["country"]["value"]) {
+      fieldValue += ", " + props.value["country"]["value"];
+    }
+  } else {
+    fieldValue = props.value;
+  }
+  const [value, setValue] = useState(fieldValue);
 
   useEffect(() => {
-    setValue(props.value);
-  }, [props.value]);
+    setValue(fieldValue);
+  }, [fieldValue]);
 
   return (
     <div className="field-view-container">

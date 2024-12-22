@@ -1008,11 +1008,14 @@
   "AidedTraffickingForSexOrSlavery": "Have you EVER knowingly aided, abetted, assisted, conspired, or colluded with others in trafficking persons for commercial sex acts or involuntary servitude, peonage, debt bondage, or slavery?",
   "RelatedToTraffickerAndBenefited": "Are you the spouse, son or daughter of a foreign national who engaged in the trafficking of persons and have received or obtained, within the last five years, any financial or other benefits from the illicit activity of your spouse or your parent, although you knew or reasonably should have known that this benefit resulted from the illicit activity of your spouse or parent?",
   "EngagedInMoneyLaundering": "Have you EVER engaged in money laundering or have you EVER knowingly aided, assisted, conspired, or colluded with others in money laundering or do you seek to enter the United States to engage in such activity?",
+
   "EngageInEspionageOrSabotage": "Do you intend to engage in any activity that violates or evades any law relating to espionage (including spying) or sabotage in the United States?",
   "EngageInIllegalExport": "Do you intend to engage in any activity in the United States that violates or evades any law prohibiting the export from the United States of goods, technology, or sensitive information?",
   "EngageInOverthrowingGovernment": "Do you intend to engage in any activity whose purpose includes opposing, controlling, or overthrowing the U.S. Government by force, violence, or other unlawful means while in the United States?",
   "EngageInEndangeringUS": "Do you intend to engage in any activity that could endanger the welfare, safety, or security of the United States?",
   "EngageInUnlawfulActivity": "Do you intend to engage in any other unlawful activity?",
+
+  "ProvideDetailedInformation": "Explain what you did (less than 350 words), including the dates and location of the circumstances, or what you intend to do. Material will be automatically appended to Part 14",
   "EngageInAdverseForeignPolicy": "Are you engaged in or, upon your entry into the United States, do you intend to engage in any activity that could have potentially serious adverse foreign policy consequences for the United States?",
   "CommittedOrPlannedSeriousCrime": "Have you EVER committed, threatened to commit, attempted to commit, conspired to commit, incited, endorsed, advocated, planned, or prepared any of the following: hijacking, sabotage, kidnapping, political assassination, or use of a weapon or explosive to harm another individual or cause substantial damage to property?",
   "MemberOfGroupInvolvedInSeriousCrime": "Have you EVER participated in or been a member of a group or organization involved in any of the activities described in the previous question?",
@@ -1130,6 +1133,8 @@
 
   "NameOfPrincipalImmigrant": "Name of the Principal Immigrant",
   "FiledPetition": "Have you EVER filed a petition for this or any other alien?",
+
+  "AddASpouse": "Add a Spouse",
 
   "RaceOptions": [
     "American Indian or Alaska Native",

@@ -1003,6 +1003,7 @@
   "AidedTraffickingForSexOrSlavery": "您是否曾明知地协助、教唆、帮助、共谋或与他人勾结进行人口贩卖用于商业性行为或非自愿劳动、农奴制、债务束缚或奴役？",
   "RelatedToTraffickerAndBenefited": "您是否是从事人口贩卖活动的外国国民的配偶、子女，并在过去五年内从您的配偶或父母的非法活动中获得任何经济或其他利益，尽管您知道或合理应当知道这些利益来自于您配偶或父母的非法活动？",
   "EngagedInMoneyLaundering": "您是否曾从事洗钱活动或是否曾明知地协助、帮助、共谋或与他人勾结进行洗钱，或是否打算进入美国从事此类活动？",
+  "ProvideDetailedInformation": "请说明您所做的事情(少于350个字)，包括日期和情况发生的地点，或者您打算做什么。材料将自动附加到第14部分。",
   "EngageInEspionageOrSabotage": "您是否参与过任何违反或逃避与间谍（包括间谍活动）或破坏活动有关的法律的行为？",
   "EngageInIllegalExport": "您是否在美国从事过任何违反或逃避禁止从美国出口商品、技术或敏感信息的法律的行为？",
   "EngageInOverthrowingGovernment": "您是否曾在美国从事过任何旨在通过武力、暴力或其他非法手段反对、控制或推翻美国政府的活动？",
@@ -1126,6 +1127,8 @@
 
   "NameOfPrincipalImmigrant": "主要移民的姓名",
   "FiledPetition": "您是否曾为主要移民提交过申请？",
+
+  "AddASpouse": "添加配偶",
 
   "RaceOptions": [
     "美洲印第安人或阿拉斯加土著",

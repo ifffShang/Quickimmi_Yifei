@@ -35,75 +35,66 @@
       "control": "text"
     },
     {
-      "label": "text_StreetNumberAndName",
-      "id": "text_StreetNumberAndName",
-      "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.streetNumberAndName",
-      "control": "text"
-    },
-    {
-      "label": "text_AptSuiteFloor",
-      "id": "",
-      "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.aptCheckbox,beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.steCheckbox,beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.flrCheckbox",
-      "control": "radio",
-      "options": [
-        {
-          "value": "Apt",
-          "label": "text_Apt",
-          "keyValue": "true,false,false"
+      "label": "text_PhysicalAddress",
+      "id": "part.4.11",
+      "control": "component_address",
+      "keyObject": {
+        "street": {
+          "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.streetNumberAndName",
+          "placeholder": "text_Street"
         },
-        {
-          "value": "Ste",
-          "label": "text_Ste",
-          "keyValue": "false,true,false"
+        "aptSteFlr": {
+          "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.aptCheckbox,beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.steCheckbox,beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.flrCheckbox",
+          "className": "apt-ste-flr-checkbox",
+          "options": [
+            {
+              "value": "apt",
+              "label": "text_Apartment",
+              "keyValue": "true,false,false"
+            },
+            {
+              "value": "ste",
+              "label": "text_Ste",
+              "keyValue": "false,true,false"
+            },
+            {
+              "value": "flr",
+              "label": "text_Flr",
+              "keyValue": "false,false,true"
+            }
+          ]
         },
-        {
-          "value": "Flr",
-          "label": "text_Flr",
-          "keyValue": "false,false,true"
+        "aptSteFlrNumber": {
+          "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.aptSteFlrNumber",
+          "placeholder": "text_AptSteFlrNumber"
+        },
+        "cityOrTown": {
+          "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.city",
+          "placeholder": "text_City"
+        },
+        "state": {
+          "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.state",
+          "placeholder": "text_State",
+          "options": "StateOptions"
+        },
+        "zipCode": {
+          "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.zipCode",
+          "placeholder": "text_ZipCode"
+        },
+        "province": {
+          "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.province",
+          "placeholder": "text_Province"
+        },
+        "postalCode": {
+          "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.postalCode",
+          "placeholder": "text_MailingPostalCode"
+        },
+        "country": {
+          "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.country",
+          "placeholder": "text_Country",
+          "options": "CountryOptions"
         }
-      ]
-    },
-    {
-      "label": "text_AptSteFlrNumber",
-      "id": "43.b",
-      "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.aptSteFlrNumber",
-      "control": "text"
-    },
-    {
-      "label": "text_City",
-      "id": "43.c",
-      "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.city",
-      "control": "text"
-    },
-    {
-      "label": "text_State",
-      "id": "Employment_State",
-      "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.state",
-      "control": "text"
-    },
-    {
-      "label": "text_ZipCode",
-      "id": "Employment_ZipCode",
-      "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.zipCode",
-      "control": "text"
-    },
-    {
-      "label": "text_Province",
-      "id": "Employment_Province",
-      "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.province",
-      "control": "text"
-    },
-    {
-      "label": "text_MailingPostalCode",
-      "id": "Employment_MailingPostalCode",
-      "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.postalCode",
-      "control": "text"
-    },
-    {
-      "label": "text_Country",
-      "id": "Employment_Country",
-      "key": "beneficiary.mostRecentOutSideUsEmploymentHistory5YearsAgo.country",
-      "control": "text"
+      }
     },
     {
       "label": "text_Occupation",
@@ -162,75 +153,66 @@
           "control": "text"
         },
         {
-          "label": "text_StreetNumberAndName",
-          "id": "text_StreetNumberAndName",
-          "key": "beneficiary.employmentHistories[].streetNumberAndName",
-          "control": "text"
-        },
-        {
-          "label": "text_AptSuiteFloor",
-          "id": "",
-          "key": "beneficiary.employmentHistories[].aptCheckbox,beneficiary.employmentHistories[].steCheckbox,beneficiary.employmentHistories[].flrCheckbox",
-          "control": "radio",
-          "options": [
-            {
-              "value": "Apt",
-              "label": "text_Apt",
-              "keyValue": "true,false,false"
+          "label": "text_PhysicalAddress",
+          "id": "part.4.11",
+          "control": "component_address",
+          "keyObject": {
+            "street": {
+              "key": "beneficiary.employmentHistories[].streetNumberAndName",
+              "placeholder": "text_Street"
             },
-            {
-              "value": "Ste",
-              "label": "text_Ste",
-              "keyValue": "false,true,false"
+            "aptSteFlr": {
+              "key": "beneficiary.employmentHistories[].aptCheckbox,beneficiary.employmentHistories[].steCheckbox,beneficiary.employmentHistories[].flrCheckbox",
+              "className": "apt-ste-flr-checkbox",
+              "options": [
+                {
+                  "value": "apt",
+                  "label": "text_Apartment",
+                  "keyValue": "true,false,false"
+                },
+                {
+                  "value": "ste",
+                  "label": "text_Ste",
+                  "keyValue": "false,true,false"
+                },
+                {
+                  "value": "flr",
+                  "label": "text_Flr",
+                  "keyValue": "false,false,true"
+                }
+              ]
             },
-            {
-              "value": "Flr",
-              "label": "text_Flr",
-              "keyValue": "false,false,true"
+            "aptSteFlrNumber": {
+              "key": "beneficiary.employmentHistories[].aptSteFlrNumber",
+              "placeholder": "text_AptSteFlrNumber"
+            },
+            "cityOrTown": {
+              "key": "beneficiary.employmentHistories[].city",
+              "placeholder": "text_City"
+            },
+            "state": {
+              "key": "beneficiary.employmentHistories[].state",
+              "placeholder": "text_State",
+              "options": "StateOptions"
+            },
+            "zipCode": {
+              "key": "beneficiary.employmentHistories[].zipCode",
+              "placeholder": "text_ZipCode"
+            },
+            "province": {
+              "key": "beneficiary.employmentHistories[].province",
+              "placeholder": "text_Province"
+            },
+            "postalCode": {
+              "key": "beneficiary.employmentHistories[].postalCode",
+              "placeholder": "text_MailingPostalCode"
+            },
+            "country": {
+              "key": "beneficiary.employmentHistories[].country",
+              "placeholder": "text_Country",
+              "options": "CountryOptions"
             }
-          ]
-        },
-        {
-          "label": "text_AptSteFlrNumber",
-          "id": "43.b",
-          "key": "beneficiary.employmentHistories[].aptSteFlrNumber",
-          "control": "text"
-        },
-        {
-          "label": "text_City",
-          "id": "43.c",
-          "key": "beneficiary.employmentHistories[].city",
-          "control": "text"
-        },
-        {
-          "label": "text_State",
-          "id": "Employment_State",
-          "key": "beneficiary.employmentHistories[].state",
-          "control": "text"
-        },
-        {
-          "label": "text_ZipCode",
-          "id": "Employment_ZipCode",
-          "key": "beneficiary.employmentHistories[].zipCode",
-          "control": "text"
-        },
-        {
-          "label": "text_Province",
-          "id": "Employment_Province",
-          "key": "beneficiary.employmentHistories[].province",
-          "control": "text"
-        },
-        {
-          "label": "text_MailingPostalCode",
-          "id": "Employment_MailingPostalCode",
-          "key": "beneficiary.employmentHistories[].postalCode",
-          "control": "text"
-        },
-        {
-          "label": "text_Country",
-          "id": "Employment_Country",
-          "key": "beneficiary.employmentHistories[].country",
-          "control": "text"
+          }
         },
         {
           "label": "text_Occupation",
