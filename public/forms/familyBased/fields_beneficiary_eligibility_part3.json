@@ -4,6 +4,171 @@
   "type": "fields",
   "fields": [
     {
+      "label": "text_CommittedOrPlannedSeriousCrime",
+      "id": "",
+      "key": "beneficiaryEligibility.committedOrPlannedSeriousCrimeYesCheckbox,beneficiaryEligibility.committedOrPlannedSeriousCrimeNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.committedOrPlannedSeriousCrimeYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainSelfViolentActivitiesItem48a",
+          "id": "ExplainSelfViolentActivitiesItem48a",
+          "key": "beneficiaryEligibility.committedOrPlannedSeriousCrimeYes",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
+      "label": "text_MemberOfGroupInvolvedInSeriousCrime",
+      "id": "",
+      "key": "beneficiaryEligibility.memberOfGroupInvolvedInSeriousCrimeYesCheckbox,beneficiaryEligibility.memberOfGroupInvolvedInSeriousCrimeNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.memberOfGroupInvolvedInSeriousCrimeYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainViolentGroupActivitiesItem48a",
+          "id": "",
+          "key": "beneficiaryEligibility.memberOfGroupInvolvedInSeriousCrimeYes",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
+      "label": "text_RecruitedForGroupInvolvedInSeriousCrime",
+      "id": "",
+      "key": "beneficiaryEligibility.recruitedForGroupInvolvedInSeriousCrimeYesCheckbox,beneficiaryEligibility.recruitedForGroupInvolvedInSeriousCrimeNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.recruitedForGroupInvolvedInSeriousCrimeYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainRecruitedOrFundedViolentGroupActivitiesItem48a",
+          "id": "",
+          "key": "beneficiaryEligibility.recruitedForGroupInvolvedInSeriousCrimeYes",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
+      "label": "text_ProvidedSupportForActivityInvolvedInSeriousCrime",
+      "id": "",
+      "key": "beneficiaryEligibility.ProvidedSupportForActivityInvolvedInSeriousCrimeYesCheckbox,beneficiaryEligibility.ProvidedSupportForActivityInvolvedInSeriousCrimeNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.ProvidedSupportForActivityInvolvedInSeriousCrimeYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainSupportViolentActivitiesItem48a",
+          "id": "",
+          "key": "ProvidedSupportForActivityInvolvedInSeriousCrimeYes",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
+      "label": "text_ProvidedSupportForIndividualOrGroup",
+      "id": "",
+      "key": "beneficiaryEligibility.providedSupportForIndividualOrGroupYesCheckbox,beneficiaryEligibility.providedSupportForIndividualOrGroupNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.providedSupportForIndividualOrGroupYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainSupportViolentIndividualsOrGroupsItem48a",
+          "id": "",
+          "key": "providedSupportForIndividualOrGroupYes",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_ReceivedMilitaryOrWeaponsTraining",
       "id": "",
       "key": "beneficiaryEligibility.receivedMilitaryOrWeaponsTrainingYesCheckbox,beneficiaryEligibility.receivedMilitaryOrWeaponsTrainingNoCheckbox",
@@ -29,9 +194,9 @@
       "control": "section",
       "fields": [
         {
-          "label": "text_SeriousActivitiesExplanation",
+          "label": "text_ExplainMilitaryTraining",
           "id": "",
-          "key": "eligibility.militaryTrainingExplanation",
+          "key": "eligibility.receivedMilitaryOrWeaponsTrainingYes",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -62,9 +227,9 @@
       "control": "section",
       "fields": [
         {
-          "label": "text_SeriousActivitiesExplanation",
+          "label": "text_ExplainEngageInUnlawfulActivities",
           "id": "",
-          "key": "eligibility.seriousActivitiesExplanation",
+          "key": "eligibility.intendToEngageInSeriousActivitiesYes",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -95,9 +260,9 @@
       "control": "section",
       "fields": [
         {
-          "label": "text_SpouseOrChildSeriousActivitiesExplanation",
+          "label": "text_ExplainSpouseChildViolentActivitiesItem51a",
           "id": "",
-          "key": "",
+          "key": "spouseOrChildCommittedSeriousCrimeYes",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -128,9 +293,9 @@
       "control": "section",
       "fields": [
         {
-          "label": "text_SpouseOrChildSeriousActivitiesExplanation",
+          "label": "text_ExplainSpouseChildViolentGroupActivitiesItem51a",
           "id": "",
-          "key": "",
+          "key": "spouseOrChildMemberOfGroupYes",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -161,9 +326,9 @@
       "control": "section",
       "fields": [
         {
-          "label": "text_SpouseOrChildSeriousActivitiesExplanation",
+          "label": "text_ExplainSpouseChildRecruitedOrFundedViolentGroupActivitiesItem51a",
           "id": "",
-          "key": "",
+          "key": "spouseOrChildRecruitedForGroupYes",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -194,9 +359,9 @@
       "control": "section",
       "fields": [
         {
-          "label": "text_SpouseOrChildSeriousActivitiesExplanation",
+          "label": "text_ExplainSpouseChildSupportViolentActivitiesItem51a",
           "id": "",
-          "key": "",
+          "key": "spouseOrChildProvidedSupportYes",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -227,9 +392,9 @@
       "control": "section",
       "fields": [
         {
-          "label": "text_SpouseOrChildSeriousActivitiesExplanation",
+          "label": "text_ExplainSpouseChildSupportViolentIndividualsOrGroupsItem51a",
           "id": "",
-          "key": "",
+          "key": "spouseOrChildProvidedSupportForIndividualOrGroupYes",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -260,9 +425,9 @@
       "control": "section",
       "fields": [
         {
-          "label": "text_SpouseOrChildSeriousActivitiesExplanation",
+          "label": "text_ExplainSpouseChildMilitaryTrainingItem51a",
           "id": "",
-          "key": "",
+          "key": "spouseOrChildReceivedTrainingYes",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -293,9 +458,9 @@
       "control": "section",
       "fields": [
         {
-          "label": "text_SeriousActivitiesExplanation",
+          "label": "text_ExplainWeaponAssistanceOrTransport",
           "id": "",
-          "key": "",
+          "key": "assistedInWeaponsActivitiesYes",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -326,9 +491,9 @@
       "control": "section",
       "fields": [
         {
-          "label": "text_SeriousActivitiesExplanation",
+          "label": "text_ExplainDetentionFacilityService",
           "id": "",
-          "key": "",
+          "key": "workedOrVolunteeredInDetentionFacilityYes",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -359,9 +524,9 @@
       "control": "section",
       "fields": [
         {
-          "label": "text_SeriousActivitiesExplanation",
+          "label": "text_ExplainGroupWeaponAssistance",
           "id": "",
-          "key": "",
+          "key": "participatedInGroupUsingWeaponsYes",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -392,9 +557,9 @@
       "control": "section",
       "fields": [
         {
-          "label": "text_SeriousActivitiesExplanation",
+          "label": "text_ExplainArmedGroupParticipation",
           "id": "",
-          "key": "",
+          "key": "servedInMilitaryOrArmedGroupYes",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -425,9 +590,9 @@
       "control": "section",
       "fields": [
         {
-          "label": "text_SeriousActivitiesExplanation",
+          "label": "text_ExplainTotalitarianAffiliation",
           "id": "",
-          "key": "",
+          "key": "affiliatedWithCommunistOrTotalitarianPartyYes",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -458,9 +623,9 @@
       "control": "section",
       "fields": [
         {
-          "label": "text_SeriousActivitiesExplanation",
+          "label": "text_ExplainNaziPersecutionParticipation",
           "id": "",
-          "key": "",
+          "key": "participatedInNaziPersecutionYes",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -491,9 +656,9 @@
       "control": "section",
       "fields": [
         {
-          "label": "text_SeriousActivitiesExplanation",
+          "label": "text_ExplainParticipateTortureOrGenocide",
           "id": "",
-          "key": "",
+          "key": "involvedInTortureOrGenocideYes",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -524,9 +689,9 @@
       "control": "section",
       "fields": [
         {
-          "label": "text_SeriousActivitiesExplanation",
+          "label": "text_ExplainParticipateKillingPerson",
           "id": "",
-          "key": "",
+          "key": "killedAnyPersonYes",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -557,9 +722,9 @@
       "control": "section",
       "fields": [
         {
-          "label": "text_SeriousActivitiesExplanation",
+          "label": "text_ExplainParticipateSevereInjury",
           "id": "",
-          "key": "",
+          "key": "severelyInjuredAnyPersonYes",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -590,9 +755,9 @@
       "control": "section",
       "fields": [
         {
-          "label": "text_SeriousActivitiesExplanation",
+          "label": "text_ExplainParticipateNonConsensualSexualActs",
           "id": "",
-          "key": "",
+          "key": "engagedInNonConsensualSexualContactYes",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -623,9 +788,9 @@
       "control": "section",
       "fields": [
         {
-          "label": "text_SeriousActivitiesExplanation",
+          "label": "text_ExplainParticipateReligiousBeliefDenial",
           "id": "",
-          "key": "",
+          "key": "limitedReligiousBeliefsYes",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -656,9 +821,9 @@
       "control": "section",
       "fields": [
         {
-          "label": "text_SeriousActivitiesExplanation",
+          "label": "text_ExplainChildServedArmy",
           "id": "",
-          "key": "",
+          "key": "recruitedChildSoldiersYes",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -689,9 +854,9 @@
       "control": "section",
       "fields": [
         {
-          "label": "text_SeriousActivitiesExplanation",
+          "label": "text_ExplainUseChildInCombatSupport",
           "id": "",
-          "key": "",
+          "key": "usedChildSoldiersInCombatYes",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -722,9 +887,9 @@
       "control": "section",
       "fields": [
         {
-          "label": "text_SeriousActivitiesExplanation",
+          "label": "text_ExplainPublicChargeGround",
           "id": "",
-          "key": "",
+          "key": "subjectToPublicChargeYes",
           "control": "component_textarea_ai_refine"
         }
       ]
