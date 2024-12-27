@@ -20,6 +20,10 @@ export function AddressUS(props: AddressUSProps) {
   const state = props.fieldValue["state"];
   const zipCode = props.fieldValue["zipCode"];
 
+  if (!state.options) {
+    console.error("State options are missing");
+  }
+
   return (
     <div className="address-us-container">
       <div className="street-container">

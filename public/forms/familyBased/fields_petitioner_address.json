@@ -30,6 +30,11 @@
               "value": "flrCheckbox",
               "label": "text_Flr",
               "keyValue": "false,false,true"
+            },
+            {
+              "value": "naCheckbox",
+              "label": "text_N/A",
+              "keyValue": "false,false,false"
             }
           ]
         },
