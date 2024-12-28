@@ -1,10 +1,10 @@
-.sortable-section-add-modal{
+.sortable-section-add-modal {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
 
-.sortable-section-add-header{
+.sortable-section-add-header {
   flex: 0 0 auto;
 }
 
@@ -18,13 +18,9 @@
   justify-content: flex-start;
 }
 
-
-
 .sortable-section-add-content > div {
   margin-bottom: 20px;
 }
-
-
 
 .sortable-section-add-content > .section-popup .text-box {
   max-width: 100%;

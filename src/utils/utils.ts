@@ -103,7 +103,7 @@ export function getFieldValueByKey(
   options?: IFormOptions[] | string,
   format?: string,
   fieldIndex?: number,
-  linkage?: string
+  linkage?: string,
 ) {
   if (!caseDetails) {
     return;
@@ -140,7 +140,7 @@ export function getFieldValueByKey(
      */
     const keys = key.split(",");
 
-    console.log("keys!!!:::1111:::", keys)
+    console.log("keys!!!:::1111:::", keys);
     if (options && Array.isArray(options)) {
       // Handle radio, checkbox, dropdown with multiple value, for example, keyValues = ["true","false","true"]
       const keyValues = keys.map(k => getCaseDetailValue(caseDetails, k, fieldIndex));
@@ -186,8 +186,8 @@ export function getFieldValueByKey(
         return locationStr;
       }
     } else {
-      console.log("linkage,111111,,", linkage)
-      console.log("key,22222,,", key)
+      console.log("linkage,111111,,", linkage);
+      console.log("key,22222,,", key);
       console.error("Options are missing for multi key field", key);
     }
   }

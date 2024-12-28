@@ -125,7 +125,7 @@
           "id": "i864-part1.1e",
           "control": "collapse_section",
           "fields": [
-            {              
+            {
               "label": "text_MilitaryServiceActiveDutyYes",
               "hideHeader": "true",
               "id": "i864-part1.1c",
@@ -267,7 +267,7 @@
                 }
               ]
             },
-            {              
+            {
               "label": "text_MilitaryServiceActiveDutyYes",
               "hideHeader": "true",
               "id": "i864-part1.1c",
