@@ -335,50 +335,66 @@
         },
         {
           "label": "text_HouseholdSize",
-          "key": "sponsorList[].householdSize",
-          "control": "group",
+          "hideHeader": "true",
+          "id": "i864-part1.1e",
+          "control": "collapse_section",
           "fields": [
             {
-              "label": "text_Yourself",
-              "placeholder": "text_Yourself",
-              "key": "sponsorList[].householdSize.yourself",
-              "control": "text"
-            },
-            {
-              "label": "text_Spouse",
-              "placeholder": "text_Spouse",
-              "key": "sponsorList[].householdSize.spouse",
-              "control": "text"
-            },
-            {
-              "label": "text_DependentChildren",
-              "placeholder": "text_DependentChildren",
-              "key": "sponsorList[].householdSize.dependentChildren",
-              "control": "text"
-            },
-            {
-              "label": "text_OtherDependents",
-              "placeholder": "text_OtherDependents",
-              "key": "sponsorList[].householdSize.otherDependents",
-              "control": "text"
-            },
-            {
-              "label": "text_SponsoredOtherPersons",
-              "placeholder": "text_SponsoredOtherPersons",
-              "key": "sponsorList[].householdSize.sponsoredOtherPersons",
-              "control": "text"
-            },
-            {
-              "label": "text_OptionalSiblingsParentsAdultChildren",
-              "placeholder": "text_OptionalSiblingsParentsAdultChildren",
-              "key": "sponsorList[].householdSize.optionalSiblingsParentsAdultChildren",
-              "control": "text"
-            },
-            {
-              "label": "text_HouseholdSize",
-              "placeholder": "text_HouseholdSize",
-              "key": "sponsorList[].householdSize.householdSize",
-              "control": "text"
+              "label": "text_OwnershipInterestDescription",
+              "hideHeader": "true",
+              "id": "i864-part1.1c",
+              "control": "section",
+              "fields": [
+                {
+                  "label": "text_HouseholdSize",
+                  "key": "sponsorList[].householdSize",
+                  "control": "group",
+                  "fields": [
+                    {
+                      "label": "text_Yourself",
+                      "placeholder": "text_Yourself",
+                      "key": "sponsorList[].householdSize.yourself",
+                      "control": "text"
+                    },
+                    {
+                      "label": "text_Spouse",
+                      "placeholder": "text_Spouse",
+                      "key": "sponsorList[].householdSize.spouse",
+                      "control": "text"
+                    },
+                    {
+                      "label": "text_DependentChildren",
+                      "placeholder": "text_DependentChildren",
+                      "key": "sponsorList[].householdSize.dependentChildren",
+                      "control": "text"
+                    },
+                    {
+                      "label": "text_OtherDependents",
+                      "placeholder": "text_OtherDependents",
+                      "key": "sponsorList[].householdSize.otherDependents",
+                      "control": "text"
+                    },
+                    {
+                      "label": "text_SponsoredOtherPersons",
+                      "placeholder": "text_SponsoredOtherPersons",
+                      "key": "sponsorList[].householdSize.sponsoredOtherPersons",
+                      "control": "text"
+                    },
+                    {
+                      "label": "text_OptionalSiblingsParentsAdultChildren",
+                      "placeholder": "text_OptionalSiblingsParentsAdultChildren",
+                      "key": "sponsorList[].householdSize.optionalSiblingsParentsAdultChildren",
+                      "control": "text"
+                    },
+                    {
+                      "label": "text_HouseholdSize",
+                      "placeholder": "text_HouseholdSize",
+                      "key": "sponsorList[].householdSize.householdSize",
+                      "control": "text"
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }

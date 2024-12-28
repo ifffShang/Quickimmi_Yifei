@@ -43,6 +43,7 @@ import { SameAddressCheckbox } from "./fields/SameAddressCheckbox";
 import { Section } from "./fields/Section";
 import { SingleFileUploaderV2 } from "./fields/SingleFileUploaderV2";
 import { SortableSection } from "./fields/SortableSection";
+import { CollapseSection } from "./fields/CollapseSection";
 import { TextAreaWithAIRefine } from "./fields/TextAreaWithAIRefine";
 import { TextboxWithNA } from "./fields/TextboxWithNA";
 import { getProfile } from "../../utils/selectorUtils";
@@ -797,6 +798,8 @@ export function FormField(props: FormFieldProps) {
       return <Section {...props} />;
     case "sortable_section":
       return <SortableSection {...props} />;
+    case "collapse_section":
+      return <CollapseSection {...props} />
     case "component_monthyearpicker_present":
       return (
         <MonthYearPickerWithOption
