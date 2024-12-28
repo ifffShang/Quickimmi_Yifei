@@ -799,7 +799,7 @@ export function FormField(props: FormFieldProps) {
     case "sortable_section":
       return <SortableSection {...props} />;
     case "collapse_section":
-      return <CollapseSection {...props} />
+      return <CollapseSection {...props} />;
     case "component_monthyearpicker_present":
       return (
         <MonthYearPickerWithOption

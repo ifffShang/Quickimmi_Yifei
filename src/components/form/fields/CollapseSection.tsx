@@ -66,33 +66,33 @@ export function CollapseSection(props: CollapseSectionProps) {
       }
     }
 
-    const collapseItems:any = []
+    const collapseItems: any = [];
 
-    props.subFields.map((field, index) => (
+    props.subFields.map((field, index) =>
       collapseItems.push({
         key: `${index + 1}`,
         label: wt(field.label),
-        children: <FormField
-              fieldKey={field.key}
-              control={field.control}
-              label={field.label}
-              options={field.options}
-              linkage={field.linkage}
-              placeholder={field.placeholder}
-              className={field.className}
-              maxChildPerRow={field.maxChildPerRow}
-              subFields={field.fields}
-              format={field.format}
-              visibility={field.visibility}
-              fieldIndex={props.fieldIndex}
-              documentType={field.documentType}
-              identity={field.identity}
-            />
-      })
-    ))
-
-    return (
-      <Collapse defaultActiveKey={['1']} items={collapseItems}></Collapse>
+        children: (
+          <FormField
+            fieldKey={field.key}
+            control={field.control}
+            label={field.label}
+            options={field.options}
+            linkage={field.linkage}
+            placeholder={field.placeholder}
+            className={field.className}
+            maxChildPerRow={field.maxChildPerRow}
+            subFields={field.fields}
+            format={field.format}
+            visibility={field.visibility}
+            fieldIndex={props.fieldIndex}
+            documentType={field.documentType}
+            identity={field.identity}
+          />
+        ),
+      }),
     );
+
+    return <Collapse defaultActiveKey={["1"]} items={collapseItems}></Collapse>;
   } else return <div>Section needs sub fields</div>;
 }
