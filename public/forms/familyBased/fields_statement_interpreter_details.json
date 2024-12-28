@@ -35,90 +35,68 @@
     {
       "label": "text_InterpreterMailingAddress",
       "id": "5.3",
-      "control": "group",
-      "maxChildPerRow": "3",
-      "fields": [
-        {
-          "label": "text_Street",
-          "placeholder": "text_Street",
-          "id": "street",
+      "control": "component_address",
+      "keyObject": {
+        "street": {
           "key": "interpreter.streetnumberandname",
-          "control": "text"
+          "placeholder": "text_Street"
         },
-        {
-          "label": "",
-          "id": "apartment_number",
+        "aptSteFlr": {
           "key": "interpreter.aptcheckbox,interpreter.stecheckbox,interpreter.flrCheckbox",
-          "control": "radio",
           "className": "apt-ste-flr-checkbox",
           "options": [
             {
-              "label": "text_Apartment",
               "value": "aptCheckbox",
+              "label": "text_Apartment",
               "keyValue": "true,false,false"
             },
             {
-              "label": "text_Ste",
               "value": "steCheckbox",
+              "label": "text_Ste",
               "keyValue": "false,true,false"
             },
             {
-              "label": "text_Flr",
               "value": "flrCheckbox",
+              "label": "text_Flr",
               "keyValue": "false,false,true"
+            },
+            {
+              "value": "naCheckbox",
+              "label": "text_N/A",
+              "keyValue": "false,false,false"
             }
           ]
         },
-        {
-          "label": "",
-          "placeholder": "text_Apt/Ste/FlrNumber",
-          "id": "apartment_number",
+        "aptSteFlrNumber": {
           "key": "interpreter.aptsteflrnumber",
-          "control": "text"
+          "placeholder": "text_Apt/Ste/FlrNumber"
         },
-        {
-          "label": "text_City",
-          "placeholder": "text_City",
-          "id": "city",
+        "cityOrTown": {
           "key": "interpreter.city",
-          "control": "text"
+          "placeholder": "text_City"
         },
-        {
-          "label": "text_State",
-          "placeholder": "text_State",
-          "id": "state",
+        "state": {
           "key": "interpreter.state",
-          "control": "text"
+          "placeholder": "text_State"
         },
-        {
-          "label": "text_ZipCode",
-          "placeholder": "text_ZipCode",
-          "id": "zip_code",
+        "zipCode": {
           "key": "interpreter.zipcode",
-          "control": "text"
+          "placeholder": "text_ZipCode"
         },
-        {
-          "label": "text_Province",
-          "placeholder": "text_Province",
-          "id": "",
+        "province": {
           "key": "interpreter.province",
-          "control": "text"
+          "placeholder": "text_Province"
         },
-        {
-          "label": "text_PostalCode",
-          "placeholder": "text_PostalCode",
-          "id": "",
+        "postalCode": {
           "key": "interpreter.postalcode",
-          "control": "text"
+          "placeholder": "text_PostalCode"
         },
-        {
-          "label": "text_Country",
-          "placeholder": "text_Country",
-          "id": "",
+        "country": {
           "key": "interpreter.country",
-          "control": "text"
+          "placeholder": "text_Country",
+          "options": "CountryOptions"
         }
-      ]
+      }
     },
     {
       "label": "text_InterpreterContactInformation",

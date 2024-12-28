@@ -652,14 +652,15 @@
     },
     {
       "label": "",
+      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.engageInEspionageOrSabotageYesCheckbox=true",
       "control": "section",
       "fields": [
         {
-          "label": "text_ProvideDetailedInformation",
+          "label": "text_ExplainEspionageOrSabotageIntentItem46a",
           "id": "",
-          "key": "beneficiaryEligibility.engageInEspionageOrSabotageYesSupplement",
+          "key": "eligibility.engageInEspionageOrSabotageYes",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -684,14 +685,15 @@
     },
     {
       "label": "",
+      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.engageInIllegalExportYesCheckbox=true",
       "control": "section",
       "fields": [
         {
-          "label": "text_ProvideDetailedInformation",
+          "label": "text_ExplainIntendedExportViolationActivitiesItem46b",
           "id": "",
-          "key": "beneficiaryEligibility.engageInIllegalExportYesSupplement",
+          "key": "eligibility.engageInIllegalExportYes",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -716,14 +718,15 @@
     },
     {
       "label": "",
+      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.engageInOverthrowingGovernmentYesCheckbox=true",
       "control": "section",
       "fields": [
         {
-          "label": "text_ProvideDetailedInformation",
+          "label": "text_ExplainIntentToOpposeGovernmentItem46c",
           "id": "",
-          "key": "beneficiaryEligibility.engageInOverthrowingGovernmentYesSupplement",
+          "key": "eligibility.engageInOverthrowingGovernmentYes",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -748,14 +751,15 @@
     },
     {
       "label": "",
+      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.engageInEndangeringUSYesCheckbox=true",
       "control": "section",
       "fields": [
         {
-          "label": "text_ProvideDetailedInformation",
+          "label": "text_ExplainIntentToEndangerUSSecurityItem46d",
           "id": "",
-          "key": "beneficiaryEligibility.engageInEndangeringUSYesSupplement",
+          "key": "eligibility.engageInEndangeringUSYes",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -780,14 +784,15 @@
     },
     {
       "label": "",
+      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.engageInUnlawfulActivityYesCheckbox=true",
       "control": "section",
       "fields": [
         {
-          "label": "text_ProvideDetailedInformation",
+          "label": "text_ExplainUnlawfulActivityIntentItem46e",
           "id": "",
-          "key": "beneficiaryEligibility.engageInUnlawfulActivityYesSupplement",
+          "key": "eligibility.engageInUnlawfulActivityYes",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -812,174 +817,15 @@
     },
     {
       "label": "",
+      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.engageInAdverseForeignPolicyYesCheckbox=true",
       "control": "section",
       "fields": [
         {
-          "label": "text_ProvideDetailedInformation",
+          "label": "text_ExplainForeignPolicyAdverseActivities",
           "id": "",
-          "key": "beneficiaryEligibility.engageInAdverseForeignPolicyYesSupplement",
-          "control": "component_textarea_ai_refine"
-        }
-      ]
-    },
-    {
-      "label": "text_CommittedOrPlannedSeriousCrime",
-      "id": "",
-      "key": "beneficiaryEligibility.committedOrPlannedSeriousCrimeYesCheckbox,beneficiaryEligibility.committedOrPlannedSeriousCrimeNoCheckbox",
-      "control": "radio",
-      "options": [
-        {
-          "value": "Yes",
-          "label": "text_Yes",
-          "keyValue": "true,false"
-        },
-        {
-          "value": "No",
-          "label": "text_No",
-          "keyValue": "false,true"
-        }
-      ]
-    },
-    {
-      "label": "",
-      "id": "",
-      "visibility": "beneficiaryEligibility.committedOrPlannedSeriousCrimeYesCheckbox=true",
-      "control": "section",
-      "fields": [
-        {
-          "label": "text_ProvideDetailedInformation",
-          "id": "",
-          "key": "beneficiaryEligibility.committedOrPlannedSeriousCrimeYesSupplement",
-          "control": "component_textarea_ai_refine"
-        }
-      ]
-    },
-    {
-      "label": "text_MemberOfGroupInvolvedInSeriousCrime",
-      "id": "",
-      "key": "beneficiaryEligibility.memberOfGroupInvolvedInSeriousCrimeYesCheckbox,beneficiaryEligibility.memberOfGroupInvolvedInSeriousCrimeNoCheckbox",
-      "control": "radio",
-      "options": [
-        {
-          "value": "Yes",
-          "label": "text_Yes",
-          "keyValue": "true,false"
-        },
-        {
-          "value": "No",
-          "label": "text_No",
-          "keyValue": "false,true"
-        }
-      ]
-    },
-    {
-      "label": "",
-      "id": "",
-      "visibility": "beneficiaryEligibility.memberOfGroupInvolvedInSeriousCrimeYesCheckbox=true",
-      "control": "section",
-      "fields": [
-        {
-          "label": "text_ProvideDetailedInformation",
-          "id": "",
-          "key": "beneficiaryEligibility.memberOfGroupInvolvedInSeriousCrimeYesSupplement",
-          "control": "component_textarea_ai_refine"
-        }
-      ]
-    },
-    {
-      "label": "text_RecruitedForGroupInvolvedInSeriousCrime",
-      "id": "",
-      "key": "beneficiaryEligibility.recruitedForGroupInvolvedInSeriousCrimeYesCheckbox,beneficiaryEligibility.recruitedForGroupInvolvedInSeriousCrimeNoCheckbox",
-      "control": "radio",
-      "options": [
-        {
-          "value": "Yes",
-          "label": "text_Yes",
-          "keyValue": "true,false"
-        },
-        {
-          "value": "No",
-          "label": "text_No",
-          "keyValue": "false,true"
-        }
-      ]
-    },
-    {
-      "label": "",
-      "id": "",
-      "visibility": "beneficiaryEligibility.recruitedForGroupInvolvedInSeriousCrimeYesCheckbox=true",
-      "control": "section",
-      "fields": [
-        {
-          "label": "text_ProvideDetailedInformation",
-          "id": "",
-          "key": "beneficiaryEligibility.recruitedForGroupInvolvedInSeriousCrimeYesSupplement",
-          "control": "component_textarea_ai_refine"
-        }
-      ]
-    },
-    {
-      "label": "text_ProvidedSupportForGroupInvolvedInSeriousCrime",
-      "id": "",
-      "key": "beneficiaryEligibility.providedSupportForGroupInvolvedInSeriousCrimeYesCheckbox,beneficiaryEligibility.providedSupportForGroupInvolvedInSeriousCrimeNoCheckbox",
-      "control": "radio",
-      "options": [
-        {
-          "value": "Yes",
-          "label": "text_Yes",
-          "keyValue": "true,false"
-        },
-        {
-          "value": "No",
-          "label": "text_No",
-          "keyValue": "false,true"
-        }
-      ]
-    },
-    {
-      "label": "",
-      "id": "",
-      "visibility": "beneficiaryEligibility.providedSupportForGroupInvolvedInSeriousCrimeYesCheckbox=true",
-      "control": "section",
-      "fields": [
-        {
-          "label": "text_ProvideDetailedInformation",
-          "id": "",
-          "key": "beneficiaryEligibility.providedSupportForGroupInvolvedInSeriousCrimeYesSupplement",
-          "control": "component_textarea_ai_refine"
-        }
-      ]
-    },
-    {
-      "label": "text_ProvidedSupportForIndividualOrGroup",
-      "id": "",
-      "key": "beneficiaryEligibility.providedSupportForIndividualOrGroupYesCheckbox,beneficiaryEligibility.providedSupportForIndividualOrGroupNoCheckbox",
-      "control": "radio",
-      "options": [
-        {
-          "value": "Yes",
-          "label": "text_Yes",
-          "keyValue": "true,false"
-        },
-        {
-          "value": "No",
-          "label": "text_No",
-          "keyValue": "false,true"
-        }
-      ]
-    },
-    {
-      "label": "",
-      "id": "",
-      "visibility": "beneficiaryEligibility.providedSupportForIndividualOrGroupYesCheckbox=true",
-      "control": "section",
-      "fields": [
-        {
-          "label": "text_ProvideDetailedInformation",
-          "id": "",
-          "key": "beneficiaryEligibility.providedSupportForIndividualOrGroupYesSupplement",
+          "key": "eligibility.engageInAdverseForeignPolicyYes",
           "control": "component_textarea_ai_refine"
         }
       ]

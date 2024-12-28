@@ -41,10 +41,19 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
   const promptInputRef = useRef<any>(null);
   const fieldkey = props.fieldKey;
   const label = props.label.split("_")[1];
+  const currentCaseType = useAppSelector(state => state.case.currentCaseType);
 
   useEffect(() => {
     setIsTextAreaEmpty(!props.value);
   }, [props.value]);
+
+  useEffect(() => {
+    if (currentCaseType === null) {
+      console.error("currentCaseType is null");
+      return;
+    }
+    console.log("Current Case Type: ", currentCaseType);
+  }, [currentCaseType]);
 
   const handleRefineAreaChange = (value: string) => {
     if (value === "") {
@@ -87,10 +96,14 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
       console.error("Access token is not available");
       return;
     }
+    if (currentCaseType === null) {
+      console.error("currentCaseType is null");
+      return;
+    }
     try {
       setRefineAreaValue("");
       setShowRefineArea(true);
-      const refinedText = await refineWithPromptApi(accessToken, role, "statement", label, props.value, prompt);
+      const refinedText = await refineWithPromptApi(accessToken, role, currentCaseType, label, props.value, prompt);
       setRefineAreaValue(refinedText.result);
       setCurrentText(refinedText.result);
       setTips(refinedText.tips);

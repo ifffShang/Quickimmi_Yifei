@@ -55,14 +55,24 @@ export async function refineWithPromptApi(
   content: string,
   prompt: string,
 ): Promise<RefineResponse> {
+  let endPoint = "";
+  if (type === "Asylum") {
+    endPoint = "api/case/asylum/refineWithPrompt";
+  } else if (type === "FamilyBased") {
+    endPoint = "api/case/family-based/refineWithPrompt";
+  } else {
+    throw new Error(`Unknown case type: ${type}`);
+  }
+
   const requestDto = {
     type,
     question,
     content,
     prompt,
   };
+
   const res = await performApiRequest({
-    endPoint: `api/case/asylum/refineWithPrompt`,
+    endPoint,
     method: "POST",
     data: requestDto,
     accessToken,
