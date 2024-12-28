@@ -1,17 +1,37 @@
+.sortable-section-add-modal{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.sortable-section-add-header{
+  flex: 0 0 auto;
+}
+
 .sortable-section-add-content {
+  flex: 1 1 auto;
+  overflow-y: auto;
   padding: 20px 0;
   border-top: var(--border);
+  display: felx;
+  flex-direction: column;
+  justify-content: flex-start;
 }
+
+
 
 .sortable-section-add-content > div {
   margin-bottom: 20px;
 }
+
+
 
 .sortable-section-add-content > .section-popup .text-box {
   max-width: 100%;
 }
 
 .sortable-section-add-footer {
+  flex: 0 0 auto;
   display: flex;
   justify-content: flex-end;
   gap: 20px;

@@ -33,7 +33,7 @@ export function SameAddressCheckboxV2(props: SameAddressCheckboxProps) {
             mapping.source,
             props.options,
             "",
-            props.fieldIndex,
+            props.fieldIndex
           );
           return acc;
         }, {});

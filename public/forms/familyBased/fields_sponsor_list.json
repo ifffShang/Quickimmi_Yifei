@@ -120,236 +120,266 @@
           ]
         },
         {
-          "label": "text_NameOfPrincipalImmigrant",
-          "id": "i864-part2",
-          "control": "group",
-          "maxChildPerRow": "3",
-          "fields": [
-            {
-              "label": "text_FirstName",
-              "placeholder": "text_FirstName",
-              "key": "sponsorList[].sponsorDetails.firstName",
-              "control": "text"
-            },
-            {
-              "label": "text_MiddleName",
-              "placeholder": "text_MiddleName",
-              "key": "sponsorList[].sponsorDetails.middleName",
-              "control": "text"
-            },
-            {
-              "label": "text_LastName",
-              "placeholder": "text_LastName",
-              "key": "sponsorList[].sponsorDetails.lastName",
-              "control": "text"
-            }
-          ]
-        },
-        {
-          "label": "text_InCareOfName",
-          "key": "sponsorList[].sponsorDetails.inCareOfName",
-          "control": "text"
-        },
-        {
-          "label": "text_Address",
-          "id": "3.11",
-          "control": "group",
-          "maxChildPerRow": "3",
-          "fields": [
-            {
-              "label": "text_Street",
-              "placeholder": "text_Street",
-              "id": "street",
-              "key": "sponsorList[].sponsorDetails.mailAddress.streetNumberAndName",
-              "control": "text"
-            },
-            {
-              "label": "text_ApartmentNumber(Add check to apt/ste/flr)",
-              "placeholder": "text_ApartmentNumber",
-              "id": "apartment_number",
-              "key": "sponsorList[].sponsorDetails.mailAddress.aptSteFlrNumber",
-              "control": "text"
-            },
-            {
-              "label": "text_City",
-              "placeholder": "text_City",
-              "id": "city",
-              "key": "sponsorList[].sponsorDetails.mailAddress.cityOrTown",
-              "control": "text"
-            },
-            {
-              "label": "text_State",
-              "placeholder": "text_State",
-              "id": "state",
-              "key": "sponsorList[].sponsorDetails.mailAddress.state",
-              "control": "text"
-            },
-            {
-              "label": "text_ZipCode",
-              "placeholder": "text_ZipCode",
-              "id": "zip_code",
-              "key": "sponsorList[].sponsorDetails.mailAddress.zipCode",
-              "control": "text"
-            }
-          ]
-        },
-        {
-          "label": "text_MailingAddressSameAsPhysicalAddress",
-          "key": "sponsorList[].sponsorDetails.mailingAddressSameAsPhysicalYesCheckbox",
-          "control": "radio",
-          "options": [
-            {
-              "value": "Yes",
-              "label": "text_Yes",
-              "keyValue": "true,false"
-            },
-            {
-              "value": "No",
-              "label": "text_No",
-              "keyValue": "false,true"
-            }
-          ]
-        },
-        {
-          "label": "text_MailingAddress",
-          "id": "3.11",
-          "control": "group",
-          "maxChildPerRow": "3",
-          "fields": [
-            {
-              "label": "text_Street",
-              "placeholder": "text_Street",
-              "id": "street",
-              "key": "sponsorList[].sponsorDetails.physicalAddress.streetNumberAndName",
-              "control": "text"
-            },
-            {
-              "label": "text_ApartmentNumber(Add check to apt/ste/flr)",
-              "placeholder": "text_ApartmentNumber",
-              "id": "apartment_number",
-              "key": "sponsorList[].sponsorDetails.physicalAddress.aptSteFlrNumber",
-              "control": "text"
-            },
-            {
-              "label": "text_City",
-              "placeholder": "text_City",
-              "id": "city",
-              "key": "sponsorList[].sponsorDetails.physicalAddress.cityOrTown",
-              "control": "text"
-            },
-            {
-              "label": "text_State",
-              "placeholder": "text_State",
-              "id": "state",
-              "key": "sponsorList[].sponsorDetails.physicalAddress.state",
-              "control": "text"
-            },
-            {
-              "label": "text_ZipCode",
-              "placeholder": "text_ZipCode",
-              "id": "zip_code",
-              "key": "sponsorList[].sponsorDetails.physicalAddress.zipCode",
-              "control": "text"
-            }
-          ]
-        },
-        {
-          "label": "text_CountryOfDomicile",
-          "key": "sponsorList[].sponsorDetails.countryOfDomicile",
-          "control": "text"
-        },
-        {
-          "label": "text_DateOfBirth",
-          "key": "sponsorList[].sponsorDetails.dateOfBirth",
-          "control": "datepicker"
-        },
-        {
-          "label": "text_CityOfBirth",
-          "key": "sponsorList[].sponsorDetails.cityOfBirth",
-          "control": "text"
-        },
-        {
-          "label": "text_StateOrProvinceOfBirth",
-          "key": "sponsorList[].sponsorDetails.stateOrProvinceOfBirth",
-          "control": "text"
-        },
-        {
-          "label": "text_CountryOfBirth",
-          "key": "sponsorList[].sponsorDetails.countryOfBirth",
-          "control": "text"
-        },
-        {
-          "label": "text_SSN",
-          "key": "sponsorList[].sponsorDetails.ssn",
-          "control": "text"
-        },
-        {
-          "label": "text_SponsorCitizenshipOrResidency",
-          "id": "sponsor_citizenship_or_residency",
-          "key": "sponsorList[].sponsorDetails.isUsCitizenCheckbox, sponsorList[].sponsorDetails.isUsNationalCheckbox, sponsorList[].sponsorDetails.isLawfulPermanentResidentCheckbox",
-          "control": "radio",
-          "options": [
-            {
-              "value": "UsCitizen",
-              "label": "text_USCitizen",
-              "keyValue": "true,false,false"
-            },
-            {
-              "value": "UsNational",
-              "label": "text_USNational",
-              "keyValue": "false,true,false"
-            },
-            {
-              "value": "PermanentResident",
-              "label": "text_LawfulPermanentResident",
-              "keyValue": "false,false,true"
-            }
-          ]
-        },
-        {
-          "label": "text_SponsorANumber",
-          "key": "sponsorList[].sponsorDetails.sponsorANumber",
-          "control": "text"
-        },
-        {
-          "label": "text_USCISOnlineAccountNumber",
-          "key": "sponsorList[].sponsorDetails.uSCISOnlineAccountNumber",
-          "control": "text"
-        },
-        {
-          "label": "text_MilitaryServiceActiveDutyYes",
-          "key": "sponsorList[].sponsorDetails.militaryServiceActiveDutyYesCheckbox, sponsorList[].sponsorDetails.militaryServiceActiveDutyNoCheckbox",
-          "control": "radio",
-          "options": [
-            {
-              "value": "Yes",
-              "label": "text_Yes",
-              "keyValue": "true,false"
-            },
-            {
-              "value": "No",
-              "label": "text_No",
-              "keyValue": "false,true"
-            }
-          ]
-        },
-        {
-          "label": "text_HouseholdSize",
+          "label": "text_SponsorList",
           "hideHeader": "true",
           "id": "i864-part1.1e",
           "control": "collapse_section",
           "fields": [
-            {
-              "label": "text_OwnershipInterestDescription",
+            {              
+              "label": "text_MilitaryServiceActiveDutyYes",
               "hideHeader": "true",
               "id": "i864-part1.1c",
               "control": "section",
               "fields": [
                 {
-                  "label": "text_HouseholdSize",
+                  "label": "text_NameOfPrincipalImmigrant",
+                  "id": "i864-part2",
+                  "control": "group",
+                  "maxChildPerRow": "3",
+                  "fields": [
+                    {
+                      "label": "text_FirstName",
+                      "placeholder": "text_FirstName",
+                      "key": "sponsorList[].sponsorDetails.firstName",
+                      "control": "text"
+                    },
+                    {
+                      "label": "text_MiddleName",
+                      "placeholder": "text_MiddleName",
+                      "key": "sponsorList[].sponsorDetails.middleName",
+                      "control": "text"
+                    },
+                    {
+                      "label": "text_LastName",
+                      "placeholder": "text_LastName",
+                      "key": "sponsorList[].sponsorDetails.lastName",
+                      "control": "text"
+                    }
+                  ]
+                },
+                {
+                  "label": "text_InCareOfName",
+                  "key": "sponsorList[].sponsorDetails.inCareOfName",
+                  "control": "text"
+                },
+                {
+                  "label": "text_Address",
+                  "id": "3.11",
+                  "control": "group",
+                  "maxChildPerRow": "3",
+                  "fields": [
+                    {
+                      "label": "text_Street",
+                      "placeholder": "text_Street",
+                      "id": "street",
+                      "key": "sponsorList[].sponsorDetails.mailAddress.streetNumberAndName",
+                      "control": "text"
+                    },
+                    {
+                      "label": "text_ApartmentNumber(Add check to apt/ste/flr)",
+                      "placeholder": "text_ApartmentNumber",
+                      "id": "apartment_number",
+                      "key": "sponsorList[].sponsorDetails.mailAddress.aptSteFlrNumber",
+                      "control": "text"
+                    },
+                    {
+                      "label": "text_City",
+                      "placeholder": "text_City",
+                      "id": "city",
+                      "key": "sponsorList[].sponsorDetails.mailAddress.cityOrTown",
+                      "control": "text"
+                    },
+                    {
+                      "label": "text_State",
+                      "placeholder": "text_State",
+                      "id": "state",
+                      "key": "sponsorList[].sponsorDetails.mailAddress.state",
+                      "control": "text"
+                    },
+                    {
+                      "label": "text_ZipCode",
+                      "placeholder": "text_ZipCode",
+                      "id": "zip_code",
+                      "key": "sponsorList[].sponsorDetails.mailAddress.zipCode",
+                      "control": "text"
+                    }
+                  ]
+                },
+                {
+                  "label": "text_MailingAddressSameAsPhysicalAddress",
+                  "key": "sponsorList[].sponsorDetails.mailingAddressSameAsPhysicalYesCheckbox,sponsorList[].sponsorDetails.mailingAddressSameAsPhysicalNoCheckbox",
+                  "control": "radio",
+                  "options": [
+                    {
+                      "value": "Yes",
+                      "label": "text_Yes",
+                      "keyValue": "true,false"
+                    },
+                    {
+                      "value": "No",
+                      "label": "text_No",
+                      "keyValue": "false,true"
+                    }
+                  ]
+                },
+                {
+                  "label": "text_MailingAddress",
+                  "id": "3.11",
+                  "control": "group",
+                  "maxChildPerRow": "3",
+                  "fields": [
+                    {
+                      "label": "text_Street",
+                      "placeholder": "text_Street",
+                      "id": "street",
+                      "key": "sponsorList[].sponsorDetails.physicalAddress.streetNumberAndName",
+                      "control": "text"
+                    },
+                    {
+                      "label": "text_ApartmentNumber(Add check to apt/ste/flr)",
+                      "placeholder": "text_ApartmentNumber",
+                      "id": "apartment_number",
+                      "key": "sponsorList[].sponsorDetails.physicalAddress.aptSteFlrNumber",
+                      "control": "text"
+                    },
+                    {
+                      "label": "text_City",
+                      "placeholder": "text_City",
+                      "id": "city",
+                      "key": "sponsorList[].sponsorDetails.physicalAddress.cityOrTown",
+                      "control": "text"
+                    },
+                    {
+                      "label": "text_State",
+                      "placeholder": "text_State",
+                      "id": "state",
+                      "key": "sponsorList[].sponsorDetails.physicalAddress.state",
+                      "control": "text"
+                    },
+                    {
+                      "label": "text_ZipCode",
+                      "placeholder": "text_ZipCode",
+                      "id": "zip_code",
+                      "key": "sponsorList[].sponsorDetails.physicalAddress.zipCode",
+                      "control": "text"
+                    }
+                  ]
+                }
+              ]
+            },
+            {              
+              "label": "text_MilitaryServiceActiveDutyYes",
+              "hideHeader": "true",
+              "id": "i864-part1.1c",
+              "control": "section",
+              "fields": [
+                {
+                  "label": "text_CountryOfDomicile",
+                  "key": "sponsorList[].sponsorDetails.countryOfDomicile",
+                  "control": "text"
+                },
+                {
+                  "label": "text_DateOfBirth",
+                  "key": "sponsorList[].sponsorDetails.dateOfBirth",
+                  "control": "datepicker"
+                },
+                {
+                  "label": "text_CityOfBirth",
+                  "key": "sponsorList[].sponsorDetails.cityOfBirth",
+                  "control": "text"
+                },
+                {
+                  "label": "text_StateOrProvinceOfBirth",
+                  "key": "sponsorList[].sponsorDetails.stateOrProvinceOfBirth",
+                  "control": "text"
+                },
+                {
+                  "label": "text_CountryOfBirth",
+                  "key": "sponsorList[].sponsorDetails.countryOfBirth",
+                  "control": "text"
+                }
+              ]
+            },
+            {
+              "label": "text_MilitaryServiceActiveDutyYes",
+              "hideHeader": "true",
+              "id": "i864-part1.1c",
+              "control": "section",
+              "fields": [
+                {
+                  "label": "text_SSN",
+                  "key": "sponsorList[].sponsorDetails.ssn",
+                  "control": "text"
+                },
+                {
+                  "label": "text_SponsorCitizenshipOrResidency",
+                  "id": "sponsor_citizenship_or_residency",
+                  "key": "sponsorList[].sponsorDetails.isUsCitizenCheckbox, sponsorList[].sponsorDetails.isUsNationalCheckbox, sponsorList[].sponsorDetails.isLawfulPermanentResidentCheckbox",
+                  "control": "radio",
+                  "options": [
+                    {
+                      "value": "UsCitizen",
+                      "label": "text_USCitizen",
+                      "keyValue": "true,false,false"
+                    },
+                    {
+                      "value": "UsNational",
+                      "label": "text_USNational",
+                      "keyValue": "false,true,false"
+                    },
+                    {
+                      "value": "PermanentResident",
+                      "label": "text_LawfulPermanentResident",
+                      "keyValue": "false,false,true"
+                    }
+                  ]
+                },
+                {
+                  "label": "text_SponsorANumber",
+                  "key": "sponsorList[].sponsorDetails.sponsorANumber",
+                  "control": "text"
+                },
+                {
+                  "label": "text_USCISOnlineAccountNumber",
+                  "key": "sponsorList[].sponsorDetails.uSCISOnlineAccountNumber",
+                  "control": "text"
+                },
+                {
+                  "label": "text_MilitaryServiceActiveDutyYes",
+                  "key": "sponsorList[].sponsorDetails.militaryServiceActiveDutyYesCheckbox, sponsorList[].sponsorDetails.militaryServiceActiveDutyNoCheckbox",
+                  "control": "radio",
+                  "options": [
+                    {
+                      "value": "Yes",
+                      "label": "text_Yes",
+                      "keyValue": "true,false"
+                    },
+                    {
+                      "value": "No",
+                      "label": "text_No",
+                      "keyValue": "false,true"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "text_AboutFamily1",
+              "hideHeader": "true",
+              "id": "i864-part1.1c",
+              "control": "section",
+              "fields": [
+                {
+                  "label": "text_AboutFamily2",
                   "key": "sponsorList[].householdSize",
                   "control": "group",
                   "fields": [
+                    {
+                      "label": "text_HouseholdSize",
+                      "placeholder": "text_HouseholdSize",
+                      "key": "sponsorList[].householdSize.householdSize",
+                      "control": "text"
+                    },
                     {
                       "label": "text_Yourself",
                       "placeholder": "text_Yourself",
@@ -384,12 +414,6 @@
                       "label": "text_OptionalSiblingsParentsAdultChildren",
                       "placeholder": "text_OptionalSiblingsParentsAdultChildren",
                       "key": "sponsorList[].householdSize.optionalSiblingsParentsAdultChildren",
-                      "control": "text"
-                    },
-                    {
-                      "label": "text_HouseholdSize",
-                      "placeholder": "text_HouseholdSize",
-                      "key": "sponsorList[].householdSize.householdSize",
                       "control": "text"
                     }
                   ]
