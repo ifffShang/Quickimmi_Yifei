@@ -156,7 +156,7 @@
       "placeholder": "text_AuthorizedStayExpirationDate",
       "id": "396",
       "key": "beneficiary.lastArrivalInformation.authorizedStayExpirationDate",
-      "control": "datepicker"
+      "control": "datepickerWithDS"
     },
     {
       "label": "text_PassportNumber",

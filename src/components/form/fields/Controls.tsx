@@ -660,47 +660,52 @@ export function RadioSelect(props: RadioSelectProps) {
   );
 }
 
-/** DatePickerWithNA control ***************************************************/
-export interface QDatePickerWithNAProps extends Omit<QDatePickerProps, "value" | "onChange"> {
+/** DatePickerWithAlternativeValue control ***************************************************/
+export interface QDatePickerWithAlternativeValueProps extends Omit<QDatePickerProps, "value" | "onChange"> {
   value?: string;
   onChange: (value: string) => void;
-  notApplicableText: string;
+  alternativeLabel: string;
+  alternativeValue: string;
 }
 
-export function QDatePickerWithNA(props: QDatePickerWithNAProps) {
-  const [isNA, setIsNA] = useState(props.value === "N/A");
+export function QDatePickerWithAlternativeValue(props: QDatePickerWithAlternativeValueProps) {
+  const [isAlternativeValue, setIsAlternativeValue] = useState(props.value === props.alternativeValue);
 
   useEffect(() => {
-    setIsNA(props.value === "N/A");
+    setIsAlternativeValue(props.value === props.alternativeValue);
   }, [props.value]);
 
   const handleDateChange = (value: string) => {
-    if (!isNA) {
+    if (!isAlternativeValue) {
       props.onChange(value);
     }
   };
 
-  const handleNAChange = (checked: boolean) => {
+  const handleAlternativeValueChange = (checked: boolean) => {
     if (checked) {
-      setIsNA(true);
-      props.onChange("N/A");
+      setIsAlternativeValue(true);
+      props.onChange(props.alternativeValue);
     } else {
-      setIsNA(false);
+      setIsAlternativeValue(false);
       props.onChange("");
     }
   };
 
   return (
-    <div className="datepicker-na">
-      <div className="datepicker-na-picker">
+    <div className="datepicker-alternative">
+      <PureCheckBox
+        checked={isAlternativeValue}
+        label={props.alternativeLabel}
+        onChange={handleAlternativeValueChange}
+      />
+      <div className="datepicker-alternative-picker">
         <QDatePicker
           {...props}
-          value={isNA ? "" : props.value}
+          value={isAlternativeValue ? "" : props.value}
           onChange={handleDateChange}
-          disabled={isNA || props.disabled}
+          disabled={isAlternativeValue || props.disabled}
         />
       </div>
-      <PureCheckBox checked={isNA} label={props.notApplicableText} onChange={handleNAChange} />
     </div>
   );
 }

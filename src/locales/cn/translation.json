@@ -457,6 +457,7 @@
   "OtherEntryMethod": "其他入境方式",
   "OtherEntryDetail": "其他入境时详情",
   "AuthorizedStayExpirationDate": "授权逗留期限",
+  "DurationOfStatus": "过期日为D/S",
   "ExpirationDateForPassport": "护照有效期",
   "VisaNumber": "签证号码",
   "ArrivalCity": "到达城市",
