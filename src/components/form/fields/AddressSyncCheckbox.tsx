@@ -7,7 +7,7 @@ import { dispatchFormValue, getFieldValueByKey } from "../../../utils/utils";
 import { RadioSelect } from "./Controls";
 import { QText } from "../../common/Fonts";
 
-export interface SameAddressCheckboxProps {
+export interface AddressSyncCheckboxProps {
   label: string;
   onOptionChange: (value: string) => void;
   fieldValue: boolean;
@@ -18,7 +18,7 @@ export interface SameAddressCheckboxProps {
   syncFields?: ISyncFields;
 }
 
-export function SameAddressCheckboxV2(props: SameAddressCheckboxProps) {
+export function AddressSyncCheckbox(props: AddressSyncCheckboxProps) {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
