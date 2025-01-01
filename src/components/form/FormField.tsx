@@ -101,14 +101,14 @@ export function FormField(props: FormFieldProps) {
       ? props.identity + `_${props.fieldIndex + 1}`
       : "Applicant";
 
-  console.log(
-    `Field key ${props.fieldKey},
-    object key: ${props.fieldKeyObject},
-    value: ${JSON.stringify(fieldValue)},
-    control: ${props.control},
-    fieldIndex: ${props.fieldIndex},
-    `,
-  );
+  // console.log(
+  //   `Field key ${props.fieldKey},
+  //   object key: ${props.fieldKeyObject},
+  //   value: ${JSON.stringify(fieldValue)},
+  //   control: ${props.control},
+  //   fieldIndex: ${props.fieldIndex},
+  //   `,
+  // );
 
   const onOptionChange = (value: string, fieldKey?: string, options?: IFormOptions[]) => {
     const targetFieldKey = fieldKey || props.fieldKey;

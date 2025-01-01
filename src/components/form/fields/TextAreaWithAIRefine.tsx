@@ -42,18 +42,11 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
   const fieldkey = props.fieldKey;
   const label = props.label.split("_")[1];
   const currentCaseType = useAppSelector(state => state.case.currentCaseType);
+  const maxLength = 380;
 
   useEffect(() => {
     setIsTextAreaEmpty(!props.value);
   }, [props.value]);
-
-  useEffect(() => {
-    if (currentCaseType === null) {
-      console.error("currentCaseType is null");
-      return;
-    }
-    console.log("Current Case Type: ", currentCaseType);
-  }, [currentCaseType]);
 
   const handleRefineAreaChange = (value: string) => {
     if (value === "") {
@@ -61,6 +54,12 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
     } else {
       setRefineAreaValue(value);
     }
+  };
+
+  // User Input Limitation test
+  const onTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    console.log("Current character count:", value.length);
   };
 
   const onTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -324,6 +323,7 @@ export function TextAreaWithAIRefine(props: TextAreaWithAIRefineProps) {
               value={textAreaValue}
               onChange={onTextAreaChange}
               variant="borderless"
+              maxLength={maxLength}
             />
           </div>
         </div>
