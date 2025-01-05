@@ -138,6 +138,7 @@ export interface Eligibility {
   // Page 11 Question 45 - Engaged in Money Laundering
   engagedInMoneyLaunderingYesCheckbox: string | undefined;
   engagedInMoneyLaunderingNoCheckbox: string | undefined;
+  // engagedInMoneyLaunderingYesSupplement: string | undefined;
 
   // Page 12, Question 46a - Engage in Espionage or Sabotage
   engageInEspionageOrSabotageYesCheckbox: string | undefined;
@@ -207,82 +208,102 @@ export interface Eligibility {
   // Page 12, Question 51a - Spouse or Child Committed Serious Crime
   spouseOrChildCommittedSeriousCrimeYesCheckbox: string | undefined;
   spouseOrChildCommittedSeriousCrimeNoCheckbox: string | undefined;
+  spouseOrChildCommittedSeriousCrimeYesSupplement: string | undefined;
 
   // Page 12, Question 51b - Spouse or Child Member of a Group
   spouseOrChildMemberOfGroupYesCheckbox: string | undefined;
   spouseOrChildMemberOfGroupNoCheckbox: string | undefined;
+  spouseOrChildMemberOfGroupYesSupplement: string | undefined;
 
   // Page 12, Question 51c - Spouse or Child Recruited for a Group
   spouseOrChildRecruitedForGroupYesCheckbox: string | undefined;
   spouseOrChildRecruitedForGroupNoCheckbox: string | undefined;
+  spouseOrChildRecruitedForGroupYesSupplement: string | undefined;
 
   // Page 12, Question 51d - Spouse or Child Provided Support
   spouseOrChildProvidedSupportYesCheckbox: string | undefined;
   spouseOrChildProvidedSupportNoCheckbox: string | undefined;
+  spouseOrChildProvidedSupportYesSupplement: string | undefined;
 
   // Page 12, Question 51e - Spouse or Child Provided Support for Individual or Group
   spouseOrChildProvidedSupportForIndividualOrGroupYesCheckbox: string | undefined;
   spouseOrChildProvidedSupportForIndividualOrGroupNoCheckbox: string | undefined;
+  spouseOrChildProvidedSupportForIndividualOrGroupYesSupplement: string | undefined;
 
   // Page 12, Question 51f - Spouse or Child Received Training
   spouseOrChildReceivedTrainingYesCheckbox: string | undefined;
   spouseOrChildReceivedTrainingNoCheckbox: string | undefined;
+  spouseOrChildReceivedTrainingYesSupplement: string | undefined;
 
   // Page 12, Question 52 - Assisted in Weapons Activities
   assistedInWeaponsActivitiesYesCheckbox: string | undefined;
   assistedInWeaponsActivitiesNoCheckbox: string | undefined;
+  assistedInWeaponsActivitiesYesSupplement: string | undefined;
 
   // Page 13, Question 53 - Worked or Volunteered in a Detention Facility
   workedOrVolunteeredInDetentionFacilityYesCheckbox: string | undefined;
   workedOrVolunteeredInDetentionFacilityNoCheckbox: string | undefined;
+  workedOrVolunteeredInDetentionFacilityYesSupplement: string | undefined;
 
   // Page 13, Question 54 - Participated in a Group Using Weapons
   participatedInGroupUsingWeaponsYesCheckbox: string | undefined;
   participatedInGroupUsingWeaponsNoCheckbox: string | undefined;
+  participatedInGroupUsingWeaponsYesSupplement: string | undefined;
 
   // Page 13, Question 55 - Served in Military or Armed Group
   servedInMilitaryOrArmedGroupYesCheckbox: string | undefined;
   servedInMilitaryOrArmedGroupNoCheckbox: string | undefined;
+  servedInMilitaryOrArmedGroupYesSupplement: string | undefined;
 
   // Page 13, Question 56 - Affiliated with Communist or Totalitarian Party
   affiliatedWithCommunistOrTotalitarianPartyYesCheckbox: string | undefined;
   affiliatedWithCommunistOrTotalitarianPartyNoCheckbox: string | undefined;
+  affiliatedWithCommunistOrTotalitarianPartyYesSupplement: string | undefined;
 
   // Page 13, Question 57 - Participated in Nazi Persecution
   participatedInNaziPersecutionYesCheckbox: string | undefined;
   participatedInNaziPersecutionNoCheckbox: string | undefined;
+  participatedInNaziPersecutionYesSupplement: string | undefined;
 
   // Page 13, Question 58a - Involved in Torture or Genocide
   involvedInTortureOrGenocideYesCheckbox: string | undefined;
   involvedInTortureOrGenocideNoCheckbox: string | undefined;
+  involvedInTortureOrGenocideYesSupplement: string | undefined;
 
   // Page 13, Question 58b - Killed Any Person
   killedAnyPersonYesCheckbox: string | undefined;
   killedAnyPersonNoCheckbox: string | undefined;
+  killedAnyPersonYesSupplement: string | undefined;
 
   // Page 13, Question 58c - Severely Injured Any Person
   severelyInjuredAnyPersonYesCheckbox: string | undefined;
   severelyInjuredAnyPersonNoCheckbox: string | undefined;
+  severelyInjuredAnyPersonYesSupplement: string | undefined;
 
   // Page 13, Question 58d - Engaged in Non-Consensual Sexual Contact
   engagedInNonConsensualSexualContactYesCheckbox: string | undefined;
   engagedInNonConsensualSexualContactNoCheckbox: string | undefined;
+  engagedInNonConsensualSexualContactYesSupplement: string | undefined;
 
   // Page 13, Question 58e - Limited Religious Beliefs
   limitedReligiousBeliefsYesCheckbox: string | undefined;
   limitedReligiousBeliefsNoCheckbox: string | undefined;
+  limitedReligiousBeliefsYesSupplement: string | undefined;
 
   // Page 13, Question 59 - Recruited Child Soldiers
   recruitedChildSoldiersYesCheckbox: string | undefined;
   recruitedChildSoldiersNoCheckbox: string | undefined;
+  recruitedChildSoldiersYesSupplement: string | undefined;
 
   // Page 13, Question 60 - Used Child Soldiers in Combat
   usedChildSoldiersInCombatYesCheckbox: string | undefined;
   usedChildSoldiersInCombatNoCheckbox: string | undefined;
+  usedChildSoldiersInCombatYesSupplement: string | undefined;
 
   // Page 13, Question 61 - Subject to Public Charge
   subjectToPublicChargeYesCheckbox: string | undefined;
   subjectToPublicChargeNoCheckbox: string | undefined;
+  subjectToPublicChargeYesSupplement: string | undefined;
 
   // Page 13, Question 62 - Household Size
   householdSize: string;

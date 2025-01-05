@@ -592,63 +592,83 @@ export const InitialEligibility: Eligibility = {
 
   spouseOrChildCommittedSeriousCrimeYesCheckbox: undefined,
   spouseOrChildCommittedSeriousCrimeNoCheckbox: undefined,
+  spouseOrChildCommittedSeriousCrimeYesSupplement: undefined,
 
   spouseOrChildMemberOfGroupYesCheckbox: undefined,
   spouseOrChildMemberOfGroupNoCheckbox: undefined,
+  spouseOrChildMemberOfGroupYesSupplement: undefined,
 
   spouseOrChildRecruitedForGroupYesCheckbox: undefined,
   spouseOrChildRecruitedForGroupNoCheckbox: undefined,
+  spouseOrChildRecruitedForGroupYesSupplement: undefined,
 
   spouseOrChildProvidedSupportYesCheckbox: undefined,
   spouseOrChildProvidedSupportNoCheckbox: undefined,
+  spouseOrChildProvidedSupportYesSupplement: undefined,
 
   spouseOrChildProvidedSupportForIndividualOrGroupYesCheckbox: undefined,
   spouseOrChildProvidedSupportForIndividualOrGroupNoCheckbox: undefined,
+  spouseOrChildProvidedSupportForIndividualOrGroupYesSupplement: undefined,
 
   spouseOrChildReceivedTrainingYesCheckbox: undefined,
   spouseOrChildReceivedTrainingNoCheckbox: undefined,
+  spouseOrChildReceivedTrainingYesSupplement: undefined,
 
   assistedInWeaponsActivitiesYesCheckbox: undefined,
   assistedInWeaponsActivitiesNoCheckbox: undefined,
+  assistedInWeaponsActivitiesYesSupplement: undefined,
 
   workedOrVolunteeredInDetentionFacilityYesCheckbox: undefined,
   workedOrVolunteeredInDetentionFacilityNoCheckbox: undefined,
+  workedOrVolunteeredInDetentionFacilityYesSupplement: undefined,
 
   participatedInGroupUsingWeaponsYesCheckbox: undefined,
   participatedInGroupUsingWeaponsNoCheckbox: undefined,
+  participatedInGroupUsingWeaponsYesSupplement: undefined,
 
   servedInMilitaryOrArmedGroupYesCheckbox: undefined,
   servedInMilitaryOrArmedGroupNoCheckbox: undefined,
+  servedInMilitaryOrArmedGroupYesSupplement: undefined,
 
   affiliatedWithCommunistOrTotalitarianPartyYesCheckbox: undefined,
   affiliatedWithCommunistOrTotalitarianPartyNoCheckbox: undefined,
+  affiliatedWithCommunistOrTotalitarianPartyYesSupplement: undefined,
 
   participatedInNaziPersecutionYesCheckbox: undefined,
   participatedInNaziPersecutionNoCheckbox: undefined,
+  participatedInNaziPersecutionYesSupplement: undefined,
 
   involvedInTortureOrGenocideYesCheckbox: undefined,
   involvedInTortureOrGenocideNoCheckbox: undefined,
+  involvedInTortureOrGenocideYesSupplement: undefined,
 
   killedAnyPersonYesCheckbox: undefined,
   killedAnyPersonNoCheckbox: undefined,
+  killedAnyPersonYesSupplement: undefined,
 
   severelyInjuredAnyPersonYesCheckbox: undefined,
   severelyInjuredAnyPersonNoCheckbox: undefined,
+  severelyInjuredAnyPersonYesSupplement: undefined,
 
   engagedInNonConsensualSexualContactYesCheckbox: undefined,
   engagedInNonConsensualSexualContactNoCheckbox: undefined,
+  engagedInNonConsensualSexualContactYesSupplement: undefined,
 
   limitedReligiousBeliefsYesCheckbox: undefined,
   limitedReligiousBeliefsNoCheckbox: undefined,
+  limitedReligiousBeliefsYesSupplement: undefined,
 
   recruitedChildSoldiersYesCheckbox: undefined,
   recruitedChildSoldiersNoCheckbox: undefined,
+  recruitedChildSoldiersYesSupplement: undefined,
 
   usedChildSoldiersInCombatYesCheckbox: undefined,
   usedChildSoldiersInCombatNoCheckbox: undefined,
+  usedChildSoldiersInCombatYesSupplement: undefined,
 
   subjectToPublicChargeYesCheckbox: undefined,
   subjectToPublicChargeNoCheckbox: undefined,
+  subjectToPublicChargeYesSupplement: undefined,
 
   householdSize: "",
 
