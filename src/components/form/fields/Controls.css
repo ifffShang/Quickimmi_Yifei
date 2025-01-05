@@ -101,18 +101,18 @@
   gap: 10px;
 }
 
-.datepicker-na {
+/* .datepicker-alternative {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
 }
 
-.datepicker-na-picker {
+.datepicker-alternative-picker {
   display: flex;
   align-items: center;
   gap: 10px;
-}
+} */
 
 .field-view-container {
   display: flex;

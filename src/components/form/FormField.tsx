@@ -20,7 +20,6 @@ import {
   CheckBox,
   CheckBoxMultiOptions,
   QDatePicker,
-  QDatePickerWithNA,
   MonthYearPickerWithOption,
   QFieldView,
   QMonthYearPicker,
@@ -28,6 +27,7 @@ import {
   QTextBox,
   RadioSelect,
   SelectBox,
+  QDatePickerWithAlternativeValue,
 } from "./fields/Controls";
 import { CoverLetter } from "./fields/CoverLetter";
 import { DocumentList } from "./fields/DocumentList";
@@ -549,7 +549,7 @@ export function FormField(props: FormFieldProps) {
     case "datepickerWithNA":
       return (
         <FormControlContainer fieldValue={fieldValue}>
-          <QDatePickerWithNA
+          <QDatePickerWithAlternativeValue
             placeholder={placeholder}
             value={fieldValue}
             fieldKey={props.fieldKey}
@@ -564,7 +564,31 @@ export function FormField(props: FormFieldProps) {
                   props.fieldIndex,
                 );
             }}
-            notApplicableText={t("NotApplicableText")}
+            alternativeLabel={t("NotApplicableText")}
+            alternativeValue="N/A"
+          />
+        </FormControlContainer>
+      );
+    case "datepickerWithDS":
+      return (
+        <FormControlContainer fieldValue={fieldValue}>
+          <QDatePickerWithAlternativeValue
+            placeholder={placeholder}
+            value={fieldValue}
+            fieldKey={props.fieldKey}
+            onChange={(value: string) => {
+              props.fieldKey &&
+                dispatchFormValue(
+                  dispatch,
+                  caseType,
+                  {
+                    [props.fieldKey]: value,
+                  },
+                  props.fieldIndex,
+                );
+            }}
+            alternativeLabel={t("DurationOfStatus")}
+            alternativeValue="D/S"
           />
         </FormControlContainer>
       );
