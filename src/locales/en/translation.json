@@ -1021,7 +1021,7 @@
   "CommittedOrPlannedSeriousCrime": "Have you EVER committed, threatened to commit, attempted to commit, conspired to commit, incited, endorsed, advocated, planned, or prepared any of the following: hijacking, sabotage, kidnapping, political assassination, or use of a weapon or explosive to harm another individual or cause substantial damage to property?",
   "MemberOfGroupInvolvedInSeriousCrime": "Have you EVER participated in or been a member of a group or organization involved in any of the activities described in the previous question?",
   "RecruitedForGroupInvolvedInSeriousCrime": "Have you EVER recruited members or asked for money or things of value for a group or organization that did any of the activities described in the previous question?",
-  "ProvidedSupportForActivityInvolvedInSeriousCrime": "Have you EVER provided money, a thing of value, services or labor, or any other assistance or support for any of the activities described in the previous question?",
+  "ProvidedSupportForGroupInvolvedInSeriousCrime": "Have you EVER provided money, a thing of value, services or labor, or any other assistance or support for any of the activities described in the previous question?",
   "ProvidedSupportForIndividualOrGroup": "Have you EVER provided money, a thing of value, services or labor, or any other assistance or support for an individual, group, or organization who did any of the activities described in the previous question?",
 
   "HouseholdSize": "What is the size of your household?",

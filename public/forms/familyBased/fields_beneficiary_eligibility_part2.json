@@ -660,7 +660,7 @@
         {
           "label": "text_ExplainEspionageOrSabotageIntentItem46a",
           "id": "",
-          "key": "eligibility.engageInEspionageOrSabotageYes",
+          "key": "beneficiaryEligibility.engageInEspionageOrSabotageYesSupplement",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -693,7 +693,7 @@
         {
           "label": "text_ExplainIntendedExportViolationActivitiesItem46b",
           "id": "",
-          "key": "eligibility.engageInIllegalExportYes",
+          "key": "beneficiaryEligibility.engageInIllegalExportYesSupplement",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -726,7 +726,7 @@
         {
           "label": "text_ExplainIntentToOpposeGovernmentItem46c",
           "id": "",
-          "key": "eligibility.engageInOverthrowingGovernmentYes",
+          "key": "beneficiaryEligibility.engageInOverthrowingGovernmentYesSupplement",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -759,7 +759,7 @@
         {
           "label": "text_ExplainIntentToEndangerUSSecurityItem46d",
           "id": "",
-          "key": "eligibility.engageInEndangeringUSYes",
+          "key": "beneficiaryEligibility.engageInEndangeringUSYesSupplement",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -792,7 +792,7 @@
         {
           "label": "text_ExplainUnlawfulActivityIntentItem46e",
           "id": "",
-          "key": "eligibility.engageInUnlawfulActivityYes",
+          "key": "beneficiaryEligibility.engageInUnlawfulActivityYesSupplement",
           "control": "component_textarea_ai_refine"
         }
       ]
@@ -825,7 +825,7 @@
         {
           "label": "text_ExplainForeignPolicyAdverseActivities",
           "id": "",
-          "key": "eligibility.engageInAdverseForeignPolicyYes",
+          "key": "beneficiaryEligibility.engageInAdverseForeignPolicyYesSupplement",
           "control": "component_textarea_ai_refine"
         }
       ]
