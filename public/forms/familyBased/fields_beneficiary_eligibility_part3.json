@@ -4,6 +4,202 @@
   "type": "fields",
   "fields": [
     {
+      "label": "text_EngageInEspionageOrSabotage",
+      "id": "",
+      "key": "beneficiaryEligibility.engageInEspionageOrSabotageYesCheckbox,beneficiaryEligibility.engageInEspionageOrSabotageNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.engageInEspionageOrSabotageYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainEspionageOrSabotageIntentItem46a",
+          "id": "",
+          "key": "beneficiaryEligibility.engageInEspionageOrSabotageYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
+      "label": "text_EngageInIllegalExport",
+      "id": "",
+      "key": "beneficiaryEligibility.engageInIllegalExportYesCheckbox,beneficiaryEligibility.engageInIllegalExportNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.engageInIllegalExportYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainIntendedExportViolationActivitiesItem46b",
+          "id": "",
+          "key": "beneficiaryEligibility.engageInIllegalExportYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
+      "label": "text_EngageInOverthrowingGovernment",
+      "id": "",
+      "key": "beneficiaryEligibility.engageInOverthrowingGovernmentYesCheckbox,beneficiaryEligibility.engageInOverthrowingGovernmentNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.engageInOverthrowingGovernmentYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainIntentToOpposeGovernmentItem46c",
+          "id": "",
+          "key": "beneficiaryEligibility.engageInOverthrowingGovernmentYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
+      "label": "text_EngageInEndangeringUS",
+      "id": "",
+      "key": "beneficiaryEligibility.engageInEndangeringUSYesCheckbox,beneficiaryEligibility.engageInEndangeringUSNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "hideHeader": "true",
+      "id": "",
+      "visibility": "beneficiaryEligibility.engageInEndangeringUSYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainIntentToEndangerUSSecurityItem46d",
+          "id": "",
+          "key": "beneficiaryEligibility.engageInEndangeringUSYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
+      "label": "text_EngageInUnlawfulActivity",
+      "id": "",
+      "key": "beneficiaryEligibility.engageInUnlawfulActivityYesCheckbox,beneficiaryEligibility.engageInUnlawfulActivityNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.engageInUnlawfulActivityYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainUnlawfulActivityIntentItem46e",
+          "id": "",
+          "key": "beneficiaryEligibility.engageInUnlawfulActivityYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
+      "label": "text_EngageInAdverseForeignPolicy",
+      "id": "",
+      "key": "beneficiaryEligibility.engageInAdverseForeignPolicyYesCheckbox,beneficiaryEligibility.engageInAdverseForeignPolicyNoCheckbox",
+      "control": "radio",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.engageInAdverseForeignPolicyYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainForeignPolicyAdverseActivities",
+          "id": "",
+          "key": "beneficiaryEligibility.engageInAdverseForeignPolicyYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_CommittedOrPlannedSeriousCrime",
       "id": "",
       "key": "beneficiaryEligibility.committedOrPlannedSeriousCrimeYesCheckbox,beneficiaryEligibility.committedOrPlannedSeriousCrimeNoCheckbox",
@@ -23,7 +219,6 @@
     },
     {
       "label": "",
-      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.committedOrPlannedSeriousCrimeYesCheckbox=true",
       "control": "section",
@@ -56,7 +251,6 @@
     },
     {
       "label": "",
-      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.memberOfGroupInvolvedInSeriousCrimeYesCheckbox=true",
       "control": "section",
@@ -89,7 +283,6 @@
     },
     {
       "label": "",
-      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.recruitedForGroupInvolvedInSeriousCrimeYesCheckbox=true",
       "control": "section",
@@ -122,7 +315,6 @@
     },
     {
       "label": "",
-      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.providedSupportForGroupInvolvedInSeriousCrimeYesCheckbox=true",
       "control": "section",
@@ -155,7 +347,6 @@
     },
     {
       "label": "",
-      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.providedSupportForIndividualOrGroupYesCheckbox=true",
       "control": "section",
@@ -188,7 +379,6 @@
     },
     {
       "label": "",
-      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.receivedMilitaryOrWeaponsTrainingYesCheckbox=true",
       "control": "section",
@@ -221,7 +411,6 @@
     },
     {
       "label": "",
-      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.intendToEngageInSeriousActivitiesYesCheckbox=true",
       "control": "section",
@@ -254,7 +443,6 @@
     },
     {
       "label": "",
-      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.spouseOrChildCommittedSeriousCrimeYesCheckbox=true",
       "control": "section",
@@ -287,7 +475,6 @@
     },
     {
       "label": "",
-      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.spouseOrChildMemberOfGroupYesCheckbox=true",
       "control": "section",
@@ -320,7 +507,6 @@
     },
     {
       "label": "",
-      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.spouseOrChildRecruitedForGroupYesCheckbox=true",
       "control": "section",
@@ -353,7 +539,6 @@
     },
     {
       "label": "",
-      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.spouseOrChildProvidedSupportYesCheckbox=true",
       "control": "section",
@@ -386,7 +571,6 @@
     },
     {
       "label": "",
-      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.spouseOrChildProvidedSupportForIndividualOrGroupYesCheckbox=true",
       "control": "section",
@@ -419,7 +603,6 @@
     },
     {
       "label": "",
-      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.spouseOrChildReceivedTrainingYesCheckbox=true",
       "control": "section",
@@ -452,7 +635,6 @@
     },
     {
       "label": "",
-      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.assistedInWeaponsActivitiesYesCheckbox=true",
       "control": "section",
@@ -485,7 +667,6 @@
     },
     {
       "label": "",
-      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.workedOrVolunteeredInDetentionFacilityYesCheckbox=true",
       "control": "section",
@@ -518,7 +699,6 @@
     },
     {
       "label": "",
-      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.participatedInGroupUsingWeaponsYesCheckbox=true",
       "control": "section",
@@ -551,7 +731,6 @@
     },
     {
       "label": "",
-      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.servedInMilitaryOrArmedGroupYesCheckbox=true",
       "control": "section",
@@ -584,7 +763,6 @@
     },
     {
       "label": "",
-      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.affiliatedWithCommunistOrTotalitarianPartyYesCheckbox=true",
       "control": "section",
@@ -617,7 +795,6 @@
     },
     {
       "label": "",
-      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.participatedInNaziPersecutionYesCheckbox=true",
       "control": "section",
@@ -650,7 +827,6 @@
     },
     {
       "label": "",
-      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.involvedInTortureOrGenocideYesCheckbox=true",
       "control": "section",
@@ -683,7 +859,6 @@
     },
     {
       "label": "",
-      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.killedAnyPersonYesCheckbox=true",
       "control": "section",
@@ -716,7 +891,6 @@
     },
     {
       "label": "",
-      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.severelyInjuredAnyPersonYesCheckbox=true",
       "control": "section",
@@ -749,7 +923,6 @@
     },
     {
       "label": "",
-      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.engagedInNonConsensualSexualContactYesCheckbox=true",
       "control": "section",
@@ -782,7 +955,6 @@
     },
     {
       "label": "",
-      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.limitedReligiousBeliefsYesCheckbox=true",
       "control": "section",
@@ -815,7 +987,6 @@
     },
     {
       "label": "",
-      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.recruitedChildSoldiersYesCheckbox=true",
       "control": "section",
@@ -848,7 +1019,6 @@
     },
     {
       "label": "",
-      "hideHeader": "true",
       "id": "",
       "visibility": "beneficiaryEligibility.usedChildSoldiersInCombatYesCheckbox=true",
       "control": "section",
@@ -857,39 +1027,6 @@
           "label": "text_ExplainUseChildInCombatSupport",
           "id": "",
           "key": "beneficiaryEligibility.usedChildSoldiersInCombatYesSupplement",
-          "control": "component_textarea_ai_refine"
-        }
-      ]
-    },
-    {
-      "label": "text_SubjectToPublicCharge",
-      "id": "",
-      "key": "beneficiaryEligibility.subjectToPublicChargeYesCheckbox,beneficiaryEligibility.subjectToPublicChargeNoCheckbox",
-      "control": "radio",
-      "options": [
-        {
-          "value": "Yes",
-          "label": "text_Yes",
-          "keyValue": "true,false"
-        },
-        {
-          "value": "No",
-          "label": "text_No",
-          "keyValue": "false,true"
-        }
-      ]
-    },
-    {
-      "label": "",
-      "hideHeader": "true",
-      "id": "",
-      "visibility": "beneficiaryEligibility.subjectToPublicChargeYesCheckbox=true",
-      "control": "section",
-      "fields": [
-        {
-          "label": "text_ExplainPublicChargeGround",
-          "id": "",
-          "key": "beneficiaryEligibility.subjectToPublicChargeYesSupplement",
           "control": "component_textarea_ai_refine"
         }
       ]
