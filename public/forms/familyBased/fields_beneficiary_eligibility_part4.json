@@ -4,10 +4,9 @@
   "type": "fields",
   "fields": [
     {
-      "label": "text_DeniedAdmission",
-      "hideHeader": "false",
+      "label": "text_SubjectToPublicCharge",
       "id": "",
-      "key": "beneficiaryEligibility.deniedAdmissionYesCheckbox,beneficiaryEligibility.deniedAdmissionNoCheckbox",
+      "key": "beneficiaryEligibility.subjectToPublicChargeYesCheckbox,beneficiaryEligibility.subjectToPublicChargeNoCheckbox",
       "control": "radio",
       "options": [
         {
@@ -23,202 +22,267 @@
       ]
     },
     {
-      "label": "text_HouseholdSize",
+      "label": "",
       "id": "",
-      "key": "beneficiaryEligibility.householdSize",
-      "control": "text"
-    },
-    {
-      "label": "text_HouseholdIncomeRange",
-      "id": "",
-      "key": "beneficiaryEligibility.householdIncomeRange0to27kCheckbox,beneficiaryEligibility.householdIncomeRange27kto52kCheckbox,beneficiaryEligibility.householdIncomeRange52kto85kCheckbox,beneficiaryEligibility.householdIncomeRange85kto141kCheckbox,beneficiaryEligibility.householdIncomeRangeOver141kCheckbox",
-      "control": "radio",
-      "options": [
+      "visibility": "beneficiaryEligibility.subjectToPublicChargeYesCheckbox=true",
+      "control": "section",
+      "fields": [
         {
-          "value": "0-27k",
-          "label": "text_0to27k",
-          "keyValue": "true,false,false,false,false"
-        },
-        {
-          "value": "27k-52k",
-          "label": "text_27kto52k",
-          "keyValue": "false,true,false,false,false"
-        },
-        {
-          "value": "52k-85k",
-          "label": "text_52kto85k",
-          "keyValue": "false,false,true,false,false"
-        },
-        {
-          "value": "85k-141k",
-          "label": "text_85kto141k",
-          "keyValue": "false,false,false,true,false"
-        },
-        {
-          "value": "Over 141k",
-          "label": "text_Over141k",
-          "keyValue": "false,false,false,false,true"
+          "label": "text_HouseholdSize",
+          "id": "",
+          "visibility": "beneficiaryEligibility.subjectToPublicChargeYesCheckbox=true",
+          "key": "beneficiaryEligibility.householdSize",
+          "control": "text"
         }
       ]
     },
     {
-      "label": "text_HouseholdAssetsValue",
+      "label": "",
       "id": "",
-      "key": "beneficiaryEligibility.householdAssetsValue0to18kCheckbox,beneficiaryEligibility.householdAssetsValue18kto136kCheckbox,beneficiaryEligibility.householdAssetsValue136kto321kCheckbox,beneficiaryEligibility.householdAssetsValue321kto707kCheckbox,beneficiaryEligibility.householdAssetsValueOver707kCheckbox",
-      "control": "radio",
-      "options": [
+      "visibility": "beneficiaryEligibility.subjectToPublicChargeYesCheckbox=true",
+      "control": "section",
+      "fields": [
         {
-          "value": "0-18k",
-          "label": "text_0to18k",
-          "keyValue": "true,false,false,false,false"
-        },
-        {
-          "value": "18k-136k",
-          "label": "text_18kto136k",
-          "keyValue": "false,true,false,false,false"
-        },
-        {
-          "value": "136k-321k",
-          "label": "text_136kto321k",
-          "keyValue": "false,false,true,false,false"
-        },
-        {
-          "value": "321k-707k",
-          "label": "text_321kto707k",
-          "keyValue": "false,false,false,true,false"
-        },
-        {
-          "value": "Over 707k",
-          "label": "text_Over707k",
-          "keyValue": "false,false,false,false,true"
+          "label": "text_HouseholdIncomeRange",
+          "id": "",
+          "key": "beneficiaryEligibility.householdIncomeRange0to27kCheckbox,beneficiaryEligibility.householdIncomeRange27kto52kCheckbox,beneficiaryEligibility.householdIncomeRange52kto85kCheckbox,beneficiaryEligibility.householdIncomeRange85kto141kCheckbox,beneficiaryEligibility.householdIncomeRangeOver141kCheckbox",
+          "control": "radio",
+          "options": [
+            {
+              "value": "0-27k",
+              "label": "text_0to27k",
+              "keyValue": "true,false,false,false,false"
+            },
+            {
+              "value": "27k-52k",
+              "label": "text_27kto52k",
+              "keyValue": "false,true,false,false,false"
+            },
+            {
+              "value": "52k-85k",
+              "label": "text_52kto85k",
+              "keyValue": "false,false,true,false,false"
+            },
+            {
+              "value": "85k-141k",
+              "label": "text_85kto141k",
+              "keyValue": "false,false,false,true,false"
+            },
+            {
+              "value": "Over 141k",
+              "label": "text_Over141k",
+              "keyValue": "false,false,false,false,true"
+            }
+          ]
         }
       ]
     },
     {
-      "label": "text_LiabilitiesValue",
+      "label": "",
       "id": "",
-      "key": "beneficiaryEligibility.liabilitiesValue0Checkbox,beneficiaryEligibility.liabilitiesValue1kto10kCheckbox,beneficiaryEligibility.liabilitiesValue10kto57kCheckbox,beneficiaryEligibility.liabilitiesValue57kto186kCheckbox,beneficiaryEligibility.liabilitiesValueOver186kCheckbox",
-      "control": "radio",
-      "options": [
+      "visibility": "beneficiaryEligibility.subjectToPublicChargeYesCheckbox=true",
+      "control": "section",
+      "fields": [
         {
-          "value": "0",
-          "label": "text_0",
-          "keyValue": "true,false,false,false,false"
-        },
-        {
-          "value": "1k-10k",
-          "label": "text_1kto10k",
-          "keyValue": "false,true,false,false,false"
-        },
-        {
-          "value": "10k-57k",
-          "label": "text_10kto57k",
-          "keyValue": "false,false,true,false,false"
-        },
-        {
-          "value": "57k-186k",
-          "label": "text_57kto186k",
-          "keyValue": "false,false,false,true,false"
-        },
-        {
-          "value": "Over 186k",
-          "label": "text_Over186k",
-          "keyValue": "false,false,false,false,true"
+          "label": "text_HouseholdAssetsValue",
+          "id": "",
+          "key": "beneficiaryEligibility.householdAssetsValue0to18kCheckbox,beneficiaryEligibility.householdAssetsValue18kto136kCheckbox,beneficiaryEligibility.householdAssetsValue136kto321kCheckbox,beneficiaryEligibility.householdAssetsValue321kto707kCheckbox,beneficiaryEligibility.householdAssetsValueOver707kCheckbox",
+          "control": "radio",
+          "options": [
+            {
+              "value": "0-18k",
+              "label": "text_0to18k",
+              "keyValue": "true,false,false,false,false"
+            },
+            {
+              "value": "18k-136k",
+              "label": "text_18kto136k",
+              "keyValue": "false,true,false,false,false"
+            },
+            {
+              "value": "136k-321k",
+              "label": "text_136kto321k",
+              "keyValue": "false,false,true,false,false"
+            },
+            {
+              "value": "321k-707k",
+              "label": "text_321kto707k",
+              "keyValue": "false,false,false,true,false"
+            },
+            {
+              "value": "Over 707k",
+              "label": "text_Over707k",
+              "keyValue": "false,false,false,false,true"
+            }
+          ]
         }
       ]
     },
     {
-      "label": "text_EducationLevel",
+      "label": "",
       "id": "",
-      "key": "beneficiaryEligibility.educationGrades1to11Checkbox,beneficiaryEligibility.education12thNoDiplomaCheckbox,beneficiaryEligibility.educationHighSchoolDiplomaCheckbox,beneficiaryEligibility.educationSomeCollegeNoDegreeCheckbox,beneficiaryEligibility.educationAssociatesDegreeCheckbox,beneficiaryEligibility.educationBachelorsDegreeCheckbox,beneficiaryEligibility.educationMastersDegreeCheckbox,beneficiaryEligibility.educationProfessionalDegreeCheckbox,beneficiaryEligibility.educationDoctorateDegreeCheckbox",
-      "control": "radio",
-      "options": [
+      "visibility": "beneficiaryEligibility.subjectToPublicChargeYesCheckbox=true",
+      "control": "section",
+      "fields": [
         {
-          "value": "Grades 1-11",
-          "label": "text_Grades1to11",
-          "keyValue": "true,false,false,false,false,false,false,false,false"
-        },
-        {
-          "value": "12th No Diploma",
-          "label": "text_12thNoDiploma",
-          "keyValue": "false,true,false,false,false,false,false,false,false"
-        },
-        {
-          "value": "High School Diploma",
-          "label": "text_HighSchoolDiploma",
-          "keyValue": "false,false,true,false,false,false,false,false,false"
-        },
-        {
-          "value": "Some College, No Degree",
-          "label": "text_SomeCollegeNoDegree",
-          "keyValue": "false,false,false,true,false,false,false,false,false"
-        },
-        {
-          "value": "Associate's Degree",
-          "label": "text_AssociatesDegree",
-          "keyValue": "false,false,false,false,true,false,false,false,false"
-        },
-        {
-          "value": "Bachelor's Degree",
-          "label": "text_BachelorsDegree",
-          "keyValue": "false,false,false,false,false,true,false,false,false"
-        },
-        {
-          "value": "Master's Degree",
-          "label": "text_MastersDegree",
-          "keyValue": "false,false,false,false,false,false,true,false,false"
-        },
-        {
-          "value": "Professional Degree",
-          "label": "text_ProfessionalDegree",
-          "keyValue": "false,false,false,false,false,false,false,true,false"
-        },
-        {
-          "value": "Doctorate Degree",
-          "label": "text_DoctorateDegree",
-          "keyValue": "false,false,false,false,false,false,false,false,true"
+          "label": "text_LiabilitiesValue",
+          "id": "",
+          "key": "beneficiaryEligibility.liabilitiesValue0Checkbox,beneficiaryEligibility.liabilitiesValue1kto10kCheckbox,beneficiaryEligibility.liabilitiesValue10kto57kCheckbox,beneficiaryEligibility.liabilitiesValue57kto186kCheckbox,beneficiaryEligibility.liabilitiesValueOver186kCheckbox",
+          "control": "radio",
+          "options": [
+            {
+              "value": "0",
+              "label": "text_0",
+              "keyValue": "true,false,false,false,false"
+            },
+            {
+              "value": "1k-10k",
+              "label": "text_1kto10k",
+              "keyValue": "false,true,false,false,false"
+            },
+            {
+              "value": "10k-57k",
+              "label": "text_10kto57k",
+              "keyValue": "false,false,true,false,false"
+            },
+            {
+              "value": "57k-186k",
+              "label": "text_57kto186k",
+              "keyValue": "false,false,false,true,false"
+            },
+            {
+              "value": "Over 186k",
+              "label": "text_Over186k",
+              "keyValue": "false,false,false,false,true"
+            }
+          ]
         }
       ]
     },
     {
-      "label": "text_CertificationsLicensesSkills",
+      "label": "",
       "id": "",
-      "key": "beneficiaryEligibility.certificationsLicensesSkills",
-      "control": "text"
-    },
-    {
-      "label": "text_ReceivedSSIOrTANF",
-      "id": "",
-      "key": "beneficiaryEligibility.receivedSSIOrTANFYesCheckbox,beneficiaryEligibility.receivedSSIOrTANFNoCheckbox",
-      "control": "radio",
-      "options": [
+      "visibility": "beneficiaryEligibility.subjectToPublicChargeYesCheckbox=true",
+      "control": "section",
+      "fields": [
         {
-          "value": "Yes",
-          "label": "text_Yes",
-          "keyValue": "true,false"
-        },
-        {
-          "value": "No",
-          "label": "text_No",
-          "keyValue": "false,true"
+          "label": "text_EducationLevel",
+          "id": "",
+          "key": "beneficiaryEligibility.educationGrades1to11Checkbox,beneficiaryEligibility.education12thNoDiplomaCheckbox,beneficiaryEligibility.educationHighSchoolDiplomaCheckbox,beneficiaryEligibility.educationSomeCollegeNoDegreeCheckbox,beneficiaryEligibility.educationAssociatesDegreeCheckbox,beneficiaryEligibility.educationBachelorsDegreeCheckbox,beneficiaryEligibility.educationMastersDegreeCheckbox,beneficiaryEligibility.educationProfessionalDegreeCheckbox,beneficiaryEligibility.educationDoctorateDegreeCheckbox",
+          "control": "radio",
+          "options": [
+            {
+              "value": "Grades 1-11",
+              "label": "text_Grades1to11",
+              "keyValue": "true,false,false,false,false,false,false,false,false"
+            },
+            {
+              "value": "12th No Diploma",
+              "label": "text_12thNoDiploma",
+              "keyValue": "false,true,false,false,false,false,false,false,false"
+            },
+            {
+              "value": "High School Diploma",
+              "label": "text_HighSchoolDiploma",
+              "keyValue": "false,false,true,false,false,false,false,false,false"
+            },
+            {
+              "value": "Some College, No Degree",
+              "label": "text_SomeCollegeNoDegree",
+              "keyValue": "false,false,false,true,false,false,false,false,false"
+            },
+            {
+              "value": "Associate's Degree",
+              "label": "text_AssociatesDegree",
+              "keyValue": "false,false,false,false,true,false,false,false,false"
+            },
+            {
+              "value": "Bachelor's Degree",
+              "label": "text_BachelorsDegree",
+              "keyValue": "false,false,false,false,false,true,false,false,false"
+            },
+            {
+              "value": "Master's Degree",
+              "label": "text_MastersDegree",
+              "keyValue": "false,false,false,false,false,false,true,false,false"
+            },
+            {
+              "value": "Professional Degree",
+              "label": "text_ProfessionalDegree",
+              "keyValue": "false,false,false,false,false,false,false,true,false"
+            },
+            {
+              "value": "Doctorate Degree",
+              "label": "text_DoctorateDegree",
+              "keyValue": "false,false,false,false,false,false,false,false,true"
+            }
+          ]
         }
       ]
     },
     {
-      "label": "text_ReceivedInstitutionalization",
+      "label": "",
       "id": "",
-      "key": "beneficiaryEligibility.receivedInstitutionalizationYesCheckbox,beneficiaryEligibility.receivedInstitutionalizationNoCheckbox",
-      "control": "radio",
-      "options": [
+      "visibility": "beneficiaryEligibility.subjectToPublicChargeYesCheckbox=true",
+      "control": "section",
+      "fields": [
         {
-          "value": "Yes",
-          "label": "text_Yes",
-          "keyValue": "true,false"
-        },
+          "label": "text_CertificationsLicensesSkills",
+          "id": "",
+          "key": "beneficiaryEligibility.certificationsLicensesSkills",
+          "control": "text"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.subjectToPublicChargeYesCheckbox=true",
+      "control": "section",
+      "fields": [
         {
-          "value": "No",
-          "label": "text_No",
-          "keyValue": "false,true"
+          "label": "text_ReceivedSSIOrTANF",
+          "id": "",
+          "key": "beneficiaryEligibility.receivedSSIOrTANFYesCheckbox,beneficiaryEligibility.receivedSSIOrTANFNoCheckbox",
+          "control": "radio",
+          "options": [
+            {
+              "value": "Yes",
+              "label": "text_Yes",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "No",
+              "label": "text_No",
+              "keyValue": "false,true"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.subjectToPublicChargeYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ReceivedInstitutionalization",
+          "id": "",
+          "key": "beneficiaryEligibility.receivedInstitutionalizationYesCheckbox,beneficiaryEligibility.receivedInstitutionalizationNoCheckbox",
+          "control": "radio",
+          "options": [
+            {
+              "value": "Yes",
+              "label": "text_Yes",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "No",
+              "label": "text_No",
+              "keyValue": "false,true"
+            }
+          ]
         }
       ]
     },
@@ -370,6 +434,20 @@
       "control": "section",
       "fields": [
         {
+          "label": "text_ExplainFailedToAttendRemovalProceeding",
+          "id": "",
+          "key": "beneficiaryEligibility.failedToAttendRemovalProceedingYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.failedToAttendRemovalProceedingYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
           "label": "text_BelieveHadReasonableCause",
           "id": "",
           "key": "beneficiaryEligibility.believeHadReasonableCauseYesCheckbox,beneficiaryEligibility.believeHadReasonableCauseNoCheckbox",
@@ -386,6 +464,20 @@
               "keyValue": "false,true"
             }
           ]
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.believeHadReasonableCauseYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainBelieveHadReasonableCause",
+          "id": "",
+          "key": "beneficiaryEligibility.believeHadReasonableCauseYesSupplement",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -408,6 +500,20 @@
       ]
     },
     {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.submittedFraudulentDocumentationYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainSubmittedFraudulentDocumentation",
+          "id": "",
+          "key": "beneficiaryEligibility.submittedFraudulentDocumentationYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_LiedOrMisrepresentedForImmigrationBenefit",
       "id": "",
       "key": "beneficiaryEligibility.liedOrMisrepresentedForImmigrationBenefitYesCheckbox,beneficiaryEligibility.liedOrMisrepresentedForImmigrationBenefitNoCheckbox",
@@ -422,6 +528,20 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.liedOrMisrepresentedForImmigrationBenefitYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainLiedOrMisrepresentedForImmigrationBenefit",
+          "id": "",
+          "key": "beneficiaryEligibility.liedOrMisrepresentedForImmigrationBenefitYesSupplement",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -444,6 +564,20 @@
       ]
     },
     {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.falselyClaimedUSCitizenshipYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainFalselyClaimedUSCitizenship",
+          "id": "",
+          "key": "beneficiaryEligibility.falselyClaimedUSCitizenshipYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_BeenAStowaway",
       "id": "",
       "key": "beneficiaryEligibility.beenAStowawayYesCheckbox,beneficiaryEligibility.beenAStowawayNoCheckbox",
@@ -458,6 +592,20 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.beenAStowawayYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainBeenAStowaway",
+          "id": "",
+          "key": "beneficiaryEligibility.beenAStowawayYesSupplement",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -480,6 +628,20 @@
       ]
     },
     {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.knowinglyEncouragedIllegalEntryYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainKnowinglyEncouragedIllegalEntry",
+          "id": "",
+          "key": "beneficiaryEligibility.knowinglyEncouragedIllegalEntryYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_UnderCivilPenaltyForFraudulentDocuments",
       "id": "",
       "key": "beneficiaryEligibility.underCivilPenaltyForFraudulentDocumentsYesCheckbox,beneficiaryEligibility.underCivilPenaltyForFraudulentDocumentsNoCheckbox",
@@ -494,6 +656,20 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.underCivilPenaltyForFraudulentDocumentsYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainUnderCivilPenaltyForFraudulentDocuments",
+          "id": "",
+          "key": "beneficiaryEligibility.underCivilPenaltyForFraudulentDocumentsYesSupplement",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -516,6 +692,20 @@
       ]
     },
     {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.excludedDeportedOrRemovedYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainExcludedDeportedOrRemoved",
+          "id": "",
+          "key": "beneficiaryEligibility.excludedDeportedOrRemovedYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_EnteredWithoutInspection",
       "id": "",
       "key": "beneficiaryEligibility.enteredWithoutInspectionYesCheckbox,beneficiaryEligibility.enteredWithoutInspectionNoCheckbox",
@@ -534,74 +724,160 @@
       ]
     },
     {
-      "label": "text_UnlawfullyPresent180DaysTo1Year",
+      "label": "",
       "id": "",
-      "key": "beneficiaryEligibility.unlawfullyPresent180DaysTo1YearYesCheckbox,beneficiaryEligibility.unlawfullyPresent180DaysTo1YearNoCheckbox",
-      "control": "radio",
-      "options": [
+      "visibility": "beneficiaryEligibility.enteredWithoutInspectionYesCheckbox=true",
+      "control": "section",
+      "fields": [
         {
-          "value": "Yes",
-          "label": "text_Yes",
-          "keyValue": "true,false"
-        },
-        {
-          "value": "No",
-          "label": "text_No",
-          "keyValue": "false,true"
+          "label": "text_ExplainEnteredWithoutInspection",
+          "id": "",
+          "key": "beneficiaryEligibility.enteredWithoutInspectionYesSupplement",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
     {
-      "label": "text_UnlawfullyPresent1YearOrMore",
+      "label": "text_UnlawfullyPresentInUS",
       "id": "",
-      "key": "beneficiaryEligibility.unlawfullyPresent1YearOrMoreYesCheckbox,beneficiaryEligibility.unlawfullyPresent1YearOrMoreNoCheckbox",
-      "control": "radio",
-      "options": [
+      "key": "",
+      "control": "section",
+      "fields": [
         {
-          "value": "Yes",
-          "label": "text_Yes",
-          "keyValue": "true,false"
+          "label": "text_UnlawfullyPresent180DaysTo1Year",
+          "id": "",
+          "key": "beneficiaryEligibility.unlawfullyPresent180DaysTo1YearYesCheckbox,beneficiaryEligibility.unlawfullyPresent180DaysTo1YearNoCheckbox",
+          "control": "radio",
+          "options": [
+            {
+              "value": "Yes",
+              "label": "text_Yes",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "No",
+              "label": "text_No",
+              "keyValue": "false,true"
+            }
+          ]
         },
         {
-          "value": "No",
-          "label": "text_No",
-          "keyValue": "false,true"
+          "label": "text_UnlawfullyPresent1YearOrMore",
+          "id": "",
+          "key": "beneficiaryEligibility.unlawfullyPresent1YearOrMoreYesCheckbox,beneficiaryEligibility.unlawfullyPresent1YearOrMoreNoCheckbox",
+          "control": "radio",
+          "options": [
+            {
+              "value": "Yes",
+              "label": "text_Yes",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "No",
+              "label": "text_No",
+              "keyValue": "false,true"
+            }
+          ]
         }
       ]
     },
     {
-      "label": "text_ReenteredAfterUnlawfullyPresent",
+      "label": "",
       "id": "",
-      "key": "beneficiaryEligibility.reenteredAfterUnlawfullyPresentYesCheckbox,beneficiaryEligibility.reenteredAfterUnlawfullyPresentNoCheckbox",
-      "control": "radio",
-      "options": [
+      "visibility": "beneficiaryEligibility.unlawfullyPresent180DaysTo1YearYesCheckbox=true",
+      "control": "section",
+      "fields": [
         {
-          "value": "Yes",
-          "label": "text_Yes",
-          "keyValue": "true,false"
-        },
-        {
-          "value": "No",
-          "label": "text_No",
-          "keyValue": "false,true"
+          "label": "text_ExplainUnlawfullyPresent180DaysTo1Year",
+          "id": "",
+          "key": "beneficiaryEligibility.unlawfullyPresent180DaysTo1YearYesSupplement",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
     {
-      "label": "text_ReenteredAfterDeportation",
+      "label": "",
       "id": "",
-      "key": "beneficiaryEligibility.reenteredAfterDeportationYesCheckbox,beneficiaryEligibility.reenteredAfterDeportationNoCheckbox",
-      "control": "radio",
-      "options": [
+      "visibility": "beneficiaryEligibility.unlawfullyPresent1YearOrMoreYesCheckbox=true",
+      "control": "section",
+      "fields": [
         {
-          "value": "Yes",
-          "label": "text_Yes",
-          "keyValue": "true,false"
+          "label": "text_ExplainUnlawfullyPresent1YearOrMore",
+          "id": "",
+          "key": "beneficiaryEligibility.unlawfullyPresent1YearOrMoreYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
+      "label": "text_ReenterUSWithoutInspection",
+      "id": "",
+      "key": "",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ReenteredAfterUnlawfullyPresent",
+          "id": "",
+          "key": "beneficiaryEligibility.reenteredAfterUnlawfullyPresentYesCheckbox,beneficiaryEligibility.reenteredAfterUnlawfullyPresentNoCheckbox",
+          "control": "radio",
+          "options": [
+            {
+              "value": "Yes",
+              "label": "text_Yes",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "No",
+              "label": "text_No",
+              "keyValue": "false,true"
+            }
+          ]
         },
         {
-          "value": "No",
-          "label": "text_No",
-          "keyValue": "false,true"
+          "label": "text_ReenteredAfterDeportation",
+          "id": "",
+          "key": "beneficiaryEligibility.reenteredAfterDeportationYesCheckbox,beneficiaryEligibility.reenteredAfterDeportationNoCheckbox",
+          "control": "radio",
+          "options": [
+            {
+              "value": "Yes",
+              "label": "text_Yes",
+              "keyValue": "true,false"
+            },
+            {
+              "value": "No",
+              "label": "text_No",
+              "keyValue": "false,true"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.reenteredAfterUnlawfullyPresentYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainReenteredAfterUnlawfullyPresent",
+          "id": "",
+          "key": "beneficiaryEligibility.reenteredAfterUnlawfullyPresentYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.reenteredAfterDeportationYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainReenteredAfterDeportation",
+          "id": "",
+          "key": "beneficiaryEligibility.reenteredAfterDeportationYesSupplement",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -624,6 +900,20 @@
       ]
     },
     {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.planToPracticePolygamyYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainPlanToPracticePolygamy",
+          "id": "",
+          "key": "beneficiaryEligibility.planToPracticePolygamyYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_AccompanyingInadmissibleForeignNational",
       "id": "",
       "key": "beneficiaryEligibility.accompanyingInadmissibleForeignNationalYesCheckbox,beneficiaryEligibility.accompanyingInadmissibleForeignNationalNoCheckbox",
@@ -638,6 +928,20 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.accompanyingInadmissibleForeignNationalYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainAccompanyingInadmissibleForeignNational",
+          "id": "",
+          "key": "beneficiaryEligibility.accompanyingInadmissibleForeignNationalYesSupplement",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -660,6 +964,20 @@
       ]
     },
     {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.assistedInWithholdingCustodyYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainAssistedInWithholdingCustody",
+          "id": "",
+          "key": "beneficiaryEligibility.assistedInWithholdingCustodyYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_VotedInViolationOfLaw",
       "id": "",
       "key": "beneficiaryEligibility.votedInViolationOfLawYesCheckbox,beneficiaryEligibility.votedInViolationOfLawNoCheckbox",
@@ -674,6 +992,20 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.votedInViolationOfLawYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainVotedInViolationOfLaw",
+          "id": "",
+          "key": "beneficiaryEligibility.votedInViolationOfLawYesSupplement",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -696,6 +1028,20 @@
       ]
     },
     {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.renouncedCitizenshipToAvoidTaxYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainRenouncedCitizenshipToAvoidTax",
+          "id": "",
+          "key": "beneficiaryEligibility.renouncedCitizenshipToAvoidTaxYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_AppliedForExemptionFromMilitaryService",
       "id": "",
       "key": "beneficiaryEligibility.appliedForExemptionFromMilitaryServiceYesCheckbox,beneficiaryEligibility.appliedForExemptionFromMilitaryServiceNoCheckbox",
@@ -710,6 +1056,20 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.appliedForExemptionFromMilitaryServiceYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainAppliedForExemptionFromMilitaryService",
+          "id": "",
+          "key": "beneficiaryEligibility.appliedForExemptionFromMilitaryServiceYesSupplement",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -732,6 +1092,20 @@
       ]
     },
     {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.relievedFromMilitaryServiceYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainRelievedFromMilitaryService",
+          "id": "",
+          "key": "beneficiaryEligibility.relievedFromMilitaryServiceYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_ConvictedOfDesertion",
       "id": "",
       "key": "beneficiaryEligibility.convictedOfDesertionYesCheckbox,beneficiaryEligibility.convictedOfDesertionNoCheckbox",
@@ -746,6 +1120,20 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.convictedOfDesertionYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "text_ExplainConvictedOfDesertion",
+          "id": "",
+          "key": "beneficiaryEligibility.convictedOfDesertionYesSupplement",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },

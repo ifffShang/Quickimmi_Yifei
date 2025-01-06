@@ -11,134 +11,167 @@ export interface Eligibility {
   // Page 10 Question 14 - Denied admission
   deniedAdmissionYesCheckbox: string | undefined;
   deniedAdmissionNoCheckbox: string | undefined;
+  deniedAdmissionYesSupplement: string | undefined;
 
   // Page 10 Question 15 - Denied visa
   deniedVisaYesCheckbox: string | undefined;
   deniedVisaNoCheckbox: string | undefined;
+  deniedVisaYesSupplement: string | undefined;
 
   // Page 10 Question 16 - Worked without authorization
   workedWithoutAuthorizationYesCheckbox: string | undefined;
   workedWithoutAuthorizationNoCheckbox: string | undefined;
+  WorkedWithoutAuthorizationYesSupplement: string | undefined;
 
   // Page 10 Question 17 - Violated nonimmigrant status
   violatedNonimmigrantStatusYesCheckbox: string | undefined;
   violatedNonimmigrantStatusNoCheckbox: string | undefined;
+  violatedNonimmigrantStatusYesSupplement: string | undefined;
 
   // Page 10 Question 18 - Removal proceedings
   removalProceedingsYesCheckbox: string | undefined;
   removalProceedingsNoCheckbox: string | undefined;
+  removalProceedingsYesSupplement: string | undefined;
 
   // Page 10 Question 19 - Final order of removal
   finalOrderOfRemovalYesCheckbox: string | undefined;
   finalOrderOfRemovalNoCheckbox: string | undefined;
+  finalOrderOfRemovalYesSupplement: string | undefined;
 
   // Page 10 Question 20 - Prior final order reinstated
   priorFinalOrderReinstatedYesCheckbox: string | undefined;
   priorFinalOrderReinstatedNoCheckbox: string | undefined;
+  priorFinalOrderReinstatedYesSupplement: string | undefined;
 
   // Page 10 Question 21 - LPR status rescinded
   lprStatusRescindedYesCheckbox: string | undefined;
   lprStatusRescindedNoCheckbox: string | undefined;
+  lprStatusRescindedYesSupplement: string | undefined;
 
   // Page 10 Question 22 - Voluntary departure failed
   voluntaryDepartureFailedYesCheckbox: string | undefined;
   voluntaryDepartureFailedNoCheckbox: string | undefined;
+  voluntaryDepartureFailedYesSupplement: string | undefined;
 
   // Page 10 Question 23 - Applied for relief from removal
   appliedForReliefFromRemovalYesCheckbox: string | undefined;
   appliedForReliefFromRemovalNoCheckbox: string | undefined;
+  appliedForReliefFromRemovalYesSupplement: string | undefined;
 
   // Page 10 Question 24a-24c - Compliance with specific visa requirements (J visa)
   jVisaForeignResidenceRequirementYesCheckbox: string | undefined;
   jVisaForeignResidenceRequirementNoCheckbox: string | undefined;
   compliedWithForeignResidenceYesCheckbox: string | undefined;
   compliedWithForeignResidenceNoCheckbox: string | undefined;
+  compliedWithForeignResidenceYesSupplement: string | undefined;
   grantedWaiverOrRecommendationYesCheckbox: string | undefined;
   grantedWaiverOrRecommendationNoCheckbox: string | undefined;
+  grantedWaiverOrRecommendationYesSupplement: string | undefined;
 
   // Page 10 Question 25 - Arrested or Detained
   arrestedOrDetainedYesCheckbox: string | undefined;
   arrestedOrDetainedNoCheckbox: string | undefined;
+  arrestedOrDetainedYesSupplement: string | undefined;
 
   // Page 10 Question 26 - Committed Crime
   committedCrimeNoCheckbox: string | undefined;
   committedCrimeYesCheckbox: string | undefined;
+  committedCrimeYesSupplement: string | undefined;
 
   // Page 11 Question 27 - Pled Guilty or Convicted
   pledGuiltyOrConvictedYesCheckbox: string | undefined;
   pledGuiltyOrConvictedNoCheckbox: string | undefined;
+  pledGuiltyOrConvictedYesSupplement: string | undefined;
 
   // Page 11 Question 28 - Ordered Punished by Judge
   orderedPunishedByJudgeNoCheckbox: string | undefined;
   orderedPunishedByJudgeYesCheckbox: string | undefined;
+  orderedPunishedByJudgeYesSupplement: string | undefined;
 
   // Page 11 Question 29 - Defendant in Criminal Proceeding
   defendantInCriminalProceedingYesCheckbox: string | undefined;
   defendantInCriminalProceedingNoCheckbox: string | undefined;
+  defendantInCriminalProceedingYesSupplement: string | undefined;
 
   // Page 11 Question 30 - Violated Controlled Substance Law
   violatedControlledSubstanceLawNoCheckbox: string | undefined;
   violatedControlledSubstanceLawYesCheckbox: string | undefined;
+  violatedControlledSubstanceLawYesSupplement: string | undefined;
 
   // Page 11 Question 31 - Convicted of Multiple Offenses
   convictedOfMultipleOffensesNoCheckbox: string | undefined;
   convictedOfMultipleOffensesYesCheckbox: string | undefined;
+  convictedOfMultipleOffensesYesSupplement: string | undefined;
 
   // Page 11 Question 32 - Illicitly Trafficked Controlled Substances
   illicitlyTraffickedControlledSubstancesYesCheckbox: string | undefined;
   illicitlyTraffickedControlledSubstancesNoCheckbox: string | undefined;
+  illicitlyTraffickedControlledSubstancesYesSupplement: string | undefined;
 
   // Page 11 Question 33 - Aided in Illicit Trafficking
   aidedInIllicitTraffickingNoCheckbox: string | undefined;
   aidedInIllicitTraffickingYesCheckbox: string | undefined;
+  aidedInIllicitTraffickingYesSupplement: string | undefined;
 
   // Page 11 Question 34 - Related to Illicit Trafficker
   relatedToIllicitTraffickerNoCheckbox: string | undefined;
   relatedToIllicitTraffickerYesCheckbox: string | undefined;
+  relatedToIllicitTraffickerYesSupplement: string | undefined;
 
   // Page 11 Question 35 - Engaged in Prostitution
   engagedInProstitutionNoCheckbox: string | undefined;
   engagedInProstitutionYesCheckbox: string | undefined;
+  engagedInProstitutionYesSupplement: string | undefined;
 
   // Page 11 Question 36 - Procured Prostitutes
   procuredProstitutesYesCheckbox: string | undefined;
   procuredProstitutesNoCheckbox: string | undefined;
+  procuredProstitutesYesSupplement: string | undefined;
 
   // Page 11 Question 37 - Received Proceeds from Prostitution
   receivedProceedsFromProstitutionNoCheckbox: string | undefined;
   receivedProceedsFromProstitutionYesCheckbox: string | undefined;
+  receivedProceedsFromProstitutionYesSupplement: string | undefined;
+
   // Page 11 Question 38 - Intent to Engage in Illegal Gambling
   intentToEngageInIllegalGamblingYesCheckbox: string | undefined;
   intentToEngageInIllegalGamblingNoCheckbox: string | undefined;
+  intentToEngageInIllegalGamblingYesSupplement: string | undefined;
 
   // Page 11 Question 39 - Exercised Immunity from Prosecution
   exercisedImmunityFromProsecutionNoCheckbox: string | undefined;
   exercisedImmunityFromProsecutionYesCheckbox: string | undefined;
+  exercisedImmunityFromProsecutionYesSupplement: string | undefined;
 
   // Page 11 Question 40 - Responsible for Religious Violations
   responsibleForReligiousViolationsYesCheckbox: string | undefined;
   responsibleForReligiousViolationsNoCheckbox: string | undefined;
+  responsibleForReligiousViolationsYesSupplement: string | undefined;
 
   // Page 11 Question 41 - Induced Trafficking for Sex
   inducedTraffickingForSexNoCheckbox: string | undefined;
   inducedTraffickingForSexYesCheckbox: string | undefined;
+  inducedTraffickingForSexYesSupplement: string | undefined;
 
   // Page 11 Question 42 - Trafficked into Slavery
   traffickedIntoSlaveryNoCheckbox: string | undefined;
   traffickedIntoSlaveryYesCheckbox: string | undefined;
+  traffickedIntoSlaveryYesSupplement: string | undefined;
 
   // Page 11 Question 43 - Aided Trafficking for Sex or Slavery
   aidedTraffickingForSexOrSlaveryYesCheckbox: string | undefined;
   aidedTraffickingForSexOrSlaveryNoCheckbox: string | undefined;
+  aidedTraffickingForSexOrSlaveryYesSupplement: string | undefined;
 
   // Page 11 Question 44 - Related to Trafficker and Benefited
   relatedToTraffickerAndBenefitedNoCheckbox: string | undefined;
   relatedToTraffickerAndBenefitedYesCheckbox: string | undefined;
+  relatedToTraffickerAndBenefitedYesSupplement: string | undefined;
 
   // Page 11 Question 45 - Engaged in Money Laundering
   engagedInMoneyLaunderingYesCheckbox: string | undefined;
   engagedInMoneyLaunderingNoCheckbox: string | undefined;
-  // engagedInMoneyLaunderingYesSupplement: string | undefined;
+  engagedInMoneyLaunderingYesSupplement: string | undefined;
 
   // Page 12, Question 46a - Engage in Espionage or Sabotage
   engageInEspionageOrSabotageYesCheckbox: string | undefined;
@@ -360,90 +393,112 @@ export interface Eligibility {
   // Page 15, Question 69a - Failed to Attend Removal Proceeding
   failedToAttendRemovalProceedingYesCheckbox: string | undefined;
   failedToAttendRemovalProceedingNoCheckbox: string | undefined;
+  failedToAttendRemovalProceedingYesSupplement: string | undefined;
 
   // Page 15, Question 69b - Believe Had Reasonable Cause
   believeHadReasonableCauseYesCheckbox: string | undefined;
   believeHadReasonableCauseNoCheckbox: string | undefined;
+  believeHadReasonableCauseYesSupplement: string | undefined;
 
   // Page 15, Question 70 - Submitted Fraudulent Documentation
   submittedFraudulentDocumentationYesCheckbox: string | undefined;
   submittedFraudulentDocumentationNoCheckbox: string | undefined;
+  submittedFraudulentDocumentationYesSupplement: string | undefined;
 
   // Page 15, Question 71 - Lied or Misrepresented for Immigration Benefit
   liedOrMisrepresentedForImmigrationBenefitYesCheckbox: string | undefined;
   liedOrMisrepresentedForImmigrationBenefitNoCheckbox: string | undefined;
+  liedOrMisrepresentedForImmigrationBenefitYesSupplement: string | undefined;
 
   // Page 15, Question 72 - Falsely Claimed US Citizenship
   falselyClaimedUSCitizenshipYesCheckbox: string | undefined;
   falselyClaimedUSCitizenshipNoCheckbox: string | undefined;
+  falselyClaimedUSCitizenshipYesSupplement: string | undefined;
 
   // Page 15, Question 73 - Been a Stowaway
   beenAStowawayYesCheckbox: string | undefined;
   beenAStowawayNoCheckbox: string | undefined;
+  beenAStowawayYesSupplement: string | undefined;
 
   // Page 15, Question 74 - Knowingly Encouraged Illegal Entry
   knowinglyEncouragedIllegalEntryYesCheckbox: string | undefined;
   knowinglyEncouragedIllegalEntryNoCheckbox: string | undefined;
+  knowinglyEncouragedIllegalEntryYesSupplement: string | undefined;
 
   // Page 15, Question 75 - Under Civil Penalty for Fraudulent Documents
   underCivilPenaltyForFraudulentDocumentsYesCheckbox: string | undefined;
   underCivilPenaltyForFraudulentDocumentsNoCheckbox: string | undefined;
+  underCivilPenaltyForFraudulentDocumentsYesSupplement: string | undefined;
 
   // Page 15, Question 76 - Excluded, Deported, or Removed
   excludedDeportedOrRemovedYesCheckbox: string | undefined;
   excludedDeportedOrRemovedNoCheckbox: string | undefined;
+  excludedDeportedOrRemovedYesSupplement: string | undefined;
 
   // Page 15, Question 77 - Entered Without Inspection
   enteredWithoutInspectionYesCheckbox: string | undefined;
   enteredWithoutInspectionNoCheckbox: string | undefined;
+  enteredWithoutInspectionYesSupplement: string | undefined;
 
   // Page 15, Question 78a - Unlawfully Present 180 Days to 1 Year
   unlawfullyPresent180DaysTo1YearYesCheckbox: string | undefined;
   unlawfullyPresent180DaysTo1YearNoCheckbox: string | undefined;
+  unlawfullyPresent180DaysTo1YearYesSupplement: string | undefined;
 
   // Page 15, Question 78b - Unlawfully Present 1 Year or More
   unlawfullyPresent1YearOrMoreYesCheckbox: string | undefined;
   unlawfullyPresent1YearOrMoreNoCheckbox: string | undefined;
+  unlawfullyPresent1YearOrMoreYesSupplement: string | undefined;
 
   // Page 15, Question 79a - Reentered After Unlawfully Present
   reenteredAfterUnlawfullyPresentYesCheckbox: string | undefined;
   reenteredAfterUnlawfullyPresentNoCheckbox: string | undefined;
+  reenteredAfterUnlawfullyPresentYesSupplement: string | undefined;
 
   // Page 15, Question 79b - Reentered After Deportation
   reenteredAfterDeportationYesCheckbox: string | undefined;
   reenteredAfterDeportationNoCheckbox: string | undefined;
+  reenteredAfterDeportationYesSupplement: string | undefined;
 
   // Page 15, Question 80 - Plan to Practice Polygamy
   planToPracticePolygamyYesCheckbox: string | undefined;
   planToPracticePolygamyNoCheckbox: string | undefined;
+  planToPracticePolygamyYesSupplement: string | undefined;
 
   // Page 15, Question 81 - Accompanying Inadmissible Foreign National
   accompanyingInadmissibleForeignNationalYesCheckbox: string | undefined;
   accompanyingInadmissibleForeignNationalNoCheckbox: string | undefined;
+  accompanyingInadmissibleForeignNationalYesSupplement: string | undefined;
 
   // Page 15, Question 82 - Assisted in Withholding Custody
   assistedInWithholdingCustodyYesCheckbox: string | undefined;
   assistedInWithholdingCustodyNoCheckbox: string | undefined;
+  assistedInWithholdingCustodyYesSupplement: string | undefined;
 
   // Page 15, Question 83 - Voted in Violation of Law
   votedInViolationOfLawYesCheckbox: string | undefined;
   votedInViolationOfLawNoCheckbox: string | undefined;
+  votedInViolationOfLawYesSupplement: string | undefined;
 
   // Page 15, Question 84 - Renounced Citizenship to Avoid Tax
   renouncedCitizenshipToAvoidTaxYesCheckbox: string | undefined;
   renouncedCitizenshipToAvoidTaxNoCheckbox: string | undefined;
+  renouncedCitizenshipToAvoidTaxYesSupplement: string | undefined;
 
   // Page 16, Question 85a - Applied for Exemption from Military Service
   appliedForExemptionFromMilitaryServiceYesCheckbox: string | undefined;
   appliedForExemptionFromMilitaryServiceNoCheckbox: string | undefined;
+  appliedForExemptionFromMilitaryServiceYesSupplement: string | undefined;
 
   // Page 16, Question 85b - Relieved from Military Service
   relievedFromMilitaryServiceYesCheckbox: string | undefined;
   relievedFromMilitaryServiceNoCheckbox: string | undefined;
+  relievedFromMilitaryServiceYesSupplement: string | undefined;
 
   // Page 16, Question 85c - Convicted of Desertion
   convictedOfDesertionYesCheckbox: string | undefined;
   convictedOfDesertionNoCheckbox: string | undefined;
+  convictedOfDesertionYesSupplement: string | undefined;
 
   // Page 16, Question 86a - Evaded Military Service During War
   evadedMilitaryServiceDuringWarYesCheckbox: string | undefined;
