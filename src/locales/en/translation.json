@@ -721,7 +721,8 @@
   "CurrentMaritalStatus": "Current Marital Status",
   "SingleNeverMarried": "Single, Never Married",
   "CurrentMarriage": "Current Marriage",
-  "DateOfCurrentMarriage": "Date of Current Marriage (if currently married)(mm/dd/yyyy)",
+  "DateOfCurrentMarriage": "Date of Current Marriage (mm/dd/yyyy)",
+  "NotMarried": "Not married yet",
   "PlaceofYourCurrentMarriage(if married)": "Place of Your Current Marriage (if married)",
   "CityorTownOfCurrentMarriage": "City or Town",
   "CityOfCurrentMarriage": "City or Town",
@@ -1695,7 +1696,6 @@
   "RecruitedChildSoldiers": "Have you EVER recruited, enlisted, conscripted, or used any person under 15 years of age to serve in or help an armed force or group?",
   "UsedChildSoldiersInCombat": "Have you EVER used any person under 15 years of age to take part in hostilities, or to help or provide services to people in combat?",
   "SubjectToPublicCharge": "Are you subject to the public charge ground of inadmissibility under INA section 212(a)(4)?",
-
 
   "ExplainEspionageOrSabotageIntentItem46a": "If yes, please provide a detailed explanation of your intentions. Your explanation should include specific dates, locations, and any relevant context regarding any espionage (including spying) or sabotage activities you plan to engage in within the United States:",
   "ExplainIntendedExportViolationActivitiesItem46b": "If yes, please provide a detailed explanation of your intentions. Your explanation should include specific dates, locations, and any relevant context regarding activities you plan to engage in within the United States that violate or evade any law prohibiting the export of goods, technology, or sensitive information:",

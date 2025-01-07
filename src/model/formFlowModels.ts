@@ -85,6 +85,7 @@ export type ControlType =
   | "datepicker"
   | "datepickerWithNA"
   | "datepickerWithDS"
+  | "datepickerWithNotMarried"
   | "monthyearpicker"
   | "group"
   | "section"
