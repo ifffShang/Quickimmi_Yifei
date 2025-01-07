@@ -48,7 +48,7 @@ import { TextboxWithNA } from "./fields/TextboxWithNA";
 import { getProfile } from "../../utils/selectorUtils";
 import { MultipleNamesWithNA } from "./fields/MultipleNamesWithNA";
 import { AddressUS } from "./fields/AddressUS";
-import { SameAddressCheckboxV2 } from "./fields/SameAddressCheckboxV2";
+import { AddressSyncCheckbox } from "./fields/AddressSyncCheckbox";
 import { I94Uploader } from "./fields/I94Uploader";
 import { Address } from "./fields/Address";
 
@@ -740,8 +740,9 @@ export function FormField(props: FormFieldProps) {
     case "component_mailing_same_as_residential":
       return <SameAddressCheckbox label={wt(props.label)} />;
     case "component_same_address_checkbox":
+    case "component_never_lived_together_checkbox":
       return (
-        <SameAddressCheckboxV2
+        <AddressSyncCheckbox
           label={wt(props.label)}
           onOptionChange={onOptionChange}
           fieldValue={fieldValue}

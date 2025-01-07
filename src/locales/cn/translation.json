@@ -402,6 +402,7 @@
   "OtherFluentLanguages": "添加另一种你能流利说的语言",
   "NameUsedNativeLanguage": "母语名",
   "AddressInNativeLanguage": "在母语中的地址",
+  "NeverLivedTogether": "若为配偶申请，请指明最近的共同生活过的地址。若从未共同生活，请选择是",
   "LastAddressLivedTogether": "最近在一起生活的地址",
   "AdjustmentOfStatusCity": "申请合法永久居住城市/镇",
   "AdjustmentOfStatusState": "申请合法永久居住州",
@@ -681,8 +682,6 @@
   "DateOfBirth": "出生日期（mm/dd/yyyy）",
 
   "Sex": "性别",
-
-  "MailingAddress": "邮寄地址",
   "InCareOfNameofMailingAddress": "收件人姓名",
   "StreetNumberAndName": "街道号码和名称",
   "ApartmentNumber(Add check to apt/ste/flr)": "公寓号(公寓/套房/楼层)",

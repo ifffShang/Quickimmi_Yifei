@@ -103,6 +103,7 @@ export type ControlType =
   | "component_list_merged_documents"
   | "component_mailing_same_as_residential"
   | "component_same_address_checkbox"
+  | "component_never_lived_together_checkbox"
   | "component_entry_records"
   | "component_add_item"
   | "component_textarea_ai_refine"

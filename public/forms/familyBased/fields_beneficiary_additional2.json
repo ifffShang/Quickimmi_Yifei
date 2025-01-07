@@ -87,6 +87,62 @@
       }
     },
     {
+      "label": "text_NeverLivedTogether",
+      "hideHeader": "true",
+      "key": "beneficiary.neverLivedTogethersYesCheckbox,beneficiary.neverLivedTogethersNoCheckbox",
+      "id": "",
+      "control": "component_never_lived_together_checkbox",
+      "options": [
+        {
+          "value": "NeverLivedTogether",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "LivedTogether",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ],
+      "syncFields": {
+        "condition": "beneficiary.neverLivedTogethersYesCheckbox=true",
+        "mappings": [
+          {
+            "source": "Never lived together",
+            "destination": "beneficiary.lastAddressLivedTogether.streetNumberAndName"
+          },
+          {
+            "source": "",
+            "destination": "beneficiary.lastAddressLivedTogether.aptCheckbox"
+          },
+          {
+            "source": "",
+            "destination": "beneficiary.lastAddressLivedTogether.steCheckbox"
+          },
+          {
+            "source": "",
+            "destination": "beneficiary.lastAddressLivedTogether.flrCheckbox"
+          },
+          {
+            "source": "",
+            "destination": "beneficiary.lastAddressLivedTogether.aptSteFlrNumber"
+          },
+          {
+            "source": "",
+            "destination": "beneficiary.lastAddressLivedTogether.cityOrTown"
+          },
+          {
+            "source": "",
+            "destination": "beneficiary.lastAddressLivedTogether.state"
+          },
+          {
+            "source": "",
+            "destination": "beneficiary.lastAddressLivedTogether.zipCode"
+          }
+        ]
+      }
+    },
+    {
       "label": "text_LastAddressLivedTogether",
       "id": "3.11",
       "control": "component_address_us",

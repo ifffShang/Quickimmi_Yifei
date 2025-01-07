@@ -107,6 +107,10 @@ export function getFieldValueByKey(
   if (!caseDetails) {
     return;
   }
+
+  if (key === "" || key === "Never lived together") {
+    return key;
+  }
   /*
    * count-array pair
    * Example:
