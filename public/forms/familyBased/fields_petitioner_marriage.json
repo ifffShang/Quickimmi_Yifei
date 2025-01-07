@@ -52,7 +52,7 @@
       "label": "text_DateOfCurrentMarriage",
       "id": "16",
       "key": "petitioner.dateOfCurrentMarriage",
-      "control": "datepicker"
+      "control": "datepickerWithNotMarried"
     },
     {
       "label": "text_CityOfCurrentMarriage",

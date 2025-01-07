@@ -553,6 +553,29 @@ export function FormField(props: FormFieldProps) {
           />
         </FormControlContainer>
       );
+    case "datepickerWithNotMarried":
+      return (
+        <FormControlContainer fieldValue={fieldValue}>
+          <QDatePickerWithAlternativeValue
+            placeholder={placeholder}
+            value={fieldValue}
+            fieldKey={props.fieldKey}
+            onChange={(value: string) => {
+              props.fieldKey &&
+                dispatchFormValue(
+                  dispatch,
+                  caseType,
+                  {
+                    [props.fieldKey]: value,
+                  },
+                  props.fieldIndex,
+                );
+            }}
+            alternativeLabel={t("NotMarried")}
+            alternativeValue="N/A"
+          />
+        </FormControlContainer>
+      );
     case "monthyearpicker":
       return (
         <FormControlContainer fieldValue={fieldValue}>
