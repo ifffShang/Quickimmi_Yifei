@@ -389,6 +389,7 @@ export function SelectBox(props: SelectBoxProps) {
         placeholder={props.placeholder || "Select an option"}
         value={value}
         getPopupContainer={trigger => trigger.parentElement || document.body}
+        filterOption={(input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())}
       />
       {value && (
         <div className="inline-placeholder">
