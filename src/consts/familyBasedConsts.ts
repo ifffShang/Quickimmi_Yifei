@@ -440,103 +440,136 @@ export const InitialEligibility: Eligibility = {
 
   deniedAdmissionYesCheckbox: undefined,
   deniedAdmissionNoCheckbox: undefined,
+  deniedAdmissionYesSupplement: undefined,
 
   deniedVisaYesCheckbox: undefined,
   deniedVisaNoCheckbox: undefined,
+  deniedVisaYesSupplement: undefined,
 
   workedWithoutAuthorizationYesCheckbox: undefined,
   workedWithoutAuthorizationNoCheckbox: undefined,
+  WorkedWithoutAuthorizationYesSupplement: undefined,
 
   violatedNonimmigrantStatusYesCheckbox: undefined,
   violatedNonimmigrantStatusNoCheckbox: undefined,
+  violatedNonimmigrantStatusYesSupplement: undefined,
 
   removalProceedingsYesCheckbox: undefined,
   removalProceedingsNoCheckbox: undefined,
+  removalProceedingsYesSupplement: undefined,
 
   finalOrderOfRemovalYesCheckbox: undefined,
   finalOrderOfRemovalNoCheckbox: undefined,
+  finalOrderOfRemovalYesSupplement: undefined,
 
   priorFinalOrderReinstatedYesCheckbox: undefined,
   priorFinalOrderReinstatedNoCheckbox: undefined,
+  priorFinalOrderReinstatedYesSupplement: undefined,
 
   lprStatusRescindedYesCheckbox: undefined,
   lprStatusRescindedNoCheckbox: undefined,
+  lprStatusRescindedYesSupplement: undefined,
 
   voluntaryDepartureFailedYesCheckbox: undefined,
   voluntaryDepartureFailedNoCheckbox: undefined,
+  voluntaryDepartureFailedYesSupplement: undefined,
 
   appliedForReliefFromRemovalYesCheckbox: undefined,
   appliedForReliefFromRemovalNoCheckbox: undefined,
+  appliedForReliefFromRemovalYesSupplement: undefined,
 
   jVisaForeignResidenceRequirementYesCheckbox: undefined,
   jVisaForeignResidenceRequirementNoCheckbox: undefined,
   compliedWithForeignResidenceYesCheckbox: undefined,
   compliedWithForeignResidenceNoCheckbox: undefined,
+  compliedWithForeignResidenceYesSupplement: undefined,
   grantedWaiverOrRecommendationYesCheckbox: undefined,
   grantedWaiverOrRecommendationNoCheckbox: undefined,
+  grantedWaiverOrRecommendationYesSupplement: undefined,
 
   arrestedOrDetainedYesCheckbox: undefined,
   arrestedOrDetainedNoCheckbox: undefined,
+  arrestedOrDetainedYesSupplement: undefined,
 
   committedCrimeNoCheckbox: undefined,
   committedCrimeYesCheckbox: undefined,
+  committedCrimeYesSupplement: undefined,
 
   pledGuiltyOrConvictedYesCheckbox: undefined,
   pledGuiltyOrConvictedNoCheckbox: undefined,
+  pledGuiltyOrConvictedYesSupplement: undefined,
 
   orderedPunishedByJudgeNoCheckbox: undefined,
   orderedPunishedByJudgeYesCheckbox: undefined,
+  orderedPunishedByJudgeYesSupplement: undefined,
 
   defendantInCriminalProceedingYesCheckbox: undefined,
   defendantInCriminalProceedingNoCheckbox: undefined,
+  defendantInCriminalProceedingYesSupplement: undefined,
 
   violatedControlledSubstanceLawNoCheckbox: undefined,
   violatedControlledSubstanceLawYesCheckbox: undefined,
+  violatedControlledSubstanceLawYesSupplement: undefined,
 
   convictedOfMultipleOffensesNoCheckbox: undefined,
   convictedOfMultipleOffensesYesCheckbox: undefined,
+  convictedOfMultipleOffensesYesSupplement: undefined,
 
   illicitlyTraffickedControlledSubstancesYesCheckbox: undefined,
   illicitlyTraffickedControlledSubstancesNoCheckbox: undefined,
+  illicitlyTraffickedControlledSubstancesYesSupplement: undefined,
 
   aidedInIllicitTraffickingNoCheckbox: undefined,
   aidedInIllicitTraffickingYesCheckbox: undefined,
+  aidedInIllicitTraffickingYesSupplement: undefined,
 
   relatedToIllicitTraffickerNoCheckbox: undefined,
   relatedToIllicitTraffickerYesCheckbox: undefined,
+  relatedToIllicitTraffickerYesSupplement: undefined,
 
   engagedInProstitutionNoCheckbox: undefined,
   engagedInProstitutionYesCheckbox: undefined,
+  engagedInProstitutionYesSupplement: undefined,
 
   procuredProstitutesYesCheckbox: undefined,
   procuredProstitutesNoCheckbox: undefined,
+  procuredProstitutesYesSupplement: undefined,
 
   receivedProceedsFromProstitutionNoCheckbox: undefined,
   receivedProceedsFromProstitutionYesCheckbox: undefined,
+  receivedProceedsFromProstitutionYesSupplement: undefined,
 
   intentToEngageInIllegalGamblingYesCheckbox: undefined,
   intentToEngageInIllegalGamblingNoCheckbox: undefined,
+  intentToEngageInIllegalGamblingYesSupplement: undefined,
 
   exercisedImmunityFromProsecutionNoCheckbox: undefined,
   exercisedImmunityFromProsecutionYesCheckbox: undefined,
+  exercisedImmunityFromProsecutionYesSupplement: undefined,
 
   responsibleForReligiousViolationsYesCheckbox: undefined,
   responsibleForReligiousViolationsNoCheckbox: undefined,
+  responsibleForReligiousViolationsYesSupplement: undefined,
 
   inducedTraffickingForSexNoCheckbox: undefined,
   inducedTraffickingForSexYesCheckbox: undefined,
+  inducedTraffickingForSexYesSupplement: undefined,
 
   traffickedIntoSlaveryNoCheckbox: undefined,
   traffickedIntoSlaveryYesCheckbox: undefined,
+  traffickedIntoSlaveryYesSupplement: undefined,
 
   aidedTraffickingForSexOrSlaveryYesCheckbox: undefined,
   aidedTraffickingForSexOrSlaveryNoCheckbox: undefined,
+  aidedTraffickingForSexOrSlaveryYesSupplement: undefined,
 
   relatedToTraffickerAndBenefitedNoCheckbox: undefined,
   relatedToTraffickerAndBenefitedYesCheckbox: undefined,
+  relatedToTraffickerAndBenefitedYesSupplement: undefined,
 
   engagedInMoneyLaunderingYesCheckbox: undefined,
   engagedInMoneyLaunderingNoCheckbox: undefined,
+  engagedInMoneyLaunderingYesSupplement: undefined,
 
   engageInEspionageOrSabotageYesCheckbox: undefined,
   engageInEspionageOrSabotageNoCheckbox: undefined,
@@ -592,63 +625,83 @@ export const InitialEligibility: Eligibility = {
 
   spouseOrChildCommittedSeriousCrimeYesCheckbox: undefined,
   spouseOrChildCommittedSeriousCrimeNoCheckbox: undefined,
+  spouseOrChildCommittedSeriousCrimeYesSupplement: undefined,
 
   spouseOrChildMemberOfGroupYesCheckbox: undefined,
   spouseOrChildMemberOfGroupNoCheckbox: undefined,
+  spouseOrChildMemberOfGroupYesSupplement: undefined,
 
   spouseOrChildRecruitedForGroupYesCheckbox: undefined,
   spouseOrChildRecruitedForGroupNoCheckbox: undefined,
+  spouseOrChildRecruitedForGroupYesSupplement: undefined,
 
   spouseOrChildProvidedSupportYesCheckbox: undefined,
   spouseOrChildProvidedSupportNoCheckbox: undefined,
+  spouseOrChildProvidedSupportYesSupplement: undefined,
 
   spouseOrChildProvidedSupportForIndividualOrGroupYesCheckbox: undefined,
   spouseOrChildProvidedSupportForIndividualOrGroupNoCheckbox: undefined,
+  spouseOrChildProvidedSupportForIndividualOrGroupYesSupplement: undefined,
 
   spouseOrChildReceivedTrainingYesCheckbox: undefined,
   spouseOrChildReceivedTrainingNoCheckbox: undefined,
+  spouseOrChildReceivedTrainingYesSupplement: undefined,
 
   assistedInWeaponsActivitiesYesCheckbox: undefined,
   assistedInWeaponsActivitiesNoCheckbox: undefined,
+  assistedInWeaponsActivitiesYesSupplement: undefined,
 
   workedOrVolunteeredInDetentionFacilityYesCheckbox: undefined,
   workedOrVolunteeredInDetentionFacilityNoCheckbox: undefined,
+  workedOrVolunteeredInDetentionFacilityYesSupplement: undefined,
 
   participatedInGroupUsingWeaponsYesCheckbox: undefined,
   participatedInGroupUsingWeaponsNoCheckbox: undefined,
+  participatedInGroupUsingWeaponsYesSupplement: undefined,
 
   servedInMilitaryOrArmedGroupYesCheckbox: undefined,
   servedInMilitaryOrArmedGroupNoCheckbox: undefined,
+  servedInMilitaryOrArmedGroupYesSupplement: undefined,
 
   affiliatedWithCommunistOrTotalitarianPartyYesCheckbox: undefined,
   affiliatedWithCommunistOrTotalitarianPartyNoCheckbox: undefined,
+  affiliatedWithCommunistOrTotalitarianPartyYesSupplement: undefined,
 
   participatedInNaziPersecutionYesCheckbox: undefined,
   participatedInNaziPersecutionNoCheckbox: undefined,
+  participatedInNaziPersecutionYesSupplement: undefined,
 
   involvedInTortureOrGenocideYesCheckbox: undefined,
   involvedInTortureOrGenocideNoCheckbox: undefined,
+  involvedInTortureOrGenocideYesSupplement: undefined,
 
   killedAnyPersonYesCheckbox: undefined,
   killedAnyPersonNoCheckbox: undefined,
+  killedAnyPersonYesSupplement: undefined,
 
   severelyInjuredAnyPersonYesCheckbox: undefined,
   severelyInjuredAnyPersonNoCheckbox: undefined,
+  severelyInjuredAnyPersonYesSupplement: undefined,
 
   engagedInNonConsensualSexualContactYesCheckbox: undefined,
   engagedInNonConsensualSexualContactNoCheckbox: undefined,
+  engagedInNonConsensualSexualContactYesSupplement: undefined,
 
   limitedReligiousBeliefsYesCheckbox: undefined,
   limitedReligiousBeliefsNoCheckbox: undefined,
+  limitedReligiousBeliefsYesSupplement: undefined,
 
   recruitedChildSoldiersYesCheckbox: undefined,
   recruitedChildSoldiersNoCheckbox: undefined,
+  recruitedChildSoldiersYesSupplement: undefined,
 
   usedChildSoldiersInCombatYesCheckbox: undefined,
   usedChildSoldiersInCombatNoCheckbox: undefined,
+  usedChildSoldiersInCombatYesSupplement: undefined,
 
   subjectToPublicChargeYesCheckbox: undefined,
   subjectToPublicChargeNoCheckbox: undefined,
+  subjectToPublicChargeYesSupplement: undefined,
 
   householdSize: "",
 
@@ -694,69 +747,91 @@ export const InitialEligibility: Eligibility = {
 
   failedToAttendRemovalProceedingYesCheckbox: undefined,
   failedToAttendRemovalProceedingNoCheckbox: undefined,
+  failedToAttendRemovalProceedingYesSupplement: undefined,
 
   believeHadReasonableCauseYesCheckbox: undefined,
   believeHadReasonableCauseNoCheckbox: undefined,
+  believeHadReasonableCauseYesSupplement: undefined,
 
   submittedFraudulentDocumentationYesCheckbox: undefined,
   submittedFraudulentDocumentationNoCheckbox: undefined,
+  submittedFraudulentDocumentationYesSupplement: undefined,
 
   liedOrMisrepresentedForImmigrationBenefitYesCheckbox: undefined,
   liedOrMisrepresentedForImmigrationBenefitNoCheckbox: undefined,
+  liedOrMisrepresentedForImmigrationBenefitYesSupplement: undefined,
 
   falselyClaimedUSCitizenshipYesCheckbox: undefined,
   falselyClaimedUSCitizenshipNoCheckbox: undefined,
+  falselyClaimedUSCitizenshipYesSupplement: undefined,
 
   beenAStowawayYesCheckbox: undefined,
   beenAStowawayNoCheckbox: undefined,
+  beenAStowawayYesSupplement: undefined,
 
   knowinglyEncouragedIllegalEntryYesCheckbox: undefined,
   knowinglyEncouragedIllegalEntryNoCheckbox: undefined,
+  knowinglyEncouragedIllegalEntryYesSupplement: undefined,
 
   underCivilPenaltyForFraudulentDocumentsYesCheckbox: undefined,
   underCivilPenaltyForFraudulentDocumentsNoCheckbox: undefined,
+  underCivilPenaltyForFraudulentDocumentsYesSupplement: undefined,
 
   excludedDeportedOrRemovedYesCheckbox: undefined,
   excludedDeportedOrRemovedNoCheckbox: undefined,
+  excludedDeportedOrRemovedYesSupplement: undefined,
 
   enteredWithoutInspectionYesCheckbox: undefined,
   enteredWithoutInspectionNoCheckbox: undefined,
+  enteredWithoutInspectionYesSupplement: undefined,
 
   unlawfullyPresent180DaysTo1YearYesCheckbox: undefined,
   unlawfullyPresent180DaysTo1YearNoCheckbox: undefined,
+  unlawfullyPresent180DaysTo1YearYesSupplement: undefined,
 
   unlawfullyPresent1YearOrMoreYesCheckbox: undefined,
   unlawfullyPresent1YearOrMoreNoCheckbox: undefined,
+  unlawfullyPresent1YearOrMoreYesSupplement: undefined,
 
   reenteredAfterUnlawfullyPresentYesCheckbox: undefined,
   reenteredAfterUnlawfullyPresentNoCheckbox: undefined,
+  reenteredAfterUnlawfullyPresentYesSupplement: undefined,
 
   reenteredAfterDeportationYesCheckbox: undefined,
   reenteredAfterDeportationNoCheckbox: undefined,
+  reenteredAfterDeportationYesSupplement: undefined,
 
   planToPracticePolygamyYesCheckbox: undefined,
   planToPracticePolygamyNoCheckbox: undefined,
+  planToPracticePolygamyYesSupplement: undefined,
 
   accompanyingInadmissibleForeignNationalYesCheckbox: undefined,
   accompanyingInadmissibleForeignNationalNoCheckbox: undefined,
+  accompanyingInadmissibleForeignNationalYesSupplement: undefined,
 
   assistedInWithholdingCustodyYesCheckbox: undefined,
   assistedInWithholdingCustodyNoCheckbox: undefined,
+  assistedInWithholdingCustodyYesSupplement: undefined,
 
   votedInViolationOfLawYesCheckbox: undefined,
   votedInViolationOfLawNoCheckbox: undefined,
+  votedInViolationOfLawYesSupplement: undefined,
 
   renouncedCitizenshipToAvoidTaxYesCheckbox: undefined,
   renouncedCitizenshipToAvoidTaxNoCheckbox: undefined,
+  renouncedCitizenshipToAvoidTaxYesSupplement: undefined,
 
   appliedForExemptionFromMilitaryServiceYesCheckbox: undefined,
   appliedForExemptionFromMilitaryServiceNoCheckbox: undefined,
+  appliedForExemptionFromMilitaryServiceYesSupplement: undefined,
 
   relievedFromMilitaryServiceYesCheckbox: undefined,
   relievedFromMilitaryServiceNoCheckbox: undefined,
+  relievedFromMilitaryServiceYesSupplement: undefined,
 
   convictedOfDesertionYesCheckbox: undefined,
   convictedOfDesertionNoCheckbox: undefined,
+  convictedOfDesertionYesSupplement: undefined,
 
   evadedMilitaryServiceDuringWarYesCheckbox: undefined,
   evadedMilitaryServiceDuringWarNoCheckbox: undefined,

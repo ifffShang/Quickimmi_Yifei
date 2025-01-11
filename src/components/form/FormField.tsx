@@ -50,7 +50,7 @@ import { TextboxWithNA } from "./fields/TextboxWithNA";
 import { getProfile } from "../../utils/selectorUtils";
 import { MultipleNamesWithNA } from "./fields/MultipleNamesWithNA";
 import { AddressUS } from "./fields/AddressUS";
-import { SameAddressCheckboxV2 } from "./fields/SameAddressCheckboxV2";
+import { AddressSyncCheckbox } from "./fields/AddressSyncCheckbox";
 import { I94Uploader } from "./fields/I94Uploader";
 import { Address } from "./fields/Address";
 
@@ -103,14 +103,14 @@ export function FormField(props: FormFieldProps) {
       ? props.identity + `_${props.fieldIndex + 1}`
       : "Applicant";
 
-  console.log(
-    `Field key ${props.fieldKey},
-    object key: ${props.fieldKeyObject},
-    value: ${JSON.stringify(fieldValue)},
-    control: ${props.control},
-    fieldIndex: ${props.fieldIndex},
-    `,
-  );
+  // console.log(
+  //   `Field key ${props.fieldKey},
+  //   object key: ${props.fieldKeyObject},
+  //   value: ${JSON.stringify(fieldValue)},
+  //   control: ${props.control},
+  //   fieldIndex: ${props.fieldIndex},
+  //   `,
+  // );
 
   const onOptionChange = (value: string, fieldKey?: string, options?: IFormOptions[]) => {
     const targetFieldKey = fieldKey || props.fieldKey;
@@ -592,6 +592,29 @@ export function FormField(props: FormFieldProps) {
           />
         </FormControlContainer>
       );
+    case "datepickerWithNotMarried":
+      return (
+        <FormControlContainer fieldValue={fieldValue}>
+          <QDatePickerWithAlternativeValue
+            placeholder={placeholder}
+            value={fieldValue}
+            fieldKey={props.fieldKey}
+            onChange={(value: string) => {
+              props.fieldKey &&
+                dispatchFormValue(
+                  dispatch,
+                  caseType,
+                  {
+                    [props.fieldKey]: value,
+                  },
+                  props.fieldIndex,
+                );
+            }}
+            alternativeLabel={t("NotMarried")}
+            alternativeValue="N/A"
+          />
+        </FormControlContainer>
+      );
     case "monthyearpicker":
       return (
         <FormControlContainer fieldValue={fieldValue}>
@@ -779,8 +802,9 @@ export function FormField(props: FormFieldProps) {
     case "component_mailing_same_as_residential":
       return <SameAddressCheckbox label={wt(props.label)} />;
     case "component_same_address_checkbox":
+    case "component_never_lived_together_checkbox":
       return (
-        <SameAddressCheckboxV2
+        <AddressSyncCheckbox
           label={wt(props.label)}
           onOptionChange={onOptionChange}
           fieldValue={fieldValue}

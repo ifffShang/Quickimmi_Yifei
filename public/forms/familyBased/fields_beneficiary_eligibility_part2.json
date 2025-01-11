@@ -22,6 +22,20 @@
       ]
     },
     {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.deniedAdmissionYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.deniedAdmissionYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_DeniedVisa",
       "id": "",
       "key": "beneficiaryEligibility.deniedVisaYesCheckbox,beneficiaryEligibility.deniedVisaNoCheckbox",
@@ -36,6 +50,20 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.deniedVisaYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.deniedVisaYesSupplement",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -58,6 +86,20 @@
       ]
     },
     {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.workedWithoutAuthorizationYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.WorkedWithoutAuthorizationYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_ViolatedNonimmigrantStatus",
       "id": "",
       "key": "beneficiaryEligibility.violatedNonimmigrantStatusYesCheckbox,beneficiaryEligibility.violatedNonimmigrantStatusNoCheckbox",
@@ -72,6 +114,20 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.violatedNonimmigrantStatusYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.violatedNonimmigrantStatusYesSupplement",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -94,6 +150,20 @@
       ]
     },
     {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.removalProceedingsYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.removalProceedingsYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_FinalOrderOfRemoval",
       "id": "",
       "key": "beneficiaryEligibility.finalOrderOfRemovalYesCheckbox,beneficiaryEligibility.finalOrderOfRemovalNoCheckbox",
@@ -108,6 +178,20 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.finalOrderOfRemovalYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.finalOrderOfRemovalYesSupplement",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -130,6 +214,20 @@
       ]
     },
     {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.priorFinalOrderReinstatedYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.priorFinalOrderReinstatedYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_LPRStatusRescinded",
       "id": "",
       "key": "beneficiaryEligibility.lprStatusRescindedYesCheckbox,beneficiaryEligibility.lprStatusRescindedNoCheckbox",
@@ -144,6 +242,20 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.lprStatusRescindedYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.lprStatusRescindedYesSupplement",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -166,6 +278,20 @@
       ]
     },
     {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.voluntaryDepartureFailedYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.voluntaryDepartureFailedYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_AppliedForReliefFromRemoval",
       "id": "",
       "key": "beneficiaryEligibility.appliedForReliefFromRemovalYesCheckbox,beneficiaryEligibility.appliedForReliefFromRemovalNoCheckbox",
@@ -180,6 +306,20 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.appliedForReliefFromRemovalYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.appliedForReliefFromRemovalYesSupplement",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -231,6 +371,20 @@
     {
       "label": "",
       "id": "",
+      "visibility": "beneficiaryEligibility.compliedWithForeignResidenceYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.compliedWithForeignResidenceYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
       "visibility": "beneficiaryEligibility.jVisaForeignResidenceRequirementYesCheckbox=true",
       "control": "section",
       "fields": [
@@ -255,6 +409,20 @@
       ]
     },
     {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.grantedWaiverOrRecommendationYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.grantedWaiverOrRecommendationYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_ArrestedOrDetained",
       "id": "",
       "key": "beneficiaryEligibility.arrestedOrDetainedYesCheckbox,beneficiaryEligibility.arrestedOrDetainedNoCheckbox",
@@ -269,6 +437,20 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.arrestedOrDetainedYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.arrestedOrDetainedYesSupplement",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -291,6 +473,20 @@
       ]
     },
     {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.committedCrimeYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.committedCrimeYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_PledGuiltyOrConvicted",
       "id": "",
       "key": "beneficiaryEligibility.pledGuiltyOrConvictedYesCheckbox,beneficiaryEligibility.pledGuiltyOrConvictedNoCheckbox",
@@ -305,6 +501,20 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.pledGuiltyOrConvictedYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.pledGuiltyOrConvictedYesSupplement",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -327,6 +537,20 @@
       ]
     },
     {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.orderedPunishedByJudgeYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.orderedPunishedByJudgeYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_DefendantInCriminalProceeding",
       "id": "",
       "key": "beneficiaryEligibility.defendantInCriminalProceedingYesCheckbox,beneficiaryEligibility.defendantInCriminalProceedingNoCheckbox",
@@ -341,6 +565,20 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.defendantInCriminalProceedingYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.defendantInCriminalProceedingYesSupplement",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -363,6 +601,20 @@
       ]
     },
     {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.violatedControlledSubstanceLawYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.violatedControlledSubstanceLawYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_ConvictedOfMultipleOffenses",
       "id": "",
       "key": "beneficiaryEligibility.convictedOfMultipleOffensesYesCheckbox,beneficiaryEligibility.convictedOfMultipleOffensesNoCheckbox",
@@ -377,6 +629,20 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.convictedOfMultipleOffensesYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.convictedOfMultipleOffensesYesSupplement",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -399,6 +665,20 @@
       ]
     },
     {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.illicitlyTraffickedControlledSubstancesYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.illicitlyTraffickedControlledSubstancesYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_AidedInIllicitTrafficking",
       "id": "",
       "key": "beneficiaryEligibility.aidedInIllicitTraffickingYesCheckbox,beneficiaryEligibility.aidedInIllicitTraffickingNoCheckbox",
@@ -413,6 +693,20 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.aidedInIllicitTraffickingYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.aidedInIllicitTraffickingYesSupplement",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -435,6 +729,20 @@
       ]
     },
     {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.relatedToIllicitTraffickerYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.relatedToIllicitTraffickerYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_EngagedInProstitution",
       "id": "",
       "key": "beneficiaryEligibility.engagedInProstitutionYesCheckbox,beneficiaryEligibility.engagedInProstitutionNoCheckbox",
@@ -449,6 +757,20 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.engagedInProstitutionYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.engagedInProstitutionYesSupplement",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -471,7 +793,21 @@
       ]
     },
     {
-      "label": "text_ReceivedProceedsFromProstitutionNoCheckbox",
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.procuredProstitutesYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.procuredProstitutesYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
+      "label": "text_ReceivedProceedsFromProstitution",
       "id": "",
       "key": "beneficiaryEligibility.receivedProceedsFromProstitutionYesCheckbox,beneficiaryEligibility.receivedProceedsFromProstitutionNoCheckbox",
       "control": "radio",
@@ -485,6 +821,20 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.receivedProceedsFromProstitutionYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.receivedProceedsFromProstitutionYesSupplement",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -507,6 +857,20 @@
       ]
     },
     {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.intentToEngageInIllegalGamblingYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.intentToEngageInIllegalGamblingYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_ExercisedImmunityFromProsecution",
       "id": "",
       "key": "beneficiaryEligibility.exercisedImmunityFromProsecutionYesCheckbox,beneficiaryEligibility.exercisedImmunityFromProsecutionNoCheckbox",
@@ -521,6 +885,20 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.exercisedImmunityFromProsecutionYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.exercisedImmunityFromProsecutionYesSupplement",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -543,6 +921,20 @@
       ]
     },
     {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.responsibleForReligiousViolationsYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.responsibleForReligiousViolationsYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_InducedTraffickingForSex",
       "id": "",
       "key": "beneficiaryEligibility.inducedTraffickingForSexYesCheckbox,beneficiaryEligibility.inducedTraffickingForSexNoCheckbox",
@@ -557,6 +949,20 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.inducedTraffickingForSexYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.inducedTraffickingForSexYesSupplement",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -579,6 +985,20 @@
       ]
     },
     {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.traffickedIntoSlaveryYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.traffickedIntoSlaveryYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_AidedTraffickingForSexOrSlavery",
       "id": "",
       "key": "beneficiaryEligibility.aidedTraffickingForSexOrSlaveryYesCheckbox,beneficiaryEligibility.aidedTraffickingForSexOrSlaveryNoCheckbox",
@@ -593,6 +1013,20 @@
           "value": "No",
           "label": "text_No",
           "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.aidedTraffickingForSexOrSlaveryYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.aidedTraffickingForSexOrSlaveryYesSupplement",
+          "control": "component_textarea_ai_refine"
         }
       ]
     },
@@ -615,6 +1049,20 @@
       ]
     },
     {
+      "label": "",
+      "id": "",
+      "visibility": "beneficiaryEligibility.relatedToTraffickerAndBenefitedYesCheckbox=true",
+      "control": "section",
+      "fields": [
+        {
+          "label": "",
+          "id": "",
+          "key": "beneficiaryEligibility.relatedToTraffickerAndBenefitedYesSupplement",
+          "control": "component_textarea_ai_refine"
+        }
+      ]
+    },
+    {
       "label": "text_EngagedInMoneyLaundering",
       "id": "",
       "key": "beneficiaryEligibility.engagedInMoneyLaunderingYesCheckbox,beneficiaryEligibility.engagedInMoneyLaunderingNoCheckbox",
@@ -633,199 +1081,15 @@
       ]
     },
     {
-      "label": "text_EngageInEspionageOrSabotage",
-      "id": "",
-      "key": "beneficiaryEligibility.engageInEspionageOrSabotageYesCheckbox,beneficiaryEligibility.engageInEspionageOrSabotageNoCheckbox",
-      "control": "radio",
-      "options": [
-        {
-          "value": "Yes",
-          "label": "text_Yes",
-          "keyValue": "true,false"
-        },
-        {
-          "value": "No",
-          "label": "text_No",
-          "keyValue": "false,true"
-        }
-      ]
-    },
-    {
       "label": "",
-      "hideHeader": "true",
       "id": "",
-      "visibility": "beneficiaryEligibility.engageInEspionageOrSabotageYesCheckbox=true",
+      "visibility": "beneficiaryEligibility.engagedInMoneyLaunderingYesCheckbox=true",
       "control": "section",
       "fields": [
         {
-          "label": "text_ExplainEspionageOrSabotageIntentItem46a",
+          "label": "",
           "id": "",
-          "key": "eligibility.engageInEspionageOrSabotageYes",
-          "control": "component_textarea_ai_refine"
-        }
-      ]
-    },
-    {
-      "label": "text_EngageInIllegalExport",
-      "id": "",
-      "key": "beneficiaryEligibility.engageInIllegalExportYesCheckbox,beneficiaryEligibility.engageInIllegalExportNoCheckbox",
-      "control": "radio",
-      "options": [
-        {
-          "value": "Yes",
-          "label": "text_Yes",
-          "keyValue": "true,false"
-        },
-        {
-          "value": "No",
-          "label": "text_No",
-          "keyValue": "false,true"
-        }
-      ]
-    },
-    {
-      "label": "",
-      "hideHeader": "true",
-      "id": "",
-      "visibility": "beneficiaryEligibility.engageInIllegalExportYesCheckbox=true",
-      "control": "section",
-      "fields": [
-        {
-          "label": "text_ExplainIntendedExportViolationActivitiesItem46b",
-          "id": "",
-          "key": "eligibility.engageInIllegalExportYes",
-          "control": "component_textarea_ai_refine"
-        }
-      ]
-    },
-    {
-      "label": "text_EngageInOverthrowingGovernment",
-      "id": "",
-      "key": "beneficiaryEligibility.engageInOverthrowingGovernmentYesCheckbox,beneficiaryEligibility.engageInOverthrowingGovernmentNoCheckbox",
-      "control": "radio",
-      "options": [
-        {
-          "value": "Yes",
-          "label": "text_Yes",
-          "keyValue": "true,false"
-        },
-        {
-          "value": "No",
-          "label": "text_No",
-          "keyValue": "false,true"
-        }
-      ]
-    },
-    {
-      "label": "",
-      "hideHeader": "true",
-      "id": "",
-      "visibility": "beneficiaryEligibility.engageInOverthrowingGovernmentYesCheckbox=true",
-      "control": "section",
-      "fields": [
-        {
-          "label": "text_ExplainIntentToOpposeGovernmentItem46c",
-          "id": "",
-          "key": "eligibility.engageInOverthrowingGovernmentYes",
-          "control": "component_textarea_ai_refine"
-        }
-      ]
-    },
-    {
-      "label": "text_EngageInEndangeringUS",
-      "id": "",
-      "key": "beneficiaryEligibility.engageInEndangeringUSYesCheckbox,beneficiaryEligibility.engageInEndangeringUSNoCheckbox",
-      "control": "radio",
-      "options": [
-        {
-          "value": "Yes",
-          "label": "text_Yes",
-          "keyValue": "true,false"
-        },
-        {
-          "value": "No",
-          "label": "text_No",
-          "keyValue": "false,true"
-        }
-      ]
-    },
-    {
-      "label": "",
-      "hideHeader": "true",
-      "id": "",
-      "visibility": "beneficiaryEligibility.engageInEndangeringUSYesCheckbox=true",
-      "control": "section",
-      "fields": [
-        {
-          "label": "text_ExplainIntentToEndangerUSSecurityItem46d",
-          "id": "",
-          "key": "eligibility.engageInEndangeringUSYes",
-          "control": "component_textarea_ai_refine"
-        }
-      ]
-    },
-    {
-      "label": "text_EngageInUnlawfulActivity",
-      "id": "",
-      "key": "beneficiaryEligibility.engageInUnlawfulActivityYesCheckbox,beneficiaryEligibility.engageInUnlawfulActivityNoCheckbox",
-      "control": "radio",
-      "options": [
-        {
-          "value": "Yes",
-          "label": "text_Yes",
-          "keyValue": "true,false"
-        },
-        {
-          "value": "No",
-          "label": "text_No",
-          "keyValue": "false,true"
-        }
-      ]
-    },
-    {
-      "label": "",
-      "hideHeader": "true",
-      "id": "",
-      "visibility": "beneficiaryEligibility.engageInUnlawfulActivityYesCheckbox=true",
-      "control": "section",
-      "fields": [
-        {
-          "label": "text_ExplainUnlawfulActivityIntentItem46e",
-          "id": "",
-          "key": "eligibility.engageInUnlawfulActivityYes",
-          "control": "component_textarea_ai_refine"
-        }
-      ]
-    },
-    {
-      "label": "text_EngageInAdverseForeignPolicy",
-      "id": "",
-      "key": "beneficiaryEligibility.engageInAdverseForeignPolicyYesCheckbox,beneficiaryEligibility.engageInAdverseForeignPolicyNoCheckbox",
-      "control": "radio",
-      "options": [
-        {
-          "value": "Yes",
-          "label": "text_Yes",
-          "keyValue": "true,false"
-        },
-        {
-          "value": "No",
-          "label": "text_No",
-          "keyValue": "false,true"
-        }
-      ]
-    },
-    {
-      "label": "",
-      "hideHeader": "true",
-      "id": "",
-      "visibility": "beneficiaryEligibility.engageInAdverseForeignPolicyYesCheckbox=true",
-      "control": "section",
-      "fields": [
-        {
-          "label": "text_ExplainForeignPolicyAdverseActivities",
-          "id": "",
-          "key": "eligibility.engageInAdverseForeignPolicyYes",
+          "key": "beneficiaryEligibility.engagedInMoneyLaunderingYesSupplement",
           "control": "component_textarea_ai_refine"
         }
       ]
