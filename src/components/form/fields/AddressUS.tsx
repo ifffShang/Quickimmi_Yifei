@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useFormTranslation } from "../../../hooks/commonHooks";
 import { IFormKeyObject, IFormOptions } from "../../../model/formFlowModels";
 import { QTextBox, RadioSelect, SelectBox } from "./Controls";
@@ -19,37 +20,48 @@ export function AddressUS(props: AddressUSProps) {
   const cityOrTown = props.fieldValue["cityOrTown"];
   const state = props.fieldValue["state"];
   const zipCode = props.fieldValue["zipCode"];
+  const [selectedRadio, setSelectedRadio] = useState(""); // if N/A is checked, disable textbox
+
+  const handleRadioChange = (value) => {
+    console.log("Selected Radio Value:", value);
+    setSelectedRadio(value); // update radio select value
+  };
 
   if (!state.options) {
     console.error("State options are missing");
   }
-
+   
   return (
     <div className="address-us-container">
       <div className="street-container">
         <QTextBox
           placeholder={wt(street.placeholder)}
           value={street.value}
-          onChange={value => props.onTextChange(value, street.key)}
+          onChange={(value) => props.onTextChange(value, street.key)}
           disabled={props.disabledFields?.[street.key] === "false"}
         />
       </div>
       <div className="horizontal-3">
         <div className="sub-field">
           <RadioSelect
-            className={aptSteFlr.className}
-            onChange={value => props.onOptionChange(value, aptSteFlr.key, aptSteFlr.options)}
-            options={aptSteFlr.options || ""}
-            value={aptSteFlr.value}
-            disabled={props.disabledFields?.[aptSteFlr.key.split(",")[0]] === "false"}
-          />
+              className={aptSteFlr.className}
+              onChange={(value) => {
+                handleRadioChange(value);
+                props.onOptionChange(value, aptSteFlr.key, aptSteFlr.options);
+              }}
+              options={aptSteFlr.options || ""}
+              value={aptSteFlr.value}
+              disabled={props.disabledFields?.[aptSteFlr.key.split(",")[0]] === "false"}
+            />
         </div>
         <div className="sub-field">
           <QTextBox
             placeholder={wt(aptSteFlrNumber.placeholder)}
             value={aptSteFlrNumber.value}
-            onChange={value => props.onTextChange(value, aptSteFlrNumber.key)}
-            disabled={props.disabledFields?.[aptSteFlrNumber.key] === "false"}
+            onChange={(value) =>
+              props.onTextChange(value, aptSteFlrNumber.key)
+            }
+            disabled={selectedRadio === "naCheckbox"} 
           />
         </div>
       </div>
@@ -58,24 +70,28 @@ export function AddressUS(props: AddressUSProps) {
           <QTextBox
             placeholder={wt(cityOrTown.placeholder)}
             value={cityOrTown.value}
-            onChange={value => props.onTextChange(value, cityOrTown.key)}
+            onChange={(value) => props.onTextChange(value, cityOrTown.key)}
             disabled={props.disabledFields?.[cityOrTown.key] === "false"}
           />
         </div>
         <div className="sub-field">
           <SelectBox
             placeholder={wt(state.placeholder)}
-            onChange={value => props.onOptionChange(value, state.key, state.options)}
+            onChange={(value) =>
+              props.onOptionChange(value, state.key, state.options)
+            }
             options={state.options || ""}
             value={state.value}
-            disabled={props.disabledFields?.[state.key.split(",")[0]] === "false"}
+            disabled={
+              props.disabledFields?.[state.key.split(",")[0]] === "false"
+            }
           />
         </div>
         <div className="sub-field">
           <QTextBox
             placeholder={wt(zipCode.placeholder)}
             value={zipCode.value}
-            onChange={value => props.onTextChange(value, zipCode.key)}
+            onChange={(value) => props.onTextChange(value, zipCode.key)}
             disabled={props.disabledFields?.[zipCode.key] === "false"}
           />
         </div>
