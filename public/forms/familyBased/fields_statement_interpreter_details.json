@@ -35,7 +35,7 @@
     {
       "label": "text_InterpreterMailingAddress",
       "id": "5.3",
-      "control": "component_address",
+      "control": "component_address_outside_us",
       "keyObject": {
         "street": {
           "key": "interpreter.streetnumberandname",
@@ -74,14 +74,6 @@
         "cityOrTown": {
           "key": "interpreter.city",
           "placeholder": "text_City"
-        },
-        "state": {
-          "key": "interpreter.state",
-          "placeholder": "text_State"
-        },
-        "zipCode": {
-          "key": "interpreter.zipcode",
-          "placeholder": "text_ZipCode"
         },
         "province": {
           "key": "interpreter.province",

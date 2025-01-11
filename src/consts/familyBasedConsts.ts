@@ -371,7 +371,7 @@ export const InitialBeneficiary: Beneficiary = {
   mostRecentOutSideUsAddressBefore5YearsAgo: InitialAddress,
   lastArrivalInformation: InitialLastArrivalInformation,
   employmentHistories: [],
-  mostRecentOutSideUsEmploymentHistory5YearsAgo: InitialEmploymentHistory,
+  currentEmployment: InitialEmploymentHistory,
   beneficiaryInImmigrationProceedingsYesCheckbox: undefined,
   beneficiaryInImmigrationProceedingsNoCheckbox: undefined,
   removalCheckbox: undefined,

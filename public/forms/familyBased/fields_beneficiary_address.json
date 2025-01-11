@@ -224,7 +224,7 @@
     {
       "label": "text_outsideUsAddress",
       "id": "part.4.13.abcde",
-      "control": "component_address",
+      "control": "component_address_outside_us",
       "keyObject": {
         "street": {
           "key": "beneficiary.outsideUsAddress.streetNumberAndName",
@@ -264,25 +264,25 @@
           "key": "beneficiary.outsideUsAddress.cityOrTown",
           "placeholder": "text_City"
         },
-        "state": {
-          "key": "beneficiary.outsideUsAddress.state",
-          "placeholder": "text_State"
+        "province": {
+          "key": "beneficiary.outsideUsAddress.province",
+          "placeholder": "text_Province"
         },
         "country": {
           "key": "beneficiary.outsideUsAddress.country",
           "placeholder": "text_country",
           "options": "CountryOptions"
         },
-        "zipCode": {
-          "key": "beneficiary.outsideUsAddress.zipCode",
-          "placeholder": "text_ZipCode"
+        "postalCode": {
+          "key": "beneficiary.outsideUsAddress.postalCode",
+          "placeholder": "text_PostalCode"
         }
       }
     },
     {
       "label": "text_mostRecentOutSideUsAddressBefore5YearsAgo",
       "id": "3.11",
-      "control": "component_address",
+      "control": "component_address_outside_us",
       "keyObject": {
         "street": {
           "key": "beneficiary.mostRecentOutSideUsAddressBefore5YearsAgo.streetNumberAndName",
@@ -322,18 +322,18 @@
           "key": "beneficiary.mostRecentOutSideUsAddressBefore5YearsAgo.cityOrTown",
           "placeholder": "text_City"
         },
-        "state": {
-          "key": "beneficiary.mostRecentOutSideUsAddressBefore5YearsAgo.state",
-          "placeholder": "text_State"
+        "province": {
+          "key": "beneficiary.mostRecentOutSideUsAddressBefore5YearsAgo.province",
+          "placeholder": "text_Province"
         },
         "country": {
           "key": "beneficiary.mostRecentOutSideUsAddressBefore5YearsAgo.country",
           "placeholder": "text_country",
           "options": "CountryOptions"
         },
-        "zipCode": {
-          "key": "beneficiary.mostRecentOutSideUsAddressBefore5YearsAgo.zipCode",
-          "placeholder": "text_ZipCode"
+        "postalCode": {
+          "key": "beneficiary.mostRecentOutSideUsAddressBefore5YearsAgo.postalCode",
+          "placeholder": "text_PostalCode"
         }
       }
     },

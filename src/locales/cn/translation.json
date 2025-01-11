@@ -530,7 +530,7 @@
   "StartDate": "开始日期",
   "EndDate": "结束日期",
   "MostRecentEmployment": "请提供过去5年的就业情况。首先列出您目前的就业情况。",
-  "mostRecentOutSideUsEmploymentHistory5YearsAgo": "请提供过去5年的境外就业情况中，其中最近的一次",
+  "currentEmployment": "请提供过去5年的境外就业情况中，其中最近的一次",
   "InUSA": "在美国?",
   "DaytimePhoneNumber": "日间联系电话",
   "MobilePhoneNumber": "手机号",

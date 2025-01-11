@@ -533,7 +533,7 @@
   "StartDate": "Start Date",
   "EndDate": "End Date",
   "MostRecentEmployment": "Please provide your employment during the past 5 years. List your present employment first.",
-  "mostRecentOutSideUsEmploymentHistory5YearsAgo": "Please provide the most recent outside your employment during the past 5 years",
+  "currentEmployment": "Please provide the most recent outside your employment during the past 5 years",
   "InUSA": "In USA?",
   "DaytimePhoneNumber": "Day time Phone Number",
   "MobilePhoneNumber": "Mobile Phone Number",

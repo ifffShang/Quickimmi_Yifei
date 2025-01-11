@@ -47,9 +47,10 @@ import { TextAreaWithAIRefine } from "./fields/TextAreaWithAIRefine";
 import { TextboxWithNA } from "./fields/TextboxWithNA";
 import { getProfile } from "../../utils/selectorUtils";
 import { MultipleNamesWithNA } from "./fields/MultipleNamesWithNA";
-import { AddressUS } from "./fields/AddressUS";
 import { AddressSyncCheckbox } from "./fields/AddressSyncCheckbox";
 import { I94Uploader } from "./fields/I94Uploader";
+import { AddressOutsideUS } from "./fields/AddressOutsideUS";
+import { AddressUS } from "./fields/AddressUS";
 import { Address } from "./fields/Address";
 
 export interface FormFieldProps {
@@ -741,6 +742,15 @@ export function FormField(props: FormFieldProps) {
     case "component_address":
       return (
         <Address
+          fieldValue={fieldValue}
+          onTextChange={onTextChange}
+          onOptionChange={onOptionChange}
+          disabledFields={disabledFields}
+        />
+      );
+    case "component_address_outside_us":
+      return (
+        <AddressOutsideUS
           fieldValue={fieldValue}
           onTextChange={onTextChange}
           onOptionChange={onOptionChange}
