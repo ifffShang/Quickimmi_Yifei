@@ -49,8 +49,6 @@ export function AddressOutsideUS(props: AddressOutsideUSProps) {
             disabled={props.disabledFields?.[aptSteFlrNumber.key] === "false"}
           />
         </div>
-      </div>
-      <div className="horizontal-3">
         <div className="sub-field">
           <QTextBox
             placeholder={wt(cityOrTown.placeholder)}
@@ -59,6 +57,8 @@ export function AddressOutsideUS(props: AddressOutsideUSProps) {
             disabled={props.disabledFields?.[cityOrTown.key] === "false"}
           />
         </div>
+      </div>
+      <div className="horizontal-3">
         <div className="sub-field">
           <QTextBox
             placeholder={wt(province.placeholder)}

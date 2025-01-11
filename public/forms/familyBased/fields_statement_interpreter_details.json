@@ -73,7 +73,7 @@
         },
         "cityOrTown": {
           "key": "interpreter.city",
-          "placeholder": "text_City"
+          "placeholder": "text_CityOrTown"
         },
         "province": {
           "key": "interpreter.province",

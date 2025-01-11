@@ -262,7 +262,7 @@
         },
         "cityOrTown": {
           "key": "beneficiary.outsideUsAddress.cityOrTown",
-          "placeholder": "text_City"
+          "placeholder": "text_CityOrTown"
         },
         "province": {
           "key": "beneficiary.outsideUsAddress.province",
@@ -270,7 +270,7 @@
         },
         "country": {
           "key": "beneficiary.outsideUsAddress.country",
-          "placeholder": "text_country",
+          "placeholder": "text_Country",
           "options": "CountryOptions"
         },
         "postalCode": {
@@ -320,7 +320,7 @@
         },
         "cityOrTown": {
           "key": "beneficiary.mostRecentOutSideUsAddressBefore5YearsAgo.cityOrTown",
-          "placeholder": "text_City"
+          "placeholder": "text_CityOrTown"
         },
         "province": {
           "key": "beneficiary.mostRecentOutSideUsAddressBefore5YearsAgo.province",
@@ -328,7 +328,7 @@
         },
         "country": {
           "key": "beneficiary.mostRecentOutSideUsAddressBefore5YearsAgo.country",
-          "placeholder": "text_country",
+          "placeholder": "text_Country",
           "options": "CountryOptions"
         },
         "postalCode": {
