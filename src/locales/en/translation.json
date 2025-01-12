@@ -425,6 +425,14 @@
   "MarriageLicenseParseError": "Failed to parse the marriage license photo, please try again or manually enter the marriage license info.",
   "Parsing marriage license photo...": "Parsing marriage license photo...",
 
+  "disabilityAccommodation": "Disability Accommodation",
+  "deafOrHardOfHearing": "Deaf Or Hard Of Hearing",
+  "deafOrHardOfHearingDetails": "Deaf Or Hard Of Hearing Details",
+  "blindOrLowVision": "Blind Or Low Vision",
+  "blindOrLowVisionDetails": "Blind Or Low Vision Details",
+  "otherDisabilityOrImpairment": "Other Disability Or Impairment",
+  "otherDisabilityOrImpairmentDetails": "Other Disability Or Impairment Details",
+
   "SpouseIsInUS": "Is this person in the U.S.?",
   "SpousePartnerApplication": "Spouse/Partner Application",
   "Male": "Male",

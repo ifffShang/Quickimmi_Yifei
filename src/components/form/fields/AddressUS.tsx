@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useFormTranslation } from "../../../hooks/commonHooks";
 import { IFormKeyObject, IFormOptions } from "../../../model/formFlowModels";
 import { QTextBox, RadioSelect, SelectBox } from "./Controls";
@@ -19,6 +20,12 @@ export function AddressUS(props: AddressUSProps) {
   const cityOrTown = props.fieldValue["cityOrTown"];
   const state = props.fieldValue["state"];
   const zipCode = props.fieldValue["zipCode"];
+  const [selectedRadio, setSelectedRadio] = useState(""); // if N/A is checked, disable textbox
+
+  const handleRadioChange = value => {
+    console.log("Selected Radio Value:", value);
+    setSelectedRadio(value); // update radio select value
+  };
 
   if (!state.options) {
     console.error("State options are missing");
@@ -38,7 +45,10 @@ export function AddressUS(props: AddressUSProps) {
         <div className="sub-field">
           <RadioSelect
             className={aptSteFlr.className}
-            onChange={value => props.onOptionChange(value, aptSteFlr.key, aptSteFlr.options)}
+            onChange={value => {
+              handleRadioChange(value);
+              props.onOptionChange(value, aptSteFlr.key, aptSteFlr.options);
+            }}
             options={aptSteFlr.options || ""}
             value={aptSteFlr.value}
             disabled={props.disabledFields?.[aptSteFlr.key.split(",")[0]] === "false"}
@@ -49,7 +59,7 @@ export function AddressUS(props: AddressUSProps) {
             placeholder={wt(aptSteFlrNumber.placeholder)}
             value={aptSteFlrNumber.value}
             onChange={value => props.onTextChange(value, aptSteFlrNumber.key)}
-            disabled={props.disabledFields?.[aptSteFlrNumber.key] === "false"}
+            disabled={selectedRadio === "naCheckbox"}
           />
         </div>
       </div>

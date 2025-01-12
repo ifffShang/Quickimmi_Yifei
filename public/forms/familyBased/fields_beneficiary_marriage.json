@@ -290,7 +290,7 @@
       "control": "section",
       "fields": [
         {
-          "label": "text_deafOrHardOfHearingYesCheckbox",
+          "label": "text_deafOrHardOfHearing",
           "id": "",
           "key": "beneficiary.disabilityAccommodation.deafOrHardOfHearingYesCheckbox,beneficiary.disabilityAccommodation.deafOrHardOfHearingYesCheckbox",
           "control": "radio",
@@ -308,13 +308,14 @@
           ]
         },
         {
-          "label": "",
+          "label": "text_deafOrHardOfHearinDetails",
+          "hideHeader": "true",
           "id": "",
           "visibility": "beneficiary.disabilityAccommodation.deafOrHardOfHearingYesCheckbox=true",
           "control": "section",
           "fields": [
             {
-              "label": "text_deafOrHardOfHearingAccommodationDetails",
+              "label": "text_deafOrHardOfHearingDetails",
               "id": "",
               "key": "beneficiary.disabilityAccommodation.deafOrHardOfHearingAccommodationDetails",
               "control": "component_textarea_ai_refine"
@@ -322,7 +323,7 @@
           ]
         },
         {
-          "label": "text_blindOrLowVisionYesCheckbox",
+          "label": "text_blindOrLowVision",
           "id": "",
           "key": "beneficiary.disabilityAccommodation.blindOrLowVisionYesCheckbox,beneficiary.disabilityAccommodation.blindOrLowVisionYesCheckbox",
           "control": "radio",
@@ -340,13 +341,14 @@
           ]
         },
         {
-          "label": "",
+          "label": "text_blindOrLowVisionDetails",
+          "hideHeader": "true",
           "id": "",
           "visibility": "beneficiary.disabilityAccommodation.blindOrLowVisionYesCheckbox=true",
           "control": "section",
           "fields": [
             {
-              "label": "text_blindOrLowVisionAccommodationDetails",
+              "label": "text_blindOrLowVisionDetails",
               "id": "",
               "key": "beneficiary.disabilityAccommodation.blindOrLowVisionAccommodationDetails",
               "control": "component_textarea_ai_refine"
@@ -354,7 +356,7 @@
           ]
         },
         {
-          "label": "text_otherDisabilityOrImpairmentYesCheckbox",
+          "label": "text_otherDisabilityOrImpairment",
           "id": "",
           "key": "beneficiary.disabilityAccommodation.otherDisabilityOrImpairmentYesCheckbox,beneficiary.disabilityAccommodation.otherDisabilityOrImpairmentYesCheckbox",
           "control": "radio",
@@ -372,13 +374,14 @@
           ]
         },
         {
-          "label": "",
+          "label": "text_otherDisabilityOrImpairmentDetails",
+          "hideHeader": "true",
           "id": "",
           "visibility": "beneficiary.disabilityAccommodation.otherDisabilityOrImpairmentYesCheckbox=true",
           "control": "section",
           "fields": [
             {
-              "label": "text_otherDisabilityOrImpairmentAccommodationDetails",
+              "label": "text_otherDisabilityOrImpairmentDetails",
               "id": "",
               "key": "beneficiary.disabilityAccommodation.otherDisabilityOrImpairmentAccommodationDetails",
               "control": "component_textarea_ai_refine"
@@ -409,7 +412,8 @@
       ]
     },
     {
-      "label": "text_UsEmbassies",
+      "label": "text_usEmbassies",
+      "hideHeader": "true",
       "id": "usEmbassies",
       "key": "count-beneficiary.usEmbassies",
       "control": "sortable_section",

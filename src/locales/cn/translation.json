@@ -422,6 +422,14 @@
   "MarriageLicenseParseError": "解析结婚证照片失败，请重试或手动输入结婚证信息。",
   "Parsing marriage license photo...": "正在解析结婚证照片...",
 
+  "disabilityAccommodation": "无障碍设施/服务",
+  "deafOrHardOfHearing": "聋哑或听力障碍",
+  "deafOrHardOfHearingDetails": "聋哑或听力障碍详情",
+  "blindOrLowVision": "失明或视力低下",
+  "blindOrLowVisionDetails": "失明或视力低下详情",
+  "otherDisabilityOrImpairment": "其他残疾或功能障碍",
+  "otherDisabilityOrImpairmentDetails": "其他残疾或功能障碍详情",
+
   "SpouseIsInUS": "配偶是否在美国?",
   "SpousePartnerApplication": "配偶/伴侣申请",
   "Male": "男",
