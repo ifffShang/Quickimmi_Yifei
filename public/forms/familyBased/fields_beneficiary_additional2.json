@@ -1,0 +1,252 @@
+{
+  "id": "fields_beneficiary_additional2",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    {
+      "label": "text_NameUsedNativeLanguage",
+      "id": "NameUsedNativeLanguage",
+      "control": "group",
+      "maxChildPerRow": "3",
+      "fields": [
+        {
+          "label": "text_FirstName",
+          "placeholder": "text_FirstName",
+          "id": "4.a",
+          "key": "beneficiary.firstNameUsedNativeLanguage",
+          "control": "text"
+        },
+        {
+          "label": "text_MiddleName",
+          "placeholder": "text_MiddleName",
+          "id": "4.b",
+          "key": "beneficiary.middleNameUsedNativeLanguage",
+          "control": "component_textbox_na"
+        },
+        {
+          "label": "text_LastName",
+          "placeholder": "text_LastName",
+          "id": "4.c",
+          "key": "beneficiary.lastNameUsedNativeLanguage",
+          "control": "text"
+        }
+      ]
+    },
+    {
+      "label": "text_AddressInNativeLanguage",
+      "id": "3.11",
+      "control": "component_address_us",
+      "keyObject": {
+        "street": {
+          "key": "beneficiary.addressNativeLanguage.streetNumberAndName",
+          "placeholder": "text_Street"
+        },
+        "aptSteFlr": {
+          "key": "beneficiary.addressNativeLanguage.aptCheckbox,beneficiary.addressNativeLanguage.steCheckbox,beneficiary.addressNativeLanguage.flrCheckbox",
+          "className": "apt-ste-flr-checkbox",
+          "options": [
+            {
+              "value": "aptCheckbox",
+              "label": "text_Apartment",
+              "keyValue": "true,false,false"
+            },
+            {
+              "value": "steCheckbox",
+              "label": "text_Ste",
+              "keyValue": "false,true,false"
+            },
+            {
+              "value": "flrCheckbox",
+              "label": "text_Flr",
+              "keyValue": "false,false,true"
+            },
+            {
+              "value": "naCheckbox",
+              "label": "text_N/A",
+              "keyValue": "false,false,false"
+            }
+          ]
+        },
+        "aptSteFlrNumber": {
+          "key": "beneficiary.addressNativeLanguage.aptSteFlrNumber",
+          "placeholder": "text_Apt/Ste/FlrNumber"
+        },
+        "cityOrTown": {
+          "key": "beneficiary.addressNativeLanguage.cityOrTown",
+          "placeholder": "text_City"
+        },
+        "state": {
+          "key": "beneficiary.addressNativeLanguage.state",
+          "placeholder": "text_State",
+          "options": "StateOptions"
+        },
+        "zipCode": {
+          "key": "beneficiary.addressNativeLanguage.zipCode",
+          "placeholder": "text_ZipCode"
+        }
+      }
+    },
+    {
+      "label": "text_NeverLivedTogether",
+      "hideHeader": "true",
+      "key": "beneficiary.neverLivedTogethersYesCheckbox,beneficiary.neverLivedTogethersNoCheckbox",
+      "id": "",
+      "control": "component_never_lived_together_checkbox",
+      "options": [
+        {
+          "value": "NeverLivedTogether",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "LivedTogether",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ],
+      "syncFields": {
+        "condition": "beneficiary.neverLivedTogethersYesCheckbox=true",
+        "mappings": [
+          {
+            "source": "Never lived together",
+            "destination": "beneficiary.lastAddressLivedTogether.streetNumberAndName"
+          },
+          {
+            "source": "",
+            "destination": "beneficiary.lastAddressLivedTogether.aptCheckbox"
+          },
+          {
+            "source": "",
+            "destination": "beneficiary.lastAddressLivedTogether.steCheckbox"
+          },
+          {
+            "source": "",
+            "destination": "beneficiary.lastAddressLivedTogether.flrCheckbox"
+          },
+          {
+            "source": "",
+            "destination": "beneficiary.lastAddressLivedTogether.aptSteFlrNumber"
+          },
+          {
+            "source": "",
+            "destination": "beneficiary.lastAddressLivedTogether.cityOrTown"
+          },
+          {
+            "source": "",
+            "destination": "beneficiary.lastAddressLivedTogether.state"
+          },
+          {
+            "source": "",
+            "destination": "beneficiary.lastAddressLivedTogether.zipCode"
+          }
+        ]
+      }
+    },
+    {
+      "label": "text_LastAddressLivedTogether",
+      "id": "3.11",
+      "control": "component_address_us",
+      "keyObject": {
+        "street": {
+          "key": "beneficiary.lastAddressLivedTogether.streetNumberAndName",
+          "placeholder": "text_Street"
+        },
+        "aptSteFlr": {
+          "key": "beneficiary.lastAddressLivedTogether.aptCheckbox,beneficiary.lastAddressLivedTogether.steCheckbox,beneficiary.lastAddressLivedTogether.flrCheckbox",
+          "className": "apt-ste-flr-checkbox",
+          "options": [
+            {
+              "value": "aptCheckbox",
+              "label": "text_Apartment",
+              "keyValue": "true,false,false"
+            },
+            {
+              "value": "steCheckbox",
+              "label": "text_Ste",
+              "keyValue": "false,true,false"
+            },
+            {
+              "value": "flrCheckbox",
+              "label": "text_Flr",
+              "keyValue": "false,false,true"
+            },
+            {
+              "value": "naCheckbox",
+              "label": "text_N/A",
+              "keyValue": "false,false,false"
+            }
+          ]
+        },
+        "aptSteFlrNumber": {
+          "key": "beneficiary.lastAddressLivedTogether.aptSteFlrNumber",
+          "placeholder": "text_Apt/Ste/FlrNumber"
+        },
+        "cityOrTown": {
+          "key": "beneficiary.lastAddressLivedTogether.cityOrTown",
+          "placeholder": "text_City"
+        },
+        "state": {
+          "key": "beneficiary.lastAddressLivedTogether.state",
+          "placeholder": "text_State",
+          "options": "StateOptions"
+        },
+        "zipCode": {
+          "key": "beneficiary.lastAddressLivedTogether.zipCode",
+          "placeholder": "text_ZipCode"
+        }
+      }
+    },
+    {
+      "label": "text_AdjustmentOfStatusCity",
+      "placeholder": "text_AdjustmentOfStatusCity",
+      "id": "AdjustmentOfStatusCity",
+      "key": "beneficiary.adjustmentOfStatusCity",
+      "control": "text"
+    },
+    {
+      "label": "text_AdjustmentOfStatusState",
+      "placeholder": "text_AdjustmentOfStatusState",
+      "id": "AdjustmentOfStatusState",
+      "key": "beneficiary.adjustmentOfStatusState",
+      "control": "text"
+    },
+    {
+      "label": "text_HasSocialSecurityCard",
+      "placeholder": "text_HasSocialSecurityCard",
+      "id": "part3.1",
+      "key": "beneficiary.hasSocialSecurityCardYesCheckbox,beneficiary.hasSocialSecurityCardNoCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    },
+    {
+      "label": "text_AppliedForImmigrantVisa",
+      "placeholder": "text_AppliedForImmigrantVisa",
+      "id": "part3.1",
+      "key": "beneficiary.appliedForImmigrantVisaYesCheckbox,beneficiary.appliedForImmigrantVisaNoCheckbox",
+      "control": "select",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ]
+    }
+  ]
+}

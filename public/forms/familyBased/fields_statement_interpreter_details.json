@@ -1,0 +1,149 @@
+{
+  "id": "fields_statement_interpreter_details",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    {
+      "label": "text_InterpreterFamilyNameAndGivenName",
+      "id": "5.1",
+      "control": "group",
+      "maxChildPerRow": "3",
+      "fields": [
+        {
+          "label": "text_LastName",
+          "placeholder": "text_LastName",
+          "id": "5.1.a",
+          "key": "interpreter.lastname",
+          "control": "text"
+        },
+        {
+          "label": "text_FirstName",
+          "placeholder": "text_FirstName",
+          "id": "5.1.b",
+          "key": "interpreter.firstname",
+          "control": "text"
+        }
+      ]
+    },
+    {
+      "label": "text_InterpreterBusinessName",
+      "placeholder": "text_EnterIfApplicable",
+      "id": "",
+      "key": "interpreter.businessname",
+      "control": "text"
+    },
+    {
+      "label": "text_InterpreterMailingAddress",
+      "id": "5.3",
+      "control": "component_address_outside_us",
+      "keyObject": {
+        "street": {
+          "key": "interpreter.streetnumberandname",
+          "placeholder": "text_Street"
+        },
+        "aptSteFlr": {
+          "key": "interpreter.aptcheckbox,interpreter.stecheckbox,interpreter.flrCheckbox",
+          "className": "apt-ste-flr-checkbox",
+          "options": [
+            {
+              "value": "aptCheckbox",
+              "label": "text_Apartment",
+              "keyValue": "true,false,false"
+            },
+            {
+              "value": "steCheckbox",
+              "label": "text_Ste",
+              "keyValue": "false,true,false"
+            },
+            {
+              "value": "flrCheckbox",
+              "label": "text_Flr",
+              "keyValue": "false,false,true"
+            },
+            {
+              "value": "naCheckbox",
+              "label": "text_N/A",
+              "keyValue": "false,false,false"
+            }
+          ]
+        },
+        "aptSteFlrNumber": {
+          "key": "interpreter.aptsteflrnumber",
+          "placeholder": "text_Apt/Ste/FlrNumber"
+        },
+        "cityOrTown": {
+          "key": "interpreter.city",
+          "placeholder": "text_CityOrTown"
+        },
+        "province": {
+          "key": "interpreter.province",
+          "placeholder": "text_Province"
+        },
+        "postalCode": {
+          "key": "interpreter.postalcode",
+          "placeholder": "text_PostalCode"
+        },
+        "country": {
+          "key": "interpreter.country",
+          "placeholder": "text_Country",
+          "options": "CountryOptions"
+        }
+      }
+    },
+    {
+      "label": "text_InterpreterContactInformation",
+      "hideHeader": "true",
+      "control": "label",
+      "className": "form-field-sub-header"
+    },
+    {
+      "label": "text_InterpreterDaytimeTelephoneNumber",
+      "id": "",
+      "key": "interpreter.daytimetelephonenumber",
+      "control": "text"
+    },
+    {
+      "label": "text_InterpreterMobileTelephoneNumber",
+      "id": "",
+      "key": "interpreter.mobiletelephonenumber",
+      "control": "text"
+    },
+    {
+      "label": "text_InterpreterEmailAddress",
+      "id": "",
+      "key": "interpreter.emailaddress",
+      "control": "text"
+    },
+    {
+      "label": "text_InterpreterCertification",
+      "hideHeader": "true",
+      "control": "label",
+      "className": "form-field-sub-header"
+    },
+    {
+      "label": "text_InterpreterFluentInEnglishAndTranslatedLanguage",
+      "hideHeader": "true",
+      "control": "label",
+      "className": "form-field-regular-text"
+    },
+    {
+      "label": "text_EnterTranslatedLanguage",
+      "placeholder": "",
+      "id": "6",
+      "key": "interpreter.fluentinenglish",
+      "control": "text",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false"
+        }
+      ]
+    }
+  ]
+}

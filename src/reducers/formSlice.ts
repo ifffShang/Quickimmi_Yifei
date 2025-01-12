@@ -9,6 +9,7 @@ import {
   ApplicationCase,
   GeneratedDocument,
   MarriageCertificate,
+  ParseI94Response,
   ParsePassportResponse,
   Percentage,
   Progress,
@@ -238,8 +239,13 @@ export const formSlice = createSlice({
     },
 
     updateCaseFields: (state, action: PayloadAction<{ update: CaseProfileOptional; caseType: CaseType }>) => {
-      /** Asylum */
+      if (action.payload.update.disabledFields) {
+        state.disabledFields = action.payload.update.disabledFields;
+        delete action.payload.update.disabledFields;
+      }
+
       if (action.payload.caseType === CaseType.Asylum) {
+        /** Asylum */
         ArrayFields.forEach(item => {
           const { field, overwriteField } = item;
           if (action.payload.update[overwriteField]) {
@@ -314,6 +320,27 @@ export const formSlice = createSlice({
       const profile = _.merge(state.applicationCase.asylumProfile, payloadToUpdate);
       Object.assign(state.applicationCase.asylumProfile, profile);
     },
+    updateI94Info: (state, action: PayloadAction<ParseI94Response>) => {
+      const fieldKey = action.payload.fieldKey.replace(".i94DocumentId", "");
+
+      const payload: any = {
+        i94Number: action.payload.recordNumber,
+        dateOfArrival: action.payload.mostRecentEntryDate,
+        i94Status: action.payload.admissionClass,
+        authorizedStayExpirationDate: action.payload.admitUntilDate,
+        lastName: action.payload.lastName,
+        firstName: action.payload.firstName,
+        birthDate: action.payload.birthDate,
+        travelDocumentNumber: action.payload.documentNumber,
+        passportIssueCountry: action.payload.citizenship,
+        countryCode: action.payload.countryCode,
+      };
+
+      const payloadToUpdate = getUpdateProfileData(fieldKey, payload, action.payload.fieldIndex);
+      const profile = _.merge(state.applicationCase.familyBasedProfile, payloadToUpdate);
+      Object.assign(state.applicationCase.familyBasedProfile, profile);
+    },
+
     updateIdCardInfo: (state, action: PayloadAction<ParsePassportResponse>) => {
       const fieldKey = action.payload.fieldKey.replace(".passportDocumentId", "");
       const payload: any = {
@@ -445,6 +472,7 @@ export const {
   updateOnePercentage,
   updateCaseFields,
   updatePassportInfo,
+  updateI94Info,
   updateIdCardInfo,
   updateTravelDocumentInfo,
   updateMarriageLicenseInfo,

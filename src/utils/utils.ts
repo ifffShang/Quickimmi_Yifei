@@ -5,7 +5,7 @@ import { PATH } from "../components/router/MainView";
 import { Regex } from "../consts/consts";
 import { ApplicationCase, AsylumCaseProfile, Progress, UpdateApplicationCaseData } from "../model/apiModels";
 import { Identity, KeyValues } from "../model/commonModels";
-import { ControlType, IFormOptions } from "../model/formFlowModels";
+import { ControlType, IFormKeyObject, IFormOptions } from "../model/formFlowModels";
 import { ArrayFields, updateCaseFields } from "../reducers/formSlice";
 import { CaseProfile, CaseProfileOptional } from "../model/commonApiModels";
 import { CaseType } from "../model/immigrationTypes";
@@ -89,6 +89,7 @@ export function hasFormKey(control: ControlType) {
     control !== "divider" &&
     control !== "section" &&
     control !== "removable_section" &&
+    control !== "collapse_section" &&
     control !== "component_mailing_same_as_residential" &&
     control !== "component_list_documents" &&
     control !== "component_list_merged_documents" &&
@@ -96,34 +97,21 @@ export function hasFormKey(control: ControlType) {
   );
 }
 
-export function getFieldValue(
+export function getFieldValueByKey(
   caseDetails: CaseProfile | null,
   key: string,
-  control: ControlType,
   options?: IFormOptions[] | string,
   format?: string,
   fieldIndex?: number,
-): any {
+  linkage?: string,
+) {
   if (!caseDetails) {
     return;
   }
 
-  // Sanity Check
-  if (control === "group") {
-    return;
+  if (key === "" || key === "Never lived together") {
+    return key;
   }
-
-  if (!caseDetails) {
-    console.info("Case profile is missing");
-    return;
-  }
-  if (!key) {
-    if (hasFormKey(control)) {
-      console.error("Key is missing for control type: ", control);
-    }
-    return;
-  }
-
   /*
    * count-array pair
    * Example:
@@ -156,6 +144,7 @@ export function getFieldValue(
      */
     const keys = key.split(",");
 
+    console.log("keys!!!:::1111:::", keys);
     if (options && Array.isArray(options)) {
       // Handle radio, checkbox, dropdown with multiple value, for example, keyValues = ["true","false","true"]
       const keyValues = keys.map(k => getCaseDetailValue(caseDetails, k, fieldIndex));
@@ -194,13 +183,75 @@ export function getFieldValue(
         .join("")
         .replace(filterRegex, "");
       return raw.replace(regex, output);
+    } else if (linkage) {
+      if (linkage == "MultiInOneLinkage") {
+        const raws = keys.map(k => getCaseDetailValue(caseDetails, k, fieldIndex));
+        const locationStr = formatCityAndCountryStr(...raws);
+        return locationStr;
+      }
     } else {
+      console.log("linkage,111111,,", linkage);
+      console.log("key,22222,,", key);
       console.error("Options are missing for multi key field", key);
     }
   }
 
   // Other cases
   return getCaseDetailValue(caseDetails, key, fieldIndex);
+}
+
+export function getFieldValue(
+  caseDetails: CaseProfile | null,
+  key: string,
+  control: ControlType,
+  options?: IFormOptions[] | string,
+  format?: string,
+  fieldIndex?: number,
+  linkage?: string,
+  keyObject?: IFormKeyObject,
+): any {
+  if (!caseDetails) {
+    return;
+  }
+
+  // Sanity Check
+  if (control === "group") {
+    return;
+  }
+
+  if (!caseDetails) {
+    console.info("Case profile is missing");
+    return;
+  }
+
+  if (!key && !keyObject) {
+    if (hasFormKey(control)) {
+      console.error("Key is missing for control type: ", control);
+    }
+    return;
+  }
+
+  if (keyObject) {
+    const fieldValue = {};
+    Object.keys(keyObject).forEach(k => {
+      if (typeof keyObject[k] === "object" && keyObject[k] !== null) {
+        fieldValue[k] = {
+          ...keyObject[k],
+          value: getFieldValueByKey(
+            caseDetails,
+            keyObject[k]["key"],
+            keyObject[k]["options"],
+            format,
+            fieldIndex,
+            linkage,
+          ),
+        };
+      }
+    });
+    return fieldValue;
+  }
+
+  return getFieldValueByKey(caseDetails, key, options, format, fieldIndex, linkage);
 }
 
 function createNestedObject(keys: string[], value: any, fieldIndex?: number) {
@@ -251,7 +302,7 @@ export function dispatchFormValue(
         array[fieldIndex] = value;
         valueUsed = array;
       }
-      caseFieldsToUpdate[key] = valueUsed;
+      caseFieldsToUpdate[subKey] = valueUsed;
     } else {
       const caseWithUpdatedField = createNestedObject(keys, valueUsed, fieldIndex);
       caseFieldsToUpdate = _.merge(caseFieldsToUpdate, caseWithUpdatedField);

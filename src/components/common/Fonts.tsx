@@ -21,6 +21,7 @@ export interface TextProps {
   colorHex?: string;
   margin?: "margin-bottom-20" | "margin-bottom-10" | "margin-5";
   noWrap?: boolean;
+  className?: string;
 }
 
 /**
@@ -31,7 +32,10 @@ export interface TextProps {
 export function QText(props: TextProps) {
   const textClass = `text ${props.level || "normal"} ${props.color || "inherit"} ${props.margin || ""} ${props.noWrap ? "no-wrap" : ""}`;
   return (
-    <div className={textClass} style={{ color: props.colorHex || "#" }}>
+    <div
+      className={`${props.className ? props.className + " " : ""}${textClass}`}
+      style={{ color: props.colorHex || "#" }}
+    >
       {props.children}
     </div>
   );

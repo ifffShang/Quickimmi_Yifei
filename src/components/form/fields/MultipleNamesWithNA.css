@@ -1,0 +1,22 @@
+.textboxes-na {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 10px;
+  gap: 10px;
+}
+
+.textboxes-na-text {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.textboxes-na-btn {
+  color: var(--gray-color-2);
+}
+
+.textboxes-na-btn:disabled {
+  background: none;
+}

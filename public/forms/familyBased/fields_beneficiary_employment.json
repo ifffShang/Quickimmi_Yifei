@@ -1,0 +1,251 @@
+{
+  "id": "fields_beneficiary_employment",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    {
+      "label": "text_currentEmployment",
+      "hideHeader": "true",
+      "key": "beneficiary.currentEmployment",
+      "control": "label"
+    },
+    {
+      "label": "text_InUSA",
+      "hideHeader": "true",
+      "id": "",
+      "key": "beneficiary.currentEmployment.inUSA",
+      "control": "checkbox",
+      "options": [
+        {
+          "value": "Yes",
+          "label": "text_Yes",
+          "keyValue": "true"
+        },
+        {
+          "value": "No",
+          "label": "text_No",
+          "keyValue": "false"
+        }
+      ]
+    },
+    {
+      "label": "text_NameOfEmployer",
+      "id": "NameOfEmployer",
+      "key": "beneficiary.currentEmployment.nameOfEmployer",
+      "control": "text"
+    },
+    {
+      "label": "text_PhysicalAddress",
+      "id": "part.4.11",
+      "control": "component_address",
+      "keyObject": {
+        "street": {
+          "key": "beneficiary.currentEmployment.streetNumberAndName",
+          "placeholder": "text_Street"
+        },
+        "aptSteFlr": {
+          "key": "beneficiary.currentEmployment.aptCheckbox,beneficiary.currentEmployment.steCheckbox,beneficiary.currentEmployment.flrCheckbox",
+          "className": "apt-ste-flr-checkbox",
+          "options": [
+            {
+              "value": "apt",
+              "label": "text_Apartment",
+              "keyValue": "true,false,false"
+            },
+            {
+              "value": "ste",
+              "label": "text_Ste",
+              "keyValue": "false,true,false"
+            },
+            {
+              "value": "flr",
+              "label": "text_Flr",
+              "keyValue": "false,false,true"
+            }
+          ]
+        },
+        "aptSteFlrNumber": {
+          "key": "beneficiary.currentEmployment.aptSteFlrNumber",
+          "placeholder": "text_AptSteFlrNumber"
+        },
+        "cityOrTown": {
+          "key": "beneficiary.currentEmployment.city",
+          "placeholder": "text_City"
+        },
+        "state": {
+          "key": "beneficiary.currentEmployment.state",
+          "placeholder": "text_State",
+          "options": "StateOptions"
+        },
+        "zipCode": {
+          "key": "beneficiary.currentEmployment.zipCode",
+          "placeholder": "text_ZipCode"
+        },
+        "province": {
+          "key": "beneficiary.currentEmployment.province",
+          "placeholder": "text_Province"
+        },
+        "postalCode": {
+          "key": "beneficiary.currentEmployment.postalCode",
+          "placeholder": "text_MailingPostalCode"
+        },
+        "country": {
+          "key": "beneficiary.currentEmployment.country",
+          "placeholder": "text_Country",
+          "options": "CountryOptions"
+        }
+      }
+    },
+    {
+      "label": "text_Occupation",
+      "id": "occupation",
+      "key": "beneficiary.currentEmployment.occupation",
+      "control": "text"
+    },
+    {
+      "label": "text_StartDate",
+      "placeholder": "text_MM/YYYY",
+      "id": "employment_start_date",
+      "key": "beneficiary.currentEmployment.dateFrom",
+      "control": "monthyearpicker"
+    },
+    {
+      "label": "text_EndDate",
+      "placeholder": "text_MM/YYYY",
+      "id": "employment_end_date",
+      "key": "beneficiary.currentEmployment.dateTo",
+      "control": "monthyearpicker"
+    },
+    {
+      "label": "",
+      "control": "divider"
+    },
+    {
+      "label": "text_MostRecentEmployment",
+      "hideHeader": "true",
+      "id": "MostRecentEmployment",
+      "key": "count-beneficiary.employmentHistories",
+      "control": "sortable_section",
+      "fields": [
+        {
+          "label": "text_InUSA",
+          "hideHeader": "true",
+          "id": "",
+          "key": "beneficiary.employmentHistories[].inUSA",
+          "control": "checkbox",
+          "options": [
+            {
+              "value": "Yes",
+              "label": "text_Yes",
+              "keyValue": "true"
+            },
+            {
+              "value": "No",
+              "label": "text_No",
+              "keyValue": "false"
+            }
+          ]
+        },
+        {
+          "label": "text_NameOfEmployer",
+          "id": "NameOfEmployer",
+          "key": "beneficiary.employmentHistories[].nameOfEmployer",
+          "control": "text"
+        },
+        {
+          "label": "text_PhysicalAddress",
+          "id": "part.4.11",
+          "control": "component_address",
+          "keyObject": {
+            "street": {
+              "key": "beneficiary.employmentHistories[].streetNumberAndName",
+              "placeholder": "text_Street"
+            },
+            "aptSteFlr": {
+              "key": "beneficiary.employmentHistories[].aptCheckbox,beneficiary.employmentHistories[].steCheckbox,beneficiary.employmentHistories[].flrCheckbox",
+              "className": "apt-ste-flr-checkbox",
+              "options": [
+                {
+                  "value": "apt",
+                  "label": "text_Apartment",
+                  "keyValue": "true,false,false"
+                },
+                {
+                  "value": "ste",
+                  "label": "text_Ste",
+                  "keyValue": "false,true,false"
+                },
+                {
+                  "value": "flr",
+                  "label": "text_Flr",
+                  "keyValue": "false,false,true"
+                }
+              ]
+            },
+            "aptSteFlrNumber": {
+              "key": "beneficiary.employmentHistories[].aptSteFlrNumber",
+              "placeholder": "text_AptSteFlrNumber"
+            },
+            "cityOrTown": {
+              "key": "beneficiary.employmentHistories[].city",
+              "placeholder": "text_City"
+            },
+            "state": {
+              "key": "beneficiary.employmentHistories[].state",
+              "placeholder": "text_State",
+              "options": "StateOptions"
+            },
+            "zipCode": {
+              "key": "beneficiary.employmentHistories[].zipCode",
+              "placeholder": "text_ZipCode"
+            },
+            "province": {
+              "key": "beneficiary.employmentHistories[].province",
+              "placeholder": "text_Province"
+            },
+            "postalCode": {
+              "key": "beneficiary.employmentHistories[].postalCode",
+              "placeholder": "text_MailingPostalCode"
+            },
+            "country": {
+              "key": "beneficiary.employmentHistories[].country",
+              "placeholder": "text_Country",
+              "options": "CountryOptions"
+            }
+          }
+        },
+        {
+          "label": "text_Occupation",
+          "id": "occupation",
+          "key": "beneficiary.employmentHistories[].occupation",
+          "control": "text"
+        },
+        {
+          "label": "text_StartDate",
+          "placeholder": "text_MM/YYYY",
+          "id": "employment_start_date",
+          "key": "beneficiary.employmentHistories[].dateFrom",
+          "control": "monthyearpicker"
+        },
+        {
+          "label": "text_EndDate",
+          "placeholder": "text_MM/YYYY",
+          "id": "employment_end_date",
+          "key": "beneficiary.employmentHistories[].dateTo",
+          "control": "monthyearpicker"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "control": "divider"
+    },
+    {
+      "label": "",
+      "placeholder": "text_AddEmployment",
+      "id": "employment_information",
+      "key": "count-beneficiary.employmentHistories",
+      "control": "component_add_item"
+    }
+  ]
+}

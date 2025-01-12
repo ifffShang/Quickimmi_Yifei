@@ -22,22 +22,11 @@
           "control": "text"
         },
         {
-          "label": "text_CityOrTown",
-          "id": "background_city",
-          "key": "background.addressHistoriesBeforeUS[].city",
-          "control": "text"
-        },
-        {
-          "label": "text_DepartmentOrStateOrProvince",
-          "id": "background_province",
-          "key": "background.addressHistoriesBeforeUS[].province",
-          "control": "text"
-        },
-        {
-          "label": "text_Country",
-          "id": "background_country",
-          "key": "background.addressHistoriesBeforeUS[].country",
-          "control": "text"
+          "label": "text_Address",
+          "id": "background_address",
+          "key": "background.addressHistoriesBeforeUS[].country,background.addressHistoriesBeforeUS[].province,background.addressHistoriesBeforeUS[].city",
+          "linkage": "MultiInOneLinkage",
+          "control": "component_location_dropdown_splitted"
         },
         {
           "label": "text_StartDate",

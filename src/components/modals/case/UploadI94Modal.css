@@ -1,0 +1,17 @@
+.upload-i94 {
+  display: flex;
+  flex-direction: column;
+}
+
+.upload-i94 .upload-i94-uploader {
+  margin: 40px 0 0 0;
+  align-self: center;
+}
+
+.upload-i94 .upload-i94-controls {
+  margin: 40px 0 0 0;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

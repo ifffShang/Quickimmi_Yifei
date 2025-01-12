@@ -1,0 +1,159 @@
+{
+  "id": "fields_beneficiary_family",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    {
+      "label": "text_Father",
+      "id": "part4.25.ABC.Father",
+      "control": "group",
+      "maxChildPerRow": "3",
+      "fields": [
+        {
+          "label": "text_FirstName",
+          "placeholder": "text_FirstName",
+          "id": "first_name",
+          "key": "beneficiary.family.father.firstName",
+          "control": "text"
+        },
+        {
+          "label": "text_MiddleName",
+          "placeholder": "text_MiddleName",
+          "id": "middle_name",
+          "key": "beneficiary.family.father.middleName",
+          "control": "component_textbox_na"
+        },
+        {
+          "label": "text_LastName",
+          "placeholder": "text_LastName",
+          "id": "last_name",
+          "key": "beneficiary.family.father.lastName",
+          "control": "text"
+        },
+        {
+          "label": "text_DateOfBirth",
+          "placeholder": "text_DateOfBirth",
+          "id": "DateOfBirth",
+          "key": "beneficiary.family.father.dateOfBirth",
+          "control": "datepicker"
+        },
+        {
+          "label": "text_CountryOfBirth",
+          "id": "countryOfBirth",
+          "placeholder": "text_CountryOfBirth",
+          "key": "beneficiary.family.father.countryOfBirth",
+          "control": "text"
+        }
+      ]
+    },
+    {
+      "label": "text_Mother",
+      "id": "part4.25.ABC.Mother",
+      "control": "group",
+      "maxChildPerRow": "3",
+      "fields": [
+        {
+          "label": "text_FirstName",
+          "placeholder": "text_FirstName",
+          "id": "first_name",
+          "key": "beneficiary.family.mother.firstName",
+          "control": "text"
+        },
+        {
+          "label": "text_MiddleName",
+          "placeholder": "text_MiddleName",
+          "id": "middle_name",
+          "key": "beneficiary.family.mother.middleName",
+          "control": "component_textbox_na"
+        },
+        {
+          "label": "text_LastName",
+          "placeholder": "text_LastName",
+          "id": "last_name",
+          "key": "beneficiary.family.mother.lastName",
+          "control": "text"
+        },
+        {
+          "label": "text_DateOfBirth",
+          "placeholder": "text_DateOfBirth",
+          "id": "DateOfBirth",
+          "key": "beneficiary.family.mother.dateOfBirth",
+          "control": "datepicker"
+        },
+        {
+          "label": "text_CountryOfBirth",
+          "id": "countryOfBirth",
+          "placeholder": "text_CountryOfBirth",
+          "key": "beneficiary.family.mother.countryOfBirth",
+          "control": "text"
+        }
+      ]
+    },
+    {
+      "label": "text_ChildrenInformation",
+      "hideHeader": "true",
+      "control": "label"
+    },
+    {
+      "label": "text_NumberOfChildren",
+      "id": "NumberOfChildren",
+      "placeholder": "text_NumberOfChildren",
+      "key": "beneficiary.family.totalNumberOfChildren",
+      "control": "text"
+    },
+    {
+      "label": "text_Children",
+      "id": "Children",
+      "key": "count-beneficiary.family.children",
+      "control": "sortable_section",
+      "fields": [
+        {
+          "label": "text_FirstName",
+          "placeholder": "text_FirstName",
+          "id": "first_name",
+          "key": "beneficiary.family.children[].firstName",
+          "control": "text"
+        },
+        {
+          "label": "text_MiddleName",
+          "placeholder": "text_MiddleName",
+          "id": "middle_name",
+          "key": "beneficiary.family.children[].middleName",
+          "control": "component_textbox_na"
+        },
+        {
+          "label": "text_LastName",
+          "placeholder": "text_LastName",
+          "id": "last_name",
+          "key": "beneficiary.family.children[].lastName",
+          "control": "text"
+        },
+        {
+          "label": "text_DateOfBirth",
+          "placeholder": "text_DateOfBirth",
+          "id": "DateOfBirth",
+          "key": "beneficiary.family.children[].dateOfBirth",
+          "control": "datepicker"
+        },
+        {
+          "label": "text_CountryOfBirth",
+          "id": "countryOfBirth",
+          "placeholder": "text_CountryOfBirth",
+          "key": "beneficiary.family.children[].countryOfBirth",
+          "control": "text"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "control": "divider"
+    },
+    {
+      "label": "",
+      "placeholder": "text_AddChildren",
+      "id": "AddChildren",
+      "key": "count-beneficiary.family.children",
+      "control": "component_add_item"
+    }
+  ]
+}

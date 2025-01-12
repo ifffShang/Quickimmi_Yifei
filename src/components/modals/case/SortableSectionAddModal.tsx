@@ -20,7 +20,7 @@ export function SortableSectionAddModal() {
 
   return (
     <div className="sortable-section-add-modal">
-      <QText level="large" margin="margin-bottom-20">
+      <QText level="large" className="sortable-section-add-header" margin="margin-bottom-20">
         {modalData.label}
       </QText>
       <div className="sortable-section-add-content">{modalData.content}</div>

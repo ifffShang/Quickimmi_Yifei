@@ -55,19 +55,45 @@ export function FormInput(props: FormInputProps) {
   );
 }
 
-/** TextBox View control ***************************************************/
+/** Field View control ***************************************************/
 
 export interface QFieldViewProps {
   label: string;
-  value: string;
+  value: string | { [key: string]: { value: string } };
 }
 
 export function QFieldView(props: QFieldViewProps) {
-  const [value, setValue] = useState(props.value);
+  let fieldValue = "";
+  if (props.value && typeof props.value === "object") {
+    if (props.value["street"] && props.value["street"]["value"]) {
+      fieldValue += props.value["street"]["value"];
+    }
+    if (props.value["aptSteFlr"] && props.value["aptSteFlr"]["value"]) {
+      fieldValue += ", " + props.value["aptSteFlr"]["value"];
+    }
+    if (props.value["aptSteFlrNumber"] && props.value["aptSteFlrNumber"]["value"]) {
+      fieldValue += " " + props.value["aptSteFlrNumber"]["value"];
+    }
+    if (props.value["cityOrTown"] && props.value["cityOrTown"]["value"]) {
+      fieldValue += ", " + props.value["cityOrTown"]["value"];
+    }
+    if (props.value["state"] && props.value["state"]["value"]) {
+      fieldValue += ", " + props.value["state"]["value"];
+    }
+    if (props.value["zipCode"] && props.value["zipCode"]["value"]) {
+      fieldValue += ", " + props.value["zipCode"]["value"];
+    }
+    if (props.value["country"] && props.value["country"]["value"]) {
+      fieldValue += ", " + props.value["country"]["value"];
+    }
+  } else {
+    fieldValue = props.value;
+  }
+  const [value, setValue] = useState(fieldValue);
 
   useEffect(() => {
-    setValue(props.value);
-  }, [props.value]);
+    setValue(fieldValue);
+  }, [fieldValue]);
 
   return (
     <div className="field-view-container">
@@ -262,6 +288,7 @@ export function QDatePicker(props: QDatePickerProps) {
         format={["MM/DD/YYYY", "MM/DD/YY", "MM-DD-YYYY", "MM-DD-YY"]}
         onChange={onDateChange}
         disabled={props.disabled || false}
+        popupStyle={{ zIndex: 1200 }}
       />
       {value && (
         <div className="inline-placeholder">
@@ -309,7 +336,9 @@ export function QMonthYearPicker(props: QMonthYearPickerProps) {
         format="MM/YYYY"
         onChange={onMonthYearChange}
         disabled={props.disabled || false}
-        getPopupContainer={trigger => trigger.parentElement || document.body}
+        // getPopupContainer={trigger => trigger.parentElement || document.body}
+        getPopupContainer={() => document.body}
+        popupStyle={{ zIndex: 1200 }}
       />
       {value && (
         <div className="inline-placeholder">
@@ -360,6 +389,7 @@ export function SelectBox(props: SelectBoxProps) {
         placeholder={props.placeholder || "Select an option"}
         value={value}
         getPopupContainer={trigger => trigger.parentElement || document.body}
+        filterOption={(input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())}
       />
       {value && (
         <div className="inline-placeholder">
@@ -367,6 +397,81 @@ export function SelectBox(props: SelectBoxProps) {
         </div>
       )}
     </div>
+  );
+}
+
+/** Select multi-options control ***************************************************/
+
+export interface SelectMultiOptionsProps {
+  options: IFormOptions[] | string;
+  onChange: (value: string[]) => void;
+  placeholder?: string;
+  selectedValues?: any;
+  disabled?: boolean;
+}
+
+export function SelectMultiOptions(props: SelectMultiOptionsProps) {
+  const { wa, wt } = useFormTranslation();
+  const options = Array.isArray(props.options)
+    ? props.options.map(option => ({
+        label: wt(option.label),
+        value: option.value,
+      }))
+    : wa(props.options);
+
+  const [selectedValues, setSelectedValues] = useState(props.selectedValues || []);
+
+  useEffect(() => {
+    setSelectedValues(props.selectedValues || []);
+  }, [props.selectedValues]);
+
+  const handleChange = (selectedValues: string[]) => {
+    if (!props.options || !Array.isArray(props.options) || props.options.length === 0) {
+      console.error("Options are required for select multi-options control");
+      return;
+    }
+    setSelectedValues(selectedValues);
+    props.onChange(selectedValues);
+  };
+
+  if (!props.options || !Array.isArray(props.options) || props.options.length === 0) {
+    return <>Options are required for checkbox multi-options control</>;
+  }
+
+  return (
+    <div className="select-multi-box">
+      <Select
+        showSearch
+        mode="multiple"
+        allowClear
+        placeholder={props.placeholder || "Select an option"}
+        onChange={handleChange}
+        disabled={props.disabled || false}
+        options={options}
+        value={selectedValues}
+        getPopupContainer={trigger => trigger.parentElement || document.body}
+      />
+      {selectedValues && (
+        <div className="inline-placeholder">
+          <QText level="placeholder">{props.placeholder}</QText>
+        </div>
+      )}
+    </div>
+
+    // <Checkbox.Group
+    //   className="select-multi-options-container"
+    //   onChange={handleChange}
+    //   disabled={props.disabled}
+    //   value={checkedValues}
+    // >
+    //   {props.options.map(option => (
+    //     <div key={option.value} className="checkbox-multi-option">
+    //       <Checkbox value={option.value}>
+    //         <QText level="normal">{wt(option.label)}</QText>
+    //       </Checkbox>
+    //     </div>
+    //   ))}
+    // </Checkbox.Group>
   );
 }
 
@@ -390,7 +495,15 @@ export function CheckBox(props: CheckBoxProps) {
   const handleChange = (e: any) => {
     setChecked(e.target.checked);
     if (props.options && Array.isArray(props.options)) {
-      const keyValue = props.options.find(option => option.value === e.target.checked)?.keyValue;
+      const keyValue = props.options.find(option => {
+        if (typeof option.keyValue === "string") {
+          // example: option.keyValue is "true,false"
+          return option.keyValue.split(",")[0] === e.target.checked.toString();
+        } else {
+          // example: option.keyValue is true or false
+          return option.keyValue === e.target.checked;
+        }
+      })?.keyValue;
       props.onChange(keyValue || "");
     } else {
       props.onChange(e.target.checked);
@@ -505,6 +618,7 @@ export interface RadioSelectProps {
   onChange: (value: string) => void;
   value?: any;
   disabled?: boolean;
+  className?: string;
 }
 
 export function RadioSelect(props: RadioSelectProps) {
@@ -526,9 +640,17 @@ export function RadioSelect(props: RadioSelectProps) {
     setValue(value);
     props.onChange(value);
   };
+
+  const direction = props.className === "apt-ste-flr-checkbox" ? "horizontal" : "vertical";
+
   return (
-    <Radio.Group onChange={e => onValueChange(e.target.value)} value={value}>
-      <Space direction="vertical">
+    <Radio.Group
+      className={props.className ?? ""}
+      onChange={e => onValueChange(e.target.value)}
+      value={value}
+      disabled={props.disabled || false}
+    >
+      <Space direction={direction}>
         {options.map(option => (
           <Radio key={option.value} value={option.value}>
             {option.label}
@@ -539,47 +661,100 @@ export function RadioSelect(props: RadioSelectProps) {
   );
 }
 
-/** DatePickerWithNA control ***************************************************/
-export interface QDatePickerWithNAProps extends Omit<QDatePickerProps, "value" | "onChange"> {
+/** DatePickerWithAlternativeValue control ***************************************************/
+export interface QDatePickerWithAlternativeValueProps extends Omit<QDatePickerProps, "value" | "onChange"> {
   value?: string;
   onChange: (value: string) => void;
-  notApplicableText: string;
+  alternativeLabel: string;
+  alternativeValue: string;
 }
 
-export function QDatePickerWithNA(props: QDatePickerWithNAProps) {
-  const [isNA, setIsNA] = useState(props.value === "N/A");
+export function QDatePickerWithAlternativeValue(props: QDatePickerWithAlternativeValueProps) {
+  const [isAlternativeValue, setIsAlternativeValue] = useState(props.value === props.alternativeValue);
 
   useEffect(() => {
-    setIsNA(props.value === "N/A");
+    setIsAlternativeValue(props.value === props.alternativeValue);
   }, [props.value]);
 
   const handleDateChange = (value: string) => {
-    if (!isNA) {
+    if (!isAlternativeValue) {
       props.onChange(value);
     }
   };
 
-  const handleNAChange = (checked: boolean) => {
+  const handleAlternativeValueChange = (checked: boolean) => {
     if (checked) {
-      setIsNA(true);
-      props.onChange("N/A");
+      setIsAlternativeValue(true);
+      props.onChange(props.alternativeValue);
     } else {
-      setIsNA(false);
+      setIsAlternativeValue(false);
       props.onChange("");
     }
   };
 
   return (
-    <div className="datepicker-na">
-      <div className="datepicker-na-picker">
+    <div className="datepicker-alternative">
+      <PureCheckBox
+        checked={isAlternativeValue}
+        label={props.alternativeLabel}
+        onChange={handleAlternativeValueChange}
+      />
+      <div className="datepicker-alternative-picker">
         <QDatePicker
           {...props}
-          value={isNA ? "" : props.value}
+          value={isAlternativeValue ? "" : props.value}
           onChange={handleDateChange}
-          disabled={isNA || props.disabled}
+          disabled={isAlternativeValue || props.disabled}
         />
       </div>
-      <PureCheckBox checked={isNA} label={props.notApplicableText} onChange={handleNAChange} />
+    </div>
+  );
+}
+
+/** MonthYearPickerWithOption control ***************************************************/
+// Month and year picker with support for multiple options (e.g., present, N/A) by adding corresponding controls in FormField.tsx
+export interface MonthYearPickerWithOptionProps extends Omit<QMonthYearPickerProps, "value" | "onChange"> {
+  value?: string;
+  onChange: (value: string) => void;
+  notApplicableText: string;
+  optionValue: string;
+}
+
+export function MonthYearPickerWithOption(props: MonthYearPickerWithOptionProps) {
+  const { optionValue } = props;
+  const [isOptionSelected, setIsOptionSelected] = useState(props.value === optionValue);
+
+  useEffect(() => {
+    setIsOptionSelected(props.value === optionValue);
+  }, [props.value, optionValue]);
+
+  const handleDateChange = (value: string) => {
+    if (!isOptionSelected) {
+      props.onChange(value);
+    }
+  };
+
+  const handleOptionChange = (checked: boolean) => {
+    if (checked) {
+      setIsOptionSelected(true);
+      props.onChange(optionValue);
+    } else {
+      setIsOptionSelected(false);
+      props.onChange("");
+    }
+  };
+
+  return (
+    <div className="monthyearpicker-with-option">
+      <div className="monthyearpicker-with-option-picker">
+        <QMonthYearPicker
+          {...props}
+          value={isOptionSelected ? "" : props.value}
+          onChange={handleDateChange}
+          disabled={isOptionSelected || props.disabled}
+        />
+      </div>
+      <PureCheckBox checked={isOptionSelected} label={props.notApplicableText} onChange={handleOptionChange} />
     </div>
   );
 }

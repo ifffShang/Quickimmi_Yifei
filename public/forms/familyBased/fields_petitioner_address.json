@@ -1,0 +1,165 @@
+{
+  "id": "fields_petitioner_address",
+  "version": "2024-04-01",
+  "type": "fields",
+  "fields": [
+    {
+      "label": "text_ResidentialAddressInUs",
+      "id": "part2.12a",
+      "control": "component_address_us",
+      "keyObject": {
+        "street": {
+          "key": "petitioner.physicalAddress.streetNumberAndName",
+          "placeholder": "text_Street"
+        },
+        "aptSteFlr": {
+          "key": "petitioner.physicalAddress.aptCheckbox,petitioner.physicalAddress.steCheckbox,petitioner.physicalAddress.flrCheckbox",
+          "className": "apt-ste-flr-checkbox",
+          "options": [
+            {
+              "value": "aptCheckbox",
+              "label": "text_Apartment",
+              "keyValue": "true,false,false"
+            },
+            {
+              "value": "steCheckbox",
+              "label": "text_Ste",
+              "keyValue": "false,true,false"
+            },
+            {
+              "value": "flrCheckbox",
+              "label": "text_Flr",
+              "keyValue": "false,false,true"
+            },
+            {
+              "value": "naCheckbox",
+              "label": "text_N/A",
+              "keyValue": "false,false,false"
+            }
+          ]
+        },
+        "aptSteFlrNumber": {
+          "key": "petitioner.physicalAddress.aptSteFlrNumber",
+          "placeholder": "text_AptSteFlrNumber"
+        },
+        "cityOrTown": {
+          "key": "petitioner.physicalAddress.cityOrTown",
+          "placeholder": "text_City"
+        },
+        "state": {
+          "key": "petitioner.physicalAddress.state",
+          "placeholder": "text_State",
+          "options": "StateOptions"
+        },
+        "zipCode": {
+          "key": "petitioner.physicalAddress.zipCode",
+          "placeholder": "text_ZipCode"
+        }
+      }
+    },
+    {
+      "label": "text_MailingAddressSameAsResidentialAddress",
+      "hideHeader": "true",
+      "key": "petitioner.mailingAddressSameAsPhysicalAddressYesCheckbox,petitioner.mailingAddressSameAsPhysicalAddressNoCheckbox",
+      "id": "",
+      "control": "component_same_address_checkbox",
+      "options": [
+        {
+          "value": "AddressAreSame",
+          "label": "text_Yes",
+          "keyValue": "true,false"
+        },
+        {
+          "value": "AddressAreDifferent",
+          "label": "text_No",
+          "keyValue": "false,true"
+        }
+      ],
+      "syncFields": {
+        "condition": "petitioner.mailingAddressSameAsPhysicalAddressYesCheckbox=true",
+        "mappings": [
+          {
+            "source": "petitioner.streetNumberAndName",
+            "destination": "petitioner.emailAddress"
+          }
+        ]
+      }
+    },
+    {
+      "label": "text_emailAddress",
+      "id": "emailAddress",
+      "key": "petitioner.emailAddress",
+      "control": "text"
+    },
+    {
+      "label": "text_AddressHistory",
+      "hideHeader": "true",
+      "control": "label"
+    },
+    {
+      "label": "text_Address",
+      "hideHeader": "true",
+      "id": "10.a-10.i",
+      "key": "count-petitioner.addressHistory",
+      "control": "sortable_section",
+      "fields": [
+        {
+          "label": "text_NumberAndStreet",
+          "id": "petitioner.addressHistory_street",
+          "key": "petitioner.addressHistory[].numberAndStreet",
+          "control": "text"
+        },
+        {
+          "label": "text_Apt/Ste/FlrNumber",
+          "placeholder": "text_Apt/Ste/FlrNumber",
+          "id": "petitioner.addressHistory_aptSteFlrNumber",
+          "key": "petitioner.addressHistory[].aptSteFlrNumber",
+          "control": "text"
+        },
+        {
+          "label": "text_CityOrTown",
+          "id": "petitioner.addressHistory_city",
+          "key": "petitioner.addressHistory[].city",
+          "control": "text"
+        },
+        {
+          "label": "text_DepartmentOrStateOrProvince",
+          "id": "petitioner.addressHistory_province",
+          "key": "petitioner.addressHistory[].province",
+          "control": "text"
+        },
+        {
+          "label": "text_Country",
+          "id": "petitioner.addressHistory_country",
+          "key": "petitioner.addressHistory[].country",
+          "control": "text"
+        },
+        {
+          "label": "text_StartDate",
+          "placeholder": "text_MM/YYYY",
+          "id": "petitioner.addressHistory_start_date",
+          "key": "petitioner.addressHistory[].startDate",
+          "control": "monthyearpicker"
+        },
+        {
+          "label": "text_EndDate",
+          "placeholder": "text_MM/YYYY",
+          "id": "petitioner.addressHistory_end_date",
+          "key": "petitioner.addressHistory[].endDate",
+          "control": "component_monthyearpicker_present"
+        }
+      ]
+    },
+    {
+      "label": "",
+      "control": "divider"
+    },
+    {
+      "label": "",
+      "placeholder": "text_AddAddress",
+      "id": "address_berfore_us",
+      "key": "count-petitioner.addressHistory",
+      "control": "component_add_item"
+    }
+  ]
+}

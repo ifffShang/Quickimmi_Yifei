@@ -88,7 +88,7 @@ export interface Beneficiary {
   lastArrivalInformation: LastArrivalInformation;
   employmentHistories: EmploymentHistory[];
 
-  mostRecentOutSideUsEmploymentHistory5YearsAgo: EmploymentHistory;
+  currentEmployment: EmploymentHistory;
 
   // Part 4-53
   beneficiaryInImmigrationProceedingsYesCheckbox: string | undefined;

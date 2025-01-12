@@ -12,7 +12,7 @@
           "label": "text_Filling",
           "id": "part1",
           "type": "level2",
-          "referenceId": "familyBased/fields_part1_filling_information"
+          "referenceId": "familyBased/fields_relationship_filling"
         }
       ]
     },
@@ -22,46 +22,46 @@
       "type": "level1",
       "steps": [
         {
-          "label": "text_BasicInformation",
+          "label": "text_Basic",
           "id": "part2",
           "type": "level2",
-          "referenceId": "familyBased/fields_part2_basic_information"
+          "referenceId": "familyBased/fields_petitioner_basic"
         },
         {
-          "label": "text_AddressInformation",
+          "label": "text_Address",
           "id": "part2",
           "type": "level2",
-          "referenceId": "familyBased/fields_part2_address_information"
+          "referenceId": "familyBased/fields_petitioner_address"
         },
         {
-          "label": "text_MarriageInformation",
+          "label": "text_Marriage",
           "id": "part2",
           "type": "level2",
-          "referenceId": "familyBased/fields_part2_marriage_information"
+          "referenceId": "familyBased/fields_petitioner_marriage"
         },
         {
-          "label": "text_ParentsInformation",
+          "label": "text_Parents",
           "id": "part2",
           "type": "level2",
-          "referenceId": "familyBased/fields_part2_parents_information"
+          "referenceId": "familyBased/fields_petitioner_parents"
         },
         {
-          "label": "text_EmploymentInformation",
+          "label": "text_Employment",
           "id": "part2",
           "type": "level2",
-          "referenceId": "familyBased/fields_part2_employment_information"
+          "referenceId": "familyBased/fields_petitioner_employment"
         },
         {
-          "label": "text_AdditionalInformation",
-          "id": "part2",
-          "type": "level2",
-          "referenceId": "familyBased/fields_part2_additional_information"
-        },
-        {
-          "label": "text_BiographicInformation",
+          "label": "text_Biographic",
           "id": "part3",
           "type": "level2",
-          "referenceId": "familyBased/fields_part3_biographic_information"
+          "referenceId": "familyBased/fields_petitioner_biographic"
+        },
+        {
+          "label": "text_Additional",
+          "id": "part2",
+          "type": "level2",
+          "referenceId": "familyBased/fields_petitioner_additional"
         }
       ]
     },
@@ -71,46 +71,46 @@
       "type": "level1",
       "steps": [
         {
-          "label": "text_BasicInformation",
+          "label": "text_Basic",
           "id": "part4",
           "type": "level2",
-          "referenceId": "familyBased/fields_part4_basic_information"
+          "referenceId": "familyBased/fields_beneficiary_basic"
         },
         {
-          "label": "text_AddressInformation",
+          "label": "text_Address",
           "id": "part4",
           "type": "level2",
-          "referenceId": "familyBased/fields_part4_address_information"
+          "referenceId": "familyBased/fields_beneficiary_address"
         },
         {
-          "label": "text_MarriageInformation",
+          "label": "text_Marriage",
           "id": "part4",
           "type": "level2",
-          "referenceId": "familyBased/fields_part4_marriage_information"
+          "referenceId": "familyBased/fields_beneficiary_marriage"
         },
         {
-          "label": "text_ParentsInformation",
+          "label": "text_Family",
           "id": "part4",
           "type": "level2",
-          "referenceId": "familyBased/fields_part4_parents_information"
+          "referenceId": "familyBased/fields_beneficiary_family"
         },
         {
-          "label": "text_EmploymentInformation",
+          "label": "text_Employment",
           "id": "part4",
           "type": "level2",
-          "referenceId": "familyBased/fields_part4_employment_information"
+          "referenceId": "familyBased/fields_beneficiary_employment"
         },
         {
-          "label": "text_AdditionalInformation",
+          "label": "text_Additional",
           "id": "part4",
           "type": "level2",
-          "referenceId": "familyBased/fields_part4_additional_information"
+          "referenceId": "familyBased/fields_beneficiary_additional"
         },
         {
-          "label": "text_AdditionalInformation2",
+          "label": "text_Additional2",
           "id": "part4",
           "type": "level2",
-          "referenceId": "familyBased/fields_part4_additional_information_2"
+          "referenceId": "familyBased/fields_beneficiary_additional2"
         }
       ]
     },
@@ -159,7 +159,7 @@
       ]
     },
     {
-      "label": "text_Statement",
+      "label": "text_Declaration",
       "id": "part6",
       "type": "level1",
       "steps": [
@@ -167,7 +167,13 @@
           "label": "text_Statement",
           "id": "part6",
           "type": "level2",
-          "referenceId": "familyBased/fields_petitioner_statement_part1"
+          "referenceId": "familyBased/fields_statement_statement"
+        },
+        {
+          "label": "text_Interpreter",
+          "id": "part6",
+          "type": "level2",
+          "referenceId": "familyBased/fields_statement_interpreter_details"
         }
       ]
     },
@@ -181,19 +187,6 @@
           "id": "part7",
           "type": "level2",
           "referenceId": "familyBased/fields_sponsor_list"
-        }
-      ]
-    },
-    {
-      "label": "text_Interpreter",
-      "id": "part7",
-      "type": "level1",
-      "steps": [
-        {
-          "label": "text_Interpreter",
-          "id": "part7",
-          "type": "level2",
-          "referenceId": "familyBased/fields_part7_interpreter_information"
         }
       ]
     },

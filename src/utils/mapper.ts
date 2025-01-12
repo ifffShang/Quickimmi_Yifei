@@ -11,6 +11,14 @@ export const arrayMapper =
     // Attempt to retrieve the array of strings using the translation function
     const options: string[] = t(key, { returnObjects: true }) as string[];
 
+    // For state, since we want to store short name as the value, so we need to split the string since its english format is "State-ShortName"
+    if (key === "StateOptions") {
+      return options?.map((option, index) => ({
+        value: enOptions[index].split("-")[1],
+        label: option.split("-")[0],
+      }));
+    }
+
     // Map each string in the array to an object with a 'value' and 'label' property
     return options?.map((option, index) => ({
       value: enOptions[index],

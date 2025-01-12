@@ -51,6 +51,8 @@ export function SortableSection(props: SortableSectionProps) {
     props.fieldIndex,
   );
 
+  console.log("SortableSection: fieldValue", fieldValue);
+
   const previousArrLength = useRef(fieldValue.arr?.length ?? 0);
   const previousArrKey = useRef(fieldValue.arrKey);
 
@@ -73,6 +75,10 @@ export function SortableSection(props: SortableSectionProps) {
                 fieldIndex={fieldValue.arr.length - 1}
               />
             ),
+          },
+          onModalCloseCallback: () => {
+            const keyValues = createKeyValuesForRemoveItem(fieldValue, fieldValue.arr.length - 1);
+            dispatchFormValue(dispatch, caseType, keyValues);
           },
         }),
       );
