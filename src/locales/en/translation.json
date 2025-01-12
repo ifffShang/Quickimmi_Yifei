@@ -425,7 +425,7 @@
   "MarriageLicenseParseError": "Failed to parse the marriage license photo, please try again or manually enter the marriage license info.",
   "Parsing marriage license photo...": "Parsing marriage license photo...",
 
-  "disabilityAccommodation":"Disability Accommodation",
+  "disabilityAccommodation": "Disability Accommodation",
   "deafOrHardOfHearing": "Deaf Or Hard Of Hearing",
   "deafOrHardOfHearingDetails": "Deaf Or Hard Of Hearing Details",
   "blindOrLowVision": "Blind Or Low Vision",
