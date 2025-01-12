@@ -91,6 +91,7 @@ export type ControlType =
   | "section"
   | "removable_section"
   | "sortable_section"
+  | "collapse_section"
   | "component_passport_uploader"
   | "component_i94_uploader"
   | "component_passport_uploader_with_na"

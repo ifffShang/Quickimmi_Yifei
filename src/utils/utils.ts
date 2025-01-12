@@ -89,6 +89,7 @@ export function hasFormKey(control: ControlType) {
     control !== "divider" &&
     control !== "section" &&
     control !== "removable_section" &&
+    control !== "collapse_section" &&
     control !== "component_mailing_same_as_residential" &&
     control !== "component_list_documents" &&
     control !== "component_list_merged_documents" &&
@@ -143,6 +144,7 @@ export function getFieldValueByKey(
      */
     const keys = key.split(",");
 
+    console.log("keys!!!:::1111:::", keys);
     if (options && Array.isArray(options)) {
       // Handle radio, checkbox, dropdown with multiple value, for example, keyValues = ["true","false","true"]
       const keyValues = keys.map(k => getCaseDetailValue(caseDetails, k, fieldIndex));
@@ -188,6 +190,8 @@ export function getFieldValueByKey(
         return locationStr;
       }
     } else {
+      console.log("linkage,111111,,", linkage);
+      console.log("key,22222,,", key);
       console.error("Options are missing for multi key field", key);
     }
   }

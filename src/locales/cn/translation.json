@@ -681,6 +681,8 @@
   "CityOfBirth": "出生城市/镇/村",
   "CountryOfBirth": "出生国家",
   "DateOfBirth": "出生日期（mm/dd/yyyy）",
+  "StateOrProvinceOfBirth": "出生州/省",
+  "CountryOfDomicile": "原国籍",
 
   "Sex": "性别",
   "InCareOfNameofMailingAddress": "收件人姓名",
@@ -750,6 +752,8 @@
   "CountryOfResidence": "居住国家",
   "Parent 2": "父母2的信息",
   "Full Name of Parent 2": "父母2的全名",
+
+  "Yourself": "你自己",
 
   "SponsorCitizenshipOrResidency": "担保人公民身份或永久居留权",
   "SponsorANumber": "担保人ANumber",

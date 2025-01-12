@@ -9,6 +9,7 @@ export interface FormControlContainerProps {
 
 export function FormControlContainer(props: FormControlContainerProps) {
   const highlightMissingFields = useAppSelector(state => state.form.highlightMissingFields);
+  console.log("props:::111111111::", props);
   let emptyFieldValue = !props.fieldValue;
 
   if (Array.isArray(props.fieldValue)) {

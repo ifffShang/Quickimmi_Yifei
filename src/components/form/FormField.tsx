@@ -10,6 +10,7 @@ import {
   dispatchFormValue,
   formatCityAndCountryStr,
   getFieldValue,
+  isSectionVisible,
 } from "../../utils/utils";
 import { QText } from "../common/Fonts";
 import { FormControlContainer } from "./FormControlContainer";
@@ -43,6 +44,7 @@ import { SameAddressCheckbox } from "./fields/SameAddressCheckbox";
 import { Section } from "./fields/Section";
 import { SingleFileUploaderV2 } from "./fields/SingleFileUploaderV2";
 import { SortableSection } from "./fields/SortableSection";
+import { CollapseSection } from "./fields/CollapseSection";
 import { TextAreaWithAIRefine } from "./fields/TextAreaWithAIRefine";
 import { TextboxWithNA } from "./fields/TextboxWithNA";
 import { getProfile } from "../../utils/selectorUtils";
@@ -305,11 +307,48 @@ export function FormField(props: FormFieldProps) {
   };
 
   if (props.mode === "view") {
-    return (
-      <FormControlContainer fieldValue={fieldValue}>
-        <QFieldView label={wt(props.label)} value={fieldValue} />
-      </FormControlContainer>
-    );
+    if (props.visibility) {
+      const isVisible = isSectionVisible(props.visibility, profile, props.fieldIndex);
+      if (!isVisible) {
+        return <></>;
+      }
+    }
+    if (["section", "group", "collapse_section"].includes(props.control)) {
+      if (props.subFields && props.subFields.length > 0) {
+        return (
+          <div className="div111">
+            {props.subFields.map((field, index) => (
+              <div className="sub-div222" key={index}>
+                <FormField
+                  fieldKey={field.key}
+                  fieldKeyObject={field.keyObject}
+                  control={field.control}
+                  label={field.label}
+                  options={field.options}
+                  linkage={field.linkage}
+                  placeholder={field.placeholder}
+                  className={field.className}
+                  maxChildPerRow={field.maxChildPerRow}
+                  subFields={field.fields}
+                  format={field.format}
+                  visibility={field.visibility}
+                  fieldIndex={props.fieldIndex}
+                  documentType={field.documentType}
+                  identity={field.identity}
+                  mode={props.mode}
+                />
+              </div>
+            ))}
+          </div>
+        );
+      }
+    } else {
+      return (
+        <FormControlContainer fieldValue={fieldValue}>
+          <QFieldView label={wt(props.label)} value={fieldValue} />
+        </FormControlContainer>
+      );
+    }
   }
 
   switch (props.control) {
@@ -855,6 +894,8 @@ export function FormField(props: FormFieldProps) {
       return <Section {...props} />;
     case "sortable_section":
       return <SortableSection {...props} />;
+    case "collapse_section":
+      return <CollapseSection {...props} />;
     case "component_monthyearpicker_present":
       return (
         <MonthYearPickerWithOption

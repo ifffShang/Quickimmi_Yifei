@@ -686,6 +686,8 @@
   "CityOfBirth": "City/Town/Village of Birth",
   "CountryOfBirth": "Country of Birth",
   "DateOfBirth": "Date of Birth (mm/dd/yyyy)",
+  "StateOrProvinceOfBirth": "State Or Province Of Birth",
+  "CountryOfDomicile": "Country Of Domicile",
 
   "Sex": "Sex",
 
